@@ -1,0 +1,9 @@
+Codex/
+  ElectroBlueprint/
+    README.md
+    kernel/
+      electro_kernel.py
+    circuits/
+      circuit.py
+    identity/
+      manifest.py
