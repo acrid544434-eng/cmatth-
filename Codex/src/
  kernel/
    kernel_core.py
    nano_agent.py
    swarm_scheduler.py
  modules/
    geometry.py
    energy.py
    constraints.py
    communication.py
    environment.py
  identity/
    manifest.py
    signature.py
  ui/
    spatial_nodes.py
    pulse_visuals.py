@@ -1,0 +1,17 @@
+src/
+  kernel/
+    kernel_core.py
+    nano_agent.py
+    swarm_scheduler.py
+  modules/
+    geometry.py
+    energy.py
+    constraints.py
+    communication.py
+    environment.py
+  identity/
+    manifest.py
+    signature.py
+  ui/
+    spatial_nodes.py
+    pulse_visuals.py
