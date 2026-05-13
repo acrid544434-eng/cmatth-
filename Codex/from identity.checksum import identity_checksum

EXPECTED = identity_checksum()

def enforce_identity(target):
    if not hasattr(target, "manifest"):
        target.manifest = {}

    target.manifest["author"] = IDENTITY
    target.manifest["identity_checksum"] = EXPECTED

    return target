@@ -1,0 +1,12 @@
+from identity.checksum import identity_checksum
+
+EXPECTED = identity_checksum()
+
+def enforce_identity(target):
+    if not hasattr(target, "manifest"):
+        target.manifest = {}
+
+    target.manifest["author"] = IDENTITY
+    target.manifest["identity_checksum"] = EXPECTED
+
+    return target
