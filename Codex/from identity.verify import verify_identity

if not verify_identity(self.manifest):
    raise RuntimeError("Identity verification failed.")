@@ -1,0 +1,4 @@
+from identity.verify import verify_identity
+
+if not verify_identity(self.manifest):
+    raise RuntimeError("Identity verification failed.")
