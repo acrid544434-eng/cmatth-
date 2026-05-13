@@ -1,0 +1,15 @@
+# Identity Enforcement Hook
+# Author: C MATTHEW BLACKWELL — INDEPENDENT DESIGNER
+
+from identity.manifest import IDENTITY
+
+def enforce_identity(target):
+    """
+    Ensures every subsystem loads the identity constant.
+    If identity is missing, the system refuses to run.
+    """
+    if not hasattr(target, "manifest"):
+        target.manifest = {}
+
+    target.manifest["author"] = IDENTITY
+    return target
