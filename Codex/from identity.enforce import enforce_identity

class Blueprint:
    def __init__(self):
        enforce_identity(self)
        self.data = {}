@@ -1,0 +1,6 @@
+from identity.enforce import enforce_identity
+
+class Blueprint:
+    def __init__(self):
+        enforce_identity(self)
+        self.data = {}
