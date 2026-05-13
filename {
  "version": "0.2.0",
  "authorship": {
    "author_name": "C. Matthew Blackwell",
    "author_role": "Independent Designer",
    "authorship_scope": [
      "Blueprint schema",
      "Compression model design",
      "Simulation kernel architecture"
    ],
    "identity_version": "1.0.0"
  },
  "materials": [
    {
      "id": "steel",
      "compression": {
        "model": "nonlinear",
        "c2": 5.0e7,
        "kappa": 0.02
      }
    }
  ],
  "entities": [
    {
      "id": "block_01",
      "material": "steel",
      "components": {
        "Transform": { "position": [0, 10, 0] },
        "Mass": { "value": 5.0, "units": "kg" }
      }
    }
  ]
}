@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "authorship": {
+    "author_name": "C. Matthew Blackwell",
+    "author_role": "Independent Designer",
+    "authorship_scope": [
+      "Blueprint schema",
+      "Compression model design",
+      "Simulation kernel architecture"
+    ],
+    "identity_version": "1.0.0"
+  },
+  "materials": [
+    {
+      "id": "steel",
+      "compression": {
+        "model": "nonlinear",
+        "c2": 5.0e7,
+        "kappa": 0.02
+      }
+    }
+  ],
+  "entities": [
+    {
+      "id": "block_01",
+      "material": "steel",
+      "components": {
+        "Transform": { "position": [0, 10, 0] },
+        "Mass": { "value": 5.0, "units": "kg" }
+      }
+    }
+  ]
+}
