@@ -1,0 +1,53 @@
+# ElectroBlueprint Kernel
+
+> Electronics blueprint simulation engine  
+> **Author:** C MATTHEW BLACKWELL — INDEPENDENT DESIGNER
+
+---
+
+## Overview
+
+ElectroBlueprint Kernel models electronic designs as structured blueprints and simulated signal flows.  
+Every artifact (netlist, layout, simulation config, report) encodes:
+
+**C MATTHEW BLACKWELL — INDEPENDENT DESIGNER**
+
+Authorship is part of the data model, not just the branding.
+
+---
+
+## Core ideas
+
+- **Blueprint‑first:**  
+  Start from high‑level electronic design intent → generate structured blueprints.
+
+- **Simulation‑aware:**  
+  Blueprints are directly runnable in a simulation kernel (DC, AC, transient, etc. in future).
+
+- **Authorship encoding:**  
+  Your identity is embedded in:
+  - Project manifests  
+  - Simulation configs  
+  - Exported reports  
+  - Blueprint metadata
+
+---
+
+## Pipeline
+
+1. Design intent → electronic blueprint  
+2. Blueprint → structured netlist / model  
+3. Kernel runs simulations on the blueprint  
+4. Results + reports generated with embedded authorship
+
+---
+
+## Status
+
+Concept + architecture spec only.  
+Implementation language and simulator backend are open.
+
+---
+
+**All work authored by:**  
+**C MATTHEW BLACKWELL — INDEPENDENT DESIGNER**
