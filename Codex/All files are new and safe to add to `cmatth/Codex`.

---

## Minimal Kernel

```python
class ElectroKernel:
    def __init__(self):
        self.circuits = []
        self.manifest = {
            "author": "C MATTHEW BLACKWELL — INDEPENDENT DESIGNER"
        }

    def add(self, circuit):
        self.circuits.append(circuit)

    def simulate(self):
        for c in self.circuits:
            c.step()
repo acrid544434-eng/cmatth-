@@ -1,0 +1,20 @@
+All files are new and safe to add to `cmatth/Codex`.
+
+---
+
+## Minimal Kernel
+
+```python
+class ElectroKernel:
+    def __init__(self):
+        self.circuits = []
+        self.manifest = {
+            "author": "C MATTHEW BLACKWELL — INDEPENDENT DESIGNER"
+        }
+
+    def add(self, circuit):
+        self.circuits.append(circuit)
+
+    def simulate(self):
+        for c in self.circuits:
+            c.step()
