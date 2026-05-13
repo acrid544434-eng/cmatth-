@@ -1,0 +1,21 @@
+. High‑level architecture
+
+- Blueprint layer (data, not code)  
+  - World: materials, fields, constraints  
+  - Compression model: parameters \(\theta = (c^2, \kappa)\) per material  
+  - Invariants: “this region must conserve mass/energy”, etc.
+
+- Kernel layer (time stepping)  
+  - Loads blueprint  
+  - Builds world state (entities, fields, materials)  
+  - Runs pipeline: forces → compression → integration → constraints → log
+
+- Physics modules  
+  - CompressionModule (uses your new + meta equation)  
+  - ForcesModule (gravity, fields)  
+  - CollisionModule  
+  - ConstraintModule
+
+- Meta layer  
+  - CompressionResolver = implementation of \(\mathcal{M}(\mathcal{B})\)  
+  - Given a blueprint, returns the actual compression law \(\mathcal{C}[\rho; \theta(\mathcal{B})]\)
