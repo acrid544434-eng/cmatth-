@@ -1,0 +1,4 @@
+Identity_Integrity(x) =
+    Ledger(x)  ⊕
+    Sentinel(x)  ⊕
+    Seal_Validator(x)
