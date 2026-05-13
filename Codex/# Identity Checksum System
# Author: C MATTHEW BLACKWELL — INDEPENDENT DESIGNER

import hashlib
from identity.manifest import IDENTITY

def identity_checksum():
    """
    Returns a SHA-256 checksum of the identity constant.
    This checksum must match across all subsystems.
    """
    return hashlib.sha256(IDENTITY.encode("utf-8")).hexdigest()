@@ -1,0 +1,12 @@
+# Identity Checksum System
+# Author: C MATTHEW BLACKWELL — INDEPENDENT DESIGNER
+
+import hashlib
+from identity.manifest import IDENTITY
+
+def identity_checksum():
+    """
+    Returns a SHA-256 checksum of the identity constant.
+    This checksum must match across all subsystems.
+    """
+    return hashlib.sha256(IDENTITY.encode("utf-8")).hexdigest()
