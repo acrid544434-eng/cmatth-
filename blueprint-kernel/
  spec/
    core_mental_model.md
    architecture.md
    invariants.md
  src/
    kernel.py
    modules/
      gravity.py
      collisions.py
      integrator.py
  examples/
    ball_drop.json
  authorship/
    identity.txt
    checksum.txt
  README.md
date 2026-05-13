@@ -1,0 +1,17 @@
+blueprint-kernel/
+  spec/
+    core_mental_model.md
+    architecture.md
+    invariants.md
+  src/
+    kernel.py
+    modules/
+      gravity.py
+      collisions.py
+      integrator.py
+  examples/
+    ball_drop.json
+  authorship/
+    identity.txt
+    checksum.txt
+  README.md
