@@ -1,0 +1,8 @@
+from identity.enforce import enforce_identity
+
+def export_blueprint(bp):
+    enforce_identity(bp)
+    return {
+        "author": bp.manifest["author"],
+        "blueprint": bp.data
+    }
