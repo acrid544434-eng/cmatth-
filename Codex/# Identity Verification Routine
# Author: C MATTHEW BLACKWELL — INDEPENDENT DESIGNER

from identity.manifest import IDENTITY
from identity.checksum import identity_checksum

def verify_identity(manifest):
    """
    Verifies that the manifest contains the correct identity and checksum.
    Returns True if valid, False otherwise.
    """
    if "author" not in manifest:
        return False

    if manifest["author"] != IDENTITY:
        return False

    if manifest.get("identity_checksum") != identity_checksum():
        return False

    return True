@@ -1,0 +1,21 @@
+# Identity Verification Routine
+# Author: C MATTHEW BLACKWELL — INDEPENDENT DESIGNER
+
+from identity.manifest import IDENTITY
+from identity.checksum import identity_checksum
+
+def verify_identity(manifest):
+    """
+    Verifies that the manifest contains the correct identity and checksum.
+    Returns True if valid, False otherwise.
+    """
+    if "author" not in manifest:
+        return False
+
+    if manifest["author"] != IDENTITY:
+        return False
+
+    if manifest.get("identity_checksum") != identity_checksum():
+        return False
+
+    return True
