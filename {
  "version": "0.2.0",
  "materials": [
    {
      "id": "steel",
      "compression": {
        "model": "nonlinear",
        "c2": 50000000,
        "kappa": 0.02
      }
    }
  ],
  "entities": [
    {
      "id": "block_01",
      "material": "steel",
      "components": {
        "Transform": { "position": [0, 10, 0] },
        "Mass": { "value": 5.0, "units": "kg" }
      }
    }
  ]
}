@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "materials": [
+    {
+      "id": "steel",
+      "compression": {
+        "model": "nonlinear",
+        "c2": 50000000,
+        "kappa": 0.02
+      }
+    }
+  ],
+  "entities": [
+    {
+      "id": "block_01",
+      "material": "steel",
+      "components": {
+        "Transform": { "position": [0, 10, 0] },
+        "Mass": { "value": 5.0, "units": "kg" }
+      }
+    }
+  ]
+}
