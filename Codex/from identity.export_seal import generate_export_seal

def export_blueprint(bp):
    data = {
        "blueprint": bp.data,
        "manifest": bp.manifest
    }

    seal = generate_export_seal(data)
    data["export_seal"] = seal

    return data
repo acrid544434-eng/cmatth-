@@ -1,0 +1,12 @@
+from identity.export_seal import generate_export_seal
+
+def export_blueprint(bp):
+    data = {
+        "blueprint": bp.data,
+        "manifest": bp.manifest
+    }
+
+    seal = generate_export_seal(data)
+    data["export_seal"] = seal
+
+    return data
