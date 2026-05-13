@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "world": {
+    "gravity": { "type": "uniform", "g": [0, -9.81, 0], "units": "m/s^2" }
+  },
+  "entities": [
+    {
+      "id": "ball_001",
+      "components": {
+        "Transform": { "position": [0, 10, 0] },
+        "Mass": { "value": 1.0, "units": "kg" },
+        "Collider": { "shape": "sphere", "radius": 0.5 }
+      }
+    }
+  ],
+  "constraints": [
+    { "type": "plane", "normal": [0, 1, 0], "offset": 0 }
+  ]
+}
