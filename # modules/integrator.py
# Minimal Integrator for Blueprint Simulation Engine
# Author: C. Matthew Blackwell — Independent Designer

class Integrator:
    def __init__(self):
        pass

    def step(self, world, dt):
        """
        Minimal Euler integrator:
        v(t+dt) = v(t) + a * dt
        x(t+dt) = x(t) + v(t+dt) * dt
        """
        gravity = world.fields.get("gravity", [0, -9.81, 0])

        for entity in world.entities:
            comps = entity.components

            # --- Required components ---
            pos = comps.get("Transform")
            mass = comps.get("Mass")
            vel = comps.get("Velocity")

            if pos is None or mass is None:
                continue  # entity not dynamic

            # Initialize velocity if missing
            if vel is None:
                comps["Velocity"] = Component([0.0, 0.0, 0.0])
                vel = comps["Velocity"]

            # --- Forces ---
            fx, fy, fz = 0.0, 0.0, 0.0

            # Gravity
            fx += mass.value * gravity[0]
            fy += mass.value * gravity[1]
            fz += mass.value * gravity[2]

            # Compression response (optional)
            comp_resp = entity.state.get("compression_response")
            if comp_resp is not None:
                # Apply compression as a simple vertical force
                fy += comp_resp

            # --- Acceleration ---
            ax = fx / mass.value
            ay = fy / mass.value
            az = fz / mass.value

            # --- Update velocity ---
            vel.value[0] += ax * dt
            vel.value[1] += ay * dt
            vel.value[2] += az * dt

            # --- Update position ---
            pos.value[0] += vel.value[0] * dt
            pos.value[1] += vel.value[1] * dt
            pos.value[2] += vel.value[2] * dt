@@ -1,0 +1,60 @@
+# modules/integrator.py
+# Minimal Integrator for Blueprint Simulation Engine
+# Author: C. Matthew Blackwell — Independent Designer
+
+class Integrator:
+    def __init__(self):
+        pass
+
+    def step(self, world, dt):
+        """
+        Minimal Euler integrator:
+        v(t+dt) = v(t) + a * dt
+        x(t+dt) = x(t) + v(t+dt) * dt
+        """
+        gravity = world.fields.get("gravity", [0, -9.81, 0])
+
+        for entity in world.entities:
+            comps = entity.components
+
+            # --- Required components ---
+            pos = comps.get("Transform")
+            mass = comps.get("Mass")
+            vel = comps.get("Velocity")
+
+            if pos is None or mass is None:
+                continue  # entity not dynamic
+
+            # Initialize velocity if missing
+            if vel is None:
+                comps["Velocity"] = Component([0.0, 0.0, 0.0])
+                vel = comps["Velocity"]
+
+            # --- Forces ---
+            fx, fy, fz = 0.0, 0.0, 0.0
+
+            # Gravity
+            fx += mass.value * gravity[0]
+            fy += mass.value * gravity[1]
+            fz += mass.value * gravity[2]
+
+            # Compression response (optional)
+            comp_resp = entity.state.get("compression_response")
+            if comp_resp is not None:
+                # Apply compression as a simple vertical force
+                fy += comp_resp
+
+            # --- Acceleration ---
+            ax = fx / mass.value
+            ay = fy / mass.value
+            az = fz / mass.value
+
+            # --- Update velocity ---
+            vel.value[0] += ax * dt
+            vel.value[1] += ay * dt
+            vel.value[2] += az * dt
+
+            # --- Update position ---
+            pos.value[0] += vel.value[0] * dt
+            pos.value[1] += vel.value[1] * dt
+            pos.value[2] += vel.value[2] * dt
