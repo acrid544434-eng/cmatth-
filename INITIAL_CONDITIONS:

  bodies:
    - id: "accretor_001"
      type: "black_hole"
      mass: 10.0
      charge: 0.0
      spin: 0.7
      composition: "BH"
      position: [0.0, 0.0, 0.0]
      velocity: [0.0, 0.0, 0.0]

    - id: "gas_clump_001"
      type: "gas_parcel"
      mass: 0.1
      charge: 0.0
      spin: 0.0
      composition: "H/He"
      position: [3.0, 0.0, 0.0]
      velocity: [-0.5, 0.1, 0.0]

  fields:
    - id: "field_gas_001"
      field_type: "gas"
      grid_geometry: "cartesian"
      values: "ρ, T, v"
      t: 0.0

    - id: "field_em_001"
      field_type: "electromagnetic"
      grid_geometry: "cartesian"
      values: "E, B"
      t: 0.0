@@ -1,0 +1,33 @@
+INITIAL_CONDITIONS:
+
+  bodies:
+    - id: "accretor_001"
+      type: "black_hole"
+      mass: 10.0
+      charge: 0.0
+      spin: 0.7
+      composition: "BH"
+      position: [0.0, 0.0, 0.0]
+      velocity: [0.0, 0.0, 0.0]
+
+    - id: "gas_clump_001"
+      type: "gas_parcel"
+      mass: 0.1
+      charge: 0.0
+      spin: 0.0
+      composition: "H/He"
+      position: [3.0, 0.0, 0.0]
+      velocity: [-0.5, 0.1, 0.0]
+
+  fields:
+    - id: "field_gas_001"
+      field_type: "gas"
+      grid_geometry: "cartesian"
+      values: "ρ, T, v"
+      t: 0.0
+
+    - id: "field_em_001"
+      field_type: "electromagnetic"
+      grid_geometry: "cartesian"
+      values: "E, B"
+      t: 0.0
