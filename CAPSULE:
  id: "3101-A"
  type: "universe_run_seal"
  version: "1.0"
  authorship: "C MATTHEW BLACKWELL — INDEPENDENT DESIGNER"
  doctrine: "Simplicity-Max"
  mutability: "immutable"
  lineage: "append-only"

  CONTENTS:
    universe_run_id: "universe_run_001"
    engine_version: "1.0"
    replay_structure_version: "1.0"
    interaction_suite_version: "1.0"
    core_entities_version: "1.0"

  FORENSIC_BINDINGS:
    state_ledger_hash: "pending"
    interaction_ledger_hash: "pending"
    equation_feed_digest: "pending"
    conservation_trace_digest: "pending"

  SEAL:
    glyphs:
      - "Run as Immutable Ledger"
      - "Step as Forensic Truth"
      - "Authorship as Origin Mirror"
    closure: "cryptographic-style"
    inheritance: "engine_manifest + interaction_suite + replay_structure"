@@ -1,0 +1,29 @@
+CAPSULE:
+  id: "3101-A"
+  type: "universe_run_seal"
+  version: "1.0"
+  authorship: "C MATTHEW BLACKWELL — INDEPENDENT DESIGNER"
+  doctrine: "Simplicity-Max"
+  mutability: "immutable"
+  lineage: "append-only"
+
+  CONTENTS:
+    universe_run_id: "universe_run_001"
+    engine_version: "1.0"
+    replay_structure_version: "1.0"
+    interaction_suite_version: "1.0"
+    core_entities_version: "1.0"
+
+  FORENSIC_BINDINGS:
+    state_ledger_hash: "pending"
+    interaction_ledger_hash: "pending"
+    equation_feed_digest: "pending"
+    conservation_trace_digest: "pending"
+
+  SEAL:
+    glyphs:
+      - "Run as Immutable Ledger"
+      - "Step as Forensic Truth"
+      - "Authorship as Origin Mirror"
+    closure: "cryptographic-style"
+    inheritance: "engine_manifest + interaction_suite + replay_structure"
