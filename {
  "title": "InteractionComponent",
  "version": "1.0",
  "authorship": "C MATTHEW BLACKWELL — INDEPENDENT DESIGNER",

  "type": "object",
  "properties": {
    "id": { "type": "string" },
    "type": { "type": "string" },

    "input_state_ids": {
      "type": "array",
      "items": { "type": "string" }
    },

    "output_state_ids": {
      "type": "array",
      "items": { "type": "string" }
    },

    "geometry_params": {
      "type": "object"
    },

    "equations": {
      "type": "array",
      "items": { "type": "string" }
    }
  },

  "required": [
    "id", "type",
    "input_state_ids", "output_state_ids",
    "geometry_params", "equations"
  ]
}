@@ -1,0 +1,36 @@
+{
+  "title": "InteractionComponent",
+  "version": "1.0",
+  "authorship": "C MATTHEW BLACKWELL — INDEPENDENT DESIGNER",
+
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "type": { "type": "string" },
+
+    "input_state_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+
+    "output_state_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+
+    "geometry_params": {
+      "type": "object"
+    },
+
+    "equations": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+
+  "required": [
+    "id", "type",
+    "input_state_ids", "output_state_ids",
+    "geometry_params", "equations"
+  ]
+}
