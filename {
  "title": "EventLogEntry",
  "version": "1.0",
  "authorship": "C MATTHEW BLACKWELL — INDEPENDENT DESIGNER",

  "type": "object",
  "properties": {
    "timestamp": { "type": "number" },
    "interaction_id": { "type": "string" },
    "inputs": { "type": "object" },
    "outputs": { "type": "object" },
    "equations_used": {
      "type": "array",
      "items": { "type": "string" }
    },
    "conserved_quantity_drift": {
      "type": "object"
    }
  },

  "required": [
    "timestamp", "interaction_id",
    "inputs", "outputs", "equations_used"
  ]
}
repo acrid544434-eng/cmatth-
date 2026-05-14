@@ -1,0 +1,25 @@
+{
+  "title": "EventLogEntry",
+  "version": "1.0",
+  "authorship": "C MATTHEW BLACKWELL — INDEPENDENT DESIGNER",
+
+  "type": "object",
+  "properties": {
+    "timestamp": { "type": "number" },
+    "interaction_id": { "type": "string" },
+    "inputs": { "type": "object" },
+    "outputs": { "type": "object" },
+    "equations_used": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "conserved_quantity_drift": {
+      "type": "object"
+    }
+  },
+
+  "required": [
+    "timestamp", "interaction_id",
+    "inputs", "outputs", "equations_used"
+  ]
+}
