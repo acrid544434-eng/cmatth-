@@ -1,0 +1,18 @@
+{
+  "title": "FieldState",
+  "version": "1.0",
+  "authorship": "C MATTHEW BLACKWELL — INDEPENDENT DESIGNER",
+
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "t": { "type": "number" },
+    "grid_geometry": { "type": "string" },
+    "field_type": { "type": "string" },
+    "values": { "type": "array" }
+  },
+
+  "required": [
+    "id", "t", "grid_geometry", "field_type", "values"
+  ]
+}
