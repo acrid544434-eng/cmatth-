@@ -1,0 +1,11 @@
+STEP_ENTRY:
+  step_id: integer
+  timestamp: number
+  active_interactions: array_of_strings
+  state_before: object
+  state_after: object
+  equations_used: array_of_strings
+  conservation_drift: object
+  event_log_refs: array_of_strings
+  ledger_hash_before: string
+  ledger_hash_after: string
