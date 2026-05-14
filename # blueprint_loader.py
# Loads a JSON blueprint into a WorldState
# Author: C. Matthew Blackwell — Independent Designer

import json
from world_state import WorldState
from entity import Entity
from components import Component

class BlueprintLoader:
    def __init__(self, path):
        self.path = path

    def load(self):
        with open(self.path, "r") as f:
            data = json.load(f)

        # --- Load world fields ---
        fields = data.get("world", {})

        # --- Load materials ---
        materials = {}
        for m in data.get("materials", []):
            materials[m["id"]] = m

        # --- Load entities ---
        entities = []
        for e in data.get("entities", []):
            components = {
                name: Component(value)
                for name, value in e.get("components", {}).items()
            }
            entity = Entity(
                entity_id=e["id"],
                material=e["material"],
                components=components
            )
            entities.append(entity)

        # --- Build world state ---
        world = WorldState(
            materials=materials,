@@ -1,0 +1,42 @@
+# blueprint_loader.py
+# Loads a JSON blueprint into a WorldState
+# Author: C. Matthew Blackwell — Independent Designer
+
+import json
+from world_state import WorldState
+from entity import Entity
+from components import Component
+
+class BlueprintLoader:
+    def __init__(self, path):
+        self.path = path
+
+    def load(self):
+        with open(self.path, "r") as f:
+            data = json.load(f)
+
+        # --- Load world fields ---
+        fields = data.get("world", {})
+
+        # --- Load materials ---
+        materials = {}
+        for m in data.get("materials", []):
+            materials[m["id"]] = m
+
+        # --- Load entities ---
+        entities = []
+        for e in data.get("entities", []):
+            components = {
+                name: Component(value)
+                for name, value in e.get("components", {}).items()
+            }
+            entity = Entity(
+                entity_id=e["id"],
+                material=e["material"],
+                components=components
+            )
+            entities.append(entity)
+
+        # --- Build world state ---
+        world = WorldState(
+            materials=materials,
