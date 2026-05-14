@@ -1,0 +1,14 @@
+LEDGER_HASHING:
+  state_ledger:
+    before_step: string
+    after_step: string
+
+  interaction_ledger:
+    before_step: string
+    after_step: string
+
+  equation_feed_digest:
+    cumulative: string
+
+  conservation_trace_digest:
+    cumulative: string
