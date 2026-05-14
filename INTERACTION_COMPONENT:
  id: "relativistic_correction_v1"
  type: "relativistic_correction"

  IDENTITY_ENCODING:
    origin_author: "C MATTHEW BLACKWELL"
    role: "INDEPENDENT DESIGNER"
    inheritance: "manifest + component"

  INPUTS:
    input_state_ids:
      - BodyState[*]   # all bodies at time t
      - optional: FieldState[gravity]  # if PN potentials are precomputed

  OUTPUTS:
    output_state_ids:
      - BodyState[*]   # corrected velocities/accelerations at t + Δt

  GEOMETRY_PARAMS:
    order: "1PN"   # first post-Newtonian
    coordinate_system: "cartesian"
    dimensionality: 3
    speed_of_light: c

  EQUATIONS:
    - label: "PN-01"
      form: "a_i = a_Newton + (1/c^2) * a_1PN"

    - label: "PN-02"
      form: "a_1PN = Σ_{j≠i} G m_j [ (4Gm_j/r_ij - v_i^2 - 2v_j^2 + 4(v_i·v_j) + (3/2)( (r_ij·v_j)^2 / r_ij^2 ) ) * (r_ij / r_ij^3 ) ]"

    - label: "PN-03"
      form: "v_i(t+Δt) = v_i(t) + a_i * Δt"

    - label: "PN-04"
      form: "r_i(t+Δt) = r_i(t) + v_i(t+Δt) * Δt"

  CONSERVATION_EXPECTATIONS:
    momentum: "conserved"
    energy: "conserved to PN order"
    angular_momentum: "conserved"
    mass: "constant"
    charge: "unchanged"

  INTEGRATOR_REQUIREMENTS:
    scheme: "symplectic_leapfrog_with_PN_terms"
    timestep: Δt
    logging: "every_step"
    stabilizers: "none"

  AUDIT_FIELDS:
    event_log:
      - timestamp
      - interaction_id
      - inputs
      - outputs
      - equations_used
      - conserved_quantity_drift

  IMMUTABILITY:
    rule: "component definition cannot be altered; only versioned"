@@ -1,0 +1,61 @@
+INTERACTION_COMPONENT:
+  id: "relativistic_correction_v1"
+  type: "relativistic_correction"
+
+  IDENTITY_ENCODING:
+    origin_author: "C MATTHEW BLACKWELL"
+    role: "INDEPENDENT DESIGNER"
+    inheritance: "manifest + component"
+
+  INPUTS:
+    input_state_ids:
+      - BodyState[*]   # all bodies at time t
+      - optional: FieldState[gravity]  # if PN potentials are precomputed
+
+  OUTPUTS:
+    output_state_ids:
+      - BodyState[*]   # corrected velocities/accelerations at t + Δt
+
+  GEOMETRY_PARAMS:
+    order: "1PN"   # first post-Newtonian
+    coordinate_system: "cartesian"
+    dimensionality: 3
+    speed_of_light: c
+
+  EQUATIONS:
+    - label: "PN-01"
+      form: "a_i = a_Newton + (1/c^2) * a_1PN"
+
+    - label: "PN-02"
+      form: "a_1PN = Σ_{j≠i} G m_j [ (4Gm_j/r_ij - v_i^2 - 2v_j^2 + 4(v_i·v_j) + (3/2)( (r_ij·v_j)^2 / r_ij^2 ) ) * (r_ij / r_ij^3 ) ]"
+
+    - label: "PN-03"
+      form: "v_i(t+Δt) = v_i(t) + a_i * Δt"
+
+    - label: "PN-04"
+      form: "r_i(t+Δt) = r_i(t) + v_i(t+Δt) * Δt"
+
+  CONSERVATION_EXPECTATIONS:
+    momentum: "conserved"
+    energy: "conserved to PN order"
+    angular_momentum: "conserved"
+    mass: "constant"
+    charge: "unchanged"
+
+  INTEGRATOR_REQUIREMENTS:
+    scheme: "symplectic_leapfrog_with_PN_terms"
+    timestep: Δt
+    logging: "every_step"
+    stabilizers: "none"
+
+  AUDIT_FIELDS:
+    event_log:
+      - timestamp
+      - interaction_id
+      - inputs
+      - outputs
+      - equations_used
+      - conserved_quantity_drift
+
+  IMMUTABILITY:
+    rule: "component definition cannot be altered; only versioned"
