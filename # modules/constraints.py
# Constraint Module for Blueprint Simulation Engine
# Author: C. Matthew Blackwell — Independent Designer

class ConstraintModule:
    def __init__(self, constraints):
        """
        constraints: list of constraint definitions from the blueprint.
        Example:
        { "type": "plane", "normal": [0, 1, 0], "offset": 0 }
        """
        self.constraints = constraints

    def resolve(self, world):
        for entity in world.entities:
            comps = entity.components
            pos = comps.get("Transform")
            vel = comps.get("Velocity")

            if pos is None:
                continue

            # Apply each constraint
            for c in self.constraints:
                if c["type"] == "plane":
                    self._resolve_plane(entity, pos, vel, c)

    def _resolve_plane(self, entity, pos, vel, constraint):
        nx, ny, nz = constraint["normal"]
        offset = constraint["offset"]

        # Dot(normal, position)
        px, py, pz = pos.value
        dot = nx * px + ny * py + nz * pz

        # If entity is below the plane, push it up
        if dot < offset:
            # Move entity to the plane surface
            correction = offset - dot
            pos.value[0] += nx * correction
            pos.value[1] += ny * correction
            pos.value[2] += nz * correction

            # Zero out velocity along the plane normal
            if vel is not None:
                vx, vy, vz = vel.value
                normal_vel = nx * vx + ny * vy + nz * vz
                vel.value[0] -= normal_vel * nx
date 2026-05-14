@@ -1,0 +1,48 @@
+# modules/constraints.py
+# Constraint Module for Blueprint Simulation Engine
+# Author: C. Matthew Blackwell — Independent Designer
+
+class ConstraintModule:
+    def __init__(self, constraints):
+        """
+        constraints: list of constraint definitions from the blueprint.
+        Example:
+        { "type": "plane", "normal": [0, 1, 0], "offset": 0 }
+        """
+        self.constraints = constraints
+
+    def resolve(self, world):
+        for entity in world.entities:
+            comps = entity.components
+            pos = comps.get("Transform")
+            vel = comps.get("Velocity")
+
+            if pos is None:
+                continue
+
+            # Apply each constraint
+            for c in self.constraints:
+                if c["type"] == "plane":
+                    self._resolve_plane(entity, pos, vel, c)
+
+    def _resolve_plane(self, entity, pos, vel, constraint):
+        nx, ny, nz = constraint["normal"]
+        offset = constraint["offset"]
+
+        # Dot(normal, position)
+        px, py, pz = pos.value
+        dot = nx * px + ny * py + nz * pz
+
+        # If entity is below the plane, push it up
+        if dot < offset:
+            # Move entity to the plane surface
+            correction = offset - dot
+            pos.value[0] += nx * correction
+            pos.value[1] += ny * correction
+            pos.value[2] += nz * correction
+
+            # Zero out velocity along the plane normal
+            if vel is not None:
+                vx, vy, vz = vel.value
+                normal_vel = nx * vx + ny * vy + nz * vz
+                vel.value[0] -= normal_vel * nx
