@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "world": {
+    "gravity": [0, -9.81, 0],
+    "ambient_pressure": 101325
+  },
+  "materials": [
+    {
+      "id": "steel",
+      "compression": {
+        "model": "nonlinear",
+        "c2": 50000000,
+        "kappa": 0.02
+      }
+    }
+  ],
+  "entities": [
+    {
+      "id": "block_01",
+      "material": "steel",
+      "components": {
+        "Transform": { "position": [0, 10, 0] },
+        "Mass": { "value": 5.0 }
+      }
+    }
+  ],
+  "constraints": [
+    { "type": "plane", "normal": [0, 1, 0], "offset": 0 }
+  ]
+}
