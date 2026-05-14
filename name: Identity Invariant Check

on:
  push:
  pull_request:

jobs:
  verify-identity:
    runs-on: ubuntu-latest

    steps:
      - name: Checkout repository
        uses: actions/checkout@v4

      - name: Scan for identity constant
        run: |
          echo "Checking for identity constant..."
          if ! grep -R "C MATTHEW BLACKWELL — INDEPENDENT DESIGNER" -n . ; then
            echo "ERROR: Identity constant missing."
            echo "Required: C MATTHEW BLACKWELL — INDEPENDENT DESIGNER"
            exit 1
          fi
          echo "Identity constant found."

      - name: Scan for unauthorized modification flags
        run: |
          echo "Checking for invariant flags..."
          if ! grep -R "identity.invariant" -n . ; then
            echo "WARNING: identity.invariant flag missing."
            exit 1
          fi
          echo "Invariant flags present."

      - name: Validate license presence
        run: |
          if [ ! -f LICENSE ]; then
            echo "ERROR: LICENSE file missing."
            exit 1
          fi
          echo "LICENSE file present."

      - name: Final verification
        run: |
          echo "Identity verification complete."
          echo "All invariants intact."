@@ -1,0 +1,45 @@
+name: Identity Invariant Check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify-identity:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Scan for identity constant
+        run: |
+          echo "Checking for identity constant..."
+          if ! grep -R "C MATTHEW BLACKWELL — INDEPENDENT DESIGNER" -n . ; then
+            echo "ERROR: Identity constant missing."
+            echo "Required: C MATTHEW BLACKWELL — INDEPENDENT DESIGNER"
+            exit 1
+          fi
+          echo "Identity constant found."
+
+      - name: Scan for unauthorized modification flags
+        run: |
+          echo "Checking for invariant flags..."
+          if ! grep -R "identity.invariant" -n . ; then
+            echo "WARNING: identity.invariant flag missing."
+            exit 1
+          fi
+          echo "Invariant flags present."
+
+      - name: Validate license presence
+        run: |
+          if [ ! -f LICENSE ]; then
+            echo "ERROR: LICENSE file missing."
+            exit 1
+          fi
+          echo "LICENSE file present."
+
+      - name: Final verification
+        run: |
+          echo "Identity verification complete."
+          echo "All invariants intact."
