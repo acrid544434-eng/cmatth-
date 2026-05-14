@@ -1,0 +1,9 @@
+INTEGRATOR_PLAN:
+  gravity_scheme: "symplectic_leapfrog"
+  em_scheme: "Yee_FDTD"
+  cooling_scheme: "explicit_subcycled"
+  collision_scheme: "event_driven"
+  timestep: 0.0005
+  total_steps: 200000
+  logging: "every_step"
+  stabilizers: "none"
