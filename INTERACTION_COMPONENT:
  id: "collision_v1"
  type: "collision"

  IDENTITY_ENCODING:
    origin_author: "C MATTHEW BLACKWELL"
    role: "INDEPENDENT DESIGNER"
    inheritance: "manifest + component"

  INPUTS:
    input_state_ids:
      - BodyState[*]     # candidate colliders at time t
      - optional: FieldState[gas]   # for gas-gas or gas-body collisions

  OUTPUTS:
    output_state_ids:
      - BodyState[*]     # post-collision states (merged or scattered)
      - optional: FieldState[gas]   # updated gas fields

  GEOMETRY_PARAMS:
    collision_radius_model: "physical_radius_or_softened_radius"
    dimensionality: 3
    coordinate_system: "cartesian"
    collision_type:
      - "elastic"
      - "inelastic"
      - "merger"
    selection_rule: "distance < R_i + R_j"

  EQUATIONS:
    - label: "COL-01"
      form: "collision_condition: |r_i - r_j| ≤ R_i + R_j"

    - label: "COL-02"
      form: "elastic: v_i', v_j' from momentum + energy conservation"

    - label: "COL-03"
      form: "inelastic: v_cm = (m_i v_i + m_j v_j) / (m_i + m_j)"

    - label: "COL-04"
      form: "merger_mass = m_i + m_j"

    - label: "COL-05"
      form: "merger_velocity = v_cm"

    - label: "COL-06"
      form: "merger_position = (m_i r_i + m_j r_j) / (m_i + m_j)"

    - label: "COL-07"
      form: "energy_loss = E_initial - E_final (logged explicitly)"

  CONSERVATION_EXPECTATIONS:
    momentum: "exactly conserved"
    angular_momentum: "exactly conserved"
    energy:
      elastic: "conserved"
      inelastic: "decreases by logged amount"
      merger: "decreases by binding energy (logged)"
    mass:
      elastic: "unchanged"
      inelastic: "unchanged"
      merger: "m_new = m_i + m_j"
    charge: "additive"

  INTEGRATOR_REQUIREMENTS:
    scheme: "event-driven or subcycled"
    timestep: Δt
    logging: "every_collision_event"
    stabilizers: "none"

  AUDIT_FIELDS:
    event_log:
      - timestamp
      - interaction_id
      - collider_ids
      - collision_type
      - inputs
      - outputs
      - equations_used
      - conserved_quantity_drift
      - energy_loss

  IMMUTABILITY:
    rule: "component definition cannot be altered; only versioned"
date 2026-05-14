@@ -1,0 +1,84 @@
+INTERACTION_COMPONENT:
+  id: "collision_v1"
+  type: "collision"
+
+  IDENTITY_ENCODING:
+    origin_author: "C MATTHEW BLACKWELL"
+    role: "INDEPENDENT DESIGNER"
+    inheritance: "manifest + component"
+
+  INPUTS:
+    input_state_ids:
+      - BodyState[*]     # candidate colliders at time t
+      - optional: FieldState[gas]   # for gas-gas or gas-body collisions
+
+  OUTPUTS:
+    output_state_ids:
+      - BodyState[*]     # post-collision states (merged or scattered)
+      - optional: FieldState[gas]   # updated gas fields
+
+  GEOMETRY_PARAMS:
+    collision_radius_model: "physical_radius_or_softened_radius"
+    dimensionality: 3
+    coordinate_system: "cartesian"
+    collision_type:
+      - "elastic"
+      - "inelastic"
+      - "merger"
+    selection_rule: "distance < R_i + R_j"
+
+  EQUATIONS:
+    - label: "COL-01"
+      form: "collision_condition: |r_i - r_j| ≤ R_i + R_j"
+
+    - label: "COL-02"
+      form: "elastic: v_i', v_j' from momentum + energy conservation"
+
+    - label: "COL-03"
+      form: "inelastic: v_cm = (m_i v_i + m_j v_j) / (m_i + m_j)"
+
+    - label: "COL-04"
+      form: "merger_mass = m_i + m_j"
+
+    - label: "COL-05"
+      form: "merger_velocity = v_cm"
+
+    - label: "COL-06"
+      form: "merger_position = (m_i r_i + m_j r_j) / (m_i + m_j)"
+
+    - label: "COL-07"
+      form: "energy_loss = E_initial - E_final (logged explicitly)"
+
+  CONSERVATION_EXPECTATIONS:
+    momentum: "exactly conserved"
+    angular_momentum: "exactly conserved"
+    energy:
+      elastic: "conserved"
+      inelastic: "decreases by logged amount"
+      merger: "decreases by binding energy (logged)"
+    mass:
+      elastic: "unchanged"
+      inelastic: "unchanged"
+      merger: "m_new = m_i + m_j"
+    charge: "additive"
+
+  INTEGRATOR_REQUIREMENTS:
+    scheme: "event-driven or subcycled"
+    timestep: Δt
+    logging: "every_collision_event"
+    stabilizers: "none"
+
+  AUDIT_FIELDS:
+    event_log:
+      - timestamp
+      - interaction_id
+      - collider_ids
+      - collision_type
+      - inputs
+      - outputs
+      - equations_used
+      - conserved_quantity_drift
+      - energy_loss
+
+  IMMUTABILITY:
+    rule: "component definition cannot be altered; only versioned"
