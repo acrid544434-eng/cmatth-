@@ -1,0 +1,71 @@
+INTERACTION_COMPONENT:
+  id: "em_field_update_v1"
+  type: "em_field_update"
+
+  IDENTITY_ENCODING:
+    origin_author: "C MATTHEW BLACKWELL"
+    role: "INDEPENDENT DESIGNER"
+    inheritance: "manifest + component"
+
+  INPUTS:
+    input_state_ids:
+      - FieldState[E_field_t]
+      - FieldState[B_field_t]
+      - optional: BodyState[*]   # for charge/current sources
+
+  OUTPUTS:
+    output_state_ids:
+      - FieldState[E_field_t+Δt]
+      - FieldState[B_field_t+Δt]
+
+  GEOMETRY_PARAMS:
+    grid_geometry: "structured_cartesian"
+    dimensionality: 3
+    boundary_conditions: "open_or_periodic"
+    speed_of_light: c
+    courant_factor: CFL
+
+  EQUATIONS:
+    - label: "MAX-01"
+      form: "∂B/∂t = -∇ × E"
+
+    - label: "MAX-02"
+      form: "∂E/∂t =  c^2 (∇ × B) - J/ε₀"
+
+    - label: "MAX-03"
+      form: "ρ = Σ q_i δ(r - r_i)"
+
+    - label: "MAX-04"
+      form: "J = Σ q_i v_i δ(r - r_i)"
+
+    - label: "MAX-05"
+      form: "∇·B = 0   (monitored, not enforced by magic)"
+
+    - label: "MAX-06"
+      form: "∇·E = ρ/ε₀"
+
+  CONSERVATION_EXPECTATIONS:
+    energy: "conserved (Poynting flux accounted)"
+    momentum: "conserved (field + particle)"
+    charge: "exactly conserved"
+    angular_momentum: "conserved"
+    mass: "unchanged"
+
+  INTEGRATOR_REQUIREMENTS:
+    scheme: "Yee_FDTD"   # explicit, stable, no heuristics
+    timestep: Δt
+    CFL_condition: "Δt ≤ CFL * Δx / c"
+    logging: "every_step"
+    stabilizers: "none"
+
+  AUDIT_FIELDS:
+    event_log:
+      - timestamp
+      - interaction_id
+      - inputs
+      - outputs
+      - equations_used
+      - conserved_quantity_drift
+
+  IMMUTABILITY:
+    rule: "component definition cannot be altered; only versioned"
