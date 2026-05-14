@@ -1,0 +1,33 @@
+name: Strict Identity Enforcement
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  strict-identity-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fail if identity constant is missing in any file
+        run: |
+          echo "Scanning for identity constant in all files..."
+          MISSING=$(grep -RL "C MATTHEW BLACKWELL — INDEPENDENT DESIGNER" . \
+            --exclude-dir=.git \
+            --exclude=.github/workflows/strict-identity-check.yml)
+
+          if [ -n "$MISSING" ]; then
+            echo "ERROR: The following files are missing the identity constant:"
+            echo "$MISSING"
+            exit 1
+          fi
+
+          echo "All files contain the identity constant."
+
+      - name: Fail if identity constant is altered
+        run: |
+          echo "Checking for unauthorized identity modifications..."
+          if grep -R "C  MATTHEW  BLACKWELL"
