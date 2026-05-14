@@ -1,0 +1,57 @@
+INTERACTION_COMPONENT:
+  id: "gravity_nbody_v1"
+  type: "gravity_nbody"
+
+  IDENTITY_ENCODING:
+    origin_author: "C MATTHEW BLACKWELL"
+    role: "INDEPENDENT DESIGNER"
+    inheritance: "manifest + component"
+
+  INPUTS:
+    input_state_ids:
+      - BodyState[*]   # all bodies at time t
+
+  OUTPUTS:
+    output_state_ids:
+      - BodyState[*]   # all bodies at time t + Δt
+
+  GEOMETRY_PARAMS:
+    softening_length: ε
+    dimensionality: 3
+    coordinate_system: "cartesian"
+    boundary_conditions: "none"
+
+  EQUATIONS:
+    - label: "GRAV-01"
+      form: "r_i'' = -G * Σ_{j≠i} m_j (r_i - r_j) / (|r_i - r_j|^2 + ε^2)^(3/2)"
+
+    - label: "GRAV-02"
+      form: "v_i(t+Δt) = v_i(t) + r_i'' * Δt"
+
+    - label: "GRAV-03"
+      form: "r_i(t+Δt) = r_i(t) + v_i(t+Δt) * Δt"
+
+  CONSERVATION_EXPECTATIONS:
+    momentum: "conserved"
+    energy: "approximately conserved (symplectic)"
+    angular_momentum: "conserved"
+    mass: "constant"
+    charge: "unchanged"
+
+  INTEGRATOR_REQUIREMENTS:
+    scheme: "symplectic_leapfrog"
+    timestep: Δt
+    logging: "every_step"
+    stabilizers: "none"
+
+  AUDIT_FIELDS:
+    event_log:
+      - timestamp
+      - interaction_id
+      - inputs
+      - outputs
+      - equations_used
+      - conserved_quantity_drift
+
+  IMMUTABILITY:
+    rule: "component definition cannot be altered; only versioned"
