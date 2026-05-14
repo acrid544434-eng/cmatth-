@@ -1,0 +1,36 @@
+{
+  "title": "BodyState",
+  "version": "1.0",
+  "authorship": "C MATTHEW BLACKWELL — INDEPENDENT DESIGNER",
+
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "t": { "type": "number" },
+
+    "position": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3
+    },
+
+    "velocity": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 3,
+      "maxItems": 3
+    },
+
+    "mass": { "type": "number" },
+    "charge": { "type": "number" },
+    "spin": { "type": "number" },
+    "composition": { "type": "string" },
+    "source_interaction": { "type": "string" }
+  },
+
+  "required": [
+    "id", "t", "position", "velocity",
+    "mass", "charge", "spin", "composition"
+  ]
+}
