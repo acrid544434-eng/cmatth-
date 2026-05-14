@@ -1,0 +1,20 @@
+# world_state.py
+# Minimal World State for Blueprint Simulation Engine
+# Author: C. Matthew Blackwell — Independent Designer
+
+class WorldState:
+    def __init__(self, materials, entities, fields=None):
+        """
+        materials: dict of material_id -> material_data
+        entities: list of Entity objects
+        fields: global world fields (gravity, pressure, etc.)
+        """
+        self.materials = materials
+        self.entities = entities
+        self.fields = fields or {}
+
+    def get_material(self, material_id):
+        return self.materials.get(material_id)
+
+    def add_entity(self, entity):
+        self.entities.append(entity)
