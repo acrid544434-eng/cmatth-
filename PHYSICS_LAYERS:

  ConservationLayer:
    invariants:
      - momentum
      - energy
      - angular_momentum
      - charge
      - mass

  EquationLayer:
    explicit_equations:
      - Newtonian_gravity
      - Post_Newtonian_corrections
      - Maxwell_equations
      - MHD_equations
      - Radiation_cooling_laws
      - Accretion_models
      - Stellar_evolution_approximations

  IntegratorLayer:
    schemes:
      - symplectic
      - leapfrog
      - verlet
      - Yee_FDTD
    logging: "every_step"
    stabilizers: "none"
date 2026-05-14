@@ -1,0 +1,28 @@
+PHYSICS_LAYERS:
+
+  ConservationLayer:
+    invariants:
+      - momentum
+      - energy
+      - angular_momentum
+      - charge
+      - mass
+
+  EquationLayer:
+    explicit_equations:
+      - Newtonian_gravity
+      - Post_Newtonian_corrections
+      - Maxwell_equations
+      - MHD_equations
+      - Radiation_cooling_laws
+      - Accretion_models
+      - Stellar_evolution_approximations
+
+  IntegratorLayer:
+    schemes:
+      - symplectic
+      - leapfrog
+      - verlet
+      - Yee_FDTD
+    logging: "every_step"
+    stabilizers: "none"
