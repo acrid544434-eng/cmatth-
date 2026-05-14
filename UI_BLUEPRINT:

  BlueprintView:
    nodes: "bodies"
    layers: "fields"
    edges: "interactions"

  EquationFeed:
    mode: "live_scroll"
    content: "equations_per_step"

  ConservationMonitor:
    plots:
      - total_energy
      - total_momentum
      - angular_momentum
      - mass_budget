@@ -1,0 +1,17 @@
+UI_BLUEPRINT:
+
+  BlueprintView:
+    nodes: "bodies"
+    layers: "fields"
+    edges: "interactions"
+
+  EquationFeed:
+    mode: "live_scroll"
+    content: "equations_per_step"
+
+  ConservationMonitor:
+    plots:
+      - total_energy
+      - total_momentum
+      - angular_momentum
+      - mass_budget
