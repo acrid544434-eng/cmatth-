@@ -1,0 +1,92 @@
+{
+  "blueprint": {
+    "version": "1.0.0",
+    "type": "origin-of-life-simulation",
+
+    "author": {
+      "name": "C. Matthew Blackwell",
+      "role": "Independent designer",
+      "origin": "Lafayette, LA, United States",
+      "signature": "cmb::independent-designer::origin-of-life-blueprint"
+    },
+
+    "kernel": {
+      "version": "2.0.0",
+      "scheduler_hz": 60,
+      "execution_cycle": [
+        "read_blueprint",
+        "update_environment",
+        "update_chemistry",
+        "update_o_layer",
+        "emit_metrics"
+      ]
+    },
+
+    "environment": {
+      "type": "primordial",
+      "temperature_K": 330,
+      "pressure_atm": 1.0,
+      "medium": "aqueous",
+      "energy_sources": [
+        "thermal_gradient",
+        "uv_radiation",
+        "chemical_redox"
+      ]
+    },
+
+    "chemistry": {
+      "base_molecules": [
+        "H2O",
+        "CO2",
+        "NH3",
+        "CH4",
+        "H2",
+        "simple_organics"
+      ],
+      "reaction_rules": "reaction_rules::prebiotic::v1"
+    },
+
+    "o_layer": {
+      "version": "0.1.0",
+
+      "proto_units": {
+        "monomers": [
+          "amino_acid",
+          "nucleotide",
+          "lipid"
+        ],
+        "polymers": [
+          "short_peptide",
+          "short_rna"
+        ],
+        "compartments": [
+          "lipid_vesicle"
+        ]
+      },
+
+      "processes": {
+        "polymerization": {
+          "enabled": true,
+          "bias_energy_driven": 0.7,
+          "bias_template_driven": 0.3
+        },
+        "compartment_formation": {
+          "enabled": true,
+          "critical_concentration": 0.5
+        },
+        "replication_like_dynamics": {
+          "enabled": true,
+          "error_rate": 0.1,
+          "selection_pressure": 0.2
+        }
+      },
+
+      "metrics": {
+        "complexity_index": 0.0,
+        "replicator_count": 0,
+        "compartment_count": 0,
+        "information_density": 0.0
+      }
+    }
+  }
+}
