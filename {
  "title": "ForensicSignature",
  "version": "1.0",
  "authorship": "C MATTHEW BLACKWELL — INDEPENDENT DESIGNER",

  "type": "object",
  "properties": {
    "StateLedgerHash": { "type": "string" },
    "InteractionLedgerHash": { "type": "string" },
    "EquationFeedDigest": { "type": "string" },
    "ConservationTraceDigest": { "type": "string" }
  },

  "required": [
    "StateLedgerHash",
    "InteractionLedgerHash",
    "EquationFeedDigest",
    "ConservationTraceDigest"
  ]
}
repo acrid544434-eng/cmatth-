@@ -1,0 +1,20 @@
+{
+  "title": "ForensicSignature",
+  "version": "1.0",
+  "authorship": "C MATTHEW BLACKWELL — INDEPENDENT DESIGNER",
+
+  "type": "object",
+  "properties": {
+    "StateLedgerHash": { "type": "string" },
+    "InteractionLedgerHash": { "type": "string" },
+    "EquationFeedDigest": { "type": "string" },
+    "ConservationTraceDigest": { "type": "string" }
+  },
+
+  "required": [
+    "StateLedgerHash",
+    "InteractionLedgerHash",
+    "EquationFeedDigest",
+    "ConservationTraceDigest"
+  ]
+}
