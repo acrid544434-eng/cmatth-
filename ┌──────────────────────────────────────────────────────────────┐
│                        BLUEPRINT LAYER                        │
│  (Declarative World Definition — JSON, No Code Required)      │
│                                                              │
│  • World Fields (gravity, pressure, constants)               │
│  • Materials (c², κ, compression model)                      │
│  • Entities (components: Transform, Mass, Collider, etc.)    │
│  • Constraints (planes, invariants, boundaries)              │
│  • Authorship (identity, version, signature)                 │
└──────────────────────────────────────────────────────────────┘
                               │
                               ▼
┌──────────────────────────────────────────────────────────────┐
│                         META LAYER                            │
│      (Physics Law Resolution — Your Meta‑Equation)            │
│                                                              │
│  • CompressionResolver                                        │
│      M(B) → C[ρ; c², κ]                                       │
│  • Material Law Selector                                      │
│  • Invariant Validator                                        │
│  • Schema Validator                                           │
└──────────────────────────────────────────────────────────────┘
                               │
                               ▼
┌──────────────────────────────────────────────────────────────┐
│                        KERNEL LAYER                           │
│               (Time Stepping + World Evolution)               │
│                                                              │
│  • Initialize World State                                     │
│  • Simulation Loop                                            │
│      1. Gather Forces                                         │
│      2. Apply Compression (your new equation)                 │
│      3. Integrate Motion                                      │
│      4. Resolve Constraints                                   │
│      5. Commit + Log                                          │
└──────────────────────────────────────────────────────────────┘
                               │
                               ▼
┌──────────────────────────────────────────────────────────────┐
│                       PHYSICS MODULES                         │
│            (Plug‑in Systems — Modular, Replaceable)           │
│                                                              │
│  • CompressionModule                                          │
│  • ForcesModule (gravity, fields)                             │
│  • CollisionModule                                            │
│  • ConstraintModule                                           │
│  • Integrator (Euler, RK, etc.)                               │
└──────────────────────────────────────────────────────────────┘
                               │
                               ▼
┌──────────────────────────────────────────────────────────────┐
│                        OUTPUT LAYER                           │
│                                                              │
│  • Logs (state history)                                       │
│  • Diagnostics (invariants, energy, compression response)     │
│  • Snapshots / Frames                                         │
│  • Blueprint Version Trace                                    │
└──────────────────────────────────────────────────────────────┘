@@ -1,0 +1,58 @@
+┌──────────────────────────────────────────────────────────────┐
+│                        BLUEPRINT LAYER                        │
+│  (Declarative World Definition — JSON, No Code Required)      │
+│                                                              │
+│  • World Fields (gravity, pressure, constants)               │
+│  • Materials (c², κ, compression model)                      │
+│  • Entities (components: Transform, Mass, Collider, etc.)    │
+│  • Constraints (planes, invariants, boundaries)              │
+│  • Authorship (identity, version, signature)                 │
+└──────────────────────────────────────────────────────────────┘
+                               │
+                               ▼
+┌──────────────────────────────────────────────────────────────┐
+│                         META LAYER                            │
+│      (Physics Law Resolution — Your Meta‑Equation)            │
+│                                                              │
+│  • CompressionResolver                                        │
+│      M(B) → C[ρ; c², κ]                                       │
+│  • Material Law Selector                                      │
+│  • Invariant Validator                                        │
+│  • Schema Validator                                           │
+└──────────────────────────────────────────────────────────────┘
+                               │
+                               ▼
+┌──────────────────────────────────────────────────────────────┐
+│                        KERNEL LAYER                           │
+│               (Time Stepping + World Evolution)               │
+│                                                              │
+│  • Initialize World State                                     │
+│  • Simulation Loop                                            │
+│      1. Gather Forces                                         │
+│      2. Apply Compression (your new equation)                 │
+│      3. Integrate Motion                                      │
+│      4. Resolve Constraints                                   │
+│      5. Commit + Log                                          │
+└──────────────────────────────────────────────────────────────┘
+                               │
+                               ▼
+┌──────────────────────────────────────────────────────────────┐
+│                       PHYSICS MODULES                         │
+│            (Plug‑in Systems — Modular, Replaceable)           │
+│                                                              │
+│  • CompressionModule                                          │
+│  • ForcesModule (gravity, fields)                             │
+│  • CollisionModule                                            │
+│  • ConstraintModule                                           │
+│  • Integrator (Euler, RK, etc.)                               │
+└──────────────────────────────────────────────────────────────┘
+                               │
+                               ▼
+┌──────────────────────────────────────────────────────────────┐
+│                        OUTPUT LAYER                           │
+│                                                              │
+│  • Logs (state history)                                       │
+│  • Diagnostics (invariants, energy, compression response)     │
+│  • Snapshots / Frames                                         │
+│  • Blueprint Version Trace                                    │
+└──────────────────────────────────────────────────────────────┘
