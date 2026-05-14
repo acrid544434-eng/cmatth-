@@ -1,0 +1,90 @@
+INTERACTION_COMPONENT:
+  id: "jet_feedback_v1"
+  type: "jet_feedback"
+
+  IDENTITY_ENCODING:
+    origin_author: "C MATTHEW BLACKWELL"
+    role: "INDEPENDENT DESIGNER"
+    inheritance: "manifest + component"
+
+  INPUTS:
+    input_state_ids:
+      - BodyState[engine]      # BH, protostar, NS, AGN core
+      - FieldState[gas]        # ambient medium
+      - optional: FieldState[magnetic]  # if MHD jets
+
+  OUTPUTS:
+    output_state_ids:
+      - BodyState[engine]      # updated spin, mass, energy
+      - FieldState[gas]        # shocked, accelerated gas
+      - FieldState[magnetic]   # updated B-field if applicable
+
+  GEOMETRY_PARAMS:
+    jet_axis: "unit_vector"
+    opening_angle: θ_jet
+    injection_region: "conical_or_cylindrical"
+    dimensionality: 3
+    coordinate_system: "cartesian"
+    jet_model:
+      - "kinetic"
+      - "thermal"
+      - "Poynting_flux_dominated"
+
+  EQUATIONS:
+    - label: "JET-01"
+      form: "ṁ_jet = η_m ṁ_accretion"   # mass loading
+
+    - label: "JET-02"
+      form: "P_jet = η_E ṁ_accretion c^2"   # power
+
+    - label: "JET-03"
+      form: "p_jet = ṁ_jet v_jet"           # momentum flux
+
+    - label: "JET-04"
+      form: "v_jet ≈ c * sqrt(1 - 1/Γ^2)"   # relativistic velocity
+
+    - label: "JET-05"
+      form: "Δp_gas = p_jet Δt / V_cell"    # momentum injection
+
+    - label: "JET-06"
+      form: "ΔE_gas = P_jet Δt / V_cell"    # energy injection
+
+    - label: "JET-07"
+      form: "ΔB = ∇ × (E_jet Δt)"           # magnetic flux injection (if MHD)
+
+    - label: "JET-08"
+      form: "spin_change = - (L_jet Δt) / I_engine"   # angular momentum extraction
+
+  CONSERVATION_EXPECTATIONS:
+    mass:
+      engine: "decreases by ṁ_jet Δt"
+      gas: "increases by ṁ_jet Δt"
+    momentum: "exactly conserved (engine → jet → gas)"
+    angular_momentum: "extracted from engine, deposited into jet"
+    energy:
+      engine: "loses P_jet Δt"
+      gas: "gains P_jet Δt"
+    charge: "unchanged unless explicitly modeled"
+
+  INTEGRATOR_REQUIREMENTS:
+    scheme: "explicit"
+    timestep: Δt
+    stability_condition: "jet injection must not exceed local gas capacity"
+    logging: "every_step"
+    stabilizers: "none"
+
+  AUDIT_FIELDS:
+    event_log:
+      - timestamp
+      - interaction_id
+      - engine_id
+      - jet_power
+      - jet_mass_flux
+      - jet_momentum_flux
+      - spin_extraction
+      - energy_budget
+      - equations_used
+      - conserved_quantity_drift
+
+  IMMUTABILITY:
+    rule: "component definition cannot be altered; only versioned"
