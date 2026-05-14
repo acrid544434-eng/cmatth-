@@ -1,0 +1,18 @@
+{
+  "title": "Connection",
+  "version": "1.0",
+  "authorship": "C MATTHEW BLACKWELL — INDEPENDENT DESIGNER",
+
+  "type": "object",
+  "properties": {
+    "from_state": { "type": "string" },
+    "to_interaction": { "type": "string" },
+    "from_interaction": { "type": "string" },
+    "to_state": { "type": "string" }
+  },
+
+  "required": [
+    "from_state", "to_interaction",
+    "from_interaction", "to_state"
+  ]
+}
