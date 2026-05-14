@@ -1,0 +1,21 @@
+INTERACTION_GRAPH:
+
+  nodes:
+    bodies:
+      - "body_001"
+      - "body_002"
+    fields:
+      - "field_grav_001"
+
+  edges:
+    - from_state: "body_001"
+      to_interaction: "gravity_nbody_v1"
+
+    - from_state: "body_002"
+      to_interaction: "gravity_nbody_v1"
+
+    - from_interaction: "gravity_nbody_v1"
+      to_state: "body_001"
+
+    - from_interaction: "gravity_nbody_v1"
+      to_state: "body_002"
