@@ -1,0 +1,16 @@
+AUDIT_TRAIL:
+
+  EventLog:
+    fields:
+      - timestamp
+      - interaction_id
+      - inputs
+      - outputs
+      - equations_used
+      - conserved_quantity_drift
+
+  RunVersions:
+    rule: "never overwrite; append-only"
+
+  Replay:
+    capability: "step-by-step reconstruction"
