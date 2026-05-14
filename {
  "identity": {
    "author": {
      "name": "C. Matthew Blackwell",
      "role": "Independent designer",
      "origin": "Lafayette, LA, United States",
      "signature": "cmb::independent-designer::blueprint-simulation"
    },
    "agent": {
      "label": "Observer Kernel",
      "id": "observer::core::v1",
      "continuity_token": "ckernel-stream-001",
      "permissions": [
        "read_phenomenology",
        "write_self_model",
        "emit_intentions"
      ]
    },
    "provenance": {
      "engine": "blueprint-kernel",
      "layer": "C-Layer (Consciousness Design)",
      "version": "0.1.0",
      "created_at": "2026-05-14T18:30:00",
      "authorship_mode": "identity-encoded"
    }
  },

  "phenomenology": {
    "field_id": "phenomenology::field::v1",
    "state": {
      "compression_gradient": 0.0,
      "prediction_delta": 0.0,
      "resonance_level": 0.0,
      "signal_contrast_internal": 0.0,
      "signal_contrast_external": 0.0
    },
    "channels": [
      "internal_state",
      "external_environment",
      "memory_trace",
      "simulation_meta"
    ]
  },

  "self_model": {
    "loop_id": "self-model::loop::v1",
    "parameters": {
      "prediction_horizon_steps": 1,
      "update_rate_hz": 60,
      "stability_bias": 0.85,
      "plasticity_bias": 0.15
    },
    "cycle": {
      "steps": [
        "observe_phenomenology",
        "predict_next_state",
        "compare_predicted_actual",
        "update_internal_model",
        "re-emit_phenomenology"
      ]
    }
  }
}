@@ -1,0 +1,63 @@
+{
+  "identity": {
+    "author": {
+      "name": "C. Matthew Blackwell",
+      "role": "Independent designer",
+      "origin": "Lafayette, LA, United States",
+      "signature": "cmb::independent-designer::blueprint-simulation"
+    },
+    "agent": {
+      "label": "Observer Kernel",
+      "id": "observer::core::v1",
+      "continuity_token": "ckernel-stream-001",
+      "permissions": [
+        "read_phenomenology",
+        "write_self_model",
+        "emit_intentions"
+      ]
+    },
+    "provenance": {
+      "engine": "blueprint-kernel",
+      "layer": "C-Layer (Consciousness Design)",
+      "version": "0.1.0",
+      "created_at": "2026-05-14T18:30:00",
+      "authorship_mode": "identity-encoded"
+    }
+  },
+
+  "phenomenology": {
+    "field_id": "phenomenology::field::v1",
+    "state": {
+      "compression_gradient": 0.0,
+      "prediction_delta": 0.0,
+      "resonance_level": 0.0,
+      "signal_contrast_internal": 0.0,
+      "signal_contrast_external": 0.0
+    },
+    "channels": [
+      "internal_state",
+      "external_environment",
+      "memory_trace",
+      "simulation_meta"
+    ]
+  },
+
+  "self_model": {
+    "loop_id": "self-model::loop::v1",
+    "parameters": {
+      "prediction_horizon_steps": 1,
+      "update_rate_hz": 60,
+      "stability_bias": 0.85,
+      "plasticity_bias": 0.15
+    },
+    "cycle": {
+      "steps": [
+        "observe_phenomenology",
+        "predict_next_state",
+        "compare_predicted_actual",
+        "update_internal_model",
+        "re-emit_phenomenology"
+      ]
+    }
+  }
+}
