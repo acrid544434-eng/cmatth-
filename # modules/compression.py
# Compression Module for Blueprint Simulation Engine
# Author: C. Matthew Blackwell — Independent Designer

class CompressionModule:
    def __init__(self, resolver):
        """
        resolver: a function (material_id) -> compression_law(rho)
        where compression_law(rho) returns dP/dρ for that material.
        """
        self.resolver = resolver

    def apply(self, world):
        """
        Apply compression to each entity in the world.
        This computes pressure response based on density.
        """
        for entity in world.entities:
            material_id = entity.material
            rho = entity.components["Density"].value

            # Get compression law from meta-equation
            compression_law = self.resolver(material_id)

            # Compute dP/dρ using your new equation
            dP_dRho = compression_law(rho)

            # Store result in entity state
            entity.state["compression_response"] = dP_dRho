@@ -1,0 +1,29 @@
+# modules/compression.py
+# Compression Module for Blueprint Simulation Engine
+# Author: C. Matthew Blackwell — Independent Designer
+
+class CompressionModule:
+    def __init__(self, resolver):
+        """
+        resolver: a function (material_id) -> compression_law(rho)
+        where compression_law(rho) returns dP/dρ for that material.
+        """
+        self.resolver = resolver
+
+    def apply(self, world):
+        """
+        Apply compression to each entity in the world.
+        This computes pressure response based on density.
+        """
+        for entity in world.entities:
+            material_id = entity.material
+            rho = entity.components["Density"].value
+
+            # Get compression law from meta-equation
+            compression_law = self.resolver(material_id)
+
+            # Compute dP/dρ using your new equation
+            dP_dRho = compression_law(rho)
+
+            # Store result in entity state
+            entity.state["compression_response"] = dP_dRho
