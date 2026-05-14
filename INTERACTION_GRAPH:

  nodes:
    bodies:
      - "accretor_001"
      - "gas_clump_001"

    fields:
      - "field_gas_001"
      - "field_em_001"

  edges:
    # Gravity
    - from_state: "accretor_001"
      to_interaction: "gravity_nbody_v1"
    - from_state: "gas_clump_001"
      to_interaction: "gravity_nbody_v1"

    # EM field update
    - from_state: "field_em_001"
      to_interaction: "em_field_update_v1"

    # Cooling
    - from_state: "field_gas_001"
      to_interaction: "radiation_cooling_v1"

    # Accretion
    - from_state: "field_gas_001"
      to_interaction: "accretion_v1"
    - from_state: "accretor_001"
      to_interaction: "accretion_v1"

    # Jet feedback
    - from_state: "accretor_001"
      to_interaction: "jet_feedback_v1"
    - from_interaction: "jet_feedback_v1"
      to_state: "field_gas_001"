@@ -1,0 +1,37 @@
+INTERACTION_GRAPH:
+
+  nodes:
+    bodies:
+      - "accretor_001"
+      - "gas_clump_001"
+
+    fields:
+      - "field_gas_001"
+      - "field_em_001"
+
+  edges:
+    # Gravity
+    - from_state: "accretor_001"
+      to_interaction: "gravity_nbody_v1"
+    - from_state: "gas_clump_001"
+      to_interaction: "gravity_nbody_v1"
+
+    # EM field update
+    - from_state: "field_em_001"
+      to_interaction: "em_field_update_v1"
+
+    # Cooling
+    - from_state: "field_gas_001"
+      to_interaction: "radiation_cooling_v1"
+
+    # Accretion
+    - from_state: "field_gas_001"
+      to_interaction: "accretion_v1"
+    - from_state: "accretor_001"
+      to_interaction: "accretion_v1"
+
+    # Jet feedback
+    - from_state: "accretor_001"
+      to_interaction: "jet_feedback_v1"
+    - from_interaction: "jet_feedback_v1"
+      to_state: "field_gas_001"
