@@ -1,0 +1,81 @@
+1. Core principles (physicist‑designed, blueprint‑first)
+
+- Law‑first:  
+  Equations and invariants are the primary objects, not functions or classes.
+
+- Explicit state:  
+  Bodies, fields, and radiation are typed states with JSON‑schema clarity.
+
+- Modular interactions:  
+  Gravity, radiation, collisions, accretion, etc. are InteractionComponents, each:
+  - has an ID  
+  - lists its equations  
+  - declares its conservation rules  
+  - defines its inputs/outputs
+
+- Forensic by design:  
+  Every step is replayable, hashable, and auditable.
+
+---
+
+2. Minimal entity set
+
+- BodyState — particles, stars, BHs, clumps  
+- FieldState — gas, EM, radiation, DM  
+- InteractionComponent — physics modules (gravity, radiation, etc.)  
+- Connection — edges in the interaction graph
+
+These four are enough to express almost any physics simulation.
+
+---
+
+3. Simulation loop as a blueprint, not code
+
+Instead of:
+
+`cpp
+for step in steps:
+    update_gravity()
+    update_radiation()
+    update_hydro()
+`
+
+You define:
+
+`yaml
+INTEGRATOR_PLAN:
+  steps: N
+  timestep: Δt
+  schedule:
+    - gravitynbodyv1
+    - relativisticcorrectionv1
+    - emfieldupdate_v1
+    - radiationtransportv1
+    - radiationcoolingv2
+    - collision_v1
+    - accretion_v1
+    - jetfeedbackv1
+`
+
+The engine reads the blueprint and runs the schedule.  
+Physicist = designer of the blueprint, not the code.
+
+---
+
+4. What “physicist design” really means here
+
+- You encode the theory (equations, invariants, couplings)  
+- The implementation is swappable under that theory  
+- The blueprint is:
+  - immutable  
+  - versioned  
+  - authorship‑encoded  
+  - auditable  
+
+So the physicist’s job becomes:
+
+> “Define the universe as a blueprint.”
+
+Not:
+
+> “Fight a codebase to approximate the universe.”
