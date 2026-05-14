@@ -1,0 +1,41 @@
+CORE_ENTITIES:
+
+  BodyState:
+    immutable: true
+    fields:
+      - id
+      - t
+      - position
+      - velocity
+      - mass
+      - charge
+      - spin
+      - composition
+      - source_interaction
+
+  FieldState:
+    immutable: true
+    fields:
+      - id
+      - t
+      - grid_geometry
+      - field_type
+      - values
+
+  InteractionComponent:
+    immutable: true
+    fields:
+      - id
+      - type
+      - input_state_ids
+      - output_state_ids
+      - geometry_params
+      - equations
+
+  Connection:
+    immutable: true
+    fields:
+      - from_state
+      - to_interaction
+      - from_interaction
+      - to_state
