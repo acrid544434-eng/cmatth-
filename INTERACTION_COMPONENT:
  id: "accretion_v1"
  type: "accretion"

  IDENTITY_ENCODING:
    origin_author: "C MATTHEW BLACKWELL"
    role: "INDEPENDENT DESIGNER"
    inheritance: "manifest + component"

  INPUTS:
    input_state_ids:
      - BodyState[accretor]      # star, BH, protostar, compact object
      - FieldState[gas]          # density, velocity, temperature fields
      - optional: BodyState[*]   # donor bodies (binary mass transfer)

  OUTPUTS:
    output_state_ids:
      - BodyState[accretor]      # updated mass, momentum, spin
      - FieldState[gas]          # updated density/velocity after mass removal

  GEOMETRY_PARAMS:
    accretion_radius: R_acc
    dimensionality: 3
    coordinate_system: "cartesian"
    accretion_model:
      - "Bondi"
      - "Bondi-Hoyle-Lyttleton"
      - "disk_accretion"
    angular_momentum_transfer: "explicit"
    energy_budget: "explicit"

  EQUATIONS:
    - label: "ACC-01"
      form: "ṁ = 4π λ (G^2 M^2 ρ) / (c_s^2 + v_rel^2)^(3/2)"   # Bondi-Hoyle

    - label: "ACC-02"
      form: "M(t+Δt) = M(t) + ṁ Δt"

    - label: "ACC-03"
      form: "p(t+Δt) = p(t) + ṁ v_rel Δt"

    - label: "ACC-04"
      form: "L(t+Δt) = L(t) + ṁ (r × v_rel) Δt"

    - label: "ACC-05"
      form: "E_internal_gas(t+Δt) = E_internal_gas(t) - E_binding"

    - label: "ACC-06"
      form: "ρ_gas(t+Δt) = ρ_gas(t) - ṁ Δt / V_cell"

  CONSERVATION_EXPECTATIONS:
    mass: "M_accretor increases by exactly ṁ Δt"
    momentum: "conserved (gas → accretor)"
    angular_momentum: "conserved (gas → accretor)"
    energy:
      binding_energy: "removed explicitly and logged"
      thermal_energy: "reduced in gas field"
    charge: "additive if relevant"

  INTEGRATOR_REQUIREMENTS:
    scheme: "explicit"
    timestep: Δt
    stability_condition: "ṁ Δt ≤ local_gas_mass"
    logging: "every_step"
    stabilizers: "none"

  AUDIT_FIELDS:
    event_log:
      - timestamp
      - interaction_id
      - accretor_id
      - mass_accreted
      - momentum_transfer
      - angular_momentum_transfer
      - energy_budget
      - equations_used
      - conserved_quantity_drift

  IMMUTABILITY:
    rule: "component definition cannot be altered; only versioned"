@@ -1,0 +1,80 @@
+INTERACTION_COMPONENT:
+  id: "accretion_v1"
+  type: "accretion"
+
+  IDENTITY_ENCODING:
+    origin_author: "C MATTHEW BLACKWELL"
+    role: "INDEPENDENT DESIGNER"
+    inheritance: "manifest + component"
+
+  INPUTS:
+    input_state_ids:
+      - BodyState[accretor]      # star, BH, protostar, compact object
+      - FieldState[gas]          # density, velocity, temperature fields
+      - optional: BodyState[*]   # donor bodies (binary mass transfer)
+
+  OUTPUTS:
+    output_state_ids:
+      - BodyState[accretor]      # updated mass, momentum, spin
+      - FieldState[gas]          # updated density/velocity after mass removal
+
+  GEOMETRY_PARAMS:
+    accretion_radius: R_acc
+    dimensionality: 3
+    coordinate_system: "cartesian"
+    accretion_model:
+      - "Bondi"
+      - "Bondi-Hoyle-Lyttleton"
+      - "disk_accretion"
+    angular_momentum_transfer: "explicit"
+    energy_budget: "explicit"
+
+  EQUATIONS:
+    - label: "ACC-01"
+      form: "ṁ = 4π λ (G^2 M^2 ρ) / (c_s^2 + v_rel^2)^(3/2)"   # Bondi-Hoyle
+
+    - label: "ACC-02"
+      form: "M(t+Δt) = M(t) + ṁ Δt"
+
+    - label: "ACC-03"
+      form: "p(t+Δt) = p(t) + ṁ v_rel Δt"
+
+    - label: "ACC-04"
+      form: "L(t+Δt) = L(t) + ṁ (r × v_rel) Δt"
+
+    - label: "ACC-05"
+      form: "E_internal_gas(t+Δt) = E_internal_gas(t) - E_binding"
+
+    - label: "ACC-06"
+      form: "ρ_gas(t+Δt) = ρ_gas(t) - ṁ Δt / V_cell"
+
+  CONSERVATION_EXPECTATIONS:
+    mass: "M_accretor increases by exactly ṁ Δt"
+    momentum: "conserved (gas → accretor)"
+    angular_momentum: "conserved (gas → accretor)"
+    energy:
+      binding_energy: "removed explicitly and logged"
+      thermal_energy: "reduced in gas field"
+    charge: "additive if relevant"
+
+  INTEGRATOR_REQUIREMENTS:
+    scheme: "explicit"
+    timestep: Δt
+    stability_condition: "ṁ Δt ≤ local_gas_mass"
+    logging: "every_step"
+    stabilizers: "none"
+
+  AUDIT_FIELDS:
+    event_log:
+      - timestamp
+      - interaction_id
+      - accretor_id
+      - mass_accreted
+      - momentum_transfer
+      - angular_momentum_transfer
+      - energy_budget
+      - equations_used
+      - conserved_quantity_drift
+
+  IMMUTABILITY:
+    rule: "component definition cannot be altered; only versioned"
