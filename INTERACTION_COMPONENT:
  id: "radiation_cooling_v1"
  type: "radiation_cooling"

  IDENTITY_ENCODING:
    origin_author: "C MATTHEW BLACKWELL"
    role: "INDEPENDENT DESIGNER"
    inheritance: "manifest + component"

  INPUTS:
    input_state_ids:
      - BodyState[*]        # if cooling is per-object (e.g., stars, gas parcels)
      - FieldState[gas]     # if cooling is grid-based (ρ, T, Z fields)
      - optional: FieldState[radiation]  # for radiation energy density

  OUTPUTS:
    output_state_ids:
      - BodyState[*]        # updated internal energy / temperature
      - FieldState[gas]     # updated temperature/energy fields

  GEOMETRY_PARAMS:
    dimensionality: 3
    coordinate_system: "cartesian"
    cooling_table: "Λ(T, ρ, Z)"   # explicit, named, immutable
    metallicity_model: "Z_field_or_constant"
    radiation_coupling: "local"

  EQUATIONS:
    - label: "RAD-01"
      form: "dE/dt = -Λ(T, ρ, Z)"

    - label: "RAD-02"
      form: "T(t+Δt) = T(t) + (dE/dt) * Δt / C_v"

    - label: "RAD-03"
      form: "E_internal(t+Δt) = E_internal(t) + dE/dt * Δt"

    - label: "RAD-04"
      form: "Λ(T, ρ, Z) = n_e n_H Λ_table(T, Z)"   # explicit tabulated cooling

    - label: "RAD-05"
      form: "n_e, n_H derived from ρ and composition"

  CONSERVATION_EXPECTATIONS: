@@ -1,0 +1,44 @@
+INTERACTION_COMPONENT:
+  id: "radiation_cooling_v1"
+  type: "radiation_cooling"
+
+  IDENTITY_ENCODING:
+    origin_author: "C MATTHEW BLACKWELL"
+    role: "INDEPENDENT DESIGNER"
+    inheritance: "manifest + component"
+
+  INPUTS:
+    input_state_ids:
+      - BodyState[*]        # if cooling is per-object (e.g., stars, gas parcels)
+      - FieldState[gas]     # if cooling is grid-based (ρ, T, Z fields)
+      - optional: FieldState[radiation]  # for radiation energy density
+
+  OUTPUTS:
+    output_state_ids:
+      - BodyState[*]        # updated internal energy / temperature
+      - FieldState[gas]     # updated temperature/energy fields
+
+  GEOMETRY_PARAMS:
+    dimensionality: 3
+    coordinate_system: "cartesian"
+    cooling_table: "Λ(T, ρ, Z)"   # explicit, named, immutable
+    metallicity_model: "Z_field_or_constant"
+    radiation_coupling: "local"
+
+  EQUATIONS:
+    - label: "RAD-01"
+      form: "dE/dt = -Λ(T, ρ, Z)"
+
+    - label: "RAD-02"
+      form: "T(t+Δt) = T(t) + (dE/dt) * Δt / C_v"
+
+    - label: "RAD-03"
+      form: "E_internal(t+Δt) = E_internal(t) + dE/dt * Δt"
+
+    - label: "RAD-04"
+      form: "Λ(T, ρ, Z) = n_e n_H Λ_table(T, Z)"   # explicit tabulated cooling
+
+    - label: "RAD-05"
+      form: "n_e, n_H derived from ρ and composition"
+
+  CONSERVATION_EXPECTATIONS:
