@@ -1,0 +1,90 @@
+INTERACTION_SUITE:
+  version: "1.0"
+  doctrine: "Simplicity-Max"
+  mutability: "immutable"
+  versioning: "append-only"
+  inheritance: "engine-wide"
+
+  IDENTITY_ENCODING:
+    origin_author: "C MATTHEW BLACKWELL"
+    role: "INDEPENDENT DESIGNER"
+    signature_type: "immutable_header"
+    scope: "Astrophysics Interaction Suite"
+    inheritance: "all components"
+
+  COMPONENTS:
+    - gravity_nbody_v1
+    - relativistic_correction_v1
+    - em_field_update_v1
+    - radiation_cooling_v1
+    - collision_v1
+    - accretion_v1
+    - jet_feedback_v1
+    - dark_matter_potential_v1
+
+  COMPONENT_DEFINITIONS:
+
+    gravity_nbody_v1:
+      type: "gravity_nbody"
+      equations: [GRAV-01, GRAV-02, GRAV-03]
+      conservation: [momentum, energy, angular_momentum, mass]
+      integrator: "symplectic_leapfrog"
+      logging: "every_step"
+
+    relativistic_correction_v1:
+      type: "relativistic_correction"
+      equations: [PN-01, PN-02, PN-03, PN-04]
+      conservation: [momentum, angular_momentum, PN_energy]
+      integrator: "symplectic_leapfrog_with_PN_terms"
+      logging: "every_step"
+
+    em_field_update_v1:
+      type: "em_field_update"
+      equations: [MAX-01, MAX-02, MAX-03, MAX-04, MAX-05, MAX-06]
+      conservation: [charge, energy, momentum]
+      integrator: "Yee_FDTD"
+      logging: "every_step"
+
+    radiation_cooling_v1:
+      type: "radiation_cooling"
+      equations: [RAD-01, RAD-02, RAD-03, RAD-04, RAD-05]
+      conservation: [energy_loss_logged]
+      integrator: "explicit"
+      logging: "every_step"
+
+    collision_v1:
+      type: "collision"
+      equations: [COL-01, COL-02, COL-03, COL-04, COL-05, COL-06, COL-07]
+      conservation: [momentum, angular_momentum, energy_or_loss]
+      integrator: "event_driven"
+      logging: "every_collision_event"
+
+    accretion_v1:
+      type: "accretion"
+      equations: [ACC-01, ACC-02, ACC-03, ACC-04, ACC-05, ACC-06]
+      conservation: [mass_transfer, momentum_transfer, angular_momentum_transfer]
+      integrator: "explicit"
+      logging: "every_step"
+
+    jet_feedback_v1:
+      type: "jet_feedback"
+      equations: [JET-01, JET-02, JET-03, JET-04, JET-05, JET-06, JET-07, JET-08]
+      conservation: [energy_transfer, momentum_transfer, angular_momentum_extraction]
+      integrator: "explicit"
+      logging: "every_step"
+
+    dark_matter_potential_v1:
+      type: "dark_matter_potential"
+      equations: [DM-01, DM-02, DM-03, DM-04, DM-05, DM-06]
+      conservation: [momentum, angular_momentum, static_energy]
+      integrator: "symplectic_leapfrog"
+      logging: "every_step"
+
+  AUDIT_POLICY:
+    event_log: "enabled"
+    conservation_trace: "enabled"
+    equation_feed: "enabled"
+    forensic_mode: "strict"
+
+  IMMUTABILITY:
+    rule: "suite cannot be altered; only versioned"
