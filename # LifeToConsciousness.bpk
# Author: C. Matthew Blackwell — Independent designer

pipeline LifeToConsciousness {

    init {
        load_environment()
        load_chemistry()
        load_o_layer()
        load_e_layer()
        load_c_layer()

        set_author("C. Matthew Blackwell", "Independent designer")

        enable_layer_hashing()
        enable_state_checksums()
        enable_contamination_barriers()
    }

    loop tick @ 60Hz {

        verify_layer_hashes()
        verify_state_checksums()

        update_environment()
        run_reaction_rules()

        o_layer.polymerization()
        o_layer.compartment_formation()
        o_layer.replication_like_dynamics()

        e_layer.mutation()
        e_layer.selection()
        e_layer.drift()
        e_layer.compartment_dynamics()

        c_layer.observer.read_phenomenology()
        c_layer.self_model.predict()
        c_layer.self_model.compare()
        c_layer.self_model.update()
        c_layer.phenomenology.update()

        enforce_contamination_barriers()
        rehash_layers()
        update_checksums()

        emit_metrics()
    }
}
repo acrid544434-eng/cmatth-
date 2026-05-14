@@ -1,0 +1,49 @@
+# LifeToConsciousness.bpk
+# Author: C. Matthew Blackwell — Independent designer
+
+pipeline LifeToConsciousness {
+
+    init {
+        load_environment()
+        load_chemistry()
+        load_o_layer()
+        load_e_layer()
+        load_c_layer()
+
+        set_author("C. Matthew Blackwell", "Independent designer")
+
+        enable_layer_hashing()
+        enable_state_checksums()
+        enable_contamination_barriers()
+    }
+
+    loop tick @ 60Hz {
+
+        verify_layer_hashes()
+        verify_state_checksums()
+
+        update_environment()
+        run_reaction_rules()
+
+        o_layer.polymerization()
+        o_layer.compartment_formation()
+        o_layer.replication_like_dynamics()
+
+        e_layer.mutation()
+        e_layer.selection()
+        e_layer.drift()
+        e_layer.compartment_dynamics()
+
+        c_layer.observer.read_phenomenology()
+        c_layer.self_model.predict()
+        c_layer.self_model.compare()
+        c_layer.self_model.update()
+        c_layer.phenomenology.update()
+
+        enforce_contamination_barriers()
+        rehash_layers()
+        update_checksums()
+
+        emit_metrics()
+    }
+}
