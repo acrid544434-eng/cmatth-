@@ -1,0 +1,131 @@
+AUTHORS:
+  - C MATTHEW BLACKWELL — INDEPENDENT DESIGNER
+
+IDENTITY_ENCODING:
+  origin_author: "C MATTHEW BLACKWELL"
+  role: "INDEPENDENT DESIGNER"
+  signature_type: "immutable_header"
+  version: "1.0"
+  scope: "Astrophysics Blueprint Engine"
+  inheritance: "all entities, all components, all capsules"
+
+ENGINE_MANIFEST:
+  name: "Astrophysics Blueprint Engine"
+  version: "1.0"
+  doctrine: "Simplicity-Max"
+  mutability: "immutable"
+  versioning: "append-only"
+  lineage: "cryptographically traceable"
+  audit_mode: "forensic"
+
+CORE_ENTITIES:
+  BodyState:
+    immutable: true
+    fields:
+      - id
+      - t
+      - position
+      - velocity
+      - mass
+      - charge
+      - spin
+      - composition
+      - source_interaction
+
+  FieldState:
+    immutable: true
+    fields:
+      - id
+      - t
+      - grid_geometry
+      - field_type
+      - values
+
+  InteractionComponent:
+    immutable: true
+    fields:
+      - id
+      - type
+      - input_state_ids
+      - output_state_ids
+      - geometry_params
+      - equations
+
+  Connection:
+    immutable: true
+    fields:
+      - from_state
+      - to_interaction
+      - from_interaction
+      - to_state
+
+PHYSICS_LAYERS:
+  ConservationLayer:
+    invariants:
+      - momentum
+      - energy
+      - angular_momentum
+      - charge
+      - mass
+
+  EquationLayer:
+    explicit_equations:
+      - Newtonian_gravity
+      - Post_Newtonian_corrections
+      - Maxwell_equations
+      - MHD_equations
+      - Radiation_cooling
+      - Accretion_models
+      - Stellar_evolution_approximations
+
+  IntegratorLayer:
+    schemes:
+      - symplectic
+      - leapfrog
+      - verlet
+    logging: "every_step"
+    stabilizers: "none"
+
+AUDIT_TRAIL:
+  EventLog:
+    fields:
+      - timestamp
+      - interaction_id
+      - inputs
+      - outputs
+      - equations_used
+      - conserved_quantity_drift
+
+  RunVersions:
+    rule: "never overwrite; append-only"
+
+  Replay:
+    capability: "step-by-step reconstruction"
+
+UI_BLUEPRINT:
+  BlueprintView:
+    nodes: "bodies"
+    layers: "fields"
+    edges: "interactions"
+
+  EquationFeed:
+    mode: "live_scroll"
+    content: "equations_per_step"
+
+  ConservationMonitor:
+    plots:
+      - total_energy
+      - total_momentum
+      - angular_momentum
+      - mass_budget
+
+FORENSIC_SIGNATURE:
+  StateLedgerHash: "hash_of_all_BodyStates_and_FieldStates"
+  InteractionLedgerHash: "hash_of_all_interaction_definitions"
+  EquationFeedDigest: "digest_of_equations_used_each_step"
+  ConservationTraceDigest: "drift_digest"
+
+CAPSULE_POLICY:
+  inscription: "immutable"
+  closure: "cryptographic-style"
+  inheritance: "authorship + manifest"
