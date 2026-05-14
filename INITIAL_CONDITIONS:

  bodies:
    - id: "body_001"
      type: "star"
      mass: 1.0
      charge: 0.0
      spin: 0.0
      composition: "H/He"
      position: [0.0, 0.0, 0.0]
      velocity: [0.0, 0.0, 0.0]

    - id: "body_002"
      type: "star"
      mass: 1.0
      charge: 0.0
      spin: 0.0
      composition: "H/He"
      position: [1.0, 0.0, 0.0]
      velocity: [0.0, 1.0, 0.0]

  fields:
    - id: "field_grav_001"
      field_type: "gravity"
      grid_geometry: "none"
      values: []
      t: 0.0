@@ -1,0 +1,27 @@
+INITIAL_CONDITIONS:
+
+  bodies:
+    - id: "body_001"
+      type: "star"
+      mass: 1.0
+      charge: 0.0
+      spin: 0.0
+      composition: "H/He"
+      position: [0.0, 0.0, 0.0]
+      velocity: [0.0, 0.0, 0.0]
+
+    - id: "body_002"
+      type: "star"
+      mass: 1.0
+      charge: 0.0
+      spin: 0.0
+      composition: "H/He"
+      position: [1.0, 0.0, 0.0]
+      velocity: [0.0, 1.0, 0.0]
+
+  fields:
+    - id: "field_grav_001"
+      field_type: "gravity"
+      grid_geometry: "none"
+      values: []
+      t: 0.0
