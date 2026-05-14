@@ -1,0 +1,75 @@
+INTERACTION_COMPONENT:
+  id: "dark_matter_potential_v1"
+  type: "dark_matter_potential"
+
+  IDENTITY_ENCODING:
+    origin_author: "C MATTHEW BLACKWELL"
+    role: "INDEPENDENT DESIGNER"
+    inheritance: "manifest + component"
+
+  INPUTS:
+    input_state_ids:
+      - BodyState[*]         # baryonic bodies affected by DM potential
+      - optional: FieldState[dm_density]   # if using grid-based DM
+
+  OUTPUTS:
+    output_state_ids:
+      - BodyState[*]         # updated accelerations/velocities at t + Δt
+
+  GEOMETRY_PARAMS:
+    halo_profile:
+      - "NFW"
+      - "Einasto"
+      - "Burkert"
+      - "Isothermal"
+    scale_radius: r_s
+    scale_density: ρ_s
+    dimensionality: 3
+    coordinate_system: "cartesian"
+
+  EQUATIONS:
+    - label: "DM-01"
+      form: "ρ(r) = ρ_s / ( (r/r_s)(1 + r/r_s)^2 )"   # NFW
+
+    - label: "DM-02"
+      form: "M(<r) = 4π ∫_0^r ρ(r') r'^2 dr'"
+
+    - label: "DM-03"
+      form: "Φ(r) = -G M(<r) / r"
+
+    - label: "DM-04"
+      form: "a_DM(r) = -∇Φ(r)"
+
+    - label: "DM-05"
+      form: "v_i(t+Δt) = v_i(t) + a_DM(r_i) Δt"
+
+    - label: "DM-06"
+      form: "r_i(t+Δt) = r_i(t) + v_i(t+Δt) Δt"
+
+  CONSERVATION_EXPECTATIONS:
+    momentum: "conserved (DM halo is static background)"
+    angular_momentum: "conserved"
+    energy: "conserved within static potential"
+    mass: "unchanged"
+    charge: "unchanged"
+
+  INTEGRATOR_REQUIREMENTS:
+    scheme: "symplectic_leapfrog"
+    timestep: Δt
+    logging: "every_step"
+    stabilizers: "none"
+
+  AUDIT_FIELDS:
+    event_log:
+      - timestamp
+      - interaction_id
+      - halo_profile
+      - scale_radius
+      - scale_density
+      - inputs
+      - outputs
+      - equations_used
+      - conserved_quantity_drift
+
+  IMMUTABILITY:
+    rule: "component definition cannot be altered; only versioned"
