@@ -1,0 +1,79 @@
+{
+  "e_layer": {
+    "version": "0.1.0",
+
+    "author": {
+      "name": "C. Matthew Blackwell",
+      "role": "Independent designer",
+      "origin": "Lafayette, LA, United States",
+      "signature": "cmb::independent-designer::evolution-layer"
+    },
+
+    "units": {
+      "replicators": {
+        "types": [
+          "rna_like",
+          "peptide_rna_hybrid",
+          "lipid_encapsulated_replicator"
+        ],
+        "properties": {
+          "mutation_rate": 0.01,
+          "replication_fidelity": 0.9,
+          "resource_cost": 1.0
+        }
+      },
+
+      "compartments": {
+        "types": [
+          "lipid_vesicle",
+          "micelle",
+          "proto_cell"
+        ],
+        "properties": {
+          "division_threshold": 1.5,
+          "permeability": 0.3
+        }
+      }
+    },
+
+    "processes": {
+      "mutation": {
+        "enabled": true,
+        "rate": 0.01,
+        "bias": {
+          "neutral": 0.7,
+          "beneficial": 0.1,
+          "deleterious": 0.2
+        }
+      },
+
+      "selection": {
+        "enabled": true,
+        "pressure": 0.3,
+        "criteria": [
+          "replication_speed",
+          "stability",
+          "resource_efficiency"
+        ]
+      },
+
+      "drift": {
+        "enabled": true,
+        "population_size": 1000
+      },
+
+      "compartment_dynamics": {
+        "enabled": true,
+        "division_rule": "volume_threshold",
+        "fusion_probability": 0.05
+      }
+    },
+
+    "metrics": {
+      "diversity_index": 0.0,
+      "fitness_distribution": [],
+      "lineage_count": 0,
+      "innovation_events": 0
+    }
+  }
+}
