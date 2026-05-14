@@ -1,0 +1,9 @@
+# entity.py
+# Minimal Entity Representation
+
+class Entity:
+    def __init__(self, entity_id, material, components):
+        self.id = entity_id
+        self.material = material
+        self.components = components  # dict of component_name -> component
+        self.state = {}               # runtime state (compression, forces, etc.)
