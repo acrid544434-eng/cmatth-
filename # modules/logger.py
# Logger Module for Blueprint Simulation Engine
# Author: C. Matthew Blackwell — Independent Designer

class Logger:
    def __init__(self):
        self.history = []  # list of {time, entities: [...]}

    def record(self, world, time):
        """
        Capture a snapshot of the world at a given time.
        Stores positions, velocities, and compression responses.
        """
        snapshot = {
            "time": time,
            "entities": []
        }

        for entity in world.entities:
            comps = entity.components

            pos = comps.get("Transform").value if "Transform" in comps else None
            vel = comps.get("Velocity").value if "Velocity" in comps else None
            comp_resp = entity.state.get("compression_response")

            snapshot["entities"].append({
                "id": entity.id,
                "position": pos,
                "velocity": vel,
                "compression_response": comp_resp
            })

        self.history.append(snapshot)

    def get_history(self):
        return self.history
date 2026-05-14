@@ -1,0 +1,36 @@
+# modules/logger.py
+# Logger Module for Blueprint Simulation Engine
+# Author: C. Matthew Blackwell — Independent Designer
+
+class Logger:
+    def __init__(self):
+        self.history = []  # list of {time, entities: [...]}
+
+    def record(self, world, time):
+        """
+        Capture a snapshot of the world at a given time.
+        Stores positions, velocities, and compression responses.
+        """
+        snapshot = {
+            "time": time,
+            "entities": []
+        }
+
+        for entity in world.entities:
+            comps = entity.components
+
+            pos = comps.get("Transform").value if "Transform" in comps else None
+            vel = comps.get("Velocity").value if "Velocity" in comps else None
+            comp_resp = entity.state.get("compression_response")
+
+            snapshot["entities"].append({
+                "id": entity.id,
+                "position": pos,
+                "velocity": vel,
+                "compression_response": comp_resp
+            })
+
+        self.history.append(snapshot)
+
+    def get_history(self):
+        return self.history
