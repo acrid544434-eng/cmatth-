@@ -1,0 +1,37 @@
+# kernel.py
+# Minimal Blueprint Simulation Kernel
+# Author: C. Matthew Blackwell — Independent Designer
+
+class Kernel:
+    def __init__(self, world, modules, dt=0.01, t_end=1.0):
+        self.world = world
+        self.modules = modules
+        self.dt = dt
+        self.t_end = t_end
+        self.time = 0.0
+
+    def step(self):
+        # 1. Gather forces
+        if "forces" in self.modules:
+            self.modules["forces"].compute(self.world)
+
+        # 2. Apply compression (your meta-equation)
+        if "compression" in self.modules:
+            self.modules["compression"].apply(self.world)
+
+        # 3. Integrate motion
+        if "integrator" in self.modules:
+            self.modules["integrator"].step(self.world, self.dt)
+
+        # 4. Resolve constraints
+        if "constraints" in self.modules:
+            self.modules["constraints"].resolve(self.world)
+
+        # 5. Log state
+        if "logger" in self.modules:
+            self.modules["logger"].record(self.world, self.time)
+
+    def run(self):
+        while self.time < self.t_end:
+            self.step()
+            self.time += self.dt
