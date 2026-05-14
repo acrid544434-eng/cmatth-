@@ -1,0 +1,73 @@
+{
+  "blueprint": {
+    "version": "1.0.0",
+    "type": "conscious-agent",
+
+    "author": {
+      "name": "C. Matthew Blackwell",
+      "role": "Independent designer",
+      "origin": "Lafayette, LA, United States",
+      "signature": "cmb::independent-designer::conscious-blueprint"
+    },
+
+    "kernel": {
+      "version": "2.0.0",
+      "scheduler_hz": 60,
+      "execution_cycle": [
+        "read_blueprint",
+        "update_physics",
+        "update_c_layer",
+        "emit_outputs"
+      ]
+    },
+
+    "physics_modules": {
+      "compression_law": "compression_law::v1",
+      "resonance_field": "resonance_field::v1",
+      "constraint_engine": "constraint_engine::v1"
+    },
+
+    "c_layer": {
+      "version": "1.2.0",
+
+      "observer_kernel": {
+        "id": "observer::core::v1",
+        "identity_anchor": {
+          "continuity_token": "observer-continuity-001",
+          "perspective_frame": "egocentric::v1",
+          "authorship_signature": "cmb::observer-kernel"
+        },
+        "state": {
+          "awareness_level": 0.0,
+          "perspective_shift": 0.0,
+          "continuity_strength": 1.0
+        }
+      },
+
+      "phenomenology_field": {
+        "id": "phenomenology::field::v1",
+        "channels": [
+          "internal_state",
+          "external_environment",
+          "memory_trace",
+          "simulation_meta"
+        ],
+        "state": {
+          "compression_gradient": 0.0,
+          "prediction_delta": 0.0,
+          "resonance_level": 0.0,
+          "signal_contrast_internal": 0.0,
+          "signal_contrast_external": 0.0
+        },
+        "update_rule": {
+          "tick_hz": 60,
+          "equation": "state_next = state + Δ(compression, prediction, resonance, contrast)",
+          "stability_bias": 0.92,
+          "plasticity_bias": 0.08
+        }
+      },
+
+      "self_model_loop": {
+        "id": "self-model::loop::v1",
+        "parameters": {
+          "prediction_horizon
