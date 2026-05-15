@@ -1,0 +1,13 @@
+blueprint:
+  id: cmb.simulation.encrypted.v1
+  author: "C. Matthew Blackwell"
+  encryption: "AES-256"
+  signature: "SHA256(cmb-simulation-architecture)"
+  includes:
+    - encrypted_design_layer
+    - encrypted_kernel
+    - identity_encoding
+  invariants:
+    - "identity cannot be removed"
+    - "blueprint cannot be decrypted without key"
+    - "simulation rules remain sealed"
