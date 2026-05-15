@@ -1,0 +1,47 @@
+# CMB Simulation DSL — Specification v1.0
+
+## Purpose
+A deterministic, identity‑encoded domain‑specific language for defining
+entropy‑driven, order‑emergent, encrypted simulations.
+
+---
+
+## Core Types
+
+type Entropy = float
+type Order = float
+type EncryptionCost = float
+type Identity = {
+  designer: string,
+  signature: string
+}
+
+---
+
+## Meta Equation Definition
+
+equation U_CMB {
+  inputs:
+    S: Entropy
+    O: Order
+    E_enc: EncryptionCost
+    I: Identity
+
+  rule:
+    maximize (S + λ_O * O - λ_E * E_enc)
+    subject_to I
+}
+
+---
+
+## Universe Object
+
+object Universe_CMB {
+  id: "cmb.unified.meta.v1"
+  equation: U_CMB
+  invariants:
+    entropy_defines_time
+    order_from_entropy_gradient
+    encryption_seals_design
+    identity_is_structural
+}
