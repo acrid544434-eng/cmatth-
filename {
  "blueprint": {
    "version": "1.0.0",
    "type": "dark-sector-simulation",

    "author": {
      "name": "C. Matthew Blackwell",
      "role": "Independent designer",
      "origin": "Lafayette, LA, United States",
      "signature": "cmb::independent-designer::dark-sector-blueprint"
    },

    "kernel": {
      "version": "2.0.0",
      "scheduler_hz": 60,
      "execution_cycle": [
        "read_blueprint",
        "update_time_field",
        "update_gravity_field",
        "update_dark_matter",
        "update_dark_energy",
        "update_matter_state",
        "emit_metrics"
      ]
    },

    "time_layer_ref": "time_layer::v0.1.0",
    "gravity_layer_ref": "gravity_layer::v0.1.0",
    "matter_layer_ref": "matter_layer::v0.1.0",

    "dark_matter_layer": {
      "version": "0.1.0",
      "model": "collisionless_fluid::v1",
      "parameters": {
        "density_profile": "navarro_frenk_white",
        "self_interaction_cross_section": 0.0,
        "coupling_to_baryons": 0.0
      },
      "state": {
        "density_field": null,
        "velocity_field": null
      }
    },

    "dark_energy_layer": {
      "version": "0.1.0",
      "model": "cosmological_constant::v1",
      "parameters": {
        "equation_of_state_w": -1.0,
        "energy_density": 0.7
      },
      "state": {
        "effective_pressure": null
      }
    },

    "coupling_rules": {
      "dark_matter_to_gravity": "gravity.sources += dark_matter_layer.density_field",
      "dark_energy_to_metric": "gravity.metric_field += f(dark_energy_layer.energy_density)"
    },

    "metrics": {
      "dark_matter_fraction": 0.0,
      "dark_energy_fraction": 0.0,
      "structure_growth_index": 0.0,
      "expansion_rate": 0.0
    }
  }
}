@@ -1,0 +1,69 @@
+{
+  "blueprint": {
+    "version": "1.0.0",
+    "type": "dark-sector-simulation",
+
+    "author": {
+      "name": "C. Matthew Blackwell",
+      "role": "Independent designer",
+      "origin": "Lafayette, LA, United States",
+      "signature": "cmb::independent-designer::dark-sector-blueprint"
+    },
+
+    "kernel": {
+      "version": "2.0.0",
+      "scheduler_hz": 60,
+      "execution_cycle": [
+        "read_blueprint",
+        "update_time_field",
+        "update_gravity_field",
+        "update_dark_matter",
+        "update_dark_energy",
+        "update_matter_state",
+        "emit_metrics"
+      ]
+    },
+
+    "time_layer_ref": "time_layer::v0.1.0",
+    "gravity_layer_ref": "gravity_layer::v0.1.0",
+    "matter_layer_ref": "matter_layer::v0.1.0",
+
+    "dark_matter_layer": {
+      "version": "0.1.0",
+      "model": "collisionless_fluid::v1",
+      "parameters": {
+        "density_profile": "navarro_frenk_white",
+        "self_interaction_cross_section": 0.0,
+        "coupling_to_baryons": 0.0
+      },
+      "state": {
+        "density_field": null,
+        "velocity_field": null
+      }
+    },
+
+    "dark_energy_layer": {
+      "version": "0.1.0",
+      "model": "cosmological_constant::v1",
+      "parameters": {
+        "equation_of_state_w": -1.0,
+        "energy_density": 0.7
+      },
+      "state": {
+        "effective_pressure": null
+      }
+    },
+
+    "coupling_rules": {
+      "dark_matter_to_gravity": "gravity.sources += dark_matter_layer.density_field",
+      "dark_energy_to_metric": "gravity.metric_field += f(dark_energy_layer.energy_density)"
+    },
+
+    "metrics": {
+      "dark_matter_fraction": 0.0,
+      "dark_energy_fraction": 0.0,
+      "structure_growth_index": 0.0,
+      "expansion_rate": 0.0
+    }
+  }
+}
