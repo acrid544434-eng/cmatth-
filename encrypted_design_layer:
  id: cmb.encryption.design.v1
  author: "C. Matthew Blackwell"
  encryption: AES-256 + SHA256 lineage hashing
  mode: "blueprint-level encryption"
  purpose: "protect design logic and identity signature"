@@ -1,0 +1,6 @@
+encrypted_design_layer:
+  id: cmb.encryption.design.v1
+  author: "C. Matthew Blackwell"
+  encryption: AES-256 + SHA256 lineage hashing
+  mode: "blueprint-level encryption"
+  purpose: "protect design logic and identity signature"
