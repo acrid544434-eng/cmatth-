@@ -1,0 +1,44 @@
+{
+  "integration": {
+    "version": "1.0.0",
+    "type": "dna-life-layer-bridge",
+
+    "author": {
+      "name": "C. Matthew Blackwell",
+      "role": "Independent designer",
+      "origin": "Lafayette, LA, United States",
+      "signature": "cmb::independent-designer::dna-life-bridge"
+    },
+
+    "bridge_layer": {
+      "id": "dna_life_bridge::v1",
+
+      "inputs": {
+        "prebiotic_polymers": "o_layer.state.polymers",
+        "proto_compartments": "o_layer.state.compartments",
+        "dna_population": "dna_layer.population",
+        "environment": "environment.state"
+      },
+
+      "outputs": {
+        "genome_installation": "life_layer.install_genomes",
+        "replication_feedback": "life_layer.replication_feedback",
+        "fitness_update": "life_layer.update_fitness_landscape"
+      },
+
+      "rules": {
+        "polymer_to_genome":
+          "if polymer_length > threshold then convert_to_dna_sequence()",
+
+        "compartment_to_cell":
+          "if compartment_stability > min_stability then bind_genome_to_compartment()",
+
+        "dna_to_replication":
+          "life_layer.replication_rate = f(dna_layer.mutation_load, environment.resources)",
+
+        "dna_to_fitness":
+          "life_layer.fitness_landscape = g(dna_layer.sequence_diversity, dna_layer.mean_fitness)"
+      }
+    }
+  }
+}
