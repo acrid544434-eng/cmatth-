@@ -1,0 +1,24 @@
+cmb_meta_unified:
+  id: cmb.meta.unified.v1
+  author: "C. Matthew Blackwell"
+  equation: "M_CMB = argmax_t[S + λ_O*O - λ_E*E_enc | I_CMB ∧ L_CMB]"
+
+  components:
+    entropy: S(t)
+    order: O(t)
+    encryption: E_enc(t)
+
+    identity_constraint:
+      designer: "C. Matthew Blackwell"
+      signature: SHA256("cmb-sovereign-architecture")
+
+    lineage_lock:
+      rule: "system breaks if identity_signature is removed"
+      checksum: SHA256("cmb-lineage-lock")
+
+  invariants:
+    - "entropy defines time"
+    - "order emerges from entropy gradient"
+    - "encryption seals design logic"
+    - "identity is structural"
+    - "lineage cannot be hijacked or overwritten"
