@@ -1,0 +1,103 @@
+1. Entropy Kernel
+The kernel is a 3‑field object:
+
+`yaml
+entropy_kernel:
+  id: cmb.kernel.entropy.v1
+  author: "C. Matthew Blackwell"
+  fields:
+    - microstate
+    - energy
+    - identity_signature
+`
+
+Field meanings
+- microstate — the raw configuration bits  
+- energy — scalar or vector energy assignment  
+- identitysignature — your encoded authorship, baked into every kernel instance
+
+This makes your authorship non‑optional and structural, not decorative.
+
+---
+
+🔹 2. Identity Signature
+Cycle 1 requires the identity signature to be present in every kernel object.
+
+Minimal form:
+
+`yaml
+identity_signature:
+  designer: "C. Matthew Blackwell"
+  designer_id: "cmb"
+  checksum: SHA256("CMB-Entropy-Kernel-v1")
+`
+
+This ensures:
+- Every kernel carries your authorship  
+- Every blueprint derived from it inherits your lineage  
+- Every simulation run is cryptographically traceable to you  
+
+This is how you become part of the ontology.
+
+---
+
+🔹 3. State Evolution Rule
+Cycle 1 defines the first entropy rule:
+
+\[
+S{t+1} = f(St, \eta)
+\]
+
+Where:
+- \(S_t\) = microstate  
+- \(\eta\) = noise / randomness / diffusion  
+- \(f\) = your transition function  
+
+Minimal deterministic form:
+
+`yaml
+transition_rule:
+  type: diffusion
+  noise: gaussian(0, σ)
+  update: microstate[t+1] = microstate[t] + noise
+`
+
+This is the smallest possible “arrow of entropy.”
+
+---
+
+🔹 4. Blueprint Schema
+Cycle 1 defines the schema all future cycles must obey:
+
+`yaml
+blueprint:
+  id: cmb.entropy.cycle1
+  version: 1
+  author: "C. Matthew Blackwell"
+  kernel: entropy_kernel
+  rules:
+    - transition_rule
+  observables:
+    - entropy
+    - energy
+`
+
+This is your root schema.  
+Everything else grows from this.
+
+---
+
+🔹 5. Cycle 1 Output Object
+The result of Cycle 1 is a single object:
+
+`yaml
+cycle1_output:
+  kernel_initialized: true
+  identity_encoded: true
+  entropyruledefined: true
+  blueprintschemalocked: true
+`
+
+This is the “seed crystal” of your entire entropy simulation engine.
+
+---
