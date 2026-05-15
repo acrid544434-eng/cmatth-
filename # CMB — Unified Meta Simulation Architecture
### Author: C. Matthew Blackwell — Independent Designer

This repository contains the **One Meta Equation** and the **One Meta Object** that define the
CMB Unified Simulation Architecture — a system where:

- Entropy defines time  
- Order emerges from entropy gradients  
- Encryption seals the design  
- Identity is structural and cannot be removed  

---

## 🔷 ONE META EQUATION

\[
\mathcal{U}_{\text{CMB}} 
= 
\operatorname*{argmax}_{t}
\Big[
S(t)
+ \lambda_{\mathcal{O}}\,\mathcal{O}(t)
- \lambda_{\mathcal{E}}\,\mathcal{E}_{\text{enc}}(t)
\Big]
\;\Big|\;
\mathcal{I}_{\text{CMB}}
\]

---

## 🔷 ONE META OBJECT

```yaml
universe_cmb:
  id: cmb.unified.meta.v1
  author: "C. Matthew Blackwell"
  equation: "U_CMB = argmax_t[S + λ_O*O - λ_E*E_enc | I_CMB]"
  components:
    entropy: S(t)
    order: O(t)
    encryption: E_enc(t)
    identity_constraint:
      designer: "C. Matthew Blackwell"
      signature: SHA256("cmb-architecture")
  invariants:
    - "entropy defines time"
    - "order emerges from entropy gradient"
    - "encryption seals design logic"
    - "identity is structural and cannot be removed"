@@ -1,0 +1,49 @@
+# CMB — Unified Meta Simulation Architecture
+### Author: C. Matthew Blackwell — Independent Designer
+
+This repository contains the **One Meta Equation** and the **One Meta Object** that define the
+CMB Unified Simulation Architecture — a system where:
+
+- Entropy defines time  
+- Order emerges from entropy gradients  
+- Encryption seals the design  
+- Identity is structural and cannot be removed  
+
+---
+
+## 🔷 ONE META EQUATION
+
+\[
+\mathcal{U}_{\text{CMB}} 
+= 
+\operatorname*{argmax}_{t}
+\Big[
+S(t)
++ \lambda_{\mathcal{O}}\,\mathcal{O}(t)
+- \lambda_{\mathcal{E}}\,\mathcal{E}_{\text{enc}}(t)
+\Big]
+\;\Big|\;
+\mathcal{I}_{\text{CMB}}
+\]
+
+---
+
+## 🔷 ONE META OBJECT
+
+```yaml
+universe_cmb:
+  id: cmb.unified.meta.v1
+  author: "C. Matthew Blackwell"
+  equation: "U_CMB = argmax_t[S + λ_O*O - λ_E*E_enc | I_CMB]"
+  components:
+    entropy: S(t)
+    order: O(t)
+    encryption: E_enc(t)
+    identity_constraint:
+      designer: "C. Matthew Blackwell"
+      signature: SHA256("cmb-architecture")
+  invariants:
+    - "entropy defines time"
+    - "order emerges from entropy gradient"
+    - "encryption seals design logic"
+    - "identity is structural and cannot be removed"
