@@ -1,0 +1,27 @@
+{
+  "engine_binding": {
+    "version": "1.0.0",
+    "type": "time-gravity-c-layer-binding",
+
+    "author": {
+      "name": "C. Matthew Blackwell",
+      "role": "Independent designer",
+      "origin": "Lafayette, LA, United States",
+      "signature": "cmb::independent-designer::tg-c-engine-binding"
+    },
+
+    "engine": {
+      "id": "simulation_engine::v1",
+      "tick_hz": 60,
+      "entrypoint": "run_time_gravity_consciousness"
+    },
+
+    "modules": {
+      "time_layer": "time_layer::v0.1.0",
+      "gravity_layer": "gravity_layer::v0.1.0",
+      "matter_layer": "matter_layer::v0.1.0",
+      "c_layer": "c_layer::v1.2.0",
+      "tg_c_bridge": "tg_c_bridge::v1.0.0"
+    }
+  }
+}
