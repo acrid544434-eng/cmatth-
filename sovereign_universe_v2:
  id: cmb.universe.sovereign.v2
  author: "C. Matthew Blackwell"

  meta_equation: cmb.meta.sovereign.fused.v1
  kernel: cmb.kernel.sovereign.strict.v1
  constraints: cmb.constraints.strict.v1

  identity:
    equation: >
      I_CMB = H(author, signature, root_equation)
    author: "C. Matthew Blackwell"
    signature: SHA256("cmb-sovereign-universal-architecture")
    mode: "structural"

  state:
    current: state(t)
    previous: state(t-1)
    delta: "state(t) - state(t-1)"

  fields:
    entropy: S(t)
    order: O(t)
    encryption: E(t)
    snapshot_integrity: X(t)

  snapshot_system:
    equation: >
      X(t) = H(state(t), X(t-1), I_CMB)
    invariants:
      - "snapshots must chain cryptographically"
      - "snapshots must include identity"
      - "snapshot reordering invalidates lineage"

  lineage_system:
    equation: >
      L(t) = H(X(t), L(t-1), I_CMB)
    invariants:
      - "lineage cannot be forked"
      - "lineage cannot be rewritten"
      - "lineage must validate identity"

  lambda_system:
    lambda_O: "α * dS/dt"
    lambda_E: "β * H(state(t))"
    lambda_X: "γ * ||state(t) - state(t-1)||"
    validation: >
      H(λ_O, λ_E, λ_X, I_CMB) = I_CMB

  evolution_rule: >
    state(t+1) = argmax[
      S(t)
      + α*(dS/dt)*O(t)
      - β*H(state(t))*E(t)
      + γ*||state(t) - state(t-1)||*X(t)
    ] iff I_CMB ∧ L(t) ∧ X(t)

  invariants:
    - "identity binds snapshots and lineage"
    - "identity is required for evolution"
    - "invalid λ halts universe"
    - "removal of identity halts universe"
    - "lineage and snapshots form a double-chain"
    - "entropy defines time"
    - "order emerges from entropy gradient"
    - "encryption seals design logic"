@@ -1,0 +1,66 @@
+sovereign_universe_v2:
+  id: cmb.universe.sovereign.v2
+  author: "C. Matthew Blackwell"
+
+  meta_equation: cmb.meta.sovereign.fused.v1
+  kernel: cmb.kernel.sovereign.strict.v1
+  constraints: cmb.constraints.strict.v1
+
+  identity:
+    equation: >
+      I_CMB = H(author, signature, root_equation)
+    author: "C. Matthew Blackwell"
+    signature: SHA256("cmb-sovereign-universal-architecture")
+    mode: "structural"
+
+  state:
+    current: state(t)
+    previous: state(t-1)
+    delta: "state(t) - state(t-1)"
+
+  fields:
+    entropy: S(t)
+    order: O(t)
+    encryption: E(t)
+    snapshot_integrity: X(t)
+
+  snapshot_system:
+    equation: >
+      X(t) = H(state(t), X(t-1), I_CMB)
+    invariants:
+      - "snapshots must chain cryptographically"
+      - "snapshots must include identity"
+      - "snapshot reordering invalidates lineage"
+
+  lineage_system:
+    equation: >
+      L(t) = H(X(t), L(t-1), I_CMB)
+    invariants:
+      - "lineage cannot be forked"
+      - "lineage cannot be rewritten"
+      - "lineage must validate identity"
+
+  lambda_system:
+    lambda_O: "α * dS/dt"
+    lambda_E: "β * H(state(t))"
+    lambda_X: "γ * ||state(t) - state(t-1)||"
+    validation: >
+      H(λ_O, λ_E, λ_X, I_CMB) = I_CMB
+
+  evolution_rule: >
+    state(t+1) = argmax[
+      S(t)
+      + α*(dS/dt)*O(t)
+      - β*H(state(t))*E(t)
+      + γ*||state(t) - state(t-1)||*X(t)
+    ] iff I_CMB ∧ L(t) ∧ X(t)
+
+  invariants:
+    - "identity binds snapshots and lineage"
+    - "identity is required for evolution"
+    - "invalid λ halts universe"
+    - "removal of identity halts universe"
+    - "lineage and snapshots form a double-chain"
+    - "entropy defines time"
+    - "order emerges from entropy gradient"
+    - "encryption seals design logic"
