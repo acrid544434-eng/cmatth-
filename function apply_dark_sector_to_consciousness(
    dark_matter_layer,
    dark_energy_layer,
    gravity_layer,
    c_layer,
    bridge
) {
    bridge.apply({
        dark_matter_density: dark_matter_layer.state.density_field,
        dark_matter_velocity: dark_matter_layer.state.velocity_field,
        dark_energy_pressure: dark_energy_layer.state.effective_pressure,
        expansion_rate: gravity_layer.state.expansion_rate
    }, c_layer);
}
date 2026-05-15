@@ -1,0 +1,14 @@
+function apply_dark_sector_to_consciousness(
+    dark_matter_layer,
+    dark_energy_layer,
+    gravity_layer,
+    c_layer,
+    bridge
+) {
+    bridge.apply({
+        dark_matter_density: dark_matter_layer.state.density_field,
+        dark_matter_velocity: dark_matter_layer.state.velocity_field,
+        dark_energy_pressure: dark_energy_layer.state.effective_pressure,
+        expansion_rate: gravity_layer.state.expansion_rate
+    }, c_layer);
+}
