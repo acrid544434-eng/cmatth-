@@ -1,0 +1,178 @@
+# =====================================================================
+#  BLACKWELL W‑01 — PERFUME SIMULATION KERNEL SPEC
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: blackwell-w01-sim-kernel.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-w01-sim-kernel"
+  perfume_blueprint_ref: "blackwell-w01-perfume-blueprint.yaml"
+  version: "1.0.0"
+  author: "C. Matthew Blackwell"
+  description: >
+    Simulation kernel for BLACKWELL W‑01. Models volatility, diffusion,
+    emotive response, and vessel binding as deterministic subsystems.
+
+kernel:
+  id: "BK-W01-KERNEL"
+  tick_unit: "seconds"
+  space_model: "3D_euclidean"
+  coordinate_system: "wearer-centric"
+  # origin (0,0,0) = center of wearer’s chest
+  origin_reference: "wearer_chest_center"
+
+runtime_parameters:
+  environment:
+    temperature_c: [18, 32]        # supported simulation range
+    humidity_percent: [20, 80]
+    air_flow_m_s: [0.0, 1.5]
+  wearer:
+    skin_type: ["dry", "normal", "oily"]
+    activity_level: ["rest", "light", "moderate"]
+  sampling:
+    time_step_s: 5
+    max_simulation_time_h: 12
+
+modules:
+  volatility_module:
+    id: "VM-W01-3TIER"
+    description: "Top/heart/base evaporation and intensity curves."
+    tiers:
+      top:
+        curve: "fast_rise_fast_decay"
+        half_life_min: 20
+        max_intensity_t_min: 5
+      heart:
+        curve: "moderate_rise_moderate_decay"
+        half_life_min: 90
+        max_intensity_t_min: 45
+      base:
+        curve: "slow_rise_slow_decay"
+        half_life_min: 240
+        max_intensity_t_min: 120
+    formula_link:
+      blueprint_ref: "structure.tiers"
+      note_ref: "notes.*"
+
+  diffusion_module:
+    id: "DM-W01-NARROW"
+    description: "Narrow, precise diffusion envelope around wearer."
+    envelope:
+      radius_m_min: 0.8
+      radius_m_max: 1.4
+      shape: "oblate_spheroid"
+      anisotropy:
+        forward_bias: 0.15      # slight projection forward
+        upward_bias: 0.10       # slight lift with heat
+    trail:
+      enabled: true
+      decay_curve: "exponential"
+      trail_length_m: 1.5
+    heat_coupling:
+      body_heat_trigger: "activity_level"
+      bloom_multiplier:
+        rest: 1.0
+        light: 1.15
+        moderate: 1.3
+
+  application_module:
+    id: "AM-W01-ZONES"
+    description: "Maps application zones to emission sources."
+    zones:
+      - id: "wrists"
+        position: "peripheral"
+        base_intensity_factor: 1.0
+      - id: "neck"
+        position: "central"
+        base_intensity_factor: 1.3
+      - id: "inner_elbows"
+        position: "semi_central"
+        base_intensity_factor: 1.1
+      - id: "back_of_neck"
+        position: "rear_central"
+        base_intensity_factor: 1.2
+
+  emotive_module:
+    id: "EM-W01-V1"
+    description: "Maps note intensity to emotive vectors over time."
+    vectors:
+      clarity:
+        drivers: ["bergamot", "yuzu", "air_crystal"]
+        weight: 1.0
+      confidence:
+        drivers: ["white_pepper", "solar_floral"]
+        weight: 1.0
+      elegance:
+        drivers: ["jasmine_abs", "white_smoke"]
+        weight: 1.0
+      intimacy:
+        drivers: ["velvet_musk", "milk_skin"]
+        weight: 1.0
+      warmth:
+        drivers: ["soft_amber", "sandalwood"]
+        weight: 1.0
+      stability:
+        drivers: ["sandalwood", "blonde_woods"]
+        weight: 1.0
+      mystery:
+        drivers: ["iso_e", "white_smoke"]
+        weight: 1.0
+    aggregation:
+      method: "weighted_sum"
+      normalization: "unit_vector"
+    output:
+      scale: [0.0, 1.0]   # per vector, per time step
+
+  identity_module:
+    id: "IM-W01-BLACKWELL"
+    description: "Encodes designer identity into kernel behavior."
+    designer: "C. Matthew Blackwell"
+    checksums:
+      volatility_profile: "ARCH-W01-V1"
+      diffusion_profile: "DG-W01-NARROW-PRECISION"
+      symmetry_profile: "3-TIER-TOP-HEART-BASE"
+    invariants:
+      - "preserve_3_tier_structure"
+      - "preserve_narrow_diffusion_envelope"
+      - "preserve_emotive_vector_set"
+
+  vessel_binding_module:
+    id: "VB-W01-ABSTRACT"
+    description: "Abstract binding; concrete vessel spec can override."
+    binding_mode: "late_binding"
+    parameters:
+      glass_thickness_mm_range: [1.5, 4.0]
+      spray_output_ul_per_spray: [70, 110]
+      headspace_volume_ml: [5, 15]
+
+io_contracts:
+  inputs:
+    - name: "environment_state"
+      fields: ["temperature_c", "humidity_percent", "air_flow_m_s"]
+    - name: "wearer_state"
+      fields: ["skin_type", "activity_level"]
+    - name: "application_pattern"
+      fields: ["zones", "sprays_per_zone"]
+  outputs:
+    - name: "note_intensity_over_time"
+      description: "Per-note intensity per time step."
+    - name: "emotive_vector_over_time"
+      description: "Clarity, confidence, etc., 0–1 per time step."
+    - name: "diffusion_field"
+      description: "Spatial intensity distribution around wearer."
+
+pseudocode:
+  tick_loop: |
+    # PSEUDOCODE — ENGINE LOOP
+    # for t in 0..max_simulation_time step time_step_s:
+    #   1. Update volatility per tier and note.
+    #   2. Apply diffusion model to compute spatial field.
+    #   3. Aggregate note intensities into emotive vectors.
+    #   4. Apply identity invariants (symmetry, envelope constraints).
+    #   5. Emit outputs for this time step.
+
+notes:
+  - "This kernel is engine-facing, not regulatory-facing."
+  - "Concrete implementation can be in any language (Rust, TS, Python, etc.)."
+  - "Blueprint and kernel must remain in sync via meta.perfume_blueprint_ref."
