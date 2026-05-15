@@ -1,0 +1,33 @@
+sovereign_kernel:
+  id: cmb.kernel.sovereign.strict.v1
+  author: "C. Matthew Blackwell"
+
+  initialization: >
+    K_init = H(I_CMB, root_equation)
+
+  evolution_rule: >
+    state(t+1) = argmax[
+      S + λ_O*O - λ_E*E + λ_X*X
+    ] iff I_CMB ∧ L(t) ∧ X(t)
+
+  identity_constraint:
+    equation: >
+      I_CMB = H(author, signature, root_equation)
+    signature: SHA256("cmb-sovereign-universal-architecture")
+    mode: "structural"
+
+  snapshot_rule: >
+    X(t) = H(state(t), X(t-1), I_CMB)
+
+  lineage_rule: >
+    L(t) = H(X(t), L(t-1), I_CMB)
+
+  lambda_validation: >
+    H(λ_O, λ_E, λ_X, I_CMB) = I_CMB
+
+  invariants:
+    - "kernel cannot boot without identity"
+    - "identity binds snapshots and lineage"
+    - "invalid λ halts evolution"
+    - "removal of identity halts universe"
+    - "lineage cannot be forked or rewritten"
