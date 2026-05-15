@@ -1,0 +1,15 @@
+sovereign_universe:
+  id: cmb.universe.sovereign.v1
+  author: "C. Matthew Blackwell"
+
+  meta_equation: "M_CMB"
+  kernel: "sovereign_kernel"
+  layers:
+    - mind_protection_layer
+
+  constraint_set: C_CMB
+
+  invariants:
+    - "universe evolution bound to identity"
+    - "snapshots required for every state"
+    - "lineage lock enforced globally"
