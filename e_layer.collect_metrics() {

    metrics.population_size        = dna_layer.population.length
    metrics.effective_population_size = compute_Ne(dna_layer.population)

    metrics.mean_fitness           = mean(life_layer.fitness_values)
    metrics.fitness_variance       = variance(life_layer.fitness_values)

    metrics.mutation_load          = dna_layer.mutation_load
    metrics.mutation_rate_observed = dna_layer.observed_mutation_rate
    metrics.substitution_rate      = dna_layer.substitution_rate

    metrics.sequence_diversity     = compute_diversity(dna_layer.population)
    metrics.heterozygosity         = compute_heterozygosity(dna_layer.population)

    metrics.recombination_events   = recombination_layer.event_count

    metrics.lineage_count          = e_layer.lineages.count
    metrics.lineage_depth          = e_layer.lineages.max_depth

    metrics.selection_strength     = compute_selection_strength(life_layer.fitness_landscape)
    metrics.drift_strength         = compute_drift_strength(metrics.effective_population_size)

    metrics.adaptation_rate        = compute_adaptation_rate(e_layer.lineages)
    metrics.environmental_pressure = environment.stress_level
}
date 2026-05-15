@@ -1,0 +1,26 @@
+e_layer.collect_metrics() {
+
+    metrics.population_size        = dna_layer.population.length
+    metrics.effective_population_size = compute_Ne(dna_layer.population)
+
+    metrics.mean_fitness           = mean(life_layer.fitness_values)
+    metrics.fitness_variance       = variance(life_layer.fitness_values)
+
+    metrics.mutation_load          = dna_layer.mutation_load
+    metrics.mutation_rate_observed = dna_layer.observed_mutation_rate
+    metrics.substitution_rate      = dna_layer.substitution_rate
+
+    metrics.sequence_diversity     = compute_diversity(dna_layer.population)
+    metrics.heterozygosity         = compute_heterozygosity(dna_layer.population)
+
+    metrics.recombination_events   = recombination_layer.event_count
+
+    metrics.lineage_count          = e_layer.lineages.count
+    metrics.lineage_depth          = e_layer.lineages.max_depth
+
+    metrics.selection_strength     = compute_selection_strength(life_layer.fitness_landscape)
+    metrics.drift_strength         = compute_drift_strength(metrics.effective_population_size)
+
+    metrics.adaptation_rate        = compute_adaptation_rate(e_layer.lineages)
+    metrics.environmental_pressure = environment.stress_level
+}
