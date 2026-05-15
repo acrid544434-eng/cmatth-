@@ -1,0 +1,66 @@
+{
+  "blueprint": {
+    "version": "1.0.0",
+    "type": "time-gravity-simulation",
+
+    "author": {
+      "name": "C. Matthew Blackwell",
+      "role": "Independent designer",
+      "origin": "Lafayette, LA, United States",
+      "signature": "cmb::independent-designer::time-gravity-blueprint"
+    },
+
+    "kernel": {
+      "version": "2.0.0",
+      "scheduler_hz": 60,
+      "execution_cycle": [
+        "read_blueprint",
+        "update_time_field",
+        "update_gravity_field",
+        "update_matter_state",
+        "emit_metrics"
+      ]
+    },
+
+    "time_layer": {
+      "version": "0.1.0",
+      "model": "relational_time::v1",
+      "parameters": {
+        "base_tick_seconds": 0.0166667,
+        "time_dilation_enabled": true,
+        "max_dilation_factor": 10.0
+      },
+      "state": {
+        "global_time": 0.0,
+        "local_time_fields": []
+      }
+    },
+
+    "gravity_layer": {
+      "version": "0.1.0",
+      "model": "curved_metric::v1",
+      "parameters": {
+        "G_constant": 6.674e-11,
+        "c_speed": 299792458,
+        "discretization_scale": 1.0
+      },
+      "sources": [],
+      "state": {
+        "metric_field": null,
+        "potential_field": null
+      }
+    },
+
+    "matter_layer": {
+      "version": "0.1.0",
+      "entities": [],
+      "update_rule": "geodesic_motion::v1"
+    },
+
+    "metrics": {
+      "curvature_extrema": 0.0,
+      "max_time_dilation": 1.0,
+      "energy_conservation_error": 0.0
+    }
+  }
+}
