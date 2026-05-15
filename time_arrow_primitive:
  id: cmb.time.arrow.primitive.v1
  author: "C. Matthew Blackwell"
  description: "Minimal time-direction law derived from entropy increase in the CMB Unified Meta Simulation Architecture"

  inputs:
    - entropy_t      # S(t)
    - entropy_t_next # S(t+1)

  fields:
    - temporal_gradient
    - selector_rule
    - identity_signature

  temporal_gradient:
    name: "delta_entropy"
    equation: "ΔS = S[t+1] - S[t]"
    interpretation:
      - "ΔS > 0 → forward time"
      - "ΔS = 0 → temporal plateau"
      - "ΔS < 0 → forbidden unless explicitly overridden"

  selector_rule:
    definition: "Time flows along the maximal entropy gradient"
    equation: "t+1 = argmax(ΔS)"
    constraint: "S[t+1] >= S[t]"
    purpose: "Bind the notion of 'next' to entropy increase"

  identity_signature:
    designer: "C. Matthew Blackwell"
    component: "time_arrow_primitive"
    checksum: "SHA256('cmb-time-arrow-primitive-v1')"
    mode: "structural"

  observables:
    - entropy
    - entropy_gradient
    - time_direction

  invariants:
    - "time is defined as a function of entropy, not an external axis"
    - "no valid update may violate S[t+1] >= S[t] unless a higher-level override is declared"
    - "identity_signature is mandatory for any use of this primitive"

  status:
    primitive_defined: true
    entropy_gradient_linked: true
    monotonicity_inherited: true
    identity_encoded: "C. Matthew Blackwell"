@@ -1,0 +1,49 @@
+time_arrow_primitive:
+  id: cmb.time.arrow.primitive.v1
+  author: "C. Matthew Blackwell"
+  description: "Minimal time-direction law derived from entropy increase in the CMB Unified Meta Simulation Architecture"
+
+  inputs:
+    - entropy_t      # S(t)
+    - entropy_t_next # S(t+1)
+
+  fields:
+    - temporal_gradient
+    - selector_rule
+    - identity_signature
+
+  temporal_gradient:
+    name: "delta_entropy"
+    equation: "ΔS = S[t+1] - S[t]"
+    interpretation:
+      - "ΔS > 0 → forward time"
+      - "ΔS = 0 → temporal plateau"
+      - "ΔS < 0 → forbidden unless explicitly overridden"
+
+  selector_rule:
+    definition: "Time flows along the maximal entropy gradient"
+    equation: "t+1 = argmax(ΔS)"
+    constraint: "S[t+1] >= S[t]"
+    purpose: "Bind the notion of 'next' to entropy increase"
+
+  identity_signature:
+    designer: "C. Matthew Blackwell"
+    component: "time_arrow_primitive"
+    checksum: "SHA256('cmb-time-arrow-primitive-v1')"
+    mode: "structural"
+
+  observables:
+    - entropy
+    - entropy_gradient
+    - time_direction
+
+  invariants:
+    - "time is defined as a function of entropy, not an external axis"
+    - "no valid update may violate S[t+1] >= S[t] unless a higher-level override is declared"
+    - "identity_signature is mandatory for any use of this primitive"
+
+  status:
+    primitive_defined: true
+    entropy_gradient_linked: true
+    monotonicity_inherited: true
+    identity_encoded: "C. Matthew Blackwell"
