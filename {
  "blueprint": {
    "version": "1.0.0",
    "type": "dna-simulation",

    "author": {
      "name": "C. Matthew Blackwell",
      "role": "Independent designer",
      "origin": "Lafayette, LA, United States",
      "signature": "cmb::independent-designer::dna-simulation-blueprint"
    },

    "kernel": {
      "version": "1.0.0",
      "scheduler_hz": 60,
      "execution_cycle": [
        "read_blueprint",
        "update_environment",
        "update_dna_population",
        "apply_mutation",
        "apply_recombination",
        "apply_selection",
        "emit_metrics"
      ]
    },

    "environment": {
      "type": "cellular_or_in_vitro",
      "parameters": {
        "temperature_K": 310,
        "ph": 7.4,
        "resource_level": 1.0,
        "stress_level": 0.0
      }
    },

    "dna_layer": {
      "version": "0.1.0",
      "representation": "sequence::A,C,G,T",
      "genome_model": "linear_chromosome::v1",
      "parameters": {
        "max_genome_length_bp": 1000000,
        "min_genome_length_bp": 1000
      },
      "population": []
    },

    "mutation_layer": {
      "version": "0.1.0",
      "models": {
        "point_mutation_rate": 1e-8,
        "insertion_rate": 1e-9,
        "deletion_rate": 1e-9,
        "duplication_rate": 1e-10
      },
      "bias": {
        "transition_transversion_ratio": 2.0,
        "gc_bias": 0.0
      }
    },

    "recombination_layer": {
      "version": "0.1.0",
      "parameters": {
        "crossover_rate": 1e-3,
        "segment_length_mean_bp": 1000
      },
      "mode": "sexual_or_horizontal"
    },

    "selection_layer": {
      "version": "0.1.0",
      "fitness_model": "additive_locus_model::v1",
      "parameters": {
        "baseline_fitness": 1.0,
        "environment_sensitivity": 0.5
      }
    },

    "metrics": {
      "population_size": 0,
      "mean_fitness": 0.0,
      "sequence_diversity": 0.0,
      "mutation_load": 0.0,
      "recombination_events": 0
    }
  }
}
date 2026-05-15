@@ -1,0 +1,88 @@
+{
+  "blueprint": {
+    "version": "1.0.0",
+    "type": "dna-simulation",
+
+    "author": {
+      "name": "C. Matthew Blackwell",
+      "role": "Independent designer",
+      "origin": "Lafayette, LA, United States",
+      "signature": "cmb::independent-designer::dna-simulation-blueprint"
+    },
+
+    "kernel": {
+      "version": "1.0.0",
+      "scheduler_hz": 60,
+      "execution_cycle": [
+        "read_blueprint",
+        "update_environment",
+        "update_dna_population",
+        "apply_mutation",
+        "apply_recombination",
+        "apply_selection",
+        "emit_metrics"
+      ]
+    },
+
+    "environment": {
+      "type": "cellular_or_in_vitro",
+      "parameters": {
+        "temperature_K": 310,
+        "ph": 7.4,
+        "resource_level": 1.0,
+        "stress_level": 0.0
+      }
+    },
+
+    "dna_layer": {
+      "version": "0.1.0",
+      "representation": "sequence::A,C,G,T",
+      "genome_model": "linear_chromosome::v1",
+      "parameters": {
+        "max_genome_length_bp": 1000000,
+        "min_genome_length_bp": 1000
+      },
+      "population": []
+    },
+
+    "mutation_layer": {
+      "version": "0.1.0",
+      "models": {
+        "point_mutation_rate": 1e-8,
+        "insertion_rate": 1e-9,
+        "deletion_rate": 1e-9,
+        "duplication_rate": 1e-10
+      },
+      "bias": {
+        "transition_transversion_ratio": 2.0,
+        "gc_bias": 0.0
+      }
+    },
+
+    "recombination_layer": {
+      "version": "0.1.0",
+      "parameters": {
+        "crossover_rate": 1e-3,
+        "segment_length_mean_bp": 1000
+      },
+      "mode": "sexual_or_horizontal"
+    },
+
+    "selection_layer": {
+      "version": "0.1.0",
+      "fitness_model": "additive_locus_model::v1",
+      "parameters": {
+        "baseline_fitness": 1.0,
+        "environment_sensitivity": 0.5
+      }
+    },
+
+    "metrics": {
+      "population_size": 0,
+      "mean_fitness": 0.0,
+      "sequence_diversity": 0.0,
+      "mutation_load": 0.0,
+      "recombination_events": 0
+    }
+  }
+}
