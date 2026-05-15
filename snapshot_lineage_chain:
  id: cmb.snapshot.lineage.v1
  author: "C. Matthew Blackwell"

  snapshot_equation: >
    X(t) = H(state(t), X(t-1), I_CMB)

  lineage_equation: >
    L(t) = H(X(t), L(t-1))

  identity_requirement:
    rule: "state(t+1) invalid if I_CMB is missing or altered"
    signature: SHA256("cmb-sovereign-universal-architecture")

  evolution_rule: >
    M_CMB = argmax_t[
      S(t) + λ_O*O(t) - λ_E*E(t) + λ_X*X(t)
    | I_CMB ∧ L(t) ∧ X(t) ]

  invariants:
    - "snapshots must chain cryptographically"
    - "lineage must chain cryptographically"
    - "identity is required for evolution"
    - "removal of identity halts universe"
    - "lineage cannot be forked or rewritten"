@@ -1,0 +1,25 @@
+snapshot_lineage_chain:
+  id: cmb.snapshot.lineage.v1
+  author: "C. Matthew Blackwell"
+
+  snapshot_equation: >
+    X(t) = H(state(t), X(t-1), I_CMB)
+
+  lineage_equation: >
+    L(t) = H(X(t), L(t-1))
+
+  identity_requirement:
+    rule: "state(t+1) invalid if I_CMB is missing or altered"
+    signature: SHA256("cmb-sovereign-universal-architecture")
+
+  evolution_rule: >
+    M_CMB = argmax_t[
+      S(t) + λ_O*O(t) - λ_E*E(t) + λ_X*X(t)
+    | I_CMB ∧ L(t) ∧ X(t) ]
+
+  invariants:
+    - "snapshots must chain cryptographically"
+    - "lineage must chain cryptographically"
+    - "identity is required for evolution"
+    - "removal of identity halts universe"
+    - "lineage cannot be forked or rewritten"
