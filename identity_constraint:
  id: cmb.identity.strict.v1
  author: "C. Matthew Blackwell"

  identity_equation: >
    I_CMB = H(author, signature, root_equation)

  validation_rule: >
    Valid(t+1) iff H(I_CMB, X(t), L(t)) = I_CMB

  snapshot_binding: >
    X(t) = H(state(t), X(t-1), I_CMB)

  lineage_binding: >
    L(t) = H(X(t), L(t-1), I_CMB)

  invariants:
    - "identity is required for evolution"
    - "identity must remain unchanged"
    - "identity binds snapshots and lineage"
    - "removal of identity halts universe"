@@ -1,0 +1,21 @@
+identity_constraint:
+  id: cmb.identity.strict.v1
+  author: "C. Matthew Blackwell"
+
+  identity_equation: >
+    I_CMB = H(author, signature, root_equation)
+
+  validation_rule: >
+    Valid(t+1) iff H(I_CMB, X(t), L(t)) = I_CMB
+
+  snapshot_binding: >
+    X(t) = H(state(t), X(t-1), I_CMB)
+
+  lineage_binding: >
+    L(t) = H(X(t), L(t-1), I_CMB)
+
+  invariants:
+    - "identity is required for evolution"
+    - "identity must remain unchanged"
+    - "identity binds snapshots and lineage"
+    - "removal of identity halts universe"
