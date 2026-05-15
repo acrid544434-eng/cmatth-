@@ -1,0 +1,21 @@
+sovereign_kernel:
+  id: cmb.kernel.sovereign.v1
+  author: "C. Matthew Blackwell"
+
+  purpose: "Core execution kernel for the CMB Sovereign Meta Equation"
+
+  fields:
+    entropy_field: S(t)
+    order_field: O(t)
+    encryption_field: E(t)
+    snapshot_field: X(t)
+
+  update_rule: >
+    state[t+1] = argmax[
+      S + λ_O*O - λ_E*E + λ_X*X
+    | C_CMB ]
+
+  invariants:
+    - "kernel cannot execute without identity_signature"
+    - "lineage lock must validate before update"
+    - "snapshot must be sealed at each step"
