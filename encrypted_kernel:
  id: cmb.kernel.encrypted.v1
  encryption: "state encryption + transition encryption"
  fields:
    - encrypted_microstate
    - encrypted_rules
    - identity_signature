@@ -1,0 +1,7 @@
+encrypted_kernel:
+  id: cmb.kernel.encrypted.v1
+  encryption: "state encryption + transition encryption"
+  fields:
+    - encrypted_microstate
+    - encrypted_rules
+    - identity_signature
