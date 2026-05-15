@@ -1,0 +1,139 @@
+# =====================================================================
+#  BLACKWELL W‑01 — ARCHITECTURAL PERFUME BLUEPRINT
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: blackwell-w01-perfume-blueprint.yaml
+# =====================================================================
+
+meta:
+  id: blackwell-w01
+  name: "BLACKWELL W‑01"
+  type: "architectural_fine_fragrance"
+  version: "1.0.0"
+  author: "C. Matthew Blackwell"
+  location: "Lafayette, LA, USA"
+  description: >
+    A women’s perfume constructed as a deterministic architectural object.
+    Modular. Simulation-driven. Identity-encoded. Vessel-agnostic.
+
+identity_encoding:
+  designer: "C. Matthew Blackwell"
+  signature_checksum: "ARCH-W01-V1"
+  diffusion_geometry: "DG-W01-NARROW-PRECISION"
+  symmetry_profile: "3-TIER-TOP-HEART-BASE"
+  metadata_stamp: "BLACKWELL-PERFUME-ENGINE-W01"
+
+concentration:
+  product_type: "eau_de_parfum"
+  ethanol_percent: 80
+  aromatic_concentrate_percent: 20
+
+structure:
+  tiers:
+    top:
+      weight_percent: 25
+      volatility: "high"
+      behavior: "fast_rise_sharp_diffusion"
+    heart:
+      weight_percent: 40
+      volatility: "medium"
+      behavior: "slow_bloom_controlled_expansion"
+    base:
+      weight_percent: 35
+      volatility: "low"
+      behavior: "long_half_life_smooth_fade"
+
+notes:
+  top:
+    - id: bergamot
+      name: "Bergamot Essential Oil"
+      percent: 7.0
+      role: "sparkling_citrus_ignition"
+    - id: yuzu
+      name: "Yuzu Essential Oil"
+      percent: 4.0
+      role: "sharp_citrus_edge"
+    - id: white_pepper
+      name: "White Pepper CO2"
+      percent: 3.0
+      role: "ionized_spice_vector"
+    - id: fig_skin
+      name: "Fig Skin Accord"
+      percent: 5.0
+      role: "green_brightness"
+    - id: air_crystal
+      name: "Air Crystal Accord"
+      percent: 6.0
+      role: "cold_architectural_air"
+
+  heart:
+    - id: jasmine_abs
+      name: "Jasmine Absolute"
+      percent: 10.0
+      role: "solar_floral_engine"
+    - id: ylang
+      name: "Ylang-Ylang Oil"
+      percent: 6.0
+      role: "warm_curvature"
+    - id: velvet_musk
+      name: "Velvet Musk Accord"
+      percent: 8.0
+      role: "smooth_symmetry"
+    - id: milk_skin
+      name: "Soft Milk Accord"
+      percent: 7.0
+      role: "warm_human_proximity"
+    - id: solar_floral
+      name: "Solar Floral Engine Accord"
+      percent: 9.0
+      role: "architectural_identity_core"
+
+  base:
+    - id: sandalwood
+      name: "Sandalwood Oil"
+      percent: 9.0
+      role: "creamy_grounding_pillar"
+    - id: blonde_woods
+      name: "Blonde Woods Accord"
+      percent: 7.0
+      role: "clean_modern_wood"
+    - id: iso_e
+      name: "Iso E Super"
+      percent: 8.0
+      role: "molecular_diffusion_engine"
+    - id: soft_amber
+      name: "Soft Amber Accord"
+      percent: 6.0
+      role: "warm_persistence"
+    - id: white_smoke
+      name: "White Smoke Accord"
+      percent: 5.0
+      role: "cold_elegance_signature"
+
+diffusion_engine:
+  envelope_radius_m: [0.8, 1.4]
+  trail_vector: "narrow_precise"
+  bloom_trigger: "body_heat_peaks"
+  fade_arc: "smooth_exponential"
+  persistence_hours: [6, 10]
+
+emotive_mapping:
+  clarity: ["bergamot", "yuzu", "air_crystal"]
+  confidence: ["white_pepper", "solar_floral"]
+  elegance: ["jasmine_abs", "white_smoke"]
+  intimacy: ["velvet_musk", "milk_skin"]
+  warmth: ["soft_amber", "sandalwood"]
+  stability: ["sandalwood", "blonde_woods"]
+  mystery: ["iso_e", "white_smoke"]
+
+regulatory:
+  ifra_status: "REVIEW_REQUIRED"
+  notes: >
+    This blueprint is architectural. Validate IFRA compliance and allergens
+    before any commercial production.
+
+simulation_hooks:
+  volatility_curve: "VC-W01-3TIER"
+  diffusion_model: "DM-W01-NARROW"
+  emotive_model: "EM-W01-V1"
+  vessel_binding: "VB-W01-PENDING"
