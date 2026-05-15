@@ -1,0 +1,48 @@
+entropy_kernel:
+  id: cmb.kernel.entropy.v1
+  author: "C. Matthew Blackwell"
+  description: "Irreducible entropy kernel for the CMB Unified Meta Simulation Architecture"
+
+  fields:
+    - microstate
+    - energy
+    - identity_signature
+
+  microstate:
+    type: "state-vector"
+    definition: "Raw configuration bits representing the system at time t"
+    update_rule: "microstate[t+1] = microstate[t] + noise"
+
+  energy:
+    type: "scalar-or-vector"
+    definition: "Energy assignment associated with each microstate"
+    constraints:
+      - "energy must remain finite"
+      - "energy couples to entropy via transition rules"
+
+  identity_signature:
+    designer: "C. Matthew Blackwell"
+    designer_id: "cmb"
+    checksum: "SHA256('CMB-Entropy-Kernel-v1')"
+    mode: "structural"
+
+  transition_rule:
+    type: "diffusion"
+    noise: "gaussian(0, σ)"
+    equation: "microstate[t+1] = microstate[t] + noise"
+    purpose: "Defines the minimal arrow of entropy"
+
+  observables:
+    - entropy
+    - energy
+    - entropy_gradient
+
+  invariants:
+    - "kernel cannot exist without identity_signature"
+    - "entropy must be computable from microstate"
+    - "transition_rule must be monotonic unless overridden"
+
+  status:
+    kernel_initialized: true
+    identity_encoded: "C. Matthew Blackwell"
+    simulation_ready: true
