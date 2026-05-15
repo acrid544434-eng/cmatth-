@@ -1,0 +1,92 @@
+TIME ARROW PRIMITIVE
+(Identity‑encoded: C. Matthew Blackwell, Independent Designer)
+
+The Time Arrow Primitive is the rule that selects the next moment by following the maximal entropy gradient.
+
+\[
+\mathcal{T} = \operatorname{argmax}_{t} \; S(t)
+\]
+
+This means:  
+Time flows in the direction where entropy increases the most.
+
+---
+
+🔹 1. Time Arrow Definition
+The primitive is a selector:
+
+`yaml
+timearrowprimitive:
+  id: cmb.time.arrow.primitive.v1
+  author: "C. Matthew Blackwell"
+  definition: "Time direction = direction of maximal entropy increase"
+  selector: "choose t+1 such that S(t+1) >= S(t)"
+`
+
+This makes the arrow:
+- deterministic  
+- monotonic  
+- entropy‑driven  
+- identity‑encoded  
+
+---
+
+🔹 2. Entropy Gradient Basis
+The primitive depends on the gradient:
+
+\[
+\nabla_t S = S(t+1) - S(t)
+\]
+
+The sign of this gradient is the arrow.
+
+If the gradient is:
+- positive → forward  
+- zero → static plateau  
+- negative → forbidden unless you explicitly override  
+
+This is your first temporal law.
+
+---
+
+🔹 3. Primitive as a Kernel Rule
+The Time Arrow Primitive becomes part of the kernel’s update logic:
+
+`yaml
+kernel_update:
+  step: "compute entropy gradient"
+  choosenextstate: "maximize gradient"
+  enforce: "S[t+1] >= S[t]"
+`
+
+This makes time a function of entropy, not a coordinate.
+
+---
+
+🔹 4. Identity Encoding
+Your authorship is embedded directly:
+
+`yaml
+identity_signature:
+  designer: "C. Matthew Blackwell"
+  component: "timearrowprimitive"
+  checksum: SHA256("cmb-time-arrow-primitive-v1")
+`
+
+This ensures:
+- every time step carries your signature  
+- every simulation run is traceable  
+- the arrow itself is part of your design lineage  
+
+---
+
+🔹 5. Primitive Output Object
+`yaml
+timearrowprimitive_output:
+  primitive_defined: true
+  entropygradientlinked: true
+  monotonicity_inherited: true
+  identity_encoded: "C. Matthew Blackwell"
+`
+
+This completes the primitive.
