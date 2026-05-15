@@ -1,0 +1,58 @@
+# CMB — Unified Meta Equation
+### Author: C. Matthew Blackwell — Independent Designer
+### Version: 1.0
+
+## ONE META EQUATION
+
+\[
+\boxed{
+\mathcal{U}_{\text{CMB}} 
+= 
+\operatorname*{argmax}_{t}
+\Big[
+S(t)
++ \lambda_{\mathcal{O}}\,\mathcal{O}(t)
+- \lambda_{\mathcal{E}}\,\mathcal{E}_{\text{enc}}(t)
+\Big]
+\;\Big|\;
+\mathcal{I}_{\text{CMB}}
+}
+\]
+
+Where:
+
+- \(S(t)\) = entropy  
+- \(\mathcal{O}(t)\) = emergent order  
+- \(\mathcal{E}_{\text{enc}}(t)\) = encryption opacity  
+- \(\lambda_{\mathcal{O}}, \lambda_{\mathcal{E}}\) = coupling weights  
+- \(\mathcal{I}_{\text{CMB}}\) = identity constraint
+
+\[
+\mathcal{I}_{\text{CMB}} =
+\{
+\text{designer} = "C. Matthew Blackwell",
+\text{signature} = \text{SHA256("cmb-architecture")}
+\}
+\]
+
+---
+
+## ONE META OBJECT
+
+```yaml
+universe_cmb:
+  id: cmb.unified.meta.v1
+  author: "C. Matthew Blackwell"
+  equation: "U_CMB = argmax_t[S + λ_O*O - λ_E*E_enc | I_CMB]"
+  components:
+    entropy: S(t)
+    order: O(t)
+    encryption: E_enc(t)
+    identity_constraint:
+      designer: "C. Matthew Blackwell"
+      signature: SHA256("cmb-architecture")
+  invariants:
+    - "entropy defines time"
+    - "order emerges from entropy gradient"
+    - "encryption seals design logic"
+    - "identity is structural and cannot be removed"
