@@ -1,0 +1,41 @@
+{
+  "integration": {
+    "version": "1.0.0",
+    "type": "dna-life-evolution-bridge",
+
+    "author": {
+      "name": "C. Matthew Blackwell",
+      "role": "Independent designer",
+      "origin": "Lafayette, LA, United States",
+      "signature": "cmb::independent-designer::dna-life-evo-bridge"
+    },
+
+    "bridge_layer": {
+      "id": "dna_life_evo_bridge::v1",
+
+      "inputs": {
+        "dna_population": "dna_layer.population",
+        "life_cells": "life_layer.cells",
+        "fitness_landscape": "life_layer.fitness_landscape",
+        "environment": "environment.state"
+      },
+
+      "outputs": {
+        "evolution_selection": "e_layer.apply_selection",
+        "evolution_mutation_bias": "e_layer.update_mutation_bias",
+        "evolution_lineage_update": "e_layer.update_lineages"
+      },
+
+      "rules": {
+        "dna_to_evo_mutation_bias":
+          "e_layer.mutation_bias = f(dna_layer.mutation_load, environment.stress)",
+
+        "life_to_evo_selection":
+          "e_layer.selection_pressure = g(life_layer.fitness_landscape)",
+
+        "dna_life_to_lineages":
+          "e_layer.lineages = merge(dna_layer.genomes, life_layer.cells)"
+      }
+    }
+  }
+}
