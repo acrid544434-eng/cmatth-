@@ -1,0 +1,44 @@
+{
+  "integration": {
+    "version": "1.0.0",
+    "type": "dark-sector-c-layer-bridge",
+
+    "author": {
+      "name": "C. Matthew Blackwell",
+      "role": "Independent designer",
+      "origin": "Lafayette, LA, United States",
+      "signature": "cmb::independent-designer::dark-c-bridge"
+    },
+
+    "bridge_layer": {
+      "id": "dark_c_bridge::v1",
+
+      "inputs": {
+        "dark_matter_density": "dark_matter_layer.state.density_field",
+        "dark_matter_velocity": "dark_matter_layer.state.velocity_field",
+        "dark_energy_pressure": "dark_energy_layer.state.effective_pressure",
+        "expansion_rate": "gravity_layer.state.expansion_rate"
+      },
+
+      "outputs": {
+        "phenomenology_modulation": "c_layer.phenomenology.update",
+        "observer_background_bias": "c_layer.observer.state",
+        "self_model_cosmic_context": "c_layer.self_model.parameters"
+      },
+
+      "rules": {
+        "dm_clustering_to_contrast":
+          "phenomenology.signal_contrast_external += k1 * clustering_index(dark_matter_density)",
+
+        "de_pressure_to_resonance":
+          "phenomenology.resonance_level += k2 * dark_energy_pressure",
+
+        "expansion_to_continuity":
+          "observer.continuity_strength = base_continuity - k3 * expansion_rate",
+
+        "dark_sector_to_self_model":
+          "self_model.prediction_horizon_steps = f(expansion_rate, dark_energy_pressure)"
+      }
+    }
+  }
+}
