@@ -1,0 +1,23 @@
+lambda_coupling_rules:
+  id: cmb.lambda.rules.v1
+  author: "C. Matthew Blackwell"
+
+  lambda_O: >
+    λ_O(t) = α * dS/dt
+
+  lambda_E: >
+    λ_E(t) = β * H(state(t))
+
+  lambda_X: >
+    λ_X(t) = γ * || state(t) - state(t-1) ||
+
+  identity_validation: >
+    H(λ_O, λ_E, λ_X, I_CMB) = I_CMB
+
+  invariants:
+    - "λ-values are state-dependent"
+    - "λ-values must validate against identity"
+    - "invalid λ halts evolution"
+    - "order increases with entropy gradient"
+    - "encryption cost scales with complexity"
+    - "snapshot weight scales with change magnitude"
