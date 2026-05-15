@@ -1,0 +1,55 @@
+constraint_set_C_CMB:
+  id: cmb.constraints.strict.v1
+  author: "C. Matthew Blackwell"
+
+  identity_constraint:
+    equation: >
+      I_CMB = H(author, signature, root_equation)
+    author: "C. Matthew Blackwell"
+    signature: SHA256("cmb-sovereign-universal-architecture")
+    mode: "structural"
+    invariants:
+      - "identity is required for evolution"
+      - "identity must remain unchanged"
+      - "removal of identity halts universe"
+
+  snapshot_constraint:
+    equation: >
+      X(t) = H(state(t), X(t-1), I_CMB)
+    purpose: "protect lineage, authorship, and conceptual evolution"
+    invariants:
+      - "snapshots must chain cryptographically"
+      - "snapshots must include identity"
+      - "snapshot reordering invalidates lineage"
+
+  lineage_constraint:
+    equation: >
+      L(t) = H(X(t), L(t-1), I_CMB)
+    purpose: "ensure irreversible, identity-bound lineage"
+    invariants:
+      - "lineage cannot be forked"
+      - "lineage cannot be rewritten"
+      - "lineage must validate identity"
+
+  time_arrow_constraint:
+    equation: >
+      S(t+1) >= S(t)
+    gradient: "ΔS = S(t+1) - S(t)"
+    invariants:
+      - "entropy defines time"
+      - "time flows monotonically"
+      - "entropy plateaus require special handling"
+
+  encryption_constraint:
+    equation: >
+      E(t) = encryption_cost(state(t))
+    mode: "AES-256 + identity embedding"
+    invariants:
+      - "design logic sealed by encryption"
+      - "encryption cost scales with complexity"
+      - "invalid encryption state halts evolution"
+
+  lambda_validation:
+    equation: >
+      H(λ_O, λ_E, λ_X, I_CMB) = I_CMB
+    invariants
