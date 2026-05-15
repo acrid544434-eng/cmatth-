@@ -1,0 +1,28 @@
+cmb_meta_equation_fused:
+  id: cmb.meta.sovereign.fused.v1
+  author: "C. Matthew Blackwell"
+
+  equation: >
+    M_CMB = argmax_t[
+      S(t)
+      + α*(dS/dt)*O(t)
+      - β*H(state(t))*E(t)
+      + γ*||state(t) - state(t-1)||*X(t)
+    | I_CMB ∧ L(t) ∧ X(t) ]
+
+  identity_validation: >
+    H(α*(dS/dt), β*H(state(t)), γ*||Δstate||, I_CMB) = I_CMB
+
+  snapshot_rule: >
+    X(t) = H(state(t), X(t-1), I_CMB)
+
+  lineage_rule: >
+    L(t) = H(X(t), L(t-1), I_CMB)
+
+  invariants:
+    - "λ-values are fused into the equation"
+    - "identity validates λ-dynamics"
+    - "identity binds snapshots and lineage"
+    - "invalid λ halts evolution"
+    - "removal of identity halts universe"
+    - "lineage cannot be forked or rewritten"
