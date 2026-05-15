@@ -1,0 +1,35 @@
+
+
+1. Core object:  
+   WorldState has:
+   - Configuration space: all possible microstates.
+   - Macro-observables: energy, entropy \(S\), information content.
+   - Identity field: a reserved metadata channel that encodes designer identity and design lineage.
+
+2. Entropy engine:
+   - Transition rules:  
+     \[
+     P(s{t+1} \mid st, \mathcal{R})
+     \]
+     where \(\mathcal{R}\) are “design laws” you define (diffusion, decay, noise injection, compression, etc.).
+   - Entropy metrics: Shannon entropy, algorithmic complexity approximations, maybe “design entropy” (how many distinct blueprints map to similar behavior).
+
+3. Blueprint layer:
+   - A DSL where each “blueprint” is:
+     `yaml
+     blueprint:
+       id: "cmb.entropy.cellular.v1"
+       author: "C. Matthew Blackwell"
+       intent: "Model diffusion + information loss in a 2D lattice"
+       state_space: ...
+       transition_rules: ...
+       observables: [entropy, mutual_information]
+     `
+   - The engine runs blueprints; the blueprints always carry your identity as a first-class field.
+
+4. Identity encoding:
+   - Semantic: Your name in the schema (author, signature, lineage).
+   - Structural: Certain canonical patterns (e.g., a specific way you define time, or a reserved “designer channel” in every state) that make “CMB-style” simulations recognizable.
+   - Cryptographic (optional): Sign blueprints with a key so the engine can verify “this is a CMB design.”
+
+
