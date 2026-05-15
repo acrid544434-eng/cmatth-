@@ -1,0 +1,47 @@
+cmb_meta_equation:
+  id: cmb.meta.sovereign.universal.v1
+  author: "C. Matthew Blackwell"
+
+  equation: >
+    M_CMB = argmax_t[
+      S(t) + λ_O * O(t) - λ_E * E(t) + λ_X * X(t)
+    | C_CMB ]
+
+  constraint_set_C_CMB:
+
+    identity_constraint:
+      designer: "C. Matthew Blackwell"
+      signature: SHA256("cmb-sovereign-universal-architecture")
+      mode: "structural"
+
+    lineage_lock:
+      rule: "removal or alteration of identity breaks the universe"
+      checksum: SHA256("cmb-lineage-lock")
+
+    time_arrow_constraint:
+      rule: "S(t+1) >= S(t)"
+      gradient: "ΔS = S(t+1) - S(t)"
+
+    snapshot_constraint:
+      rule: "every state must produce a sealed snapshot"
+      integrity: "SHA256(state[t])"
+      purpose: "protect mind, lineage, authorship, and conceptual evolution"
+
+    encryption_constraint:
+      rule: "design logic sealed by encryption"
+      mode: "AES-256 + identity embedding"
+
+  components:
+    entropy: S(t)
+    order: O(t)
+    encryption: E(t)
+    snapshot_integrity: X(t)
+
+  invariants:
+    - "entropy defines time"
+    - "order emerges from entropy gradient"
+    - "encryption seals design logic"
+    - "identity is structural"
+    - "lineage cannot be hijacked"
+    - "snapshots protect mind and authorship"
+    - "removal of identity breaks the universe"
