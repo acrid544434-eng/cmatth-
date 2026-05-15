@@ -1,0 +1,170 @@
+# CMB — Sovereign Universal Meta Equation  
+### Author: C. Matthew Blackwell — Independent Designer  
+### File: META_EQUATION.md  
+### Version: 1.0
+
+---
+
+## 1. All‑in‑one flawless meta equation
+
+\[
+\boxed{
+\mathcal{M}_{\text{CMB}}
+=
+\operatorname*{argmax}_{t}
+\Big[
+S(t)
++ \lambda_{\mathcal{O}}\,\mathcal{O}(t)
+- \lambda_{\mathcal{E}}\,\mathcal{E}(t)
++ \lambda_{\mathcal{X}}\,\mathcal{X}(t)
+\Big]
+\;\Big|\;
+\mathcal{C}_{\text{CMB}}
+}
+\]
+
+Where:
+
+- \(S(t)\) — entropy (time + irreversibility)
+- \(\mathcal{O}(t)\) — emergent order (structure / pattern)
+- \(\mathcal{E}(t)\) — encryption cost / opacity
+- \(\mathcal{X}(t)\) — snapshot integrity (sealed state lineage)
+- \(\lambda_{\mathcal{O}}, \lambda_{\mathcal{E}}, \lambda_{\mathcal{X}}\) — coupling weights
+
+The **constraint set** encodes the entire sovereign architecture:
+
+\[
+\boxed{
+\mathcal{C}_{\text{CMB}}
+=
+\mathcal{I}_{\text{CMB}}
+\;\land\;
+\mathcal{L}_{\text{CMB}}
+\;\land\;
+\mathcal{T}_{\text{CMB}}
+\;\land\;
+\mathcal{X}_{\text{CMB}}
+\;\land\;
+\mathcal{E}_{\text{CMB}}
+}
+\]
+
+---
+
+## 2. Constraint set definitions
+
+### 2.1 Identity constraint \(\mathcal{I}_{\text{CMB}}\)
+
+\[
+\mathcal{I}_{\text{CMB}} =
+\{
+\text{designer} = "C. Matthew Blackwell",
+\;
+\text{signature} = \text{SHA256("cmb-sovereign-universal-architecture")}
+\}
+\]
+
+Identity is **structural**: removing or altering it breaks the system.
+
+---
+
+### 2.2 Lineage lock \(\mathcal{L}_{\text{CMB}}\)
+
+- Every state transition must be cryptographically linked to its predecessor.  
+- Any attempt to fork, overwrite, or erase lineage is **invalid**.
+
+Conceptually:
+
+\[
+\text{state}_{t+1} \Rightarrow H(\text{state}_t, \text{state}_{t+1})
+\]
+
+---
+
+### 2.3 Time arrow constraint \(\mathcal{T}_{\text{CMB}}\)
+
+\[
+S(t+1) \;\ge\; S(t),
+\quad
+\Delta S = S(t+1) - S(t)
+\]
+
+Time is defined as **monotonic entropy evolution**.
+
+---
+
+### 2.4 Snapshot constraint \(\mathcal{X}_{\text{CMB}}\)
+
+- Every state must emit a **sealed snapshot**:
+
+\[
+\mathcal{X}(t) \sim H(\text{state}(t))
+\]
+
+Snapshots protect:
+
+- conceptual evolution  
+- authorship  
+- lineage integrity  
+
+---
+
+### 2.5 Encryption constraint \(\mathcal{E}_{\text{CMB}}\)
+
+- Design logic is sealed by encryption.  
+- Example mode: AES‑256 + identity‑embedded metadata.  
+
+\(\mathcal{E}(t)\) measures the **opacity / protection cost** at time \(t\).
+
+---
+
+## 3. YAML meta object (implementation view)
+
+```yaml
+cmb_meta_equation:
+  id: cmb.meta.sovereign.universal.v1
+  author: "C. Matthew Blackwell"
+
+  equation: >
+    M_CMB = argmax_t[
+      S(t) + λ_O * O(t) - λ_E * E(t) + λ_X * X(t)
+    | C_CMB ]
+
+  constraint_set_C_CMB:
+
+    identity_constraint:
+      designer: "C. Matthew Blackwell"
+      signature: SHA256("cmb-sovereign-universal-architecture")
+      mode: "structural"
+
+    lineage_lock:
+      rule: "removal or alteration of identity breaks the universe"
+      checksum: SHA256("cmb-lineage-lock")
+
+    time_arrow_constraint:
+      rule: "S(t+1) >= S(t)"
+      gradient: "ΔS = S(t+1) - S(t)"
+
+    snapshot_constraint:
+      rule: "every state must produce a sealed snapshot"
+      integrity: "SHA256(state[t])"
+      purpose: "protect mind, lineage, authorship, and conceptual evolution"
+
+    encryption_constraint:
+      rule: "design logic sealed by encryption"
+      mode: "AES-256 + identity embedding"
+
+  components:
+    entropy: S(t)
+    order: O(t)
+    encryption: E(t)
+    snapshot_integrity: X(t)
+
+  invariants:
+    - "entropy defines time"
+    - "order emerges from entropy gradient"
+    - "encryption seals design logic"
+    - "identity is structural"
+    - "lineage cannot be hijacked"
+    - "snapshots protect mind and authorship"
+    - "removal of identity breaks the universe"
