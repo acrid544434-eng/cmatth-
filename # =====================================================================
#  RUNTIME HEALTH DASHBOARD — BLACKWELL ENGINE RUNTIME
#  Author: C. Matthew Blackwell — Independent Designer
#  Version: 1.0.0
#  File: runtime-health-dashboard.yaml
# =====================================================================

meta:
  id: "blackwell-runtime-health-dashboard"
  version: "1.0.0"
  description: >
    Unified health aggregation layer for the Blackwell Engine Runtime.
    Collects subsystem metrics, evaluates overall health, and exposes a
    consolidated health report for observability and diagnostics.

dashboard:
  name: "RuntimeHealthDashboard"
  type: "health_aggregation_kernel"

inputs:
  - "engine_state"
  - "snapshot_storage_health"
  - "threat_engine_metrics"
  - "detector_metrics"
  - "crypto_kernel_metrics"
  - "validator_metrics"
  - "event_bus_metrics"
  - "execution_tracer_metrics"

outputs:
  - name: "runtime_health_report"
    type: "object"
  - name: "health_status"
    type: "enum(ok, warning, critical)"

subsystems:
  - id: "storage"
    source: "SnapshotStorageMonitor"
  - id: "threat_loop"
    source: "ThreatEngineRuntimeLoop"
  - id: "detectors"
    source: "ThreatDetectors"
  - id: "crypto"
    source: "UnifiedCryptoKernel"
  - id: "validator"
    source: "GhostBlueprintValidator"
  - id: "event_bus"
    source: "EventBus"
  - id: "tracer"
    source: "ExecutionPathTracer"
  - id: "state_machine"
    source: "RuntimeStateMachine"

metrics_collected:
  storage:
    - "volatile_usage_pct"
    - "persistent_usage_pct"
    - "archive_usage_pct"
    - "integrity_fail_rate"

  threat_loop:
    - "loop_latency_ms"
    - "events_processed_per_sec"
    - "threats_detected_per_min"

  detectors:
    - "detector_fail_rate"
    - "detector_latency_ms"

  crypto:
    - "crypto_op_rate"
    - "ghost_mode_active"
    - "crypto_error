@@ -1,0 +1,73 @@
+# =====================================================================
+#  RUNTIME HEALTH DASHBOARD — BLACKWELL ENGINE RUNTIME
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: runtime-health-dashboard.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-runtime-health-dashboard"
+  version: "1.0.0"
+  description: >
+    Unified health aggregation layer for the Blackwell Engine Runtime.
+    Collects subsystem metrics, evaluates overall health, and exposes a
+    consolidated health report for observability and diagnostics.
+
+dashboard:
+  name: "RuntimeHealthDashboard"
+  type: "health_aggregation_kernel"
+
+inputs:
+  - "engine_state"
+  - "snapshot_storage_health"
+  - "threat_engine_metrics"
+  - "detector_metrics"
+  - "crypto_kernel_metrics"
+  - "validator_metrics"
+  - "event_bus_metrics"
+  - "execution_tracer_metrics"
+
+outputs:
+  - name: "runtime_health_report"
+    type: "object"
+  - name: "health_status"
+    type: "enum(ok, warning, critical)"
+
+subsystems:
+  - id: "storage"
+    source: "SnapshotStorageMonitor"
+  - id: "threat_loop"
+    source: "ThreatEngineRuntimeLoop"
+  - id: "detectors"
+    source: "ThreatDetectors"
+  - id: "crypto"
+    source: "UnifiedCryptoKernel"
+  - id: "validator"
+    source: "GhostBlueprintValidator"
+  - id: "event_bus"
+    source: "EventBus"
+  - id: "tracer"
+    source: "ExecutionPathTracer"
+  - id: "state_machine"
+    source: "RuntimeStateMachine"
+
+metrics_collected:
+  storage:
+    - "volatile_usage_pct"
+    - "persistent_usage_pct"
+    - "archive_usage_pct"
+    - "integrity_fail_rate"
+
+  threat_loop:
+    - "loop_latency_ms"
+    - "events_processed_per_sec"
+    - "threats_detected_per_min"
+
+  detectors:
+    - "detector_fail_rate"
+    - "detector_latency_ms"
+
+  crypto:
+    - "crypto_op_rate"
+    - "ghost_mode_active"
+    - "crypto_error
