@@ -1,0 +1,139 @@
+# =====================================================================
+#  IDENTITY SEAL GENERATOR — BLACKWELL GHOST LAYER
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: identity-seal-generator.yaml
+# =====================================================================
+
+meta:
+  id: "identity-seal-generator"
+  layer_ref: "ghost-anti-duplication-layer.yaml"
+  version: "1.0.0"
+  description: >
+    Specification for generating and embedding a Blackwell identity seal
+    into blueprints (YAML/MD) used in the Ghost / Unified Crypto Engine.
+
+generator:
+  name: "IdentitySealGenerator"
+  type: "deterministic_identity_seal"
+
+  inputs:
+    - name: "file_path"
+      type: "string"
+      description: "Path to the blueprint file to seal."
+    - name: "designer_name"
+      type: "string"
+      default: "C. Matthew Blackwell"
+    - name: "engine_family"
+      type: "string"
+      default: "Blackwell Simulation Suite"
+    - name: "seal_version"
+      type: "string"
+      default: "1.0.0"
+
+  outputs:
+    - name: "seal"
+      type: "object"
+      fields:
+        - "designer"
+        - "engine_family"
+        - "seal_id"
+        - "seal_version"
+        - "file_fingerprint"
+        - "timestamp"
+
+seal_schema:
+  description: "Canonical structure of a Blackwell identity seal."
+  fields:
+    - name: "designer"
+      type: "string"
+    - name: "engine_family"
+      type: "string"
+    - name: "seal_id"
+      type: "string"
+      example: "GHOST-SEAL-W01"
+    - name: "seal_version"
+      type: "string"
+    - name: "file_fingerprint"
+      type: "string"
+      description: "sha256 or similar hash of file content."
+    - name: "timestamp"
+      type: "string"
+      description: "ISO8601 timestamp of seal generation."
+
+operations:
+  generate_seal:
+    signature: "generate_seal(file_path, designer_name, engine_family, seal_version) -> seal"
+    description: >
+      Computes a deterministic identity seal for the given file and
+      returns a structured seal object.
+
+    pseudocode: |
+      function generate_seal(file_path, designer_name, engine_family, seal_version):
+          content = read_file(file_path)
+          fingerprint = sha256(content)        # conceptual; implementation-specific
+          timestamp = now_iso8601()            # conceptual; implementation-specific
+
+          seal = {
+              "designer": designer_name,
+              "engine_family": engine_family,
+              "seal_id": "GHOST-SEAL-W01",
+              "seal_version": seal_version,
+              "file_fingerprint": fingerprint,
+              "timestamp": timestamp
+          }
+
+          return seal
+
+  embed_seal:
+    signature: "embed_seal(file_path, seal) -> updated_file"
+    description: >
+      Embeds the identity seal into the blueprint under identity_encoding
+      or updates the existing block.
+
+    rules:
+      - "If identity_encoding exists: update fields."
+      - "If identity_encoding missing: create new block."
+      - "Preserve all non-identity content."
+
+    pseudocode: |
+      function embed_seal(file_path, seal):
+          doc = parse_yaml_or_markdown(file_path)
+
+          if "identity_encoding" not in doc:
+              doc["identity_encoding"] = {}
+
+          doc["identity_encoding"]["designer"] = seal.designer
+          doc["identity_encoding"]["engine_family"] = seal.engine_family
+          doc["identity_encoding"]["binding"] = {
+              "seal_id": seal.seal_id,
+              "seal_version": seal.seal_version,
+              "file_fingerprint": seal.file_fingerprint,
+              "timestamp": seal.timestamp
+          }
+
+          write_file(file_path, serialize(doc))
+          return file_path
+
+workflow:
+  description: "End-to-end identity sealing workflow for a blueprint."
+  steps:
+    - "1. Call generate_seal(file_path, designer_name, engine_family, seal_version)."
+    - "2. Call embed_seal(file_path, seal)."
+    - "3. Optionally recompute and update registry checksum."
+    - "4. Run Ghost Blueprint Validator to confirm authenticity."
+
+invariants:
+  - id: "designer_must_be_present"
+    description: "Seal must include a non-empty designer field."
+  - id: "fingerprint_must_match"
+    description: "file_fingerprint must match actual file content at time of sealing."
+  - id: "binding_required"
+    description: "identity_encoding.binding must exist after embedding."
+  - id: "deterministic_seal"
+    description: "Same file content and inputs => same seal (except timestamp if treated as non-essential)."
+
+notes:
+  - "This generator encodes authorship and structure; it does not provide cryptographic security guarantees."
+  - "In a stricter mode, timestamp can be excluded from the hash domain to keep seals fully deterministic."
+  - "This is part of the Blackwell provenance story: blueprints are not anonymous objects."
