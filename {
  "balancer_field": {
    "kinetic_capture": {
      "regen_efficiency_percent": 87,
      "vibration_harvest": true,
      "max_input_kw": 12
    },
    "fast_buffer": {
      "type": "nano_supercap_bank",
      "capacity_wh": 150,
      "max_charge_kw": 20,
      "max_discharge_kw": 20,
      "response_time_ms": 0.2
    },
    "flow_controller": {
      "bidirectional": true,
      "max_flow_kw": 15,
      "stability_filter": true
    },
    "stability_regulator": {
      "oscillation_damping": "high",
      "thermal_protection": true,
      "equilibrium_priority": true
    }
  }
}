@@ -1,0 +1,26 @@
+{
+  "balancer_field": {
+    "kinetic_capture": {
+      "regen_efficiency_percent": 87,
+      "vibration_harvest": true,
+      "max_input_kw": 12
+    },
+    "fast_buffer": {
+      "type": "nano_supercap_bank",
+      "capacity_wh": 150,
+      "max_charge_kw": 20,
+      "max_discharge_kw": 20,
+      "response_time_ms": 0.2
+    },
+    "flow_controller": {
+      "bidirectional": true,
+      "max_flow_kw": 15,
+      "stability_filter": true
+    },
+    "stability_regulator": {
+      "oscillation_damping": "high",
+      "thermal_protection": true,
+      "equilibrium_priority": true
+    }
+  }
+}
