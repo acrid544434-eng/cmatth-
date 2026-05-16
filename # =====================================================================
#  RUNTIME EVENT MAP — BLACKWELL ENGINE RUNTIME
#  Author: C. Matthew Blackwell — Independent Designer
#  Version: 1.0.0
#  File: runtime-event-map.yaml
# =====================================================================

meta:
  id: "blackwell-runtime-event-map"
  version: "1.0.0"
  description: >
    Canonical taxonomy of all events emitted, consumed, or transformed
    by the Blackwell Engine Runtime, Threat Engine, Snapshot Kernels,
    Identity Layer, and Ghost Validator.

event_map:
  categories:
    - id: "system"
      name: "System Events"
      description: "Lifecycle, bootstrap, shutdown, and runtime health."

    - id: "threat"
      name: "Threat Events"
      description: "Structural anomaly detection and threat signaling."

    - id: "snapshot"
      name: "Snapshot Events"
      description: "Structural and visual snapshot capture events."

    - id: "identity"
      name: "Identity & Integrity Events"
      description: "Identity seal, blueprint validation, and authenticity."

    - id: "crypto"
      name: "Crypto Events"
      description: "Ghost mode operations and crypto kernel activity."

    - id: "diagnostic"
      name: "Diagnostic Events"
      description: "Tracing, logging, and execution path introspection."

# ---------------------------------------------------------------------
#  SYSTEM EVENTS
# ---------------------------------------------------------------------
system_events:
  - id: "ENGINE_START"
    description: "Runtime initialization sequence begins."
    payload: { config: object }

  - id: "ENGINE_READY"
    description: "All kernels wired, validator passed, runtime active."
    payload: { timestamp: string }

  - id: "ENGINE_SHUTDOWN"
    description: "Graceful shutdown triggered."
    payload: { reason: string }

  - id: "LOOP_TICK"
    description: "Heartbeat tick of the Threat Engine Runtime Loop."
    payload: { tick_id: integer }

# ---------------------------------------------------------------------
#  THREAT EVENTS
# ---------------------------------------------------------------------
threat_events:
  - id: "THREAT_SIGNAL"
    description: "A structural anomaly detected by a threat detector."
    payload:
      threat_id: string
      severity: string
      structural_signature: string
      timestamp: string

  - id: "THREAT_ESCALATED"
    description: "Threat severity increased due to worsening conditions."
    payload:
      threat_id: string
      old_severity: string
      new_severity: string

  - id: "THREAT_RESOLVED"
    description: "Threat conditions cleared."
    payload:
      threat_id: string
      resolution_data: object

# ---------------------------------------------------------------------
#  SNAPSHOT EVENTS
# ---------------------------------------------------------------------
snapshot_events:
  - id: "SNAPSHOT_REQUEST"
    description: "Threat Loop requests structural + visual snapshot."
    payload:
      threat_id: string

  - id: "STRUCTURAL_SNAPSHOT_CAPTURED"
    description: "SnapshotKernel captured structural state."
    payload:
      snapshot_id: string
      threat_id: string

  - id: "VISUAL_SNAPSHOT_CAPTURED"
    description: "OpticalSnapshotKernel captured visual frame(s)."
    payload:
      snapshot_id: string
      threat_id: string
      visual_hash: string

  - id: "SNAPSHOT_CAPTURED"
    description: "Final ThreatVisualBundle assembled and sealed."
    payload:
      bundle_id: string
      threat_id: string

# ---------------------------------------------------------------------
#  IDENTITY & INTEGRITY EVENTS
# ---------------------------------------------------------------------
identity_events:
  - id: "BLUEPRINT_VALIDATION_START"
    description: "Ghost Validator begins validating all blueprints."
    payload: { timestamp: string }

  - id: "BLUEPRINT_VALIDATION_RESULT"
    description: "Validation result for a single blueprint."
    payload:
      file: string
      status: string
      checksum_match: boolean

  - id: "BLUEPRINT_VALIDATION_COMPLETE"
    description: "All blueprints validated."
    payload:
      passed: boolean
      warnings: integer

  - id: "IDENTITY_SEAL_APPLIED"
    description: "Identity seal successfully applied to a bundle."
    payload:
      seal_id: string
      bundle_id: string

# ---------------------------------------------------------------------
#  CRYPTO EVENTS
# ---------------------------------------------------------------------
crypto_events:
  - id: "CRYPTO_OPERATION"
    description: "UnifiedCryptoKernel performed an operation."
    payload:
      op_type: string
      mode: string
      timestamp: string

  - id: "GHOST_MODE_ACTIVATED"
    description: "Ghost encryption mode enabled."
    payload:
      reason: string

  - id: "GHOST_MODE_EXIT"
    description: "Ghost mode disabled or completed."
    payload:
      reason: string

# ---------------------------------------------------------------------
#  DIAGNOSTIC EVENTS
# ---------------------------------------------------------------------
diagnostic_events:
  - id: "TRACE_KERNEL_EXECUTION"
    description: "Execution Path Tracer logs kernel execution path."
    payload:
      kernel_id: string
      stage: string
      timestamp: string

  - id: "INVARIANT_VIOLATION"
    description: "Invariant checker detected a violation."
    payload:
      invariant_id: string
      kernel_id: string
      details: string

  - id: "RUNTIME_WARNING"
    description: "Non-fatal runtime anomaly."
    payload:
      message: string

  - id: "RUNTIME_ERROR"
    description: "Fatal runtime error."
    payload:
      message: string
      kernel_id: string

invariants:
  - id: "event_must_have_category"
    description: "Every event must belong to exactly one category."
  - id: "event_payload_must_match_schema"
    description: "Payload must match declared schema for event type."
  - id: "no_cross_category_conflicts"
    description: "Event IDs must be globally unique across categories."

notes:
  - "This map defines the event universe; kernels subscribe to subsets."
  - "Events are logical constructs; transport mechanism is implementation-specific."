@@ -1,0 +1,202 @@
+# =====================================================================
+#  RUNTIME EVENT MAP — BLACKWELL ENGINE RUNTIME
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: runtime-event-map.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-runtime-event-map"
+  version: "1.0.0"
+  description: >
+    Canonical taxonomy of all events emitted, consumed, or transformed
+    by the Blackwell Engine Runtime, Threat Engine, Snapshot Kernels,
+    Identity Layer, and Ghost Validator.
+
+event_map:
+  categories:
+    - id: "system"
+      name: "System Events"
+      description: "Lifecycle, bootstrap, shutdown, and runtime health."
+
+    - id: "threat"
+      name: "Threat Events"
+      description: "Structural anomaly detection and threat signaling."
+
+    - id: "snapshot"
+      name: "Snapshot Events"
+      description: "Structural and visual snapshot capture events."
+
+    - id: "identity"
+      name: "Identity & Integrity Events"
+      description: "Identity seal, blueprint validation, and authenticity."
+
+    - id: "crypto"
+      name: "Crypto Events"
+      description: "Ghost mode operations and crypto kernel activity."
+
+    - id: "diagnostic"
+      name: "Diagnostic Events"
+      description: "Tracing, logging, and execution path introspection."
+
+# ---------------------------------------------------------------------
+#  SYSTEM EVENTS
+# ---------------------------------------------------------------------
+system_events:
+  - id: "ENGINE_START"
+    description: "Runtime initialization sequence begins."
+    payload: { config: object }
+
+  - id: "ENGINE_READY"
+    description: "All kernels wired, validator passed, runtime active."
+    payload: { timestamp: string }
+
+  - id: "ENGINE_SHUTDOWN"
+    description: "Graceful shutdown triggered."
+    payload: { reason: string }
+
+  - id: "LOOP_TICK"
+    description: "Heartbeat tick of the Threat Engine Runtime Loop."
+    payload: { tick_id: integer }
+
+# ---------------------------------------------------------------------
+#  THREAT EVENTS
+# ---------------------------------------------------------------------
+threat_events:
+  - id: "THREAT_SIGNAL"
+    description: "A structural anomaly detected by a threat detector."
+    payload:
+      threat_id: string
+      severity: string
+      structural_signature: string
+      timestamp: string
+
+  - id: "THREAT_ESCALATED"
+    description: "Threat severity increased due to worsening conditions."
+    payload:
+      threat_id: string
+      old_severity: string
+      new_severity: string
+
+  - id: "THREAT_RESOLVED"
+    description: "Threat conditions cleared."
+    payload:
+      threat_id: string
+      resolution_data: object
+
+# ---------------------------------------------------------------------
+#  SNAPSHOT EVENTS
+# ---------------------------------------------------------------------
+snapshot_events:
+  - id: "SNAPSHOT_REQUEST"
+    description: "Threat Loop requests structural + visual snapshot."
+    payload:
+      threat_id: string
+
+  - id: "STRUCTURAL_SNAPSHOT_CAPTURED"
+    description: "SnapshotKernel captured structural state."
+    payload:
+      snapshot_id: string
+      threat_id: string
+
+  - id: "VISUAL_SNAPSHOT_CAPTURED"
+    description: "OpticalSnapshotKernel captured visual frame(s)."
+    payload:
+      snapshot_id: string
+      threat_id: string
+      visual_hash: string
+
+  - id: "SNAPSHOT_CAPTURED"
+    description: "Final ThreatVisualBundle assembled and sealed."
+    payload:
+      bundle_id: string
+      threat_id: string
+
+# ---------------------------------------------------------------------
+#  IDENTITY & INTEGRITY EVENTS
+# ---------------------------------------------------------------------
+identity_events:
+  - id: "BLUEPRINT_VALIDATION_START"
+    description: "Ghost Validator begins validating all blueprints."
+    payload: { timestamp: string }
+
+  - id: "BLUEPRINT_VALIDATION_RESULT"
+    description: "Validation result for a single blueprint."
+    payload:
+      file: string
+      status: string
+      checksum_match: boolean
+
+  - id: "BLUEPRINT_VALIDATION_COMPLETE"
+    description: "All blueprints validated."
+    payload:
+      passed: boolean
+      warnings: integer
+
+  - id: "IDENTITY_SEAL_APPLIED"
+    description: "Identity seal successfully applied to a bundle."
+    payload:
+      seal_id: string
+      bundle_id: string
+
+# ---------------------------------------------------------------------
+#  CRYPTO EVENTS
+# ---------------------------------------------------------------------
+crypto_events:
+  - id: "CRYPTO_OPERATION"
+    description: "UnifiedCryptoKernel performed an operation."
+    payload:
+      op_type: string
+      mode: string
+      timestamp: string
+
+  - id: "GHOST_MODE_ACTIVATED"
+    description: "Ghost encryption mode enabled."
+    payload:
+      reason: string
+
+  - id: "GHOST_MODE_EXIT"
+    description: "Ghost mode disabled or completed."
+    payload:
+      reason: string
+
+# ---------------------------------------------------------------------
+#  DIAGNOSTIC EVENTS
+# ---------------------------------------------------------------------
+diagnostic_events:
+  - id: "TRACE_KERNEL_EXECUTION"
+    description: "Execution Path Tracer logs kernel execution path."
+    payload:
+      kernel_id: string
+      stage: string
+      timestamp: string
+
+  - id: "INVARIANT_VIOLATION"
+    description: "Invariant checker detected a violation."
+    payload:
+      invariant_id: string
+      kernel_id: string
+      details: string
+
+  - id: "RUNTIME_WARNING"
+    description: "Non-fatal runtime anomaly."
+    payload:
+      message: string
+
+  - id: "RUNTIME_ERROR"
+    description: "Fatal runtime error."
+    payload:
+      message: string
+      kernel_id: string
+
+invariants:
+  - id: "event_must_have_category"
+    description: "Every event must belong to exactly one category."
+  - id: "event_payload_must_match_schema"
+    description: "Payload must match declared schema for event type."
+  - id: "no_cross_category_conflicts"
+    description: "Event IDs must be globally unique across categories."
+
+notes:
+  - "This map defines the event universe; kernels subscribe to subsets."
+  - "Events are logical constructs; transport mechanism is implementation-specific."
