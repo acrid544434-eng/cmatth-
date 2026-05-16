@@ -1,0 +1,79 @@
+# =====================================================================
+#  THREAT SEVERITY MODEL — BLACKWELL ENGINE RUNTIME
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: threat-severity-model.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-threat-severity-model"
+  version: "1.0.0"
+  description: >
+    Deterministic severity classification and escalation model for
+    structural anomalies detected by the Threat Engine Runtime Loop.
+
+severity_model:
+  name: "ThreatSeverityModel"
+  type: "deterministic_classifier"
+
+levels:
+  - id: "low"
+    weight: 1
+    description: "Minor drift or non-critical anomaly."
+
+  - id: "medium"
+    weight: 2
+    description: "Meaningful deviation requiring snapshot capture."
+
+  - id: "high"
+    weight: 3
+    description: "Significant structural instability; immediate attention."
+
+  - id: "critical"
+    weight: 4
+    description: "Severe instability or integrity failure; highest priority."
+
+inputs:
+  - "detector_output.signature"
+  - "detector_output.magnitude"
+  - "engine_state.context"
+  - "recent_threat_history"
+
+classification_rules:
+  - id: "drift_small"
+    signature: "invariant_drift"
+    condition: "magnitude < drift_medium_threshold"
+    severity: "low"
+
+  - id: "drift_large"
+    signature: "invariant_drift"
+    condition: "magnitude >= drift_medium_threshold"
+    severity: "medium"
+
+  - id: "flux_break"
+    signature: "flux_discontinuity"
+    condition: "magnitude >= flux_high_threshold"
+    severity: "high"
+
+  - id: "gradient_spike"
+    signature: "gradient_spike"
+    condition: "magnitude >= gradient_critical_threshold"
+    severity: "critical"
+
+  - id: "solver_failure"
+    signature: "solver_instability"
+    condition: "true"
+    severity: "critical"
+
+  - id: "identity_violation"
+    signature: "identity_violation"
+    condition: "true"
+    severity: "critical"
+
+  - id: "entropy_surge"
+    signature: "entropy_surge"
+    condition: "magnitude >= entropy_high_threshold"
+    severity: "high"
+
+  - id: "temporal_drift"
+    signature: "temporal_drift
