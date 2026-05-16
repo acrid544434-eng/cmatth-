@@ -1,0 +1,17 @@
+# Blackwell Unified Crypto Engine
+
+## Specification Summary
+- Primitive schema: (S, K, P, θ)
+- Unified equation: C = Fθ(M, K, P)
+- Modes: AES‑256, ECC, RSA
+- Composition:
+  - Chain: Φ(M)
+  - Parallel: Ψ(M)
+- Kernel: deterministic, trace‑producing
+- Identity encoding: invariants + designer signature
+
+## Files
+- kernel/: YAML specifications
+- src/: implementation layout
+- docs/: mathematical and architectural notes
+- tests/: deterministic validation suite
