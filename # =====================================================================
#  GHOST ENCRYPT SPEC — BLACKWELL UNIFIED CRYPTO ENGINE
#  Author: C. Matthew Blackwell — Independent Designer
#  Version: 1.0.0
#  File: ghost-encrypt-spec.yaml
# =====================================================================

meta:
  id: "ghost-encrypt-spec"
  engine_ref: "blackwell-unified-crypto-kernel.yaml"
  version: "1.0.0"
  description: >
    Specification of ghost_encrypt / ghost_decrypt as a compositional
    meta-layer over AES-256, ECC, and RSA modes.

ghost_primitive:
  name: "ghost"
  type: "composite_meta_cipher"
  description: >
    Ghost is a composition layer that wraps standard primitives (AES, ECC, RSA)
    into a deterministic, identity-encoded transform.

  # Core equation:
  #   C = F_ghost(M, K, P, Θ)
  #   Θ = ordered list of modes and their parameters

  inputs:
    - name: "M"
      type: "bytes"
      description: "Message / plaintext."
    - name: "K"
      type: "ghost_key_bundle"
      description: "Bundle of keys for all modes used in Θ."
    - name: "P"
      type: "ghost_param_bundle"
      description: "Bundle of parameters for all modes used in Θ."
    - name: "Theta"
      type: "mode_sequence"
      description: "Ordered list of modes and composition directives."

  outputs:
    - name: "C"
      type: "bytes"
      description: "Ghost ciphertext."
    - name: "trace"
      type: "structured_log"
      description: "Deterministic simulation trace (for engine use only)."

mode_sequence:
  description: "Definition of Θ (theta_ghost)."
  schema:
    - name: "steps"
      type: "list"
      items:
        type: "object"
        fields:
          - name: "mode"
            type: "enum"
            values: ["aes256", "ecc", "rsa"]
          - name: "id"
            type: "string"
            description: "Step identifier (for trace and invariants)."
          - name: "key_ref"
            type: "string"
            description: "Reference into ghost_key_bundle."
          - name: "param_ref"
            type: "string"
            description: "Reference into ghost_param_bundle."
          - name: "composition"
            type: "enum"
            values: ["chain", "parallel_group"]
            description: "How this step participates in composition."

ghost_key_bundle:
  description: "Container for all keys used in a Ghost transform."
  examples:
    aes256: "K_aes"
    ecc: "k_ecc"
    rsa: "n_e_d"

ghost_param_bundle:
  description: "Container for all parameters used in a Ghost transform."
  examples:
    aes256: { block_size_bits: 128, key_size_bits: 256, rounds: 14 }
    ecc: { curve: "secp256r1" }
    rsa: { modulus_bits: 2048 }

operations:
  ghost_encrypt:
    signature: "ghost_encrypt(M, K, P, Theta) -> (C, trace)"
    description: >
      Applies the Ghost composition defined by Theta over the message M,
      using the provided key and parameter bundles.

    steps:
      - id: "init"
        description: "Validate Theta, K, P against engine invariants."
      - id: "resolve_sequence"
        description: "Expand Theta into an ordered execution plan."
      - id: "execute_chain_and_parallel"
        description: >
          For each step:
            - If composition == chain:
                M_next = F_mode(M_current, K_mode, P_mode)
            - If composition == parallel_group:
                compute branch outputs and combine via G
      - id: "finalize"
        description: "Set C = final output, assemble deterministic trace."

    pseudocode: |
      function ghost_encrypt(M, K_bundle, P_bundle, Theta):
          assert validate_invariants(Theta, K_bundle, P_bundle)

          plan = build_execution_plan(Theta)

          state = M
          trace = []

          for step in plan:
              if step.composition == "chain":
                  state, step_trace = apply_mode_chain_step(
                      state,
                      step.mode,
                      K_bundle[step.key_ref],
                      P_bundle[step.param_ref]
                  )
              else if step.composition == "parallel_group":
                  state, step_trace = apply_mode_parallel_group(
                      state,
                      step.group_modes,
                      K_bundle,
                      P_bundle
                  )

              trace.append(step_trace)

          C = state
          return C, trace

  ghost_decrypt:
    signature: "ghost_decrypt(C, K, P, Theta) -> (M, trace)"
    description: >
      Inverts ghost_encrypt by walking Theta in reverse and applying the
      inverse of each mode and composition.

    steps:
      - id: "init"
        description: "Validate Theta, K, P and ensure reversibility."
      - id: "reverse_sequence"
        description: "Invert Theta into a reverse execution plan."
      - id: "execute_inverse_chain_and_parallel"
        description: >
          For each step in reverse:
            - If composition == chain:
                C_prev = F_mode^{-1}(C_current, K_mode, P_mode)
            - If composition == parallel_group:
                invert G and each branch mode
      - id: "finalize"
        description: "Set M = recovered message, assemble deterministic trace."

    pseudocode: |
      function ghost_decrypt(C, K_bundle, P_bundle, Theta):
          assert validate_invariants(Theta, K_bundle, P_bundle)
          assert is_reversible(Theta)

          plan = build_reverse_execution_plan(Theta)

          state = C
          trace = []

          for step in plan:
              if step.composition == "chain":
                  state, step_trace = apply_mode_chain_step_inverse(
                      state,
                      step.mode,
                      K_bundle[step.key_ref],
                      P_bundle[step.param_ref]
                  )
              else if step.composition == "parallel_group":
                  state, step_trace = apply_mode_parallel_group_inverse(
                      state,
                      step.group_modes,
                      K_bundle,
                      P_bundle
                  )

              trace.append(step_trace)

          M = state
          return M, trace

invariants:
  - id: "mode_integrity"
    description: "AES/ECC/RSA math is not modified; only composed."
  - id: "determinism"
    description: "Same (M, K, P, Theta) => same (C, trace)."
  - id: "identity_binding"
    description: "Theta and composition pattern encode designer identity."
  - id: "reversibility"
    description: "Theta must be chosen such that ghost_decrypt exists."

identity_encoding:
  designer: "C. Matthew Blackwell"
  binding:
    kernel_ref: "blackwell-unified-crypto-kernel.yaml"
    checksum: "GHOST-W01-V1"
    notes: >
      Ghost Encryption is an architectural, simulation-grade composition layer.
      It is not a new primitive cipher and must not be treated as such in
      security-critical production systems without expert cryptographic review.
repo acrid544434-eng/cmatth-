@@ -1,0 +1,210 @@
+# =====================================================================
+#  GHOST ENCRYPT SPEC — BLACKWELL UNIFIED CRYPTO ENGINE
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: ghost-encrypt-spec.yaml
+# =====================================================================
+
+meta:
+  id: "ghost-encrypt-spec"
+  engine_ref: "blackwell-unified-crypto-kernel.yaml"
+  version: "1.0.0"
+  description: >
+    Specification of ghost_encrypt / ghost_decrypt as a compositional
+    meta-layer over AES-256, ECC, and RSA modes.
+
+ghost_primitive:
+  name: "ghost"
+  type: "composite_meta_cipher"
+  description: >
+    Ghost is a composition layer that wraps standard primitives (AES, ECC, RSA)
+    into a deterministic, identity-encoded transform.
+
+  # Core equation:
+  #   C = F_ghost(M, K, P, Θ)
+  #   Θ = ordered list of modes and their parameters
+
+  inputs:
+    - name: "M"
+      type: "bytes"
+      description: "Message / plaintext."
+    - name: "K"
+      type: "ghost_key_bundle"
+      description: "Bundle of keys for all modes used in Θ."
+    - name: "P"
+      type: "ghost_param_bundle"
+      description: "Bundle of parameters for all modes used in Θ."
+    - name: "Theta"
+      type: "mode_sequence"
+      description: "Ordered list of modes and composition directives."
+
+  outputs:
+    - name: "C"
+      type: "bytes"
+      description: "Ghost ciphertext."
+    - name: "trace"
+      type: "structured_log"
+      description: "Deterministic simulation trace (for engine use only)."
+
+mode_sequence:
+  description: "Definition of Θ (theta_ghost)."
+  schema:
+    - name: "steps"
+      type: "list"
+      items:
+        type: "object"
+        fields:
+          - name: "mode"
+            type: "enum"
+            values: ["aes256", "ecc", "rsa"]
+          - name: "id"
+            type: "string"
+            description: "Step identifier (for trace and invariants)."
+          - name: "key_ref"
+            type: "string"
+            description: "Reference into ghost_key_bundle."
+          - name: "param_ref"
+            type: "string"
+            description: "Reference into ghost_param_bundle."
+          - name: "composition"
+            type: "enum"
+            values: ["chain", "parallel_group"]
+            description: "How this step participates in composition."
+
+ghost_key_bundle:
+  description: "Container for all keys used in a Ghost transform."
+  examples:
+    aes256: "K_aes"
+    ecc: "k_ecc"
+    rsa: "n_e_d"
+
+ghost_param_bundle:
+  description: "Container for all parameters used in a Ghost transform."
+  examples:
+    aes256: { block_size_bits: 128, key_size_bits: 256, rounds: 14 }
+    ecc: { curve: "secp256r1" }
+    rsa: { modulus_bits: 2048 }
+
+operations:
+  ghost_encrypt:
+    signature: "ghost_encrypt(M, K, P, Theta) -> (C, trace)"
+    description: >
+      Applies the Ghost composition defined by Theta over the message M,
+      using the provided key and parameter bundles.
+
+    steps:
+      - id: "init"
+        description: "Validate Theta, K, P against engine invariants."
+      - id: "resolve_sequence"
+        description: "Expand Theta into an ordered execution plan."
+      - id: "execute_chain_and_parallel"
+        description: >
+          For each step:
+            - If composition == chain:
+                M_next = F_mode(M_current, K_mode, P_mode)
+            - If composition == parallel_group:
+                compute branch outputs and combine via G
+      - id: "finalize"
+        description: "Set C = final output, assemble deterministic trace."
+
+    pseudocode: |
+      function ghost_encrypt(M, K_bundle, P_bundle, Theta):
+          assert validate_invariants(Theta, K_bundle, P_bundle)
+
+          plan = build_execution_plan(Theta)
+
+          state = M
+          trace = []
+
+          for step in plan:
+              if step.composition == "chain":
+                  state, step_trace = apply_mode_chain_step(
+                      state,
+                      step.mode,
+                      K_bundle[step.key_ref],
+                      P_bundle[step.param_ref]
+                  )
+              else if step.composition == "parallel_group":
+                  state, step_trace = apply_mode_parallel_group(
+                      state,
+                      step.group_modes,
+                      K_bundle,
+                      P_bundle
+                  )
+
+              trace.append(step_trace)
+
+          C = state
+          return C, trace
+
+  ghost_decrypt:
+    signature: "ghost_decrypt(C, K, P, Theta) -> (M, trace)"
+    description: >
+      Inverts ghost_encrypt by walking Theta in reverse and applying the
+      inverse of each mode and composition.
+
+    steps:
+      - id: "init"
+        description: "Validate Theta, K, P and ensure reversibility."
+      - id: "reverse_sequence"
+        description: "Invert Theta into a reverse execution plan."
+      - id: "execute_inverse_chain_and_parallel"
+        description: >
+          For each step in reverse:
+            - If composition == chain:
+                C_prev = F_mode^{-1}(C_current, K_mode, P_mode)
+            - If composition == parallel_group:
+                invert G and each branch mode
+      - id: "finalize"
+        description: "Set M = recovered message, assemble deterministic trace."
+
+    pseudocode: |
+      function ghost_decrypt(C, K_bundle, P_bundle, Theta):
+          assert validate_invariants(Theta, K_bundle, P_bundle)
+          assert is_reversible(Theta)
+
+          plan = build_reverse_execution_plan(Theta)
+
+          state = C
+          trace = []
+
+          for step in plan:
+              if step.composition == "chain":
+                  state, step_trace = apply_mode_chain_step_inverse(
+                      state,
+                      step.mode,
+                      K_bundle[step.key_ref],
+                      P_bundle[step.param_ref]
+                  )
+              else if step.composition == "parallel_group":
+                  state, step_trace = apply_mode_parallel_group_inverse(
+                      state,
+                      step.group_modes,
+                      K_bundle,
+                      P_bundle
+                  )
+
+              trace.append(step_trace)
+
+          M = state
+          return M, trace
+
+invariants:
+  - id: "mode_integrity"
+    description: "AES/ECC/RSA math is not modified; only composed."
+  - id: "determinism"
+    description: "Same (M, K, P, Theta) => same (C, trace)."
+  - id: "identity_binding"
+    description: "Theta and composition pattern encode designer identity."
+  - id: "reversibility"
+    description: "Theta must be chosen such that ghost_decrypt exists."
+
+identity_encoding:
+  designer: "C. Matthew Blackwell"
+  binding:
+    kernel_ref: "blackwell-unified-crypto-kernel.yaml"
+    checksum: "GHOST-W01-V1"
+    notes: >
+      Ghost Encryption is an architectural, simulation-grade composition layer.
+      It is not a new primitive cipher and must not be treated as such in
+      security-critical production systems without expert cryptographic review.
