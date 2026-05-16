@@ -1,0 +1,116 @@
+# =====================================================================
+#  GHOST BLUEPRINT REGISTRY — BLACKWELL ANTI-DUPLICATION LAYER
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: ghost-blueprint-registry.yaml
+# =====================================================================
+
+meta:
+  id: "ghost-blueprint-registry"
+  version: "1.0.0"
+  description: >
+    Registry of known authentic Blackwell blueprints for Ghost Encryption
+    and the Unified Crypto Engine. Used by the Ghost Blueprint Validator
+    for provenance and integrity checks.
+
+registry_policy:
+  scope:
+    includes:
+      - "*.yaml"
+      - "*.md"
+    purpose:
+      - "authenticity verification"
+      - "drift detection"
+      - "provenance tracking"
+  notes:
+    - "Checksums here are canonical for this repository state."
+    - "Any change to a registered file requires a registry update."
+    - "This is architectural provenance, not cryptographic security."
+
+blueprints:
+  - id: "BK-UC-KERNEL-W01"
+    file: "kernel/unified-crypto-kernel.yaml"
+    type: "kernel_spec"
+    role: "master_unified_crypto_kernel"
+    checksum:
+      algorithm: "sha256"
+      value: "TODO_FILL_AFTER_COMPUTE_KERNEL_CHECKSUM"
+    identity_seal_id: "GHOST-SEAL-W01"
+    structural_fingerprint_id: "BLACKWELL-STRUCTURE-FP-W01"
+    version: "1.0.0"
+
+  - id: "BK-GHOST-SPEC-W01"
+    file: "ghost-encrypt-spec.yaml"
+    type: "ghost_spec"
+    role: "ghost_encrypt_decrypt_spec"
+    checksum:
+      algorithm: "sha256"
+      value: "TODO_FILL_AFTER_COMPUTE_GHOST_SPEC_CHECKSUM"
+    identity_seal_id: "GHOST-SEAL-W01"
+    structural_fingerprint_id: "BLACKWELL-STRUCTURE-FP-W01"
+    version: "1.0.0"
+
+  - id: "BK-META-EQ-W01"
+    file: "META_EQUATION.md"
+    type: "meta_equation_doc"
+    role: "governing_equations_center"
+    checksum:
+      algorithm: "sha256"
+      value: "TODO_FILL_AFTER_COMPUTE_META_EQUATION_CHECKSUM"
+    identity_seal_id: "GHOST-SEAL-W01"
+    structural_fingerprint_id: "BLACKWELL-STRUCTURE-FP-W01"
+    version: "1.0.0"
+
+  - id: "BK-README-W01"
+    file: "README.md"
+    type: "readme"
+    role: "blackwell_signature_readme"
+    checksum:
+      algorithm: "sha256"
+      value: "TODO_FILL_AFTER_COMPUTE_README_CHECKSUM"
+    identity_seal_id: "GHOST-SEAL-W01"
+    structural_fingerprint_id: "BLACKWELL-STRUCTURE-FP-W01"
+    version: "1.0.0"
+
+  - id: "BK-GHOST-ANTI-DUP-W01"
+    file: "ghost-anti-duplication-layer.yaml"
+    type: "anti_dup_layer"
+    role: "identity_binding_and_integrity_layer"
+    checksum:
+      algorithm: "sha256"
+      value: "TODO_FILL_AFTER_COMPUTE_ANTI_DUP_CHECKSUM"
+    identity_seal_id: "GHOST-SEAL-W01"
+    structural_fingerprint_id: "BLACKWELL-STRUCTURE-FP-W01"
+    version: "1.0.0"
+
+  - id: "BK-GHOST-VALIDATOR-W01"
+    file: "ghost-blueprint-validator.yaml"
+    type: "validator_spec"
+    role: "blueprint_authenticity_validator"
+    checksum:
+      algorithm: "sha256"
+      value: "TODO_FILL_AFTER_COMPUTE_VALIDATOR_CHECKSUM"
+    identity_seal_id: "GHOST-SEAL-W01"
+    structural_fingerprint_id: "BLACKWELL-STRUCTURE-FP-W01"
+    version: "1.0.0"
+
+update_protocol:
+  description: >
+    How to update the registry when a registered blueprint changes.
+  steps:
+    - "1. Modify the blueprint file intentionally."
+    - "2. Recompute sha256 checksum of the file."
+    - "3. Replace the corresponding checksum.value in this registry."
+    - "4. Optionally bump the blueprint version field."
+    - "5. Commit blueprint + registry changes together."
+
+validation_integration:
+  used_by:
+    - "ghost-blueprint-validator.yaml"
+  behavior:
+    - "If file is in registry: checksum must match for full authenticity."
+    - "If file is not in registry: validator may still check structure and identity, but mark checksum_status='unknown'."
+
+notes:
+  - "This registry is local to this repo; a remote or distributed registry is possible but out of scope here."
+  - "Registry entries are part of the Blackwell identity encoding story: they prove authorship and intentional evolution."
