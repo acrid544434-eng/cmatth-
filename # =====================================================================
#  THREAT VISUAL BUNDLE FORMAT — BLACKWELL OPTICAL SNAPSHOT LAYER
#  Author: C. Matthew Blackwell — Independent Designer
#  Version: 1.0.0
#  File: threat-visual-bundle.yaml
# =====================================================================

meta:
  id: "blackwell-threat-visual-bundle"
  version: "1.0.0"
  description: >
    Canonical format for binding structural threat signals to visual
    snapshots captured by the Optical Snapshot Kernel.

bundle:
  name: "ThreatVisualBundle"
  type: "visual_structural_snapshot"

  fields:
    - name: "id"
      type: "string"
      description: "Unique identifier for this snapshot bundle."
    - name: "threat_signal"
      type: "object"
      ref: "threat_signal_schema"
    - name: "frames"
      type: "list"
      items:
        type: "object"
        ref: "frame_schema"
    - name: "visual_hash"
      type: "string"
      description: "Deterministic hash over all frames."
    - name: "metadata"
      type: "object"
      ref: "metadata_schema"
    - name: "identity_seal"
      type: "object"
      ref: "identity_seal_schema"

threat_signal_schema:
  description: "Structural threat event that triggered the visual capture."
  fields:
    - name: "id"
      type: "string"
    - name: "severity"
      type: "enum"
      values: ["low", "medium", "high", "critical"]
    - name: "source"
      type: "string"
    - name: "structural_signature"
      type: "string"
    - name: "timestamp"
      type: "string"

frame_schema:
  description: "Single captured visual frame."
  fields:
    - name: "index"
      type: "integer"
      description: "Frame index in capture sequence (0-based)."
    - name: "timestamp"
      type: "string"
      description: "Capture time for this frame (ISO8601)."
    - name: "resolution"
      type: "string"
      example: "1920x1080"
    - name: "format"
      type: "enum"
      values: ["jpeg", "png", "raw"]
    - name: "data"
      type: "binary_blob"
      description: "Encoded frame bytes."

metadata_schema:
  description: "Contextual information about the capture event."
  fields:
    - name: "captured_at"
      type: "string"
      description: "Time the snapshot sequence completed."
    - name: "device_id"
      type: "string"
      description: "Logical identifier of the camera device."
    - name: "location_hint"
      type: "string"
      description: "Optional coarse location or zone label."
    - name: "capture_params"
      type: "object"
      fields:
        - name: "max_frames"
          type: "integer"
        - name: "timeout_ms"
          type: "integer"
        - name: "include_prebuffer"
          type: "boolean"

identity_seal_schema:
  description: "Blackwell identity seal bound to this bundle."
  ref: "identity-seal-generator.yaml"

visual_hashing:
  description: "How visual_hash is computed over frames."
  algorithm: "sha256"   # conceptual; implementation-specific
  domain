@@ -1,0 +1,104 @@
+# =====================================================================
+#  THREAT VISUAL BUNDLE FORMAT — BLACKWELL OPTICAL SNAPSHOT LAYER
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: threat-visual-bundle.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-threat-visual-bundle"
+  version: "1.0.0"
+  description: >
+    Canonical format for binding structural threat signals to visual
+    snapshots captured by the Optical Snapshot Kernel.
+
+bundle:
+  name: "ThreatVisualBundle"
+  type: "visual_structural_snapshot"
+
+  fields:
+    - name: "id"
+      type: "string"
+      description: "Unique identifier for this snapshot bundle."
+    - name: "threat_signal"
+      type: "object"
+      ref: "threat_signal_schema"
+    - name: "frames"
+      type: "list"
+      items:
+        type: "object"
+        ref: "frame_schema"
+    - name: "visual_hash"
+      type: "string"
+      description: "Deterministic hash over all frames."
+    - name: "metadata"
+      type: "object"
+      ref: "metadata_schema"
+    - name: "identity_seal"
+      type: "object"
+      ref: "identity_seal_schema"
+
+threat_signal_schema:
+  description: "Structural threat event that triggered the visual capture."
+  fields:
+    - name: "id"
+      type: "string"
+    - name: "severity"
+      type: "enum"
+      values: ["low", "medium", "high", "critical"]
+    - name: "source"
+      type: "string"
+    - name: "structural_signature"
+      type: "string"
+    - name: "timestamp"
+      type: "string"
+
+frame_schema:
+  description: "Single captured visual frame."
+  fields:
+    - name: "index"
+      type: "integer"
+      description: "Frame index in capture sequence (0-based)."
+    - name: "timestamp"
+      type: "string"
+      description: "Capture time for this frame (ISO8601)."
+    - name: "resolution"
+      type: "string"
+      example: "1920x1080"
+    - name: "format"
+      type: "enum"
+      values: ["jpeg", "png", "raw"]
+    - name: "data"
+      type: "binary_blob"
+      description: "Encoded frame bytes."
+
+metadata_schema:
+  description: "Contextual information about the capture event."
+  fields:
+    - name: "captured_at"
+      type: "string"
+      description: "Time the snapshot sequence completed."
+    - name: "device_id"
+      type: "string"
+      description: "Logical identifier of the camera device."
+    - name: "location_hint"
+      type: "string"
+      description: "Optional coarse location or zone label."
+    - name: "capture_params"
+      type: "object"
+      fields:
+        - name: "max_frames"
+          type: "integer"
+        - name: "timeout_ms"
+          type: "integer"
+        - name: "include_prebuffer"
+          type: "boolean"
+
+identity_seal_schema:
+  description: "Blackwell identity seal bound to this bundle."
+  ref: "identity-seal-generator.yaml"
+
+visual_hashing:
+  description: "How visual_hash is computed over frames."
+  algorithm: "sha256"   # conceptual; implementation-specific
+  domain
