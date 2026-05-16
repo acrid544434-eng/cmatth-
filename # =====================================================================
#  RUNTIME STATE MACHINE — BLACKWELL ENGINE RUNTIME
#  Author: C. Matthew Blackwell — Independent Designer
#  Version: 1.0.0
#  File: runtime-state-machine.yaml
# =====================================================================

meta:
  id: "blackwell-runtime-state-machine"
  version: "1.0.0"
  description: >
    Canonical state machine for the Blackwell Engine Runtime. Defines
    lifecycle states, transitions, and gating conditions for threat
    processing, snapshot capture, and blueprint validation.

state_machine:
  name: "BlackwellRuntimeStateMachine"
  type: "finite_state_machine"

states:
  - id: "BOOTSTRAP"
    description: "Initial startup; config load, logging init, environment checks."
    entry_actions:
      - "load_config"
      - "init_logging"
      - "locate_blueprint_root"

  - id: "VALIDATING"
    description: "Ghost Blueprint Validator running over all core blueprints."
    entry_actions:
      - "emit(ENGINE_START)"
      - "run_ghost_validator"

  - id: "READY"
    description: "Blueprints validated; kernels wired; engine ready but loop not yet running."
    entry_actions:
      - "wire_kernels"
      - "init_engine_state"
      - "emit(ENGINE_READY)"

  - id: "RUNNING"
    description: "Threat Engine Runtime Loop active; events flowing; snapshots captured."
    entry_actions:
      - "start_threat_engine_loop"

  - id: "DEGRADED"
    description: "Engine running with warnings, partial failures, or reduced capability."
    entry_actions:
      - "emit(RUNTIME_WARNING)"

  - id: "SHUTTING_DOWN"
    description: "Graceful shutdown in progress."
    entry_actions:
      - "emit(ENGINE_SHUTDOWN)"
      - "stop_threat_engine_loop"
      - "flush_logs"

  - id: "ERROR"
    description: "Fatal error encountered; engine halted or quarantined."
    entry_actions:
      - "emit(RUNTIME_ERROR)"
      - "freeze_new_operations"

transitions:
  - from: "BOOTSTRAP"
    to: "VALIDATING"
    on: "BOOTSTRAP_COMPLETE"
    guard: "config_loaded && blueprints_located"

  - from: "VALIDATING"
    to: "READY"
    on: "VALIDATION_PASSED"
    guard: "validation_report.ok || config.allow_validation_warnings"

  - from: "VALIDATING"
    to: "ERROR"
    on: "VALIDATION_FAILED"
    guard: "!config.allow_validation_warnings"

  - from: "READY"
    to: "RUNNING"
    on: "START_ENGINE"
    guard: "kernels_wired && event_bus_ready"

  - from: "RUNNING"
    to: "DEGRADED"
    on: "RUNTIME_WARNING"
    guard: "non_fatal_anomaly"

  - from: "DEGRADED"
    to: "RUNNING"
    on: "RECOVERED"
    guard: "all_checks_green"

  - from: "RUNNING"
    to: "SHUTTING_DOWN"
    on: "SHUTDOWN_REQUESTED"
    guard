@@ -1,0 +1,98 @@
+# =====================================================================
+#  RUNTIME STATE MACHINE — BLACKWELL ENGINE RUNTIME
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: runtime-state-machine.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-runtime-state-machine"
+  version: "1.0.0"
+  description: >
+    Canonical state machine for the Blackwell Engine Runtime. Defines
+    lifecycle states, transitions, and gating conditions for threat
+    processing, snapshot capture, and blueprint validation.
+
+state_machine:
+  name: "BlackwellRuntimeStateMachine"
+  type: "finite_state_machine"
+
+states:
+  - id: "BOOTSTRAP"
+    description: "Initial startup; config load, logging init, environment checks."
+    entry_actions:
+      - "load_config"
+      - "init_logging"
+      - "locate_blueprint_root"
+
+  - id: "VALIDATING"
+    description: "Ghost Blueprint Validator running over all core blueprints."
+    entry_actions:
+      - "emit(ENGINE_START)"
+      - "run_ghost_validator"
+
+  - id: "READY"
+    description: "Blueprints validated; kernels wired; engine ready but loop not yet running."
+    entry_actions:
+      - "wire_kernels"
+      - "init_engine_state"
+      - "emit(ENGINE_READY)"
+
+  - id: "RUNNING"
+    description: "Threat Engine Runtime Loop active; events flowing; snapshots captured."
+    entry_actions:
+      - "start_threat_engine_loop"
+
+  - id: "DEGRADED"
+    description: "Engine running with warnings, partial failures, or reduced capability."
+    entry_actions:
+      - "emit(RUNTIME_WARNING)"
+
+  - id: "SHUTTING_DOWN"
+    description: "Graceful shutdown in progress."
+    entry_actions:
+      - "emit(ENGINE_SHUTDOWN)"
+      - "stop_threat_engine_loop"
+      - "flush_logs"
+
+  - id: "ERROR"
+    description: "Fatal error encountered; engine halted or quarantined."
+    entry_actions:
+      - "emit(RUNTIME_ERROR)"
+      - "freeze_new_operations"
+
+transitions:
+  - from: "BOOTSTRAP"
+    to: "VALIDATING"
+    on: "BOOTSTRAP_COMPLETE"
+    guard: "config_loaded && blueprints_located"
+
+  - from: "VALIDATING"
+    to: "READY"
+    on: "VALIDATION_PASSED"
+    guard: "validation_report.ok || config.allow_validation_warnings"
+
+  - from: "VALIDATING"
+    to: "ERROR"
+    on: "VALIDATION_FAILED"
+    guard: "!config.allow_validation_warnings"
+
+  - from: "READY"
+    to: "RUNNING"
+    on: "START_ENGINE"
+    guard: "kernels_wired && event_bus_ready"
+
+  - from: "RUNNING"
+    to: "DEGRADED"
+    on: "RUNTIME_WARNING"
+    guard: "non_fatal_anomaly"
+
+  - from: "DEGRADED"
+    to: "RUNNING"
+    on: "RECOVERED"
+    guard: "all_checks_green"
+
+  - from: "RUNNING"
+    to: "SHUTTING_DOWN"
+    on: "SHUTDOWN_REQUESTED"
+    guard
