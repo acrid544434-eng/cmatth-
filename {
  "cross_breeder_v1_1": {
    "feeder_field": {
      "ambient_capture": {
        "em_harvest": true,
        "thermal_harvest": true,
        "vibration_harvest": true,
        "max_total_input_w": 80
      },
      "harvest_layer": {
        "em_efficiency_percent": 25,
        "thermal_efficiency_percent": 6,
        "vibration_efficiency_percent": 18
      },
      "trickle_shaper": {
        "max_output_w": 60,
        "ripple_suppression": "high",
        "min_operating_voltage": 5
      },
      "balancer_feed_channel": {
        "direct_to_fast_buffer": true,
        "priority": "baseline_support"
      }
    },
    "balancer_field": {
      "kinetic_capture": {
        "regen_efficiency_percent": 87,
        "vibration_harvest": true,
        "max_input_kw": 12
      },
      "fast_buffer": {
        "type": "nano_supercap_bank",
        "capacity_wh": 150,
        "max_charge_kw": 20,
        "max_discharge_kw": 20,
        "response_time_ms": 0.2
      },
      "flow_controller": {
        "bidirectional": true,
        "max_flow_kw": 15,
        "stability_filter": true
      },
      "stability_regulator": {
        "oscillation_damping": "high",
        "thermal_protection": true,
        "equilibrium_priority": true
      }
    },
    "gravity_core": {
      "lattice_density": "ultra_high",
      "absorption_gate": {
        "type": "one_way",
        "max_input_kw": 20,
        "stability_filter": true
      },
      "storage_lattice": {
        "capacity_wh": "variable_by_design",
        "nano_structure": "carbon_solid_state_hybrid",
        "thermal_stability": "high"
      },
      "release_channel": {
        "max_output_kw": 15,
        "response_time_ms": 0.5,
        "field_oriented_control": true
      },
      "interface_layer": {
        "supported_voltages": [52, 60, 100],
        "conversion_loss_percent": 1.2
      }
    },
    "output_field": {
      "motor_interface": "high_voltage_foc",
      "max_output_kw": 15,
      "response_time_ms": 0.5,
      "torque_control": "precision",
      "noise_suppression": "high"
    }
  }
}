@@ -1,0 +1,79 @@
+{
+  "cross_breeder_v1_1": {
+    "feeder_field": {
+      "ambient_capture": {
+        "em_harvest": true,
+        "thermal_harvest": true,
+        "vibration_harvest": true,
+        "max_total_input_w": 80
+      },
+      "harvest_layer": {
+        "em_efficiency_percent": 25,
+        "thermal_efficiency_percent": 6,
+        "vibration_efficiency_percent": 18
+      },
+      "trickle_shaper": {
+        "max_output_w": 60,
+        "ripple_suppression": "high",
+        "min_operating_voltage": 5
+      },
+      "balancer_feed_channel": {
+        "direct_to_fast_buffer": true,
+        "priority": "baseline_support"
+      }
+    },
+    "balancer_field": {
+      "kinetic_capture": {
+        "regen_efficiency_percent": 87,
+        "vibration_harvest": true,
+        "max_input_kw": 12
+      },
+      "fast_buffer": {
+        "type": "nano_supercap_bank",
+        "capacity_wh": 150,
+        "max_charge_kw": 20,
+        "max_discharge_kw": 20,
+        "response_time_ms": 0.2
+      },
+      "flow_controller": {
+        "bidirectional": true,
+        "max_flow_kw": 15,
+        "stability_filter": true
+      },
+      "stability_regulator": {
+        "oscillation_damping": "high",
+        "thermal_protection": true,
+        "equilibrium_priority": true
+      }
+    },
+    "gravity_core": {
+      "lattice_density": "ultra_high",
+      "absorption_gate": {
+        "type": "one_way",
+        "max_input_kw": 20,
+        "stability_filter": true
+      },
+      "storage_lattice": {
+        "capacity_wh": "variable_by_design",
+        "nano_structure": "carbon_solid_state_hybrid",
+        "thermal_stability": "high"
+      },
+      "release_channel": {
+        "max_output_kw": 15,
+        "response_time_ms": 0.5,
+        "field_oriented_control": true
+      },
+      "interface_layer": {
+        "supported_voltages": [52, 60, 100],
+        "conversion_loss_percent": 1.2
+      }
+    },
+    "output_field": {
+      "motor_interface": "high_voltage_foc",
+      "max_output_kw": 15,
+      "response_time_ms": 0.5,
+      "torque_control": "precision",
+      "noise_suppression": "high"
+    }
+  }
+}
