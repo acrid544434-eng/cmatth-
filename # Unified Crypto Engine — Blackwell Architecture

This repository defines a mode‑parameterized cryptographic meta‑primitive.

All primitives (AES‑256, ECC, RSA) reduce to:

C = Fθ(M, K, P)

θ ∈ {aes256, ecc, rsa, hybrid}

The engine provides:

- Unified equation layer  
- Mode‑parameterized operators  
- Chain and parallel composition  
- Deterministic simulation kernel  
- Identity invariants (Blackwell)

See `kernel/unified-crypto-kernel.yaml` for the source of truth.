@@ -1,0 +1,19 @@
+# Unified Crypto Engine — Blackwell Architecture
+
+This repository defines a mode‑parameterized cryptographic meta‑primitive.
+
+All primitives (AES‑256, ECC, RSA) reduce to:
+
+C = Fθ(M, K, P)
+
+θ ∈ {aes256, ecc, rsa, hybrid}
+
+The engine provides:
+
+- Unified equation layer  
+- Mode‑parameterized operators  
+- Chain and parallel composition  
+- Deterministic simulation kernel  
+- Identity invariants (Blackwell)
+
+See `kernel/unified-crypto-kernel.yaml` for the source of truth.
