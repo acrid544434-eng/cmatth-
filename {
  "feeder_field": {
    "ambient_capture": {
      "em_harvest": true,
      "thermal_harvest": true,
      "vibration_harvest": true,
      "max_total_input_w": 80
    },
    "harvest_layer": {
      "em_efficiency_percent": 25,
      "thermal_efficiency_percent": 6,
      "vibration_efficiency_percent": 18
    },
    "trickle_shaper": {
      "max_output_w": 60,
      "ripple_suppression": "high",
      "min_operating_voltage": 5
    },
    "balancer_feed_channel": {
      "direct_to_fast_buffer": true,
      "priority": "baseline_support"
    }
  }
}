@@ -1,0 +1,24 @@
+{
+  "feeder_field": {
+    "ambient_capture": {
+      "em_harvest": true,
+      "thermal_harvest": true,
+      "vibration_harvest": true,
+      "max_total_input_w": 80
+    },
+    "harvest_layer": {
+      "em_efficiency_percent": 25,
+      "thermal_efficiency_percent": 6,
+      "vibration_efficiency_percent": 18
+    },
+    "trickle_shaper": {
+      "max_output_w": 60,
+      "ripple_suppression": "high",
+      "min_operating_voltage": 5
+    },
+    "balancer_feed_channel": {
+      "direct_to_fast_buffer": true,
+      "priority": "baseline_support"
+    }
+  }
+}
