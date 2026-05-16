@@ -1,0 +1,31 @@
+optical_snapshot_layer:
+  id: "blackwell-optical-snapshot-w01"
+  type: "visual_threat_capture"
+  description: >
+    Adds visual-domain snapshot capability to the Blackwell Threat Engine.
+    Captures frames at the moment a threat signal is detected and binds
+    them to structural threat signatures.
+
+  inputs:
+    - threat_signal
+    - camera_device
+    - capture_params
+
+  outputs:
+    - visual_frame
+    - visual_hash
+    - threat_visual_bundle
+
+  capture_pipeline:
+    - detect_threat_signal
+    - trigger_camera_capture
+    - acquire_frame
+    - compute_visual_hash
+    - bind_to_threat_signature
+    - store_snapshot_bundle
+
+  invariants:
+    - "visual capture must only occur on explicit threat signal"
+    - "visual data must be bound to structural snapshot"
+    - "visual hash must be deterministic"
+    - "identity seal must be applied to snapshot bundle"
