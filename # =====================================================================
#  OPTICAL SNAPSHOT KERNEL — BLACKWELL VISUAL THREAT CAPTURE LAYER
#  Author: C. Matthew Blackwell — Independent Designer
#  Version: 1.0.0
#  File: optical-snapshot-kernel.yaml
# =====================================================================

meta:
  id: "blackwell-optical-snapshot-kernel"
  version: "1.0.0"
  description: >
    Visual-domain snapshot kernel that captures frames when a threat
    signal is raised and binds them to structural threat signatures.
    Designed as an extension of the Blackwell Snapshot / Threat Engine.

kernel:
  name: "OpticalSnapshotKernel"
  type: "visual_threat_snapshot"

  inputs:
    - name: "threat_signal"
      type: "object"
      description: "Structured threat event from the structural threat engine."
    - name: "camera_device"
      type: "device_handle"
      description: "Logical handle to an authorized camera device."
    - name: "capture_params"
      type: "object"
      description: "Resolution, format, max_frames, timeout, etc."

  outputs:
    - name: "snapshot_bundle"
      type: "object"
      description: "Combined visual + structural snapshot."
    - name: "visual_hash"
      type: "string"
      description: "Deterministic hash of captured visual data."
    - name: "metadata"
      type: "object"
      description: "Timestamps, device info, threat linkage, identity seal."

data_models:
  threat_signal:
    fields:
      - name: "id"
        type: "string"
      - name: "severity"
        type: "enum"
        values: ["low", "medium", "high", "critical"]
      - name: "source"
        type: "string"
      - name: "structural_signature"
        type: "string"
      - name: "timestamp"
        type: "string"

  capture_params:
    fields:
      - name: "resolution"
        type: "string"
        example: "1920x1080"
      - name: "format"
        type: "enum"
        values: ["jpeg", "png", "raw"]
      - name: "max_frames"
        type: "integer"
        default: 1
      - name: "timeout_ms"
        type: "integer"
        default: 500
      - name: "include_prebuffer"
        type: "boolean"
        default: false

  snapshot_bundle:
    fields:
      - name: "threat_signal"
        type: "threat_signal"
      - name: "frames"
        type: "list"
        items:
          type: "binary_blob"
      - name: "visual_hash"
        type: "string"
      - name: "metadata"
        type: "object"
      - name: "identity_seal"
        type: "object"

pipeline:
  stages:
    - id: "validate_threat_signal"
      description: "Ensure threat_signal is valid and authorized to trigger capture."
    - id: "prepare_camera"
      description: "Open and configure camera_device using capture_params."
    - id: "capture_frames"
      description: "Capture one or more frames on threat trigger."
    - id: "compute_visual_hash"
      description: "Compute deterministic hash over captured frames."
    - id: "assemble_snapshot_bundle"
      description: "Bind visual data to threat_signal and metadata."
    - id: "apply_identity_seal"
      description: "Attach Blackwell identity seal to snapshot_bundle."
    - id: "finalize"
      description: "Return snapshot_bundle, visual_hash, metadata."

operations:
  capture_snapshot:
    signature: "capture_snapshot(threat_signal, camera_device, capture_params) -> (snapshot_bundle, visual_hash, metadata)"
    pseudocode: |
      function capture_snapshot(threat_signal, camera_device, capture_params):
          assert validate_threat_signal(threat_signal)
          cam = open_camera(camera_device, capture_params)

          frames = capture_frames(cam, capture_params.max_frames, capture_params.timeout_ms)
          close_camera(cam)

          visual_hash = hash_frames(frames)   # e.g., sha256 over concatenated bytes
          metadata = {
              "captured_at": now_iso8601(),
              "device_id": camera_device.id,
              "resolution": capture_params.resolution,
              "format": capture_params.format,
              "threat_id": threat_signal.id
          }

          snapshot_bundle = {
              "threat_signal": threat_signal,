@@ -1,0 +1,128 @@
+# =====================================================================
+#  OPTICAL SNAPSHOT KERNEL — BLACKWELL VISUAL THREAT CAPTURE LAYER
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: optical-snapshot-kernel.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-optical-snapshot-kernel"
+  version: "1.0.0"
+  description: >
+    Visual-domain snapshot kernel that captures frames when a threat
+    signal is raised and binds them to structural threat signatures.
+    Designed as an extension of the Blackwell Snapshot / Threat Engine.
+
+kernel:
+  name: "OpticalSnapshotKernel"
+  type: "visual_threat_snapshot"
+
+  inputs:
+    - name: "threat_signal"
+      type: "object"
+      description: "Structured threat event from the structural threat engine."
+    - name: "camera_device"
+      type: "device_handle"
+      description: "Logical handle to an authorized camera device."
+    - name: "capture_params"
+      type: "object"
+      description: "Resolution, format, max_frames, timeout, etc."
+
+  outputs:
+    - name: "snapshot_bundle"
+      type: "object"
+      description: "Combined visual + structural snapshot."
+    - name: "visual_hash"
+      type: "string"
+      description: "Deterministic hash of captured visual data."
+    - name: "metadata"
+      type: "object"
+      description: "Timestamps, device info, threat linkage, identity seal."
+
+data_models:
+  threat_signal:
+    fields:
+      - name: "id"
+        type: "string"
+      - name: "severity"
+        type: "enum"
+        values: ["low", "medium", "high", "critical"]
+      - name: "source"
+        type: "string"
+      - name: "structural_signature"
+        type: "string"
+      - name: "timestamp"
+        type: "string"
+
+  capture_params:
+    fields:
+      - name: "resolution"
+        type: "string"
+        example: "1920x1080"
+      - name: "format"
+        type: "enum"
+        values: ["jpeg", "png", "raw"]
+      - name: "max_frames"
+        type: "integer"
+        default: 1
+      - name: "timeout_ms"
+        type: "integer"
+        default: 500
+      - name: "include_prebuffer"
+        type: "boolean"
+        default: false
+
+  snapshot_bundle:
+    fields:
+      - name: "threat_signal"
+        type: "threat_signal"
+      - name: "frames"
+        type: "list"
+        items:
+          type: "binary_blob"
+      - name: "visual_hash"
+        type: "string"
+      - name: "metadata"
+        type: "object"
+      - name: "identity_seal"
+        type: "object"
+
+pipeline:
+  stages:
+    - id: "validate_threat_signal"
+      description: "Ensure threat_signal is valid and authorized to trigger capture."
+    - id: "prepare_camera"
+      description: "Open and configure camera_device using capture_params."
+    - id: "capture_frames"
+      description: "Capture one or more frames on threat trigger."
+    - id: "compute_visual_hash"
+      description: "Compute deterministic hash over captured frames."
+    - id: "assemble_snapshot_bundle"
+      description: "Bind visual data to threat_signal and metadata."
+    - id: "apply_identity_seal"
+      description: "Attach Blackwell identity seal to snapshot_bundle."
+    - id: "finalize"
+      description: "Return snapshot_bundle, visual_hash, metadata."
+
+operations:
+  capture_snapshot:
+    signature: "capture_snapshot(threat_signal, camera_device, capture_params) -> (snapshot_bundle, visual_hash, metadata)"
+    pseudocode: |
+      function capture_snapshot(threat_signal, camera_device, capture_params):
+          assert validate_threat_signal(threat_signal)
+          cam = open_camera(camera_device, capture_params)
+
+          frames = capture_frames(cam, capture_params.max_frames, capture_params.timeout_ms)
+          close_camera(cam)
+
+          visual_hash = hash_frames(frames)   # e.g., sha256 over concatenated bytes
+          metadata = {
+              "captured_at": now_iso8601(),
+              "device_id": camera_device.id,
+              "resolution": capture_params.resolution,
+              "format": capture_params.format,
+              "threat_id": threat_signal.id
+          }
+
+          snapshot_bundle = {
+              "threat_signal": threat_signal,
