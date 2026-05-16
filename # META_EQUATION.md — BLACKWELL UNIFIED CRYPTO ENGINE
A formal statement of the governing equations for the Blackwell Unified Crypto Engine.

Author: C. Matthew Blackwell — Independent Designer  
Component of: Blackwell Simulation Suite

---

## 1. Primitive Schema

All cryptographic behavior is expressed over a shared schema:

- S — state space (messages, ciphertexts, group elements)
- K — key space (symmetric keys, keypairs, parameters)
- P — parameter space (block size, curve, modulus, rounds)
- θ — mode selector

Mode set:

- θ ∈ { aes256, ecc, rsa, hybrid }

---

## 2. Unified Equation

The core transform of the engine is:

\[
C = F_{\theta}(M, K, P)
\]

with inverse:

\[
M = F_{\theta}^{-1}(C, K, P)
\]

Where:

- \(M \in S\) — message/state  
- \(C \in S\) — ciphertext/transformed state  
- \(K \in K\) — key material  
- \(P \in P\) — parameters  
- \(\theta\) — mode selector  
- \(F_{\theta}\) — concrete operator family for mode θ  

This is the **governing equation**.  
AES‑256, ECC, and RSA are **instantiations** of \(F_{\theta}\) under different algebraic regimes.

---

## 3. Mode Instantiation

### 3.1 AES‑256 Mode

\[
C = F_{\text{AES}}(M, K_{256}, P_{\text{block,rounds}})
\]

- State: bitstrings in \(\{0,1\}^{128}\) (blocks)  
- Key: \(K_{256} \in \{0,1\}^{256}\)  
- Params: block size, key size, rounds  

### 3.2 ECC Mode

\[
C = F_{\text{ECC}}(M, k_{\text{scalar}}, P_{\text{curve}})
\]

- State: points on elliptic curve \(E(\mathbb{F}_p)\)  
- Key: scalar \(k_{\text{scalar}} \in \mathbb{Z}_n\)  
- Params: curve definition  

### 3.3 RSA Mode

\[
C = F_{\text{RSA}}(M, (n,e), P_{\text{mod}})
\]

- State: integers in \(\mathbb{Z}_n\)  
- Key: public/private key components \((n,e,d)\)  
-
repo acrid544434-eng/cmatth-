@@ -1,0 +1,82 @@
+# META_EQUATION.md — BLACKWELL UNIFIED CRYPTO ENGINE
+A formal statement of the governing equations for the Blackwell Unified Crypto Engine.
+
+Author: C. Matthew Blackwell — Independent Designer  
+Component of: Blackwell Simulation Suite
+
+---
+
+## 1. Primitive Schema
+
+All cryptographic behavior is expressed over a shared schema:
+
+- S — state space (messages, ciphertexts, group elements)
+- K — key space (symmetric keys, keypairs, parameters)
+- P — parameter space (block size, curve, modulus, rounds)
+- θ — mode selector
+
+Mode set:
+
+- θ ∈ { aes256, ecc, rsa, hybrid }
+
+---
+
+## 2. Unified Equation
+
+The core transform of the engine is:
+
+\[
+C = F_{\theta}(M, K, P)
+\]
+
+with inverse:
+
+\[
+M = F_{\theta}^{-1}(C, K, P)
+\]
+
+Where:
+
+- \(M \in S\) — message/state  
+- \(C \in S\) — ciphertext/transformed state  
+- \(K \in K\) — key material  
+- \(P \in P\) — parameters  
+- \(\theta\) — mode selector  
+- \(F_{\theta}\) — concrete operator family for mode θ  
+
+This is the **governing equation**.  
+AES‑256, ECC, and RSA are **instantiations** of \(F_{\theta}\) under different algebraic regimes.
+
+---
+
+## 3. Mode Instantiation
+
+### 3.1 AES‑256 Mode
+
+\[
+C = F_{\text{AES}}(M, K_{256}, P_{\text{block,rounds}})
+\]
+
+- State: bitstrings in \(\{0,1\}^{128}\) (blocks)  
+- Key: \(K_{256} \in \{0,1\}^{256}\)  
+- Params: block size, key size, rounds  
+
+### 3.2 ECC Mode
+
+\[
+C = F_{\text{ECC}}(M, k_{\text{scalar}}, P_{\text{curve}})
+\]
+
+- State: points on elliptic curve \(E(\mathbb{F}_p)\)  
+- Key: scalar \(k_{\text{scalar}} \in \mathbb{Z}_n\)  
+- Params: curve definition  
+
+### 3.3 RSA Mode
+
+\[
+C = F_{\text{RSA}}(M, (n,e), P_{\text{mod}})
+\]
+
+- State: integers in \(\mathbb{Z}_n\)  
+- Key: public/private key components \((n,e,d)\)  
+-
