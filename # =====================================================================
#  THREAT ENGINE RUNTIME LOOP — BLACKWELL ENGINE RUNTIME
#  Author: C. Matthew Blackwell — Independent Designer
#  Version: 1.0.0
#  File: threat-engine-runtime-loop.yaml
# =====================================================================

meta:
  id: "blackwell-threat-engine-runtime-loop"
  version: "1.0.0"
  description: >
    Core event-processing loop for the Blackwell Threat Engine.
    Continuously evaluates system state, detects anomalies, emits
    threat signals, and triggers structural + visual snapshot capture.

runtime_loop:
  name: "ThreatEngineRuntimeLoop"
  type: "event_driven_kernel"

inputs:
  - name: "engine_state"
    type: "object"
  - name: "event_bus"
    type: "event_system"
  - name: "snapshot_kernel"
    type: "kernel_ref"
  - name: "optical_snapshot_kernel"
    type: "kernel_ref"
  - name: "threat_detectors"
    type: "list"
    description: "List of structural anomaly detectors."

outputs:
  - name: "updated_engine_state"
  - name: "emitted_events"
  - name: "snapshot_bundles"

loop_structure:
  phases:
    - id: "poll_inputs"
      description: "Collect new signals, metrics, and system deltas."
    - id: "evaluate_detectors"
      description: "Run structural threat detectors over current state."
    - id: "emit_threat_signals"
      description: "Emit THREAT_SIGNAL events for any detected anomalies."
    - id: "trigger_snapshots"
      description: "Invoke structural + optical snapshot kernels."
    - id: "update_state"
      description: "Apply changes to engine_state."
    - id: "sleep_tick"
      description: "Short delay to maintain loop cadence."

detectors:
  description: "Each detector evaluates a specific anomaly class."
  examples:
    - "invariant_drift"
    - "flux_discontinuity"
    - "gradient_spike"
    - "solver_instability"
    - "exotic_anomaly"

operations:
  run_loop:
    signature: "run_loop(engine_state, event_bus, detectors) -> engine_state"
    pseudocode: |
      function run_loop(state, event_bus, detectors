@@ -1,0 +1,66 @@
+# =====================================================================
+#  THREAT ENGINE RUNTIME LOOP — BLACKWELL ENGINE RUNTIME
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: threat-engine-runtime-loop.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-threat-engine-runtime-loop"
+  version: "1.0.0"
+  description: >
+    Core event-processing loop for the Blackwell Threat Engine.
+    Continuously evaluates system state, detects anomalies, emits
+    threat signals, and triggers structural + visual snapshot capture.
+
+runtime_loop:
+  name: "ThreatEngineRuntimeLoop"
+  type: "event_driven_kernel"
+
+inputs:
+  - name: "engine_state"
+    type: "object"
+  - name: "event_bus"
+    type: "event_system"
+  - name: "snapshot_kernel"
+    type: "kernel_ref"
+  - name: "optical_snapshot_kernel"
+    type: "kernel_ref"
+  - name: "threat_detectors"
+    type: "list"
+    description: "List of structural anomaly detectors."
+
+outputs:
+  - name: "updated_engine_state"
+  - name: "emitted_events"
+  - name: "snapshot_bundles"
+
+loop_structure:
+  phases:
+    - id: "poll_inputs"
+      description: "Collect new signals, metrics, and system deltas."
+    - id: "evaluate_detectors"
+      description: "Run structural threat detectors over current state."
+    - id: "emit_threat_signals"
+      description: "Emit THREAT_SIGNAL events for any detected anomalies."
+    - id: "trigger_snapshots"
+      description: "Invoke structural + optical snapshot kernels."
+    - id: "update_state"
+      description: "Apply changes to engine_state."
+    - id: "sleep_tick"
+      description: "Short delay to maintain loop cadence."
+
+detectors:
+  description: "Each detector evaluates a specific anomaly class."
+  examples:
+    - "invariant_drift"
+    - "flux_discontinuity"
+    - "gradient_spike"
+    - "solver_instability"
+    - "exotic_anomaly"
+
+operations:
+  run_loop:
+    signature: "run_loop(engine_state, event_bus, detectors) -> engine_state"
+    pseudocode: |
+      function run_loop(state, event_bus, detectors
