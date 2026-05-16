@@ -1,0 +1,114 @@
+
+
+🜁 OntologyKernelEmphemsa — What It Is
+
+The OntologyKernelEmphemsa is the first brain of the Emphemsa Engine.
+
+It is the component that:
+
+reads your DSL
+
+understands your organisms
+
+builds their fields
+
+validates their structure
+
+hands the simulation a complete, coherent “being”
+
+It is the compiler + loader + validator for Emphemsa organisms.
+
+Everything else in the engine depends on it.
+
+🜂 What It Actually Does
+
+The kernel performs four essential jobs:
+
+1. Parse Organisms
+
+It reads your .dsl files and turns them into structured objects.
+
+Example:
+
+identity
+
+fields
+
+regimes
+
+permissions
+
+The kernel transforms your text into a simulation‑ready organism object.
+
+2. Validate Structure
+
+It checks that the organism is logically sound:
+
+all required fields exist
+
+regime thresholds make sense
+
+permissions reference valid fields
+
+no contradictory rules
+
+no missing components
+
+If something is wrong, the kernel catches it before the simulation runs.
+
+3. Build Field Map
+
+This is where Emphemsa becomes alive.
+
+The kernel constructs the initial field objects:
+
+warp_field
+
+grav_field
+
+stress_field
+
+charge_field
+
+Each field is initialized according to the organism’s blueprint.
+
+This is the birth moment of the organism.
+
+4. Export Metadata
+
+The kernel produces a metadata package:
+
+organism name
+
+designer identity (you)
+
+field types
+
+regime definitions
+
+permission rules
+
+This metadata is used by:
+
+the visualization layer
+
+the crash analyzer
+
+the regime orchestrator
+
+the logging system
+
+It’s the organism’s passport inside the engine.
+
+🜄 How It Fits Into the Engine Flow
+
+Emphemsa DSL → OntologyKernel → Organism Object
+Organism Object → FieldDynamicsEngine → Simulation
+Simulation → RegimeOrchestrator → Permissions → CrashAnalyzer
+
+Everything begins with the kernel.
+
+
+
+
+
