@@ -1,0 +1,116 @@
+# =====================================================================
+#  EXECUTION PATH TRACER — BLACKWELL ENGINE RUNTIME
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: execution-path-tracer.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-execution-path-tracer"
+  version: "1.0.0"
+  description: >
+    Tracing subsystem for recording kernel execution paths, stages,
+    timings, and outcomes across the Blackwell Engine Runtime.
+
+tracer:
+  name: "ExecutionPathTracer"
+  type: "observability_kernel"
+
+inputs:
+  - name: "engine_state"
+    type: "object"
+  - name: "event_bus"
+    type: "event_system"
+  - name: "kernel_registry"
+    type: "object"
+
+outputs:
+  - name: "trace_log"
+    type: "list<TraceRecord>"
+  - name: "trace_index"
+    type: "object"
+
+trace_record_schema:
+  id: "TraceRecord"
+  fields:
+    - name: "trace_id"
+      type: "string"
+    - name: "span_id"
+      type: "string"
+    - name: "parent_span_id"
+      type: "string|null"
+    - name: "kernel_id"
+      type: "string"
+    - name: "stage"
+      type: "string"
+    - name: "event_id"
+      type: "string|null"
+    - name: "start_time"
+      type: "string"
+    - name: "end_time"
+      type: "string"
+    - name: "duration_ms"
+      type: "integer"
+    - name: "status"
+      type: "enum"
+      values: ["ok", "warning", "error"]
+    - name: "metadata"
+      type: "object"
+
+operations:
+  start_span:
+    signature: "start_span(kernel_id, stage, event_id) -> span_id"
+    pseudocode: |
+      function start_span(kernel_id, stage, event_id):
+          span_id = generate_span_id()
+          record_partial(span_id, kernel_id, stage, event_id, now())
+          return span_id
+
+  end_span:
+    signature: "end_span(span_id, status, metadata) -> TraceRecord"
+    pseudocode: |
+      function end_span(span_id, status, metadata):
+          record = lookup_partial(span_id)
+          record.end_time = now()
+          record.duration_ms = diff_ms(record.start_time, record.end_time)
+          record.status = status
+          record.metadata = metadata
+          append_to_trace_log(record)
+          index_record(record)
+          emit_trace_event(record)
+          return record
+
+  trace_kernel_execution:
+    signature: "trace_kernel_execution(kernel_id, stage, event, fn) -> result"
+    description: "Wrapper that traces execution of a kernel stage."
+    pseudocode: |
+      function trace_kernel_execution(kernel_id, stage, event, fn):
+          span_id = start_span(kernel_id, stage, event.id if event else null)
+          try:
+              result = fn()
+              end_span(span_id, "ok", { "result_type": type(result) })
+              return result
+          except error:
+              end_span(span_id, "error", { "error": error.message })
+              raise error
+
+events_emitted:
+  - id: "TRACE_KERNEL_EXECUTION"
+    payload:
+      trace_id: string
+      span_id: string
+      kernel_id: string
+      stage: string
+      status: string
+      duration_ms: integer
+
+indexing:
+  primary_index: "trace_id"
+  secondary_indexes:
+    - "kernel_id"
+    - "status"
+    - "event_id"
+    - "timestamp_bucket"
+
+integration_points:
+  - "ThreatEngine
