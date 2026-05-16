@@ -1,0 +1,24 @@
+{
+  "gravity_core": {
+    "lattice_density": "ultra_high",
+    "absorption_gate": {
+      "type": "one_way",
+      "max_input_kw": 20,
+      "stability_filter": true
+    },
+    "storage_lattice": {
+      "capacity_wh": "variable_by_design",
+      "nano_structure": "carbon_solid_state_hybrid",
+      "thermal_stability": "high"
+    },
+    "release_channel": {
+      "max_output_kw": 15,
+      "response_time_ms": 0.5,
+      "field_oriented_control": true
+    },
+    "interface_layer": {
+      "supported_voltages": [52, 60, 100],
+      "conversion_loss_percent": 1.2
+    }
+  }
+}
