@@ -1,0 +1,144 @@
+# =====================================================================
+#  THREAT RESPONSE KERNEL — BLACKWELL ENGINE RUNTIME
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: threat-response-kernel.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-threat-response-kernel"
+  version: "1.0.0"
+  description: >
+    Kernel that consumes threat signals, consults the Threat Severity
+    Model, and triggers appropriate responses: snapshots, escalation,
+    runtime state changes, and notifications.
+
+kernel:
+  name: "ThreatResponseKernel"
+  type: "reaction_kernel"
+
+inputs:
+  - name: "threat_signal"
+    type: "ThreatSignal"
+  - name: "severity_model"
+    type: "ThreatSeverityModel"
+  - name: "engine_state"
+    type: "object"
+  - name: "event_bus"
+    type: "event_system"
+
+outputs:
+  - name: "response_actions"
+    type: "list<ResponseAction>"
+
+response_action_schema:
+  id: "ResponseAction"
+  fields:
+    - name: "action_id"
+      type: "string"
+    - name: "action_type"
+      type: "enum(snapshot, escalate, notify, degrade_runtime, quarantine)"
+    - name: "params"
+      type: "object"
+
+severity_to_response:
+  low:
+    - action_type: "snapshot"
+      params:
+        mode: "structural_only"
+
+  medium:
+    - action_type: "snapshot"
+      params:
+        mode: "structural_and_visual"
+    - action_type: "notify"
+      params:
+        channel: "log"
+
+  high:
+    - action_type: "snapshot"
+      params:
+        mode: "structural_and_visual"
+    - action_type: "escalate"
+      params:
+        emit_event: "THREAT_ESCALATED"
+    - action_type: "notify"
+      params:
+        channel: "ops"
+
+  critical:
+    - action_type: "snapshot"
+      params:
+        mode: "structural_and_visual"
+    - action_type: "escalate"
+      params:
+        emit_event: "THREAT_ESCALATED"
+    - action_type: "degrade_runtime"
+      params:
+        target_state: "DEGRADED"
+    - action_type: "notify"
+      params:
+        channel: "ops_urgent"
+    - action_type: "quarantine"
+      params:
+        scope: "affected_subsystem"
+
+operations:
+  handle_threat:
+    signature: "handle_threat(threat_signal) -> response_actions"
+    pseudocode: |
+      function handle_threat(threat_signal):
+          severity = severity_model.classify(threat_signal)
+          actions = map_severity_to_actions(severity, threat_signal)
+          execute_actions(actions, threat_signal)
+          return actions
+
+  map_severity_to_actions:
+    signature: "map_severity_to_actions(severity, threat_signal) -> list<ResponseAction>"
+
+  execute_actions:
+    signature: "execute_actions(actions, threat_signal)"
+    pseudocode: |
+      function execute_actions(actions, threat_signal):
+          for action in actions:
+              switch action.action_type:
+                  case "snapshot":
+                      event_bus.emit("SNAPSHOT_REQUEST", { threat_id: threat_signal.id })
+                  case "escalate":
+                      event_bus.emit("THREAT_ESCALATED", { threat_id: threat_signal.id })
+                  case "notify":
+                      event_bus.emit("THREAT_NOTIFICATION", {
+                          threat_id: threat_signal.id,
+                          channel: action.params.channel
+                      })
+                  case "degrade_runtime":
+                      event_bus.emit("RUNTIME_HEALTH_CRITICAL", { reason: "threat_critical" })
+                  case "quarantine":
+                      event_bus.emit("QUARANTINE_REQUEST", {
+                          threat_id: threat_signal.id,
+                          scope: action.params.scope
+                      })
+
+events_consumed:
+  - "THREAT_SIGNAL"
+
+events_emitted:
+  - "SNAPSHOT_REQUEST"
+  - "THREAT_ESCALATED"
+  - "THREAT_NOTIFICATION"
+  - "RUNTIME_HEALTH_CRITICAL"
+  - "QUARANTINE_REQUEST"
+
+invariants:
+  - id: "response_must_match_severity"
+    description: "Actions taken must be consistent with classified severity."
+
+  - id: "no_silent_critical"
+    description: "Critical threats must always produce at least one notify + degrade_runtime action."
+
+  - id: "idempotent_for_same_signal"
+    description: "Handling the same threat_signal twice must not duplicate irreversible actions."
+
+notes:
+  - "This kernel defines response semantics, not human-facing UX."
+  - "Quarantine behavior is delegated to a separate Quarantine Kernel."
