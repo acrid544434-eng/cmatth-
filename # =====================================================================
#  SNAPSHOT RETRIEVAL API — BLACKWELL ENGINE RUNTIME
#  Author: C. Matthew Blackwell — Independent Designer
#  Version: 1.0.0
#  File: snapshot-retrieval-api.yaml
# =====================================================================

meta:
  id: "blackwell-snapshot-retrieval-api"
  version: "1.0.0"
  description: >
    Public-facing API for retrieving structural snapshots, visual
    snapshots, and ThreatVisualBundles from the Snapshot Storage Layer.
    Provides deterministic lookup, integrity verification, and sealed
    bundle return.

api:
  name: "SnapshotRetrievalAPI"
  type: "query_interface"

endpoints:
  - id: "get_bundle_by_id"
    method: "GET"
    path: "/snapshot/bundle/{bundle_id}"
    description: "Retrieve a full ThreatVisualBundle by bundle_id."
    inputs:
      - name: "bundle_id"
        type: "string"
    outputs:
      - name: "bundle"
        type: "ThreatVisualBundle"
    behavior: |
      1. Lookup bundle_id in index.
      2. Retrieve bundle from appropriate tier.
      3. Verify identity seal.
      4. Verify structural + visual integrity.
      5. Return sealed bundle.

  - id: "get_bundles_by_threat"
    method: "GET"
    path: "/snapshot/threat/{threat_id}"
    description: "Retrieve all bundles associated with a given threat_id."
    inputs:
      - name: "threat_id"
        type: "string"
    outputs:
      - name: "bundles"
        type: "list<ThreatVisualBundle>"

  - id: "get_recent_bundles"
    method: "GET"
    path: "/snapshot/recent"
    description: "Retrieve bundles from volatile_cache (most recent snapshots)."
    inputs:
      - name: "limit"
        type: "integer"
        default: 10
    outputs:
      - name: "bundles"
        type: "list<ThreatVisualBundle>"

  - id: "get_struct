@@ -1,0 +1,62 @@
+# =====================================================================
+#  SNAPSHOT RETRIEVAL API — BLACKWELL ENGINE RUNTIME
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: snapshot-retrieval-api.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-snapshot-retrieval-api"
+  version: "1.0.0"
+  description: >
+    Public-facing API for retrieving structural snapshots, visual
+    snapshots, and ThreatVisualBundles from the Snapshot Storage Layer.
+    Provides deterministic lookup, integrity verification, and sealed
+    bundle return.
+
+api:
+  name: "SnapshotRetrievalAPI"
+  type: "query_interface"
+
+endpoints:
+  - id: "get_bundle_by_id"
+    method: "GET"
+    path: "/snapshot/bundle/{bundle_id}"
+    description: "Retrieve a full ThreatVisualBundle by bundle_id."
+    inputs:
+      - name: "bundle_id"
+        type: "string"
+    outputs:
+      - name: "bundle"
+        type: "ThreatVisualBundle"
+    behavior: |
+      1. Lookup bundle_id in index.
+      2. Retrieve bundle from appropriate tier.
+      3. Verify identity seal.
+      4. Verify structural + visual integrity.
+      5. Return sealed bundle.
+
+  - id: "get_bundles_by_threat"
+    method: "GET"
+    path: "/snapshot/threat/{threat_id}"
+    description: "Retrieve all bundles associated with a given threat_id."
+    inputs:
+      - name: "threat_id"
+        type: "string"
+    outputs:
+      - name: "bundles"
+        type: "list<ThreatVisualBundle>"
+
+  - id: "get_recent_bundles"
+    method: "GET"
+    path: "/snapshot/recent"
+    description: "Retrieve bundles from volatile_cache (most recent snapshots)."
+    inputs:
+      - name: "limit"
+        type: "integer"
+        default: 10
+    outputs:
+      - name: "bundles"
+        type: "list<ThreatVisualBundle>"
+
+  - id: "get_struct
