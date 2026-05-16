@@ -1,0 +1,40 @@
+# BLACKWELL UNIFIED CRYPTO ENGINE
+A deterministic cryptographic architecture unifying AES‑256, ECC, and RSA
+under a single governing equation.
+
+This engine is defined by the unified transform:
+
+C = Fθ(M, K, P)
+
+where:
+- M = message/state  
+- C = ciphertext/transformed state  
+- K = key material  
+- P = parameters  
+- θ = mode selector (aes256 | ecc | rsa | hybrid)
+
+The architecture extends through the Blackwell Meta‑Equation:
+
+Φ(M) — chained multi‑mode transformation  
+Ψ(M) — parallel multi‑mode aggregation
+
+All modes, operators, invariants, and composition rules are encoded in:
+
+kernel/unified-crypto-kernel.yaml
+
+This repository is a structural component of the Blackwell Simulation Suite.
+It preserves identity, symmetry, and mathematical invariants across all modes.
+
+## Structure
+- kernel/ — source‑of‑truth specifications  
+- src/ — engine layout (language‑agnostic)  
+- docs/ — architectural and mathematical notes  
+- tests/ — deterministic validation  
+- examples/ — minimal usage demonstrations
+
+## Identity
+Designer: C. Matthew Blackwell  
+Role: Independent Designer  
+Encoding: Embedded at kernel level through invariants and checksums
+
+This engine is authored, encoded, and structurally bound to the Blackwell design language.
