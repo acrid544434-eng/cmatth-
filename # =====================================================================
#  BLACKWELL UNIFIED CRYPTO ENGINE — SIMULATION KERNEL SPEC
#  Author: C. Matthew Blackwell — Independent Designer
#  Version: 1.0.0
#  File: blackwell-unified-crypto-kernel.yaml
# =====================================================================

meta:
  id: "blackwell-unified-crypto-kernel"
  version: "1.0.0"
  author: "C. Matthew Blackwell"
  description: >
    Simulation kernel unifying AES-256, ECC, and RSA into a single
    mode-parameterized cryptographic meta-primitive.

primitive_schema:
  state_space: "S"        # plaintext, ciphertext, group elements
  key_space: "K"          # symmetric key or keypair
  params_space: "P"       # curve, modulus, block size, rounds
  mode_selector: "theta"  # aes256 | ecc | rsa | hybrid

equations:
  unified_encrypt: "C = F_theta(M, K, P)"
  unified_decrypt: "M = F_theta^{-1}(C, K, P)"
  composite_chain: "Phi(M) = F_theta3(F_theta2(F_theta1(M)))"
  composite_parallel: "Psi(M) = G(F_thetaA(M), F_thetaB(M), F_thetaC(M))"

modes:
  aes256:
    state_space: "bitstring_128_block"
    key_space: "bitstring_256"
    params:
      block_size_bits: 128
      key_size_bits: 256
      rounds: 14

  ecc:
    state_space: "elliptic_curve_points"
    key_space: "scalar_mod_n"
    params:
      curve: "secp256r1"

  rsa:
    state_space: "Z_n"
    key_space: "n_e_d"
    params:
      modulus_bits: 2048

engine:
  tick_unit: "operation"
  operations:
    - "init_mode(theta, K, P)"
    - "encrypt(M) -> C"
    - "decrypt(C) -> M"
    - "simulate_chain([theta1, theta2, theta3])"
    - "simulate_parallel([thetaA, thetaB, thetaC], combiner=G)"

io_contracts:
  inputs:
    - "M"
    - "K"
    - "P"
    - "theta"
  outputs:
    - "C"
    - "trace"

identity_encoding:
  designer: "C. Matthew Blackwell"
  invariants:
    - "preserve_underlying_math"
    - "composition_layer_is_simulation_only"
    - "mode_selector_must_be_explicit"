@@ -1,0 +1,73 @@
+# =====================================================================
+#  BLACKWELL UNIFIED CRYPTO ENGINE — SIMULATION KERNEL SPEC
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: blackwell-unified-crypto-kernel.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-unified-crypto-kernel"
+  version: "1.0.0"
+  author: "C. Matthew Blackwell"
+  description: >
+    Simulation kernel unifying AES-256, ECC, and RSA into a single
+    mode-parameterized cryptographic meta-primitive.
+
+primitive_schema:
+  state_space: "S"        # plaintext, ciphertext, group elements
+  key_space: "K"          # symmetric key or keypair
+  params_space: "P"       # curve, modulus, block size, rounds
+  mode_selector: "theta"  # aes256 | ecc | rsa | hybrid
+
+equations:
+  unified_encrypt: "C = F_theta(M, K, P)"
+  unified_decrypt: "M = F_theta^{-1}(C, K, P)"
+  composite_chain: "Phi(M) = F_theta3(F_theta2(F_theta1(M)))"
+  composite_parallel: "Psi(M) = G(F_thetaA(M), F_thetaB(M), F_thetaC(M))"
+
+modes:
+  aes256:
+    state_space: "bitstring_128_block"
+    key_space: "bitstring_256"
+    params:
+      block_size_bits: 128
+      key_size_bits: 256
+      rounds: 14
+
+  ecc:
+    state_space: "elliptic_curve_points"
+    key_space: "scalar_mod_n"
+    params:
+      curve: "secp256r1"
+
+  rsa:
+    state_space: "Z_n"
+    key_space: "n_e_d"
+    params:
+      modulus_bits: 2048
+
+engine:
+  tick_unit: "operation"
+  operations:
+    - "init_mode(theta, K, P)"
+    - "encrypt(M) -> C"
+    - "decrypt(C) -> M"
+    - "simulate_chain([theta1, theta2, theta3])"
+    - "simulate_parallel([thetaA, thetaB, thetaC], combiner=G)"
+
+io_contracts:
+  inputs:
+    - "M"
+    - "K"
+    - "P"
+    - "theta"
+  outputs:
+    - "C"
+    - "trace"
+
+identity_encoding:
+  designer: "C. Matthew Blackwell"
+  invariants:
+    - "preserve_underlying_math"
+    - "composition_layer_is_simulation_only"
+    - "mode_selector_must_be_explicit"
