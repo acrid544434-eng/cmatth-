@@ -1,0 +1,59 @@
+emphemsa/
+│
+├── README.md
+├── LICENSE
+├── .gitignore
+│
+├── core/
+│   ├── ontology_kernel.py          # Loads Emphemsa organisms + fields
+│   ├── state_lattice.py            # Spatial/temporal field lattice
+│   ├── field_dynamics.py           # Evolves warp, grav, stress, charge fields
+│   ├── regime_orchestrator.py      # Stable → Critical → Exotic → Failure
+│   └── permissions.py              # Constraint + envelope enforcement
+│
+├── fields/
+│   ├── warp_field.py               # Metric distortion field
+│   ├── grav_field.py               # Gravity gradient control
+│   ├── stress_field.py             # Structural load + shear
+│   └── charge_field.py             # Energy potential + flux
+│
+├── organisms/
+│   ├── emphemsa_core.dsl           # Core organism definition
+│   ├── warp_probe.dsl              # Warp‑capable organism
+│   └── exotic_entities.dsl         # High‑regime organisms
+│
+├── simulation/
+│   ├── timestep.py                 # Δt evolution logic
+│   ├── integrators.py              # Euler / RK / custom integrators
+│   ├── stability.py                # Field stability + collapse detection
+│   └── crash_analyzer.py           # Field‑collapse + regime‑failure analysis
+│
+├── visualization/
+│   ├── field_view.py               # Warp/grav/stress/charge visualizer
+│   ├── regime_map.py               # Regime transitions over time
+│   └── lattice_view.py             # State lattice holography
+│
+├── scenarios/
+│   ├── default.yaml                # Default Emphemsa run
+│   ├── warp_entry.yaml             # Warp‑entry stress test
+│   └── exotic_regime.yaml          # High‑regime exploration
+│
+├── config/
+│   ├── engine.yaml                 # Engine‑wide settings
+│   └── fields.yaml                 # Field constants + parameters
+│
+├── runtime/
+│   ├── logs/                       # Simulation logs
+│   ├── snapshots/                  # Field snapshots
+│   └── traces/                     # Regime + field traces
+│
+├── tests/
+│   ├── test_ontology_kernel.py
+│   ├── test_field_dynamics.py
+│   ├── test_regime_orchestrator.py
+│   └── test_crash_analyzer.py
+│
+└── docs/
+    ├── emphemsa_spec.md            # Engine specification
+    ├── dsl_reference.md            # Emphemsa DSL grammar
+    └── field_theory.md             # Warp/grav/stress/charge theory notes
