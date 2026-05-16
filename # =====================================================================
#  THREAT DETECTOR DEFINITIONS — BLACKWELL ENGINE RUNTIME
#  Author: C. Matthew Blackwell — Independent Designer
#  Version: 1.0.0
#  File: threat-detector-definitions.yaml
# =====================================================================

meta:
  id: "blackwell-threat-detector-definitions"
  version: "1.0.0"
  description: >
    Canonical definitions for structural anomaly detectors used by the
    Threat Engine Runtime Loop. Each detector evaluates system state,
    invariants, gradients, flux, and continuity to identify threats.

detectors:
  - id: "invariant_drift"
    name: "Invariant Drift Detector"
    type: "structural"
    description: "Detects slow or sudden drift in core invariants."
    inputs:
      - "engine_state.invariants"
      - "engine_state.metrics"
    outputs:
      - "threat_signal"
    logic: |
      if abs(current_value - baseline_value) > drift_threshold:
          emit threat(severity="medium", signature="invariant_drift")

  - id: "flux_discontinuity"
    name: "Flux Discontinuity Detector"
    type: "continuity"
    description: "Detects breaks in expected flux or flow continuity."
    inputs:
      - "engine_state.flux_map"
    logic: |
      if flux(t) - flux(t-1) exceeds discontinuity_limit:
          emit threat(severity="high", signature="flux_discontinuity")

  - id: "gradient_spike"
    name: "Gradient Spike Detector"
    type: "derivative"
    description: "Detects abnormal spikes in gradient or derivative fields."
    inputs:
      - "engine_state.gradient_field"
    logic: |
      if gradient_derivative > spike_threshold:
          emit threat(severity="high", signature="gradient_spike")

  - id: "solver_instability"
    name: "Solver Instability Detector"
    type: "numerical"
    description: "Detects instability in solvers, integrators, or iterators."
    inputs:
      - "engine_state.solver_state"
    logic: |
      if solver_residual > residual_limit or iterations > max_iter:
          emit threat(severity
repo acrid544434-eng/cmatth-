@@ -1,0 +1,58 @@
+# =====================================================================
+#  THREAT DETECTOR DEFINITIONS — BLACKWELL ENGINE RUNTIME
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: threat-detector-definitions.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-threat-detector-definitions"
+  version: "1.0.0"
+  description: >
+    Canonical definitions for structural anomaly detectors used by the
+    Threat Engine Runtime Loop. Each detector evaluates system state,
+    invariants, gradients, flux, and continuity to identify threats.
+
+detectors:
+  - id: "invariant_drift"
+    name: "Invariant Drift Detector"
+    type: "structural"
+    description: "Detects slow or sudden drift in core invariants."
+    inputs:
+      - "engine_state.invariants"
+      - "engine_state.metrics"
+    outputs:
+      - "threat_signal"
+    logic: |
+      if abs(current_value - baseline_value) > drift_threshold:
+          emit threat(severity="medium", signature="invariant_drift")
+
+  - id: "flux_discontinuity"
+    name: "Flux Discontinuity Detector"
+    type: "continuity"
+    description: "Detects breaks in expected flux or flow continuity."
+    inputs:
+      - "engine_state.flux_map"
+    logic: |
+      if flux(t) - flux(t-1) exceeds discontinuity_limit:
+          emit threat(severity="high", signature="flux_discontinuity")
+
+  - id: "gradient_spike"
+    name: "Gradient Spike Detector"
+    type: "derivative"
+    description: "Detects abnormal spikes in gradient or derivative fields."
+    inputs:
+      - "engine_state.gradient_field"
+    logic: |
+      if gradient_derivative > spike_threshold:
+          emit threat(severity="high", signature="gradient_spike")
+
+  - id: "solver_instability"
+    name: "Solver Instability Detector"
+    type: "numerical"
+    description: "Detects instability in solvers, integrators, or iterators."
+    inputs:
+      - "engine_state.solver_state"
+    logic: |
+      if solver_residual > residual_limit or iterations > max_iter:
+          emit threat(severity
