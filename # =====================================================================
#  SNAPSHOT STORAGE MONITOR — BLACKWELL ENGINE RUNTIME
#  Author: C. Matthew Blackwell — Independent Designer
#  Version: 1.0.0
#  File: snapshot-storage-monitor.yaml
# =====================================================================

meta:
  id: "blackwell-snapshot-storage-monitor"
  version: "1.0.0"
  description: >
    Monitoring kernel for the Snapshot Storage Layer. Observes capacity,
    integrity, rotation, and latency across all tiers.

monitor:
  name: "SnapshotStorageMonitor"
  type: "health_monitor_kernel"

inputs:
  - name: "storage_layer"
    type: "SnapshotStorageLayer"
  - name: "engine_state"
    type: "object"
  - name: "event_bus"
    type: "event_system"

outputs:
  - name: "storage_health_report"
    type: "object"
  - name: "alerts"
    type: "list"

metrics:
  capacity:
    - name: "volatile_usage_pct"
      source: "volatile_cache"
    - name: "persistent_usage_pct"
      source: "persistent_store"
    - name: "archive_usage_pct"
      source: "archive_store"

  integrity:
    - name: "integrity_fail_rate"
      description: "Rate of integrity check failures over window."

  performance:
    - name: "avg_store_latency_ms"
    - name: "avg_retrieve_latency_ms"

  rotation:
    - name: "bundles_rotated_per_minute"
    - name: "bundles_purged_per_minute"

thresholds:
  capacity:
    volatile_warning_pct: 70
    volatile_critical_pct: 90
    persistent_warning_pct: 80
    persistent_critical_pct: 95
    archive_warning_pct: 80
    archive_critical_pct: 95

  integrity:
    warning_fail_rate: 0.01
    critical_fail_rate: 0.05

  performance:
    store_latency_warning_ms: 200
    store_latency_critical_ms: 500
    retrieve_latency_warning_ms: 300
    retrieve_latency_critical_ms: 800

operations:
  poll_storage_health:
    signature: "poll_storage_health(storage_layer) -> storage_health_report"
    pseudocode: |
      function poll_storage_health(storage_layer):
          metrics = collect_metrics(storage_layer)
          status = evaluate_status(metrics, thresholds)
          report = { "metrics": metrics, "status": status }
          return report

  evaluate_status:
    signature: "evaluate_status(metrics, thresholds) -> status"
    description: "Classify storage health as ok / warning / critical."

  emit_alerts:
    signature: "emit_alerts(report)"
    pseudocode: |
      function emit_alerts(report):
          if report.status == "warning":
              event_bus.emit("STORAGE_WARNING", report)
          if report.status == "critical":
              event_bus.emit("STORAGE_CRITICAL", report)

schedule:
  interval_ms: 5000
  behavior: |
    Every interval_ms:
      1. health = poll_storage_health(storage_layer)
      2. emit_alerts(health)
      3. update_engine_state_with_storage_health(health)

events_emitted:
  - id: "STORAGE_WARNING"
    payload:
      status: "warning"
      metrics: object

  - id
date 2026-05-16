@@ -1,0 +1,110 @@
+# =====================================================================
+#  SNAPSHOT STORAGE MONITOR — BLACKWELL ENGINE RUNTIME
+#  Author: C. Matthew Blackwell — Independent Designer
+#  Version: 1.0.0
+#  File: snapshot-storage-monitor.yaml
+# =====================================================================
+
+meta:
+  id: "blackwell-snapshot-storage-monitor"
+  version: "1.0.0"
+  description: >
+    Monitoring kernel for the Snapshot Storage Layer. Observes capacity,
+    integrity, rotation, and latency across all tiers.
+
+monitor:
+  name: "SnapshotStorageMonitor"
+  type: "health_monitor_kernel"
+
+inputs:
+  - name: "storage_layer"
+    type: "SnapshotStorageLayer"
+  - name: "engine_state"
+    type: "object"
+  - name: "event_bus"
+    type: "event_system"
+
+outputs:
+  - name: "storage_health_report"
+    type: "object"
+  - name: "alerts"
+    type: "list"
+
+metrics:
+  capacity:
+    - name: "volatile_usage_pct"
+      source: "volatile_cache"
+    - name: "persistent_usage_pct"
+      source: "persistent_store"
+    - name: "archive_usage_pct"
+      source: "archive_store"
+
+  integrity:
+    - name: "integrity_fail_rate"
+      description: "Rate of integrity check failures over window."
+
+  performance:
+    - name: "avg_store_latency_ms"
+    - name: "avg_retrieve_latency_ms"
+
+  rotation:
+    - name: "bundles_rotated_per_minute"
+    - name: "bundles_purged_per_minute"
+
+thresholds:
+  capacity:
+    volatile_warning_pct: 70
+    volatile_critical_pct: 90
+    persistent_warning_pct: 80
+    persistent_critical_pct: 95
+    archive_warning_pct: 80
+    archive_critical_pct: 95
+
+  integrity:
+    warning_fail_rate: 0.01
+    critical_fail_rate: 0.05
+
+  performance:
+    store_latency_warning_ms: 200
+    store_latency_critical_ms: 500
+    retrieve_latency_warning_ms: 300
+    retrieve_latency_critical_ms: 800
+
+operations:
+  poll_storage_health:
+    signature: "poll_storage_health(storage_layer) -> storage_health_report"
+    pseudocode: |
+      function poll_storage_health(storage_layer):
+          metrics = collect_metrics(storage_layer)
+          status = evaluate_status(metrics, thresholds)
+          report = { "metrics": metrics, "status": status }
+          return report
+
+  evaluate_status:
+    signature: "evaluate_status(metrics, thresholds) -> status"
+    description: "Classify storage health as ok / warning / critical."
+
+  emit_alerts:
+    signature: "emit_alerts(report)"
+    pseudocode: |
+      function emit_alerts(report):
+          if report.status == "warning":
+              event_bus.emit("STORAGE_WARNING", report)
+          if report.status == "critical":
+              event_bus.emit("STORAGE_CRITICAL", report)
+
+schedule:
+  interval_ms: 5000
+  behavior: |
+    Every interval_ms:
+      1. health = poll_storage_health(storage_layer)
+      2. emit_alerts(health)
+      3. update_engine_state_with_storage_health(health)
+
+events_emitted:
+  - id: "STORAGE_WARNING"
+    payload:
+      status: "warning"
+      metrics: object
+
+  - id
