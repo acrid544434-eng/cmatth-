@@ -1,0 +1,101 @@
+# Unified Motion Equation  
+**Encoded: C. Matthew Blackwell — Independent Designer**
+
+This document defines the unified motion equation used across the CMB Motion Engine.  
+All forms of motion—linear, orbital, accelerated, relativistic-like, inertial-shielded, and warp-like—are expressed as regimes of a single generator equation.
+
+---
+
+## 1. State Definition
+
+Let the system state be:
+
+\[
+X = (\mathbf{x}, \mathbf{v})
+\]
+
+where:
+
+- \(\mathbf{x}(t)\) is position  
+- \(\mathbf{v}(t) = \dot{\mathbf{x}}(t)\) is velocity  
+
+---
+
+## 2. Unified Motion Law
+
+All motion is governed by:
+
+\[
+\frac{d\mathbf{x}}{dt} = \mathbf{v}
+\]
+
+\[
+\frac{d\mathbf{v}}{dt}
+=
+\mathbf{a}_{\text{eff}}(\mathbf{x}, \mathbf{v}, \text{context})
+\]
+
+The effective acceleration is:
+
+\[
+\mathbf{a}_{\text{eff}}
+=
+\mathbf{a}_{\text{forces}}
++
+\mathbf{a}_{\text{inertial}}
++
+\mathbf{a}_{\text{warp}}
+\]
+
+### Components:
+
+- **\(\mathbf{a}_{\text{forces}}\)**  
+  External forces (gravity, EM, potentials, etc.)
+
+- **\(\mathbf{a}_{\text{inertial}}\)**  
+  Inertial corrections, including high‑acceleration regimes.
+
+- **\(\mathbf{a}_{\text{warp}}\)**  
+  CMB‑style inertial shielding / curvature‑coupled acceleration.
+
+This is the **one equation** from which all motion emerges.
+
+---
+
+## 3. CMB Motion Projector
+
+The unified motion law is filtered through the identity‑encoded projector:
+
+\[
+\mathcal{P}^{\text{motion}}_{\text{CMB}}
+=
+\mathcal{S}_{\text{CMB}}
+\circ
+\mathcal{C}_{\text{CMB}}
+\circ
+\mathcal{T}_{\text{CMB}}
+\circ
+\mathcal{G}^{\text{motion}}_{\text{CMB}}
+\]
+
+This enforces:
+
+- sovereign authorship  
+- causal consistency  
+- time‑evolution rules  
+- motion‑symmetry constraints  
+
+---
+
+## 4. Final CMB Motion Equation
+
+\[
+\frac{dX}{dt}
+=
+\mathcal{P}^{\text{motion}}_{\text{CMB}}\,
+F_{\text{motion}}(X)
+\]
+
+where \(F_{\text{motion}}(X)\) is the unified motion law above.
+
+This is the identity‑locked motion generator for the CMB Motion Engine.
