@@ -1,0 +1,8 @@
+context = {
+    "geometry_response_strength": 0.2,
+    "matter_response_strength": 0.1,
+    "matter_influence": 1.0,
+    "geom_coupling": 0.5,
+}
+
+engine = MatterGeometryEngine(context)
