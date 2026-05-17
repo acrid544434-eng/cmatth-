@@ -1,0 +1,23 @@
+---
+
+# ✅ **3. `cmb_motion_projector_test.ipynb`**
+
+```markdown
+# CMB Motion Projector Test  
+**Encoded: C. Matthew Blackwell — Independent Designer**
+
+This notebook verifies that the CMB motion projector:
+
+- filters invalid motion  
+- enforces identity  
+- preserves causality  
+- maintains CMB motion symmetry  
+
+---
+
+## 1. Setup
+
+```python
+import numpy as np
+from motion.engine.motion_engine import MotionEngine
+from motion.engine.projector import apply_cmb_motion_projector
