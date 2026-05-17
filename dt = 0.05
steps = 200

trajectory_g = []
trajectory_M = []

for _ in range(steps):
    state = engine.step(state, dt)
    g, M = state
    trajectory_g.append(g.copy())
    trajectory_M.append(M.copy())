@@ -1,0 +1,11 @@
+dt = 0.05
+steps = 200
+
+trajectory_g = []
+trajectory_M = []
+
+for _ in range(steps):
+    state = engine.step(state, dt)
+    g, M = state
+    trajectory_g.append(g.copy())
+    trajectory_M.append(M.copy())
