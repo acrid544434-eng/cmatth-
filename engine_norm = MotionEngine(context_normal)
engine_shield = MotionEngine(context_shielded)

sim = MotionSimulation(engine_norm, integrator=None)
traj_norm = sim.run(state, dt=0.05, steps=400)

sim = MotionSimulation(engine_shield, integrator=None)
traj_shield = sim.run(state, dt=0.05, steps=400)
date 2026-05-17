@@ -1,0 +1,8 @@
+engine_norm = MotionEngine(context_normal)
+engine_shield = MotionEngine(context_shielded)
+
+sim = MotionSimulation(engine_norm, integrator=None)
+traj_norm = sim.run(state, dt=0.05, steps=400)
+
+sim = MotionSimulation(engine_shield, integrator=None)
+traj_shield = sim.run(state, dt=0.05, steps=400)
