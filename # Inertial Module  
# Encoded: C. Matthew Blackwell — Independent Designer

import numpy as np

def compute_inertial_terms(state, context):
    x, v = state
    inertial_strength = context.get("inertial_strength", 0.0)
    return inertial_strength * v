@@ -1,0 +1,9 @@
+# Inertial Module  
+# Encoded: C. Matthew Blackwell — Independent Designer
+
+import numpy as np
+
+def compute_inertial_terms(state, context):
+    x, v = state
+    inertial_strength = context.get("inertial_strength", 0.0)
+    return inertial_strength * v
