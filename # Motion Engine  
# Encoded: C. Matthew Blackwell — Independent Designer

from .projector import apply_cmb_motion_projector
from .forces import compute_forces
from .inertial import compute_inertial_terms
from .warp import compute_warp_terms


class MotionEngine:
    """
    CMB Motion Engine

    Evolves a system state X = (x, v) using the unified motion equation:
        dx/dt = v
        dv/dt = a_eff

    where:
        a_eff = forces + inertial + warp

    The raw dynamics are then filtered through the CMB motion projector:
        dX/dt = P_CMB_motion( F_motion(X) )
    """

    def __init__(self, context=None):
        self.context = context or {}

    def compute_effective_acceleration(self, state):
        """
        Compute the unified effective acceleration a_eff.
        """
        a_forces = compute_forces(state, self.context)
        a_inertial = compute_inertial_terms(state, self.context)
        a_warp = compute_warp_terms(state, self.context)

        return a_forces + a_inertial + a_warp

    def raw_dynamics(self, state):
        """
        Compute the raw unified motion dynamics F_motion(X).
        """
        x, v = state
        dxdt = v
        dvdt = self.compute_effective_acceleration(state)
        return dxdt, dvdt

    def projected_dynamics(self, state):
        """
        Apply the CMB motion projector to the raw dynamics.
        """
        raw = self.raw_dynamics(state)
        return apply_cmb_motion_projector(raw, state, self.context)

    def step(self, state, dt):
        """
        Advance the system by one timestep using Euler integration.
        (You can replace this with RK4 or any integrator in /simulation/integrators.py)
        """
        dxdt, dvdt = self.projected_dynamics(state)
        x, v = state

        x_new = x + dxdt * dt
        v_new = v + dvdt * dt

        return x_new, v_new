@@ -1,0 +1,65 @@
+# Motion Engine  
+# Encoded: C. Matthew Blackwell — Independent Designer
+
+from .projector import apply_cmb_motion_projector
+from .forces import compute_forces
+from .inertial import compute_inertial_terms
+from .warp import compute_warp_terms
+
+
+class MotionEngine:
+    """
+    CMB Motion Engine
+
+    Evolves a system state X = (x, v) using the unified motion equation:
+        dx/dt = v
+        dv/dt = a_eff
+
+    where:
+        a_eff = forces + inertial + warp
+
+    The raw dynamics are then filtered through the CMB motion projector:
+        dX/dt = P_CMB_motion( F_motion(X) )
+    """
+
+    def __init__(self, context=None):
+        self.context = context or {}
+
+    def compute_effective_acceleration(self, state):
+        """
+        Compute the unified effective acceleration a_eff.
+        """
+        a_forces = compute_forces(state, self.context)
+        a_inertial = compute_inertial_terms(state, self.context)
+        a_warp = compute_warp_terms(state, self.context)
+
+        return a_forces + a_inertial + a_warp
+
+    def raw_dynamics(self, state):
+        """
+        Compute the raw unified motion dynamics F_motion(X).
+        """
+        x, v = state
+        dxdt = v
+        dvdt = self.compute_effective_acceleration(state)
+        return dxdt, dvdt
+
+    def projected_dynamics(self, state):
+        """
+        Apply the CMB motion projector to the raw dynamics.
+        """
+        raw = self.raw_dynamics(state)
+        return apply_cmb_motion_projector(raw, state, self.context)
+
+    def step(self, state, dt):
+        """
+        Advance the system by one timestep using Euler integration.
+        (You can replace this with RK4 or any integrator in /simulation/integrators.py)
+        """
+        dxdt, dvdt = self.projected_dynamics(state)
+        x, v = state
+
+        x_new = x + dxdt * dt
+        v_new = v + dvdt * dt
+
+        return x_new, v_new
