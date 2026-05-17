@@ -1,0 +1,14 @@
+import matplotlib.pyplot as plt
+
+xs_norm = [s[0][0] for s in traj_norm]
+ys_norm = [s[0][1] for s in traj_norm]
+
+xs_shield = [s[0][0] for s in traj_shield]
+ys_shield = [s[0][1] for s in traj_shield]
+
+plt.plot(xs_norm, ys_norm, label="Normal Orbit")
+plt.plot(xs_shield, ys_shield, label="Shielded Orbit")
+plt.legend()
+plt.title("Orbital Motion with Inertial Shielding")
+plt.axis("equal")
+plt.show()
