@@ -1,0 +1,10 @@
+# Forces Module  
+# Encoded: C. Matthew Blackwell — Independent Designer
+
+import numpy as np
+
+def compute_forces(state, context):
+    x, v = state
+    gravity = context.get("gravity", np.array([0.0, 0.0, 0.0]))
+    external = context.get("external_forces", np.array([0.0, 0.0, 0.0]))
+    return gravity + external
