@@ -1,0 +1,2 @@
+rs = [s[0] for s in trajectory]
+r_norms = [np.linalg.norm(r) for r in rs]
