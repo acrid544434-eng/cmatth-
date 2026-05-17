@@ -1,0 +1,10 @@
+dt = 0.1
+steps = 200
+
+trajectory = []
+for _ in range(steps):
+    state = engine.step(state, dt)
+    trajectory.append(state)
+
+gs = [s[0][0] for s in trajectory]
+Ms = [s[1][0] for s in trajectory]
