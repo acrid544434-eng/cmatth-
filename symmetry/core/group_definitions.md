@@ -1,0 +1,1 @@
+symmetry/core/group_definitions.md
