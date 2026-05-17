@@ -1,0 +1,11 @@
+# Classical Centrifugal Term
+# Encoded: C. Matthew Blackwell — Independent Designer
+
+import numpy as np
+
+def compute_classical_centrifugal(r, omega, context):
+    """
+    Compute the classical centrifugal acceleration:
+        a = ω × (ω × r)
+    """
+    return np.cross(omega, np.cross(omega, r))
