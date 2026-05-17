@@ -1,0 +1,8 @@
+import matplotlib.pyplot as plt
+
+plt.plot(gs, label="Geometry g")
+plt.plot(Ms, label="Matter M")
+plt.legend()
+plt.title("Matter–Geometry Feedback Evolution")
+plt.xlabel("Step")
+plt.show()
