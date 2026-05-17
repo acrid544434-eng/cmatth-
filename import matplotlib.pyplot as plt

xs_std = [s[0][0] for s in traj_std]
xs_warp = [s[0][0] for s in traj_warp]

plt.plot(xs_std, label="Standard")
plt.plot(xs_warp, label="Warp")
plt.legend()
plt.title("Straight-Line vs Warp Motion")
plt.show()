@@ -1,0 +1,10 @@
+import matplotlib.pyplot as plt
+
+xs_std = [s[0][0] for s in traj_std]
+xs_warp = [s[0][0] for s in traj_warp]
+
+plt.plot(xs_std, label="Standard")
+plt.plot(xs_warp, label="Warp")
+plt.legend()
+plt.title("Straight-Line vs Warp Motion")
+plt.show()
