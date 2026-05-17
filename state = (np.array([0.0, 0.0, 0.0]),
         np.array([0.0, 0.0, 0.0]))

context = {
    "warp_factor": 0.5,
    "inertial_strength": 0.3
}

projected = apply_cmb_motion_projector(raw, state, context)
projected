@@ -1,0 +1,10 @@
+state = (np.array([0.0, 0.0, 0.0]),
+         np.array([0.0, 0.0, 0.0]))
+
+context = {
+    "warp_factor": 0.5,
+    "inertial_strength": 0.3
+}
+
+projected = apply_cmb_motion_projector(raw, state, context)
+projected
