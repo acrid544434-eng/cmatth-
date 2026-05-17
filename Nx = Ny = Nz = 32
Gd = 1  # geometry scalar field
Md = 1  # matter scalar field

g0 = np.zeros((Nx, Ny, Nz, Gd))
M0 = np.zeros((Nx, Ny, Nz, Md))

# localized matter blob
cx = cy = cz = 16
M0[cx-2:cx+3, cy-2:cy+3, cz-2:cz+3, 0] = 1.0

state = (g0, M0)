@@ -1,0 +1,12 @@
+Nx = Ny = Nz = 32
+Gd = 1  # geometry scalar field
+Md = 1  # matter scalar field
+
+g0 = np.zeros((Nx, Ny, Nz, Gd))
+M0 = np.zeros((Nx, Ny, Nz, Md))
+
+# localized matter blob
+cx = cy = cz = 16
+M0[cx-2:cx+3, cy-2:cy+3, cz-2:cz+3, 0] = 1.0
+
+state = (g0, M0)
