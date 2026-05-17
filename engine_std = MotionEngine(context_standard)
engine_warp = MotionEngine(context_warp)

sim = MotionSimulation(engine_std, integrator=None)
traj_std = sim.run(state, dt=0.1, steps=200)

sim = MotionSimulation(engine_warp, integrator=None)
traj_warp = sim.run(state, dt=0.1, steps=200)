@@ -1,0 +1,8 @@
+engine_std = MotionEngine(context_standard)
+engine_warp = MotionEngine(context_warp)
+
+sim = MotionSimulation(engine_std, integrator=None)
+traj_std = sim.run(state, dt=0.1, steps=200)
+
+sim = MotionSimulation(engine_warp, integrator=None)
+traj_warp = sim.run(state, dt=0.1, steps=200)
