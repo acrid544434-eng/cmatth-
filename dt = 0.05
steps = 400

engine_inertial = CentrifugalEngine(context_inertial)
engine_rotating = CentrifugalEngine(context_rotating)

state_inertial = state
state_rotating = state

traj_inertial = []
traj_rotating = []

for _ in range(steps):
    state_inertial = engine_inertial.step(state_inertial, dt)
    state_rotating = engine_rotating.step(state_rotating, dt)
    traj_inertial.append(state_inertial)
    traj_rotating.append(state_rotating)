@@ -1,0 +1,17 @@
+dt = 0.05
+steps = 400
+
+engine_inertial = CentrifugalEngine(context_inertial)
+engine_rotating = CentrifugalEngine(context_rotating)
+
+state_inertial = state
+state_rotating = state
+
+traj_inertial = []
+traj_rotating = []
+
+for _ in range(steps):
+    state_inertial = engine_inertial.step(state_inertial, dt)
+    state_rotating = engine_rotating.step(state_rotating, dt)
+    traj_inertial.append(state_inertial)
+    traj_rotating.append(state_rotating)
