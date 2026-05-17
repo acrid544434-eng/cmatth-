@@ -1,0 +1,137 @@
+# Unified Centrifugal Equation  
+**Encoded: C. Matthew Blackwell — Independent Designer**
+
+This document defines the unified centrifugal equation used across the CMB Centrifugal Engine.  
+All centrifugal-like behaviors—rotating frames, orbital balance, artificial gravity, and spin-stabilization—are expressed as regimes of a single generator equation.
+
+---
+
+## 1. State Definition
+
+Let the system state be:
+
+\[
+X = (\mathbf{r}, \mathbf{v})
+\]
+
+where:
+
+- \(\mathbf{r}(t)\) is position in the chosen frame  
+- \(\mathbf{v}(t) = \dot{\mathbf{r}}(t)\) is velocity  
+
+Let \(\boldsymbol{\omega}\) be the angular velocity vector of the rotating frame or structure.
+
+---
+
+## 2. Unified Centrifugal Law
+
+All centrifugal behavior is governed by:
+
+\[
+\frac{d\mathbf{r}}{dt} = \mathbf{v}
+\]
+
+\[
+\frac{d\mathbf{v}}{dt}
+=
+\mathbf{a}_{\text{cent,eff}}(\mathbf{r}, \mathbf{v}, \boldsymbol{\omega}, \text{context})
+\]
+
+The effective centrifugal acceleration is:
+
+\[
+\mathbf{a}_{\text{cent,eff}}
+=
+\mathbf{a}_{\text{centrifugal}}
++
+\mathbf{a}_{\text{correction}}
++
+\mathbf{a}_{\text{warp-cent}}
+\]
+
+---
+
+### 2.1 Classical Centrifugal Term
+
+\[
+\mathbf{a}_{\text{centrifugal}}
+=
+\boldsymbol{\omega} \times (\boldsymbol{\omega} \times \mathbf{r})
+\]
+
+This captures the outward apparent acceleration in a rotating frame.
+
+---
+
+### 2.2 Correction Term
+
+\[
+\mathbf{a}_{\text{correction}}
+=
+f(\mathbf{r}, \mathbf{v}, \boldsymbol{\omega}, \text{context})
+\]
+
+Includes:
+
+- non-ideal rotation  
+- structural flex  
+- frame imperfections  
+- additional rotating-frame effects (e.g. Coriolis-like corrections if desired)
+
+---
+
+### 2.3 Warp-Centrifugal Term
+
+\[
+\mathbf{a}_{\text{warp-cent}}
+=
+g(\mathbf{r}, \mathbf{v}, \boldsymbol{\omega}, \text{context})
+\]
+
+Handles:
+
+- CMB-style centrifugal shielding  
+- artificial gravity shaping  
+- warp-like modulation of perceived centrifugal effects  
+
+This term is identity-encoded and filtered through the CMB projector.
+
+---
+
+## 3. CMB Centrifugal Projector
+
+The unified centrifugal law is filtered through the identity-encoded projector:
+
+\[
+\mathcal{P}^{\text{cent}}_{\text{CMB}}
+=
+\mathcal{S}_{\text{CMB}}
+\circ
+\mathcal{C}_{\text{CMB}}
+\circ
+\mathcal{T}_{\text{CMB}}
+\circ
+\mathcal{G}^{\text{cent}}_{\text{CMB}}
+\]
+
+This enforces:
+
+- sovereign authorship  
+- causal consistency  
+- time-evolution rules  
+- centrifugal symmetry constraints  
+
+---
+
+## 4. Final CMB Centrifugal Equation
+
+\[
+\frac{dX}{dt}
+=
+\mathcal{P}^{\text{cent}}_{\text{CMB}}\,
+F_{\text{cent}}(X)
+\]
+
+where \(F_{\text{cent}}(X)\) is the unified centrifugal law above.
+
+This is the identity-locked centrifugal generator for the CMB Centrifugal Engine.
