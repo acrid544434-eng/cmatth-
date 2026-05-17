@@ -1,0 +1,58 @@
+# Effective Acceleration Components  
+**Encoded: C. Matthew Blackwell — Independent Designer**
+
+The unified motion equation uses a single effective acceleration:
+
+\[
+\mathbf{a}_{\text{eff}}
+=
+\mathbf{a}_{\text{forces}}
++
+\mathbf{a}_{\text{inertial}}
++
+\mathbf{a}_{\text{warp}}
+\]
+
+---
+
+## 1. Force Acceleration
+
+\[
+\mathbf{a}_{\text{forces}} = -\nabla \Phi(\mathbf{x}) + \mathbf{a}_{\text{ext}}
+\]
+
+Includes:
+
+- gravity  
+- potentials  
+- external fields  
+
+---
+
+## 2. Inertial Acceleration
+
+\[
+\mathbf{a}_{\text{inertial}} = f(\mathbf{v}, \dot{\mathbf{v}}, \text{context})
+\]
+
+Handles:
+
+- high‑acceleration regimes  
+- inertial corrections  
+- non‑linear response  
+
+---
+
+## 3. Warp Acceleration
+
+\[
+\mathbf{a}_{\text{warp}} = g(\mathbf{v}, \mathbf{a}, \text{curvature})
+\]
+
+Handles:
+
+- inertial shielding  
+- curvature‑coupled acceleration  
+- warp‑like transitions  
+
+Warp terms are identity‑encoded and filtered through the CMB projector.
