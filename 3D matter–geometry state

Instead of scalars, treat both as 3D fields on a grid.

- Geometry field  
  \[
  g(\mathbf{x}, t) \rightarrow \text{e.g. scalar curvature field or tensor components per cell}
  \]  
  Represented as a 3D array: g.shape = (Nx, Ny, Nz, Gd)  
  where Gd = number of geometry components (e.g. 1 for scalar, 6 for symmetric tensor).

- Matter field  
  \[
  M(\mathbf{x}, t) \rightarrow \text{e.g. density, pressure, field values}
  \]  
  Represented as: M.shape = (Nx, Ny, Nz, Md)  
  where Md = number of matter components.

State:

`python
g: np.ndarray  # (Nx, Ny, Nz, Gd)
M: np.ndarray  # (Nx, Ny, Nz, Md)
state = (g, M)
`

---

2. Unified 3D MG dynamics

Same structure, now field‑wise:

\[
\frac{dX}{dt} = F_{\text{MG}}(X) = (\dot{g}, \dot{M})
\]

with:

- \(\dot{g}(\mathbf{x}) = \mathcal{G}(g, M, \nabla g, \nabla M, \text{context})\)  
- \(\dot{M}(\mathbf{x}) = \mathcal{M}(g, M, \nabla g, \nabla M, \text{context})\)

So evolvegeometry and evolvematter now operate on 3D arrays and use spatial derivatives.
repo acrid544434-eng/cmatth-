@@ -1,0 +1,42 @@
+3D matter–geometry state
+
+Instead of scalars, treat both as 3D fields on a grid.
+
+- Geometry field  
+  \[
+  g(\mathbf{x}, t) \rightarrow \text{e.g. scalar curvature field or tensor components per cell}
+  \]  
+  Represented as a 3D array: g.shape = (Nx, Ny, Nz, Gd)  
+  where Gd = number of geometry components (e.g. 1 for scalar, 6 for symmetric tensor).
+
+- Matter field  
+  \[
+  M(\mathbf{x}, t) \rightarrow \text{e.g. density, pressure, field values}
+  \]  
+  Represented as: M.shape = (Nx, Ny, Nz, Md)  
+  where Md = number of matter components.
+
+State:
+
+`python
+g: np.ndarray  # (Nx, Ny, Nz, Gd)
+M: np.ndarray  # (Nx, Ny, Nz, Md)
+state = (g, M)
+`
+
+---
+
+2. Unified 3D MG dynamics
+
+Same structure, now field‑wise:
+
+\[
+\frac{dX}{dt} = F_{\text{MG}}(X) = (\dot{g}, \dot{M})
+\]
+
+with:
+
+- \(\dot{g}(\mathbf{x}) = \mathcal{G}(g, M, \nabla g, \nabla M, \text{context})\)  
+- \(\dot{M}(\mathbf{x}) = \mathcal{M}(g, M, \nabla g, \nabla M, \text{context})\)
+
+So evolvegeometry and evolvematter now operate on 3D arrays and use spatial derivatives.
