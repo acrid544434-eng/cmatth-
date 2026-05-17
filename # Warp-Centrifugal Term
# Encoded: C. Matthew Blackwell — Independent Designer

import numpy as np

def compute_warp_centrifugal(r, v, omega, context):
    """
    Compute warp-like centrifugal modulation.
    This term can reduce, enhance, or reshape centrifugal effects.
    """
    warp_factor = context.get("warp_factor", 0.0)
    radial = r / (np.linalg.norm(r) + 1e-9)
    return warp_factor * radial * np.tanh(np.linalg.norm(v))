@@ -1,0 +1,13 @@
+# Warp-Centrifugal Term
+# Encoded: C. Matthew Blackwell — Independent Designer
+
+import numpy as np
+
+def compute_warp_centrifugal(r, v, omega, context):
+    """
+    Compute warp-like centrifugal modulation.
+    This term can reduce, enhance, or reshape centrifugal effects.
+    """
+    warp_factor = context.get("warp_factor", 0.0)
+    radial = r / (np.linalg.norm(r) + 1e-9)
+    return warp_factor * radial * np.tanh(np.linalg.norm(v))
