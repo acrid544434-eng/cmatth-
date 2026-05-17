@@ -1,0 +1,49 @@
+Engine stays the same, internals change
+
+Your MatterGeometryEngine doesn’t need a new interface—just new internals:
+
+`python
+
+geometry.py (3D version, sketch)
+
+import numpy as np
+from .stencils import laplacian_3d
+
+def evolve_geometry(g, M, context):
+    """
+    g, M: 3D fields
+    Example: geometry responds to matter density via a diffusion-like rule.
+    """
+    geomstrength = context.get("geometryresponse_strength", 0.5)
+    matterinfluence = context.get("matterinfluence", 1.0)
+
+    # simple example: geometry diffuses + is sourced by matter
+    glap = laplacian3d(g)
+    source = matter_influence * M[..., :1]  # assume first matter channel is "density"
+
+    dgdt = geomstrength * (glap + source)
+    return dgdt
+`
+
+`python
+
+matter.py (3D version, sketch)
+
+import numpy as np
+from .stencils import laplacian_3d
+
+def evolve_matter(g, M, context):
+    """
+    Matter evolves under geometry influence.
+    """
+    matterstrength = context.get("matterresponse_strength", 0.5)
+    geomcoupling = context.get("geomcoupling", 1.0)
+
+    Mlap = laplacian3d(M)
+    geomterm = geomcoupling * g[..., :1]  # geometry channel
+
+    dMdt = matterstrength * (Mlap - geom_term)
+    return dMdt
+`
+
+apply_coupling can further mix channels if you want more exotic behavior.
