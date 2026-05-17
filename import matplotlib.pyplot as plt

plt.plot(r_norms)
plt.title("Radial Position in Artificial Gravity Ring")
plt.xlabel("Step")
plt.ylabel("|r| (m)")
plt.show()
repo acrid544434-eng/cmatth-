@@ -1,0 +1,7 @@
+import matplotlib.pyplot as plt
+
+plt.plot(r_norms)
+plt.title("Radial Position in Artificial Gravity Ring")
+plt.xlabel("Step")
+plt.ylabel("|r| (m)")
+plt.show()
