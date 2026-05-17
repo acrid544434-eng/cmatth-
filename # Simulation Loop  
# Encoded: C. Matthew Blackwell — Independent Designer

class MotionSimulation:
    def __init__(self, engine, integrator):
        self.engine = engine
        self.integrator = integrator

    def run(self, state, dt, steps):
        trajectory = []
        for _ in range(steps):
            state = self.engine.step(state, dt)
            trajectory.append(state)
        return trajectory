@@ -1,0 +1,14 @@
+# Simulation Loop  
+# Encoded: C. Matthew Blackwell — Independent Designer
+
+class MotionSimulation:
+    def __init__(self, engine, integrator):
+        self.engine = engine
+        self.integrator = integrator
+
+    def run(self, state, dt, steps):
+        trajectory = []
+        for _ in range(steps):
+            state = self.engine.step(state, dt)
+            trajectory.append(state)
+        return trajectory
