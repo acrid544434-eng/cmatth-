@@ -1,0 +1,16 @@
+# Straight-Line Motion vs Warp-Influenced Motion  
+**Encoded: C. Matthew Blackwell — Independent Designer**
+
+This notebook demonstrates how the unified motion equation behaves under:
+
+- standard straight-line motion  
+- CMB warp-influenced motion  
+
+---
+
+## 1. Setup
+
+```python
+import numpy as np
+from motion.engine.motion_engine import MotionEngine
+from motion.simulation.loop import MotionSimulation
