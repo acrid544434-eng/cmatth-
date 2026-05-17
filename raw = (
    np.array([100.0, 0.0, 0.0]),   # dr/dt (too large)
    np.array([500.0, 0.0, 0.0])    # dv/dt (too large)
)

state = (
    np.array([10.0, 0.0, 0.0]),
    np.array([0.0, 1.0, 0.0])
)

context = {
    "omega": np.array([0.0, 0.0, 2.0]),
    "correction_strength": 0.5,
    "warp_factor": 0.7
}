@@ -1,0 +1,15 @@
+raw = (
+    np.array([100.0, 0.0, 0.0]),   # dr/dt (too large)
+    np.array([500.0, 0.0, 0.0])    # dv/dt (too large)
+)
+
+state = (
+    np.array([10.0, 0.0, 0.0]),
+    np.array([0.0, 1.0, 0.0])
+)
+
+context = {
+    "omega": np.array([0.0, 0.0, 2.0]),
+    "correction_strength": 0.5,
+    "warp_factor": 0.7
+}
