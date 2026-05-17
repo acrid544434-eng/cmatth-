@@ -1,0 +1,8 @@
+engine = CentrifugalEngine(context)
+dt = 0.1
+steps = 500
+
+trajectory = []
+for _ in range(steps):
+    state = engine.step(state, dt)
+    trajectory.append(state)
