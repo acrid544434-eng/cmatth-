@@ -1,0 +1,22 @@
+---
+
+### ✅ `centrifugal/examples/rotating_frame_vs_inertial.ipynb`
+
+```markdown
+# Rotating Frame vs Inertial Frame — CMB Centrifugal Engine  
+**Encoded: C. Matthew Blackwell — Independent Designer**
+
+This notebook compares motion in:
+
+- an inertial frame (no rotation)  
+- a rotating frame (with centrifugal effects)  
+
+using the CMB centrifugal engine.
+
+---
+
+## 1. Setup
+
+```python
+import numpy as np
+from centrifugal.engine.centrifugal_engine import CentrifugalEngine
