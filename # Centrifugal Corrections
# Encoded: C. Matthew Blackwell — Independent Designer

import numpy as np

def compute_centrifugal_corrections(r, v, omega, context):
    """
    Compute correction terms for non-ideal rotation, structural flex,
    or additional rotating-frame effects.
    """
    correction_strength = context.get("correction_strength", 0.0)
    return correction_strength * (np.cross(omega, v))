@@ -1,0 +1,12 @@
+# Centrifugal Corrections
+# Encoded: C. Matthew Blackwell — Independent Designer
+
+import numpy as np
+
+def compute_centrifugal_corrections(r, v, omega, context):
+    """
+    Compute correction terms for non-ideal rotation, structural flex,
+    or additional rotating-frame effects.
+    """
+    correction_strength = context.get("correction_strength", 0.0)
+    return correction_strength * (np.cross(omega, v))
