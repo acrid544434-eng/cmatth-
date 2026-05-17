@@ -1,0 +1,9 @@
+radius = 100.0  # meters
+omega_mag = 1.0  # rad/s
+
+omega = np.array([0.0, 0.0, omega_mag])
+context = {
+    "omega": omega,
+    "correction_strength": 0.1,
+    "warp_factor": 0.0  # start with no warp-cent
+}
