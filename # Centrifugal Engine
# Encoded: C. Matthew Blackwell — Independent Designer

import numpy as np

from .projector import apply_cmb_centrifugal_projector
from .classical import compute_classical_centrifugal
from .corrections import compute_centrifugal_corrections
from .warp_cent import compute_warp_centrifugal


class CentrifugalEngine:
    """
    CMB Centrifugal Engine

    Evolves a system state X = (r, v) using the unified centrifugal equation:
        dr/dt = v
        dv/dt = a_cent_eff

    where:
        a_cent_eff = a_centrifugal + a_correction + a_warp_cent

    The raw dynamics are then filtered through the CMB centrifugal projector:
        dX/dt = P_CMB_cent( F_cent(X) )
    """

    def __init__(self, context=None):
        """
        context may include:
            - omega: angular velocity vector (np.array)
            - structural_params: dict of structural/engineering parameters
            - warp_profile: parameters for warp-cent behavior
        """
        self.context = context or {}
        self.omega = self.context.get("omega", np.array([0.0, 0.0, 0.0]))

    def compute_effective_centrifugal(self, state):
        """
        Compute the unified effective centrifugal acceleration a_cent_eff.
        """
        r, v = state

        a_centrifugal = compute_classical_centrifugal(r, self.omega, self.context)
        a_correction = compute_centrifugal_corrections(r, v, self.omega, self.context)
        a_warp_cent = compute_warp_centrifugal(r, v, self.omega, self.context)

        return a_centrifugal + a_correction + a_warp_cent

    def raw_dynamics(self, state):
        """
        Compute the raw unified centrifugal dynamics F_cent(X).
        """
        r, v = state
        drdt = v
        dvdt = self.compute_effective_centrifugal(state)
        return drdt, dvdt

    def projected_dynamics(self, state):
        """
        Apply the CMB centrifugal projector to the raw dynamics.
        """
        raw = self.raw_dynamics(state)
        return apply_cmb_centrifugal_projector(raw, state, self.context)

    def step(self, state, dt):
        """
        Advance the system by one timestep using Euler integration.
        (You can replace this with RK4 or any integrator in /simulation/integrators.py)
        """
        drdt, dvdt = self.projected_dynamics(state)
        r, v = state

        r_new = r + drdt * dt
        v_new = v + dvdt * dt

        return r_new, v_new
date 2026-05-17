@@ -1,0 +1,76 @@
+# Centrifugal Engine
+# Encoded: C. Matthew Blackwell — Independent Designer
+
+import numpy as np
+
+from .projector import apply_cmb_centrifugal_projector
+from .classical import compute_classical_centrifugal
+from .corrections import compute_centrifugal_corrections
+from .warp_cent import compute_warp_centrifugal
+
+
+class CentrifugalEngine:
+    """
+    CMB Centrifugal Engine
+
+    Evolves a system state X = (r, v) using the unified centrifugal equation:
+        dr/dt = v
+        dv/dt = a_cent_eff
+
+    where:
+        a_cent_eff = a_centrifugal + a_correction + a_warp_cent
+
+    The raw dynamics are then filtered through the CMB centrifugal projector:
+        dX/dt = P_CMB_cent( F_cent(X) )
+    """
+
+    def __init__(self, context=None):
+        """
+        context may include:
+            - omega: angular velocity vector (np.array)
+            - structural_params: dict of structural/engineering parameters
+            - warp_profile: parameters for warp-cent behavior
+        """
+        self.context = context or {}
+        self.omega = self.context.get("omega", np.array([0.0, 0.0, 0.0]))
+
+    def compute_effective_centrifugal(self, state):
+        """
+        Compute the unified effective centrifugal acceleration a_cent_eff.
+        """
+        r, v = state
+
+        a_centrifugal = compute_classical_centrifugal(r, self.omega, self.context)
+        a_correction = compute_centrifugal_corrections(r, v, self.omega, self.context)
+        a_warp_cent = compute_warp_centrifugal(r, v, self.omega, self.context)
+
+        return a_centrifugal + a_correction + a_warp_cent
+
+    def raw_dynamics(self, state):
+        """
+        Compute the raw unified centrifugal dynamics F_cent(X).
+        """
+        r, v = state
+        drdt = v
+        dvdt = self.compute_effective_centrifugal(state)
+        return drdt, dvdt
+
+    def projected_dynamics(self, state):
+        """
+        Apply the CMB centrifugal projector to the raw dynamics.
+        """
+        raw = self.raw_dynamics(state)
+        return apply_cmb_centrifugal_projector(raw, state, self.context)
+
+    def step(self, state, dt):
+        """
+        Advance the system by one timestep using Euler integration.
+        (You can replace this with RK4 or any integrator in /simulation/integrators.py)
+        """
+        drdt, dvdt = self.projected_dynamics(state)
+        r, v = state
+
+        r_new = r + drdt * dt
+        v_new = v + dvdt * dt
+
+        return r_new, v_new
