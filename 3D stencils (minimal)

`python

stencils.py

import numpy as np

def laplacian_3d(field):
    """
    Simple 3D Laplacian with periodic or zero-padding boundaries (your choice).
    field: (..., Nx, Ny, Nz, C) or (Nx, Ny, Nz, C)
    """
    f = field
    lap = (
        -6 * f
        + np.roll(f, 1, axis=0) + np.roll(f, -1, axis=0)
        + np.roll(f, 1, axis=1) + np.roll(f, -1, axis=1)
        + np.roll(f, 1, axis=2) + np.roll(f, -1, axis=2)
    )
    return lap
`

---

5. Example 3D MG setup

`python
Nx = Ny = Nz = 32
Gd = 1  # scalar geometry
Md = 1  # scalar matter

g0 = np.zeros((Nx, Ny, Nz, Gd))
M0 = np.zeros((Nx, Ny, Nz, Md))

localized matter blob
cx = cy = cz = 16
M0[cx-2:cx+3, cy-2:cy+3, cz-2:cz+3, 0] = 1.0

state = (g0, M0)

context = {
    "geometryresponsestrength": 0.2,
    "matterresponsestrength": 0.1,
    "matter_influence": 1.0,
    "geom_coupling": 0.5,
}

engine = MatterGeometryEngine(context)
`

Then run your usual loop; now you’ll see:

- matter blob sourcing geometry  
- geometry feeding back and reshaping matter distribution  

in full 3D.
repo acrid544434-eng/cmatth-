@@ -1,0 +1,57 @@
+3D stencils (minimal)
+
+`python
+
+stencils.py
+
+import numpy as np
+
+def laplacian_3d(field):
+    """
+    Simple 3D Laplacian with periodic or zero-padding boundaries (your choice).
+    field: (..., Nx, Ny, Nz, C) or (Nx, Ny, Nz, C)
+    """
+    f = field
+    lap = (
+        -6 * f
+        + np.roll(f, 1, axis=0) + np.roll(f, -1, axis=0)
+        + np.roll(f, 1, axis=1) + np.roll(f, -1, axis=1)
+        + np.roll(f, 1, axis=2) + np.roll(f, -1, axis=2)
+    )
+    return lap
+`
+
+---
+
+5. Example 3D MG setup
+
+`python
+Nx = Ny = Nz = 32
+Gd = 1  # scalar geometry
+Md = 1  # scalar matter
+
+g0 = np.zeros((Nx, Ny, Nz, Gd))
+M0 = np.zeros((Nx, Ny, Nz, Md))
+
+localized matter blob
+cx = cy = cz = 16
+M0[cx-2:cx+3, cy-2:cy+3, cz-2:cz+3, 0] = 1.0
+
+state = (g0, M0)
+
+context = {
+    "geometryresponsestrength": 0.2,
+    "matterresponsestrength": 0.1,
+    "matter_influence": 1.0,
+    "geom_coupling": 0.5,
+}
+
+engine = MatterGeometryEngine(context)
+`
+
+Then run your usual loop; now you’ll see:
+
+- matter blob sourcing geometry  
+- geometry feeding back and reshaping matter distribution  
+
+in full 3D.
