@@ -1,0 +1,14 @@
+import matplotlib.pyplot as plt
+
+xs_in = [s[0][0] for s in traj_inertial]
+ys_in = [s[0][1] for s in traj_inertial]
+
+xs_rot = [s[0][0] for s in traj_rotating]
+ys_rot = [s[0][1] for s in traj_rotating]
+
+plt.plot(xs_in, ys_in, label="Inertial")
+plt.plot(xs_rot, ys_rot, label="Rotating")
+plt.legend()
+plt.axis("equal")
+plt.title("Rotating Frame vs Inertial Frame")
+plt.show()
