@@ -1,0 +1,6 @@
+U = unified.compute_U(Q, G, F, C)
+dQ_dt, dG_dt, dF_dt = dynamics.compute_N(U, Q, G, F, C)
+
+Q = update_quarks(Q, dQ_dt, dt)
+G = update_gluons(G, dG_dt, dt)
+F = update_fields(F, dF_dt, dt)
