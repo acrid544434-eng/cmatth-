@@ -1,0 +1,70 @@
+# ============================================================
+# PROTON BLUEPRINT ENGINE — Meta Layer
+# Author: C. Matthew Blackwell — Independent Designer
+# Seal: Originator of the Proton–Meta Equation Blueprint
+# ============================================================
+
+from dataclasses import dataclass
+from typing import Tuple
+import numpy as np
+
+
+# --- Assume QuarkState, GluonField, EffectiveFields, Constraints,
+#     UnifiedProton, and ProtonDynamics are already defined as before. ---
+
+
+# ---------- Parameterized Ψ (dynamics) ----------
+
+@dataclass
+class PsiParams:
+    k_pos: float    # restoring strength
+    gamma_p: float  # momentum damping
+    alpha_g: float  # gluon smoothing
+    beta_c: float   # confinement adaptation
+
+
+def psi_parametrized(
+    U,
+    Q,
+    G,
+    F,
+    C,
+    params: PsiParams,
+) -> Tuple[QuarkState, GluonField, EffectiveFields]:
+    # Quark positions: pull toward origin
+    d_positions = -params.k_pos * Q.positions
+
+    # Quark momenta: damping
+    d_momenta = -params.gamma_p * Q.momenta
+
+    dQ_dt = QuarkState(
+        positions=d_positions,
+        momenta=d_momenta,
+        colors=np.zeros_like(Q.colors),
+    )
+
+    # Gluon field: smoothing via discrete Laplacian
+    fv = G.field_values
+    lap = (
+        -6 * fv
+        + np.roll(fv, 1, axis=0) + np.roll(fv, -1, axis=0)
+        + np.roll(fv, 1, axis=1) + np.roll(fv, -1, axis=1)
+        + np.roll(fv, 1, axis=2) + np.roll(fv, -1, axis=2)
+    )
+    d_field_values = params.alpha_g * lap
+
+    dG_dt = GluonField(
+        field_values=d_field_values,
+        grid=G.grid,
+    )
+
+    # Effective fields: confinement chases energy density
+    d_confinement = params.beta_c * (F.energy_density - F.confinement_potential)
+    d_energy = np.zeros_like(F.energy_density)
+
+    dF_dt = EffectiveFields(
+        confinement_potential=d_confinement,
+        energy_density=d_energy,
+    )
+
+    return dQ_dt, dG_dt, dF_dt
