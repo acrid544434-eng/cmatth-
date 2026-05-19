@@ -1,0 +1,89 @@
+# ============================================================
+# NUCLEAR BLUEPRINT ENGINE — Unified Nuclear Equation (Uₙ)
+# Author: C. Matthew Blackwell — Independent Designer
+# Seal: Originator of the Nuclear–Meta Equation Blueprint
+# ============================================================
+
+from dataclasses import dataclass
+from typing import Callable, Any, List
+import numpy as np
+
+
+# ---------- Nucleon-level states ----------
+
+@dataclass
+class NucleonState:
+    """
+    Generic nucleon (proton or neutron) state.
+    """
+    position: np.ndarray   # shape: (3,)
+    momentum: np.ndarray   # shape: (3,)
+    spin: np.ndarray       # shape: (3,)
+    is_proton: bool        # True = proton, False = neutron
+
+
+@dataclass
+class NuclearFields:
+    """
+    Collective nuclear fields (mean field, pairing field, etc.).
+    """
+    mean_field: np.ndarray      # (Nx, Ny, Nz)
+    pairing_field: np.ndarray   # (Nx, Ny, Nz)
+
+
+@dataclass
+class NuclearConstraints:
+    """
+    Global nuclear constraints and structural descriptors.
+    """
+    A: int              # mass number
+    Z: int              # proton number
+    deformation: float  # e.g. quadrupole deformation
+    symmetry_score: float
+
+
+@dataclass
+class NucleusState:
+    """
+    Full nuclear manifold: nucleons + fields + constraints.
+    """
+    protons: List[NucleonState]
+    neutrons: List[NucleonState]
+    fields: NuclearFields
+    constraints: NuclearConstraints
+
+
+# ---------- Unified Nuclear Equation Uₙ = Φₙ(...) ----------
+
+class UnifiedNucleus:
+    """
+    Unified Nuclear Equation:
+
+        Uₙ = Φₙ({Pᵢ}, {Nⱼ}, Fₙ, Cₙ)
+
+    Where:
+      {Pᵢ} = list of proton states
+      {Nⱼ} = list of neutron states
+      Fₙ   = NuclearFields
+      Cₙ   = NuclearConstraints
+      Φₙ   = fusion operator -> maps full nucleus to unified nuclear state
+    """
+
+    def __init__(self, phi_strategy: Callable[[NucleusState], Any]):
+        self.phi = phi_strategy
+
+    def compute_U_N(self, nucleus: NucleusState) -> Any:
+        return self.phi(nucleus)
+
+
+# ---------- Example Φₙ: energy/structure-weighted fusion ----------
+
+def phi_nuclear_energy_weighted(nucleus: NucleusState) -> np.ndarray:
+    """
+    Simple example Φₙ:
+    Compresses the nuclear manifold into a feature vector.
+    This is the nuclear-scale analogue of your proton Φ.
+    """
+    features = []
+
+    # ---
