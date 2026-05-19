@@ -1,0 +1,13 @@
+from dataclasses import dataclass
+import numpy as np
+
+from unified_nuclear import NucleusState, NuclearConstraints
+
+@dataclass
+class DeformationParams:
+    k_beta2: float   # restoring strength for β2
+    k_beta3: float   # restoring strength for β3
+    k_gamma: float   # restoring strength for γ
+    drive_beta2: float  # external/collective drive
+    drive_beta3: float
+    drive_gamma: float
