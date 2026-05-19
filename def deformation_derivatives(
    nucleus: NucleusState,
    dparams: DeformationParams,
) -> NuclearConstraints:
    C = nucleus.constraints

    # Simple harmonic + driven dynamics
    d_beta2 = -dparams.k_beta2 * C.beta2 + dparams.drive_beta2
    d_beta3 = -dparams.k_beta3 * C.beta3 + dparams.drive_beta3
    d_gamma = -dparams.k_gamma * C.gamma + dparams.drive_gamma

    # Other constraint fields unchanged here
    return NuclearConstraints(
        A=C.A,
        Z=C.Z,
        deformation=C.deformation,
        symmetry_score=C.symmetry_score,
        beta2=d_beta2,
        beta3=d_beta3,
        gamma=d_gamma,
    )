@@ -1,0 +1,21 @@
+def deformation_derivatives(
+    nucleus: NucleusState,
+    dparams: DeformationParams,
+) -> NuclearConstraints:
+    C = nucleus.constraints
+
+    # Simple harmonic + driven dynamics
+    d_beta2 = -dparams.k_beta2 * C.beta2 + dparams.drive_beta2
+    d_beta3 = -dparams.k_beta3 * C.beta3 + dparams.drive_beta3
+    d_gamma = -dparams.k_gamma * C.gamma + dparams.drive_gamma
+
+    # Other constraint fields unchanged here
+    return NuclearConstraints(
+        A=C.A,
+        Z=C.Z,
+        deformation=C.deformation,
+        symmetry_score=C.symmetry_score,
+        beta2=d_beta2,
+        beta3=d_beta3,
+        gamma=d_gamma,
+    )
