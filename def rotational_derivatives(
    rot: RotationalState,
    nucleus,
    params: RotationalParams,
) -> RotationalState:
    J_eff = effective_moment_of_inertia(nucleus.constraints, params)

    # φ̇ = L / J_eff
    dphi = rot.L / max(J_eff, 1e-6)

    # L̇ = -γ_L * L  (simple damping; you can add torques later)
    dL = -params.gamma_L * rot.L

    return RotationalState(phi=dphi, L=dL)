@@ -1,0 +1,14 @@
+def rotational_derivatives(
+    rot: RotationalState,
+    nucleus,
+    params: RotationalParams,
+) -> RotationalState:
+    J_eff = effective_moment_of_inertia(nucleus.constraints, params)
+
+    # φ̇ = L / J_eff
+    dphi = rot.L / max(J_eff, 1e-6)
+
+    # L̇ = -γ_L * L  (simple damping; you can add torques later)
+    dL = -params.gamma_L * rot.L
+
+    return RotationalState(phi=dphi, L=dL)
