@@ -1,0 +1,6 @@
+if magic.regime == "magic":
+    vib_params.gamma2 += 0.01
+    vib_params.gamma3 += 0.01
+else:
+    vib_params.coupling_beta2 += 0.01
+    vib_params.coupling_beta3 += 0.01
