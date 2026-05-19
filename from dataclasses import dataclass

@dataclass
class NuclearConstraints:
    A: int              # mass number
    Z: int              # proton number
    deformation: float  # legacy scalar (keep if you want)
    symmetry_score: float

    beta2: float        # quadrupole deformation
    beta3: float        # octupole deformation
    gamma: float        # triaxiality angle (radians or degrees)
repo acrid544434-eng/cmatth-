@@ -1,0 +1,12 @@
+from dataclasses import dataclass
+
+@dataclass
+class NuclearConstraints:
+    A: int              # mass number
+    Z: int              # proton number
+    deformation: float  # legacy scalar (keep if you want)
+    symmetry_score: float
+
+    beta2: float        # quadrupole deformation
+    beta3: float        # octupole deformation
+    gamma: float        # triaxiality angle (radians or degrees)
