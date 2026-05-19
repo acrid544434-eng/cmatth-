@@ -1,0 +1,4 @@
+sym_err = nucleus.constraints.symmetry_score - 0.95
+drive_beta2 = meta_gain * sym_err
+drive_beta3 = 0.5 * meta_gain * sym_err
+drive_gamma = 0.2 * meta_gain * sym_err
