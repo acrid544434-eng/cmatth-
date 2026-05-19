@@ -1,0 +1,6 @@
+def update_deformation(C, dC, dt):
+    d_beta2, d_beta3, d_gamma = dC
+    C.beta2 += dt * d_beta2
+    C.beta3 += dt * d_beta3
+    C.gamma += dt * d_gamma
+    return C
