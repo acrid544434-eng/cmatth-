@@ -1,0 +1,9 @@
+@dataclass
+class NuclearConstraints:
+    A: int
+    Z: int
+    symmetry_score: float
+
+    beta2: float   # quadrupole deformation
+    beta3: float   # octupole deformation
+    gamma: float   # triaxiality angle
