@@ -1,0 +1,10 @@
+def update_constraints(C: NuclearConstraints, dC: NuclearConstraints, dt: float) -> NuclearConstraints:
+    return NuclearConstraints(
+        A=C.A,
+        Z=C.Z,
+        deformation=C.deformation,
+        symmetry_score=C.symmetry_score,
+        beta2=C.beta2 + dt * dC.beta2,
+        beta3=C.beta3 + dt * dC.beta3,
+        gamma=C.gamma + dt * dC.gamma,
+    )
