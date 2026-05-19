@@ -1,0 +1,26 @@
+magic = detect_magic_numbers(
+    nucleus.constraints.Z,
+    nucleus.constraints.A - nucleus.constraints.Z,
+    shells
+)
+
+# Magic → stiff, spherical
+if magic.regime == "magic":
+    dk_central = -self.lr * 2.0
+    dalpha_mf = -self.lr * 2.0
+    dalpha_pf = -self.lr * 0.5
+    dgamma_p = self.lr * 1.0
+
+# Semi-magic → intermediate
+elif magic.regime == "semi-magic":
+    dk_central = -self.lr * 1.0
+    dalpha_mf = -self.lr * 1.0
+    dalpha_pf = self.lr * 0.2
+    dgamma_p = self.lr * 0.5
+
+# Mid-shell → soft, collective, deformed
+else:
+    dk_central = self.lr * 1.0
+    dalpha_mf = self.lr * 1.0
+    dalpha_pf = self.lr * 1.0
+    dgamma_p = -self.lr * 0.5
