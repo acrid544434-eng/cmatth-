@@ -1,0 +1,28 @@
+vib = VibrationalState(Q2=0.0, Q3=0.0, Qg=0.0, P2=0.0, P3=0.0, Pg=0.0)
+vib_params = VibrationalParams(
+    w2=1.0, w3=0.7, wg=0.4,
+    gamma2=0.1, gamma3=0.1, gammag=0.1,
+    coupling_beta2=0.5, coupling_beta3=0.3, coupling_gamma=0.2,
+)
+
+for t in range(steps):
+
+    U_N = unified.compute_U_N(nucleus)
+    dP, dN, dF = dynamics.compute_N_N(U_N, nucleus, params)
+
+    # Vibrational dynamics
+    dv = vibrational_derivatives(vib, nucleus, vib_params)
+    vib = update_vibrations(vib, dv, dt)
+
+    # Feed vibrations back into deformation
+    nucleus.constraints.beta2 += 0.01 * vib.Q2
+    nucleus.constraints.beta3 += 0.01 * vib.Q3
+    nucleus.constraints.gamma += 0.01 * vib.Qg
+
+    # Update nucleons + fields
+    nucleus.protons = update_nucleons(nucleus.protons, dP, dt)
+    nucleus.neutrons = update_nucleons(nucleus.neutrons, dN, dt)
+    nucleus.fields = update_fields(nucleus.fields, dF, dt)
+
+    if t % 20 == 0:
+        print(f"Step {t}: Q2={vib.Q2:.3f}, Q3={vib.Q3:.3f}, Qg={vib.Qg:.3f}")
