@@ -1,0 +1,6 @@
+def effective_moment_of_inertia(constraints, params: RotationalParams) -> float:
+    beta2 = constraints.beta2
+    gamma = constraints.gamma
+
+    # Simple shape dependence: more deformed → larger J_eff
+    return params.J0 * (1.0 + params.k_J_beta2 * abs(beta2) + params.k_J_gamma * abs(gamma))
