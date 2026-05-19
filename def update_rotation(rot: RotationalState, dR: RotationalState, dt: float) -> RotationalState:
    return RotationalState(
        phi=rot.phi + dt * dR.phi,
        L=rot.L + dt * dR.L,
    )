@@ -1,0 +1,5 @@
+def update_rotation(rot: RotationalState, dR: RotationalState, dt: float) -> RotationalState:
+    return RotationalState(
+        phi=rot.phi + dt * dR.phi,
+        L=rot.L + dt * dR.L,
+    )
