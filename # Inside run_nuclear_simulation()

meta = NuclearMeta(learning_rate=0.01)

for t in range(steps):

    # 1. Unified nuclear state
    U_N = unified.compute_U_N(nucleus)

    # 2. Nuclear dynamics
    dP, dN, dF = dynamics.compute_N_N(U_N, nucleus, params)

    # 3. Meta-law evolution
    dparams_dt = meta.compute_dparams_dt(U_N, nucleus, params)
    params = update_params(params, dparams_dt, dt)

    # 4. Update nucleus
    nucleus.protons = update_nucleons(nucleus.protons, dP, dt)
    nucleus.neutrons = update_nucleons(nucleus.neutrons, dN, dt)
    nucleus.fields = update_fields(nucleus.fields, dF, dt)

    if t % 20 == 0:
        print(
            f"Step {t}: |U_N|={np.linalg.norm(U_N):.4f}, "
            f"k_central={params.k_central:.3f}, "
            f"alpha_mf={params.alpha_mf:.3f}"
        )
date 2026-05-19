@@ -1,0 +1,27 @@
+# Inside run_nuclear_simulation()
+
+meta = NuclearMeta(learning_rate=0.01)
+
+for t in range(steps):
+
+    # 1. Unified nuclear state
+    U_N = unified.compute_U_N(nucleus)
+
+    # 2. Nuclear dynamics
+    dP, dN, dF = dynamics.compute_N_N(U_N, nucleus, params)
+
+    # 3. Meta-law evolution
+    dparams_dt = meta.compute_dparams_dt(U_N, nucleus, params)
+    params = update_params(params, dparams_dt, dt)
+
+    # 4. Update nucleus
+    nucleus.protons = update_nucleons(nucleus.protons, dP, dt)
+    nucleus.neutrons = update_nucleons(nucleus.neutrons, dN, dt)
+    nucleus.fields = update_fields(nucleus.fields, dF, dt)
+
+    if t % 20 == 0:
+        print(
+            f"Step {t}: |U_N|={np.linalg.norm(U_N):.4f}, "
+            f"k_central={params.k_central:.3f}, "
+            f"alpha_mf={params.alpha_mf:.3f}"
+        )
