@@ -1,0 +1,225 @@
+# ============================================================
+# PROTON BLUEPRINT ENGINE — Proton Organism Simulation Loop
+# Author: C. Matthew Blackwell — Independent Designer
+# Seal: Originator of the Proton–Meta Equation Blueprint
+# ============================================================
+
+from dataclasses import dataclass
+from typing import Callable, Tuple
+import numpy as np
+
+
+# ---------- Manifold types ----------
+
+@dataclass
+class QuarkState:
+    positions: np.ndarray   # (3, 3)
+    momenta: np.ndarray     # (3, 3)
+    colors: np.ndarray      # (3,)
+
+
+@dataclass
+class GluonField:
+    field_values: np.ndarray  # (Nx, Ny, Nz)
+    grid: np.ndarray          # coordinates
+
+
+@dataclass
+class EffectiveFields:
+    confinement_potential: np.ndarray  # (Nx, Ny, Nz)
+    energy_density: np.ndarray         # (Nx, Ny, Nz)
+
+
+@dataclass
+class Constraints:
+    color_neutrality: float
+    baryon_number: float
+    symmetry_score: float
+
+
+# ---------- Unified Proton Equation U(P) = Φ(Q, G, F, C) ----------
+
+class UnifiedProton:
+    def __init__(self, phi_strategy: Callable):
+        self.phi = phi_strategy
+
+    def compute_U(
+        self,
+        quark_state: QuarkState,
+        gluon_field: GluonField,
+        eff_fields: EffectiveFields,
+        constraints: Constraints,
+    ):
+        return self.phi(quark_state, gluon_field, eff_fields, constraints)
+
+
+def phi_energy_weighted(
+    quark_state: QuarkState,
+    gluon_field: GluonField,
+    eff_fields: EffectiveFields,
+    constraints: Constraints,
+) -> np.ndarray:
+    features = []
+
+    features.extend(quark_state.positions.flatten())
+    features.extend(quark_state.momenta.flatten())
+
+    fv = gluon_field.field_values
+    features.append(fv.mean())
+    features.append(fv.var())
+
+    features.append(eff_fields.confinement_potential.mean())
+    features.append(eff_fields.energy_density.mean())
+
+    features.append(constraints.color_neutrality)
+    features.append(constraints.baryon_number)
+    features.append(constraints.symmetry_score)
+
+    return np.array(features, dtype=float)
+
+
+# ---------- Proton Dynamics Equation N(P) = Ψ(U, Q, G, F, C) ----------
+
+class ProtonDynamics:
+    def __init__(self, psi_strategy: Callable):
+        self.psi = psi_strategy
+
+    def compute_N(
+        self,
+        unified_state,
+        quark_state: QuarkState,
+        gluon_field: GluonField,
+        eff_fields: EffectiveFields,
+        constraints: Constraints,
+    ) -> Tuple[QuarkState, GluonField, EffectiveFields]:
+        return self.psi(unified_state, quark_state, gluon_field, eff_fields, constraints)
+
+
+def psi_restoring_coupled(
+    U,
+    Q: QuarkState,
+    G: GluonField,
+    F: EffectiveFields,
+    C: Constraints,
+) -> Tuple[QuarkState, GluonField, EffectiveFields]:
+    # Quark positions: pull toward origin
+    k_pos = 0.5
+    d_positions = -k_pos * Q.positions
+
+    # Quark momenta: damping
+    gamma_p = 0.1
+    d_momenta = -gamma_p * Q.momenta
+
+    dQ_dt = QuarkState(
+        positions=d_positions,
+        momenta=d_momenta,
+        colors=np.zeros_like(Q.colors),
+    )
+
+    # Gluon field: smoothing via discrete Laplacian
+    fv = G.field_values
+    lap = (
+        -6 * fv
+        + np.roll(fv, 1, axis=0) + np.roll(fv, -1, axis=0)
+        + np.roll(fv, 1, axis=1) + np.roll(fv, -1, axis=1)
+        + np.roll(fv, 1, axis=2) + np.roll(fv, -1, axis=2)
+    )
+    alpha_g = 0.05
+    d_field_values = alpha_g * lap
+
+    dG_dt = GluonField(
+        field_values=d_field_values,
+        grid=G.grid,
+    )
+
+    # Effective fields: confinement chases energy density
+    beta_c = 0.1
+    d_confinement = beta_c * (F.energy_density - F.confinement_potential)
+    d_energy = np.zeros_like(F.energy_density)
+
+    dF_dt = EffectiveFields(
+        confinement_potential=d_confinement,
+        energy_density=d_energy,
+    )
+
+    return dQ_dt, dG_dt, dF_dt
+
+
+# ---------- Update helpers (Euler step) ----------
+
+def update_quarks(Q: QuarkState, dQ_dt: QuarkState, dt: float) -> QuarkState:
+    return QuarkState(
+        positions=Q.positions + dt * dQ_dt.positions,
+        momenta=Q.momenta + dt * dQ_dt.momenta,
+        colors=Q.colors,  # unchanged here
+    )
+
+
+def update_gluons(G: GluonField, dG_dt: GluonField, dt: float) -> GluonField:
+    return GluonField(
+        field_values=G.field_values + dt * dG_dt.field_values,
+        grid=G.grid,
+    )
+
+
+def update_fields(F: EffectiveFields, dF_dt: EffectiveFields, dt: float) -> EffectiveFields:
+    return EffectiveFields(
+        confinement_potential=F.confinement_potential + dt * dF_dt.confinement_potential,
+        energy_density=F.energy_density + dt * dF_dt.energy_density,
+    )
+
+
+# ---------- Initialization ----------
+
+def init_proton(grid_size: int = 4):
+    Q = QuarkState(
+        positions=np.random.randn(3, 3),
+        momenta=np.random.randn(3, 3),
+        colors=np.array([1.0, 0.0, -1.0]),
+    )
+
+    grid = np.mgrid[0:grid_size, 0:grid_size, 0:grid_size]
+    G = GluonField(
+        field_values=np.random.rand(grid_size, grid_size, grid_size),
+        grid=grid,
+    )
+
+    F = EffectiveFields(
+        confinement_potential=np.random.rand(grid_size, grid_size, grid_size),
+        energy_density=np.random.rand(grid_size, grid_size, grid_size),
+    )
+
+    C = Constraints(
+        color_neutrality=0.0,
+        baryon_number=1.0,
+        symmetry_score=0.95,
+    )
+
+    return Q, G, F, C
+
+
+# ---------- Main simulation loop ----------
+
+def run_simulation(steps: int = 100, dt: float = 0.01):
+    Q, G, F, C = init_proton()
+
+    unified = UnifiedProton(phi_strategy=phi_energy_weighted)
+    dynamics = ProtonDynamics(psi_strategy=psi_restoring_coupled)
+
+    for t in range(steps):
+        U = unified.compute_U(Q, G, F, C)
+        dQ_dt, dG_dt, dF_dt = dynamics.compute_N(U, Q, G, F, C)
+
+        Q = update_quarks(Q, dQ_dt, dt)
+        G = update_gluons(G, dG_dt, dt)
+        F = update_fields(F, dF_dt, dt)
+
+        if t % 10 == 0:
+            print(f"Step {t}: |U| = {np.linalg.norm(U):.4f}")
+
+    return Q, G, F, C
+
+
+if __name__ == "__main__":
+    final_Q, final_G, final_F, final_C = run_simulation()
+    print("Simulation complete.")
