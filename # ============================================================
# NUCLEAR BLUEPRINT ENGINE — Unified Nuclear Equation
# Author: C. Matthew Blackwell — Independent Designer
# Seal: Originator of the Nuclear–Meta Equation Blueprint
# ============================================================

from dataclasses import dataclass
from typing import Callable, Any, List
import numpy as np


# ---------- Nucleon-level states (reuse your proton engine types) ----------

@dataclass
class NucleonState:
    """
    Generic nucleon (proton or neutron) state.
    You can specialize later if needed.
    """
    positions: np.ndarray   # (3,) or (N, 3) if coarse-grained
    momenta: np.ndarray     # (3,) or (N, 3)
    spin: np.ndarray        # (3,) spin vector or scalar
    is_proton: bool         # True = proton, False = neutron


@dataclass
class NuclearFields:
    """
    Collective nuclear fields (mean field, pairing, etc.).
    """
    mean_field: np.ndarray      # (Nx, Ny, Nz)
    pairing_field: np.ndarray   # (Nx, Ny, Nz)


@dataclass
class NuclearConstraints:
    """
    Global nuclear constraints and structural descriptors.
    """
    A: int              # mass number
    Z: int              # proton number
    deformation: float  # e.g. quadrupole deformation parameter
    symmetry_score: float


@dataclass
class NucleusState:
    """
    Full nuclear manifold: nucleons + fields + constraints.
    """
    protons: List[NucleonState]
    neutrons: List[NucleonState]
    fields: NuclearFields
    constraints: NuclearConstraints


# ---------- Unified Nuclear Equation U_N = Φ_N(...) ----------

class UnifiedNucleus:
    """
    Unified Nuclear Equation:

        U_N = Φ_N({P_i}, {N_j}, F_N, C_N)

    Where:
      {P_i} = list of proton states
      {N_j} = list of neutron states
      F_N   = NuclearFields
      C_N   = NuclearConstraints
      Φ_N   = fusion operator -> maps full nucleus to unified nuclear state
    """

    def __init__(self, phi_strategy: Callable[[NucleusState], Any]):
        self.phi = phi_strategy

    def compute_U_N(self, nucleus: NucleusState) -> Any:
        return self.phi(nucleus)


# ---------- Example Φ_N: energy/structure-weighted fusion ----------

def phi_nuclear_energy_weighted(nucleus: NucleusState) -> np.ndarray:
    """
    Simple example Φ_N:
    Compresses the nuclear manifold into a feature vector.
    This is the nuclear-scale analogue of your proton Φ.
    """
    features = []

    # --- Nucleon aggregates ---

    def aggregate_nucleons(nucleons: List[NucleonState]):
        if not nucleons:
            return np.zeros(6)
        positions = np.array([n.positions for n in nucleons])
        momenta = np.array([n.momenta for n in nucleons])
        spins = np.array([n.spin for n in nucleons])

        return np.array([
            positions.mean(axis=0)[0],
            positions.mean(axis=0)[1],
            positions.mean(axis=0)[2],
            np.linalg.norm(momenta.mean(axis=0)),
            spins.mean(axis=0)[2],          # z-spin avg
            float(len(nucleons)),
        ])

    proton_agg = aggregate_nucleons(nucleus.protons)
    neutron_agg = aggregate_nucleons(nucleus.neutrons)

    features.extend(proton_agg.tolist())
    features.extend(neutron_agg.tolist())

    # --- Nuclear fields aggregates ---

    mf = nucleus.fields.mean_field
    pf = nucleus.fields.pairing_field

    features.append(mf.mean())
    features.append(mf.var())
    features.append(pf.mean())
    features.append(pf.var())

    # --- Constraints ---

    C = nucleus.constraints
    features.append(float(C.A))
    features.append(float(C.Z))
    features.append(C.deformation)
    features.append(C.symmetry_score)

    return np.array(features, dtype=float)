@@ -1,0 +1,132 @@
+# ============================================================
+# NUCLEAR BLUEPRINT ENGINE — Unified Nuclear Equation
+# Author: C. Matthew Blackwell — Independent Designer
+# Seal: Originator of the Nuclear–Meta Equation Blueprint
+# ============================================================
+
+from dataclasses import dataclass
+from typing import Callable, Any, List
+import numpy as np
+
+
+# ---------- Nucleon-level states (reuse your proton engine types) ----------
+
+@dataclass
+class NucleonState:
+    """
+    Generic nucleon (proton or neutron) state.
+    You can specialize later if needed.
+    """
+    positions: np.ndarray   # (3,) or (N, 3) if coarse-grained
+    momenta: np.ndarray     # (3,) or (N, 3)
+    spin: np.ndarray        # (3,) spin vector or scalar
+    is_proton: bool         # True = proton, False = neutron
+
+
+@dataclass
+class NuclearFields:
+    """
+    Collective nuclear fields (mean field, pairing, etc.).
+    """
+    mean_field: np.ndarray      # (Nx, Ny, Nz)
+    pairing_field: np.ndarray   # (Nx, Ny, Nz)
+
+
+@dataclass
+class NuclearConstraints:
+    """
+    Global nuclear constraints and structural descriptors.
+    """
+    A: int              # mass number
+    Z: int              # proton number
+    deformation: float  # e.g. quadrupole deformation parameter
+    symmetry_score: float
+
+
+@dataclass
+class NucleusState:
+    """
+    Full nuclear manifold: nucleons + fields + constraints.
+    """
+    protons: List[NucleonState]
+    neutrons: List[NucleonState]
+    fields: NuclearFields
+    constraints: NuclearConstraints
+
+
+# ---------- Unified Nuclear Equation U_N = Φ_N(...) ----------
+
+class UnifiedNucleus:
+    """
+    Unified Nuclear Equation:
+
+        U_N = Φ_N({P_i}, {N_j}, F_N, C_N)
+
+    Where:
+      {P_i} = list of proton states
+      {N_j} = list of neutron states
+      F_N   = NuclearFields
+      C_N   = NuclearConstraints
+      Φ_N   = fusion operator -> maps full nucleus to unified nuclear state
+    """
+
+    def __init__(self, phi_strategy: Callable[[NucleusState], Any]):
+        self.phi = phi_strategy
+
+    def compute_U_N(self, nucleus: NucleusState) -> Any:
+        return self.phi(nucleus)
+
+
+# ---------- Example Φ_N: energy/structure-weighted fusion ----------
+
+def phi_nuclear_energy_weighted(nucleus: NucleusState) -> np.ndarray:
+    """
+    Simple example Φ_N:
+    Compresses the nuclear manifold into a feature vector.
+    This is the nuclear-scale analogue of your proton Φ.
+    """
+    features = []
+
+    # --- Nucleon aggregates ---
+
+    def aggregate_nucleons(nucleons: List[NucleonState]):
+        if not nucleons:
+            return np.zeros(6)
+        positions = np.array([n.positions for n in nucleons])
+        momenta = np.array([n.momenta for n in nucleons])
+        spins = np.array([n.spin for n in nucleons])
+
+        return np.array([
+            positions.mean(axis=0)[0],
+            positions.mean(axis=0)[1],
+            positions.mean(axis=0)[2],
+            np.linalg.norm(momenta.mean(axis=0)),
+            spins.mean(axis=0)[2],          # z-spin avg
+            float(len(nucleons)),
+        ])
+
+    proton_agg = aggregate_nucleons(nucleus.protons)
+    neutron_agg = aggregate_nucleons(nucleus.neutrons)
+
+    features.extend(proton_agg.tolist())
+    features.extend(neutron_agg.tolist())
+
+    # --- Nuclear fields aggregates ---
+
+    mf = nucleus.fields.mean_field
+    pf = nucleus.fields.pairing_field
+
+    features.append(mf.mean())
+    features.append(mf.var())
+    features.append(pf.mean())
+    features.append(pf.var())
+
+    # --- Constraints ---
+
+    C = nucleus.constraints
+    features.append(float(C.A))
+    features.append(float(C.Z))
+    features.append(C.deformation)
+    features.append(C.symmetry_score)
+
+    return np.array(features, dtype=float)
