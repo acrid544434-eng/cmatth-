@@ -1,0 +1,40 @@
+def build_simple_shell_structure(Z: int, N: int) -> ShellStructure:
+    """
+    Very schematic shell filling:
+    - Just a few levels with arbitrary energies and capacities.
+    - You can later replace this with a more realistic scheme.
+    """
+    proton_shells = [
+        ShellLevel(n=1, l=0, j=0.5, energy=-20.0, capacity=2, occupancy=0, is_proton=True),
+        ShellLevel(n=1, l=1, j=1.5, energy=-15.0, capacity=6, occupancy=0, is_proton=True),
+        ShellLevel(n=2, l=0, j=0.5, energy=-10.0, capacity=2, occupancy=0, is_proton=True),
+    ]
+
+    neutron_shells = [
+        ShellLevel(n=1, l=0, j=0.5, energy=-21.0, capacity=2, occupancy=0, is_proton=False),
+        ShellLevel(n=1, l=1, j=1.5, energy=-16.0, capacity=6, occupancy=0, is_proton=False),
+        ShellLevel(n=2, l=0, j=0.5, energy=-11.0, capacity=2, occupancy=0, is_proton=False),
+    ]
+
+    # Fill protons
+    remaining_Z = Z
+    for shell in proton_shells:
+        fill = min(shell.capacity, remaining_Z)
+        shell.occupancy = fill
+        remaining_Z -= fill
+        if remaining_Z <= 0:
+            break
+
+    # Fill neutrons
+    remaining_N = N
+    for shell in neutron_shells:
+        fill = min(shell.capacity, remaining_N)
+        shell.occupancy = fill
+        remaining_N -= fill
+        if remaining_N <= 0:
+            break
+
+    return ShellStructure(
+        proton_shells=proton_shells,
+        neutron_shells=neutron_shells,
+    )
