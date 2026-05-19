@@ -1,0 +1,2 @@
+dC = deformation_derivatives(nucleus, deform_params)
+nucleus.constraints = update_constraints(nucleus.constraints, dC, dt)
