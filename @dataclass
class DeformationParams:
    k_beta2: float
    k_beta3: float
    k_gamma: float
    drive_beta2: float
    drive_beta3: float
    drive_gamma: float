@@ -1,0 +1,8 @@
+@dataclass
+class DeformationParams:
+    k_beta2: float
+    k_beta3: float
+    k_gamma: float
+    drive_beta2: float
+    drive_beta3: float
+    drive_gamma: float
