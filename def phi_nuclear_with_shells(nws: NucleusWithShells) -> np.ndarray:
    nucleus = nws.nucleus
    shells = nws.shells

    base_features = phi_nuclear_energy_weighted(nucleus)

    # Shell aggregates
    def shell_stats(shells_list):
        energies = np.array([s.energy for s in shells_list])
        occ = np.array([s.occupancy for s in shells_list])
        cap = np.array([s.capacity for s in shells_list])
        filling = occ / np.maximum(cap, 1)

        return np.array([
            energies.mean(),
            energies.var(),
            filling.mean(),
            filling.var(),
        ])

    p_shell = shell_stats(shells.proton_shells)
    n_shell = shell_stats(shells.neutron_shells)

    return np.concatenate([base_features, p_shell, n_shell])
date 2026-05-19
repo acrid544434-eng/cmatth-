@@ -1,0 +1,24 @@
+def phi_nuclear_with_shells(nws: NucleusWithShells) -> np.ndarray:
+    nucleus = nws.nucleus
+    shells = nws.shells
+
+    base_features = phi_nuclear_energy_weighted(nucleus)
+
+    # Shell aggregates
+    def shell_stats(shells_list):
+        energies = np.array([s.energy for s in shells_list])
+        occ = np.array([s.occupancy for s in shells_list])
+        cap = np.array([s.capacity for s in shells_list])
+        filling = occ / np.maximum(cap, 1)
+
+        return np.array([
+            energies.mean(),
+            energies.var(),
+            filling.mean(),
+            filling.var(),
+        ])
+
+    p_shell = shell_stats(shells.proton_shells)
+    n_shell = shell_stats(shells.neutron_shells)
+
+    return np.concatenate([base_features, p_shell, n_shell])
