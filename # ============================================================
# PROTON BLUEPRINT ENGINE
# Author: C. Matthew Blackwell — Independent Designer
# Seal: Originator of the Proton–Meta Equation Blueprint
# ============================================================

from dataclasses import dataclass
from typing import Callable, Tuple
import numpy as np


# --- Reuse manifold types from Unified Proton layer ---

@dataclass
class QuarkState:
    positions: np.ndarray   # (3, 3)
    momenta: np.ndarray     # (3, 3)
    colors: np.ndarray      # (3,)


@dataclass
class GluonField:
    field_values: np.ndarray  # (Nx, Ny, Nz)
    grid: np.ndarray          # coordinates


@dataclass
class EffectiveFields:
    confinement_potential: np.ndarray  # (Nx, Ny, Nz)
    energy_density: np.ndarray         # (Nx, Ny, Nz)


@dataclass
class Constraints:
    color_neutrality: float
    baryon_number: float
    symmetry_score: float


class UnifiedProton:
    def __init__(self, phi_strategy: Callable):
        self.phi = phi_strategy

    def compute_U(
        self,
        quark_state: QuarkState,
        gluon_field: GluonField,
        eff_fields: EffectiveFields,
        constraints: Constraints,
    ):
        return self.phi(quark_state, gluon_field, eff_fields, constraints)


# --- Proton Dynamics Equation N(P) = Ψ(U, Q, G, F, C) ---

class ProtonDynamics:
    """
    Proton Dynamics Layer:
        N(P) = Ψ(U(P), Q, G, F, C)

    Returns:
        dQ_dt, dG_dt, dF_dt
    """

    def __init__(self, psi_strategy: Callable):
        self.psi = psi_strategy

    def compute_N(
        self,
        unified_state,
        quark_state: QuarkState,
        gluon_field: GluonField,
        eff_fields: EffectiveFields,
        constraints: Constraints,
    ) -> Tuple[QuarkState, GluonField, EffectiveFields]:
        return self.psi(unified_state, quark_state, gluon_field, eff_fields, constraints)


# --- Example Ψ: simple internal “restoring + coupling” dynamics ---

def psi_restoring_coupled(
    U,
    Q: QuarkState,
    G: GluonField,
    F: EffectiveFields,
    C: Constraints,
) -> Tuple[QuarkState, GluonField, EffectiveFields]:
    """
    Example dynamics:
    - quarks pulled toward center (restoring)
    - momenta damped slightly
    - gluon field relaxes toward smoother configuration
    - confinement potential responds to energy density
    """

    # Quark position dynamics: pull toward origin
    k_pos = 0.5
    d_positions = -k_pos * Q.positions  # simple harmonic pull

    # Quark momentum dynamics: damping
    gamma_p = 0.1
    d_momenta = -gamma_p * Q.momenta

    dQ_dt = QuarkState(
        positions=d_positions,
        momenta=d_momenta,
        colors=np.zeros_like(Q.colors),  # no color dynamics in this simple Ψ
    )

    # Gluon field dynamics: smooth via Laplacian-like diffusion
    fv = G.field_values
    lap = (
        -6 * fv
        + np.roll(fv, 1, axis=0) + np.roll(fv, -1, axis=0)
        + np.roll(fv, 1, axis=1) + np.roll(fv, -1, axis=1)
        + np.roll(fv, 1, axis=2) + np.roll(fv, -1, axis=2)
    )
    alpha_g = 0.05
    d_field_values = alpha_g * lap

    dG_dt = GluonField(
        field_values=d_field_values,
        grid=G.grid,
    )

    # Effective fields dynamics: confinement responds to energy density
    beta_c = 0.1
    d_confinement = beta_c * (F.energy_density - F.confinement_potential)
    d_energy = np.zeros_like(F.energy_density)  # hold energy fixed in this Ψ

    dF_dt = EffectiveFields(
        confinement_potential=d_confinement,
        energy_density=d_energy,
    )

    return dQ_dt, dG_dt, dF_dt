@@ -1,0 +1,136 @@
+# ============================================================
+# PROTON BLUEPRINT ENGINE
+# Author: C. Matthew Blackwell — Independent Designer
+# Seal: Originator of the Proton–Meta Equation Blueprint
+# ============================================================
+
+from dataclasses import dataclass
+from typing import Callable, Tuple
+import numpy as np
+
+
+# --- Reuse manifold types from Unified Proton layer ---
+
+@dataclass
+class QuarkState:
+    positions: np.ndarray   # (3, 3)
+    momenta: np.ndarray     # (3, 3)
+    colors: np.ndarray      # (3,)
+
+
+@dataclass
+class GluonField:
+    field_values: np.ndarray  # (Nx, Ny, Nz)
+    grid: np.ndarray          # coordinates
+
+
+@dataclass
+class EffectiveFields:
+    confinement_potential: np.ndarray  # (Nx, Ny, Nz)
+    energy_density: np.ndarray         # (Nx, Ny, Nz)
+
+
+@dataclass
+class Constraints:
+    color_neutrality: float
+    baryon_number: float
+    symmetry_score: float
+
+
+class UnifiedProton:
+    def __init__(self, phi_strategy: Callable):
+        self.phi = phi_strategy
+
+    def compute_U(
+        self,
+        quark_state: QuarkState,
+        gluon_field: GluonField,
+        eff_fields: EffectiveFields,
+        constraints: Constraints,
+    ):
+        return self.phi(quark_state, gluon_field, eff_fields, constraints)
+
+
+# --- Proton Dynamics Equation N(P) = Ψ(U, Q, G, F, C) ---
+
+class ProtonDynamics:
+    """
+    Proton Dynamics Layer:
+        N(P) = Ψ(U(P), Q, G, F, C)
+
+    Returns:
+        dQ_dt, dG_dt, dF_dt
+    """
+
+    def __init__(self, psi_strategy: Callable):
+        self.psi = psi_strategy
+
+    def compute_N(
+        self,
+        unified_state,
+        quark_state: QuarkState,
+        gluon_field: GluonField,
+        eff_fields: EffectiveFields,
+        constraints: Constraints,
+    ) -> Tuple[QuarkState, GluonField, EffectiveFields]:
+        return self.psi(unified_state, quark_state, gluon_field, eff_fields, constraints)
+
+
+# --- Example Ψ: simple internal “restoring + coupling” dynamics ---
+
+def psi_restoring_coupled(
+    U,
+    Q: QuarkState,
+    G: GluonField,
+    F: EffectiveFields,
+    C: Constraints,
+) -> Tuple[QuarkState, GluonField, EffectiveFields]:
+    """
+    Example dynamics:
+    - quarks pulled toward center (restoring)
+    - momenta damped slightly
+    - gluon field relaxes toward smoother configuration
+    - confinement potential responds to energy density
+    """
+
+    # Quark position dynamics: pull toward origin
+    k_pos = 0.5
+    d_positions = -k_pos * Q.positions  # simple harmonic pull
+
+    # Quark momentum dynamics: damping
+    gamma_p = 0.1
+    d_momenta = -gamma_p * Q.momenta
+
+    dQ_dt = QuarkState(
+        positions=d_positions,
+        momenta=d_momenta,
+        colors=np.zeros_like(Q.colors),  # no color dynamics in this simple Ψ
+    )
+
+    # Gluon field dynamics: smooth via Laplacian-like diffusion
+    fv = G.field_values
+    lap = (
+        -6 * fv
+        + np.roll(fv, 1, axis=0) + np.roll(fv, -1, axis=0)
+        + np.roll(fv, 1, axis=1) + np.roll(fv, -1, axis=1)
+        + np.roll(fv, 1, axis=2) + np.roll(fv, -1, axis=2)
+    )
+    alpha_g = 0.05
+    d_field_values = alpha_g * lap
+
+    dG_dt = GluonField(
+        field_values=d_field_values,
+        grid=G.grid,
+    )
+
+    # Effective fields dynamics: confinement responds to energy density
+    beta_c = 0.1
+    d_confinement = beta_c * (F.energy_density - F.confinement_potential)
+    d_energy = np.zeros_like(F.energy_density)  # hold energy fixed in this Ψ
+
+    dF_dt = EffectiveFields(
+        confinement_potential=d_confinement,
+        energy_density=d_energy,
+    )
+
+    return dQ_dt, dG_dt, dF_dt
