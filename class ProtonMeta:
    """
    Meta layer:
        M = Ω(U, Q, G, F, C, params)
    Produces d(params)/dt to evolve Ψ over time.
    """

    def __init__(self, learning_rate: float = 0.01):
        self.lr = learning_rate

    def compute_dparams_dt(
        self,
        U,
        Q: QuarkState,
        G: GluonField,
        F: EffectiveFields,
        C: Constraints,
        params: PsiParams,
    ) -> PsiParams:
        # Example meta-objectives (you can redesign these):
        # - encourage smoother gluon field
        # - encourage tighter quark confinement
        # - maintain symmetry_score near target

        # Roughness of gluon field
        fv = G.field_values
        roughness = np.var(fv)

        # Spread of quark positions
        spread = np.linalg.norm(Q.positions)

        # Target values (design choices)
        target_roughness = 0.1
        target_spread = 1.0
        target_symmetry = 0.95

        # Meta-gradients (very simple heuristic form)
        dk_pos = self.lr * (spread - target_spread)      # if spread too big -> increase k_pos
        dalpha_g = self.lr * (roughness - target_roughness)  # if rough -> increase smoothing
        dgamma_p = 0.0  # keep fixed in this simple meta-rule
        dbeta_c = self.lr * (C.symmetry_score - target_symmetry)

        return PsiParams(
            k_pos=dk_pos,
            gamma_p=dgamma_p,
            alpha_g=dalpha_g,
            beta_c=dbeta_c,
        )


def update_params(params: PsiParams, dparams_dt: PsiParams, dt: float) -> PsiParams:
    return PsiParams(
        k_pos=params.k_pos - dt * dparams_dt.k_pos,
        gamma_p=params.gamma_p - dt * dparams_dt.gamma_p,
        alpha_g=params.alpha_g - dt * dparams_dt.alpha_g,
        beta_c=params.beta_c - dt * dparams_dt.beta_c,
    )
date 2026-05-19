@@ -1,0 +1,57 @@
+class ProtonMeta:
+    """
+    Meta layer:
+        M = Ω(U, Q, G, F, C, params)
+    Produces d(params)/dt to evolve Ψ over time.
+    """
+
+    def __init__(self, learning_rate: float = 0.01):
+        self.lr = learning_rate
+
+    def compute_dparams_dt(
+        self,
+        U,
+        Q: QuarkState,
+        G: GluonField,
+        F: EffectiveFields,
+        C: Constraints,
+        params: PsiParams,
+    ) -> PsiParams:
+        # Example meta-objectives (you can redesign these):
+        # - encourage smoother gluon field
+        # - encourage tighter quark confinement
+        # - maintain symmetry_score near target
+
+        # Roughness of gluon field
+        fv = G.field_values
+        roughness = np.var(fv)
+
+        # Spread of quark positions
+        spread = np.linalg.norm(Q.positions)
+
+        # Target values (design choices)
+        target_roughness = 0.1
+        target_spread = 1.0
+        target_symmetry = 0.95
+
+        # Meta-gradients (very simple heuristic form)
+        dk_pos = self.lr * (spread - target_spread)      # if spread too big -> increase k_pos
+        dalpha_g = self.lr * (roughness - target_roughness)  # if rough -> increase smoothing
+        dgamma_p = 0.0  # keep fixed in this simple meta-rule
+        dbeta_c = self.lr * (C.symmetry_score - target_symmetry)
+
+        return PsiParams(
+            k_pos=dk_pos,
+            gamma_p=dgamma_p,
+            alpha_g=dalpha_g,
+            beta_c=dbeta_c,
+        )
+
+
+def update_params(params: PsiParams, dparams_dt: PsiParams, dt: float) -> PsiParams:
+    return PsiParams(
+        k_pos=params.k_pos - dt * dparams_dt.k_pos,
+        gamma_p=params.gamma_p - dt * dparams_dt.gamma_p,
+        alpha_g=params.alpha_g - dt * dparams_dt.alpha_g,
+        beta_c=params.beta_c - dt * dparams_dt.beta_c,
+    )
