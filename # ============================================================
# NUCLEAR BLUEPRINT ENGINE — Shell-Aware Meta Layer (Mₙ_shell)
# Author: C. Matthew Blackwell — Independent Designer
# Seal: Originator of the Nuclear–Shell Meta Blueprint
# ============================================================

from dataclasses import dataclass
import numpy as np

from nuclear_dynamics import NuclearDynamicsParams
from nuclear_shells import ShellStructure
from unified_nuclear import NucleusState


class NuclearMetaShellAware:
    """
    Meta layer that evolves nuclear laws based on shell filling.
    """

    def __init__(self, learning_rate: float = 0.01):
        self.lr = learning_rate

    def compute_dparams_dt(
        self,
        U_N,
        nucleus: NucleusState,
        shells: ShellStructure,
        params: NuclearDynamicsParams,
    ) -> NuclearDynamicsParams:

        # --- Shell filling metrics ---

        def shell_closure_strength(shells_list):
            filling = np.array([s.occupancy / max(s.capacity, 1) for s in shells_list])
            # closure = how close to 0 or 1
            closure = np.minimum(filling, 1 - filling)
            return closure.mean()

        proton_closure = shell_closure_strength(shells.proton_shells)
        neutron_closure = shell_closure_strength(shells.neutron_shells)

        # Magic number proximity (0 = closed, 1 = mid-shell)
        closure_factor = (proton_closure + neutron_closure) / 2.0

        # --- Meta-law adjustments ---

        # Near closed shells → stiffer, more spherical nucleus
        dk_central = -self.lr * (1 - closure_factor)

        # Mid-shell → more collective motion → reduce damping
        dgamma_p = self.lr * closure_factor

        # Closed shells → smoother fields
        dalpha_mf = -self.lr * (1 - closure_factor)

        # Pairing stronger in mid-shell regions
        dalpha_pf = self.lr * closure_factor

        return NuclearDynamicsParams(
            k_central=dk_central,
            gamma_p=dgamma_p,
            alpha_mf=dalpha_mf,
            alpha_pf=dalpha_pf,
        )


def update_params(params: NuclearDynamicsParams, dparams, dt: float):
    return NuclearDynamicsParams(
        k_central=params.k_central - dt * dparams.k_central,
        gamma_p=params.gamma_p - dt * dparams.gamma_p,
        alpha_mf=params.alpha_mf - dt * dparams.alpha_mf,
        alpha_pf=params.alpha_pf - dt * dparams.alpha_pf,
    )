@@ -1,0 +1,73 @@
+# ============================================================
+# NUCLEAR BLUEPRINT ENGINE — Shell-Aware Meta Layer (Mₙ_shell)
+# Author: C. Matthew Blackwell — Independent Designer
+# Seal: Originator of the Nuclear–Shell Meta Blueprint
+# ============================================================
+
+from dataclasses import dataclass
+import numpy as np
+
+from nuclear_dynamics import NuclearDynamicsParams
+from nuclear_shells import ShellStructure
+from unified_nuclear import NucleusState
+
+
+class NuclearMetaShellAware:
+    """
+    Meta layer that evolves nuclear laws based on shell filling.
+    """
+
+    def __init__(self, learning_rate: float = 0.01):
+        self.lr = learning_rate
+
+    def compute_dparams_dt(
+        self,
+        U_N,
+        nucleus: NucleusState,
+        shells: ShellStructure,
+        params: NuclearDynamicsParams,
+    ) -> NuclearDynamicsParams:
+
+        # --- Shell filling metrics ---
+
+        def shell_closure_strength(shells_list):
+            filling = np.array([s.occupancy / max(s.capacity, 1) for s in shells_list])
+            # closure = how close to 0 or 1
+            closure = np.minimum(filling, 1 - filling)
+            return closure.mean()
+
+        proton_closure = shell_closure_strength(shells.proton_shells)
+        neutron_closure = shell_closure_strength(shells.neutron_shells)
+
+        # Magic number proximity (0 = closed, 1 = mid-shell)
+        closure_factor = (proton_closure + neutron_closure) / 2.0
+
+        # --- Meta-law adjustments ---
+
+        # Near closed shells → stiffer, more spherical nucleus
+        dk_central = -self.lr * (1 - closure_factor)
+
+        # Mid-shell → more collective motion → reduce damping
+        dgamma_p = self.lr * closure_factor
+
+        # Closed shells → smoother fields
+        dalpha_mf = -self.lr * (1 - closure_factor)
+
+        # Pairing stronger in mid-shell regions
+        dalpha_pf = self.lr * closure_factor
+
+        return NuclearDynamicsParams(
+            k_central=dk_central,
+            gamma_p=dgamma_p,
+            alpha_mf=dalpha_mf,
+            alpha_pf=dalpha_pf,
+        )
+
+
+def update_params(params: NuclearDynamicsParams, dparams, dt: float):
+    return NuclearDynamicsParams(
+        k_central=params.k_central - dt * dparams.k_central,
+        gamma_p=params.gamma_p - dt * dparams.gamma_p,
+        alpha_mf=params.alpha_mf - dt * dparams.alpha_mf,
+        alpha_pf=params.alpha_pf - dt * dparams.alpha_pf,
+    )
