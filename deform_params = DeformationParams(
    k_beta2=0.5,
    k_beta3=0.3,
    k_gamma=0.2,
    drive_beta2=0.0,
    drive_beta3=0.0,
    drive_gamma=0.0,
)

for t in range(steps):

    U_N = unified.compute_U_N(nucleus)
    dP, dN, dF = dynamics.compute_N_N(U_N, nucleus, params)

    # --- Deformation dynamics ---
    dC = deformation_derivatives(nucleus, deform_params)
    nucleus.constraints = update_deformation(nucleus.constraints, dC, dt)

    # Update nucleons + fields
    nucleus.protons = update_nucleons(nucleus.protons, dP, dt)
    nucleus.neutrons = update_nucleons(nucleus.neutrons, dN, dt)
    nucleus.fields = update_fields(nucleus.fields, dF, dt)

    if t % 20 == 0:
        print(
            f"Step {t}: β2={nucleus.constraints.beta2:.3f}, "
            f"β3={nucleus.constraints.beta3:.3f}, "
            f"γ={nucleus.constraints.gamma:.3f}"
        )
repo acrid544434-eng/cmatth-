@@ -1,0 +1,29 @@
+deform_params = DeformationParams(
+    k_beta2=0.5,
+    k_beta3=0.3,
+    k_gamma=0.2,
+    drive_beta2=0.0,
+    drive_beta3=0.0,
+    drive_gamma=0.0,
+)
+
+for t in range(steps):
+
+    U_N = unified.compute_U_N(nucleus)
+    dP, dN, dF = dynamics.compute_N_N(U_N, nucleus, params)
+
+    # --- Deformation dynamics ---
+    dC = deformation_derivatives(nucleus, deform_params)
+    nucleus.constraints = update_deformation(nucleus.constraints, dC, dt)
+
+    # Update nucleons + fields
+    nucleus.protons = update_nucleons(nucleus.protons, dP, dt)
+    nucleus.neutrons = update_nucleons(nucleus.neutrons, dN, dt)
+    nucleus.fields = update_fields(nucleus.fields, dF, dt)
+
+    if t % 20 == 0:
+        print(
+            f"Step {t}: β2={nucleus.constraints.beta2:.3f}, "
+            f"β3={nucleus.constraints.beta3:.3f}, "
+            f"γ={nucleus.constraints.gamma:.3f}"
+        )
