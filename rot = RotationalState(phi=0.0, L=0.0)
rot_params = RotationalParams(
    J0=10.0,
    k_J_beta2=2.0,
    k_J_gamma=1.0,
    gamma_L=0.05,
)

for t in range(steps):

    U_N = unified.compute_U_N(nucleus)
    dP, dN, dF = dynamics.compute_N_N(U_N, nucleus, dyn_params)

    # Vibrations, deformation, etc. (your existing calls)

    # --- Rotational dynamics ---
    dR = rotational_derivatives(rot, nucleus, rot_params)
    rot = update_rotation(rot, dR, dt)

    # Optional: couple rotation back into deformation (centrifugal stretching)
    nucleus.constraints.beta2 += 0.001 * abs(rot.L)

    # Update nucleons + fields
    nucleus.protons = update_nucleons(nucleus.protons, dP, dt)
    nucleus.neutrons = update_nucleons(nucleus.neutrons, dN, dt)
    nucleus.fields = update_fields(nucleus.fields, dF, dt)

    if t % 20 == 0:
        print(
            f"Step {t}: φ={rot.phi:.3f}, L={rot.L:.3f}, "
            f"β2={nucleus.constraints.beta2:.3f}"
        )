@@ -1,0 +1,32 @@
+rot = RotationalState(phi=0.0, L=0.0)
+rot_params = RotationalParams(
+    J0=10.0,
+    k_J_beta2=2.0,
+    k_J_gamma=1.0,
+    gamma_L=0.05,
+)
+
+for t in range(steps):
+
+    U_N = unified.compute_U_N(nucleus)
+    dP, dN, dF = dynamics.compute_N_N(U_N, nucleus, dyn_params)
+
+    # Vibrations, deformation, etc. (your existing calls)
+
+    # --- Rotational dynamics ---
+    dR = rotational_derivatives(rot, nucleus, rot_params)
+    rot = update_rotation(rot, dR, dt)
+
+    # Optional: couple rotation back into deformation (centrifugal stretching)
+    nucleus.constraints.beta2 += 0.001 * abs(rot.L)
+
+    # Update nucleons + fields
+    nucleus.protons = update_nucleons(nucleus.protons, dP, dt)
+    nucleus.neutrons = update_nucleons(nucleus.neutrons, dN, dt)
+    nucleus.fields = update_fields(nucleus.fields, dF, dt)
+
+    if t % 20 == 0:
+        print(
+            f"Step {t}: φ={rot.phi:.3f}, L={rot.L:.3f}, "
+            f"β2={nucleus.constraints.beta2:.3f}"
+        )
