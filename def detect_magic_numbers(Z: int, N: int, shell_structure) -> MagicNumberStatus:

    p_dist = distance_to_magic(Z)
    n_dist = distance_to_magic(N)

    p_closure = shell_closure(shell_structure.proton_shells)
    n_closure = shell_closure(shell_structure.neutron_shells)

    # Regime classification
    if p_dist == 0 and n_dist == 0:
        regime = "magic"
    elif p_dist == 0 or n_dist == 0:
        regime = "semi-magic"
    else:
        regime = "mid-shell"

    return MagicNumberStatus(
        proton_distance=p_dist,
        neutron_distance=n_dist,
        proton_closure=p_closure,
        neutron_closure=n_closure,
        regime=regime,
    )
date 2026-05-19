@@ -1,0 +1,23 @@
+def detect_magic_numbers(Z: int, N: int, shell_structure) -> MagicNumberStatus:
+
+    p_dist = distance_to_magic(Z)
+    n_dist = distance_to_magic(N)
+
+    p_closure = shell_closure(shell_structure.proton_shells)
+    n_closure = shell_closure(shell_structure.neutron_shells)
+
+    # Regime classification
+    if p_dist == 0 and n_dist == 0:
+        regime = "magic"
+    elif p_dist == 0 or n_dist == 0:
+        regime = "semi-magic"
+    else:
+        regime = "mid-shell"
+
+    return MagicNumberStatus(
+        proton_distance=p_dist,
+        neutron_distance=n_dist,
+        proton_closure=p_closure,
+        neutron_closure=n_closure,
+        regime=regime,
+    )
