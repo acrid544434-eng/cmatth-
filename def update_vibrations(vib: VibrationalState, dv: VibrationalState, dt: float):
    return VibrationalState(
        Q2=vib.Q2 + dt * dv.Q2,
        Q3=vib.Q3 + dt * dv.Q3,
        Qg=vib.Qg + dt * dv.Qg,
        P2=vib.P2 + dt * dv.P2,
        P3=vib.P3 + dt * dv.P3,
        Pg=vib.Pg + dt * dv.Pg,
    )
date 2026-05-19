@@ -1,0 +1,9 @@
+def update_vibrations(vib: VibrationalState, dv: VibrationalState, dt: float):
+    return VibrationalState(
+        Q2=vib.Q2 + dt * dv.Q2,
+        Q3=vib.Q3 + dt * dv.Q3,
+        Qg=vib.Qg + dt * dv.Qg,
+        P2=vib.P2 + dt * dv.P2,
+        P3=vib.P3 + dt * dv.P3,
+        Pg=vib.Pg + dt * dv.Pg,
+    )
