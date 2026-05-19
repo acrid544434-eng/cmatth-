@@ -1,0 +1,11 @@
+from dataclasses import dataclass
+
+@dataclass
+class VibrationalState:
+    Q2: float      # quadrupole vibration amplitude
+    Q3: float      # octupole vibration amplitude
+    Qg: float      # gamma vibration amplitude
+
+    P2: float      # conjugate momentum for Q2
+    P3: float      # conjugate momentum for Q3
+    Pg: float      # conjugate momentum for Qg
