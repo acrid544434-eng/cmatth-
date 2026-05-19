@@ -1,0 +1,19 @@
+# ============================================================
+# NUCLEAR BLUEPRINT ENGINE — Magic Number Detection
+# Author: C. Matthew Blackwell — Independent Designer
+# Seal: Originator of the Nuclear–Magic Blueprint
+# ============================================================
+
+from dataclasses import dataclass
+import numpy as np
+
+MAGIC_NUMBERS = [2, 8, 20, 28, 50, 82, 126]
+
+
+@dataclass
+class MagicNumberStatus:
+    proton_distance: int
+    neutron_distance: int
+    proton_closure: float
+    neutron_closure: float
+    regime: str  # "magic", "semi-magic", "mid-shell"
