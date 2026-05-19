@@ -1,0 +1,206 @@
+# ============================================================
+# NUCLEAR BLUEPRINT ENGINE — Nuclear Organism Simulation
+# Author: C. Matthew Blackwell — Independent Designer
+# Seal: Originator of the Nuclear–Meta Equation Blueprint
+# ============================================================
+
+from dataclasses import dataclass
+from typing import List, Tuple
+import numpy as np
+
+from unified_nuclear import (
+    NucleonState,
+    NuclearFields,
+    NuclearConstraints,
+    NucleusState,
+    UnifiedNucleus,
+    phi_nuclear_energy_weighted,
+)
+
+
+# ---------- Nuclear Dynamics Layer (import or inline) ----------
+
+@dataclass
+class NuclearDynamicsParams:
+    k_central: float   # pull nucleons toward nuclear center
+    gamma_p: float     # momentum damping
+    alpha_mf: float    # smoothing of mean field
+    alpha_pf: float    # smoothing of pairing field
+
+
+class NuclearDynamics:
+    def __init__(self, psi_strategy):
+        self.psi = psi_strategy
+
+    def compute_N_N(
+        self,
+        unified_state,
+        nucleus: NucleusState,
+        params: NuclearDynamicsParams,
+    ) -> Tuple[List[NucleonState], List[NucleonState], NuclearFields]:
+        return self.psi(unified_state, nucleus, params)
+
+
+def psi_nuclear_collective(
+    U_N,
+    nucleus: NucleusState,
+    params: NuclearDynamicsParams,
+) -> Tuple[List[NucleonState], List[NucleonState], NuclearFields]:
+
+    def nucleon_derivatives(nucleons: List[NucleonState]) -> List[NucleonState]:
+        if not nucleons:
+            return []
+
+        positions = np.array([n.position for n in nucleons])
+        center = positions.mean(axis=0)
+
+        d_list = []
+        for n in nucleons:
+            d_pos = -params.k_central * (n.position - center)
+            d_mom = -params.gamma_p * n.momentum
+            d_spin = np.zeros_like(n.spin)
+
+            d_list.append(
+                NucleonState(
+                    position=d_pos,
+                    momentum=d_mom,
+                    spin=d_spin,
+                    is_proton=n.is_proton,
+                )
+            )
+        return d_list
+
+    d_protons = nucleon_derivatives(nucleus.protons)
+    d_neutrons = nucleon_derivatives(nucleus.neutrons)
+
+    def smooth_field(field: np.ndarray, alpha: float) -> np.ndarray:
+        lap = (
+            -6 * field
+            + np.roll(field, 1, axis=0) + np.roll(field, -1, axis=0)
+            + np.roll(field, 1, axis=1) + np.roll(field, -1, axis=1)
+            + np.roll(field, 1, axis=2) + np.roll(field, -1, axis=2)
+        )
+        return alpha * lap
+
+    mf = nucleus.fields.mean_field
+    pf = nucleus.fields.pairing_field
+
+    d_mean_field = smooth_field(mf, params.alpha_mf)
+    d_pairing_field = smooth_field(pf, params.alpha_pf)
+
+    d_fields = NuclearFields(
+        mean_field=d_mean_field,
+        pairing_field=d_pairing_field,
+    )
+
+    return d_protons, d_neutrons, d_fields
+
+
+# ---------- Update helpers (Euler) ----------
+
+def update_nucleons(
+    nucleons: List[NucleonState],
+    d_nucleons: List[NucleonState],
+    dt: float,
+) -> List[NucleonState]:
+    updated = []
+    for n, dn in zip(nucleons, d_nucleons):
+        updated.append(
+            NucleonState(
+                position=n.position + dt * dn.position,
+                momentum=n.momentum + dt * dn.momentum,
+                spin=n.spin + dt * dn.spin,
+                is_proton=n.is_proton,
+            )
+        )
+    return updated
+
+
+def update_fields(fields: NuclearFields, d_fields: NuclearFields, dt: float) -> NuclearFields:
+    return NuclearFields(
+        mean_field=fields.mean_field + dt * d_fields.mean_field,
+        pairing_field=fields.pairing_field + dt * d_fields.pairing_field,
+    )
+
+
+# ---------- Initialization ----------
+
+def init_nucleus(A: int = 16, Z: int = 8, grid_size: int = 6) -> NucleusState:
+    protons: List[NucleonState] = []
+    neutrons: List[NucleonState] = []
+
+    for i in range(Z):
+        protons.append(
+            NucleonState(
+                position=np.random.randn(3),
+                momentum=np.random.randn(3),
+                spin=np.array([0.0, 0.0, 0.5]),
+                is_proton=True,
+            )
+        )
+
+    for i in range(A - Z):
+        neutrons.append(
+            NucleonState(
+                position=np.random.randn(3),
+                momentum=np.random.randn(3),
+                spin=np.array([0.0, 0.0, -0.5]),
+                is_proton=False,
+            )
+        )
+
+    mf = np.random.rand(grid_size, grid_size, grid_size)
+    pf = np.random.rand(grid_size, grid_size, grid_size)
+
+    fields = NuclearFields(
+        mean_field=mf,
+        pairing_field=pf,
+    )
+
+    constraints = NuclearConstraints(
+        A=A,
+        Z=Z,
+        deformation=0.0,
+        symmetry_score=0.95,
+    )
+
+    return NucleusState(
+        protons=protons,
+        neutrons=neutrons,
+        fields=fields,
+        constraints=constraints,
+    )
+
+
+# ---------- Main simulation loop ----------
+
+def run_nuclear_simulation(steps: int = 200, dt: float = 0.01):
+    nucleus = init_nucleus()
+
+    unified = UnifiedNucleus(phi_strategy=phi_nuclear_energy_weighted)
+    dynamics = NuclearDynamics(psi_strategy=psi_nuclear_collective)
+    params = NuclearDynamicsParams(
+        k_central=0.3,
+        gamma_p=0.05,
+        alpha_mf=0.02,
+        alpha_pf=0.02,
+    )
+
+    for t in range(steps):
+        U_N = unified.compute_U_N(nucleus)
+        dP, dN, dF = dynamics.compute_N_N(U_N, nucleus, params)
+
+        nucleus.protons = update_nucleons(nucleus.protons, dP, dt)
+        nucleus.neutrons = update_nucleons(nucleus.neutrons, dN, dt)
+        nucleus.fields = update_fields(nucleus.fields, dF, dt)
+
+        if t % 20 == 0:
+            print(f"Step {t}: |U_N| = {np.linalg.norm(U_N):.4f}, "
+                  f"protons={len(nucleus.protons)}, neutrons={len(nucleus.neutrons)}")
+
+    return nucleus
+
+
+if __name__ == "__main__":
+    final_nucleus = run_nuclear_simulation()
+    print("Nuclear simulation complete.")
