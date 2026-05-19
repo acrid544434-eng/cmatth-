@@ -1,0 +1,20 @@
+def vibrational_derivatives(vib: VibrationalState,
+                            nucleus: NucleusState,
+                            params: VibrationalParams):
+
+    C = nucleus.constraints
+
+    # Harmonic oscillator + damping + deformation coupling
+    dQ2 = vib.P2
+    dP2 = -params.w2**2 * vib.Q2 - params.gamma2 * vib.P2 \
+          + params.coupling_beta2 * C.beta2
+
+    dQ3 = vib.P3
+    dP3 = -params.w3**2 * vib.Q3 - params.gamma3 * vib.P3 \
+          + params.coupling_beta3 * C.beta3
+
+    dQg = vib.Qg
+    dPg = -params.wg**2 * vib.Qg - params.gammag * vib.Pg \
+          + params.coupling_gamma * C.gamma
+
+    return VibrationalState(dQ2, dQ3, dQg, dP2, dP3, dPg)
