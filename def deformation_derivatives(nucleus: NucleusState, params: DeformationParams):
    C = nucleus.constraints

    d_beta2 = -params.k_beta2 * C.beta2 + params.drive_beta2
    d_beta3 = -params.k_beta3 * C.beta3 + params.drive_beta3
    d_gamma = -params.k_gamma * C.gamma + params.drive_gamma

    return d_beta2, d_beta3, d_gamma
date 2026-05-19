@@ -1,0 +1,8 @@
+def deformation_derivatives(nucleus: NucleusState, params: DeformationParams):
+    C = nucleus.constraints
+
+    d_beta2 = -params.k_beta2 * C.beta2 + params.drive_beta2
+    d_beta3 = -params.k_beta3 * C.beta3 + params.drive_beta3
+    d_gamma = -params.k_gamma * C.gamma + params.drive_gamma
+
+    return d_beta2, d_beta3, d_gamma
