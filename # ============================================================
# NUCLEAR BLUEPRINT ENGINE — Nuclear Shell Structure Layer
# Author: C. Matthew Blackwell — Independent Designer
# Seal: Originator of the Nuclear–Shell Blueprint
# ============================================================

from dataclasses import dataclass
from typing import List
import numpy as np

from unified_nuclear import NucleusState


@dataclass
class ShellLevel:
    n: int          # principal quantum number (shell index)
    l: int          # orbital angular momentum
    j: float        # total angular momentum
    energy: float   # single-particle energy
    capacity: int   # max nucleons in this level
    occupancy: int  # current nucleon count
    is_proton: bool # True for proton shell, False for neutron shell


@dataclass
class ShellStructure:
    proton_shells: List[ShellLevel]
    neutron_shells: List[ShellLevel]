@@ -1,0 +1,28 @@
+# ============================================================
+# NUCLEAR BLUEPRINT ENGINE — Nuclear Shell Structure Layer
+# Author: C. Matthew Blackwell — Independent Designer
+# Seal: Originator of the Nuclear–Shell Blueprint
+# ============================================================
+
+from dataclasses import dataclass
+from typing import List
+import numpy as np
+
+from unified_nuclear import NucleusState
+
+
+@dataclass
+class ShellLevel:
+    n: int          # principal quantum number (shell index)
+    l: int          # orbital angular momentum
+    j: float        # total angular momentum
+    energy: float   # single-particle energy
+    capacity: int   # max nucleons in this level
+    occupancy: int  # current nucleon count
+    is_proton: bool # True for proton shell, False for neutron shell
+
+
+@dataclass
+class ShellStructure:
+    proton_shells: List[ShellLevel]
+    neutron_shells: List[ShellLevel]
