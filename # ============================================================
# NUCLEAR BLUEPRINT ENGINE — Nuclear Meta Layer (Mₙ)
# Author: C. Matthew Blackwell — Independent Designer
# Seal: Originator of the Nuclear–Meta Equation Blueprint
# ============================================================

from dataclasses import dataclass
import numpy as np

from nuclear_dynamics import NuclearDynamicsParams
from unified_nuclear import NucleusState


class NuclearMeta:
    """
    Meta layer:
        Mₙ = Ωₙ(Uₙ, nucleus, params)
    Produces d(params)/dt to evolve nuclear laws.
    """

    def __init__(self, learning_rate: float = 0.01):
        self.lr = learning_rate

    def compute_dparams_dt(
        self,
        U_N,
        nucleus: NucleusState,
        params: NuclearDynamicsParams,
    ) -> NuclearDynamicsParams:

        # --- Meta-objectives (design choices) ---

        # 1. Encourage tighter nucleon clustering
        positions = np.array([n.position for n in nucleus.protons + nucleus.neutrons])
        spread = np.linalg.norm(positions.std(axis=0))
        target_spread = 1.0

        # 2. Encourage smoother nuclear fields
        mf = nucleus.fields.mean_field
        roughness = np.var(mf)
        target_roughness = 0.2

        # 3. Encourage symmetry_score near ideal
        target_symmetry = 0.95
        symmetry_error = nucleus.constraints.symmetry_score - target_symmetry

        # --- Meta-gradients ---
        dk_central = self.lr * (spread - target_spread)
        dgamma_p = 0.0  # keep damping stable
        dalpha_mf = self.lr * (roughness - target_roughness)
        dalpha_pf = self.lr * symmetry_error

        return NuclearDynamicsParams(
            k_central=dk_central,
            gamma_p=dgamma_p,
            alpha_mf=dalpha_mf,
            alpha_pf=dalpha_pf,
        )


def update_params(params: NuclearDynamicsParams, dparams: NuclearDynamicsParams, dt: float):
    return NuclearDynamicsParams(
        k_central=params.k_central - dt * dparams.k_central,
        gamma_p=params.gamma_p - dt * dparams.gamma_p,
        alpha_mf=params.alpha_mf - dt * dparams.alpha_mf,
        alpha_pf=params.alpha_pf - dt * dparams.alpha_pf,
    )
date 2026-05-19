@@ -1,0 +1,67 @@
+# ============================================================
+# NUCLEAR BLUEPRINT ENGINE — Nuclear Meta Layer (Mₙ)
+# Author: C. Matthew Blackwell — Independent Designer
+# Seal: Originator of the Nuclear–Meta Equation Blueprint
+# ============================================================
+
+from dataclasses import dataclass
+import numpy as np
+
+from nuclear_dynamics import NuclearDynamicsParams
+from unified_nuclear import NucleusState
+
+
+class NuclearMeta:
+    """
+    Meta layer:
+        Mₙ = Ωₙ(Uₙ, nucleus, params)
+    Produces d(params)/dt to evolve nuclear laws.
+    """
+
+    def __init__(self, learning_rate: float = 0.01):
+        self.lr = learning_rate
+
+    def compute_dparams_dt(
+        self,
+        U_N,
+        nucleus: NucleusState,
+        params: NuclearDynamicsParams,
+    ) -> NuclearDynamicsParams:
+
+        # --- Meta-objectives (design choices) ---
+
+        # 1. Encourage tighter nucleon clustering
+        positions = np.array([n.position for n in nucleus.protons + nucleus.neutrons])
+        spread = np.linalg.norm(positions.std(axis=0))
+        target_spread = 1.0
+
+        # 2. Encourage smoother nuclear fields
+        mf = nucleus.fields.mean_field
+        roughness = np.var(mf)
+        target_roughness = 0.2
+
+        # 3. Encourage symmetry_score near ideal
+        target_symmetry = 0.95
+        symmetry_error = nucleus.constraints.symmetry_score - target_symmetry
+
+        # --- Meta-gradients ---
+        dk_central = self.lr * (spread - target_spread)
+        dgamma_p = 0.0  # keep damping stable
+        dalpha_mf = self.lr * (roughness - target_roughness)
+        dalpha_pf = self.lr * symmetry_error
+
+        return NuclearDynamicsParams(
+            k_central=dk_central,
+            gamma_p=dgamma_p,
+            alpha_mf=dalpha_mf,
+            alpha_pf=dalpha_pf,
+        )
+
+
+def update_params(params: NuclearDynamicsParams, dparams: NuclearDynamicsParams, dt: float):
+    return NuclearDynamicsParams(
+        k_central=params.k_central - dt * dparams.k_central,
+        gamma_p=params.gamma_p - dt * dparams.gamma_p,
+        alpha_mf=params.alpha_mf - dt * dparams.alpha_mf,
+        alpha_pf=params.alpha_pf - dt * dparams.alpha_pf,
+    )
