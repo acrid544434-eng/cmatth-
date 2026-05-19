@@ -1,0 +1,13 @@
+@dataclass
+class VibrationalParams:
+    w2: float      # natural frequency of Q2
+    w3: float      # natural frequency of Q3
+    wg: float      # natural frequency of Qg
+
+    gamma2: float  # damping
+    gamma3: float
+    gammag: float
+
+    coupling_beta2: float  # coupling to deformation
+    coupling_beta3: float
+    coupling_gamma: float
