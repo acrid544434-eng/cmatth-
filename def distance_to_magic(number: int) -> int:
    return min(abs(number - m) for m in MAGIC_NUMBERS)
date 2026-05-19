@@ -1,0 +1,2 @@
+def distance_to_magic(number: int) -> int:
+    return min(abs(number - m) for m in MAGIC_NUMBERS)
