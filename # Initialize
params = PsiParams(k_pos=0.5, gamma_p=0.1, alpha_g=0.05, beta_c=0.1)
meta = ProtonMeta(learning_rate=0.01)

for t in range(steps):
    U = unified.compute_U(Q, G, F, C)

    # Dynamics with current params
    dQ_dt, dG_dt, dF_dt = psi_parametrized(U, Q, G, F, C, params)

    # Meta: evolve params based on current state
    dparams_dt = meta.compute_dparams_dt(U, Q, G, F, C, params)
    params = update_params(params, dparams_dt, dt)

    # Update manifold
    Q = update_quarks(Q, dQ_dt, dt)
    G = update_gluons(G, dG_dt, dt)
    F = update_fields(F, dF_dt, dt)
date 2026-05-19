@@ -1,0 +1,18 @@
+# Initialize
+params = PsiParams(k_pos=0.5, gamma_p=0.1, alpha_g=0.05, beta_c=0.1)
+meta = ProtonMeta(learning_rate=0.01)
+
+for t in range(steps):
+    U = unified.compute_U(Q, G, F, C)
+
+    # Dynamics with current params
+    dQ_dt, dG_dt, dF_dt = psi_parametrized(U, Q, G, F, C, params)
+
+    # Meta: evolve params based on current state
+    dparams_dt = meta.compute_dparams_dt(U, Q, G, F, C, params)
+    params = update_params(params, dparams_dt, dt)
+
+    # Update manifold
+    Q = update_quarks(Q, dQ_dt, dt)
+    G = update_gluons(G, dG_dt, dt)
+    F = update_fields(F, dF_dt, dt)
