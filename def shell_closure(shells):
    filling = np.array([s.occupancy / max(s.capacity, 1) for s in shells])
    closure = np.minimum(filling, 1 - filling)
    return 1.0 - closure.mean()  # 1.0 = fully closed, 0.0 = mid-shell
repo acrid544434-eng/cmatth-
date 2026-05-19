@@ -1,0 +1,4 @@
+def shell_closure(shells):
+    filling = np.array([s.occupancy / max(s.capacity, 1) for s in shells])
+    closure = np.minimum(filling, 1 - filling)
+    return 1.0 - closure.mean()  # 1.0 = fully closed, 0.0 = mid-shell
