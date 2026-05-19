@@ -1,0 +1,25 @@
+meta = NuclearMetaShellAware(learning_rate=0.01)
+shells = build_simple_shell_structure(Z, A-Z)
+
+for t in range(steps):
+
+    U_N = unified.compute_U_N(nucleus)
+
+    dP, dN, dF = dynamics.compute_N_N(U_N, nucleus, params)
+
+    # --- Shell-aware meta-law evolution ---
+    dparams_dt = meta.compute_dparams_dt(U_N, nucleus, shells, params)
+    params = update_params(params, dparams_dt, dt)
+
+    # Update nucleus
+    nucleus.protons = update_nucleons(nucleus.protons, dP, dt)
+    nucleus.neutrons = update_nucleons(nucleus.neutrons, dN, dt)
+    nucleus.fields = update_fields(nucleus.fields, dF, dt)
+
+    if t % 20 == 0:
+        print(
+            f"Step {t}: |U_N|={np.linalg.norm(U_N):.4f}, "
+            f"k_central={params.k_central:.3f}, "
+            f"alpha_mf={params.alpha_mf:.3f}, "
+            f"alpha_pf={params.alpha_pf:.3f}"
+        )
