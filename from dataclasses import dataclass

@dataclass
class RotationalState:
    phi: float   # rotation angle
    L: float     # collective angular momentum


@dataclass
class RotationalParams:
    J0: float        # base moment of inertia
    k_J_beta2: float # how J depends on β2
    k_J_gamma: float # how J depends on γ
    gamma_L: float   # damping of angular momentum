@@ -1,0 +1,14 @@
+from dataclasses import dataclass
+
+@dataclass
+class RotationalState:
+    phi: float   # rotation angle
+    L: float     # collective angular momentum
+
+
+@dataclass
+class RotationalParams:
+    J0: float        # base moment of inertia
+    k_J_beta2: float # how J depends on β2
+    k_J_gamma: float # how J depends on γ
+    gamma_L: float   # damping of angular momentum
