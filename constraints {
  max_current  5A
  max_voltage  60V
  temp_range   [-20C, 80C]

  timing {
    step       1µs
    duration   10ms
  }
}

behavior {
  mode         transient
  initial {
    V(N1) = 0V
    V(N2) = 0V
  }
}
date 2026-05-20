@@ -1,0 +1,18 @@
+constraints {
+  max_current  5A
+  max_voltage  60V
+  temp_range   [-20C, 80C]
+
+  timing {
+    step       1µs
+    duration   10ms
+  }
+}
+
+behavior {
+  mode         transient
+  initial {
+    V(N1) = 0V
+    V(N2) = 0V
+  }
+}
