@@ -1,0 +1,17 @@
+from bre_core.environment import Environment
+from bre_core.channels import classify_channel
+from bre_core.sfh_models import generate_sfh
+from bre_core.chemistry import compute_sx
+
+env = Environment(
+    tidal_index=2.8,
+    filament_infall_rate=0.6,
+    local_density=0.3,
+    potential_depth="moderate"
+)
+
+channel = classify_channel(env)
+sfh = generate_sfh(channel)
+sx = compute_sx(channel)
+
+print(channel.summary())
