@@ -1,0 +1,36 @@
+blackwell-rebirth-engine/
+├─ src/
+│  ├─ bre_core/
+│  │  ├─ __init__.py
+│  │  ├─ channels.py          # 4-channel logic
+│  │  ├─ environment.py       # gravity wells, T, filaments
+│  │  ├─ sfh_models.py        # star formation history models
+│  │  ├─ chemistry.py         # enrichment, Sx evolution
+│  ├─ bre_viz/
+│  │  ├─ plots.py             # SFH, Sx vs T, channel diagrams
+│  │  ├─ panels.py            # 4-panel figure generator
+│  ├─ cli/
+│  │  ├─ __init__.py
+│  │  ├─ main.py              # `blackwell-engine` entrypoint
+│
+├─ examples/
+│  ├─ dwarf_isolation.ipynb
+│  ├─ high_T_node.ipynb
+│
+├─ docs/
+│  ├─ overview.md
+│  ├─ rebirth-law.md
+│  ├─ channels.md
+│  ├─ api.md
+│
+├─ tests/
+│  ├─ test_channels.py
+│  ├─ test_environment.py
+│
+├─ assets/
+│  ├─ blackwell_rebirth_engine_panel.png
+│
+├─ README.md
+├─ LICENSE
+├─ pyproject.toml / setup.cfg
+├─ .gitignore
