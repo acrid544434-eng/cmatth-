@@ -1,0 +1,17 @@
+ElectroBlueprintKernel
+ ├─ IdentityLayer
+ ├─ BlueprintIO
+ │   ├─ Parser
+ │   └─ Serializer
+ ├─ ModelLayer
+ │   ├─ ComponentLibrary
+ │   ├─ TopologyGraph
+ │   └─ ConstraintSystem
+ ├─ SimulationCore
+ │   ├─ FieldSolver
+ │   ├─ CircuitSolver
+ │   └─ TimeStepper
+ ├─ IntegrationBridge
+ │   ├─ DomainAdapters
+ │   └─ EventBus
+ └─ ProvenanceEngine
