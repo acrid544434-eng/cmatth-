@@ -1,0 +1,23 @@
+topology {
+  node N1 at (0, 0)
+  node N2 at (10, 0)
+  node GND at (0, -5) ground
+
+  component V1: VoltageSource {
+    from  GND
+    to    N1
+    value 48V
+  }
+
+  component R1: Resistor {
+    from  N1
+    to    N2
+    value 10Ω
+  }
+
+  component C1: Capacitor {
+    from  N2
+    to    GND
+    value 220µF
+  }
+}
