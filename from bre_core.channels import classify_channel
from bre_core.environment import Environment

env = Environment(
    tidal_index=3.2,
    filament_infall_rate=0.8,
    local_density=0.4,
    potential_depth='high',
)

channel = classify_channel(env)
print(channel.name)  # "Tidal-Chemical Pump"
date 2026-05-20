@@ -1,0 +1,12 @@
+from bre_core.channels import classify_channel
+from bre_core.environment import Environment
+
+env = Environment(
+    tidal_index=3.2,
+    filament_infall_rate=0.8,
+    local_density=0.4,
+    potential_depth='high',
+)
+
+channel = classify_channel(env)
+print(channel.name)  # "Tidal-Chemical Pump"
