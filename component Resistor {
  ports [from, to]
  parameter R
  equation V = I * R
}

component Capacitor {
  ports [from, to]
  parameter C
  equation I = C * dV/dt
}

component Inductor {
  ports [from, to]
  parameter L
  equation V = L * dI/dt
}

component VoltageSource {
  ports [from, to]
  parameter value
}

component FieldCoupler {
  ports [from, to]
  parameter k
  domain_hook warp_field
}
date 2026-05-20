@@ -1,0 +1,28 @@
+component Resistor {
+  ports [from, to]
+  parameter R
+  equation V = I * R
+}
+
+component Capacitor {
+  ports [from, to]
+  parameter C
+  equation I = C * dV/dt
+}
+
+component Inductor {
+  ports [from, to]
+  parameter L
+  equation V = L * dI/dt
+}
+
+component VoltageSource {
+  ports [from, to]
+  parameter value
+}
+
+component FieldCoupler {
+  ports [from, to]
+  parameter k
+  domain_hook warp_field
+}
