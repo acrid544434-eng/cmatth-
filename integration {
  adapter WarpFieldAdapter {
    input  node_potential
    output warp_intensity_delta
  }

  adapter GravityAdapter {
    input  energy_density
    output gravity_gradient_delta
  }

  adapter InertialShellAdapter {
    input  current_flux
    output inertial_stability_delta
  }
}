@@ -1,0 +1,16 @@
+integration {
+  adapter WarpFieldAdapter {
+    input  node_potential
+    output warp_intensity_delta
+  }
+
+  adapter GravityAdapter {
+    input  energy_density
+    output gravity_gradient_delta
+  }
+
+  adapter InertialShellAdapter {
+    input  current_flux
+    output inertial_stability_delta
+  }
+}
