@@ -1,0 +1,12 @@
+simulation {
+  solver {
+    type MNA
+    modes [dc, ac, transient]
+  }
+
+  timestep {
+    dt      1µs
+    t_start 0
+    t_end   10ms
+  }
+}
