@@ -1,0 +1,32 @@
+blueprint Electronics {
+  identity {
+    author  "C. Matthew Blackwell"
+    role    "Independent Designer"
+    kernel  "ElectroBlueprintKernel"
+    glyph   "⟟EBK-MB"
+    version "0.1.0"
+  }
+  meta {
+    label   "ElectroBlueprint Kernel"
+    domain  "electronics"
+  }
+}
+
+topology {
+  node N1 at (0, 0)
+  node N2 at (10, 0)
+  node GND at (0, -5) ground
+}
+
+constraints {
+  max_current  5A
+  max_voltage  60V
+  temp_range   [-20C, 80C]
+}
+
+simulation {
+  solver {
+    type MNA
+    modes [dc, ac, transient]
+  }
+}
