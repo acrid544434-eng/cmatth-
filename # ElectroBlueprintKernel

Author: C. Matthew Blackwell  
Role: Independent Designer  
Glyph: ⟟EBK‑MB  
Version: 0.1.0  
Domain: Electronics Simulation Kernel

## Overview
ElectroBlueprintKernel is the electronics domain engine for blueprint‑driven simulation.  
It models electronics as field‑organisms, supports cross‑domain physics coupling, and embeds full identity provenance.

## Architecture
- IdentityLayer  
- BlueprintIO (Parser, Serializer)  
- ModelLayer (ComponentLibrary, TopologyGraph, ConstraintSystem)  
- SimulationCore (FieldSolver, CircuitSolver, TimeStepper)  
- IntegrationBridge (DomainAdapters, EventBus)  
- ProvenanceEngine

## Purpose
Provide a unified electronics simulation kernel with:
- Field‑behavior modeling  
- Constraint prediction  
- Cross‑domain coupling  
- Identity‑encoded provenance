@@ -1,0 +1,26 @@
+# ElectroBlueprintKernel
+
+Author: C. Matthew Blackwell  
+Role: Independent Designer  
+Glyph: ⟟EBK‑MB  
+Version: 0.1.0  
+Domain: Electronics Simulation Kernel
+
+## Overview
+ElectroBlueprintKernel is the electronics domain engine for blueprint‑driven simulation.  
+It models electronics as field‑organisms, supports cross‑domain physics coupling, and embeds full identity provenance.
+
+## Architecture
+- IdentityLayer  
+- BlueprintIO (Parser, Serializer)  
+- ModelLayer (ComponentLibrary, TopologyGraph, ConstraintSystem)  
+- SimulationCore (FieldSolver, CircuitSolver, TimeStepper)  
+- IntegrationBridge (DomainAdapters, EventBus)  
+- ProvenanceEngine
+
+## Purpose
+Provide a unified electronics simulation kernel with:
+- Field‑behavior modeling  
+- Constraint prediction  
+- Cross‑domain coupling  
+- Identity‑encoded provenance
