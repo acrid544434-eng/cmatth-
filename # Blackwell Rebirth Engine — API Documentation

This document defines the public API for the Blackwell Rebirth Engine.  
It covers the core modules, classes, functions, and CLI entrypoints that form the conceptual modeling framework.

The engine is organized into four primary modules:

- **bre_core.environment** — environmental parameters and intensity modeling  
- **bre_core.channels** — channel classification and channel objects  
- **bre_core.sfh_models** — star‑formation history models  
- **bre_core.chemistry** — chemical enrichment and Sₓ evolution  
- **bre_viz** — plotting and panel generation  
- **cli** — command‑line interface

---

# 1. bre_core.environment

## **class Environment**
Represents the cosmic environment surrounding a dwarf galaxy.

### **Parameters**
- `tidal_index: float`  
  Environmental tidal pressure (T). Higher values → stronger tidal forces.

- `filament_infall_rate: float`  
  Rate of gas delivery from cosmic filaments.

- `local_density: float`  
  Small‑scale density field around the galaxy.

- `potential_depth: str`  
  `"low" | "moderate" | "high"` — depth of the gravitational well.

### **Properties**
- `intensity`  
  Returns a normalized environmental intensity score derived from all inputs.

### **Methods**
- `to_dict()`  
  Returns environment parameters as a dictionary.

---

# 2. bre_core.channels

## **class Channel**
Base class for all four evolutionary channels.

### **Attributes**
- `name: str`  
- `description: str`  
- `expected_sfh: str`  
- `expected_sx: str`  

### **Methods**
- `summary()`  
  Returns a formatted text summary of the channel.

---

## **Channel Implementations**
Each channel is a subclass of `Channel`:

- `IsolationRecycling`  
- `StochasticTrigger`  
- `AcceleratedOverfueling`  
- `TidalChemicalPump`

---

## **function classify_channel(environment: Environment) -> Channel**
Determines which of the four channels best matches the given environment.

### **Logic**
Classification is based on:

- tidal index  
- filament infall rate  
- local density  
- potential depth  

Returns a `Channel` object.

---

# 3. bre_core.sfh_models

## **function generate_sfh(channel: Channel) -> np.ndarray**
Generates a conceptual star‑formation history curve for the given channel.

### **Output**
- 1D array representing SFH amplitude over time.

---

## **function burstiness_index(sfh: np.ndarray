@@ -1,0 +1,97 @@
+# Blackwell Rebirth Engine — API Documentation
+
+This document defines the public API for the Blackwell Rebirth Engine.  
+It covers the core modules, classes, functions, and CLI entrypoints that form the conceptual modeling framework.
+
+The engine is organized into four primary modules:
+
+- **bre_core.environment** — environmental parameters and intensity modeling  
+- **bre_core.channels** — channel classification and channel objects  
+- **bre_core.sfh_models** — star‑formation history models  
+- **bre_core.chemistry** — chemical enrichment and Sₓ evolution  
+- **bre_viz** — plotting and panel generation  
+- **cli** — command‑line interface
+
+---
+
+# 1. bre_core.environment
+
+## **class Environment**
+Represents the cosmic environment surrounding a dwarf galaxy.
+
+### **Parameters**
+- `tidal_index: float`  
+  Environmental tidal pressure (T). Higher values → stronger tidal forces.
+
+- `filament_infall_rate: float`  
+  Rate of gas delivery from cosmic filaments.
+
+- `local_density: float`  
+  Small‑scale density field around the galaxy.
+
+- `potential_depth: str`  
+  `"low" | "moderate" | "high"` — depth of the gravitational well.
+
+### **Properties**
+- `intensity`  
+  Returns a normalized environmental intensity score derived from all inputs.
+
+### **Methods**
+- `to_dict()`  
+  Returns environment parameters as a dictionary.
+
+---
+
+# 2. bre_core.channels
+
+## **class Channel**
+Base class for all four evolutionary channels.
+
+### **Attributes**
+- `name: str`  
+- `description: str`  
+- `expected_sfh: str`  
+- `expected_sx: str`  
+
+### **Methods**
+- `summary()`  
+  Returns a formatted text summary of the channel.
+
+---
+
+## **Channel Implementations**
+Each channel is a subclass of `Channel`:
+
+- `IsolationRecycling`  
+- `StochasticTrigger`  
+- `AcceleratedOverfueling`  
+- `TidalChemicalPump`
+
+---
+
+## **function classify_channel(environment: Environment) -> Channel**
+Determines which of the four channels best matches the given environment.
+
+### **Logic**
+Classification is based on:
+
+- tidal index  
+- filament infall rate  
+- local density  
+- potential depth  
+
+Returns a `Channel` object.
+
+---
+
+# 3. bre_core.sfh_models
+
+## **function generate_sfh(channel: Channel) -> np.ndarray**
+Generates a conceptual star‑formation history curve for the given channel.
+
+### **Output**
+- 1D array representing SFH amplitude over time.
+
+---
+
+## **function burstiness_index(sfh: np.ndarray
