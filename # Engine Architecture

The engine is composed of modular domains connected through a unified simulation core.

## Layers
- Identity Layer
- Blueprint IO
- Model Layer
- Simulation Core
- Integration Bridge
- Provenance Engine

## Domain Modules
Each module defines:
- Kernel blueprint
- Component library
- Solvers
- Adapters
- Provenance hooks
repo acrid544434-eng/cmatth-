@@ -1,0 +1,19 @@
+# Engine Architecture
+
+The engine is composed of modular domains connected through a unified simulation core.
+
+## Layers
+- Identity Layer
+- Blueprint IO
+- Model Layer
+- Simulation Core
+- Integration Bridge
+- Provenance Engine
+
+## Domain Modules
+Each module defines:
+- Kernel blueprint
+- Component library
+- Solvers
+- Adapters
+- Provenance hooks
