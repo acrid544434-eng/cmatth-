@@ -1,0 +1,97 @@
+blackwell-engine/
+├─ README.md
+├─ LICENSE
+├─ docs/
+│  ├─ overview.md
+│  ├─ architecture.md
+│  ├─ electronics-domain.md
+│  ├─ field-organism-model.md
+│  └─ provenance-system.md
+│
+├─ modules/
+│  ├─ electroblueprint/
+│  │  ├─ kernel.blueprint
+│  │  ├─ README.md
+│  │  ├─ components/
+│  │  │  ├─ passive/
+│  │  │  │  ├─ resistor.comp
+│  │  │  │  ├─ capacitor.comp
+│  │  │  │  └─ inductor.comp
+│  │  │  ├─ active/
+│  │  │  │  ├─ mosfet.comp
+│  │  │  │  ├─ bjt.comp
+│  │  │  │  └─ diode.comp
+│  │  │  ├─ sources/
+│  │  │  │  ├─ voltage_source.comp
+│  │  │  │  └─ current_source.comp
+│  │  │  └─ special/
+│  │  │     ├─ field_coupler.comp
+│  │  │     └─ grav_link.comp
+│  │  │
+│  │  ├─ solvers/
+│  │  │  ├─ field_solver.md
+│  │  │  ├─ circuit_solver.md
+│  │  │  └─ timestepper.md
+│  │  │
+│  │  ├─ adapters/
+│  │  │  ├─ warp_field_adapter.md
+│  │  │  ├─ gravity_adapter.md
+│  │  │  └─ inertial_shell_adapter.md
+│  │  │
+│  │  └─ provenance/
+│  │     ├─ provenance_spec.md
+│  │     └─ transform_chain.md
+│  │
+│  ├─ warpfield/
+│  │  ├─ kernel.blueprint
+│  │  ├─ README.md
+│  │  └─ adapters/
+│  │     └─ electro_adapter.md
+│  │
+│  ├─ gravity/
+│  │  ├─ kernel.blueprint
+│  │  ├─ README.md
+│  │  └─ adapters/
+│  │     └─ electro_adapter.md
+│  │
+│  └─ inertialshell/
+│     ├─ kernel.blueprint
+│     ├─ README.md
+│     └─ adapters/
+│        └─ electro_adapter.md
+│
+├─ engine/
+│  ├─ core/
+│  │  ├─ loader.md
+│  │  ├─ validator.md
+│  │  ├─ simulator.md
+│  │  └─ exporter.md
+│  │
+│  ├─ identity/
+│  │  ├─ seal.md
+│  │  ├─ glyphs.md
+│  │  └─ signature.md
+│  │
+│  ├─ eventbus/
+│  │  ├─ events.md
+│  │  └─ routing.md
+│  │
+│  └─ api/
+│     ├─ blueprint_api.md
+│     ├─ simulation_api.md
+│     └─ provenance_api.md
+│
+└─ examples/
+   ├─ electronics/
+   │  ├─ power_spine.blueprint
+   │  ├─ transient_test.blueprint
+   │  └─ field_coupled_driver.blueprint
+   │
+   ├─ warpfield/
+   │  └─ warp_bus.blueprint
+   │
+   ├─ gravity/
+   │  └─ grav_stabilizer.blueprint
+   │
+   └─ inertialshell/
+      └─ inertial_damper.blueprint
