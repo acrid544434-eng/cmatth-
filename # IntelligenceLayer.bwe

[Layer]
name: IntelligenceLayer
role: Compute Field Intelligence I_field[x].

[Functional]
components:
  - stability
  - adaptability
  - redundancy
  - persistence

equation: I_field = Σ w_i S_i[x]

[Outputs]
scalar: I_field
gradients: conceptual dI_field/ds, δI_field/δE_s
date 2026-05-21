@@ -1,0 +1,18 @@
+# IntelligenceLayer.bwe
+
+[Layer]
+name: IntelligenceLayer
+role: Compute Field Intelligence I_field[x].
+
+[Functional]
+components:
+  - stability
+  - adaptability
+  - redundancy
+  - persistence
+
+equation: I_field = Σ w_i S_i[x]
+
+[Outputs]
+scalar: I_field
+gradients: conceptual dI_field/ds, δI_field/δE_s
