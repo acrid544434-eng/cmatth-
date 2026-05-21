@@ -1,0 +1,18 @@
+# FieldLayer.bwe
+
+[Layer]
+name: FieldLayer
+role: Represent and update the organism field x(r, t).
+
+[State]
+type: grid
+dimensions: configurable
+components: density, activity, stress (extensible)
+
+[UpdateRule]
+equation: dx/dt = E_s[x]
+supports:
+  - diffusion-like terms
+  - growth/decay
+  - branching/retreat
+  - local perturbations
