@@ -1,0 +1,7 @@
+namespace Blackwell.OS.Diagnostics;
+
+public sealed class SystemDiagnostics
+{
+    public float CpuLoad { get; init; } = 0.5f;
+    public float QueueDepth { get; init; } = 0.5f;
+}
