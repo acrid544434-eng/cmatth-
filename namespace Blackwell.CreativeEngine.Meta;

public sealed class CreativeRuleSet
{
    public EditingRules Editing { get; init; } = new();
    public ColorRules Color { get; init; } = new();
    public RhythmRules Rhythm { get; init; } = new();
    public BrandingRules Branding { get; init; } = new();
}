@@ -1,0 +1,9 @@
+namespace Blackwell.CreativeEngine.Meta;
+
+public sealed class CreativeRuleSet
+{
+    public EditingRules Editing { get; init; } = new();
+    public ColorRules Color { get; init; } = new();
+    public RhythmRules Rhythm { get; init; } = new();
+    public BrandingRules Branding { get; init; } = new();
+}
