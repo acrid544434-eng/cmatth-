@@ -1,0 +1,8 @@
+namespace Blackwell.CreativeEngine.Understanding.Interfaces;
+
+using Blackwell.CreativeEngine.Ingestion;
+
+public interface IEmotionalCurveAnalyzer
+{
+    EmotionalCurve Analyze(ParsedAudio audio, ParsedVideo video);
+}
