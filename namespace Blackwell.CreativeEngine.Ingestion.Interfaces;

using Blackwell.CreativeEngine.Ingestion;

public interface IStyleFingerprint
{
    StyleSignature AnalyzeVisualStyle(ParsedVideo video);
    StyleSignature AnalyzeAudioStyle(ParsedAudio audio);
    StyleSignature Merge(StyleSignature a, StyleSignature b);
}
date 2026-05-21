@@ -1,0 +1,10 @@
+namespace Blackwell.CreativeEngine.Ingestion.Interfaces;
+
+using Blackwell.CreativeEngine.Ingestion;
+
+public interface IStyleFingerprint
+{
+    StyleSignature AnalyzeVisualStyle(ParsedVideo video);
+    StyleSignature AnalyzeAudioStyle(ParsedAudio audio);
+    StyleSignature Merge(StyleSignature a, StyleSignature b);
+}
