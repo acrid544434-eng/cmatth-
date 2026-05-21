@@ -1,0 +1,6 @@
+namespace Blackwell.OS.Core;
+
+public interface IOsMetaOperator
+{
+    OsState Evolve(OsState current, OsDiagnostics diagnostics);
+}
