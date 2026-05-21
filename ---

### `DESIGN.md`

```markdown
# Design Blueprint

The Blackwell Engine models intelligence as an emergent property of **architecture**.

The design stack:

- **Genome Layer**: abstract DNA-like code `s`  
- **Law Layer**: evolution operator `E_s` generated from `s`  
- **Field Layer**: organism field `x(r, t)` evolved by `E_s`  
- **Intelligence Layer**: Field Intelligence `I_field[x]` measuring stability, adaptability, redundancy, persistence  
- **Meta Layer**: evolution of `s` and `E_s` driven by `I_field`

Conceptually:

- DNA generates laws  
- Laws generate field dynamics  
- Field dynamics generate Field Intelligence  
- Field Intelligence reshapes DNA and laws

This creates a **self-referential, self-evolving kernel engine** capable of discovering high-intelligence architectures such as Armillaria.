@@ -1,0 +1,25 @@
+---
+
+### `DESIGN.md`
+
+```markdown
+# Design Blueprint
+
+The Blackwell Engine models intelligence as an emergent property of **architecture**.
+
+The design stack:
+
+- **Genome Layer**: abstract DNA-like code `s`  
+- **Law Layer**: evolution operator `E_s` generated from `s`  
+- **Field Layer**: organism field `x(r, t)` evolved by `E_s`  
+- **Intelligence Layer**: Field Intelligence `I_field[x]` measuring stability, adaptability, redundancy, persistence  
+- **Meta Layer**: evolution of `s` and `E_s` driven by `I_field`
+
+Conceptually:
+
+- DNA generates laws  
+- Laws generate field dynamics  
+- Field dynamics generate Field Intelligence  
+- Field Intelligence reshapes DNA and laws
+
+This creates a **self-referential, self-evolving kernel engine** capable of discovering high-intelligence architectures such as Armillaria.
