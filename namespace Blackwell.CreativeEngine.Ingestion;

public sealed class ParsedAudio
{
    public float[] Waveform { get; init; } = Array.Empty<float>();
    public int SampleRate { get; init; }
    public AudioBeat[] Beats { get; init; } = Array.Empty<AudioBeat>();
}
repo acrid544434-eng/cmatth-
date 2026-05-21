@@ -1,0 +1,8 @@
+namespace Blackwell.CreativeEngine.Ingestion;
+
+public sealed class ParsedAudio
+{
+    public float[] Waveform { get; init; } = Array.Empty<float>();
+    public int SampleRate { get; init; }
+    public AudioBeat[] Beats { get; init; } = Array.Empty<AudioBeat>();
+}
