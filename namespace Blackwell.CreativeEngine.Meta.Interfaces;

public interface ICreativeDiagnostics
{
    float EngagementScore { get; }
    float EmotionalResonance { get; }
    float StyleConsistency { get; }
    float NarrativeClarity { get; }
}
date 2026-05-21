@@ -1,0 +1,9 @@
+namespace Blackwell.CreativeEngine.Meta.Interfaces;
+
+public interface ICreativeDiagnostics
+{
+    float EngagementScore { get; }
+    float EmotionalResonance { get; }
+    float StyleConsistency { get; }
+    float NarrativeClarity { get; }
+}
