@@ -1,0 +1,14 @@
+namespace Blackwell.CreativeEngine.Engine;
+
+using Blackwell.CreativeEngine.Ingestion;
+using Blackwell.CreativeEngine.Understanding;
+using Blackwell.CreativeEngine.Synthesis;
+using Blackwell.CreativeEngine.Meta;
+
+public interface ICreativeEngine
+{
+    CreativeInput Ingest(MediaBundle bundle);
+    CreativeIntelligence Analyze(CreativeInput input);
+    CreativeOutput Synthesize(CreativeIntelligence intelligence);
+    CreativeRuleSet Evolve(CreativeDiagnostics diagnostics);
+}
