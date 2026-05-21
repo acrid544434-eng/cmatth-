@@ -1,0 +1,13 @@
+namespace Blackwell.CreativeEngine.Ingestion;
+
+public sealed class ParsedVideo
+{
+    public VideoFrame[] Frames { get; init; } = Array.Empty<VideoFrame>();
+    public TimeSpan Duration { get; init; }
+    public float FrameRate { get; init; }
+}
+
+public sealed class VideoFrame
+{
+    public byte[] Pixels { get; init; } = Array.Empty<byte>();
+}
