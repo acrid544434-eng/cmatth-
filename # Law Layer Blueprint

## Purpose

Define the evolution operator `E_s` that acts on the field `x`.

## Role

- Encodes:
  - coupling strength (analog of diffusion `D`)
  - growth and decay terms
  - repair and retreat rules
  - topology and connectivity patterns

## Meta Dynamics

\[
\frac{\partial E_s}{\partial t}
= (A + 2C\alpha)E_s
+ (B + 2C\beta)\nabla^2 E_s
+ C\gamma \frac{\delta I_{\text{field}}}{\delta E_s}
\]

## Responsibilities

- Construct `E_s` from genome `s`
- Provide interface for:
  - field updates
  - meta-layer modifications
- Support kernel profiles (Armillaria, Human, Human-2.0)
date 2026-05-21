@@ -1,0 +1,30 @@
+# Law Layer Blueprint
+
+## Purpose
+
+Define the evolution operator `E_s` that acts on the field `x`.
+
+## Role
+
+- Encodes:
+  - coupling strength (analog of diffusion `D`)
+  - growth and decay terms
+  - repair and retreat rules
+  - topology and connectivity patterns
+
+## Meta Dynamics
+
+\[
+\frac{\partial E_s}{\partial t}
+= (A + 2C\alpha)E_s
++ (B + 2C\beta)\nabla^2 E_s
++ C\gamma \frac{\delta I_{\text{field}}}{\delta E_s}
+\]
+
+## Responsibilities
+
+- Construct `E_s` from genome `s`
+- Provide interface for:
+  - field updates
+  - meta-layer modifications
+- Support kernel profiles (Armillaria, Human, Human-2.0)
