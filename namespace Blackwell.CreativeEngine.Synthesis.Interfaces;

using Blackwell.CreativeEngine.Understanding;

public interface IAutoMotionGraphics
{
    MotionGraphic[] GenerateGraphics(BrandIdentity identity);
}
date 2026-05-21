@@ -1,0 +1,8 @@
+namespace Blackwell.CreativeEngine.Synthesis.Interfaces;
+
+using Blackwell.CreativeEngine.Understanding;
+
+public interface IAutoMotionGraphics
+{
+    MotionGraphic[] GenerateGraphics(BrandIdentity identity);
+}
