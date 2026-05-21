@@ -1,0 +1,9 @@
+namespace Blackwell.CreativeEngine.Meta;
+
+public sealed class CreativeDiagnostics
+{
+    public float EngagementScore { get; init; }
+    public float EmotionalResonance { get; init; }
+    public float StyleConsistency { get; init; }
+    public float NarrativeClarity { get; init; }
+}
