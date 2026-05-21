@@ -1,0 +1,55 @@
+using Blackwell.OS.Core;
+using Blackwell.OS.Diagnostics;
+using Blackwell.OS.Operators;
+using Blackwell.OS.Rules;
+
+namespace Blackwell.OS.Simulation;
+
+public static class OsSimulationDemo
+{
+    public static void Run()
+    {
+        Console.WriteLine("=== BLACKWELL OS SIMULATION DEMO ===");
+
+        var initial = new OsState
+        {
+            Creative = new CreativeRuleSet(),
+            System   = new SystemRuleSet(),
+            Brand    = new BrandRuleSet(),
+            Runtime  = new RuntimeRuleSet()
+        };
+
+        var diagnostics = new OsDiagnostics
+        {
+            Creative = new CreativeDiagnostics(),
+            System   = new SystemDiagnostics(),
+            Brand    = new BrandDiagnostics(),
+            Runtime  = new RuntimeDiagnostics()
+        };
+
+        var op = new UnifiedOsOperator();
+        var sim = new OsSimulationEngine(op, initial);
+
+        for (int i = 0; i < 20; i++)
+        {
+            var state = sim.Step(diagnostics);
+
+            Console.WriteLine($"\n--- Tick {sim.Tick} ---");
+
+            Console.WriteLine($"Creative: Pace={state.Creative.TargetPace:F2}, " +
+                              $"BeatSync={state.Creative.CutOnBeatProbability:F2}, " +
+                              $"JumpCuts={state.Creative.MaxJumpCutFrequency:F2}");
+
+            Console.WriteLine($"System: Parallel={state.System.MaxParallelModules}, " +
+                              $"Batch={state.System.BatchSize}");
+
+            Console.WriteLine($"Brand: LogoFreq={state.Brand.LogoFrequency:F2}, " +
+                              $"TextFreq={state.Brand.TextOverlayFrequency:F2}");
+
+            Console.WriteLine($"Runtime: Quality={state.Runtime.QualityLevel:F2}, " +
+                              $"Cache={state.Runtime.CacheAggressiveness:F2}");
+        }
+
+        Console.WriteLine("\n=== SIMULATION COMPLETE ===");
+    }
+}
