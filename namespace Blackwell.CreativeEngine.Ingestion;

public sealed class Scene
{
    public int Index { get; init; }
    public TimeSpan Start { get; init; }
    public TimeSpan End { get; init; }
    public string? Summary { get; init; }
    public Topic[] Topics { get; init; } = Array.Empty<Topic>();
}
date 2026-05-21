@@ -1,0 +1,10 @@
+namespace Blackwell.CreativeEngine.Ingestion;
+
+public sealed class Scene
+{
+    public int Index { get; init; }
+    public TimeSpan Start { get; init; }
+    public TimeSpan End { get; init; }
+    public string? Summary { get; init; }
+    public Topic[] Topics { get; init; } = Array.Empty<Topic>();
+}
