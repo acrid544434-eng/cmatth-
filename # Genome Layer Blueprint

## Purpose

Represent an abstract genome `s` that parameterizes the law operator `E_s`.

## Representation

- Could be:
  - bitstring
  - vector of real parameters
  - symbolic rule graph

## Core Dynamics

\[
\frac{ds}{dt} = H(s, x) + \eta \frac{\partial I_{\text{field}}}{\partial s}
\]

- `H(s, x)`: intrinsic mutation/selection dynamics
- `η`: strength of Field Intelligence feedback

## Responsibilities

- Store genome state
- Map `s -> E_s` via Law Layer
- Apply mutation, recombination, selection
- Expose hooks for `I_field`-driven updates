@@ -1,0 +1,28 @@
+# Genome Layer Blueprint
+
+## Purpose
+
+Represent an abstract genome `s` that parameterizes the law operator `E_s`.
+
+## Representation
+
+- Could be:
+  - bitstring
+  - vector of real parameters
+  - symbolic rule graph
+
+## Core Dynamics
+
+\[
+\frac{ds}{dt} = H(s, x) + \eta \frac{\partial I_{\text{field}}}{\partial s}
+\]
+
+- `H(s, x)`: intrinsic mutation/selection dynamics
+- `η`: strength of Field Intelligence feedback
+
+## Responsibilities
+
+- Store genome state
+- Map `s -> E_s` via Law Layer
+- Apply mutation, recombination, selection
+- Expose hooks for `I_field`-driven updates
