@@ -1,0 +1,7 @@
+namespace Blackwell.CreativeEngine.Meta;
+
+public sealed class RhythmRules
+{
+    public float SyncToBeatStrength { get; init; }
+    public float OffBeatVariation { get; init; }
+}
