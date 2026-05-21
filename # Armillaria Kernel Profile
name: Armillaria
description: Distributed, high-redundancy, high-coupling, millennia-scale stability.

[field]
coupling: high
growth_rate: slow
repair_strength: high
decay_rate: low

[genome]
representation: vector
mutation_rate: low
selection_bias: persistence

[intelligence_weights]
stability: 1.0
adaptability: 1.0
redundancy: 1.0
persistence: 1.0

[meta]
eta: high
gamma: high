@@ -1,0 +1,24 @@
+# Armillaria Kernel Profile
+name: Armillaria
+description: Distributed, high-redundancy, high-coupling, millennia-scale stability.
+
+[field]
+coupling: high
+growth_rate: slow
+repair_strength: high
+decay_rate: low
+
+[genome]
+representation: vector
+mutation_rate: low
+selection_bias: persistence
+
+[intelligence_weights]
+stability: 1.0
+adaptability: 1.0
+redundancy: 1.0
+persistence: 1.0
+
+[meta]
+eta: high
+gamma: high
