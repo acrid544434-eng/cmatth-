@@ -1,0 +1,48 @@
+function intelligence_step_v1(state, diagnostics, params):
+    η  = params.learning_rate
+    s  = params.stability_bias
+    wn = params.novelty_weight
+    wc = params.coherence_weight
+    pL = 0.4
+    pE = 0.5
+
+    Cog = state.fields.intel_cognitive
+    Cre = state.fields.intel_creative
+    Ada = state.fields.intel_adaptive
+    Ref = state.fields.intel_reflective
+
+    Rh   = state.fields.creative_rhythm
+    Coh  = state.fields.coherence
+
+    Foc   = state.entities.os_organism.focus
+    Load  = state.entities.os_organism.load
+    Intro = state.entities.os_organism.introspection_level
+
+    Err  = diagnostics.error_rate
+    Rec  = diagnostics.recovery_speed
+    Nov  = diagnostics.novelty_score
+    CohS = diagnostics.coherence_score
+
+    # Cognitive
+    dCog = η * (wc*CohS + (1-Err) + Foc - pL*Load) - s*(Cog - Coh)
+    Cog_next = clip(Cog + dCog, 0, 1)
+
+    # Creative
+    dCre = η * (wn*Nov + Rh + 0.5*CohS) - s*max(0, 0.3 - CohS)
+    Cre_next = clip(Cre + dCre, 0, 1)
+
+    # Adaptive
+    dAda = η * (Rec + Load*(1-Err)) - s*(Ada - Rec)
+    Ada_next = clip(Ada + dAda, 0, 1)
+
+    # Reflective
+    Align = 1 - (abs(Cog - Coh) + abs(Cre - Rh)) / 2
+    dRef = η * (Intro + CohS + Align) - s*(Ref - Intro)
+    Ref_next = clip(Ref + dRef, 0, 1)
+
+    state.fields.intel_cognitive  = Cog_next
+    state.fields.intel_creative   = Cre_next
+    state.fields.intel_adaptive   = Ada_next
+    state.fields.intel_reflective = Ref_next
+
+    return state
