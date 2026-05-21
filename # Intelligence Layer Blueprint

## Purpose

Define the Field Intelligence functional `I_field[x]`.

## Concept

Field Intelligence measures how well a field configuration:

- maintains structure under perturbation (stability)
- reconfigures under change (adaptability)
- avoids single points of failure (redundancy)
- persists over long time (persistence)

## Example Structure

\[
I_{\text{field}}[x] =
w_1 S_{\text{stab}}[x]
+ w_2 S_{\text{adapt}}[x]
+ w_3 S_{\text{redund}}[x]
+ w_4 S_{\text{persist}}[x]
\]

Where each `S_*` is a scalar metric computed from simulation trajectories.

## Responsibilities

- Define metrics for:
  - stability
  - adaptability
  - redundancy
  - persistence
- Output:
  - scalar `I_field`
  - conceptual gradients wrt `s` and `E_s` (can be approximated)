@@ -1,0 +1,37 @@
+# Intelligence Layer Blueprint
+
+## Purpose
+
+Define the Field Intelligence functional `I_field[x]`.
+
+## Concept
+
+Field Intelligence measures how well a field configuration:
+
+- maintains structure under perturbation (stability)
+- reconfigures under change (adaptability)
+- avoids single points of failure (redundancy)
+- persists over long time (persistence)
+
+## Example Structure
+
+\[
+I_{\text{field}}[x] =
+w_1 S_{\text{stab}}[x]
++ w_2 S_{\text{adapt}}[x]
++ w_3 S_{\text{redund}}[x]
++ w_4 S_{\text{persist}}[x]
+\]
+
+Where each `S_*` is a scalar metric computed from simulation trajectories.
+
+## Responsibilities
+
+- Define metrics for:
+  - stability
+  - adaptability
+  - redundancy
+  - persistence
+- Output:
+  - scalar `I_field`
+  - conceptual gradients wrt `s` and `E_s` (can be approximated)
