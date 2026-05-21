@@ -1,0 +1,7 @@
+namespace Blackwell.OS.Diagnostics;
+
+public sealed class BrandDiagnostics
+{
+    public float BrandRecognition { get; init; } = 0.5f;
+    public float ClarityScore { get; init; } = 0.5f;
+}
