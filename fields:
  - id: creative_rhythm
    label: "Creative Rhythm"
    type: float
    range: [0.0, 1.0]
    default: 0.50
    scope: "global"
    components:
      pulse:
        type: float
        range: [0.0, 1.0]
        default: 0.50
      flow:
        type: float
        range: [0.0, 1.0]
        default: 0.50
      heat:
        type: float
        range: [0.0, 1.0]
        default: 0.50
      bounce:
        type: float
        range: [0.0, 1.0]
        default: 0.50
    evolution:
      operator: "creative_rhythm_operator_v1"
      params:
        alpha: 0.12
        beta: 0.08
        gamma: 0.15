@@ -1,0 +1,30 @@
+fields:
+  - id: creative_rhythm
+    label: "Creative Rhythm"
+    type: float
+    range: [0.0, 1.0]
+    default: 0.50
+    scope: "global"
+    components:
+      pulse:
+        type: float
+        range: [0.0, 1.0]
+        default: 0.50
+      flow:
+        type: float
+        range: [0.0, 1.0]
+        default: 0.50
+      heat:
+        type: float
+        range: [0.0, 1.0]
+        default: 0.50
+      bounce:
+        type: float
+        range: [0.0, 1.0]
+        default: 0.50
+    evolution:
+      operator: "creative_rhythm_operator_v1"
+      params:
+        alpha: 0.12
+        beta: 0.08
+        gamma: 0.15
