@@ -1,0 +1,9 @@
+namespace Blackwell.CreativeEngine.Ingestion;
+
+public sealed record CreativeInput(
+    Scene[] Scenes,
+    AudioBeat[] Beats,
+    VisualMotif[] Motifs,
+    StyleSignature Style,
+    NarrativeCandidate[] Candidates
+);
