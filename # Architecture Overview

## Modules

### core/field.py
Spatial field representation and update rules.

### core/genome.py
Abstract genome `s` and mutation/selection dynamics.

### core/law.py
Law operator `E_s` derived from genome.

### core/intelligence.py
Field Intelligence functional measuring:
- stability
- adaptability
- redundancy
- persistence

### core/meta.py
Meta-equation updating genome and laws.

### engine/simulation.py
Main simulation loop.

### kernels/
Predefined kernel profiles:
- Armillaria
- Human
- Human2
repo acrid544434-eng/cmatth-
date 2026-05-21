@@ -1,0 +1,31 @@
+# Architecture Overview
+
+## Modules
+
+### core/field.py
+Spatial field representation and update rules.
+
+### core/genome.py
+Abstract genome `s` and mutation/selection dynamics.
+
+### core/law.py
+Law operator `E_s` derived from genome.
+
+### core/intelligence.py
+Field Intelligence functional measuring:
+- stability
+- adaptability
+- redundancy
+- persistence
+
+### core/meta.py
+Meta-equation updating genome and laws.
+
+### engine/simulation.py
+Main simulation loop.
+
+### kernels/
+Predefined kernel profiles:
+- Armillaria
+- Human
+- Human2
