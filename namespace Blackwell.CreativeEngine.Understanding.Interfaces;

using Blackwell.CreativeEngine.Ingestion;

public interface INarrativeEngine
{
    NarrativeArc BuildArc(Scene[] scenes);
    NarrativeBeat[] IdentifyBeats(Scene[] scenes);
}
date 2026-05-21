@@ -1,0 +1,9 @@
+namespace Blackwell.CreativeEngine.Understanding.Interfaces;
+
+using Blackwell.CreativeEngine.Ingestion;
+
+public interface INarrativeEngine
+{
+    NarrativeArc BuildArc(Scene[] scenes);
+    NarrativeBeat[] IdentifyBeats(Scene[] scenes);
+}
