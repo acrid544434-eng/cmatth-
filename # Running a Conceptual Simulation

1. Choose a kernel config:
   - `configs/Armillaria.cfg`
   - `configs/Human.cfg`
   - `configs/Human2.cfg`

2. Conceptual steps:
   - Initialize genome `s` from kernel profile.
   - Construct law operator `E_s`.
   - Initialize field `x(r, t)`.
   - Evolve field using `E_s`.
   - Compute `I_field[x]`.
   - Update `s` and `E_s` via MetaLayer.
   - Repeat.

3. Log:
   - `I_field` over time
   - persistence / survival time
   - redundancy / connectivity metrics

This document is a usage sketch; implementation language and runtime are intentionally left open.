@@ -1,0 +1,22 @@
+# Running a Conceptual Simulation
+
+1. Choose a kernel config:
+   - `configs/Armillaria.cfg`
+   - `configs/Human.cfg`
+   - `configs/Human2.cfg`
+
+2. Conceptual steps:
+   - Initialize genome `s` from kernel profile.
+   - Construct law operator `E_s`.
+   - Initialize field `x(r, t)`.
+   - Evolve field using `E_s`.
+   - Compute `I_field[x]`.
+   - Update `s` and `E_s` via MetaLayer.
+   - Repeat.
+
+3. Log:
+   - `I_field` over time
+   - persistence / survival time
+   - redundancy / connectivity metrics
+
+This document is a usage sketch; implementation language and runtime are intentionally left open.
