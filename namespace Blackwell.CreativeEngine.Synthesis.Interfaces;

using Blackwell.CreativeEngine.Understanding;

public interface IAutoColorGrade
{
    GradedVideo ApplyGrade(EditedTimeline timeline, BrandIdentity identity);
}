@@ -1,0 +1,8 @@
+namespace Blackwell.CreativeEngine.Synthesis.Interfaces;
+
+using Blackwell.CreativeEngine.Understanding;
+
+public interface IAutoColorGrade
+{
+    GradedVideo ApplyGrade(EditedTimeline timeline, BrandIdentity identity);
+}
