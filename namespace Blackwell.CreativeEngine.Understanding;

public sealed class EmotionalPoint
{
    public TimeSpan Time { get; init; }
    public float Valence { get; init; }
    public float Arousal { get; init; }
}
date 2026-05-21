@@ -1,0 +1,8 @@
+namespace Blackwell.CreativeEngine.Understanding;
+
+public sealed class EmotionalPoint
+{
+    public TimeSpan Time { get; init; }
+    public float Valence { get; init; }
+    public float Arousal { get; init; }
+}
