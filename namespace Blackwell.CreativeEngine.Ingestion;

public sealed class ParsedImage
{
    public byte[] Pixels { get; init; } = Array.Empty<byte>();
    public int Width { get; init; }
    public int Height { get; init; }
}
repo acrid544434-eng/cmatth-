@@ -1,0 +1,8 @@
+namespace Blackwell.CreativeEngine.Ingestion;
+
+public sealed class ParsedImage
+{
+    public byte[] Pixels { get; init; } = Array.Empty<byte>();
+    public int Width { get; init; }
+    public int Height { get; init; }
+}
