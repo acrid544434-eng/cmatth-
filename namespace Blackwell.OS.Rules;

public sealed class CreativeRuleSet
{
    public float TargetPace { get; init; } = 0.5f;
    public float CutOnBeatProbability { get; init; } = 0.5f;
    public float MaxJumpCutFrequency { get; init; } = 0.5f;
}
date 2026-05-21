@@ -1,0 +1,8 @@
+namespace Blackwell.OS.Rules;
+
+public sealed class CreativeRuleSet
+{
+    public float TargetPace { get; init; } = 0.5f;
+    public float CutOnBeatProbability { get; init; } = 0.5f;
+    public float MaxJumpCutFrequency { get; init; } = 0.5f;
+}
