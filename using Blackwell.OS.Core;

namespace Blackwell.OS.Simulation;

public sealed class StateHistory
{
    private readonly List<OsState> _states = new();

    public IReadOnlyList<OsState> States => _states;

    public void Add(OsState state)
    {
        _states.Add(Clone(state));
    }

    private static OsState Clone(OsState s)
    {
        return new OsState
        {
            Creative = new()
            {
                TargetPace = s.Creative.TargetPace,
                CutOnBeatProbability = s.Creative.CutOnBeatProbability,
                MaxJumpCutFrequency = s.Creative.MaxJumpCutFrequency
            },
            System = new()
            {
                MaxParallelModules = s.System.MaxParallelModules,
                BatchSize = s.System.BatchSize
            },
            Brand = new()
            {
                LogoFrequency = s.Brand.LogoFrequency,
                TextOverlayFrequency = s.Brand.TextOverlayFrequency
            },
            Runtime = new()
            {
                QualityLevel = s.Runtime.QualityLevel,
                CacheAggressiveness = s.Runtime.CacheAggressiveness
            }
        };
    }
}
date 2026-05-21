@@ -1,0 +1,43 @@
+using Blackwell.OS.Core;
+
+namespace Blackwell.OS.Simulation;
+
+public sealed class StateHistory
+{
+    private readonly List<OsState> _states = new();
+
+    public IReadOnlyList<OsState> States => _states;
+
+    public void Add(OsState state)
+    {
+        _states.Add(Clone(state));
+    }
+
+    private static OsState Clone(OsState s)
+    {
+        return new OsState
+        {
+            Creative = new()
+            {
+                TargetPace = s.Creative.TargetPace,
+                CutOnBeatProbability = s.Creative.CutOnBeatProbability,
+                MaxJumpCutFrequency = s.Creative.MaxJumpCutFrequency
+            },
+            System = new()
+            {
+                MaxParallelModules = s.System.MaxParallelModules,
+                BatchSize = s.System.BatchSize
+            },
+            Brand = new()
+            {
+                LogoFrequency = s.Brand.LogoFrequency,
+                TextOverlayFrequency = s.Brand.TextOverlayFrequency
+            },
+            Runtime = new()
+            {
+                QualityLevel = s.Runtime.QualityLevel,
+                CacheAggressiveness = s.Runtime.CacheAggressiveness
+            }
+        };
+    }
+}
