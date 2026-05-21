@@ -1,0 +1,9 @@
+namespace Blackwell.OS.Core;
+
+public sealed class OsState
+{
+    public CreativeRuleSet Creative { get; init; } = new();
+    public SystemRuleSet System { get; init; } = new();
+    public BrandRuleSet Brand { get; init; } = new();
+    public RuntimeRuleSet Runtime { get; init; } = new();
+}
