@@ -1,0 +1,9 @@
+namespace Blackwell.CreativeEngine.Understanding;
+
+public sealed class VisualLanguage
+{
+    public float AverageShotLength { get; init; }
+    public float HandheldRatio { get; init; }
+    public float SymmetryScore { get; init; }
+    public float TextOverlayDensity { get; init; }
+}
