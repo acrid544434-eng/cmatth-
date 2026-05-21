@@ -1,0 +1,10 @@
+namespace Blackwell.CreativeEngine.Synthesis;
+
+public sealed class ColorGradeSettings
+{
+    public float Exposure { get; init; }
+    public float Contrast { get; init; }
+    public float Saturation { get; init; }
+    public float Temperature { get; init; }
+    public float Tint { get; init; }
+}
