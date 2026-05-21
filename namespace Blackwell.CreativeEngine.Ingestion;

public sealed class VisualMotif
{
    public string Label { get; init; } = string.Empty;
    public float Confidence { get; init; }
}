@@ -1,0 +1,7 @@
+namespace Blackwell.CreativeEngine.Ingestion;
+
+public sealed class VisualMotif
+{
+    public string Label { get; init; } = string.Empty;
+    public float Confidence { get; init; }
+}
