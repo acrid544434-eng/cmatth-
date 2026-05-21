@@ -1,0 +1,25 @@
+# Blackwell Meta-Equation Engine
+**Author:** C. Matthew Blackwell — Independent Designer  
+**Blueprint Simulation Software Design**
+
+This engine implements a two-tier evolutionary system:
+
+## 1. Node Equation Layer
+A unified rule applied to all nodes:
+\[
+x_i(t+1) = F_t(x_i(t), \{x_j(t)\}, \Phi(t))
+\]
+
+## 2. Meta-Equation Layer
+The rule that evolves the rule:
+\[
+F_{t+1} = \mathcal{M}(F_t, \Psi(t), \Phi(t))
+\]
+
+Where:
+- **\(F_t\)** — node equation at time t  
+- **\(\Psi(t)\)** — diagnostics (variance, drift, tension, chaos)  
+- **\(\Phi(t)\)** — global field  
+- **\(\mathcal{M}\)** — meta-equation operator  
+
+## Repository Structure
