@@ -1,0 +1,10 @@
+namespace Blackwell.CreativeEngine.Ingestion.Interfaces;
+
+using Blackwell.CreativeEngine.Ingestion;
+
+public interface ISemanticExtractor
+{
+    Scene[] ExtractScenes(ParsedVideo video);
+    Topic[] ExtractTopics(ParsedAudio audio);
+    VisualMotif[] ExtractMotifs(ParsedVideo video);
+}
