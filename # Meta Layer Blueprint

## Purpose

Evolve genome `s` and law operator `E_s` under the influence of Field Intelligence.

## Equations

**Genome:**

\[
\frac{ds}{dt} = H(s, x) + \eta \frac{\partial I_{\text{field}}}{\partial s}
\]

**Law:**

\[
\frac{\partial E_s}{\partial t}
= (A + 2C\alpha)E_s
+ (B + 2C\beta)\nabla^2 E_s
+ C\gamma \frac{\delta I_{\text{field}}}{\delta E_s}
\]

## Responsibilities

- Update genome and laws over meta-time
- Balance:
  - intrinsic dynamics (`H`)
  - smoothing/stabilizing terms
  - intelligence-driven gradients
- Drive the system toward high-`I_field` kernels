@@ -1,0 +1,31 @@
+# Meta Layer Blueprint
+
+## Purpose
+
+Evolve genome `s` and law operator `E_s` under the influence of Field Intelligence.
+
+## Equations
+
+**Genome:**
+
+\[
+\frac{ds}{dt} = H(s, x) + \eta \frac{\partial I_{\text{field}}}{\partial s}
+\]
+
+**Law:**
+
+\[
+\frac{\partial E_s}{\partial t}
+= (A + 2C\alpha)E_s
++ (B + 2C\beta)\nabla^2 E_s
++ C\gamma \frac{\delta I_{\text{field}}}{\delta E_s}
+\]
+
+## Responsibilities
+
+- Update genome and laws over meta-time
+- Balance:
+  - intrinsic dynamics (`H`)
+  - smoothing/stabilizing terms
+  - intelligence-driven gradients
+- Drive the system toward high-`I_field` kernels
