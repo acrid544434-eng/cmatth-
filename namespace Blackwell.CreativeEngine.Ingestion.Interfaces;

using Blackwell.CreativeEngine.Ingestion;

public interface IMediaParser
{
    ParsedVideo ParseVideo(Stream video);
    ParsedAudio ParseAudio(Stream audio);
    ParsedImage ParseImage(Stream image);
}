@@ -1,0 +1,10 @@
+namespace Blackwell.CreativeEngine.Ingestion.Interfaces;
+
+using Blackwell.CreativeEngine.Ingestion;
+
+public interface IMediaParser
+{
+    ParsedVideo ParseVideo(Stream video);
+    ParsedAudio ParseAudio(Stream audio);
+    ParsedImage ParseImage(Stream image);
+}
