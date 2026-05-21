@@ -1,0 +1,10 @@
+namespace Blackwell.CreativeEngine.Ingestion;
+
+public sealed class MediaBundle
+{
+    public Stream? Video { get; init; }
+    public Stream? Audio { get; init; }
+    public Stream[] Images { get; init; } = Array.Empty<Stream>();
+    public string? ScriptText { get; init; }
+    public string? Notes { get; init; }
+}
