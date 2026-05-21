@@ -1,0 +1,11 @@
+namespace Blackwell.CreativeEngine.Synthesis;
+
+public sealed record CreativeOutput(
+    FinalVideo Video,
+    Thumbnail Thumbnail,
+    string Title,
+    string Description,
+    string[] Tags,
+    Chapter[] Chapters,
+    BrandAssets Assets
+);
