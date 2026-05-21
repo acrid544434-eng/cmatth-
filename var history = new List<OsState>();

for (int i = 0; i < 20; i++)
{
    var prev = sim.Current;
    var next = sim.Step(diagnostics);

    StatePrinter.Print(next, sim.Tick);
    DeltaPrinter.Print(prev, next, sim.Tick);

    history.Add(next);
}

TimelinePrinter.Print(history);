@@ -1,0 +1,14 @@
+var history = new List<OsState>();
+
+for (int i = 0; i < 20; i++)
+{
+    var prev = sim.Current;
+    var next = sim.Step(diagnostics);
+
+    StatePrinter.Print(next, sim.Tick);
+    DeltaPrinter.Print(prev, next, sim.Tick);
+
+    history.Add(next);
+}
+
+TimelinePrinter.Print(history);
