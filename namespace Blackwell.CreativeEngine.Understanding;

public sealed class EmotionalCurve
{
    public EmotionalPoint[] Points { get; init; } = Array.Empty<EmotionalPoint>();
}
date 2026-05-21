@@ -1,0 +1,6 @@
+namespace Blackwell.CreativeEngine.Understanding;
+
+public sealed class EmotionalCurve
+{
+    public EmotionalPoint[] Points { get; init; } = Array.Empty<EmotionalPoint>();
+}
