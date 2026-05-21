@@ -1,0 +1,22 @@
+using Blackwell.OS.Core;
+using Blackwell.OS.Operators;
+
+namespace Blackwell.OS;
+
+public static class Program
+{
+    public static void Main(string[] args)
+    {
+        var initial = new OsState();
+        var diagnostics = new OsDiagnostics();
+
+        var op = new UnifiedOsOperator();
+        var sim = new OsSimulationEngine(op, initial);
+
+        for (int i = 0; i < 10; i++)
+        {
+            var state = sim.Step(diagnostics);
+            Console.WriteLine($"Tick {sim.Tick}: {state.GetType().Name}");
+        }
+    }
+}
