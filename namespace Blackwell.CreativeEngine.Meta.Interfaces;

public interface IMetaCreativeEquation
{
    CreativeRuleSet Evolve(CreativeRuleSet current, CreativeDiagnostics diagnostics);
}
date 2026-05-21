@@ -1,0 +1,6 @@
+namespace Blackwell.CreativeEngine.Meta.Interfaces;
+
+public interface IMetaCreativeEquation
+{
+    CreativeRuleSet Evolve(CreativeRuleSet current, CreativeDiagnostics diagnostics);
+}
