@@ -1,0 +1,9 @@
+namespace Blackwell.CreativeEngine.Meta.Interfaces;
+
+public interface ICreativeRuleSet
+{
+    EditingRules Editing { get; }
+    ColorRules Color { get; }
+    RhythmRules Rhythm { get; }
+    BrandingRules Branding { get; }
+}
