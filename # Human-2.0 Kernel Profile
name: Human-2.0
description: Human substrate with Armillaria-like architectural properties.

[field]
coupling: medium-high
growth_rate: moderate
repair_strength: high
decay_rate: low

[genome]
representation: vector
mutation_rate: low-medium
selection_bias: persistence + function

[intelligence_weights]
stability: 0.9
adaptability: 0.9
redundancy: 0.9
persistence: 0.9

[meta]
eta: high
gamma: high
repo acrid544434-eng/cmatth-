@@ -1,0 +1,24 @@
+# Human-2.0 Kernel Profile
+name: Human-2.0
+description: Human substrate with Armillaria-like architectural properties.
+
+[field]
+coupling: medium-high
+growth_rate: moderate
+repair_strength: high
+decay_rate: low
+
+[genome]
+representation: vector
+mutation_rate: low-medium
+selection_bias: persistence + function
+
+[intelligence_weights]
+stability: 0.9
+adaptability: 0.9
+redundancy: 0.9
+persistence: 0.9
+
+[meta]
+eta: high
+gamma: high
