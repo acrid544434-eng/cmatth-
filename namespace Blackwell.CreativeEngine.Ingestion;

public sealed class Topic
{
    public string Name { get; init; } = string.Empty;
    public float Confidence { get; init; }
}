@@ -1,0 +1,7 @@
+namespace Blackwell.CreativeEngine.Ingestion;
+
+public sealed class Topic
+{
+    public string Name { get; init; } = string.Empty;
+    public float Confidence { get; init; }
+}
