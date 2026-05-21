@@ -1,0 +1,8 @@
+namespace Blackwell.CreativeEngine.Understanding;
+
+using Blackwell.CreativeEngine.Ingestion;
+
+public sealed class BeatMap
+{
+    public AudioBeat[] Beats { get; init; } = Array.Empty<AudioBeat>();
+}
