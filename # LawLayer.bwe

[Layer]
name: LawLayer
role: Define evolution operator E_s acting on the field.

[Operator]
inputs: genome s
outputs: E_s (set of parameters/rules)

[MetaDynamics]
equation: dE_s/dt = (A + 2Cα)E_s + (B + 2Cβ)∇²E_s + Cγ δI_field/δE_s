@@ -1,0 +1,12 @@
+# LawLayer.bwe
+
+[Layer]
+name: LawLayer
+role: Define evolution operator E_s acting on the field.
+
+[Operator]
+inputs: genome s
+outputs: E_s (set of parameters/rules)
+
+[MetaDynamics]
+equation: dE_s/dt = (A + 2Cα)E_s + (B + 2Cβ)∇²E_s + Cγ δI_field/δE_s
