@@ -1,0 +1,23 @@
+namespace Blackwell.OS.Core;
+
+public sealed class OsSimulationEngine
+{
+    private readonly IOsMetaOperator _operator;
+
+    public OsState Current { get; private set; }
+    public int Tick { get; private set; }
+
+    public OsSimulationEngine(IOsMetaOperator op, OsState initial)
+    {
+        _operator = op;
+        Current = initial;
+        Tick = 0;
+    }
+
+    public OsState Step(OsDiagnostics diagnostics)
+    {
+        Current = _operator.Evolve(Current, diagnostics);
+        Tick++;
+        return Current;
+    }
+}
