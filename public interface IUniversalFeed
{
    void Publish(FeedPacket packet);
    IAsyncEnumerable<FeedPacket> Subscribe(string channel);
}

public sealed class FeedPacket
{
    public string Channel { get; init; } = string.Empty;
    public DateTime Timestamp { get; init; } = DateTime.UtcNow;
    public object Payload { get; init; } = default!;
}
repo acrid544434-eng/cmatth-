@@ -1,0 +1,12 @@
+public interface IUniversalFeed
+{
+    void Publish(FeedPacket packet);
+    IAsyncEnumerable<FeedPacket> Subscribe(string channel);
+}
+
+public sealed class FeedPacket
+{
+    public string Channel { get; init; } = string.Empty;
+    public DateTime Timestamp { get; init; } = DateTime.UtcNow;
+    public object Payload { get; init; } = default!;
+}
