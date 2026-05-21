@@ -1,0 +1,13 @@
+diagnostics:
+  - id: error_rate
+    type: float
+    range: [0.0, 1.0]
+  - id: recovery_speed
+    type: float
+    range: [0.0, 1.0]
+  - id: novelty_score
+    type: float
+    range: [0.0, 1.0]
+  - id: coherence_score
+    type: float
+    range: [0.0, 1.0]
