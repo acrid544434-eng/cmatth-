@@ -1,0 +1,7 @@
+namespace Blackwell.OS.Rules;
+
+public sealed class SystemRuleSet
+{
+    public int MaxParallelModules { get; init; } = 4;
+    public int BatchSize { get; init; } = 32;
+}
