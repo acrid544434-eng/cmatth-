@@ -1,0 +1,11 @@
+namespace Blackwell.CreativeEngine.Synthesis.Interfaces;
+
+using Blackwell.CreativeEngine.Understanding;
+
+public interface IAutoMetadata
+{
+    string GenerateTitle(CreativeIntelligence intelligence);
+    string GenerateDescription(CreativeIntelligence intelligence);
+    string[] GenerateTags(CreativeIntelligence intelligence);
+    Chapter[] GenerateChapters(NarrativeArc arc);
+}
