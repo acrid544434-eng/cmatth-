@@ -1,0 +1,44 @@
+blackwell-creative-engine/
+├─ README.md
+├─ LICENSE
+├─ .gitignore
+├─ src/
+│  ├─ Blackwell.CreativeEngine.csproj
+│  ├─ Program.cs
+│  ├─ Engine/
+│  │  ├─ ICreativeEngine.cs
+│  │  ├─ CreativeEngine.cs
+│  ├─ Ingestion/
+│  │  ├─ MediaBundle.cs
+│  │  ├─ ParsedVideo.cs
+│  │  ├─ ParsedAudio.cs
+│  │  ├─ ParsedImage.cs
+│  │  ├─ Scene.cs
+│  │  ├─ Topic.cs
+│  │  ├─ AudioBeat.cs
+│  │  ├─ VisualMotif.cs
+│  │  ├─ StyleSignature.cs
+│  │  ├─ NarrativeCandidate.cs
+│  │  ├─ CreativeInput.cs
+│  │  ├─ Interfaces/
+│  │  │  ├─ IMediaParser.cs
+│  │  │  ├─ ISemanticExtractor.cs
+│  │  │  ├─ IStyleFingerprint.cs
+│  ├─ Understanding/
+│  │  ├─ NarrativeArc.cs
+│  │  ├─ NarrativeBeat.cs
+│  │  ├─ EmotionalCurve.cs
+│  │  ├─ EmotionalPoint.cs
+│  │  ├─ VisualLanguage.cs
+│  │  ├─ BeatMap.cs
+│  │  ├─ BrandIdentity.cs
+│  │  ├─ CreativeIntelligence.cs
+│  │  ├─ Interfaces/
+│  │  │  ├─ INarrativeEngine.cs
+│  │  │  ├─ IEmotionalCurveAnalyzer.cs
+│  │  │  ├─ IVisualGrammarEngine.cs
+│  │  │  ├─ IAudioRhythmEngine.cs
+│  │  │  ├─ IBrandIdentityEngine.cs
+│  ├─ Synthesis/
+│  │  ├─ EditedTimeline.cs
+│  │  ├─ TimelineClip
