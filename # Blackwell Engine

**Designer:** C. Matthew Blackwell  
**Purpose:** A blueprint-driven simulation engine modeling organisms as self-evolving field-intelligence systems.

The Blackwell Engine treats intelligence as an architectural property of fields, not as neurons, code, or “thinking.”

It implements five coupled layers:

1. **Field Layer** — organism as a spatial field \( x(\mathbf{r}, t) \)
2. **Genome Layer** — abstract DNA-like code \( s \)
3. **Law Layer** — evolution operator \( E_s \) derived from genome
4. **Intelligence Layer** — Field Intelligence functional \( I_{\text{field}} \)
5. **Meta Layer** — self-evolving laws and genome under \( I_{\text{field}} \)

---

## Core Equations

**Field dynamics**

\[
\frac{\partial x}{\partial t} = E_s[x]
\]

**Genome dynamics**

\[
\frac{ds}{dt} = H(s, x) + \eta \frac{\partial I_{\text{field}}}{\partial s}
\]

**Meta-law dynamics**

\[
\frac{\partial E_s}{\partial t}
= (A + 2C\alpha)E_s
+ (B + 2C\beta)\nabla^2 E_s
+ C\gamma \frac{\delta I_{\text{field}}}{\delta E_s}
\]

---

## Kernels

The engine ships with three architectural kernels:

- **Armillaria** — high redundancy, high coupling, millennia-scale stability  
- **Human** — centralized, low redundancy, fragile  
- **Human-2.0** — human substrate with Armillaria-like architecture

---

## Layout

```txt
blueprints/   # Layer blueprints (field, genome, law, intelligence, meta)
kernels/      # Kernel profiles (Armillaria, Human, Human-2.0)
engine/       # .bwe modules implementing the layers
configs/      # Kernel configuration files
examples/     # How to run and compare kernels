@@ -1,0 +1,60 @@
+# Blackwell Engine
+
+**Designer:** C. Matthew Blackwell  
+**Purpose:** A blueprint-driven simulation engine modeling organisms as self-evolving field-intelligence systems.
+
+The Blackwell Engine treats intelligence as an architectural property of fields, not as neurons, code, or “thinking.”
+
+It implements five coupled layers:
+
+1. **Field Layer** — organism as a spatial field \( x(\mathbf{r}, t) \)
+2. **Genome Layer** — abstract DNA-like code \( s \)
+3. **Law Layer** — evolution operator \( E_s \) derived from genome
+4. **Intelligence Layer** — Field Intelligence functional \( I_{\text{field}} \)
+5. **Meta Layer** — self-evolving laws and genome under \( I_{\text{field}} \)
+
+---
+
+## Core Equations
+
+**Field dynamics**
+
+\[
+\frac{\partial x}{\partial t} = E_s[x]
+\]
+
+**Genome dynamics**
+
+\[
+\frac{ds}{dt} = H(s, x) + \eta \frac{\partial I_{\text{field}}}{\partial s}
+\]
+
+**Meta-law dynamics**
+
+\[
+\frac{\partial E_s}{\partial t}
+= (A + 2C\alpha)E_s
++ (B + 2C\beta)\nabla^2 E_s
++ C\gamma \frac{\delta I_{\text{field}}}{\delta E_s}
+\]
+
+---
+
+## Kernels
+
+The engine ships with three architectural kernels:
+
+- **Armillaria** — high redundancy, high coupling, millennia-scale stability  
+- **Human** — centralized, low redundancy, fragile  
+- **Human-2.0** — human substrate with Armillaria-like architecture
+
+---
+
+## Layout
+
+```txt
+blueprints/   # Layer blueprints (field, genome, law, intelligence, meta)
+kernels/      # Kernel profiles (Armillaria, Human, Human-2.0)
+engine/       # .bwe modules implementing the layers
+configs/      # Kernel configuration files
+examples/     # How to run and compare kernels
