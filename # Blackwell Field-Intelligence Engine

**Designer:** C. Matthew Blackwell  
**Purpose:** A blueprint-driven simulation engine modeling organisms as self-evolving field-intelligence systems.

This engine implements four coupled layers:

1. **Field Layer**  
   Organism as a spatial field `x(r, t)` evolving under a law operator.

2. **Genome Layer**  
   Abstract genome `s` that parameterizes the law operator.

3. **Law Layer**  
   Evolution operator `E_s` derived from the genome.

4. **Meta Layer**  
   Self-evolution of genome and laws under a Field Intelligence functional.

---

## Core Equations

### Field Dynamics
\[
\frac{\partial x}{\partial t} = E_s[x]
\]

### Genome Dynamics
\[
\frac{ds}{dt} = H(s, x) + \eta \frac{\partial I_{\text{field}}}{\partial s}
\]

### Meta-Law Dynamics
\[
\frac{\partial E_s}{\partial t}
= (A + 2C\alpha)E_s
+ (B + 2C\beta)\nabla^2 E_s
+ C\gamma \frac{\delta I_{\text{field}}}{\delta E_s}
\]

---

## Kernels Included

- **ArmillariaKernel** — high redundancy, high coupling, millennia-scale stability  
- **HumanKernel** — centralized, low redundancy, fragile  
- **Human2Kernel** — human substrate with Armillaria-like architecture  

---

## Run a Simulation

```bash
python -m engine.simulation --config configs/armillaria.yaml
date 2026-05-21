@@ -1,0 +1,55 @@
+# Blackwell Field-Intelligence Engine
+
+**Designer:** C. Matthew Blackwell  
+**Purpose:** A blueprint-driven simulation engine modeling organisms as self-evolving field-intelligence systems.
+
+This engine implements four coupled layers:
+
+1. **Field Layer**  
+   Organism as a spatial field `x(r, t)` evolving under a law operator.
+
+2. **Genome Layer**  
+   Abstract genome `s` that parameterizes the law operator.
+
+3. **Law Layer**  
+   Evolution operator `E_s` derived from the genome.
+
+4. **Meta Layer**  
+   Self-evolution of genome and laws under a Field Intelligence functional.
+
+---
+
+## Core Equations
+
+### Field Dynamics
+\[
+\frac{\partial x}{\partial t} = E_s[x]
+\]
+
+### Genome Dynamics
+\[
+\frac{ds}{dt} = H(s, x) + \eta \frac{\partial I_{\text{field}}}{\partial s}
+\]
+
+### Meta-Law Dynamics
+\[
+\frac{\partial E_s}{\partial t}
+= (A + 2C\alpha)E_s
++ (B + 2C\beta)\nabla^2 E_s
++ C\gamma \frac{\delta I_{\text{field}}}{\delta E_s}
+\]
+
+---
+
+## Kernels Included
+
+- **ArmillariaKernel** — high redundancy, high coupling, millennia-scale stability  
+- **HumanKernel** — centralized, low redundancy, fragile  
+- **Human2Kernel** — human substrate with Armillaria-like architecture  
+
+---
+
+## Run a Simulation
+
+```bash
+python -m engine.simulation --config configs/armillaria.yaml
