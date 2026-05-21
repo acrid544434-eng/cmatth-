@@ -1,0 +1,7 @@
+namespace Blackwell.CreativeEngine.Ingestion;
+
+public sealed class AudioBeat
+{
+    public TimeSpan Time { get; init; }
+    public float Strength { get; init; }
+}
