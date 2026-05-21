@@ -1,0 +1,7 @@
+namespace Blackwell.OS.Rules;
+
+public sealed class BrandRuleSet
+{
+    public float LogoFrequency { get; init; } = 0.5f;
+    public float TextOverlayFrequency { get; init; } = 0.5f;
+}
