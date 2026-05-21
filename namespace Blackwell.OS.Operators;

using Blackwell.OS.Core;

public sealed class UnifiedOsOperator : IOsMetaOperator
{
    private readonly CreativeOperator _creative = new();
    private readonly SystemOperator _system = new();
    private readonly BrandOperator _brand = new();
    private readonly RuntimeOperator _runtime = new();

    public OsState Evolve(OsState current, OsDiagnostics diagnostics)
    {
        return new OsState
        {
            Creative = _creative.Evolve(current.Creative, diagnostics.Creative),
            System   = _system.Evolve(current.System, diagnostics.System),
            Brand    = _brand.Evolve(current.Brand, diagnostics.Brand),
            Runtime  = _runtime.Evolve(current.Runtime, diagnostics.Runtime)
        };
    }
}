@@ -1,0 +1,22 @@
+namespace Blackwell.OS.Operators;
+
+using Blackwell.OS.Core;
+
+public sealed class UnifiedOsOperator : IOsMetaOperator
+{
+    private readonly CreativeOperator _creative = new();
+    private readonly SystemOperator _system = new();
+    private readonly BrandOperator _brand = new();
+    private readonly RuntimeOperator _runtime = new();
+
+    public OsState Evolve(OsState current, OsDiagnostics diagnostics)
+    {
+        return new OsState
+        {
+            Creative = _creative.Evolve(current.Creative, diagnostics.Creative),
+            System   = _system.Evolve(current.System, diagnostics.System),
+            Brand    = _brand.Evolve(current.Brand, diagnostics.Brand),
+            Runtime  = _runtime.Evolve(current.Runtime, diagnostics.Runtime)
+        };
+    }
+}
