@@ -1,0 +1,8 @@
+namespace Blackwell.CreativeEngine.Meta;
+
+public sealed class EditingRules
+{
+    public float TargetPace { get; init; }
+    public float CutOnBeatProbability { get; init; }
+    public float MaxJumpCutFrequency { get; init; }
+}
