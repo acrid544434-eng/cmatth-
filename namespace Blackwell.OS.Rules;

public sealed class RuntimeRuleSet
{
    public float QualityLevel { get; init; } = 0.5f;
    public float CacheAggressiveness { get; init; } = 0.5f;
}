@@ -1,0 +1,7 @@
+namespace Blackwell.OS.Rules;
+
+public sealed class RuntimeRuleSet
+{
+    public float QualityLevel { get; init; } = 0.5f;
+    public float CacheAggressiveness { get; init; } = 0.5f;
+}
