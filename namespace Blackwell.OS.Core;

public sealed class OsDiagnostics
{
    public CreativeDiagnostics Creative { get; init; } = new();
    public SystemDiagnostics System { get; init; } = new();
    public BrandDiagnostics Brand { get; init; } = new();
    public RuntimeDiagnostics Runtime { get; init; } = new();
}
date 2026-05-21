@@ -1,0 +1,9 @@
+namespace Blackwell.OS.Core;
+
+public sealed class OsDiagnostics
+{
+    public CreativeDiagnostics Creative { get; init; } = new();
+    public SystemDiagnostics System { get; init; } = new();
+    public BrandDiagnostics Brand { get; init; } = new();
+    public RuntimeDiagnostics Runtime { get; init; } = new();
+}
