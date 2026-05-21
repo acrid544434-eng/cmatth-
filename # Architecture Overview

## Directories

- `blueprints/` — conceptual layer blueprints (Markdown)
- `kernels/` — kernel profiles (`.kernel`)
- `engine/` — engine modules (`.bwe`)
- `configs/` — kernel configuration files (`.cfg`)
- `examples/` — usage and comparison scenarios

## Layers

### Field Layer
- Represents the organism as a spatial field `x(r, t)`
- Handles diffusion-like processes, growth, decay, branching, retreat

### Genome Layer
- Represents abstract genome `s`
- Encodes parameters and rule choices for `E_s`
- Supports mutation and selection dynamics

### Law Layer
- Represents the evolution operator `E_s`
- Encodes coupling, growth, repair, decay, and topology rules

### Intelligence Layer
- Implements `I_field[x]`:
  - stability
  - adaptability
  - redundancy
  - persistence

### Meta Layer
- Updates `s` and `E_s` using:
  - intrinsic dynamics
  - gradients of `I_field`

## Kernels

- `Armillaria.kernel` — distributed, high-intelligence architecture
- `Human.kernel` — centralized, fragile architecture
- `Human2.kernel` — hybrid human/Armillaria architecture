@@ -1,0 +1,42 @@
+# Architecture Overview
+
+## Directories
+
+- `blueprints/` — conceptual layer blueprints (Markdown)
+- `kernels/` — kernel profiles (`.kernel`)
+- `engine/` — engine modules (`.bwe`)
+- `configs/` — kernel configuration files (`.cfg`)
+- `examples/` — usage and comparison scenarios
+
+## Layers
+
+### Field Layer
+- Represents the organism as a spatial field `x(r, t)`
+- Handles diffusion-like processes, growth, decay, branching, retreat
+
+### Genome Layer
+- Represents abstract genome `s`
+- Encodes parameters and rule choices for `E_s`
+- Supports mutation and selection dynamics
+
+### Law Layer
+- Represents the evolution operator `E_s`
+- Encodes coupling, growth, repair, decay, and topology rules
+
+### Intelligence Layer
+- Implements `I_field[x]`:
+  - stability
+  - adaptability
+  - redundancy
+  - persistence
+
+### Meta Layer
+- Updates `s` and `E_s` using:
+  - intrinsic dynamics
+  - gradients of `I_field`
+
+## Kernels
+
+- `Armillaria.kernel` — distributed, high-intelligence architecture
+- `Human.kernel` — centralized, fragile architecture
+- `Human2.kernel` — hybrid human/Armillaria architecture
