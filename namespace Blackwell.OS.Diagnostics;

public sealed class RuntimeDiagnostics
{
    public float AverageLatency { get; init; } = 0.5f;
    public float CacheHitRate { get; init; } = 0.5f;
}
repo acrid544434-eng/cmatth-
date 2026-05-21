@@ -1,0 +1,7 @@
+namespace Blackwell.OS.Diagnostics;
+
+public sealed class RuntimeDiagnostics
+{
+    public float AverageLatency { get; init; } = 0.5f;
+    public float CacheHitRate { get; init; } = 0.5f;
+}
