@@ -1,0 +1,28 @@
+using Blackwell.OS.Core;
+
+namespace Blackwell.OS.Visualization;
+
+public static class StatePrinter
+{
+    public static void Print(OsState state, int tick)
+    {
+        Console.WriteLine($"\n=== OS STATE @ TICK {tick} ===");
+
+        Console.WriteLine("\n[CREATIVE]");
+        Console.WriteLine($"  Pace:           {state.Creative.TargetPace:F3}");
+        Console.WriteLine($"  Beat Sync:      {state.Creative.CutOnBeatProbability:F3}");
+        Console.WriteLine($"  Jump Cuts:      {state.Creative.MaxJumpCutFrequency:F3}");
+
+        Console.WriteLine("\n[SYSTEM]");
+        Console.WriteLine($"  Parallel Mods:  {state.System.MaxParallelModules}");
+        Console.WriteLine($"  Batch Size:     {state.System.BatchSize}");
+
+        Console.WriteLine("\n[BRAND]");
+        Console.WriteLine($"  Logo Freq:      {state.Brand.LogoFrequency:F3}");
+        Console.WriteLine($"  Text Freq:      {state.Brand.TextOverlayFrequency:F3}");
+
+        Console.WriteLine("\n[RUNTIME]");
+        Console.WriteLine($"  Quality:        {state.Runtime.QualityLevel:F3}");
+        Console.WriteLine($"  Cache:          {state.Runtime.CacheAggressiveness:F3}");
+    }
+}
