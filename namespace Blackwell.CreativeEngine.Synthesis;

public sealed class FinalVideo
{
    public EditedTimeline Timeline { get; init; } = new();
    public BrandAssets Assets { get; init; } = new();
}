@@ -1,0 +1,7 @@
+namespace Blackwell.CreativeEngine.Synthesis;
+
+public sealed class FinalVideo
+{
+    public EditedTimeline Timeline { get; init; } = new();
+    public BrandAssets Assets { get; init; } = new();
+}
