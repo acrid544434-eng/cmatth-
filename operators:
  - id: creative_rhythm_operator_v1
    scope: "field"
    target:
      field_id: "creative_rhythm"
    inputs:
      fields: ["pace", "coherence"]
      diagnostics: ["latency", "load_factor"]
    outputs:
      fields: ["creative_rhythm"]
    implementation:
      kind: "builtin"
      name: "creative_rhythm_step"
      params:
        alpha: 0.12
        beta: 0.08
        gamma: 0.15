@@ -1,0 +1,17 @@
+operators:
+  - id: creative_rhythm_operator_v1
+    scope: "field"
+    target:
+      field_id: "creative_rhythm"
+    inputs:
+      fields: ["pace", "coherence"]
+      diagnostics: ["latency", "load_factor"]
+    outputs:
+      fields: ["creative_rhythm"]
+    implementation:
+      kind: "builtin"
+      name: "creative_rhythm_step"
+      params:
+        alpha: 0.12
+        beta: 0.08
+        gamma: 0.15
