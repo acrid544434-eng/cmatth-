@@ -1,0 +1,23 @@
+entities:
+  - id: os_organism
+    label: "Blackwell OS Organism"
+    spawn:
+      count: 1
+      placement: "global"
+    state:
+      - id: focus
+        type: float
+        range: [0.0, 1.0]
+        default: 0.5
+      - id: load
+        type: float
+        range: [0.0, 1.0]
+        default: 0.2
+      - id: introspection_level
+        type: float
+        range: [0.0, 1.0]
+        default: 0.3
+    components:
+      - type: scheduler_core
+      - type: creative_core
+      - type: diagnostics_core
