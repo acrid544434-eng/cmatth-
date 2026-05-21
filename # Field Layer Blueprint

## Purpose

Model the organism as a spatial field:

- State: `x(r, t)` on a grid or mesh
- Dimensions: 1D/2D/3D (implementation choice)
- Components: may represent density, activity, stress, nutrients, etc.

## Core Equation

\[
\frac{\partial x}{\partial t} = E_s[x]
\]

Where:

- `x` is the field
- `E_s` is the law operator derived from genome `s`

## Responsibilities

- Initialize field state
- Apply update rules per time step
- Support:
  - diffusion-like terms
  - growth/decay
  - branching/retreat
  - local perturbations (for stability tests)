@@ -1,0 +1,30 @@
+# Field Layer Blueprint
+
+## Purpose
+
+Model the organism as a spatial field:
+
+- State: `x(r, t)` on a grid or mesh
+- Dimensions: 1D/2D/3D (implementation choice)
+- Components: may represent density, activity, stress, nutrients, etc.
+
+## Core Equation
+
+\[
+\frac{\partial x}{\partial t} = E_s[x]
+\]
+
+Where:
+
+- `x` is the field
+- `E_s` is the law operator derived from genome `s`
+
+## Responsibilities
+
+- Initialize field state
+- Apply update rules per time step
+- Support:
+  - diffusion-like terms
+  - growth/decay
+  - branching/retreat
+  - local perturbations (for stability tests)
