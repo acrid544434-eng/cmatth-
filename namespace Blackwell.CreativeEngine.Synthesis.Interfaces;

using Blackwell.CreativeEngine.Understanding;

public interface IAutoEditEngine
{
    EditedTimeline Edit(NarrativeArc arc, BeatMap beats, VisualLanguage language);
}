@@ -1,0 +1,8 @@
+namespace Blackwell.CreativeEngine.Synthesis.Interfaces;
+
+using Blackwell.CreativeEngine.Understanding;
+
+public interface IAutoEditEngine
+{
+    EditedTimeline Edit(NarrativeArc arc, BeatMap beats, VisualLanguage language);
+}
