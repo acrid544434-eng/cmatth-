@@ -1,0 +1,8 @@
+namespace Blackwell.OS.Diagnostics;
+
+public sealed class CreativeDiagnostics
+{
+    public float EngagementScore { get; init; } = 0.5f;
+    public float EmotionalResonance { get; init; } = 0.5f;
+    public float NarrativeClarity { get; init; } = 0.5f;
+}
