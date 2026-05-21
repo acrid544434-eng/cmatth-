@@ -1,0 +1,16 @@
+# GenomeLayer.bwe
+
+[Layer]
+name: GenomeLayer
+role: Represent abstract genome s and its dynamics.
+
+[State]
+representation: vector or bitstring
+length: configurable
+
+[Dynamics]
+equation: ds/dt = H(s, x) + eta * dI_field/ds
+supports:
+  - mutation
+  - recombination (optional)
+  - selection bias (kernel-dependent)
