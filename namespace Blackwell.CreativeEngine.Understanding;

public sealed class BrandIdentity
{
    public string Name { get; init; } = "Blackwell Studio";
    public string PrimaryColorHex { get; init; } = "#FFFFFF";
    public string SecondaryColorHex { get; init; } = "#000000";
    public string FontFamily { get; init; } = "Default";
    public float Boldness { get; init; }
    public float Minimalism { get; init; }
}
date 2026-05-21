@@ -1,0 +1,11 @@
+namespace Blackwell.CreativeEngine.Understanding;
+
+public sealed class BrandIdentity
+{
+    public string Name { get; init; } = "Blackwell Studio";
+    public string PrimaryColorHex { get; init; } = "#FFFFFF";
+    public string SecondaryColorHex { get; init; } = "#000000";
+    public string FontFamily { get; init; } = "Default";
+    public float Boldness { get; init; }
+    public float Minimalism { get; init; }
+}
