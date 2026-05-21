@@ -1,0 +1,28 @@
+fields:
+  - id: intel_cognitive
+    label: "Cognitive Intelligence"
+    type: float
+    range: [0.0, 1.0]
+    default: 0.4
+    scope: "global"
+
+  - id: intel_creative
+    label: "Creative Intelligence"
+    type: float
+    range: [0.0, 1.0]
+    default: 0.6
+    scope: "global"
+
+  - id: intel_adaptive
+    label: "Adaptive Intelligence"
+    type: float
+    range: [0.0, 1.0]
+    default: 0.5
+    scope: "global"
+
+  - id: intel_reflective
+    label: "Reflective Intelligence"
+    type: float
+    range: [0.0, 1.0]
+    default: 0.3
+    scope: "global"
