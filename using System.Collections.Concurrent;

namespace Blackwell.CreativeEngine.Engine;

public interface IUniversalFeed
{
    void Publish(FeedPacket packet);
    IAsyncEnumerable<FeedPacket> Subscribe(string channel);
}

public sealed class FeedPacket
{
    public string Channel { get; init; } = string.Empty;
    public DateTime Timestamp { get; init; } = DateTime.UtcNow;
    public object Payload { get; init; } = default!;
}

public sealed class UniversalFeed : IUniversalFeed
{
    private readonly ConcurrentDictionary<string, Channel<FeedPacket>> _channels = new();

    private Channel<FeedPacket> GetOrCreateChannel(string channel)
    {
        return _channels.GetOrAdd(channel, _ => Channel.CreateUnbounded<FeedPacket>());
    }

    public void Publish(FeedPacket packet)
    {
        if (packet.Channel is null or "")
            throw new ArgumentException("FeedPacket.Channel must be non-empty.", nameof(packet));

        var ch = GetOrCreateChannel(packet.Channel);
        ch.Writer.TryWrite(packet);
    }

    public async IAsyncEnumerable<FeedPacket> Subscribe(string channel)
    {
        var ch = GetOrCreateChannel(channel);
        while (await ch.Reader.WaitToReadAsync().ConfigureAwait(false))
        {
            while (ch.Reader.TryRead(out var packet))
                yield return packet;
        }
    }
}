@@ -1,0 +1,45 @@
+using System.Collections.Concurrent;
+
+namespace Blackwell.CreativeEngine.Engine;
+
+public interface IUniversalFeed
+{
+    void Publish(FeedPacket packet);
+    IAsyncEnumerable<FeedPacket> Subscribe(string channel);
+}
+
+public sealed class FeedPacket
+{
+    public string Channel { get; init; } = string.Empty;
+    public DateTime Timestamp { get; init; } = DateTime.UtcNow;
+    public object Payload { get; init; } = default!;
+}
+
+public sealed class UniversalFeed : IUniversalFeed
+{
+    private readonly ConcurrentDictionary<string, Channel<FeedPacket>> _channels = new();
+
+    private Channel<FeedPacket> GetOrCreateChannel(string channel)
+    {
+        return _channels.GetOrAdd(channel, _ => Channel.CreateUnbounded<FeedPacket>());
+    }
+
+    public void Publish(FeedPacket packet)
+    {
+        if (packet.Channel is null or "")
+            throw new ArgumentException("FeedPacket.Channel must be non-empty.", nameof(packet));
+
+        var ch = GetOrCreateChannel(packet.Channel);
+        ch.Writer.TryWrite(packet);
+    }
+
+    public async IAsyncEnumerable<FeedPacket> Subscribe(string channel)
+    {
+        var ch = GetOrCreateChannel(channel);
+        while (await ch.Reader.WaitToReadAsync().ConfigureAwait(false))
+        {
+            while (ch.Reader.TryRead(out var packet))
+                yield return packet;
+        }
+    }
+}
