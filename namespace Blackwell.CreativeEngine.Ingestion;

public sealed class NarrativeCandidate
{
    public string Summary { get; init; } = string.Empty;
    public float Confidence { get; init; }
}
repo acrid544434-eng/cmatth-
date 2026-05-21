@@ -1,0 +1,7 @@
+namespace Blackwell.CreativeEngine.Ingestion;
+
+public sealed class NarrativeCandidate
+{
+    public string Summary { get; init; } = string.Empty;
+    public float Confidence { get; init; }
+}
