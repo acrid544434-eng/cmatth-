@@ -1,0 +1,35 @@
+operators:
+  - id: intelligence_evolution_v1
+    label: "Intelligence Evolution"
+    scope: "world"
+    inputs:
+      fields:
+        - intel_cognitive
+        - intel_creative
+        - intel_adaptive
+        - intel_reflective
+        - creative_rhythm
+        - coherence
+      entity_state:
+        - focus
+        - load
+        - introspection_level
+      diagnostics:
+        - error_rate
+        - recovery_speed
+        - novelty_score
+        - coherence_score
+    outputs:
+      fields:
+        - intel_cognitive
+        - intel_creative
+        - intel_adaptive
+        - intel_reflective
+    implementation:
+      kind: "builtin"
+      name: "intelligence_step_v1"
+      params:
+        learning_rate: 0.02
+        stability_bias: 0.15
+        novelty_weight: 0.25
+        coherence_weight: 0.3
