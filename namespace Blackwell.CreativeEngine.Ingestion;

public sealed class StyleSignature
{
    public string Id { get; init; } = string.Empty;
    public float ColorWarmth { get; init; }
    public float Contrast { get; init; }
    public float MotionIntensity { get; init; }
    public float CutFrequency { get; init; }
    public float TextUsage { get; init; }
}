@@ -1,0 +1,11 @@
+namespace Blackwell.CreativeEngine.Ingestion;
+
+public sealed class StyleSignature
+{
+    public string Id { get; init; } = string.Empty;
+    public float ColorWarmth { get; init; }
+    public float Contrast { get; init; }
+    public float MotionIntensity { get; init; }
+    public float CutFrequency { get; init; }
+    public float TextUsage { get; init; }
+}
