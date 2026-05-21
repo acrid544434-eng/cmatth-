@@ -1,0 +1,24 @@
+# Human Kernel Profile
+name: Human
+description: Centralized, low-redundancy, fragile, reproduction-biased.
+
+[field]
+coupling: low
+growth_rate: fast
+repair_strength: medium
+decay_rate: medium-high
+
+[genome]
+representation: vector
+mutation_rate: medium
+selection_bias: reproduction
+
+[intelligence_weights]
+stability: 0.3
+adaptability: 0.4
+redundancy: 0.2
+persistence: 0.1
+
+[meta]
+eta: low
+gamma: low
