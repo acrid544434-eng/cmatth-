@@ -1,0 +1,36 @@
+using Blackwell.OS.Core;
+
+namespace Blackwell.OS.Visualization;
+
+public static class DeltaPrinter
+{
+    public static void Print(OsState prev, OsState next, int tick)
+    {
+        Console.WriteLine($"\n=== OS DELTA @ TICK {tick} ===");
+
+        PrintDelta("Creative.Pace",           prev.Creative.TargetPace,          next.Creative.TargetPace);
+        PrintDelta("Creative.BeatSync",       prev.Creative.CutOnBeatProbability,next.Creative.CutOnBeatProbability);
+        PrintDelta("Creative.JumpCuts",       prev.Creative.MaxJumpCutFrequency, next.Creative.MaxJumpCutFrequency);
+
+        PrintDelta("System.Parallel",         prev.System.MaxParallelModules,    next.System.MaxParallelModules);
+        PrintDelta("System.Batch",            prev.System.BatchSize,             next.System.BatchSize);
+
+        PrintDelta("Brand.LogoFreq",          prev.Brand.LogoFrequency,          next.Brand.LogoFrequency);
+        PrintDelta("Brand.TextFreq",          prev.Brand.TextOverlayFrequency,   next.Brand.TextOverlayFrequency);
+
+        PrintDelta("Runtime.Quality",         prev.Runtime.QualityLevel,         next.Runtime.QualityLevel);
+        PrintDelta("Runtime.Cache",           prev.Runtime.CacheAggressiveness,  next.Runtime.CacheAggressiveness);
+    }
+
+    private static void PrintDelta(string label, float a, float b)
+    {
+        var delta = b - a;
+        Console.WriteLine($"{label,-22} {a:F3} → {b:F3}   Δ={delta:F3}");
+    }
+
+    private static void PrintDelta(string label, int a, int b)
+    {
+        var delta = b - a;
+        Console.WriteLine($"{label,-22} {a} → {b}   Δ={delta}");
+    }
+}
