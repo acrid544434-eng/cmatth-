@@ -1,0 +1,24 @@
+blackwell-meta-equation-engine/
+├─ README.md
+├─ LICENSE
+├─ .gitignore
+├─ src/
+│  ├─ Blackwell.MetaEquation.Engine.csproj
+│  ├─ Program.cs
+│  ├─ Core/
+│  │  ├─ NodeEquation.cs
+│  │  ├─ MetaEquationCore.cs
+│  │  ├─ MetaDiagnostics.cs
+│  │  ├─ MetaField.cs
+│  │  ├─ MetaTransform.cs
+│  │  ├─ MetaState.cs
+│  ├─ Simulation/
+│  │  ├─ SimulationConfig.cs
+│  │  ├─ SimulationState.cs
+│  │  ├─ SimulationRunner.cs
+│  └─ Util/
+│     ├─ Tensor.cs
+│     ├─ MathUtil.cs
+└─ examples/
+   ├─ SimpleWarpFieldSimulation.md
+   └─ ExampleConfig.json
