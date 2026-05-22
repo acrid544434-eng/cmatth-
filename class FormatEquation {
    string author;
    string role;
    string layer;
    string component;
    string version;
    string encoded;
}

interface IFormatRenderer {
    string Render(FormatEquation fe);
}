@@ -1,0 +1,12 @@
+class FormatEquation {
+    string author;
+    string role;
+    string layer;
+    string component;
+    string version;
+    string encoded;
+}
+
+interface IFormatRenderer {
+    string Render(FormatEquation fe);
+}
