@@ -1,0 +1,16 @@
+# Meta-Equation Engine
+
+A meta-layer engine where the **equation that updates the system** is itself
+evolved over time.
+
+## Core Idea
+
+- `NodeEquation` represents the unified update rule.
+- `MetaEquationCore` transforms `NodeEquation` based on:
+  - `MetaDiagnostics` (system behavior)
+  - `MetaField` (global fields / conditions)
+  - `MetaState` (meta-layer identity)
+
+This creates a two-tier evolution loop:
+1. State update: x(t+1) = F_t(x(t))
+2. Rule update: F_{t+1} = M(F_t, Ψ(t), Φ(t))
