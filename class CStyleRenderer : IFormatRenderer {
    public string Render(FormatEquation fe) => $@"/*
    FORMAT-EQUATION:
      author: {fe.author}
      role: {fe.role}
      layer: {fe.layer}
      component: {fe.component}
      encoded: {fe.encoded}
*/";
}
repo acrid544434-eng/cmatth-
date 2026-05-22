@@ -1,0 +1,10 @@
+class CStyleRenderer : IFormatRenderer {
+    public string Render(FormatEquation fe) => $@"/*
+    FORMAT-EQUATION:
+      author: {fe.author}
+      role: {fe.role}
+      layer: {fe.layer}
+      component: {fe.component}
+      encoded: {fe.encoded}
+*/";
+}
