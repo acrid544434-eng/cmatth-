@@ -1,0 +1,212 @@
+
+
+1. Assumptions and components
+
+We’ll assume you already have:
+
+BlueprintParser → parses YAML/DSL into config objects
+
+initialize_state(config) → builds initial FieldStore
+
+initialize_geometry(config) → builds GeometryStore
+
+build_regime_selector(config, designer) → returns regime_selector(state, geometry) -> regime_map
+
+build_operator_registry(config) → maps IDs → implementations
+
+build_operator_mixer(unified_eq_config, designer, operator_registry) → returns mixer
+
+update_geometry(state, geometry, dt) → updates curvature/metric
+
+OutputManager → handles saving/visualization
+
+We’ll also support different integrators (Euler, RK4) driven by the blueprint.
+
+2. Engine class with full loop
+
+class CMBAuthoredPhysicsEngine:
+    def __init__(self, blueprint_path):
+        # 1. Parse blueprint
+        self.config = BlueprintParser.parse(blueprint_path)
+
+        # 2. Load designer / authorship
+        self.designer = self.config.designer_profile      # C_MB vector, id, proof
+
+        # 3. Initialize state and geometry
+        self.state = initialize_state(self.config)
+        self.geometry = initialize_geometry(self.config)
+
+        # 4. Build regime selector
+        self.regime_selector = build_regime_selector(
+            self.config.unified_equation,
+            self.designer,
+        )
+
+        # 5. Build operator registry
+        self.operator_registry = build_operator_registry(
+            self.config.operators
+        )
+
+        # 6. Build operator mixer (authored unified equation)
+        self.operator_mixer = build_operator_mixer(
+            self.config.unified_equation,
+            self.designer,
+            self.operator_registry,
+        )
+
+        # 7. Build output manager
+        self.outputs = OutputManager(self.config.outputs, self.config, self.designer)
+
+        # 8. Time config
+        self.t = self.config.time.start
+        self.t_end = self.config.time.end
+        self.dt = self.config.time.time_step
+        self.integrator = self.config.time.integrator  # "euler" or "rk4"
+
+    # -------- core integration wrappers -------- #
+
+    def _step_euler(self):
+        """
+        Simple explicit Euler:
+        state_{n+1} = state_n + dt * F(state_n)
+        where F is implemented via operator_mixer.
+        """
+        # 1. Update regime map
+        regime_map = self.regime_selector(self.state, self.geometry)
+
+        # 2. Apply operator mixer once
+        self.state = self.operator_mixer(
+            self.state,
+            self.geometry,
+            regime_map,
+            self.dt,
+        )
+
+        # 3. Update geometry
+        self.geometry = update_geometry(self.state, self.geometry, self.dt)
+
+    def _step_rk4(self):
+        """
+        Classic Runge-Kutta 4th order.
+        We treat operator_mixer as F(state, geometry, regime_map, dt=1)
+        and scale by dt externally.
+        """
+
+        def F(state, geometry):
+            regime_map = self.regime_selector(state, geometry)
+            # dt=1.0 here; we'll scale outside
+            return self.operator_mixer(state, geometry, regime_map, 1.0)
+
+        # k1
+        k1_state = F(self.state, self.geometry)
+
+        # k2
+        state_k2 = combine_states(self.state, k1_state, 0.5 * self.dt)
+        geom_k2 = update_geometry(state_k2, self.geometry, 0.5 * self.dt)
+        k2_state = F(state_k2, geom_k2)
+
+        # k3
+        state_k3 = combine_states(self.state, k2_state, 0.5 * self.dt)
+        geom_k3 = update_geometry(state_k3, self.geometry, 0.5 * self.dt)
+        k3_state = F(state_k3, geom_k3)
+
+        # k4
+        state_k4 = combine_states(self.state, k3_state, self.dt)
+        geom_k4 = update_geometry(state_k4, self.geometry, self.dt)
+        k4_state = F(state_k4, geom_k4)
+
+        # Combine increments
+        # state_{n+1} = state_n + dt/6 * (k1 + 2k2 + 2k3 + k4)
+        self.state = rk4_combine(
+            self.state,
+            k1_state,
+            k2_state,
+            k3_state,
+            k4_state,
+            self.dt,
+        )
+
+        # Geometry update (final)
+        self.geometry = update_geometry(self.state, self.geometry, self.dt)
+
+    # -------- public step & run -------- #
+
+    def step(self):
+        if self.integrator == "rk4":
+            self._step_rk4()
+        else:
+            self._step_euler()
+
+        # Record outputs after each step
+        self.outputs.maybe_record(self.state, self.geometry, self.t)
+
+        # Advance time
+        self.t += self.dt
+
+    def run(self):
+        while self.t < self.t_end:
+            self.step()
+
+        # Final flush / close
+        self.outputs.finalize()
+
+3. Helper functions (conceptual)
+
+These are structural, not fully implemented, but show how the pieces fit.
+
+def combine_states(state, k_state, scale):
+    """
+    state + scale * k_state
+    Works over all fields in FieldStore.
+    """
+    new_state = state.copy()
+    for field_name in state.fields:
+        new_state[field_name] = state[field_name] + scale * k_state[field_name]
+    return new_state
+
+
+def rk4_combine(state, k1, k2, k3, k4, dt):
+    """
+    RK4 combination:
+    state + dt/6 * (k1 + 2k2 + 2k3 + k4)
+    """
+    new_state = state.copy()
+    for field_name in state.fields:
+        new_state[field_name] = (
+            state[field_name]
+            + (dt / 6.0)
+            * (
+                k1[field_name]
+                + 2.0 * k2[field_name]
+                + 2.0 * k3[field_name]
+                + k4[field_name]
+            )
+        )
+    return new_state
+
+4. What makes this loop CMB‑authored
+
+At every iteration:
+
+RegimeSelector uses your blueprint + fields to decide which regime each region is in.
+
+OperatorMixer uses:
+
+your C_MB vector
+
+your authored_weights.mapping
+
+local state (warp, curvature, energy, gradients)to compute operator weights and blend physics.
+
+GeometryUpdater lets warp, energy, and curvature reshape the manifold.
+
+OutputManager records not just fields, but your authorship metadata.
+
+So the loop isn’t just:
+
+“advance simulation”
+
+It’s:
+
+“advance a universe whose laws are generated from C. Matthew Blackwell’s authored equation.”
+
