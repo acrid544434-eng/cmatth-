@@ -1,0 +1,25 @@
+def pruning_score(T, config):
+    w1, w2, w3 = config["prune_weights"]
+    sr = T.performance.success_rate
+    usage = T.performance.usage_count
+    age = config["current_step"] - T.metadata.created_at_step
+
+    low_usage_penalty = 1.0 if usage < config["min_usage"] else 0.0
+    age_penalty = age / (config["age_norm"] + 1e-9)
+
+    return (
+        w1 * (1.0 - sr)
+        + w2 * low_usage_penalty
+        + w3 * age_penalty
+    )
+
+def prune_library(transforms, config):
+    A_max = config["A_max"]
+    if len(transforms) <= A_max:
+        return transforms
+
+    scored = [(pruning_score(T, config), T) for T in transforms]
+    scored.sort(key=lambda x: x[0], reverse=True)  # worst first
+    to_remove = len(transforms) - A_max
+    survivors = [T for _, T in scored[to_remove:]]
+    return survivors
