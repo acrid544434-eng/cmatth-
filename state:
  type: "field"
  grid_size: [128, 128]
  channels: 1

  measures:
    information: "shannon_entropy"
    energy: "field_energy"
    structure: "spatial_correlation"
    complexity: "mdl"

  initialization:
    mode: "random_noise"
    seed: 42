@@ -1,0 +1,14 @@
+state:
+  type: "field"
+  grid_size: [128, 128]
+  channels: 1
+
+  measures:
+    information: "shannon_entropy"
+    energy: "field_energy"
+    structure: "spatial_correlation"
+    complexity: "mdl"
+
+  initialization:
+    mode: "random_noise"
+    seed: 42
