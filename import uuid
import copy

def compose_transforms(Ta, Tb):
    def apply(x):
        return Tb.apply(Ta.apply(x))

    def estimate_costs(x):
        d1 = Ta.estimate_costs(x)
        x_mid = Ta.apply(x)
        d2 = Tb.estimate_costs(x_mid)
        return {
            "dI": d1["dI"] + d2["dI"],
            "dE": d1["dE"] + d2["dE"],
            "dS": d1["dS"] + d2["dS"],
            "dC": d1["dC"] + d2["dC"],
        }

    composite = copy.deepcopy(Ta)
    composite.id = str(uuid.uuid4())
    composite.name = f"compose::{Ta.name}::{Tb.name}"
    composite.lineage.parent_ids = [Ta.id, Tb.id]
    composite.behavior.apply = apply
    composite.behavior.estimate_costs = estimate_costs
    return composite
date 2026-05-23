@@ -1,0 +1,25 @@
+import uuid
+import copy
+
+def compose_transforms(Ta, Tb):
+    def apply(x):
+        return Tb.apply(Ta.apply(x))
+
+    def estimate_costs(x):
+        d1 = Ta.estimate_costs(x)
+        x_mid = Ta.apply(x)
+        d2 = Tb.estimate_costs(x_mid)
+        return {
+            "dI": d1["dI"] + d2["dI"],
+            "dE": d1["dE"] + d2["dE"],
+            "dS": d1["dS"] + d2["dS"],
+            "dC": d1["dC"] + d2["dC"],
+        }
+
+    composite = copy.deepcopy(Ta)
+    composite.id = str(uuid.uuid4())
+    composite.name = f"compose::{Ta.name}::{Tb.name}"
+    composite.lineage.parent_ids = [Ta.id, Tb.id]
+    composite.behavior.apply = apply
+    composite.behavior.estimate_costs = estimate_costs
+    return composite
