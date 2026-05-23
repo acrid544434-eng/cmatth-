@@ -1,0 +1,73 @@
+# Autodidact Compression Meta Engine
+
+> Meta-equation–driven compression organism  
+> Designed by **C. Matthew Blackwell — Independent Designer**
+
+This project implements a simulation engine where the primary object is **compression itself**.  
+Instead of simulating particles or rigid bodies, it simulates an **autodidact library of transforms** that:
+
+- Compress a world state
+- Compete under a meta-equation
+- Mutate, compose, and get pruned
+- Evolve into an infinite transform ecosystem
+
+---
+
+## Core idea
+
+At each step, the engine:
+
+1. Holds a **state** `x` (field, image, geometry, etc.).
+2. Maintains a **transform library** `A = {T₁, …, Tₙ}`.
+3. Uses a **meta-equation** to score each transform:
+   \[
+   J_T(x) = \alpha_I \Delta I + \alpha_E \Delta E + \alpha_S \Delta S + \alpha_C \Delta \mathcal{C}
+   \]
+4. Selects the best transform `T*`, applies it, and updates:
+   - the state
+   - the transform’s performance profile
+   - the meta-weights `α`
+5. Runs the **infinite transform generator**:
+   - mutation
+   - composition
+   - pruning
+
+---
+
+## Transform blueprint
+
+Every transform is defined by a **blueprint**:
+
+```yaml
+transform_blueprint:
+  id: UUID
+  name: string
+  lineage:
+    parent_ids: [UUID]
+    generation: int
+
+  type: one_of["information", "geometry", "field", "hybrid"]
+
+  params:
+    key: value
+
+  behavior:
+    apply: "callable_reference"
+    estimate_costs: "callable_reference"
+
+  performance_profile:
+    avg_delta_I: float
+    avg_delta_E: float
+    avg_delta_S: float
+    avg_delta_C: float
+    usage_count: int
+    success_rate: float
+
+  specialization:
+    preferred_entropy_range: [float, float]
+    preferred_scale: one_of["micro", "meso", "macro"]
+    preferred_complexity_range: [float, float]
+
+  metadata:
+    created_at_step: int
+    created_by: one_of["primitive", "specialization", "composition", "mutation"]
