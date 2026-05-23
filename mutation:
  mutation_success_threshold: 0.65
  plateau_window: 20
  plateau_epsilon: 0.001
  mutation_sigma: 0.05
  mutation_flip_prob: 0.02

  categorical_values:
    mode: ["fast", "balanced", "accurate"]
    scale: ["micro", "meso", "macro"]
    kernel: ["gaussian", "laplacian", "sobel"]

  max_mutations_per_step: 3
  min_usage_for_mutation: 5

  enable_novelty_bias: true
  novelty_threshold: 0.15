@@ -1,0 +1,17 @@
+mutation:
+  mutation_success_threshold: 0.65
+  plateau_window: 20
+  plateau_epsilon: 0.001
+  mutation_sigma: 0.05
+  mutation_flip_prob: 0.02
+
+  categorical_values:
+    mode: ["fast", "balanced", "accurate"]
+    scale: ["micro", "meso", "macro"]
+    kernel: ["gaussian", "laplacian", "sobel"]
+
+  max_mutations_per_step: 3
+  min_usage_for_mutation: 5
+
+  enable_novelty_bias: true
+  novelty_threshold: 0.15
