@@ -1,0 +1,226 @@
+designer:
+  id: "c_matthew_blackwell"
+  role: "independent_designer"
+  signature_vector:
+    elegance: 0.82
+    experimental: 0.94
+    symmetry: 0.76
+    risk: 0.88
+    nonlocal: 0.67
+    warp_bias: 0.93
+
+authorship_proof:
+  hash_algorithm: "sha3-256"
+  hash: "b3f9c7a1d0e4f2a9c1d8e3b7a9f4c2910d3e7b9a1c2f5d8e9b1c3d5e7f9a2b1"
+  public_key_id: "CMB-01"
+  signature: "<base64-signature-placeholder>"
+
+simulation:
+  name: "CMB_WarpField_Alpha"
+  description: "Authored warp-field spacetime bubble around a localized mass distribution."
+
+  domain:
+    type: "grid"
+    dimensions: 3
+    size: [128, 128, 128]
+    spacing: [1.0, 1.0, 1.0]   # arbitrary units
+
+  time:
+    start: 0.0
+    end: 50.0
+    time_step: 0.01
+    integrator: "rk4"
+
+  geometry:
+    manifold: "R3xT"
+    metric:
+      base: "minkowski"
+      dynamic_curvature: true
+    fields:
+      - name: "curvature_scalar"
+        type: "scalar"
+        domain: "space"
+        initial: "zero"
+
+  fields:
+    - name: "mass_density"
+      type: "scalar"
+      domain: "space"
+      initial: "gaussian_centered"
+      params:
+        amplitude: 1.0
+        width: 5.0
+
+    - name: "velocity"
+      type: "vector"
+      domain: "space"
+      initial: "zero"
+
+    - name: "warp_potential"
+      type: "scalar"
+      domain: "space"
+      initial: "localized_shell"
+      params:
+        inner_radius: 10.0
+        outer_radius: 15.0
+        amplitude: 0.6
+
+    - name: "energy_density"
+      type: "scalar"
+      domain: "space"
+      initial: "derived"
+      derived_from: ["mass_density", "warp_potential"]
+
+  symmetries:
+    - name: "energy_conservation"
+      type: "global"
+    - name: "momentum_conservation"
+      type: "global"
+    - name: "warp_shell_symmetry"
+      type: "spherical"
+      center: "domain_center"
+
+  unified_equation:
+    authored_by: "c_matthew_blackwell"
+    use_signature_vector: true
+
+    # This is the authored meta-equation:
+    # dPhi/dt = sum_k w_k(C_MB) * L_k[Phi, G, S]
+    operator_blending:
+      strategy: "C_MB_linear_combo"
+      operators:
+        - id: "L_newtonian"
+          weight_component: "elegance"      # more elegance → more classical stability
+        - id: "L_relativistic"
+          weight_component: "symmetry"      # more symmetry → more relativistic structure
+        - id: "L_warp"
+          weight_component: "warp_bias"     # more warp_bias → stronger warp operator
+        - id: "L_nonlocal"
+          weight_component: "nonlocal"      # more nonlocal → stronger nonlocal coupling
+        - id: "L_chaotic"
+          weight_component: "risk"          # more risk → more unstable / chaotic dynamics
+
+    regime_selection:
+      strategy: "C_MB_weighted_thresholds"
+      regimes:
+        - name: "classical_region"
+          when:
+            warp_potential: "< 0.2"
+            curvature_scalar: "< 0.05"
+          base_operator: "L_newtonian"
+
+        - name: "relativistic_region"
+          when:
+            energy_density: ">= 0.3"
+            curvature_scalar: ">= 0.05"
+          base_operator: "L_relativistic"
+
+        - name: "warp_bubble_region"
+          when:
+            warp_potential: ">= 0.5"
+          base_operator: "L_warp"
+
+        - name: "nonlocal_transition_region"
+          when:
+            warp_potential: "in [0.3, 0.5]"
+            energy_density: ">= 0.2"
+          base_operator: "L_nonlocal"
+
+    authored_weights:
+      # How to map C_MB components into operator weights
+      # w_k = normalize( alpha_component * local_factor )
+      mapping:
+        elegance:
+          operator: "L_newtonian"
+          local_factor:
+            type: "inverse_curvature"
+            params:
+              epsilon: 0.01
+
+        symmetry:
+          operator: "L_relativistic"
+          local_factor:
+            type: "curvature_scaled"
+            params:
+              scale: 1.0
+
+        warp_bias:
+          operator: "L_warp"
+          local_factor:
+            type: "warp_potential"
+            params:
+              exponent: 1.5
+
+        nonlocal:
+          operator: "L_nonlocal"
+          local_factor:
+            type: "gradient_magnitude"
+            field: "warp_potential"
+            params:
+              scale: 0.5
+
+        risk:
+          operator: "L_chaotic"
+          local_factor:
+            type: "energy_density"
+            params:
+              threshold: 0.25
+              exponent: 2.0
+
+  operators:
+    # These are symbolic identifiers; engine binds them to actual implementations.
+    - id: "L_newtonian"
+      description: "Classical gravity + inertial motion"
+      acts_on: ["mass_density", "velocity"]
+      form: "poisson_gravity + advection"
+
+    - id: "L_relativistic"
+      description: "Curvature-coupled field evolution"
+      acts_on: ["mass_density", "velocity", "curvature_scalar"]
+      form: "einstein_like_update"
+
+    - id: "L_warp"
+      description: "Warp potential drives local metric distortion and effective superluminal bubble"
+      acts_on: ["warp_potential", "curvature_scalar", "velocity"]
+      form: "warp_metric_update"
+
+    - id: "L_nonlocal"
+      description: "Nonlocal coupling between regions of high warp gradient"
+      acts_on: ["warp_potential", "velocity"]
+      form: "integral_kernel_coupling"
+
+    - id: "L_chaotic"
+      description: "High-risk, unstable dynamics in high-energy regions"
+      acts_on: ["energy_density", "velocity", "warp_potential"]
+      form: "nonlinear_feedback"
+
+  initial_conditions:
+    # Optional overrides or explicit seeds
+    random_seed: 1337
+    perturbations:
+      - field: "warp_potential"
+        type: "noise_shell"
+        amplitude: 0.02
+        region:
+          inner_radius: 9.5
+          outer_radius: 15.5
+
+  outputs:
+    save_interval: 0.1
+    fields_to_save:
+      - "mass_density"
+      - "velocity"
+      - "warp_potential"
+      - "curvature_scalar"
+      - "energy_density"
+      - "regime_map"
+    visualizations:
+      - type: "slice"
+        plane: "z=mid"
+        fields: ["warp_potential", "curvature_scalar"]
+      - type: "isosurface"
+        field: "warp_potential"
+        threshold: 0.5
+      - type: "streamlines"
+        field: "velocity"
+        region: "warp_bubble_region"
