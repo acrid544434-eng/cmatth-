@@ -1,0 +1,117 @@
+L_warp operator: concrete authored warp–curvature distortion
+
+Here’s a clean, concrete version of L_warp that:
+
+reads warp_potential
+
+distorts curvature_scalar
+
+nudges velocity to follow the warp bubble
+
+We’ll treat it as a local operator that returns a delta_state for one cell.
+
+1. Conceptual behavior
+
+At each cell:
+
+High warp_potential → increase curvature magnitude (warp bubble)
+
+Warp acts like a localized metric distortion around the bubble shell
+
+Velocity is biased along the warp gradient (toward/around bubble motion)
+
+We’ll use:
+
+( w = \text{warp_potential} )
+
+( \nabla w = \text{grad_warp_potential} )
+
+( \kappa = \text{curvature_scalar} )
+
+Warp curvature update (example form):
+
+[ \Delta \kappa = A \cdot w^p - B \cdot \kappa ]
+
+Velocity update:
+
+[ \Delta \vec{v} = C \cdot w^q \cdot \hat{\nabla w} ]
+
+Where ( \hat{\nabla w} ) is the normalized gradient (if nonzero).
+
+2. Concrete implementation (Python‑style)
+
+import math
+
+def L_warp_impl(local_state, geometry, dt):
+    """
+    Warp operator:
+      - Distorts curvature_scalar based on warp_potential
+      - Pushes velocity along gradient of warp_potential
+
+    local_state fields expected:
+      - "warp_potential" (scalar)
+      - "curvature_scalar" (scalar)
+      - "velocity" (vector: [vx, vy, vz])
+      - "grad_warp_potential" (vector: [gwx, gwy, gwz])  # precomputed
+
+    geometry can be used for more advanced metric effects; here we keep it simple.
+    """
+
+    w = local_state["warp_potential"]
+    k = local_state["curvature_scalar"]
+    v = local_state["velocity"]
+    gw = local_state["grad_warp_potential"]
+
+    # Parameters controlling warp behavior
+    A = 1.0    # strength of warp-induced curvature
+    B = 0.2    # relaxation term (prevents runaway curvature)
+    p = 1.5    # nonlinearity of warp effect on curvature
+
+    C = 0.8    # strength of warp-induced velocity bias
+    q = 1.0    # nonlinearity of warp effect on velocity
+
+    # ---- curvature update ---- #
+
+    # Warp increases curvature where w > 0
+    # Delta_kappa = dt * (A * w^p - B * k)
+    w_pos = max(w, 0.0)
+    delta_k = dt * (A * (w_pos ** p) - B * k)
+
+    # ---- velocity update ---- #
+
+    gwx, gwy, gwz = gw
+    grad_norm = math.sqrt(gwx * gwx + gwy * gwy + gwz * gwz)
+
+    if grad_norm > 1e-8:
+        # Direction of warp gradient
+        nx, ny, nz = gwx / grad_norm, gwy / grad_norm, gwz / grad_norm
+    else:
+        nx, ny, nz = 0.0, 0.0, 0.0
+
+    # Warp pushes velocity along gradient direction
+    # Delta_v = dt * C * w^q * n_hat
+    warp_factor = (w_pos ** q)
+    dvx = dt * C * warp_factor * nx
+    dvy = dt * C * warp_factor * ny
+    dvz = dt * C * warp_factor * nz
+
+    # ---- assemble delta_state ---- #
+
+    delta_state = {
+        "curvature_scalar": delta_k,
+        "velocity": [dvx, dvy, dvz],
+        # warp_potential itself could also evolve here if desired,
+        # but in this operator we treat it as a driver, not updated.
+    }
+
+    return delta_state
+
+3. How this fits your authored engine
+
+L_warp_impl is registered under "L_warp" in operator_registry.
+
+The operator mixer scales its contribution by w_warp(C_MB, local_state) from your authored weights.
+
+In warp_bubble_region, this operator will dominate; in other regions, it blends with Newtonian/relativistic/nonlocal operators.
+
+So when your engine runs, warp bubbles literally sculpt curvature and flow, and the strength and presence of this effect are controlled by your C_MB warp_bias and local warp structure.
