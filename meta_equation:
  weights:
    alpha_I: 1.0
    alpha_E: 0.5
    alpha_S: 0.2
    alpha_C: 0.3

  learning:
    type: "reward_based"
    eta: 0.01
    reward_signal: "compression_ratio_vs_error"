@@ -1,0 +1,11 @@
+meta_equation:
+  weights:
+    alpha_I: 1.0
+    alpha_E: 0.5
+    alpha_S: 0.2
+    alpha_C: 0.3
+
+  learning:
+    type: "reward_based"
+    eta: 0.01
+    reward_signal: "compression_ratio_vs_error"
