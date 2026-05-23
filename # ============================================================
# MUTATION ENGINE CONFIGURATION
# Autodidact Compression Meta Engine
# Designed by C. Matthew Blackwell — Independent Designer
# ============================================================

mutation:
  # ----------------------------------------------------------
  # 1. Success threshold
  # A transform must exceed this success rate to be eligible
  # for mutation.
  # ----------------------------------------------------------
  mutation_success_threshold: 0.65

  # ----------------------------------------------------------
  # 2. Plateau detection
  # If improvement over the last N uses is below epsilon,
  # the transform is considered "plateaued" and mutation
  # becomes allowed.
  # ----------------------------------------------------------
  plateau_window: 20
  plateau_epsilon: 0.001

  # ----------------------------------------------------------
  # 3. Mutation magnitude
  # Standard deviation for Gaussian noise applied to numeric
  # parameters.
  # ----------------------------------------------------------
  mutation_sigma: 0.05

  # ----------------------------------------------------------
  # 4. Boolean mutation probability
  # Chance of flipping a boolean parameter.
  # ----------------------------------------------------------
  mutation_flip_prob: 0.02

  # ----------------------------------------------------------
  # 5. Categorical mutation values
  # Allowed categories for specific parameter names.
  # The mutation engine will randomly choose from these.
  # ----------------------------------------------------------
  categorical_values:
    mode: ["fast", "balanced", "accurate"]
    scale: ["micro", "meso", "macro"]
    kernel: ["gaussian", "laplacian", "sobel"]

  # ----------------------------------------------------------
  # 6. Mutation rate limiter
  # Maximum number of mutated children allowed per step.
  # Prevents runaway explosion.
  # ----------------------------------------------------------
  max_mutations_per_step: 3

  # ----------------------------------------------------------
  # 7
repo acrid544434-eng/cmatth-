@@ -1,0 +1,55 @@
+# ============================================================
+# MUTATION ENGINE CONFIGURATION
+# Autodidact Compression Meta Engine
+# Designed by C. Matthew Blackwell — Independent Designer
+# ============================================================
+
+mutation:
+  # ----------------------------------------------------------
+  # 1. Success threshold
+  # A transform must exceed this success rate to be eligible
+  # for mutation.
+  # ----------------------------------------------------------
+  mutation_success_threshold: 0.65
+
+  # ----------------------------------------------------------
+  # 2. Plateau detection
+  # If improvement over the last N uses is below epsilon,
+  # the transform is considered "plateaued" and mutation
+  # becomes allowed.
+  # ----------------------------------------------------------
+  plateau_window: 20
+  plateau_epsilon: 0.001
+
+  # ----------------------------------------------------------
+  # 3. Mutation magnitude
+  # Standard deviation for Gaussian noise applied to numeric
+  # parameters.
+  # ----------------------------------------------------------
+  mutation_sigma: 0.05
+
+  # ----------------------------------------------------------
+  # 4. Boolean mutation probability
+  # Chance of flipping a boolean parameter.
+  # ----------------------------------------------------------
+  mutation_flip_prob: 0.02
+
+  # ----------------------------------------------------------
+  # 5. Categorical mutation values
+  # Allowed categories for specific parameter names.
+  # The mutation engine will randomly choose from these.
+  # ----------------------------------------------------------
+  categorical_values:
+    mode: ["fast", "balanced", "accurate"]
+    scale: ["micro", "meso", "macro"]
+    kernel: ["gaussian", "laplacian", "sobel"]
+
+  # ----------------------------------------------------------
+  # 6. Mutation rate limiter
+  # Maximum number of mutated children allowed per step.
+  # Prevents runaway explosion.
+  # ----------------------------------------------------------
+  max_mutations_per_step: 3
+
+  # ----------------------------------------------------------
+  # 7
