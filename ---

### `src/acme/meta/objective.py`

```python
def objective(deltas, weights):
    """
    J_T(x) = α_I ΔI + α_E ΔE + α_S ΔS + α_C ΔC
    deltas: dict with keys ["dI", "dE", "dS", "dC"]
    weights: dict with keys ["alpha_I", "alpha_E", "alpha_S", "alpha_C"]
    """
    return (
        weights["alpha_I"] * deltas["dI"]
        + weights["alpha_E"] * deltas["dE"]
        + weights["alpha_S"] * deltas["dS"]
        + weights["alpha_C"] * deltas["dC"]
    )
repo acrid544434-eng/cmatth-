@@ -1,0 +1,17 @@
+---
+
+### `src/acme/meta/objective.py`
+
+```python
+def objective(deltas, weights):
+    """
+    J_T(x) = α_I ΔI + α_E ΔE + α_S ΔS + α_C ΔC
+    deltas: dict with keys ["dI", "dE", "dS", "dC"]
+    weights: dict with keys ["alpha_I", "alpha_E", "alpha_S", "alpha_C"]
+    """
+    return (
+        weights["alpha_I"] * deltas["dI"]
+        + weights["alpha_E"] * deltas["dE"]
+        + weights["alpha_S"] * deltas["dS"]
+        + weights["alpha_C"] * deltas["dC"]
+    )
