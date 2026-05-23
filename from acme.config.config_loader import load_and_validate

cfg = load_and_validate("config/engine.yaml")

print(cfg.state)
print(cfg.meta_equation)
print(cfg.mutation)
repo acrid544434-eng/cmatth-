@@ -1,0 +1,7 @@
+from acme.config.config_loader import load_and_validate
+
+cfg = load_and_validate("config/engine.yaml")
+
+print(cfg.state)
+print(cfg.meta_equation)
+print(cfg.mutation)
