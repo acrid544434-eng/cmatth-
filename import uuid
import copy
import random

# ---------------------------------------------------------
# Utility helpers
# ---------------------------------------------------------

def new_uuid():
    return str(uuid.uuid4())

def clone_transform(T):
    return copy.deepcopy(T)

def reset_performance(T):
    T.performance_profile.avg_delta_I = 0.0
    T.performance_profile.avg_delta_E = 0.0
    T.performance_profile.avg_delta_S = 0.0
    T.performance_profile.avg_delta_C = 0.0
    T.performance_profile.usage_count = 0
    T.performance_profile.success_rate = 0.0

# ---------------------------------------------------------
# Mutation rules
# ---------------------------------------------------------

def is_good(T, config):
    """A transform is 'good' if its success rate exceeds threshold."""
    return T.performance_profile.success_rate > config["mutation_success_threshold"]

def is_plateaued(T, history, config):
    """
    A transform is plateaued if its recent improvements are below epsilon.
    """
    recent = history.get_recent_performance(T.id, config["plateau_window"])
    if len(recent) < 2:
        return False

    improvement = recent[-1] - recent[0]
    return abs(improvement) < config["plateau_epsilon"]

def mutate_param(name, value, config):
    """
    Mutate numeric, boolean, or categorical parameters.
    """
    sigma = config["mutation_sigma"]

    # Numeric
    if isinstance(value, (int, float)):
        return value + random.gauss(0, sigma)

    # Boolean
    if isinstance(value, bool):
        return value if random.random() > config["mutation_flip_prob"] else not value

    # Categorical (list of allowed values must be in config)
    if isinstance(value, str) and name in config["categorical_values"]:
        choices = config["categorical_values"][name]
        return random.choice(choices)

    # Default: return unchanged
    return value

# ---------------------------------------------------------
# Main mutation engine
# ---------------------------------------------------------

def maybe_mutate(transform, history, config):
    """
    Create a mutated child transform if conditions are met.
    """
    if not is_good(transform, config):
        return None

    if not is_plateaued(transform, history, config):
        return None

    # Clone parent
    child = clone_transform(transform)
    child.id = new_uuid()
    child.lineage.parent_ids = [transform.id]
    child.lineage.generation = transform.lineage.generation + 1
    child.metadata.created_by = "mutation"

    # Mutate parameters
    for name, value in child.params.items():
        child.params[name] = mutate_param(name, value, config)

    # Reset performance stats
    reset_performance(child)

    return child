@@ -1,0 +1,92 @@
+import uuid
+import copy
+import random
+
+# ---------------------------------------------------------
+# Utility helpers
+# ---------------------------------------------------------
+
+def new_uuid():
+    return str(uuid.uuid4())
+
+def clone_transform(T):
+    return copy.deepcopy(T)
+
+def reset_performance(T):
+    T.performance_profile.avg_delta_I = 0.0
+    T.performance_profile.avg_delta_E = 0.0
+    T.performance_profile.avg_delta_S = 0.0
+    T.performance_profile.avg_delta_C = 0.0
+    T.performance_profile.usage_count = 0
+    T.performance_profile.success_rate = 0.0
+
+# ---------------------------------------------------------
+# Mutation rules
+# ---------------------------------------------------------
+
+def is_good(T, config):
+    """A transform is 'good' if its success rate exceeds threshold."""
+    return T.performance_profile.success_rate > config["mutation_success_threshold"]
+
+def is_plateaued(T, history, config):
+    """
+    A transform is plateaued if its recent improvements are below epsilon.
+    """
+    recent = history.get_recent_performance(T.id, config["plateau_window"])
+    if len(recent) < 2:
+        return False
+
+    improvement = recent[-1] - recent[0]
+    return abs(improvement) < config["plateau_epsilon"]
+
+def mutate_param(name, value, config):
+    """
+    Mutate numeric, boolean, or categorical parameters.
+    """
+    sigma = config["mutation_sigma"]
+
+    # Numeric
+    if isinstance(value, (int, float)):
+        return value + random.gauss(0, sigma)
+
+    # Boolean
+    if isinstance(value, bool):
+        return value if random.random() > config["mutation_flip_prob"] else not value
+
+    # Categorical (list of allowed values must be in config)
+    if isinstance(value, str) and name in config["categorical_values"]:
+        choices = config["categorical_values"][name]
+        return random.choice(choices)
+
+    # Default: return unchanged
+    return value
+
+# ---------------------------------------------------------
+# Main mutation engine
+# ---------------------------------------------------------
+
+def maybe_mutate(transform, history, config):
+    """
+    Create a mutated child transform if conditions are met.
+    """
+    if not is_good(transform, config):
+        return None
+
+    if not is_plateaued(transform, history, config):
+        return None
+
+    # Clone parent
+    child = clone_transform(transform)
+    child.id = new_uuid()
+    child.lineage.parent_ids = [transform.id]
+    child.lineage.generation = transform.lineage.generation + 1
+    child.metadata.created_by = "mutation"
+
+    # Mutate parameters
+    for name, value in child.params.items():
+        child.params[name] = mutate_param(name, value, config)
+
+    # Reset performance stats
+    reset_performance(child)
+
+    return child
