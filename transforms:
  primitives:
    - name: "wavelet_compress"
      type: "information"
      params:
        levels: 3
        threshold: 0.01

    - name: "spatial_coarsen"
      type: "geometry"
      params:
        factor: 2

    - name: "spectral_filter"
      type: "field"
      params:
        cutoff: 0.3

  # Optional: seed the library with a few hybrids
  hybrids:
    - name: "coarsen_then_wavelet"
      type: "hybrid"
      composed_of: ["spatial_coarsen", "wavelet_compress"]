@@ -1,0 +1,23 @@
+transforms:
+  primitives:
+    - name: "wavelet_compress"
+      type: "information"
+      params:
+        levels: 3
+        threshold: 0.01
+
+    - name: "spatial_coarsen"
+      type: "geometry"
+      params:
+        factor: 2
+
+    - name: "spectral_filter"
+      type: "field"
+      params:
+        cutoff: 0.3
+
+  # Optional: seed the library with a few hybrids
+  hybrids:
+    - name: "coarsen_then_wavelet"
+      type: "hybrid"
+      composed_of: ["spatial_coarsen", "wavelet_compress"]
