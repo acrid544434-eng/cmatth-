@@ -1,0 +1,5 @@
+from acme.simulation.loop import run_simulation
+from acme.config import load_world_config
+
+config = load_world_config("examples/field_world.yaml")
+run_simulation(config)
