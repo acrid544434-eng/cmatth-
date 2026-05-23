@@ -1,0 +1,14 @@
+simulation:
+  T_max: 5000
+
+  logging:
+    enable: true
+    interval: 10
+
+  checkpoints:
+    enable: true
+    interval: 250
+
+  visualization:
+    enable: true
+    metrics: ["entropy", "energy", "structure", "complexity"]
