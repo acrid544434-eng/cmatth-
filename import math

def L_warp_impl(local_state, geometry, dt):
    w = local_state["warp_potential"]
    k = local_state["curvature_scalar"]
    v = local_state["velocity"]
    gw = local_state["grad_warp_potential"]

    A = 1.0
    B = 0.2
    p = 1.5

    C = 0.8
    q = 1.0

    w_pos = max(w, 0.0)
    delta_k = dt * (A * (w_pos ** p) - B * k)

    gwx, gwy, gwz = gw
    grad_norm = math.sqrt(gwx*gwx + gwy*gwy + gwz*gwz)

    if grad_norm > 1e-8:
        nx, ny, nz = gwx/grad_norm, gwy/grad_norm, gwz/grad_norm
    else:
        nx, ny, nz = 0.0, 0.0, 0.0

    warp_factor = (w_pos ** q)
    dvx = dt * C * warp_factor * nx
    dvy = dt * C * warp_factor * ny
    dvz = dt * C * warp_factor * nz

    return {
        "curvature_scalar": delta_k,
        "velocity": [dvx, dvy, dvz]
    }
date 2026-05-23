@@ -1,0 +1,35 @@
+import math
+
+def L_warp_impl(local_state, geometry, dt):
+    w = local_state["warp_potential"]
+    k = local_state["curvature_scalar"]
+    v = local_state["velocity"]
+    gw = local_state["grad_warp_potential"]
+
+    A = 1.0
+    B = 0.2
+    p = 1.5
+
+    C = 0.8
+    q = 1.0
+
+    w_pos = max(w, 0.0)
+    delta_k = dt * (A * (w_pos ** p) - B * k)
+
+    gwx, gwy, gwz = gw
+    grad_norm = math.sqrt(gwx*gwx + gwy*gwy + gwz*gwz)
+
+    if grad_norm > 1e-8:
+        nx, ny, nz = gwx/grad_norm, gwy/grad_norm, gwz/grad_norm
+    else:
+        nx, ny, nz = 0.0, 0.0, 0.0
+
+    warp_factor = (w_pos ** q)
+    dvx = dt * C * warp_factor * nx
+    dvy = dt * C * warp_factor * ny
+    dvz = dt * C * warp_factor * nz
+
+    return {
+        "curvature_scalar": delta_k,
+        "velocity": [dvx, dvy, dvz]
+    }
