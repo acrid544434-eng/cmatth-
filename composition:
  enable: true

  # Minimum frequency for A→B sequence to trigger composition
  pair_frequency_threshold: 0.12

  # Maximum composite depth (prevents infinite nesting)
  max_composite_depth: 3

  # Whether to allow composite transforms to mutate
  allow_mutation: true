@@ -1,0 +1,11 @@
+composition:
+  enable: true
+
+  # Minimum frequency for A→B sequence to trigger composition
+  pair_frequency_threshold: 0.12
+
+  # Maximum composite depth (prevents infinite nesting)
+  max_composite_depth: 3
+
+  # Whether to allow composite transforms to mutate
+  allow_mutation: true
