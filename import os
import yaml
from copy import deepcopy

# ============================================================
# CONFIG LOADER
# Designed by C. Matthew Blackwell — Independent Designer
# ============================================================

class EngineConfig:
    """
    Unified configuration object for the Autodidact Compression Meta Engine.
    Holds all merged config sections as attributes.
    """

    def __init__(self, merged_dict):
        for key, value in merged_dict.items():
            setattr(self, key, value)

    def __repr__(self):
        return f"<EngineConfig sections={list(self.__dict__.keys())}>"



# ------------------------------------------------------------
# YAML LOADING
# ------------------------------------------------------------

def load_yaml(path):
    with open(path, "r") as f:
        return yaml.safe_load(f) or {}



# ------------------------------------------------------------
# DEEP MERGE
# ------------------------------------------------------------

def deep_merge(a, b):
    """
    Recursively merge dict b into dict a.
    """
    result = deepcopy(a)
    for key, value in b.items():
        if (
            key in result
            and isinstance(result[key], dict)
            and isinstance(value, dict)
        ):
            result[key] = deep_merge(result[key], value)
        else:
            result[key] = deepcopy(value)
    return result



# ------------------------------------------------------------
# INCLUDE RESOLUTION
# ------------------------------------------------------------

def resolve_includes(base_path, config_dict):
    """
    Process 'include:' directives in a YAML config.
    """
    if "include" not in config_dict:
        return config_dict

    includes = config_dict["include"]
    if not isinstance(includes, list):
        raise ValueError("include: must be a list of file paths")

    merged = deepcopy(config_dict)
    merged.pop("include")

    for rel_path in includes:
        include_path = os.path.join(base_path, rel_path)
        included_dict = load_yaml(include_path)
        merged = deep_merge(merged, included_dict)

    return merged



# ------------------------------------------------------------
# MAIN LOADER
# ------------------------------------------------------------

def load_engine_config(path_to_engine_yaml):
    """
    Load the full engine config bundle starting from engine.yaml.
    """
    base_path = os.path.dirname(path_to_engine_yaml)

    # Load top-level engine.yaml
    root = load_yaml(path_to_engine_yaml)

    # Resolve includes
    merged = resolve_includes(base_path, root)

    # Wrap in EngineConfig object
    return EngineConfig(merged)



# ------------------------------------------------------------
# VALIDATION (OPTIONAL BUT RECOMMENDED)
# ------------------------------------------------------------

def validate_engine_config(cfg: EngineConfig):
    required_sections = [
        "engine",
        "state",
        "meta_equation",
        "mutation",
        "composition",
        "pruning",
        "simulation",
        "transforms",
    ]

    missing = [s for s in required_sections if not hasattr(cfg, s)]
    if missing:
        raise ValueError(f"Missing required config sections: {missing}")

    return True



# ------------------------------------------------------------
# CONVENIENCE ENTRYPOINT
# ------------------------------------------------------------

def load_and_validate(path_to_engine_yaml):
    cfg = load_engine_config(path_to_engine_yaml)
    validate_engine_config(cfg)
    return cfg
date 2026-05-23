@@ -1,0 +1,136 @@
+import os
+import yaml
+from copy import deepcopy
+
+# ============================================================
+# CONFIG LOADER
+# Designed by C. Matthew Blackwell — Independent Designer
+# ============================================================
+
+class EngineConfig:
+    """
+    Unified configuration object for the Autodidact Compression Meta Engine.
+    Holds all merged config sections as attributes.
+    """
+
+    def __init__(self, merged_dict):
+        for key, value in merged_dict.items():
+            setattr(self, key, value)
+
+    def __repr__(self):
+        return f"<EngineConfig sections={list(self.__dict__.keys())}>"
+
+
+
+# ------------------------------------------------------------
+# YAML LOADING
+# ------------------------------------------------------------
+
+def load_yaml(path):
+    with open(path, "r") as f:
+        return yaml.safe_load(f) or {}
+
+
+
+# ------------------------------------------------------------
+# DEEP MERGE
+# ------------------------------------------------------------
+
+def deep_merge(a, b):
+    """
+    Recursively merge dict b into dict a.
+    """
+    result = deepcopy(a)
+    for key, value in b.items():
+        if (
+            key in result
+            and isinstance(result[key], dict)
+            and isinstance(value, dict)
+        ):
+            result[key] = deep_merge(result[key], value)
+        else:
+            result[key] = deepcopy(value)
+    return result
+
+
+
+# ------------------------------------------------------------
+# INCLUDE RESOLUTION
+# ------------------------------------------------------------
+
+def resolve_includes(base_path, config_dict):
+    """
+    Process 'include:' directives in a YAML config.
+    """
+    if "include" not in config_dict:
+        return config_dict
+
+    includes = config_dict["include"]
+    if not isinstance(includes, list):
+        raise ValueError("include: must be a list of file paths")
+
+    merged = deepcopy(config_dict)
+    merged.pop("include")
+
+    for rel_path in includes:
+        include_path = os.path.join(base_path, rel_path)
+        included_dict = load_yaml(include_path)
+        merged = deep_merge(merged, included_dict)
+
+    return merged
+
+
+
+# ------------------------------------------------------------
+# MAIN LOADER
+# ------------------------------------------------------------
+
+def load_engine_config(path_to_engine_yaml):
+    """
+    Load the full engine config bundle starting from engine.yaml.
+    """
+    base_path = os.path.dirname(path_to_engine_yaml)
+
+    # Load top-level engine.yaml
+    root = load_yaml(path_to_engine_yaml)
+
+    # Resolve includes
+    merged = resolve_includes(base_path, root)
+
+    # Wrap in EngineConfig object
+    return EngineConfig(merged)
+
+
+
+# ------------------------------------------------------------
+# VALIDATION (OPTIONAL BUT RECOMMENDED)
+# ------------------------------------------------------------
+
+def validate_engine_config(cfg: EngineConfig):
+    required_sections = [
+        "engine",
+        "state",
+        "meta_equation",
+        "mutation",
+        "composition",
+        "pruning",
+        "simulation",
+        "transforms",
+    ]
+
+    missing = [s for s in required_sections if not hasattr(cfg, s)]
+    if missing:
+        raise ValueError(f"Missing required config sections: {missing}")
+
+    return True
+
+
+
+# ------------------------------------------------------------
+# CONVENIENCE ENTRYPOINT
+# ------------------------------------------------------------
+
+def load_and_validate(path_to_engine_yaml):
+    cfg = load_engine_config(path_to_engine_yaml)
+    validate_engine_config(cfg)
+    return cfg
