@@ -1,0 +1,10 @@
+pruning:
+  A_max: 200   # Maximum transforms allowed in library
+
+  prune_weights:
+    - 0.6   # weight for (1 - success_rate)
+    - 0.3   # low usage penalty
+    - 0.1   # age penalty
+
+  min_usage: 3
+  age_norm: 500
