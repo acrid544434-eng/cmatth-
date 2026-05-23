@@ -1,0 +1,35 @@
+world:
+  name: "AutodidactCompressionField"
+
+state:
+  type: "field"
+  grid_size: [128, 128]
+  channels: 1
+  measures:
+    information: "shannon_entropy"
+    energy: "field_energy"
+    structure: "spatial_correlation"
+    complexity: "model_description_length"
+
+transforms:
+  - name: "wavelet_compress"
+    kind: "information"
+    params:
+      levels: 3
+      threshold: 0.01
+
+  - name: "spatial_coarsen"
+    kind: "geometry"
+    params:
+      factor: 2
+
+meta_equation:
+  weights:
+    alpha_I: 1.0
+    alpha_E: 0.5
+    alpha_S: 0.2
+    alpha_C: 0.3
+  learning:
+    type: "reward_based"
+    eta: 0.01
+    reward_signal: "compression_ratio_vs_error"
