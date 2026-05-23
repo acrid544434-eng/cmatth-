@@ -1,0 +1,26 @@
+designer:
+  id: "c_matthew_blackwell"
+  signature_vector:
+    elegance: 0.82
+    experimental: 0.94
+    symmetry: 0.76
+    risk: 0.88
+    nonlocal: 0.67
+    warp_bias: 0.93
+
+simulation:
+  name: "CMB_WarpField_Alpha"
+  domain:
+    type: "grid"
+    dimensions: 3
+    size: [128, 128, 128]
+
+fields:
+  - name: "warp_potential"
+    type: "scalar"
+    initial: "localized_shell"
+
+unified_equation:
+  authored_by: "c_matthew_blackwell"
+  operator_blending:
+    strategy: "C_MB_linear_combo"
