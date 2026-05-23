@@ -1,0 +1,20 @@
+import copy
+import uuid
+
+def maybe_mutate(transform, history, config):
+    if not is_good(transform, config):
+        return None
+    if not is_plateaued(transform, history, config):
+        return None
+
+    child = copy.deepcopy(transform)
+    child.id = str(uuid.uuid4())
+    child.lineage.parent_ids = [transform.id]
+    child.lineage.generation = transform.lineage.generation + 1
+    child.metadata.created_by = "mutation"
+
+    for name, value in child.params.items():
+        child.params[name] = mutate_param(name, value, config)
+
+    reset_performance(child)
+    return child
