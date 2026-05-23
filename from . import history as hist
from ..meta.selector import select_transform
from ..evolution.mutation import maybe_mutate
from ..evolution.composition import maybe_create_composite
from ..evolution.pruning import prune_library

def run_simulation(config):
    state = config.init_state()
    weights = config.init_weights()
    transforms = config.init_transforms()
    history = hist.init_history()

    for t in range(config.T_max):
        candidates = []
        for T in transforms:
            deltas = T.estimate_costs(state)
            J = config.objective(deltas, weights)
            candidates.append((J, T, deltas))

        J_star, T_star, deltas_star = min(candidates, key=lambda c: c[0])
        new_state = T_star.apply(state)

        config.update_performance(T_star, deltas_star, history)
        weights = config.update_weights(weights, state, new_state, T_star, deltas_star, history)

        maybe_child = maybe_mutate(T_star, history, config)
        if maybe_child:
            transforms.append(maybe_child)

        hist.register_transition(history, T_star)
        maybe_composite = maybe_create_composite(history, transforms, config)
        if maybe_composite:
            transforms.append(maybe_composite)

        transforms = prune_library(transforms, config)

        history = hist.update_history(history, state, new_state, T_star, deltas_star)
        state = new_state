@@ -1,0 +1,38 @@
+from . import history as hist
+from ..meta.selector import select_transform
+from ..evolution.mutation import maybe_mutate
+from ..evolution.composition import maybe_create_composite
+from ..evolution.pruning import prune_library
+
+def run_simulation(config):
+    state = config.init_state()
+    weights = config.init_weights()
+    transforms = config.init_transforms()
+    history = hist.init_history()
+
+    for t in range(config.T_max):
+        candidates = []
+        for T in transforms:
+            deltas = T.estimate_costs(state)
+            J = config.objective(deltas, weights)
+            candidates.append((J, T, deltas))
+
+        J_star, T_star, deltas_star = min(candidates, key=lambda c: c[0])
+        new_state = T_star.apply(state)
+
+        config.update_performance(T_star, deltas_star, history)
+        weights = config.update_weights(weights, state, new_state, T_star, deltas_star, history)
+
+        maybe_child = maybe_mutate(T_star, history, config)
+        if maybe_child:
+            transforms.append(maybe_child)
+
+        hist.register_transition(history, T_star)
+        maybe_composite = maybe_create_composite(history, transforms, config)
+        if maybe_composite:
+            transforms.append(maybe_composite)
+
+        transforms = prune_library(transforms, config)
+
+        history = hist.update_history(history, state, new_state, T_star, deltas_star)
+        state = new_state
