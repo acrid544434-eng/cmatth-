@@ -1,0 +1,42 @@
+class CMBAuthoredPhysicsEngine:
+    def __init__(self, blueprint):
+        self.config = BlueprintParser.parse(blueprint)
+        self.designer = self.config.designer_profile
+        self.state = initialize_state(self.config)
+        self.geometry = initialize_geometry(self.config)
+
+        self.regime_selector = build_regime_selector(
+            self.config.unified_equation,
+            self.designer
+        )
+
+        self.operator_registry = build_operator_registry(
+            self.config.operators
+        )
+
+        self.operator_mixer = build_operator_mixer(
+            self.config.unified_equation,
+            self.designer,
+            self.operator_registry
+        )
+
+        self.outputs = OutputManager(self.config.outputs, self.config, self.designer)
+
+        self.t = self.config.time.start
+        self.t_end = self.config.time.end
+        self.dt = self.config.time.time_step
+        self.integrator = self.config.time.integrator
+
+    def step(self):
+        if self.integrator == "rk4":
+            self._step_rk4()
+        else:
+            self._step_euler()
+
+        self.outputs.maybe_record(self.state, self.geometry, self.t)
+        self.t += self.dt
+
+    def run(self):
+        while self.t < self.t_end:
+            self.step()
+        self.outputs.finalize()
