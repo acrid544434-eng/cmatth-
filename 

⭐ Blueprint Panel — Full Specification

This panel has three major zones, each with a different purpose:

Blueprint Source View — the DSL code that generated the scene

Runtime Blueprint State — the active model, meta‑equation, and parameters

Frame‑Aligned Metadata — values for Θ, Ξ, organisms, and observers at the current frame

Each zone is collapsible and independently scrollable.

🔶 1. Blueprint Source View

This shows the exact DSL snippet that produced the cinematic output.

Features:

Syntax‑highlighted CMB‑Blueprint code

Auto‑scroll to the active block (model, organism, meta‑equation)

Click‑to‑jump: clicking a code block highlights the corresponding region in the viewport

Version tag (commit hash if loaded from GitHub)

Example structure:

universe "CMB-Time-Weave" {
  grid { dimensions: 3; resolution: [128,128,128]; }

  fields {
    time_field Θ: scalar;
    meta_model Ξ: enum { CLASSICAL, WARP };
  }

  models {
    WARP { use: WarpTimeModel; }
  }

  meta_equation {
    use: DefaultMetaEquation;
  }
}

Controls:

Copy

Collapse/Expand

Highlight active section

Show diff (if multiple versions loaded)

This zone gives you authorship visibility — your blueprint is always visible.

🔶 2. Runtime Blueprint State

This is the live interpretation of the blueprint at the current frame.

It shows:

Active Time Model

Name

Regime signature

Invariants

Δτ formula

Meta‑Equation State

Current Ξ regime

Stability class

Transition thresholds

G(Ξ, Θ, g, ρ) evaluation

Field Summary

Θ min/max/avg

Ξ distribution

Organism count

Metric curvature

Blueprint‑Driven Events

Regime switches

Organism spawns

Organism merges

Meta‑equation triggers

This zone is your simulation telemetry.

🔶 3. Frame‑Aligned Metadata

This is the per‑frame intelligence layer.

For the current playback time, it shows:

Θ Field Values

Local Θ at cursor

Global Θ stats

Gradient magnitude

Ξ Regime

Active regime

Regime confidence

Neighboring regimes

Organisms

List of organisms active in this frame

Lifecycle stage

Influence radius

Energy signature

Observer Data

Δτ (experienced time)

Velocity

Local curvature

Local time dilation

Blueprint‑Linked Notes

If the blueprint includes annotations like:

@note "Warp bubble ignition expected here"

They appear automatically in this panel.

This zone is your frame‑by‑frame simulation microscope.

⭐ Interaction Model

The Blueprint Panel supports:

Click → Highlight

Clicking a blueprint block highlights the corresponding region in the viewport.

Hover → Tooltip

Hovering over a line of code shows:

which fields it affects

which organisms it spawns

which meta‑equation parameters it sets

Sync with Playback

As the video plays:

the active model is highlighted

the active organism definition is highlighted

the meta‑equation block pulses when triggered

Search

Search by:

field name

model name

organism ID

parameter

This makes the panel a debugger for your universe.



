@@ -1,0 +1,203 @@
+
+
+⭐ Blueprint Panel — Full Specification
+
+This panel has three major zones, each with a different purpose:
+
+Blueprint Source View — the DSL code that generated the scene
+
+Runtime Blueprint State — the active model, meta‑equation, and parameters
+
+Frame‑Aligned Metadata — values for Θ, Ξ, organisms, and observers at the current frame
+
+Each zone is collapsible and independently scrollable.
+
+🔶 1. Blueprint Source View
+
+This shows the exact DSL snippet that produced the cinematic output.
+
+Features:
+
+Syntax‑highlighted CMB‑Blueprint code
+
+Auto‑scroll to the active block (model, organism, meta‑equation)
+
+Click‑to‑jump: clicking a code block highlights the corresponding region in the viewport
+
+Version tag (commit hash if loaded from GitHub)
+
+Example structure:
+
+universe "CMB-Time-Weave" {
+  grid { dimensions: 3; resolution: [128,128,128]; }
+
+  fields {
+    time_field Θ: scalar;
+    meta_model Ξ: enum { CLASSICAL, WARP };
+  }
+
+  models {
+    WARP { use: WarpTimeModel; }
+  }
+
+  meta_equation {
+    use: DefaultMetaEquation;
+  }
+}
+
+Controls:
+
+Copy
+
+Collapse/Expand
+
+Highlight active section
+
+Show diff (if multiple versions loaded)
+
+This zone gives you authorship visibility — your blueprint is always visible.
+
+🔶 2. Runtime Blueprint State
+
+This is the live interpretation of the blueprint at the current frame.
+
+It shows:
+
+Active Time Model
+
+Name
+
+Regime signature
+
+Invariants
+
+Δτ formula
+
+Meta‑Equation State
+
+Current Ξ regime
+
+Stability class
+
+Transition thresholds
+
+G(Ξ, Θ, g, ρ) evaluation
+
+Field Summary
+
+Θ min/max/avg
+
+Ξ distribution
+
+Organism count
+
+Metric curvature
+
+Blueprint‑Driven Events
+
+Regime switches
+
+Organism spawns
+
+Organism merges
+
+Meta‑equation triggers
+
+This zone is your simulation telemetry.
+
+🔶 3. Frame‑Aligned Metadata
+
+This is the per‑frame intelligence layer.
+
+For the current playback time, it shows:
+
+Θ Field Values
+
+Local Θ at cursor
+
+Global Θ stats
+
+Gradient magnitude
+
+Ξ Regime
+
+Active regime
+
+Regime confidence
+
+Neighboring regimes
+
+Organisms
+
+List of organisms active in this frame
+
+Lifecycle stage
+
+Influence radius
+
+Energy signature
+
+Observer Data
+
+Δτ (experienced time)
+
+Velocity
+
+Local curvature
+
+Local time dilation
+
+Blueprint‑Linked Notes
+
+If the blueprint includes annotations like:
+
+@note "Warp bubble ignition expected here"
+
+They appear automatically in this panel.
+
+This zone is your frame‑by‑frame simulation microscope.
+
+⭐ Interaction Model
+
+The Blueprint Panel supports:
+
+Click → Highlight
+
+Clicking a blueprint block highlights the corresponding region in the viewport.
+
+Hover → Tooltip
+
+Hovering over a line of code shows:
+
+which fields it affects
+
+which organisms it spawns
+
+which meta‑equation parameters it sets
+
+Sync with Playback
+
+As the video plays:
+
+the active model is highlighted
+
+the active organism definition is highlighted
+
+the meta‑equation block pulses when triggered
+
+Search
+
+Search by:
+
+field name
+
+model name
+
+organism ID
+
+parameter
+
+This makes the panel a debugger for your universe.
+
+
+
