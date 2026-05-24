@@ -1,0 +1,25 @@
+1. Authoring:
+   You write a blueprint in the Physics DSL.
+
+2. Parsing:
+   PhysicsDSL.parse → DSL_AST.
+
+3. Constraint binding (Capsules):
+   PhysicsDSL.validate(ast, CapsuleSet)
+   - Meta‑equations (horizon veto, hybrid energy law)
+   - Violations rejected or require override flags
+
+4. Identity encoding:
+   PhysicsDSL.annotate(ast, IdentitySignature("C. Matthew Blackwell"))
+
+5. Compilation:
+   PhysicistBlueprintModule.compile(ast) → CompiledPhysics
+   - Produces operators for FieldEngineCore, InertialCancellationNode, WarpFieldModule
+
+6. Activation:
+   PhysicsSubsystem.activateBlueprint(handle, context)
+
+7. Runtime evolution (optional):
+   - Blueprint mutation via DSL deltas
+   - Re‑validation under Capsule constraints
+   - Hot‑swap compiled operators
