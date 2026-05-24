@@ -1,0 +1,5 @@
+interface PhysicsDSL {
+  parse(src: DSLSource): DSL_AST;
+  validate(ast: DSL_AST, constraints: CapsuleSet): ValidationReport;
+  annotate(ast: DSL_AST, identity: IdentitySignature): DSL_AST;
+}
