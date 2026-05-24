@@ -1,0 +1,111 @@
+
+
+1. High-level architecture
+
+Modules:
+
+MediaEngine — loads and plays video/frames
+
+DataChannel — loads time-aligned metadata (fields, organisms, etc.)
+
+OverlayEngine — draws visual layers on top of the media
+
+SyncController — keeps media time and data time in lockstep
+
+2. Media engine
+
+Responsibility: decode and play the cinematic.
+
+Inputs: file path or URL (local or GitHub raw)
+
+Core functions:
+
+loadMedia(source)
+
+play() / pause() / stop()
+
+seek(time)
+
+onTimeUpdate(callback) — fires with current playback time
+
+This is the “video player” heart.
+
+3. Data channel
+
+Responsibility: provide simulation data aligned with time.
+
+Inputs: JSON/CSV/HDF5/etc. with per-frame or per-time-step data
+
+Core functions:
+
+loadData(source)
+
+getStateAt(time) → { Θ, Ξ, organisms, metric, … }
+
+This is how the viewer knows what the simulation is doing at each moment.
+
+4. Overlay engine
+
+Responsibility: render visual intelligence on top of the media.
+
+Inputs: current frame + current data state
+
+Core functions:
+
+registerLayer(layer)
+
+render(time, dataState, canvasContext)
+
+Example layers:
+
+time-field heatmap
+
+meta-model regime map
+
+organism outlines
+
+metric grid
+
+labels / HUD (Δτ, model name, etc.)
+
+Each layer implements:
+
+interface OverlayLayer {
+    id: string
+    render(time, dataState, ctx): void
+}
+
+5. Sync controller
+
+Responsibility: glue everything together.
+
+Subscribes to MediaEngine.onTimeUpdate
+
+For each tick:
+
+t = currentTime
+
+state = DataChannel.getStateAt(t)
+
+OverlayEngine.render(t, state, ctx)
+
+Core loop:
+
+onMediaTimeUpdate(t):
+    state = dataChannel.getStateAt(t)
+    overlayEngine.render(t, state, overlayCanvas)
+
+6. Minimal flow (end-to-end)
+
+MediaEngine.loadMedia(video.mp4)
+
+DataChannel.loadData(simulation.json)
+
+User hits Play
+
+MediaEngine emits time updates
+
+SyncController pulls data for that time
+
+OverlayEngine draws layers on top of the video
+
