@@ -1,0 +1,210 @@
+
+
+⭐ UI Shell — The CMB Cinematic Cockpit
+
+This is the interface layer that sits on top of:
+
+the Media Engine
+
+the Data Channel
+
+the Overlay Engine
+
+the Sync Controller
+
+It’s the part you touch, the part you navigate, the part that feels like a control surface for your universe.
+
+⭐ 1. Layout Overview
+
+The UI shell is divided into four primary surfaces:
+
+Playback Bar — time navigation
+
+Overlay Panel — toggle layers
+
+Blueprint Panel — show metadata
+
+Viewport — the cinematic canvas
+
+Below is the structure:
+
+┌──────────────────────────────────────────────────────────────┐
+│                       TOP TOOLBAR                             │
+├──────────────────────────────────────────────────────────────┤
+│  OVERLAY PANEL   │                VIEWPORT                    │
+│                  │                                            │
+│                  │                                            │
+│                  │                                            │
+├──────────────────────────────────────────────────────────────┤
+│                       PLAYBACK BAR                            │
+└──────────────────────────────────────────────────────────────┘
+
+⭐ 2. Top Toolbar
+
+This is the command strip.
+
+Load File (local or GitHub URL)
+
+Load Data (Θ, Ξ, organisms, metrics)
+
+Snapshot (export a frame)
+
+Mode Switch (Cinematic / Scientific / Blueprint)
+
+Settings (performance, color maps, grid density)
+
+Each button is tied to a viewer action, not a file action.
+
+⭐ 3. Overlay Panel
+
+This is your layer control center.
+
+Each overlay is a toggleable item:
+
+Time Field Θ
+
+Meta‑Model Field Ξ
+
+Organisms
+
+Metric Grid
+
+Time Dilation Map
+
+Blueprint HUD
+
+Each item has:
+
+checkbox
+
+opacity slider
+
+color map selector
+
+detail level selector
+
+This is how you see inside the simulation.
+
+⭐ 4. Viewport (Cinematic Canvas)
+
+This is the heart of the viewer.
+
+It displays:
+
+the cinematic video
+
+the overlay layers
+
+the HUD
+
+the blueprint metadata (optional)
+
+It supports:
+
+zoom
+
+pan
+
+fullscreen
+
+frame stepping
+
+overlay blending
+
+This is the window into your universe.
+
+⭐ 5. Playback Bar
+
+This is your time navigation strip.
+
+Play / Pause
+
+Frame Step (forward/back)
+
+Scrubber
+
+Current Time / Total Time
+
+Playback Speed (0.25× → 4×)
+
+Loop Region (A/B markers)
+
+It also shows regime markers:
+
+Classical region
+
+Warp region
+
+Frozen region
+
+Organism events
+
+Meta‑equation transitions
+
+These appear as colored ticks on the timeline.
+
+⭐ 6. Blueprint Panel
+
+This is where the viewer becomes more than a video player.
+
+It shows:
+
+the blueprint snippet that generated the scene
+
+the active time model
+
+the meta‑equation state
+
+organism lifecycle events
+
+field values at the current frame
+
+Example:
+
+model WARP {
+  equation: T_obs = ∫ Φ(Θ, g, u) dλ;
+  modifies: Θ, Ξ;
+}
+
+This panel makes the viewer a simulation intelligence interface.
+
+⭐ 7. Interaction Model
+
+The UI shell supports three modes:
+
+1. Cinematic Mode
+
+Just the video + minimal overlays.
+
+2. Scientific Mode
+
+Full overlays, field maps, metrics.
+
+3. Blueprint Mode
+
+Blueprint panel + HUD + regime markers.
+
+You switch modes from the top toolbar.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
