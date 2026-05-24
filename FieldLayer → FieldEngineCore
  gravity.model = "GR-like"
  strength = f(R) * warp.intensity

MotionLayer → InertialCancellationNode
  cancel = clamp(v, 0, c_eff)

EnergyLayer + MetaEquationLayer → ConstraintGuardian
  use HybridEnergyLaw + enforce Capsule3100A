@@ -1,0 +1,9 @@
+FieldLayer → FieldEngineCore
+  gravity.model = "GR-like"
+  strength = f(R) * warp.intensity
+
+MotionLayer → InertialCancellationNode
+  cancel = clamp(v, 0, c_eff)
+
+EnergyLayer + MetaEquationLayer → ConstraintGuardian
+  use HybridEnergyLaw + enforce Capsule3100A
