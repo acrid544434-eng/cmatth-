@@ -1,0 +1,16 @@
+def fitness_fn(engine):
+    state = engine.state
+    geometry = engine.geometry
+
+    curvature = state["curvature_scalar"]
+    warp = state["warp_potential"]
+
+    stability_score = 1.0 / (1.0 + variance(curvature))
+    warp_activity = mean(abs(warp))
+    warp_not_exploding = 1.0 / (1.0 + max_abs(curvature))
+
+    return (
+        0.5 * stability_score +
+        0.3 * warp_activity +
+        0.2 * warp_not_exploding
+    )
