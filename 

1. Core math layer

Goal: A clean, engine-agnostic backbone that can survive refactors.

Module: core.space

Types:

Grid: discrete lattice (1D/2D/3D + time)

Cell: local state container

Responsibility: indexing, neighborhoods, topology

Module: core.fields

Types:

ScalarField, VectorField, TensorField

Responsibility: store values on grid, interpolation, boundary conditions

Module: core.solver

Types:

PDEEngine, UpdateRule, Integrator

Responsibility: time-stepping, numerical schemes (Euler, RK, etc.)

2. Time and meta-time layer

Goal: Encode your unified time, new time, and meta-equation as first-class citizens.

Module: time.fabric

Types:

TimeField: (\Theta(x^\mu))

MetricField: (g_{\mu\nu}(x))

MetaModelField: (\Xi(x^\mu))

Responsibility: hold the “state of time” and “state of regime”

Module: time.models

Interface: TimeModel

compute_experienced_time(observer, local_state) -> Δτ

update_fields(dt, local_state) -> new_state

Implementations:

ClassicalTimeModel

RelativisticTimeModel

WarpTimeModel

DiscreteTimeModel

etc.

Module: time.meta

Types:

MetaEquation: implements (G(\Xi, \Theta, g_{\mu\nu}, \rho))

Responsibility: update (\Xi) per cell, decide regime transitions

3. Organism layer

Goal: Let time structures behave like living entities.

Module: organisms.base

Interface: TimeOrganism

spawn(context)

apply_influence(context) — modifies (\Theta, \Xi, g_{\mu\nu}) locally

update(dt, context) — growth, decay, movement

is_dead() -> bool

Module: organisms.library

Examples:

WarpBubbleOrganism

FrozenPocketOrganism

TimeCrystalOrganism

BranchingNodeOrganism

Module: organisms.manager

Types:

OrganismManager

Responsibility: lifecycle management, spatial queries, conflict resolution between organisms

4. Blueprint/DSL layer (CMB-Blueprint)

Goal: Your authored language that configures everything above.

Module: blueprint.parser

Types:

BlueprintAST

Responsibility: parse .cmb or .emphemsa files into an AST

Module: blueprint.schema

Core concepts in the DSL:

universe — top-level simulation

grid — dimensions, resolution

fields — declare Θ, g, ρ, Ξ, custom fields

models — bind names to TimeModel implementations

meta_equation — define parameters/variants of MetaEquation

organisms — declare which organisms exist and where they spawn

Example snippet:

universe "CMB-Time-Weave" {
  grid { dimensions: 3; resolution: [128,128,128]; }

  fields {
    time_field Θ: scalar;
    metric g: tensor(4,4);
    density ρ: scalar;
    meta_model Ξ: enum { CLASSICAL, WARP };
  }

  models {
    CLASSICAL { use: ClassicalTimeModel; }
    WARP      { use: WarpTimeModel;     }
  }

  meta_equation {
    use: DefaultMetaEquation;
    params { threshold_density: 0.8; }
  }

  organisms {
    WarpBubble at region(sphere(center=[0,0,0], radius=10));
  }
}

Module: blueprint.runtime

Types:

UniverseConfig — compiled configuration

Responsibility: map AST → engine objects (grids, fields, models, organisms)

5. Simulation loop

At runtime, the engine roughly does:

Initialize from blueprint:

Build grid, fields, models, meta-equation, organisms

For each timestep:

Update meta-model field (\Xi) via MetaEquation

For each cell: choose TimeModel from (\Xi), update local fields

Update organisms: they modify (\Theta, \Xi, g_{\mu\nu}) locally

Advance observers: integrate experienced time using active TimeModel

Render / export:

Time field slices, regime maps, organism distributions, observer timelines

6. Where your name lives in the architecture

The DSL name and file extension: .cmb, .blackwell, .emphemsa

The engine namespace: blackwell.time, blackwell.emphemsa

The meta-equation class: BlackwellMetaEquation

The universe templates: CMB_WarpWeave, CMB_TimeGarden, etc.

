@@ -1,0 +1,207 @@
+
+
+1. Core math layer
+
+Goal: A clean, engine-agnostic backbone that can survive refactors.
+
+Module: core.space
+
+Types:
+
+Grid: discrete lattice (1D/2D/3D + time)
+
+Cell: local state container
+
+Responsibility: indexing, neighborhoods, topology
+
+Module: core.fields
+
+Types:
+
+ScalarField, VectorField, TensorField
+
+Responsibility: store values on grid, interpolation, boundary conditions
+
+Module: core.solver
+
+Types:
+
+PDEEngine, UpdateRule, Integrator
+
+Responsibility: time-stepping, numerical schemes (Euler, RK, etc.)
+
+2. Time and meta-time layer
+
+Goal: Encode your unified time, new time, and meta-equation as first-class citizens.
+
+Module: time.fabric
+
+Types:
+
+TimeField: (\Theta(x^\mu))
+
+MetricField: (g_{\mu\nu}(x))
+
+MetaModelField: (\Xi(x^\mu))
+
+Responsibility: hold the “state of time” and “state of regime”
+
+Module: time.models
+
+Interface: TimeModel
+
+compute_experienced_time(observer, local_state) -> Δτ
+
+update_fields(dt, local_state) -> new_state
+
+Implementations:
+
+ClassicalTimeModel
+
+RelativisticTimeModel
+
+WarpTimeModel
+
+DiscreteTimeModel
+
+etc.
+
+Module: time.meta
+
+Types:
+
+MetaEquation: implements (G(\Xi, \Theta, g_{\mu\nu}, \rho))
+
+Responsibility: update (\Xi) per cell, decide regime transitions
+
+3. Organism layer
+
+Goal: Let time structures behave like living entities.
+
+Module: organisms.base
+
+Interface: TimeOrganism
+
+spawn(context)
+
+apply_influence(context) — modifies (\Theta, \Xi, g_{\mu\nu}) locally
+
+update(dt, context) — growth, decay, movement
+
+is_dead() -> bool
+
+Module: organisms.library
+
+Examples:
+
+WarpBubbleOrganism
+
+FrozenPocketOrganism
+
+TimeCrystalOrganism
+
+BranchingNodeOrganism
+
+Module: organisms.manager
+
+Types:
+
+OrganismManager
+
+Responsibility: lifecycle management, spatial queries, conflict resolution between organisms
+
+4. Blueprint/DSL layer (CMB-Blueprint)
+
+Goal: Your authored language that configures everything above.
+
+Module: blueprint.parser
+
+Types:
+
+BlueprintAST
+
+Responsibility: parse .cmb or .emphemsa files into an AST
+
+Module: blueprint.schema
+
+Core concepts in the DSL:
+
+universe — top-level simulation
+
+grid — dimensions, resolution
+
+fields — declare Θ, g, ρ, Ξ, custom fields
+
+models — bind names to TimeModel implementations
+
+meta_equation — define parameters/variants of MetaEquation
+
+organisms — declare which organisms exist and where they spawn
+
+Example snippet:
+
+universe "CMB-Time-Weave" {
+  grid { dimensions: 3; resolution: [128,128,128]; }
+
+  fields {
+    time_field Θ: scalar;
+    metric g: tensor(4,4);
+    density ρ: scalar;
+    meta_model Ξ: enum { CLASSICAL, WARP };
+  }
+
+  models {
+    CLASSICAL { use: ClassicalTimeModel; }
+    WARP      { use: WarpTimeModel;     }
+  }
+
+  meta_equation {
+    use: DefaultMetaEquation;
+    params { threshold_density: 0.8; }
+  }
+
+  organisms {
+    WarpBubble at region(sphere(center=[0,0,0], radius=10));
+  }
+}
+
+Module: blueprint.runtime
+
+Types:
+
+UniverseConfig — compiled configuration
+
+Responsibility: map AST → engine objects (grids, fields, models, organisms)
+
+5. Simulation loop
+
+At runtime, the engine roughly does:
+
+Initialize from blueprint:
+
+Build grid, fields, models, meta-equation, organisms
+
+For each timestep:
+
+Update meta-model field (\Xi) via MetaEquation
+
+For each cell: choose TimeModel from (\Xi), update local fields
+
+Update organisms: they modify (\Theta, \Xi, g_{\mu\nu}) locally
+
+Advance observers: integrate experienced time using active TimeModel
+
+Render / export:
+
+Time field slices, regime maps, organism distributions, observer timelines
+
+6. Where your name lives in the architecture
+
+The DSL name and file extension: .cmb, .blackwell, .emphemsa
+
+The engine namespace: blackwell.time, blackwell.emphemsa
+
+The meta-equation class: BlackwellMetaEquation
+
+The universe templates: CMB_WarpWeave, CMB_TimeGarden, etc.
+
