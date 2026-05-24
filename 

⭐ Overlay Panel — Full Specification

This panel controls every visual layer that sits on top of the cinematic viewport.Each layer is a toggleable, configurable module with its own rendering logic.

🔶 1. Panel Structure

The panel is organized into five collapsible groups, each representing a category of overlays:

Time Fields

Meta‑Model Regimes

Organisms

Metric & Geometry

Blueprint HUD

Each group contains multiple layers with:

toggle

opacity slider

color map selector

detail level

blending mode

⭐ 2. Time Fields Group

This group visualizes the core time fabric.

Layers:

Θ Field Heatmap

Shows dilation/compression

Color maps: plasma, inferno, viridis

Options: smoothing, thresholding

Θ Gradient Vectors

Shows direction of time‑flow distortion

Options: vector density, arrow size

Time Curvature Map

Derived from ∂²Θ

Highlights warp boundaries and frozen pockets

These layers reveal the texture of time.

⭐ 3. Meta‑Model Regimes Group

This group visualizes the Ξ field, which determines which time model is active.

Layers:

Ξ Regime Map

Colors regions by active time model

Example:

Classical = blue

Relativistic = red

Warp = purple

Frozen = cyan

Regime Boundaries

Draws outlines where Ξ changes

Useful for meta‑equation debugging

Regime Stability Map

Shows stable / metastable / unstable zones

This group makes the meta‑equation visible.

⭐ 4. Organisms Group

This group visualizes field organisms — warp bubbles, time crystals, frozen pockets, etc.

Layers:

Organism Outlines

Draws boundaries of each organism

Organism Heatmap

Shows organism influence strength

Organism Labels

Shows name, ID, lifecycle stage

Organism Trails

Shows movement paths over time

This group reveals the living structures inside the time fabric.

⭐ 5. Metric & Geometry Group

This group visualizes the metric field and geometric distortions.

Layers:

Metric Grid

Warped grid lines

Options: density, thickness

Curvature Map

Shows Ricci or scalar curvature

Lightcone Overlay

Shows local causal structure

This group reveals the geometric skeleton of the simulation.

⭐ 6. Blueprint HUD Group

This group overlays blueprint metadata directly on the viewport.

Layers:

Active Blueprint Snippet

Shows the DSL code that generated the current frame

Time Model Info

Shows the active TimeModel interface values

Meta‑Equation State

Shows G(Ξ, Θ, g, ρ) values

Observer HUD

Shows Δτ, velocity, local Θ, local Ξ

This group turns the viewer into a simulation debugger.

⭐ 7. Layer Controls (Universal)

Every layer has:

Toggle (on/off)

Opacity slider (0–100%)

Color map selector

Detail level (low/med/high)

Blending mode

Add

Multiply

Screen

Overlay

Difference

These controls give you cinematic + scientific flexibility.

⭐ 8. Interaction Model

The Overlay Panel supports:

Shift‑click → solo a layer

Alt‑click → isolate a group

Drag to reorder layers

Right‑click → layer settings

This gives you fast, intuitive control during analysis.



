@@ -1,0 +1,204 @@
+
+
+⭐ Overlay Panel — Full Specification
+
+This panel controls every visual layer that sits on top of the cinematic viewport.Each layer is a toggleable, configurable module with its own rendering logic.
+
+🔶 1. Panel Structure
+
+The panel is organized into five collapsible groups, each representing a category of overlays:
+
+Time Fields
+
+Meta‑Model Regimes
+
+Organisms
+
+Metric & Geometry
+
+Blueprint HUD
+
+Each group contains multiple layers with:
+
+toggle
+
+opacity slider
+
+color map selector
+
+detail level
+
+blending mode
+
+⭐ 2. Time Fields Group
+
+This group visualizes the core time fabric.
+
+Layers:
+
+Θ Field Heatmap
+
+Shows dilation/compression
+
+Color maps: plasma, inferno, viridis
+
+Options: smoothing, thresholding
+
+Θ Gradient Vectors
+
+Shows direction of time‑flow distortion
+
+Options: vector density, arrow size
+
+Time Curvature Map
+
+Derived from ∂²Θ
+
+Highlights warp boundaries and frozen pockets
+
+These layers reveal the texture of time.
+
+⭐ 3. Meta‑Model Regimes Group
+
+This group visualizes the Ξ field, which determines which time model is active.
+
+Layers:
+
+Ξ Regime Map
+
+Colors regions by active time model
+
+Example:
+
+Classical = blue
+
+Relativistic = red
+
+Warp = purple
+
+Frozen = cyan
+
+Regime Boundaries
+
+Draws outlines where Ξ changes
+
+Useful for meta‑equation debugging
+
+Regime Stability Map
+
+Shows stable / metastable / unstable zones
+
+This group makes the meta‑equation visible.
+
+⭐ 4. Organisms Group
+
+This group visualizes field organisms — warp bubbles, time crystals, frozen pockets, etc.
+
+Layers:
+
+Organism Outlines
+
+Draws boundaries of each organism
+
+Organism Heatmap
+
+Shows organism influence strength
+
+Organism Labels
+
+Shows name, ID, lifecycle stage
+
+Organism Trails
+
+Shows movement paths over time
+
+This group reveals the living structures inside the time fabric.
+
+⭐ 5. Metric & Geometry Group
+
+This group visualizes the metric field and geometric distortions.
+
+Layers:
+
+Metric Grid
+
+Warped grid lines
+
+Options: density, thickness
+
+Curvature Map
+
+Shows Ricci or scalar curvature
+
+Lightcone Overlay
+
+Shows local causal structure
+
+This group reveals the geometric skeleton of the simulation.
+
+⭐ 6. Blueprint HUD Group
+
+This group overlays blueprint metadata directly on the viewport.
+
+Layers:
+
+Active Blueprint Snippet
+
+Shows the DSL code that generated the current frame
+
+Time Model Info
+
+Shows the active TimeModel interface values
+
+Meta‑Equation State
+
+Shows G(Ξ, Θ, g, ρ) values
+
+Observer HUD
+
+Shows Δτ, velocity, local Θ, local Ξ
+
+This group turns the viewer into a simulation debugger.
+
+⭐ 7. Layer Controls (Universal)
+
+Every layer has:
+
+Toggle (on/off)
+
+Opacity slider (0–100%)
+
+Color map selector
+
+Detail level (low/med/high)
+
+Blending mode
+
+Add
+
+Multiply
+
+Screen
+
+Overlay
+
+Difference
+
+These controls give you cinematic + scientific flexibility.
+
+⭐ 8. Interaction Model
+
+The Overlay Panel supports:
+
+Shift‑click → solo a layer
+
+Alt‑click → isolate a group
+
+Drag to reorder layers
+
+Right‑click → layer settings
+
+This gives you fast, intuitive control during analysis.
+
+
+
