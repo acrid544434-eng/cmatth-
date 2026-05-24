@@ -1,0 +1,5 @@
+interface PhysicsSubsystem {
+  loadBlueprint(src: DSLSource): BlueprintHandle;
+  activateBlueprint(handle: BlueprintHandle, context: SimContext): void;
+  step(sim: SimContext, dt: number): void;
+}
