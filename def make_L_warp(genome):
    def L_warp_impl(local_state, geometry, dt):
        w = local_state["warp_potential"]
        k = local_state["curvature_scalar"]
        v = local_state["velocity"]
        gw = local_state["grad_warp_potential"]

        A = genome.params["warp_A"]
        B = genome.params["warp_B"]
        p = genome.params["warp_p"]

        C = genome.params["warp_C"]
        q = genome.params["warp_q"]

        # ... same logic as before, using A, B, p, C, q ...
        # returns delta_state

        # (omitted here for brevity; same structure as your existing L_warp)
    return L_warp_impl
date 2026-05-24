@@ -1,0 +1,19 @@
+def make_L_warp(genome):
+    def L_warp_impl(local_state, geometry, dt):
+        w = local_state["warp_potential"]
+        k = local_state["curvature_scalar"]
+        v = local_state["velocity"]
+        gw = local_state["grad_warp_potential"]
+
+        A = genome.params["warp_A"]
+        B = genome.params["warp_B"]
+        p = genome.params["warp_p"]
+
+        C = genome.params["warp_C"]
+        q = genome.params["warp_q"]
+
+        # ... same logic as before, using A, B, p, C, q ...
+        # returns delta_state
+
+        # (omitted here for brevity; same structure as your existing L_warp)
+    return L_warp_impl
