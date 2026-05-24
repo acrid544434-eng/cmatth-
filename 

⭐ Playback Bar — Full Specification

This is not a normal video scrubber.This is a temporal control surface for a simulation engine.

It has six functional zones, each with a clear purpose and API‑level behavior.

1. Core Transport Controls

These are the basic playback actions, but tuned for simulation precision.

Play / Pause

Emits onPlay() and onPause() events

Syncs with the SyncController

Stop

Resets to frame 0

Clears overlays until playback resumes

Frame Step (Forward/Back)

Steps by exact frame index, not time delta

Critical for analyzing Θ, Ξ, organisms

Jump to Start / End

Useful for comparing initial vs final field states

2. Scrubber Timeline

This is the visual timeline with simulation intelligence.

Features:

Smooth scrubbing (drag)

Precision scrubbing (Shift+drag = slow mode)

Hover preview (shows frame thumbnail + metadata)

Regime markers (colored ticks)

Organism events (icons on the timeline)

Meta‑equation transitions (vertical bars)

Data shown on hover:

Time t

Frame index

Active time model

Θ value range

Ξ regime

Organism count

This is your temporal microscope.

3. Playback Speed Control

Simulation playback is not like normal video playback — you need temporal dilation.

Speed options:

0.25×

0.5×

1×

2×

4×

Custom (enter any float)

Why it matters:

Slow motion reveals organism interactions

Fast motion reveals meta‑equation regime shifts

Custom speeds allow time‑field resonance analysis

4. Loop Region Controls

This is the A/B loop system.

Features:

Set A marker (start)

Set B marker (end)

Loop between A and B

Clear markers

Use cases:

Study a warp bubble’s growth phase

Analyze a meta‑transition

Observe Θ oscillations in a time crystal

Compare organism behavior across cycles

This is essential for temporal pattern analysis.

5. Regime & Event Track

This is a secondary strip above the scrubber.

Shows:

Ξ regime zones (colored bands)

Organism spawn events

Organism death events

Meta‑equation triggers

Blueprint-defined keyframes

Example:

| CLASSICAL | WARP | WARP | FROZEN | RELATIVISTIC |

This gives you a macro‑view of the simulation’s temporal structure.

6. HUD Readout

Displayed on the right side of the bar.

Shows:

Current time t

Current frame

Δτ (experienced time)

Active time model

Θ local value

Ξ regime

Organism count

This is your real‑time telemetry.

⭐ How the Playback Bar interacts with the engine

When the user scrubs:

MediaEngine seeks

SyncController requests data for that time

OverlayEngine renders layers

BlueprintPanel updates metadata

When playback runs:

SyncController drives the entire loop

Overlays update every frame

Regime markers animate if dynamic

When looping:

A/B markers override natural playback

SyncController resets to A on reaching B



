@@ -1,0 +1,192 @@
+
+
+⭐ Playback Bar — Full Specification
+
+This is not a normal video scrubber.This is a temporal control surface for a simulation engine.
+
+It has six functional zones, each with a clear purpose and API‑level behavior.
+
+1. Core Transport Controls
+
+These are the basic playback actions, but tuned for simulation precision.
+
+Play / Pause
+
+Emits onPlay() and onPause() events
+
+Syncs with the SyncController
+
+Stop
+
+Resets to frame 0
+
+Clears overlays until playback resumes
+
+Frame Step (Forward/Back)
+
+Steps by exact frame index, not time delta
+
+Critical for analyzing Θ, Ξ, organisms
+
+Jump to Start / End
+
+Useful for comparing initial vs final field states
+
+2. Scrubber Timeline
+
+This is the visual timeline with simulation intelligence.
+
+Features:
+
+Smooth scrubbing (drag)
+
+Precision scrubbing (Shift+drag = slow mode)
+
+Hover preview (shows frame thumbnail + metadata)
+
+Regime markers (colored ticks)
+
+Organism events (icons on the timeline)
+
+Meta‑equation transitions (vertical bars)
+
+Data shown on hover:
+
+Time t
+
+Frame index
+
+Active time model
+
+Θ value range
+
+Ξ regime
+
+Organism count
+
+This is your temporal microscope.
+
+3. Playback Speed Control
+
+Simulation playback is not like normal video playback — you need temporal dilation.
+
+Speed options:
+
+0.25×
+
+0.5×
+
+1×
+
+2×
+
+4×
+
+Custom (enter any float)
+
+Why it matters:
+
+Slow motion reveals organism interactions
+
+Fast motion reveals meta‑equation regime shifts
+
+Custom speeds allow time‑field resonance analysis
+
+4. Loop Region Controls
+
+This is the A/B loop system.
+
+Features:
+
+Set A marker (start)
+
+Set B marker (end)
+
+Loop between A and B
+
+Clear markers
+
+Use cases:
+
+Study a warp bubble’s growth phase
+
+Analyze a meta‑transition
+
+Observe Θ oscillations in a time crystal
+
+Compare organism behavior across cycles
+
+This is essential for temporal pattern analysis.
+
+5. Regime & Event Track
+
+This is a secondary strip above the scrubber.
+
+Shows:
+
+Ξ regime zones (colored bands)
+
+Organism spawn events
+
+Organism death events
+
+Meta‑equation triggers
+
+Blueprint-defined keyframes
+
+Example:
+
+| CLASSICAL | WARP | WARP | FROZEN | RELATIVISTIC |
+
+This gives you a macro‑view of the simulation’s temporal structure.
+
+6. HUD Readout
+
+Displayed on the right side of the bar.
+
+Shows:
+
+Current time t
+
+Current frame
+
+Δτ (experienced time)
+
+Active time model
+
+Θ local value
+
+Ξ regime
+
+Organism count
+
+This is your real‑time telemetry.
+
+⭐ How the Playback Bar interacts with the engine
+
+When the user scrubs:
+
+MediaEngine seeks
+
+SyncController requests data for that time
+
+OverlayEngine renders layers
+
+BlueprintPanel updates metadata
+
+When playback runs:
+
+SyncController drives the entire loop
+
+Overlays update every frame
+
+Regime markers animate if dynamic
+
+When looping:
+
+A/B markers override natural playback
+
+SyncController resets to A on reaching B
+
+
+
