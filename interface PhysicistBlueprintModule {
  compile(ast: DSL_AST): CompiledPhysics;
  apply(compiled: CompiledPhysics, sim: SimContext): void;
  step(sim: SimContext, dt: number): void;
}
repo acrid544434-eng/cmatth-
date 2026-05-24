@@ -1,0 +1,5 @@
+interface PhysicistBlueprintModule {
+  compile(ast: DSL_AST): CompiledPhysics;
+  apply(compiled: CompiledPhysics, sim: SimContext): void;
+  step(sim: SimContext, dt: number): void;
+}
