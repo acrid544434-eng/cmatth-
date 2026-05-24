@@ -1,0 +1,7 @@
+const ast = PhysicsDSL.parse(src);
+PhysicsDSL.validate(ast, CapsuleSet.from(["3090A", "3100A"]));
+const encodedAST = PhysicsDSL.annotate(ast, IdentitySignature("C. Matthew Blackwell"));
+const compiled = PhysicistBlueprintModule.compile(encodedAST);
+
+PhysicsSubsystem.activateBlueprint(compiledHandle(compiled), simContext);
+PhysicsSubsystem.step(simContext, dt);
