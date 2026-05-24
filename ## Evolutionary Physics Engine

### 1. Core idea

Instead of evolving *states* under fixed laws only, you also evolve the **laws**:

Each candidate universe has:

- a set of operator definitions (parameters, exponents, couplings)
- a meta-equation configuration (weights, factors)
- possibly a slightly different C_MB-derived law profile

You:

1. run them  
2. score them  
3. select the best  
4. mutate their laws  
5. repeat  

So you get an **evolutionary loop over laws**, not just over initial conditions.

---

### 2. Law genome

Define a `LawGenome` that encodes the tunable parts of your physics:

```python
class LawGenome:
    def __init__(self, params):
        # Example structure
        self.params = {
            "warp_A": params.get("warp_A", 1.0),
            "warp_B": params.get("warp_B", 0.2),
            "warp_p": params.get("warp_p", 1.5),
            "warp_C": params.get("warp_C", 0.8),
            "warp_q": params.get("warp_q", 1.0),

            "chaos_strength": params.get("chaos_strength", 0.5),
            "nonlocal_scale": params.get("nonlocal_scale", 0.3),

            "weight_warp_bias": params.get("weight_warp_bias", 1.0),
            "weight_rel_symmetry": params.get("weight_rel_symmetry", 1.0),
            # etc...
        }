@@ -1,0 +1,46 @@
+## Evolutionary Physics Engine
+
+### 1. Core idea
+
+Instead of evolving *states* under fixed laws only, you also evolve the **laws**:
+
+Each candidate universe has:
+
+- a set of operator definitions (parameters, exponents, couplings)
+- a meta-equation configuration (weights, factors)
+- possibly a slightly different C_MB-derived law profile
+
+You:
+
+1. run them  
+2. score them  
+3. select the best  
+4. mutate their laws  
+5. repeat  
+
+So you get an **evolutionary loop over laws**, not just over initial conditions.
+
+---
+
+### 2. Law genome
+
+Define a `LawGenome` that encodes the tunable parts of your physics:
+
+```python
+class LawGenome:
+    def __init__(self, params):
+        # Example structure
+        self.params = {
+            "warp_A": params.get("warp_A", 1.0),
+            "warp_B": params.get("warp_B", 0.2),
+            "warp_p": params.get("warp_p", 1.5),
+            "warp_C": params.get("warp_C", 0.8),
+            "warp_q": params.get("warp_q", 1.0),
+
+            "chaos_strength": params.get("chaos_strength", 0.5),
+            "nonlocal_scale": params.get("nonlocal_scale", 0.3),
+
+            "weight_warp_bias": params.get("weight_warp_bias", 1.0),
+            "weight_rel_symmetry": params.get("weight_rel_symmetry", 1.0),
+            # etc...
+        }
