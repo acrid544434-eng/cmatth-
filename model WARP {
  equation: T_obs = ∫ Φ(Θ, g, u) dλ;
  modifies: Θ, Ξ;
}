@@ -1,0 +1,4 @@
+model WARP {
+  equation: T_obs = ∫ Φ(Θ, g, u) dλ;
+  modifies: Θ, Ξ;
+}
