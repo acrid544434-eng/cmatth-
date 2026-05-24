@@ -1,0 +1,230 @@
+
+
+⭐ VIEWPORT — Full Specification
+
+The Viewport is built from four functional layers, stacked like a simulation sandwich:
+
+Base Media Layer — the cinematic video or frame sequence
+
+Overlay Canvas — all visual intelligence (Θ, Ξ, organisms, metric)
+
+HUD Layer — text, stats, blueprint snippets
+
+Interaction Layer — zoom, pan, selection, probes
+
+Each layer is independent, composable, and GPU‑accelerated.
+
+🔶 1. Base Media Layer
+
+This is the raw cinematic output from your engine.
+
+Responsibilities:
+
+Render video frames at native resolution
+
+Maintain aspect ratio
+
+Support high‑FPS playback (60–240 fps)
+
+Provide pixel‑accurate coordinates to overlays
+
+Features:
+
+Hardware decoding
+
+Frame stepping
+
+High‑precision seeking
+
+Resolution scaling (fit, fill, 1:1, 2:1)
+
+This layer is the visual foundation.
+
+🔶 2. Overlay Canvas
+
+This is where the simulation intelligence is drawn.
+
+It is a transparent canvas rendered on top of the media layer.
+
+Supports:
+
+Heatmaps
+
+Vector fields
+
+Contours
+
+Region masks
+
+Organism outlines
+
+Metric grids
+
+Lightcones
+
+Regime maps
+
+Rendering pipeline:
+
+Receive current time from SyncController
+
+Pull data from DataChannel
+
+Render each active overlay layer in order
+
+Composite using blending modes
+
+Performance:
+
+GPU‑accelerated
+
+Batched draw calls
+
+Dynamic resolution scaling
+
+This layer is the scientific brain of the viewport.
+
+🔶 3. HUD Layer
+
+This is the informational overlay — text, stats, and blueprint metadata.
+
+HUD elements:
+
+Current time t
+
+Frame index
+
+Δτ (experienced time)
+
+Active time model
+
+Local Θ value
+
+Local Ξ regime
+
+Organism count
+
+Meta‑equation state
+
+Blueprint snippet (optional)
+
+HUD modes:
+
+Minimal — time + frame
+
+Scientific — full telemetry
+
+Blueprint — DSL code + regime markers
+
+This layer is the narrator of the simulation.
+
+🔶 4. Interaction Layer
+
+This is where the user touches the simulation.
+
+Supported interactions:
+
+Zoom
+
+Scroll wheel
+
+Pinch gesture
+
+Zoom to cursor
+
+Reset zoom
+
+Pan
+
+Click + drag
+
+Middle‑mouse drag
+
+Arrow keys
+
+Selection
+
+Click to probe a point
+
+Drag to select a region
+
+Shift‑click to add multiple probes
+
+Probe Readout
+
+When you click a point, you get:
+
+Θ value
+
+Ξ regime
+
+Metric curvature
+
+Organism influence
+
+Δτ at that point
+
+Blueprint line responsible
+
+This layer makes the viewport interactive and alive.
+
+⭐ Viewport Modes
+
+The viewport supports three major modes, each optimized for a different purpose.
+
+🔷 1. Cinematic Mode
+
+For pure visual playback.
+
+No overlays
+
+Minimal HUD
+
+Smoothest performance
+
+Used for showcase videos.
+
+🔷 2. Scientific Mode
+
+For deep analysis.
+
+All overlays available
+
+Full HUD
+
+Probe tools enabled
+
+Regime boundaries visible
+
+Used for debugging the time fabric.
+
+🔷 3. Blueprint Mode
+
+For understanding the code → output relationship.
+
+Blueprint snippet pinned
+
+Regime markers highlighted
+
+Meta‑equation triggers pulsing
+
+Organism events labeled
+
+Used for designing and validating blueprints.
+
+⭐ Viewport API (Engine‑Facing)
+
+The viewport exposes a clean API to the rest of the viewer:
+
+Viewport.loadMedia(source)
+Viewport.setOverlays(list<OverlayLayer>)
+Viewport.setHUDMode(mode)
+Viewport.setZoom(level)
+Viewport.setPan(x, y)
+Viewport.render(time, dataState)
+Viewport.probe(x, y) -> ProbeResult
+
+This makes it modular, testable, and engine‑agnostic.
+
+
+
