@@ -1,0 +1,20 @@
+blueprint GravityWarpFusion v1 {
+  field.gravity {
+    model = "GR-like";
+    strength = f(R) * warp.intensity;
+  }
+
+  field.warp {
+    topology = "bubble";
+    gradient = smoothstep(inner, outer);
+  }
+
+  motion.inertia {
+    cancel = clamp(v, 0, c_eff);
+  }
+
+  energy.law {
+    use HybridEnergyLaw;
+    enforce Capsule3100A;
+  }
+}
