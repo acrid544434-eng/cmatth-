@@ -1,0 +1,174 @@
+
+
+⭐ CMB SIMULATION DATA FORMAT (Final Form)
+
+This is the single JSON file that sits next to your cinematic output:
+
+run_001.data.json
+
+It contains everything the viewer needs to render overlays, HUD, organisms, and meta‑equation state.
+
+The structure is simple:
+
+{
+  "frames": [...],
+  "meta": {...}
+}
+
+That’s it.
+
+Everything else lives inside those two keys.
+
+⭐ 1. frames[] — Per‑Frame Simulation State
+
+Each frame contains the entire state of the time fabric at that moment.
+
+Each entry corresponds to one video frame.
+
+frames: [
+  {
+    "t": 0.000,
+    "theta": {...},
+    "xi": {...},
+    "organisms": [...],
+    "metric": {...},
+    "events": [...]
+  },
+  ...
+]
+
+Let’s break down each part.
+
+🔷 A. "t" — Time
+
+The simulation time for this frame.
+
+"t": 0.0833
+
+Used for:
+
+HUD
+
+Syncing overlays
+
+Blueprint triggers
+
+🔷 B. "theta" — Time Field Θ
+
+This is the core time‑fabric scalar field.
+
+"theta": {
+  "min": -0.12,
+  "max":  0.87,
+  "avg":  0.14,
+  "grid": "theta_0001.bin"
+}
+
+The "grid" file is optional — if present, the viewer can render:
+
+heatmaps
+
+gradients
+
+curvature
+
+🔷 C. "xi" — Meta‑Model Field Ξ
+
+This determines which time model is active in each region.
+
+"xi": {
+  "regime": "WARP",
+  "stability": "metastable",
+  "transition": false
+}
+
+Used for:
+
+regime overlays
+
+blueprint panel
+
+timeline markers
+
+🔷 D. "organisms" — Field Organisms
+
+Each organism is a living structure inside the time fabric.
+
+"organisms": [
+  {
+    "id": "O1",
+    "type": "warp_bubble",
+    "stage": "growth",
+    "center": [64, 64],
+    "radius": 12.4,
+    "energy": 0.87
+  }
+]
+
+Used for:
+
+organism outlines
+
+trails
+
+lifecycle HUD
+
+🔷 E. "metric" — Geometric Field
+
+This describes the local geometry of the simulation.
+
+"metric": {
+  "curvature": 0.0031,
+  "lightcone": "lc_0001.bin"
+}
+
+Used for:
+
+metric grid
+
+curvature map
+
+lightcone overlay
+
+🔷 F. "events" — Blueprint‑Linked Events
+
+These are moments where the blueprint triggers something.
+
+"events": [
+  {
+    "type": "regime_switch",
+    "from": "CLASSICAL",
+    "to": "WARP"
+  }
+]
+
+Used for:
+
+timeline markers
+
+blueprint panel highlights
+
+HUD pulses
+
+⭐ 2. meta{} — Global Metadata
+
+This describes the entire run, not individual frames.
+
+meta: {
+  "version": "1.0",
+  "resolution": [1280, 720],
+  "fps": 60,
+  "blueprint": "run_001.cmb",
+  "duration": 4.0
+}
+
+Used for:
+
+playback sync
+
+viewport scaling
+
+blueprint linking
+
+
+
