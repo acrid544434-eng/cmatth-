@@ -1,0 +1,211 @@
+
+
+⭐ TIME CRYSTAL ANALYZER PLUGIN (Final Form)
+
+A plugin that detects temporal periodicity in Θ and visualizes:
+
+oscillation frequency
+
+amplitude
+
+stability
+
+phase
+
+crystal boundaries
+
+crystal lifetime
+
+It uses only the plugin contract:
+
+init
+onFrame
+render
+onDestroy
+
+Everything else is internal.
+
+⭐ 1. Plugin Identity
+
+id: "time_crystal_analyzer"
+name: "Time Crystal Analyzer"
+
+This is how the viewer recognizes it.
+
+⭐ 2. What the plugin does (in one line)
+
+Analyze Θ over time → detect periodic structures → visualize them
+
+This is a temporal microscope.
+
+⭐ 3. Data it reads
+
+From frameState:
+
+theta.min, theta.max, theta.avg
+
+optional Θ grid (theta_XXXX.bin)
+
+time t
+
+Ξ regime
+
+organism list
+
+From viewerContext:
+
+playback time
+
+viewport geometry
+
+events
+
+settings
+
+It never modifies anything.
+
+⭐ 4. Internal State (Minimal)
+
+The plugin keeps a rolling buffer:
+
+history = [
+  { t, theta_avg },
+  { t, theta_avg },
+  ...
+]
+
+Used for:
+
+frequency detection
+
+amplitude tracking
+
+stability scoring
+
+Buffer length: ~2–4 seconds of data.
+
+⭐ 5. Time Crystal Detection Logic (Stripped‑Down)
+
+A time crystal exists if:
+
+Θ oscillates
+
+Oscillation is periodic
+
+Period is stable
+
+Minimal algorithm:
+
+collect theta_avg over time
+compute FFT or autocorrelation
+detect dominant frequency
+measure amplitude
+measure stability (variance of period)
+
+If stability > threshold → crystal detected.
+
+⭐ 6. Visualization Layers
+
+The plugin renders three things:
+
+🔷 A. Oscillation Graph (HUD Panel)
+
+A small graph in the corner:
+
+x‑axis: time
+
+y‑axis: Θ average
+
+line: oscillation waveform
+
+highlight: detected period
+
+This is the oscillation signature.
+
+🔷 B. Crystal Boundary Overlay (Viewport)
+
+If a crystal is detected:
+
+draw a soft pulsing ring around the region
+
+color = gold
+
+pulse frequency = oscillation frequency
+
+thickness = amplitude
+
+This makes the crystal visible in the time fabric.
+
+🔷 C. Crystal Stats Panel (HUD)
+
+Shows:
+
+Time Crystal Detected
+frequency: 12.4 Hz
+amplitude: 0.18
+stability: 0.92
+phase: 0.33π
+lifetime: 1.8 s
+
+This is the scientific readout.
+
+⭐ 7. Plugin Lifecycle
+
+init(viewerContext)
+
+allocate history buffer
+
+subscribe to playback events
+
+create canvas layer
+
+onFrame(frameState)
+
+append Θ to history
+
+run detection
+
+update stats
+
+render(ctx)
+
+draw oscillation graph
+
+draw crystal boundary
+
+draw stats panel
+
+onDestroy()
+
+cleanup
+
+remove canvas
+
+⭐ 8. Why this plugin matters
+
+Because it transforms your viewer into a temporal physics instrument.
+
+It lets you:
+
+see time crystals
+
+measure their properties
+
+track their evolution
+
+correlate them with Ξ regimes
+
+link them to blueprint code
+
+This is the first plugin that reveals deep structure inside Θ.
+
+⭐ 9. Plugin Summary (One Screen)
+
+Plugin: Time Crystal Analyzer
+Purpose: Detect and visualize Θ oscillations
+Reads: Θ, t, viewport, settings
+Renders: graph, boundary, stats
+Detects: frequency, amplitude, stability, phase, lifetime
+
+This is the CMB Time Crystal Analyzer — final form.
+
