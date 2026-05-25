@@ -1,0 +1,150 @@
+
+
+
+
+⭐ 1. Plugin shape (the contract)
+
+Each plugin is just a module that exports a simple object:
+
+Plugin = {
+  id: string,
+  name: string,
+  init(viewerContext),
+  onFrame(frameState),
+  render(ctx),
+  onDestroy?()
+}
+
+id: stable identifier
+
+name: human label
+
+init: called once, gets viewerContext
+
+onFrame: called every frame with current state
+
+render: draws on its own canvas/layer
+
+onDestroy: optional cleanup
+
+No inheritance.No decorators.Just a plain object.
+
+⭐ 2. Viewer context
+
+viewerContext is the only thing plugins see:
+
+viewerContext = {
+  getFrameState(): FrameState,
+  getSettings(): Settings,
+  getBlueprint(): Blueprint | null,
+  getViewport(): { width, height, zoom, pan },
+  events: {
+    on(eventName, handler),
+    off(eventName, handler)
+  }
+}
+
+Plugins can:
+
+read current frame
+
+read settings
+
+read blueprint structure
+
+know viewport geometry
+
+subscribe to events like play, pause, seek, click, probe
+
+They cannot:
+
+change core engine behavior
+
+mutate global state directly
+
+⭐ 3. Plugin manager
+
+The viewer has a tiny PluginManager:
+
+PluginManager.load(pluginModule)
+PluginManager.enable(id)
+PluginManager.disable(id)
+PluginManager.unload(id)
+PluginManager.list()
+
+Internally:
+
+keeps a list of active plugins
+
+calls init once
+
+calls onFrame every frame
+
+calls render in the overlay pass
+
+calls onDestroy on unload
+
+That’s the whole thing.
+
+⭐ 4. Rendering model
+
+Each plugin gets its own canvas layer:
+
+stacked above base overlays
+
+below HUD (or configurable)
+
+Render order:
+
+base media
+
+core overlays (Θ, Ξ, organisms, metric)
+
+plugin layers
+
+HUD
+
+Plugins draw only inside their own canvas.No plugin can overwrite another’s buffer.
+
+⭐ 5. Plugin types (examples)
+
+All plugins are the same shape—only behavior differs:
+
+Analysis plugin
+
+draws custom graphs, probes, annotations
+
+Overlay plugin
+
+adds new visual layers (e.g., custom field, debug grid)
+
+HUD plugin
+
+adds extra HUD panels or stats
+
+Export plugin
+
+listens to frames and writes logs / snapshots
+
+No special casing in the system—just different uses of the same contract.
+
+⭐ 6. Discovery & loading
+
+Simplest model:
+
+plugins live in a plugins/ folder
+
+each plugin is one file exporting Plugin
+
+viewer has a Plugins panel listing:
+
+id
+
+name
+
+enable/disable toggle
+
+No registry.No marketplace.Just files.
+
+
+
