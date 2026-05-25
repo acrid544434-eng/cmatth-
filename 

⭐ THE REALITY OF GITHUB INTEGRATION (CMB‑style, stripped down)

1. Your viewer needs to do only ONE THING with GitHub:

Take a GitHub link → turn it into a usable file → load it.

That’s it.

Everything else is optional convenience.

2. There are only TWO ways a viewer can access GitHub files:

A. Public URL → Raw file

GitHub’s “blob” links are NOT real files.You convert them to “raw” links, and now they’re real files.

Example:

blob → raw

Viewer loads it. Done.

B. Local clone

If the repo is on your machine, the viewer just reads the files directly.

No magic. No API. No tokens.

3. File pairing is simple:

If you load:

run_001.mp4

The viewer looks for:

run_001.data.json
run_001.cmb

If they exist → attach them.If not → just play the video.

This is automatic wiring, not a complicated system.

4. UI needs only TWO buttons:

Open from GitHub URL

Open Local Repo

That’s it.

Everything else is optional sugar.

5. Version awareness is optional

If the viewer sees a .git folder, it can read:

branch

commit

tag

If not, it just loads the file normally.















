@@ -1,0 +1,81 @@
+
+
+⭐ THE REALITY OF GITHUB INTEGRATION (CMB‑style, stripped down)
+
+1. Your viewer needs to do only ONE THING with GitHub:
+
+Take a GitHub link → turn it into a usable file → load it.
+
+That’s it.
+
+Everything else is optional convenience.
+
+2. There are only TWO ways a viewer can access GitHub files:
+
+A. Public URL → Raw file
+
+GitHub’s “blob” links are NOT real files.You convert them to “raw” links, and now they’re real files.
+
+Example:
+
+blob → raw
+
+Viewer loads it. Done.
+
+B. Local clone
+
+If the repo is on your machine, the viewer just reads the files directly.
+
+No magic. No API. No tokens.
+
+3. File pairing is simple:
+
+If you load:
+
+run_001.mp4
+
+The viewer looks for:
+
+run_001.data.json
+run_001.cmb
+
+If they exist → attach them.If not → just play the video.
+
+This is automatic wiring, not a complicated system.
+
+4. UI needs only TWO buttons:
+
+Open from GitHub URL
+
+Open Local Repo
+
+That’s it.
+
+Everything else is optional sugar.
+
+5. Version awareness is optional
+
+If the viewer sees a .git folder, it can read:
+
+branch
+
+commit
+
+tag
+
+If not, it just loads the file normally.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
