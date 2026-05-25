@@ -1,0 +1,89 @@
+
+
+⭐ THE FINAL CMB‑STYLE GITHUB INTEGRATION MODULE
+
+This is the version you just accepted — now written cleanly, tightly, and ready to drop into your engine docs.
+
+CMB GitHub Integration (Final Form)
+
+1. Core Principle
+
+A GitHub link becomes a usable file.Nothing more.Nothing less.
+
+GitHub URL → raw file → viewer loads it
+
+Everything else is optional.
+
+2. Access Modes
+
+A. Public URL → Raw
+
+GitHub “blob” links aren’t real files.Convert them to “raw” and load.
+
+blob → raw → playable
+
+No API.No tokens.No authentication.
+
+B. Local Clone
+
+If the repo is on disk, read it directly.
+
+~/Projects/Emphemsa/
+
+Viewer reads:
+
+output/
+
+data/
+
+blueprints/
+
+.git (optional)
+
+Zero latency.Zero friction.
+
+3. Automatic File Pairing
+
+Load a video:
+
+run_001.mp4
+
+Viewer looks for:
+
+run_001.data.json
+run_001.cmb
+
+If found → attach.If not → play video alone.
+
+No config.No mapping files.Just filename matching.
+
+4. UI Requirements
+
+Only two buttons:
+
+Open from GitHub URL
+
+Open Local Repo
+
+Everything else is optional sugar.
+
+5. Optional Version Awareness
+
+If .git exists:
+
+read branch
+
+read commit
+
+read tag
+
+If not, ignore.
+
+Display:
+
+main@a1b2c3d
+
+Done.
+
+
+
