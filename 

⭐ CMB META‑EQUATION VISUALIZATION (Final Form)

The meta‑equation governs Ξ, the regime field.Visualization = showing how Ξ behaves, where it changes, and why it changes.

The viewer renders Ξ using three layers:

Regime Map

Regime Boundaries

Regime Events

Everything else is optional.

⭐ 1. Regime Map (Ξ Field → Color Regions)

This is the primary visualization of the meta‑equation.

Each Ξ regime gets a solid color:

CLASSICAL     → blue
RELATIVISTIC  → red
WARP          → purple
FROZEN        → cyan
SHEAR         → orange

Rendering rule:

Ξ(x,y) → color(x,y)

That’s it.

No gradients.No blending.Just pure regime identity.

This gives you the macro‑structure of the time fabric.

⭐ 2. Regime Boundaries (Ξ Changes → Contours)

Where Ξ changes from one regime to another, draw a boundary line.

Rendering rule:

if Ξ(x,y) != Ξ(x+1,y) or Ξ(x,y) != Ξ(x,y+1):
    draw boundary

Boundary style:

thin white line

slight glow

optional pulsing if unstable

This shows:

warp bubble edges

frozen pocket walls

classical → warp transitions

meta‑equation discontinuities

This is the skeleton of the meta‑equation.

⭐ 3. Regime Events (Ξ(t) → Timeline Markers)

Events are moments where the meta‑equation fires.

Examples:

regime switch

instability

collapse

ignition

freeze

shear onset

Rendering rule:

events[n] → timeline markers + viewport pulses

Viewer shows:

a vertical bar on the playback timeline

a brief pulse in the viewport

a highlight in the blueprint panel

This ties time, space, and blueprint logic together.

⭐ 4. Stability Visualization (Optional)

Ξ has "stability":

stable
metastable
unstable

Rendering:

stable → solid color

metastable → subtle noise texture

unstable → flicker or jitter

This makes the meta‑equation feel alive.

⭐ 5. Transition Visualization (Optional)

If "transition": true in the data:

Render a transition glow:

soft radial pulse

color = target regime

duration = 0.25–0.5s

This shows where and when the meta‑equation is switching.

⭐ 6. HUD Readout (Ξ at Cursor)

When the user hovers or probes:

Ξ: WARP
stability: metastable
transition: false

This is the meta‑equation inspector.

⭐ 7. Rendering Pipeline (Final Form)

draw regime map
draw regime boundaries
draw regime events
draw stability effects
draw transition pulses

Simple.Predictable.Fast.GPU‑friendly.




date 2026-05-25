@@ -1,0 +1,153 @@
+
+
+⭐ CMB META‑EQUATION VISUALIZATION (Final Form)
+
+The meta‑equation governs Ξ, the regime field.Visualization = showing how Ξ behaves, where it changes, and why it changes.
+
+The viewer renders Ξ using three layers:
+
+Regime Map
+
+Regime Boundaries
+
+Regime Events
+
+Everything else is optional.
+
+⭐ 1. Regime Map (Ξ Field → Color Regions)
+
+This is the primary visualization of the meta‑equation.
+
+Each Ξ regime gets a solid color:
+
+CLASSICAL     → blue
+RELATIVISTIC  → red
+WARP          → purple
+FROZEN        → cyan
+SHEAR         → orange
+
+Rendering rule:
+
+Ξ(x,y) → color(x,y)
+
+That’s it.
+
+No gradients.No blending.Just pure regime identity.
+
+This gives you the macro‑structure of the time fabric.
+
+⭐ 2. Regime Boundaries (Ξ Changes → Contours)
+
+Where Ξ changes from one regime to another, draw a boundary line.
+
+Rendering rule:
+
+if Ξ(x,y) != Ξ(x+1,y) or Ξ(x,y) != Ξ(x,y+1):
+    draw boundary
+
+Boundary style:
+
+thin white line
+
+slight glow
+
+optional pulsing if unstable
+
+This shows:
+
+warp bubble edges
+
+frozen pocket walls
+
+classical → warp transitions
+
+meta‑equation discontinuities
+
+This is the skeleton of the meta‑equation.
+
+⭐ 3. Regime Events (Ξ(t) → Timeline Markers)
+
+Events are moments where the meta‑equation fires.
+
+Examples:
+
+regime switch
+
+instability
+
+collapse
+
+ignition
+
+freeze
+
+shear onset
+
+Rendering rule:
+
+events[n] → timeline markers + viewport pulses
+
+Viewer shows:
+
+a vertical bar on the playback timeline
+
+a brief pulse in the viewport
+
+a highlight in the blueprint panel
+
+This ties time, space, and blueprint logic together.
+
+⭐ 4. Stability Visualization (Optional)
+
+Ξ has "stability":
+
+stable
+metastable
+unstable
+
+Rendering:
+
+stable → solid color
+
+metastable → subtle noise texture
+
+unstable → flicker or jitter
+
+This makes the meta‑equation feel alive.
+
+⭐ 5. Transition Visualization (Optional)
+
+If "transition": true in the data:
+
+Render a transition glow:
+
+soft radial pulse
+
+color = target regime
+
+duration = 0.25–0.5s
+
+This shows where and when the meta‑equation is switching.
+
+⭐ 6. HUD Readout (Ξ at Cursor)
+
+When the user hovers or probes:
+
+Ξ: WARP
+stability: metastable
+transition: false
+
+This is the meta‑equation inspector.
+
+⭐ 7. Rendering Pipeline (Final Form)
+
+draw regime map
+draw regime boundaries
+draw regime events
+draw stability effects
+draw transition pulses
+
+Simple.Predictable.Fast.GPU‑friendly.
+
+
+
