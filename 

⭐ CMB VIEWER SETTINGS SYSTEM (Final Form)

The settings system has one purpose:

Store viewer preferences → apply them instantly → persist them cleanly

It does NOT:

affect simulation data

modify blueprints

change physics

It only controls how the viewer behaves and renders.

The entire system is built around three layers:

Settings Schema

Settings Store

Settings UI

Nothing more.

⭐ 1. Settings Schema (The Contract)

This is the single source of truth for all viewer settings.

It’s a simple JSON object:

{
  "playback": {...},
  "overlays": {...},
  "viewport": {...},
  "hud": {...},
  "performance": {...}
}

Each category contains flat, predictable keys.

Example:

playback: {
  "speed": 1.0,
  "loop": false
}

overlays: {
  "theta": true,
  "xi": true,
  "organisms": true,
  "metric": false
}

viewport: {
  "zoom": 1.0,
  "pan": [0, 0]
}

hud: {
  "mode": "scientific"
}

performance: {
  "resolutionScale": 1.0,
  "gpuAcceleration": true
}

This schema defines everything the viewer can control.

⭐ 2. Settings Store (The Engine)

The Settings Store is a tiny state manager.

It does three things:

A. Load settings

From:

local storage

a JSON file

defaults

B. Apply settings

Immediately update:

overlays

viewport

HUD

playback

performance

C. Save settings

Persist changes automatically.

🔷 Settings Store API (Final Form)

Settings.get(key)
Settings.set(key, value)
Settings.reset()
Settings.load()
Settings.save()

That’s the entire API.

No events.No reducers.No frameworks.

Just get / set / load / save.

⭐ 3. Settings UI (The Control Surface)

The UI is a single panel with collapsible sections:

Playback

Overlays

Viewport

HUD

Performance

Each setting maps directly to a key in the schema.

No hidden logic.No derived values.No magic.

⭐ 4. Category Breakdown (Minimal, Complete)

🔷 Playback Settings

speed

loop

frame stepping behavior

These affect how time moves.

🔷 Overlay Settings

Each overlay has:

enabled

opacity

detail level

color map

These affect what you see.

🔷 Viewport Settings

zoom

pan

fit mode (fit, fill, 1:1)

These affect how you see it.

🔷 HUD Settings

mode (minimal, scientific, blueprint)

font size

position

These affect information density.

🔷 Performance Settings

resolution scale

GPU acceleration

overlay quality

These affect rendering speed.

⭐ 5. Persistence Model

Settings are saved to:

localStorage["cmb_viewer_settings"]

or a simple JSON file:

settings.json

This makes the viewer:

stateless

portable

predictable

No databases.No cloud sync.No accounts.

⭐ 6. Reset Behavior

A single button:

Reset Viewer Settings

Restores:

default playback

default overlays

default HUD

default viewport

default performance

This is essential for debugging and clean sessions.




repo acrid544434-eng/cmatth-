@@ -1,0 +1,238 @@
+
+
+⭐ CMB VIEWER SETTINGS SYSTEM (Final Form)
+
+The settings system has one purpose:
+
+Store viewer preferences → apply them instantly → persist them cleanly
+
+It does NOT:
+
+affect simulation data
+
+modify blueprints
+
+change physics
+
+It only controls how the viewer behaves and renders.
+
+The entire system is built around three layers:
+
+Settings Schema
+
+Settings Store
+
+Settings UI
+
+Nothing more.
+
+⭐ 1. Settings Schema (The Contract)
+
+This is the single source of truth for all viewer settings.
+
+It’s a simple JSON object:
+
+{
+  "playback": {...},
+  "overlays": {...},
+  "viewport": {...},
+  "hud": {...},
+  "performance": {...}
+}
+
+Each category contains flat, predictable keys.
+
+Example:
+
+playback: {
+  "speed": 1.0,
+  "loop": false
+}
+
+overlays: {
+  "theta": true,
+  "xi": true,
+  "organisms": true,
+  "metric": false
+}
+
+viewport: {
+  "zoom": 1.0,
+  "pan": [0, 0]
+}
+
+hud: {
+  "mode": "scientific"
+}
+
+performance: {
+  "resolutionScale": 1.0,
+  "gpuAcceleration": true
+}
+
+This schema defines everything the viewer can control.
+
+⭐ 2. Settings Store (The Engine)
+
+The Settings Store is a tiny state manager.
+
+It does three things:
+
+A. Load settings
+
+From:
+
+local storage
+
+a JSON file
+
+defaults
+
+B. Apply settings
+
+Immediately update:
+
+overlays
+
+viewport
+
+HUD
+
+playback
+
+performance
+
+C. Save settings
+
+Persist changes automatically.
+
+🔷 Settings Store API (Final Form)
+
+Settings.get(key)
+Settings.set(key, value)
+Settings.reset()
+Settings.load()
+Settings.save()
+
+That’s the entire API.
+
+No events.No reducers.No frameworks.
+
+Just get / set / load / save.
+
+⭐ 3. Settings UI (The Control Surface)
+
+The UI is a single panel with collapsible sections:
+
+Playback
+
+Overlays
+
+Viewport
+
+HUD
+
+Performance
+
+Each setting maps directly to a key in the schema.
+
+No hidden logic.No derived values.No magic.
+
+⭐ 4. Category Breakdown (Minimal, Complete)
+
+🔷 Playback Settings
+
+speed
+
+loop
+
+frame stepping behavior
+
+These affect how time moves.
+
+🔷 Overlay Settings
+
+Each overlay has:
+
+enabled
+
+opacity
+
+detail level
+
+color map
+
+These affect what you see.
+
+🔷 Viewport Settings
+
+zoom
+
+pan
+
+fit mode (fit, fill, 1:1)
+
+These affect how you see it.
+
+🔷 HUD Settings
+
+mode (minimal, scientific, blueprint)
+
+font size
+
+position
+
+These affect information density.
+
+🔷 Performance Settings
+
+resolution scale
+
+GPU acceleration
+
+overlay quality
+
+These affect rendering speed.
+
+⭐ 5. Persistence Model
+
+Settings are saved to:
+
+localStorage["cmb_viewer_settings"]
+
+or a simple JSON file:
+
+settings.json
+
+This makes the viewer:
+
+stateless
+
+portable
+
+predictable
+
+No databases.No cloud sync.No accounts.
+
+⭐ 6. Reset Behavior
+
+A single button:
+
+Reset Viewer Settings
+
+Restores:
+
+default playback
+
+default overlays
+
+default HUD
+
+default viewport
+
+default performance
+
+This is essential for debugging and clean sessions.
+
+
+
