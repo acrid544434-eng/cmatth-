@@ -1,0 +1,177 @@
+
+
+⭐ CMB ORGANISM RENDERING (Final Form)
+
+Organisms are rendered as dynamic visual entities layered on top of the cinematic viewport.Each organism has:
+
+a shape
+
+a boundary
+
+a state
+
+a lifecycle
+
+a motion path
+
+The viewer renders these using simple, predictable rules.
+
+⭐ 1. Organism Types → Rendering Styles
+
+Each organism type maps to a visual identity.
+
+warp_bubble      → soft glowing boundary
+time_crystal     → pulsing geometric core
+frozen_pocket    → cold blue contour
+shear_node       → sharp angular outline
+
+This is type → style, nothing more.
+
+The viewer doesn’t simulate organisms — it renders them.
+
+⭐ 2. Core Rendering Elements
+
+Every organism uses the same four visual components:
+
+A. Boundary
+
+A line or contour around the organism.
+
+color = type‑based
+
+thickness = stage‑based
+
+opacity = energy‑based
+
+B. Fill (optional)
+
+A soft interior glow or heatmap.
+
+warp bubbles → purple/blue
+
+frozen pockets → cyan
+
+time crystals → gold
+
+C. Label
+
+A small HUD tag:
+
+O1  warp_bubble  growth
+
+D. Trail
+
+A motion path showing where the organism has moved.
+
+fade over time
+
+color = organism type
+
+length = configurable
+
+These four elements create the organism’s visual identity.
+
+⭐ 3. Lifecycle Rendering
+
+Organisms change appearance based on their stage.
+
+spawn     → small, faint boundary
+growth    → expanding radius, brighter glow
+stable    → steady boundary + label
+decay     → flicker + shrinking radius
+death     → fade out
+
+The viewer reads "stage" from the data file and adjusts rendering accordingly.
+
+No simulation.Just visual state mapping.
+
+⭐ 4. Energy‑Based Rendering
+
+Organisms have an "energy" value (0–1).This drives:
+
+glow intensity
+
+boundary brightness
+
+trail opacity
+
+pulse frequency
+
+Example:
+
+energy = 0.9 → bright, fast pulse
+energy = 0.2 → dim, slow pulse
+
+This makes organisms feel alive.
+
+⭐ 5. Geometry Rendering
+
+Organisms have:
+
+"center": [x, y]
+
+"radius": r
+
+The viewer draws:
+
+a circle (default)
+
+or a shape defined by "type"
+
+Warp bubbles → circlesTime crystals → polygonsFrozen pockets → irregular contours
+
+This is shape mapping, not physics.
+
+⭐ 6. Motion Rendering
+
+The viewer tracks the organism’s center across frames:
+
+frame[n].organisms[i].center
+frame[n+1].organisms[i].center
+
+This produces:
+
+trails
+
+velocity vectors
+
+motion smoothing
+
+This gives organisms presence in the time fabric.
+
+⭐ 7. Interaction
+
+Clicking an organism shows:
+
+ID
+
+type
+
+stage
+
+energy
+
+radius
+
+center
+
+blueprint origin
+
+lifecycle timeline
+
+This is the organism inspector.
+
+⭐ 8. Rendering Pipeline (Final Form)
+
+for each organism:
+    draw boundary
+    draw fill (if enabled)
+    draw trail
+    draw label
+
+That’s it.
+
+Simple.Predictable.Fast.GPU‑friendly.
+
+
+
