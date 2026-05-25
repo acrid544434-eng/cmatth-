@@ -1,0 +1,192 @@
+
+
+⭐ CMB BLUEPRINT FILE LOADER (Final Form)
+
+The Blueprint Loader has one job:
+
+Load a .cmb file → extract structure → expose it to the viewer
+
+That’s it.
+
+Everything else is optional.
+
+The loader does NOT:
+
+validate physics
+
+simulate anything
+
+execute code
+
+It simply parses, indexes, and maps blueprint content.
+
+⭐ 1. Input → Output (The Entire Loader in One Line)
+
+.blueprint file → { models, fields, organisms, meta_equation, notes }
+
+The viewer uses this to:
+
+highlight active sections
+
+show blueprint snippets
+
+link events to code
+
+display HUD metadata
+
+⭐ 2. File Structure (Minimal Assumption)
+
+A .cmb file is plain text with blocks like:
+
+universe { ... }
+fields { ... }
+models { ... }
+organisms { ... }
+meta_equation { ... }
+notes { ... }
+
+The loader doesn’t care about syntax beyond block boundaries.
+
+⭐ 3. Loader Pipeline (Final Form)
+
+read file
+strip comments
+find blocks
+parse block headers
+store block text
+index by name
+return blueprint object
+
+That’s the entire pipeline.
+
+⭐ 4. Block Extraction
+
+The loader identifies blocks by simple patterns:
+
+block_name {
+    ...content...
+}
+
+Supported blocks:
+
+fields
+
+models
+
+organisms
+
+meta_equation
+
+notes
+
+Each block is stored as:
+
+{
+  "name": "models",
+  "text": "...raw block text...",
+  "start": line_number,
+  "end": line_number
+}
+
+This gives the viewer:
+
+scroll‑to‑block
+
+highlight‑block
+
+show‑snippet
+
+⭐ 5. Model Indexing
+
+Inside the models block, the loader extracts:
+
+model_name → block_text
+
+Example:
+
+models {
+  WARP { use: WarpTimeModel; }
+  CLASSICAL { use: ClassicalModel; }
+}
+
+Viewer uses this to:
+
+highlight the active model
+
+show model parameters
+
+link Ξ regime to blueprint code
+
+⭐ 6. Organism Definitions
+
+Inside organisms:
+
+organism_name → block_text
+
+Example:
+
+organisms {
+  warp_bubble { radius: dynamic; }
+}
+
+Viewer uses this to:
+
+label organisms
+
+show organism type
+
+display lifecycle rules
+
+⭐ 7. Meta‑Equation Block
+
+This is the brain of the blueprint.
+
+Loader extracts:
+
+meta_equation → block_text
+
+Viewer uses this to:
+
+show meta‑equation snippet
+
+highlight transitions
+
+pulse on regime switches
+
+⭐ 8. Notes Block (Optional)
+
+Blueprint authors can embed notes:
+
+@note "Warp ignition expected here"
+
+Loader collects them into:
+
+notes: [
+  { line: 42, text: "Warp ignition expected here" }
+]
+
+Viewer uses this for:
+
+timeline markers
+
+HUD annotations
+
+blueprint panel highlights
+
+⭐ 9. Loader Output (Final Object)
+
+The loader returns a simple object:
+
+{
+  "fields": {...},
+  "models": {...},
+  "organisms": {...},
+  "meta_equation": "...",
+  "notes": [...],
+  "raw": "...entire file text..."
+}
+
+This is everything the viewer needs.
+
+
+
