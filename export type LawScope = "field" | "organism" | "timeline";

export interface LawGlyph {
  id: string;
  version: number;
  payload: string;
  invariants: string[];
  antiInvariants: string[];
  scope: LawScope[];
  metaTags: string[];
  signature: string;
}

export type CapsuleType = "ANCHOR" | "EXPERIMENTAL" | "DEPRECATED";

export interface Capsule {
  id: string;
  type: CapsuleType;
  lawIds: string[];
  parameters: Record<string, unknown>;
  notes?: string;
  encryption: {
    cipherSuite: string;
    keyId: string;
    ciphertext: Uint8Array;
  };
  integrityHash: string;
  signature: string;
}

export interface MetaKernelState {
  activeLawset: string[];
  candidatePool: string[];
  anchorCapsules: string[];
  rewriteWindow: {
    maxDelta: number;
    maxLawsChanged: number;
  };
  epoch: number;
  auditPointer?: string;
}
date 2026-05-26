@@ -1,0 +1,41 @@
+export type LawScope = "field" | "organism" | "timeline";
+
+export interface LawGlyph {
+  id: string;
+  version: number;
+  payload: string;
+  invariants: string[];
+  antiInvariants: string[];
+  scope: LawScope[];
+  metaTags: string[];
+  signature: string;
+}
+
+export type CapsuleType = "ANCHOR" | "EXPERIMENTAL" | "DEPRECATED";
+
+export interface Capsule {
+  id: string;
+  type: CapsuleType;
+  lawIds: string[];
+  parameters: Record<string, unknown>;
+  notes?: string;
+  encryption: {
+    cipherSuite: string;
+    keyId: string;
+    ciphertext: Uint8Array;
+  };
+  integrityHash: string;
+  signature: string;
+}
+
+export interface MetaKernelState {
+  activeLawset: string[];
+  candidatePool: string[];
+  anchorCapsules: string[];
+  rewriteWindow: {
+    maxDelta: number;
+    maxLawsChanged: number;
+  };
+  epoch: number;
+  auditPointer?: string;
+}
