@@ -1,0 +1,31 @@
+export type KeyPurpose = "ROOT" | "BLUEPRINT" | "STATE" | "AUDIT";
+export type KeyAlgorithm = "RSA" | "Ed25519" | "X25519" | "AES-256-GCM";
+
+export interface KeyDescriptor {
+  id: string;
+  purpose: KeyPurpose;
+  algorithm: KeyAlgorithm;
+  createdAt: string;
+}
+
+export interface SignatureAuthority {
+  sign(data: Uint8Array, keyId: string): Promise<Uint8Array>;
+  verify(
+    data: Uint8Array,
+    signature: Uint8Array,
+    keyId: string
+  ): Promise<boolean>;
+}
+
+export interface Encryptor {
+  encrypt(
+    plaintext: Uint8Array,
+    keyId: string
+  ): Promise<{ ciphertext: Uint8Array; iv: Uint8Array }>;
+
+  decrypt(
+    ciphertext: Uint8Array,
+    keyId: string,
+    iv: Uint8Array
+  ): Promise<Uint8Array>;
+}
