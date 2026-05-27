@@ -1,0 +1,184 @@
+
+
+⭐ THE ATOMIC GRAMMAR (CMB‑ENC v0.1)
+
+The grammar has five atomic families, each with subtypes.Every atom is a first‑class object in the blueprint language.
+
+⭐ 1. Bit Operations
+
+These are the smallest possible atoms — the “quarks” of encryption.
+
+XOR — fundamental mixing primitive
+
+AND / OR / NOT — boolean logic
+
+SHIFT_L / SHIFT_R — directional bit movement
+
+ROT_L / ROT_R — circular rotation
+
+BIT_PERMUTE(pattern) — arbitrary bit reordering
+
+BIT_SLICE(mask) — extract structured subsets of bits
+
+These atoms define the bit‑level physics of your universe.
+
+⭐ 2. Word Operations
+
+These atoms operate on 16‑, 32‑, 64‑, or 128‑bit words.
+
+ADD_MOD(2^n) — ARX‑style addition
+
+SUB_MOD(2^n)
+
+MUL_MOD(2^n)
+
+XOR_WORD
+
+ROT_WORD(k)
+
+WORD_PERMUTE(pattern)
+
+These atoms give you the ChaCha / Salsa / ARX family for free.
+
+⭐ 3. Nonlinear Atoms
+
+These are the atoms that create confusion, nonlinearity, and resistance to linear/ differential attacks.
+
+SBOX(n→m) — substitution box
+
+INVERSE_MOD(p) — modular inversion
+
+EXP_MOD(p) — exponentiation
+
+LUT(table_id) — lookup table
+
+POLY_MAP(coeffs) — polynomial mapping
+
+These atoms are the soul of symmetric cryptography.
+
+⭐ 4. Algebraic Structure Atoms
+
+These atoms define the mathematical universe your cipher lives in.
+
+GF(2^n)_ADD / MUL
+
+RING_Zn_ADD / MUL
+
+GROUP_OP(G) — generic group operation
+
+SCALAR_MULT(curve) — ECC‑like
+
+LATTICE_MAP(dim, basis) — PQC‑like
+
+VECTOR_OP(dim)
+
+These atoms allow your grammar to express:
+
+RSA‑like
+
+ECC‑like
+
+Lattice‑like
+
+Code‑based
+
+Multivariate
+
+…all from the same substrate.
+
+⭐ 5. Randomness & State Atoms
+
+These atoms define entropy, state evolution, and time.
+
+RNG(seed_policy)
+
+DRBG(mode)
+
+NONCE(policy)
+
+COUNTER(width)
+
+STATE_SPLIT / STATE_MERGE
+
+ABSORB / SQUEEZE (sponge atoms)
+
+These atoms give you:
+
+stream ciphers
+
+sponge constructions
+
+AEAD modes
+
+PRNGs
+
+KDFs
+
+…all as natural consequences of the grammar.
+
+⭐ Atomic Grammar Syntax (CMB‑ENC)
+
+Every atom has the same structural form:
+
+atom <NAME> {
+  family: <bit | word | nonlinear | algebraic | state>;
+  type: <specific subtype>;
+  params: { ... };
+}
+
+Example:
+
+atom SBOX_CMB {
+  family: nonlinear;
+  type: sbox;
+  params: {
+    in: 8;
+    out: 8;
+    table: "cmb_sbox_profile_1";
+  }
+}
+
+This is the DNA of your encryption universe.
+
+⭐ How Atoms Combine (Grammar Rules)
+
+Atoms combine into steps, steps into rounds, rounds into constructions, constructions into schemes.
+
+Step rule:
+
+step ::= atom | atom(atom) | atom ⊕ atom | atom → atom
+
+Round rule:
+
+round ::= step*
+
+Construction rule:
+
+construction ::= round* | sponge | feistel | spn | arx
+
+Scheme rule:
+
+scheme ::= construction + mode + key_schedule + profile
+
+This is the formal grammar that makes your engine possible.
+
+⭐ Why this grammar is different from today’s crypto
+
+Today’s cryptography has no atomic grammar.It has algorithms.
+
+Your system has:
+
+atoms
+
+grammar
+
+constructions
+
+schemes
+
+simulation
+
+scoring
+
+evolution
+
