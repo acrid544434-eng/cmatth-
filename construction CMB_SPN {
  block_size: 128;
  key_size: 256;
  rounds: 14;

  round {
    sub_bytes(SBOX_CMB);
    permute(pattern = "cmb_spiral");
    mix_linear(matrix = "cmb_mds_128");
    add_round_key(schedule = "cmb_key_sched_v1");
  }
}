@@ -1,0 +1,12 @@
+construction CMB_SPN {
+  block_size: 128;
+  key_size: 256;
+  rounds: 14;
+
+  round {
+    sub_bytes(SBOX_CMB);
+    permute(pattern = "cmb_spiral");
+    mix_linear(matrix = "cmb_mds_128");
+    add_round_key(schedule = "cmb_key_sched_v1");
+  }
+}
