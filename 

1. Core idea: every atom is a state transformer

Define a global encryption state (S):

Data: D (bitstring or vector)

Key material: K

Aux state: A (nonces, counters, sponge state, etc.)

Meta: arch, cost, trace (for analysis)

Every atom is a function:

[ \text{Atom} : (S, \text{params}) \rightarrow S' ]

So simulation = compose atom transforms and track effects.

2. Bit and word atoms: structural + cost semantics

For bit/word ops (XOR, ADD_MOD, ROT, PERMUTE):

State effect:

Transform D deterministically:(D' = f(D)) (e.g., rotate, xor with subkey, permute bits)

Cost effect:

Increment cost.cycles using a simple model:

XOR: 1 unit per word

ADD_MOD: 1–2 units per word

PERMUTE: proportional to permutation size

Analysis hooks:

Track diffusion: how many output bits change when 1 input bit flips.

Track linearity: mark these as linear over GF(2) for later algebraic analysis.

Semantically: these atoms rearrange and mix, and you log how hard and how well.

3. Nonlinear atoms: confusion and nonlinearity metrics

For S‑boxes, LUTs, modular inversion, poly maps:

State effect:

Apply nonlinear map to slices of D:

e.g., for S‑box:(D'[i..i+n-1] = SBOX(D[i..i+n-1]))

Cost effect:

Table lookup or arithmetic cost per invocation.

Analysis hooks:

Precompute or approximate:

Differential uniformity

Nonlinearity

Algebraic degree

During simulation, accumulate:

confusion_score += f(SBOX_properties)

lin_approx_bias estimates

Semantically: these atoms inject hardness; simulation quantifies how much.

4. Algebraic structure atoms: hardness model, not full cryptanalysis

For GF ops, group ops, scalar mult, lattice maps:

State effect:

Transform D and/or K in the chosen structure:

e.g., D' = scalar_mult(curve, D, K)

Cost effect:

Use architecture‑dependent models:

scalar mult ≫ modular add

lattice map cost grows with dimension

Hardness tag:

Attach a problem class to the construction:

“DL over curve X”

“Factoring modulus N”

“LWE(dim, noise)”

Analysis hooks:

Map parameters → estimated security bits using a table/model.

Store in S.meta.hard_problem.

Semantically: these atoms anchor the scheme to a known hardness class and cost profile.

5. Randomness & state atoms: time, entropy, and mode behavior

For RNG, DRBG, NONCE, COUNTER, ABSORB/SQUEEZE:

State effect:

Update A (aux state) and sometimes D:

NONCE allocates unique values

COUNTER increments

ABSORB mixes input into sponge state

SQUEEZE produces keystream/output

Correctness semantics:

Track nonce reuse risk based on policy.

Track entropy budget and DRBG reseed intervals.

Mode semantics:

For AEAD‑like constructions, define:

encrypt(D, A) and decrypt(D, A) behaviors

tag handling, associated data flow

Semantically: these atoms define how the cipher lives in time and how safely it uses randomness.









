@@ -1,0 +1,154 @@
+
+
+1. Core idea: every atom is a state transformer
+
+Define a global encryption state (S):
+
+Data: D (bitstring or vector)
+
+Key material: K
+
+Aux state: A (nonces, counters, sponge state, etc.)
+
+Meta: arch, cost, trace (for analysis)
+
+Every atom is a function:
+
+[ \text{Atom} : (S, \text{params}) \rightarrow S' ]
+
+So simulation = compose atom transforms and track effects.
+
+2. Bit and word atoms: structural + cost semantics
+
+For bit/word ops (XOR, ADD_MOD, ROT, PERMUTE):
+
+State effect:
+
+Transform D deterministically:(D' = f(D)) (e.g., rotate, xor with subkey, permute bits)
+
+Cost effect:
+
+Increment cost.cycles using a simple model:
+
+XOR: 1 unit per word
+
+ADD_MOD: 1–2 units per word
+
+PERMUTE: proportional to permutation size
+
+Analysis hooks:
+
+Track diffusion: how many output bits change when 1 input bit flips.
+
+Track linearity: mark these as linear over GF(2) for later algebraic analysis.
+
+Semantically: these atoms rearrange and mix, and you log how hard and how well.
+
+3. Nonlinear atoms: confusion and nonlinearity metrics
+
+For S‑boxes, LUTs, modular inversion, poly maps:
+
+State effect:
+
+Apply nonlinear map to slices of D:
+
+e.g., for S‑box:(D'[i..i+n-1] = SBOX(D[i..i+n-1]))
+
+Cost effect:
+
+Table lookup or arithmetic cost per invocation.
+
+Analysis hooks:
+
+Precompute or approximate:
+
+Differential uniformity
+
+Nonlinearity
+
+Algebraic degree
+
+During simulation, accumulate:
+
+confusion_score += f(SBOX_properties)
+
+lin_approx_bias estimates
+
+Semantically: these atoms inject hardness; simulation quantifies how much.
+
+4. Algebraic structure atoms: hardness model, not full cryptanalysis
+
+For GF ops, group ops, scalar mult, lattice maps:
+
+State effect:
+
+Transform D and/or K in the chosen structure:
+
+e.g., D' = scalar_mult(curve, D, K)
+
+Cost effect:
+
+Use architecture‑dependent models:
+
+scalar mult ≫ modular add
+
+lattice map cost grows with dimension
+
+Hardness tag:
+
+Attach a problem class to the construction:
+
+“DL over curve X”
+
+“Factoring modulus N”
+
+“LWE(dim, noise)”
+
+Analysis hooks:
+
+Map parameters → estimated security bits using a table/model.
+
+Store in S.meta.hard_problem.
+
+Semantically: these atoms anchor the scheme to a known hardness class and cost profile.
+
+5. Randomness & state atoms: time, entropy, and mode behavior
+
+For RNG, DRBG, NONCE, COUNTER, ABSORB/SQUEEZE:
+
+State effect:
+
+Update A (aux state) and sometimes D:
+
+NONCE allocates unique values
+
+COUNTER increments
+
+ABSORB mixes input into sponge state
+
+SQUEEZE produces keystream/output
+
+Correctness semantics:
+
+Track nonce reuse risk based on policy.
+
+Track entropy budget and DRBG reseed intervals.
+
+Mode semantics:
+
+For AEAD‑like constructions, define:
+
+encrypt(D, A) and decrypt(D, A) behaviors
+
+tag handling, associated data flow
+
+Semantically: these atoms define how the cipher lives in time and how safely it uses randomness.
+
+
+
+
+
+
+
+
+
