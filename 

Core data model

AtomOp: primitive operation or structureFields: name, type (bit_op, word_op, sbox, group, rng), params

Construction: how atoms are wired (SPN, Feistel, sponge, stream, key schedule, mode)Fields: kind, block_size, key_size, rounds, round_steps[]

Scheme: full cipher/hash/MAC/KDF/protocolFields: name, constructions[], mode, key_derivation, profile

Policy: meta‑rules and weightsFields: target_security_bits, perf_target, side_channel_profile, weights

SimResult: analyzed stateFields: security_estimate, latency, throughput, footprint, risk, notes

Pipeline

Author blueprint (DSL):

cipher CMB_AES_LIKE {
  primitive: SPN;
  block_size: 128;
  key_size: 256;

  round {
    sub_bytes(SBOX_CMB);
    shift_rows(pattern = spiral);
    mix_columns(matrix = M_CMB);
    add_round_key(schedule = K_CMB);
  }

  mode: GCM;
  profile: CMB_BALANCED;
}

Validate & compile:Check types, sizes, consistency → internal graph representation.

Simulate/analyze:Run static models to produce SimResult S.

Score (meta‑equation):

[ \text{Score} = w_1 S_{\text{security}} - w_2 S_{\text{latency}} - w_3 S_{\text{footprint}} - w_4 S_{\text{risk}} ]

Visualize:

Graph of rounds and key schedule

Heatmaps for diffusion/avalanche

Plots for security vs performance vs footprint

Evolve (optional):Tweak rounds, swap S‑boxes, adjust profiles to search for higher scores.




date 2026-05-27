@@ -1,0 +1,54 @@
+
+
+Core data model
+
+AtomOp: primitive operation or structureFields: name, type (bit_op, word_op, sbox, group, rng), params
+
+Construction: how atoms are wired (SPN, Feistel, sponge, stream, key schedule, mode)Fields: kind, block_size, key_size, rounds, round_steps[]
+
+Scheme: full cipher/hash/MAC/KDF/protocolFields: name, constructions[], mode, key_derivation, profile
+
+Policy: meta‑rules and weightsFields: target_security_bits, perf_target, side_channel_profile, weights
+
+SimResult: analyzed stateFields: security_estimate, latency, throughput, footprint, risk, notes
+
+Pipeline
+
+Author blueprint (DSL):
+
+cipher CMB_AES_LIKE {
+  primitive: SPN;
+  block_size: 128;
+  key_size: 256;
+
+  round {
+    sub_bytes(SBOX_CMB);
+    shift_rows(pattern = spiral);
+    mix_columns(matrix = M_CMB);
+    add_round_key(schedule = K_CMB);
+  }
+
+  mode: GCM;
+  profile: CMB_BALANCED;
+}
+
+Validate & compile:Check types, sizes, consistency → internal graph representation.
+
+Simulate/analyze:Run static models to produce SimResult S.
+
+Score (meta‑equation):
+
+[ \text{Score} = w_1 S_{\text{security}} - w_2 S_{\text{latency}} - w_3 S_{\text{footprint}} - w_4 S_{\text{risk}} ]
+
+Visualize:
+
+Graph of rounds and key schedule
+
+Heatmaps for diffusion/avalanche
+
+Plots for security vs performance vs footprint
+
+Evolve (optional):Tweak rounds, swap S‑boxes, adjust profiles to search for higher scores.
+
+
+
