@@ -1,0 +1,180 @@
+
+
+⭐ Simulation Semantics for Atoms (CMB‑ENC Engine)
+
+Every atom in your blueprint behaves as a typed state‑transformer acting on a global encryption state:
+
+[ S = {D, K, A, \text{meta}, \text{cost}, \text{trace}} ]
+
+Where:
+
+D = data block or stream
+
+K = key material
+
+A = auxiliary state (nonce, counter, sponge state)
+
+meta = structural tags
+
+cost = performance model
+
+trace = analysis hooks (diffusion, linearity, etc.)
+
+Every atom implements:
+
+[ \text{Atom}(S, \text{params}) \rightarrow S' ]
+
+This is the heart of your simulation engine.
+
+⭐ 1. Bit Operations
+
+These atoms define the microscopic physics of your cipher.
+
+Semantics
+
+State:Apply deterministic bit‑level transform[ D' = f(D) ]
+
+Cost:Add 1–2 cost units per word.
+
+Trace:
+
+Mark as linear over GF(2)
+
+Update diffusion map (which bits influence which outputs)
+
+Example
+
+XOR(D, K) → D'
+
+⭐ 2. Word Operations
+
+These atoms give you ARX‑style behavior.
+
+Semantics
+
+State:Apply modular arithmetic or rotation[ D' = (D + K) \bmod 2^n ]
+
+Cost:1–3 units depending on width.
+
+Trace:
+
+Mark as nonlinear over GF(2)
+
+Update avalanche estimate
+
+⭐ 3. Nonlinear Atoms
+
+These atoms inject confusion, the core of symmetric security.
+
+Semantics
+
+State:Apply nonlinear mapping to slices of D[ D'[i..i+n] = \text{SBOX}(D[i..i+n]) ]
+
+Cost:Table lookup or arithmetic cost.
+
+Trace:
+
+Add nonlinearity score
+
+Add differential uniformity
+
+Add algebraic degree
+
+Update confusion metric
+
+⭐ 4. Algebraic Structure Atoms
+
+These atoms anchor your blueprint to a hardness class.
+
+Semantics
+
+State:Apply group/ring/field/lattice operations[ D' = \text{GroupOp}(D, K) ]
+
+Cost:Architecture‑dependent (scalar mult ≫ modular add).
+
+Trace:
+
+Tag hardness class:
+
+“DL over curve X”
+
+“LWE(dim, noise)”
+
+“Factoring modulus N”
+
+Estimate security bits from parameters.
+
+⭐ 5. Randomness & State Atoms
+
+These atoms define time, entropy, and mode behavior.
+
+Semantics
+
+State:Update auxiliary state A
+
+NONCE allocates
+
+COUNTER increments
+
+ABSORB mixes
+
+SQUEEZE outputs
+
+Cost:Small, except DRBG reseeds.
+
+Trace:
+
+Track nonce reuse risk
+
+Track entropy budget
+
+Track sponge state transitions
+
+⭐ 6. Global Simulation Output (SimResult)
+
+After all atoms run, the engine produces:
+
+Security metrics
+
+estimated security bits
+
+diffusion score
+
+avalanche score
+
+nonlinearity score
+
+hardness class confidence
+
+nonce/entropy safety
+
+Performance metrics
+
+cycles per block
+
+throughput
+
+memory footprint
+
+parallelizability
+
+Structural metrics
+
+linear depth
+
+nonlinear depth
+
+round count
+
+state size
+
+key schedule complexity
+
+This feeds your meta‑equation:
+
+[ \text{Score} = \Phi(\text{security}, \text{cost}, \text{risk}, \text{footprint}) ]
+
+This is the CMB signature.
+
+
+
