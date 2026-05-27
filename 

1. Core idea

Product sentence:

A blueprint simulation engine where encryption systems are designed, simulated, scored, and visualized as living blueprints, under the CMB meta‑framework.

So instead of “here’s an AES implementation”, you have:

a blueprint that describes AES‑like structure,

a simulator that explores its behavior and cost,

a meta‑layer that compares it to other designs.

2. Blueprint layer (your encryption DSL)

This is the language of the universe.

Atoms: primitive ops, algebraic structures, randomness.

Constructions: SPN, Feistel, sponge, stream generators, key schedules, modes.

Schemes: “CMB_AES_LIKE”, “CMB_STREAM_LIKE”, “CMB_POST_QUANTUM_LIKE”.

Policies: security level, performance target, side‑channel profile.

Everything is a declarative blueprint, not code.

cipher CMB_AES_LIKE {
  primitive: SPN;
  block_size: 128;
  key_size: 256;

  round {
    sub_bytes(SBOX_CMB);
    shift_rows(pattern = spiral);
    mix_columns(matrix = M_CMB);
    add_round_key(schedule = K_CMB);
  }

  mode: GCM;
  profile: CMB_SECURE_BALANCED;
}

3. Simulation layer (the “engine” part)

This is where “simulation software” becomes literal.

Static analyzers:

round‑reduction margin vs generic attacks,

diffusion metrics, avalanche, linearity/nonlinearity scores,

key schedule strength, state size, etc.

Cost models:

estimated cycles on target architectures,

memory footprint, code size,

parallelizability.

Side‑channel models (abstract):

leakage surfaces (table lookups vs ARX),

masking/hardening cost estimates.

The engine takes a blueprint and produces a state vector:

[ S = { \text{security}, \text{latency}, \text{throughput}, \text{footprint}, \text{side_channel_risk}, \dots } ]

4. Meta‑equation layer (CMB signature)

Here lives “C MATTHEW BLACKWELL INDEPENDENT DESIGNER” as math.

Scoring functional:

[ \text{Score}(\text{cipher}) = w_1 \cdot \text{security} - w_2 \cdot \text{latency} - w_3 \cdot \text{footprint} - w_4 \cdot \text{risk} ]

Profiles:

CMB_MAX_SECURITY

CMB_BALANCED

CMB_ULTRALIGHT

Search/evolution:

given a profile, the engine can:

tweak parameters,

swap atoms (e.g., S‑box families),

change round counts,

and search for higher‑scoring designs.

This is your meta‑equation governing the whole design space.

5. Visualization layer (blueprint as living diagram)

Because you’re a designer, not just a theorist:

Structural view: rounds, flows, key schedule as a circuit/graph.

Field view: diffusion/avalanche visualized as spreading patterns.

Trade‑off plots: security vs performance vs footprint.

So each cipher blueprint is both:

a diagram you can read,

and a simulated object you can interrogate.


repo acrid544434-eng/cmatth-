@@ -1,0 +1,122 @@
+
+
+1. Core idea
+
+Product sentence:
+
+A blueprint simulation engine where encryption systems are designed, simulated, scored, and visualized as living blueprints, under the CMB meta‑framework.
+
+So instead of “here’s an AES implementation”, you have:
+
+a blueprint that describes AES‑like structure,
+
+a simulator that explores its behavior and cost,
+
+a meta‑layer that compares it to other designs.
+
+2. Blueprint layer (your encryption DSL)
+
+This is the language of the universe.
+
+Atoms: primitive ops, algebraic structures, randomness.
+
+Constructions: SPN, Feistel, sponge, stream generators, key schedules, modes.
+
+Schemes: “CMB_AES_LIKE”, “CMB_STREAM_LIKE”, “CMB_POST_QUANTUM_LIKE”.
+
+Policies: security level, performance target, side‑channel profile.
+
+Everything is a declarative blueprint, not code.
+
+cipher CMB_AES_LIKE {
+  primitive: SPN;
+  block_size: 128;
+  key_size: 256;
+
+  round {
+    sub_bytes(SBOX_CMB);
+    shift_rows(pattern = spiral);
+    mix_columns(matrix = M_CMB);
+    add_round_key(schedule = K_CMB);
+  }
+
+  mode: GCM;
+  profile: CMB_SECURE_BALANCED;
+}
+
+3. Simulation layer (the “engine” part)
+
+This is where “simulation software” becomes literal.
+
+Static analyzers:
+
+round‑reduction margin vs generic attacks,
+
+diffusion metrics, avalanche, linearity/nonlinearity scores,
+
+key schedule strength, state size, etc.
+
+Cost models:
+
+estimated cycles on target architectures,
+
+memory footprint, code size,
+
+parallelizability.
+
+Side‑channel models (abstract):
+
+leakage surfaces (table lookups vs ARX),
+
+masking/hardening cost estimates.
+
+The engine takes a blueprint and produces a state vector:
+
+[ S = { \text{security}, \text{latency}, \text{throughput}, \text{footprint}, \text{side_channel_risk}, \dots } ]
+
+4. Meta‑equation layer (CMB signature)
+
+Here lives “C MATTHEW BLACKWELL INDEPENDENT DESIGNER” as math.
+
+Scoring functional:
+
+[ \text{Score}(\text{cipher}) = w_1 \cdot \text{security} - w_2 \cdot \text{latency} - w_3 \cdot \text{footprint} - w_4 \cdot \text{risk} ]
+
+Profiles:
+
+CMB_MAX_SECURITY
+
+CMB_BALANCED
+
+CMB_ULTRALIGHT
+
+Search/evolution:
+
+given a profile, the engine can:
+
+tweak parameters,
+
+swap atoms (e.g., S‑box families),
+
+change round counts,
+
+and search for higher‑scoring designs.
+
+This is your meta‑equation governing the whole design space.
+
+5. Visualization layer (blueprint as living diagram)
+
+Because you’re a designer, not just a theorist:
+
+Structural view: rounds, flows, key schedule as a circuit/graph.
+
+Field view: diffusion/avalanche visualized as spreading patterns.
+
+Trade‑off plots: security vs performance vs footprint.
+
+So each cipher blueprint is both:
+
+a diagram you can read,
+
+and a simulated object you can interrogate.
+
