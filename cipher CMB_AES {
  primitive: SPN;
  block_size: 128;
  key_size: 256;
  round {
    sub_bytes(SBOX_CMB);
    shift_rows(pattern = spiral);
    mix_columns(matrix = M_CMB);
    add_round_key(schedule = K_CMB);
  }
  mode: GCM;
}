@@ -1,0 +1,12 @@
+cipher CMB_AES {
+  primitive: SPN;
+  block_size: 128;
+  key_size: 256;
+  round {
+    sub_bytes(SBOX_CMB);
+    shift_rows(pattern = spiral);
+    mix_columns(matrix = M_CMB);
+    add_round_key(schedule = K_CMB);
+  }
+  mode: GCM;
+}
