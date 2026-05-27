@@ -1,0 +1,8 @@
+scheme CMB_AES_LIKE {
+  primitive: CMB_SPN;
+  mode: GCM;
+  key_derivation: HKDF {
+    hash: "CMB_SHA3_LIKE";
+    salt_policy: "per_device";
+  }
+}
