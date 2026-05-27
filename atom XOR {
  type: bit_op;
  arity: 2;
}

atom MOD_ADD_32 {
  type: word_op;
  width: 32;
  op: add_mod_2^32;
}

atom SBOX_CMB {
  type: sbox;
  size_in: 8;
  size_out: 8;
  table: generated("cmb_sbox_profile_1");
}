@@ -1,0 +1,17 @@
+atom XOR {
+  type: bit_op;
+  arity: 2;
+}
+
+atom MOD_ADD_32 {
+  type: word_op;
+  width: 32;
+  op: add_mod_2^32;
+}
+
+atom SBOX_CMB {
+  type: sbox;
+  size_in: 8;
+  size_out: 8;
+  table: generated("cmb_sbox_profile_1");
+}
