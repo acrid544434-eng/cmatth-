@@ -1,0 +1,81 @@
+from dataclasses import dataclass
+from typing import Callable, Dict, Any
+
+# ----- Core types ------------------------------------------------------------
+
+@dataclass(frozen=True)
+class BlockToken:
+    name: str  # e.g. "WARP_CORE", "GRAV_SHELL"
+
+
+@dataclass
+class Block:
+    token: BlockToken
+    # opaque payload: could be callables, metadata, etc.
+    build_fn: Callable[[Any], Any]
+
+
+class BlockRegistry:
+    def __init__(self) -> None:
+        self._registry: Dict[str, Block] = {}
+
+    def register(self, token: BlockToken, block: Block) -> None:
+        key = token.name.upper()
+        if key in self._registry:
+            raise ValueError(f"Block token already registered: {key}")
+        self._registry[key] = block
+
+    def resolve(self, token_name: str) -> Block:
+        key = token_name.upper()
+        if key not in self._registry:
+            raise KeyError(f"Unknown block token: {key}")
+        return self._registry[key]
+
+# ----- Example block implementations (still encrypted) -----------------------
+
+def build_warp_core(context: Any) -> Any:
+    # context might hold GeometryTensor W, FieldSet E, ProjectionProfile, etc.
+    # Here we just return a placeholder structure.
+    return {
+        "type": "BLOCK",
+        "id": "WARP_CORE",
+        "payload": "opaque_warp_math"
+    }
+
+def build_grav_shell(context: Any) -> Any:
+    return {
+        "type": "BLOCK",
+        "id": "GRAV_SHELL",
+        "payload": "opaque_gravity_math"
+    }
+
+# ----- Registry setup --------------------------------------------------------
+
+registry = BlockRegistry()
+
+registry.register(
+    BlockToken("WARP_CORE"),
+    Block(token=BlockToken("WARP_CORE"), build_fn=build_warp_core)
+)
+
+registry.register(
+    BlockToken("GRAV_SHELL"),
+    Block(token=BlockToken("GRAV_SHELL"), build_fn=build_grav_shell)
+)
+
+# ----- Scenario resolution ---------------------------------------------------
+
+def build_blocks_from_config(cfg_blocks, context: Any):
+    blocks = []
+    for name in cfg_blocks:
+        block = registry.resolve(name)
+        instance = block.build_fn(context)
+        blocks.append(instance)
+    return blocks
+
+# Example usage:
+cfg_blocks = ["WARP_CORE", "GRAV_SHELL"]
+context = {"projection": "weak_warp_axial"}  # still abstract
+
+active_blocks = build_blocks_from_config(cfg_blocks, context)
+print(active_blocks)
