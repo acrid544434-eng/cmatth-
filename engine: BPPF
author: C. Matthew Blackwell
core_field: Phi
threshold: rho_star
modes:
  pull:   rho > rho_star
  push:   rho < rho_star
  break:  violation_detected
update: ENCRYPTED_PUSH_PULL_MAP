@@ -1,0 +1,9 @@
+engine: BPPF
+author: C. Matthew Blackwell
+core_field: Phi
+threshold: rho_star
+modes:
+  pull:   rho > rho_star
+  push:   rho < rho_star
+  break:  violation_detected
+update: ENCRYPTED_PUSH_PULL_MAP
