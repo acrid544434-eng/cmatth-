@@ -1,0 +1,53 @@
+
+
+1. Core idea
+
+Input: ResolvedScenario (kernel_graph + tensor_pool).
+
+Process: Step through kernels K0, K1, K2…, apply ops on T0, T1, T2….
+
+Output: Updated tensor pool over discrete timesteps—ready to be either visualized or shipped to a real backend later.
+
+2. Minimal simulator loop (pseudo-Python)
+
+class BackendSimulator:
+    def __init__(self, kernel_graph, tensor_pool):
+        self.kernel_graph = kernel_graph
+        self.tensor_pool = tensor_pool
+
+    def step(self, dt):
+        for k in self.kernel_graph.kernels_in_order():
+            self._execute_kernel(k)
+
+    def _execute_kernel(self, k):
+        if k.op_code == "AXPY":
+            self._axpy(k)
+        elif k.op_code == "STENCIL_3D":
+            self._stencil_3d(k)
+        # ... more opcodes
+
+    def _axpy(self, k):
+        x = self.tensor_pool[k.inputs[0].id]
+        y = self.tensor_pool[k.inputs[1].id]
+        alpha = k.params["alpha"]
+        out = self.tensor_pool[k.outputs[0].id]
+        out[:] = alpha * x + y
+
+    def _stencil_3d(self, k):
+        src = self.tensor_pool[k.inputs[0].id]
+        dst = self.tensor_pool[k.outputs[0].id]
+        # apply simple 3D laplacian or similar mock stencil
+        # (implementation detail can stay abstract for now)
+
+No physics. No semantics. Just opcodes and arrays.
+
+3. Why this is the right next step
+
+You get a closed loop: .cmb → ResolvedScenario → kernel graph → evolving tensors.
+
+You can later plug:
+
+GPU backends under the same opcode interface.
+
+Uniform binder that reads from the same tensor pool for GLSL.
+
