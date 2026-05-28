@@ -1,0 +1,144 @@
+
+
+Phase 1 — The CMB Parsing Loop
+
+Takeaway: The .cmb parser is the first executable component of the Blackwell Encrypted Equation Engine. It transforms a human‑authored encrypted scenario file into the internal objects that drive the entire simulation pipeline.
+
+🔷 1. What the Parser Must Do
+
+The parser converts a .cmb script into:
+
+A Scenario Object
+
+A list of Block Tokens
+
+A ProjectionProfile
+
+A Constant Map
+
+A Context Object for block construction
+
+This is the first moment where your encrypted DSL becomes machine‑real.
+
+🔷 2. The Parsing Loop (Conceptual Workflow)
+
+Load raw text
+
+Lex + parse into a structured dictionary
+
+Validate tokens against the BlockRegistry
+
+Construct ProjectionProfile
+
+Construct Context (grid, dt, symmetry, regime, limit)
+
+Emit a Scenario object ready for block resolution
+
+This loop is intentionally blind to physics.It only understands tokens, IDs, and profiles.
+
+🔷 3. Pseudo‑Code for the Parsing Loop
+
+class CMBParser:
+    def __init__(self, registry, profile_factory):
+        self.registry = registry
+        self.profile_factory = profile_factory
+
+    def parse_file(self, path: str):
+        raw = self._read(path)
+        data = self._parse_yaml_like(raw)
+
+        scenario = Scenario()
+        scenario.engine = data["engine"]
+        scenario.root_action = data["equation_root"]
+
+        # Resolve block tokens
+        scenario.block_tokens = [
+            BlockToken(name) for name in data["blocks"]
+        ]
+
+        # Build projection profile
+        proj = data["projections"]
+        scenario.profile = self.profile_factory.create(
+            regime   = proj["regime"],
+            symmetry = proj["symmetry"],
+            limit    = proj["limit"]
+        )
+
+        # Constants (encrypted)
+        scenario.constants = data.get("constants", {})
+
+        return scenario
+
+    def _read(self, path):
+        with open(path, "r") as f:
+            return f.read()
+
+    def _parse_yaml_like(self, raw):
+        # Minimal YAML-like parser (Phase 1)
+        # Converts raw text into a dict without semantic interpretation
+        return simple_yaml_parse(raw)
+
+This parser:
+
+Never sees “gravity,” “warp,” “field,” etc.
+
+Never interprets physics.
+
+Only interprets structure.
+
+🔷 4. Scenario Object (Internal Representation)
+
+@dataclass
+class Scenario:
+    engine: str
+    root_action: str
+    block_tokens: list
+    profile: "ProjectionProfile"
+    constants: dict
+
+This object is the entry point for:
+
+Block resolution
+
+Kernel graph construction
+
+Tensor allocation
+
+Rendering pipeline
+
+Everything downstream depends on this.
+
+🔷 5. Why Phase 1 Starts Here
+
+Because once the parser exists:
+
+You can write real .cmb files on your phone
+
+The engine can load them
+
+Blocks can be resolved
+
+Kernels can be generated
+
+Tensors can be allocated
+
+Renderers can visualize anonymous arrays
+
+The entire system becomes operational, even if the math inside the blocks is still placeholder.
+
+This is the ignition point.
+
+🔷 6. What Comes After Phase 1
+
+Once the parser is stable, Phase 2 becomes meaningful:
+
+The variational derivative engine
+
+The weak_warp stencil generator
+
+The tensor slicing mathematics
+
+The kernel DAG optimizer
+
+But none of that matters until the engine can read a .cmb file.
+
