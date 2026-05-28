@@ -1,0 +1,56 @@
+
+
+1. Core binding idea
+
+Input: tensor pool {T0, T1, T2, …} from the simulator.
+
+Task: bind selected tensors as textures/uniforms for your encrypted shaders.
+
+Output: a FrameBinding object the renderer uses per frame.
+
+2. Minimal binder interface (pseudo-Python)
+
+class GpuBinder:
+    def __init__(self, device):
+        self.device = device
+
+    def bind_frame(self, tensor_pool, view_spec):
+        # view_spec decides which tensor → which shader slot
+        bindings = {}
+
+        for slot in view_spec.slots:
+            tensor = tensor_pool[slot.tensor_id]   # e.g. "T0"
+            gpu_tex = self._upload_tensor_as_3d_texture(tensor)
+            bindings[slot.name] = gpu_tex          # e.g. "u_tensor"
+
+        return FrameBinding(bindings=bindings)
+
+    def _upload_tensor_as_3d_texture(self, tensor):
+        # device-specific upload; tensor is just a raw ndarray
+        tex = self.device.create_3d_texture(tensor.shape)
+        tex.upload(tensor)
+        return tex
+
+@dataclass
+class ViewSlot:
+    name: str       # shader uniform name, e.g. "u_tensor"
+    tensor_id: str  # e.g. "T0"
+
+@dataclass
+class ViewSpec:
+    slots: list[ViewSlot]
+
+@dataclass
+class FrameBinding:
+    bindings: dict  # uniform_name -> gpu_resource
+
+3. Zero leakage preserved
+
+Binder only knows:
+
+Tensor IDs ("T0", "T2")
+
+Shader uniform names ("u_tensor", "u_tensor2")
+
+No physics, no semantics—just array → GPU resource.
+
