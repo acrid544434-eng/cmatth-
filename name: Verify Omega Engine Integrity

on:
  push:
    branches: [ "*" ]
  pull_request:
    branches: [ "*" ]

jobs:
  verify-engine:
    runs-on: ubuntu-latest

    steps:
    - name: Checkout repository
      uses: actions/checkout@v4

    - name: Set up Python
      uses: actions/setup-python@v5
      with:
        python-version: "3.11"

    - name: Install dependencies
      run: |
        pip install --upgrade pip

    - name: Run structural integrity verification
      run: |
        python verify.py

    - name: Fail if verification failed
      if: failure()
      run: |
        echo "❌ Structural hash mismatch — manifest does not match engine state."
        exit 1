@@ -1,0 +1,34 @@
+name: Verify Omega Engine Integrity
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  verify-engine:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+
+    - name: Run structural integrity verification
+      run: |
+        python verify.py
+
+    - name: Fail if verification failed
+      if: failure()
+      run: |
+        echo "❌ Structural hash mismatch — manifest does not match engine state."
+        exit 1
