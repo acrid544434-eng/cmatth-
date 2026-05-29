@@ -1,0 +1,181 @@
+
+
+1. Suggested repo name
+
+Short, strong, and future‑proof:
+
+metakernel-autodidact
+
+or cmb-dimensional-engine
+
+Pick one that feels like the banner for everything you’ve described.
+
+2. Folder structure
+
+Here’s a clean layout you can create on GitHub directly:
+
+metakernel-autodidact/
+├─ README.md
+├─ LICENSE
+├─ docs/
+│  ├─ 00_overview.md
+│  ├─ 01_metakernel_v0_3.md
+│  ├─ 02_cmb_cryptographic_equation.md
+│  ├─ 03_dimensional_travel_engine.md
+│  └─ 04_glossary.md
+├─ specs/
+│  ├─ metakernel_spec_v0_3.md
+│  ├─ cmb_crypto_spec_v1.md
+│  └─ dimensional_travel_engine_spec_v1.md
+├─ examples/
+│  ├─ example_capsule_lineage.md
+│  ├─ example_kernel_evolution.md
+│  └─ example_atoms_engine_scenarios.md
+└─ src/
+   └─ (optional later: pseudocode or real code)
+
+On mobile, you can create these files one by one in the GitHub web UI.
+
+3. README.md starter content
+
+You can paste this and tweak:
+
+# MetaKernel Autodidact & Dimensional Engine
+
+**Author:** C. Matthew Blackwell — Independent Designer  
+
+This repository is a living specification of a conceptual engine:
+
+- A **MetaKernel Autodidact** that observes, designs, and evolves kernels.
+- A **CMB Unified Cryptographic Equation** that treats identity as a cryptographic law.
+- A **Dimensional Travel Engine** that models expansion, branching, and identity-anchored traversal across simulated dimensions.
+
+> This is a **design universe**, not production cryptography or safety-critical software.
+
+## High-level components
+
+- `docs/` — narrative explanations and overviews.
+- `specs/` — structured specifications of the MetaKernel, CMB crypto, and Dimensional Travel Engine.
+- `examples/` — example scenarios, capsule lineages, and evolution flows.
+- `src/` — reserved for future pseudocode or implementations.
+
+## Status
+
+Early-stage conceptual architecture.  
+Intended for exploration, inspiration, and future implementation work.
+
+4. Spec file seeds
+
+docs/00_overview.md
+
+# Overview
+
+This repository describes a family of architectures:
+
+- **MetaKernel Autodidact v0.3** — a kernel that evolves kernels, with dimensional branching.
+- **CMB Unified Cryptographic Equation** — a personal cryptographic identity model.
+- **Dimensional Travel Engine** — a framework for identity-anchored traversal across simulated dimensions.
+
+The goal is to treat **authorship, identity, and evolution** as first-class structural elements.
+
+specs/metakernel_spec_v0_3.md
+
+# MetaKernel Autodidact v0.3 — Specification
+
+## Purpose
+
+A kernel whose primary function is to observe, design, evolve, and repair kernels — including itself — while preserving a fixed identity DNA and capsule lineage.
+
+## Cores
+
+- Observation Core
+- Synthesis Core
+- Selection Core
+- Repair Core
+- Dimensional Branching Engine
+
+## Invariants
+
+- Identity DNA is immutable.
+- Capsule lineage must remain intact.
+- Structural safety cannot be violated.
+- All kernels must be self-describing.
+- The MetaKernel cannot disable its own invariants ("God Lock").
+
+specs/cmb_crypto_spec_v1.md
+
+# CMB Unified Cryptographic Equation — v1
+
+**Identity:** C. Matthew Blackwell — Independent Designer
+
+This spec treats identity as a cryptographic primitive.
+
+## Unified Object
+
+CMB_CRYPTO(X) = (ID, Signature, Encryption, Optional Proof)
+
+- ID = H(X || T || Capsule)
+- Signature = Sig_{K_CMB}(ID)
+- Encryption = E_{K_pub}(X)
+- Optional Proof = Π(X)
+
+> This is a conceptual model, not a production cryptographic standard.
+
+specs/dimensional_travel_engine_spec_v1.md
+
+# Dimensional Travel Engine — v1
+
+## Purpose
+
+Model identity-anchored traversal across simulated dimensions, mirroring accelerating expansion.
+
+## Core Modules
+
+- Metric Drift Module
+- Field Resonance Navigator
+- Identity Anchor
+- Capsule Synchronizer
+- Expansion Engine
+
+## Loop
+
+1. Anchor identity
+2. Scan dimensional gradients
+3. Select stable resonance
+4. Expand into new dimension
+5. Synchronize capsule lineage
+6. Return or continue
+
+5. License
+
+If you want people to use and build on this but keep your name attached:
+
+Use MIT or Apache-2.0 for openness
+
+Or CC BY 4.0 if you treat it as conceptual/spec work
+
+Example MIT:
+
+MIT License
+
+Copyright (c) 2026 C. Matthew Blackwell
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+...
+
+6. Your name and identity, front and center
+
+Make sure your name is in:
+
+README.md
+
+LICENSE
+
+specs/cmb_crypto_spec_v1.md
+
+A small AUTHORS.md:
+
+# Authors
+
+- C. Matthew Blackwell — Independent Designer
+
