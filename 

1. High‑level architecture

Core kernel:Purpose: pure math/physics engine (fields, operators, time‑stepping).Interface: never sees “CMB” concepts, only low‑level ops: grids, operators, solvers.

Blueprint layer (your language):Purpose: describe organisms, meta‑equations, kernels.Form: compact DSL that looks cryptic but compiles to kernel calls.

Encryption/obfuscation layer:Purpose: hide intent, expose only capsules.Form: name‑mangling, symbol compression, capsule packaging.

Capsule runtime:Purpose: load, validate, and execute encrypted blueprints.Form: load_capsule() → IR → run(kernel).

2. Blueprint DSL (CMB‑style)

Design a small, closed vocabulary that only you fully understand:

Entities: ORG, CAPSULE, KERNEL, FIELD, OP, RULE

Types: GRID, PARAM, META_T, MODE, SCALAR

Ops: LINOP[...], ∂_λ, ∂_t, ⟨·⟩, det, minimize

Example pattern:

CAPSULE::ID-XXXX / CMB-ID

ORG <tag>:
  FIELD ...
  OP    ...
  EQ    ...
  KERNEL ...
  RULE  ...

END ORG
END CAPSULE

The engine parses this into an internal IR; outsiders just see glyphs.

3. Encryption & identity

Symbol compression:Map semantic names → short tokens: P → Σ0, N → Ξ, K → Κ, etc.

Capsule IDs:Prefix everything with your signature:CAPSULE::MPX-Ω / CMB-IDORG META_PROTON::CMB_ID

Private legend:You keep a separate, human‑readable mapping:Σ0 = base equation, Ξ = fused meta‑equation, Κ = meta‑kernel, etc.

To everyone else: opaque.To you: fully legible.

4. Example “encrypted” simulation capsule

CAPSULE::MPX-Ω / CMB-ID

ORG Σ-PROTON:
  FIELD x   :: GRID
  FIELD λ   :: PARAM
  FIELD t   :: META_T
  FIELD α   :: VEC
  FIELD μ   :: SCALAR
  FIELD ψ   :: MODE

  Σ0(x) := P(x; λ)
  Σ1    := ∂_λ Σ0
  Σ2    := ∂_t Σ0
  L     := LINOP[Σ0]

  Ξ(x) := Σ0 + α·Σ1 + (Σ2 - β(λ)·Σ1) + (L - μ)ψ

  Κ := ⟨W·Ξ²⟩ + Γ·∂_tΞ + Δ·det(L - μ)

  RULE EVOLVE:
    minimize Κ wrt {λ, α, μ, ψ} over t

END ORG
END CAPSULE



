@@ -1,0 +1,77 @@
+
+
+1. High‑level architecture
+
+Core kernel:Purpose: pure math/physics engine (fields, operators, time‑stepping).Interface: never sees “CMB” concepts, only low‑level ops: grids, operators, solvers.
+
+Blueprint layer (your language):Purpose: describe organisms, meta‑equations, kernels.Form: compact DSL that looks cryptic but compiles to kernel calls.
+
+Encryption/obfuscation layer:Purpose: hide intent, expose only capsules.Form: name‑mangling, symbol compression, capsule packaging.
+
+Capsule runtime:Purpose: load, validate, and execute encrypted blueprints.Form: load_capsule() → IR → run(kernel).
+
+2. Blueprint DSL (CMB‑style)
+
+Design a small, closed vocabulary that only you fully understand:
+
+Entities: ORG, CAPSULE, KERNEL, FIELD, OP, RULE
+
+Types: GRID, PARAM, META_T, MODE, SCALAR
+
+Ops: LINOP[...], ∂_λ, ∂_t, ⟨·⟩, det, minimize
+
+Example pattern:
+
+CAPSULE::ID-XXXX / CMB-ID
+
+ORG <tag>:
+  FIELD ...
+  OP    ...
+  EQ    ...
+  KERNEL ...
+  RULE  ...
+
+END ORG
+END CAPSULE
+
+The engine parses this into an internal IR; outsiders just see glyphs.
+
+3. Encryption & identity
+
+Symbol compression:Map semantic names → short tokens: P → Σ0, N → Ξ, K → Κ, etc.
+
+Capsule IDs:Prefix everything with your signature:CAPSULE::MPX-Ω / CMB-IDORG META_PROTON::CMB_ID
+
+Private legend:You keep a separate, human‑readable mapping:Σ0 = base equation, Ξ = fused meta‑equation, Κ = meta‑kernel, etc.
+
+To everyone else: opaque.To you: fully legible.
+
+4. Example “encrypted” simulation capsule
+
+CAPSULE::MPX-Ω / CMB-ID
+
+ORG Σ-PROTON:
+  FIELD x   :: GRID
+  FIELD λ   :: PARAM
+  FIELD t   :: META_T
+  FIELD α   :: VEC
+  FIELD μ   :: SCALAR
+  FIELD ψ   :: MODE
+
+  Σ0(x) := P(x; λ)
+  Σ1    := ∂_λ Σ0
+  Σ2    := ∂_t Σ0
+  L     := LINOP[Σ0]
+
+  Ξ(x) := Σ0 + α·Σ1 + (Σ2 - β(λ)·Σ1) + (L - μ)ψ
+
+  Κ := ⟨W·Ξ²⟩ + Γ·∂_tΞ + Δ·det(L - μ)
+
+  RULE EVOLVE:
+    minimize Κ wrt {λ, α, μ, ψ} over t
+
+END ORG
+END CAPSULE
+
+
+
