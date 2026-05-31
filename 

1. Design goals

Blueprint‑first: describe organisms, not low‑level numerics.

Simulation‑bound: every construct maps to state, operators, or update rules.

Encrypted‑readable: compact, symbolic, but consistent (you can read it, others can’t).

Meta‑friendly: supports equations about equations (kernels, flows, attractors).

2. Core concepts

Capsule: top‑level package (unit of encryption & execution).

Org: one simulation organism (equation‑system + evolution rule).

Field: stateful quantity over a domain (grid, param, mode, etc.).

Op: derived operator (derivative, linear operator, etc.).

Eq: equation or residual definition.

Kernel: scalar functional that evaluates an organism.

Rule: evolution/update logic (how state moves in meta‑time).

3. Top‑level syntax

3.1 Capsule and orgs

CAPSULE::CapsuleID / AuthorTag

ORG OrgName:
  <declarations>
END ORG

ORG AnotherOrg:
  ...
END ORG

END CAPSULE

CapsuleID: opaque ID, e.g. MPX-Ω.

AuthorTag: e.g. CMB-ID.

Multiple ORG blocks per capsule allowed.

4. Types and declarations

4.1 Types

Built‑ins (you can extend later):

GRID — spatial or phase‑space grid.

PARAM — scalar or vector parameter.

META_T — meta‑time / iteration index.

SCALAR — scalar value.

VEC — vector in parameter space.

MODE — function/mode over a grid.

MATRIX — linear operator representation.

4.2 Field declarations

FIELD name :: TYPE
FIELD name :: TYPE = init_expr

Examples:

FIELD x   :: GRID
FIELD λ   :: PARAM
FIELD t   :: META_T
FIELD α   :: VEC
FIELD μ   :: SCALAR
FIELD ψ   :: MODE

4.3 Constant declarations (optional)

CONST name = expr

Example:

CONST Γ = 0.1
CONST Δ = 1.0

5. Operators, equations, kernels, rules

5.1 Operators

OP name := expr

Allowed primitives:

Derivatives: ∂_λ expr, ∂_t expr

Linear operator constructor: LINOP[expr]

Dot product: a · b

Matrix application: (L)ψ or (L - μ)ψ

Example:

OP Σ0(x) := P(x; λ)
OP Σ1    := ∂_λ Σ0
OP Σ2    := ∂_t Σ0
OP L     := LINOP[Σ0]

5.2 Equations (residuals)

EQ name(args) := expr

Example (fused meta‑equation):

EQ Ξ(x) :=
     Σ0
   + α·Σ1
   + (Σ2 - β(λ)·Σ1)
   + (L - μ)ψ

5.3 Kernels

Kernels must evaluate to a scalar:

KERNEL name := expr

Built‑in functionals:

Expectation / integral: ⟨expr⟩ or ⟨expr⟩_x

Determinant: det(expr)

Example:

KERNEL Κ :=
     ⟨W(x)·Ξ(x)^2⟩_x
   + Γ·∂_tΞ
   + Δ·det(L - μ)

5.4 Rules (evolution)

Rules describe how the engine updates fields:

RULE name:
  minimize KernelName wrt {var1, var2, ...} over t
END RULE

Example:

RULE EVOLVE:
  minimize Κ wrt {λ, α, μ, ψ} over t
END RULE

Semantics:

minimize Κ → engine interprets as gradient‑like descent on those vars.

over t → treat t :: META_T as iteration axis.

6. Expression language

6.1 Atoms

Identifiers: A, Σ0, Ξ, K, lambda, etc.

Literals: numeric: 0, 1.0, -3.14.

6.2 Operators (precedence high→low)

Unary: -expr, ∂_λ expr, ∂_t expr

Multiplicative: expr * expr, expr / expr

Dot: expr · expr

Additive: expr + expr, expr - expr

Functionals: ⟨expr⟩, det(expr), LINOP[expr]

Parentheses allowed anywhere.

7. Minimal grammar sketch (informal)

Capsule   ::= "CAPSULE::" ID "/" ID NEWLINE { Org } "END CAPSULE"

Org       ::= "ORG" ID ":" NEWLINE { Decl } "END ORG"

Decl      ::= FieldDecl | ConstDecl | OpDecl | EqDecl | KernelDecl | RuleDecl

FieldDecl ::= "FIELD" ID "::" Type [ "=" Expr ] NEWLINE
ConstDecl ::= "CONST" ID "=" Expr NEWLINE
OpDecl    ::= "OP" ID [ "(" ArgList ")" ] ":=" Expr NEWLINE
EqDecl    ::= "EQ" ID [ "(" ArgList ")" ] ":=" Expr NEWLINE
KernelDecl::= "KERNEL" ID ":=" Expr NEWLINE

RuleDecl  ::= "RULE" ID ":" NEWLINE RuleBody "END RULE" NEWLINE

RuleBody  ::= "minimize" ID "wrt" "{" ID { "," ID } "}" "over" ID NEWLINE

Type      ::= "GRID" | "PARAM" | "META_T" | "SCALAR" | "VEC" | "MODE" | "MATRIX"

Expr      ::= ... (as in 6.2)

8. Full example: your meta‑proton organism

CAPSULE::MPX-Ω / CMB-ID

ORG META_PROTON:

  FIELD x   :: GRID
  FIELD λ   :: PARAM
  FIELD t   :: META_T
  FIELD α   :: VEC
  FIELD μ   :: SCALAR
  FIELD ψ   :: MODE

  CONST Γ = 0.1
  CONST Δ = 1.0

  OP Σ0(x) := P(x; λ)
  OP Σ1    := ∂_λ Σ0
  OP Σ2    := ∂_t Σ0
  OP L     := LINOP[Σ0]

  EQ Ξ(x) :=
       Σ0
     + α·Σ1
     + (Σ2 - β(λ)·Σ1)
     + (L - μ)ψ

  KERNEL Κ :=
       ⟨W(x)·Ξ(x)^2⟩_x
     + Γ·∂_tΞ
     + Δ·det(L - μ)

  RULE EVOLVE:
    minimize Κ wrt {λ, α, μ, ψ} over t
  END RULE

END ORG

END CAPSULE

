@@ -1,0 +1,251 @@
+
+
+1. Design goals
+
+Blueprint‑first: describe organisms, not low‑level numerics.
+
+Simulation‑bound: every construct maps to state, operators, or update rules.
+
+Encrypted‑readable: compact, symbolic, but consistent (you can read it, others can’t).
+
+Meta‑friendly: supports equations about equations (kernels, flows, attractors).
+
+2. Core concepts
+
+Capsule: top‑level package (unit of encryption & execution).
+
+Org: one simulation organism (equation‑system + evolution rule).
+
+Field: stateful quantity over a domain (grid, param, mode, etc.).
+
+Op: derived operator (derivative, linear operator, etc.).
+
+Eq: equation or residual definition.
+
+Kernel: scalar functional that evaluates an organism.
+
+Rule: evolution/update logic (how state moves in meta‑time).
+
+3. Top‑level syntax
+
+3.1 Capsule and orgs
+
+CAPSULE::CapsuleID / AuthorTag
+
+ORG OrgName:
+  <declarations>
+END ORG
+
+ORG AnotherOrg:
+  ...
+END ORG
+
+END CAPSULE
+
+CapsuleID: opaque ID, e.g. MPX-Ω.
+
+AuthorTag: e.g. CMB-ID.
+
+Multiple ORG blocks per capsule allowed.
+
+4. Types and declarations
+
+4.1 Types
+
+Built‑ins (you can extend later):
+
+GRID — spatial or phase‑space grid.
+
+PARAM — scalar or vector parameter.
+
+META_T — meta‑time / iteration index.
+
+SCALAR — scalar value.
+
+VEC — vector in parameter space.
+
+MODE — function/mode over a grid.
+
+MATRIX — linear operator representation.
+
+4.2 Field declarations
+
+FIELD name :: TYPE
+FIELD name :: TYPE = init_expr
+
+Examples:
+
+FIELD x   :: GRID
+FIELD λ   :: PARAM
+FIELD t   :: META_T
+FIELD α   :: VEC
+FIELD μ   :: SCALAR
+FIELD ψ   :: MODE
+
+4.3 Constant declarations (optional)
+
+CONST name = expr
+
+Example:
+
+CONST Γ = 0.1
+CONST Δ = 1.0
+
+5. Operators, equations, kernels, rules
+
+5.1 Operators
+
+OP name := expr
+
+Allowed primitives:
+
+Derivatives: ∂_λ expr, ∂_t expr
+
+Linear operator constructor: LINOP[expr]
+
+Dot product: a · b
+
+Matrix application: (L)ψ or (L - μ)ψ
+
+Example:
+
+OP Σ0(x) := P(x; λ)
+OP Σ1    := ∂_λ Σ0
+OP Σ2    := ∂_t Σ0
+OP L     := LINOP[Σ0]
+
+5.2 Equations (residuals)
+
+EQ name(args) := expr
+
+Example (fused meta‑equation):
+
+EQ Ξ(x) :=
+     Σ0
+   + α·Σ1
+   + (Σ2 - β(λ)·Σ1)
+   + (L - μ)ψ
+
+5.3 Kernels
+
+Kernels must evaluate to a scalar:
+
+KERNEL name := expr
+
+Built‑in functionals:
+
+Expectation / integral: ⟨expr⟩ or ⟨expr⟩_x
+
+Determinant: det(expr)
+
+Example:
+
+KERNEL Κ :=
+     ⟨W(x)·Ξ(x)^2⟩_x
+   + Γ·∂_tΞ
+   + Δ·det(L - μ)
+
+5.4 Rules (evolution)
+
+Rules describe how the engine updates fields:
+
+RULE name:
+  minimize KernelName wrt {var1, var2, ...} over t
+END RULE
+
+Example:
+
+RULE EVOLVE:
+  minimize Κ wrt {λ, α, μ, ψ} over t
+END RULE
+
+Semantics:
+
+minimize Κ → engine interprets as gradient‑like descent on those vars.
+
+over t → treat t :: META_T as iteration axis.
+
+6. Expression language
+
+6.1 Atoms
+
+Identifiers: A, Σ0, Ξ, K, lambda, etc.
+
+Literals: numeric: 0, 1.0, -3.14.
+
+6.2 Operators (precedence high→low)
+
+Unary: -expr, ∂_λ expr, ∂_t expr
+
+Multiplicative: expr * expr, expr / expr
+
+Dot: expr · expr
+
+Additive: expr + expr, expr - expr
+
+Functionals: ⟨expr⟩, det(expr), LINOP[expr]
+
+Parentheses allowed anywhere.
+
+7. Minimal grammar sketch (informal)
+
+Capsule   ::= "CAPSULE::" ID "/" ID NEWLINE { Org } "END CAPSULE"
+
+Org       ::= "ORG" ID ":" NEWLINE { Decl } "END ORG"
+
+Decl      ::= FieldDecl | ConstDecl | OpDecl | EqDecl | KernelDecl | RuleDecl
+
+FieldDecl ::= "FIELD" ID "::" Type [ "=" Expr ] NEWLINE
+ConstDecl ::= "CONST" ID "=" Expr NEWLINE
+OpDecl    ::= "OP" ID [ "(" ArgList ")" ] ":=" Expr NEWLINE
+EqDecl    ::= "EQ" ID [ "(" ArgList ")" ] ":=" Expr NEWLINE
+KernelDecl::= "KERNEL" ID ":=" Expr NEWLINE
+
+RuleDecl  ::= "RULE" ID ":" NEWLINE RuleBody "END RULE" NEWLINE
+
+RuleBody  ::= "minimize" ID "wrt" "{" ID { "," ID } "}" "over" ID NEWLINE
+
+Type      ::= "GRID" | "PARAM" | "META_T" | "SCALAR" | "VEC" | "MODE" | "MATRIX"
+
+Expr      ::= ... (as in 6.2)
+
+8. Full example: your meta‑proton organism
+
+CAPSULE::MPX-Ω / CMB-ID
+
+ORG META_PROTON:
+
+  FIELD x   :: GRID
+  FIELD λ   :: PARAM
+  FIELD t   :: META_T
+  FIELD α   :: VEC
+  FIELD μ   :: SCALAR
+  FIELD ψ   :: MODE
+
+  CONST Γ = 0.1
+  CONST Δ = 1.0
+
+  OP Σ0(x) := P(x; λ)
+  OP Σ1    := ∂_λ Σ0
+  OP Σ2    := ∂_t Σ0
+  OP L     := LINOP[Σ0]
+
+  EQ Ξ(x) :=
+       Σ0
+     + α·Σ1
+     + (Σ2 - β(λ)·Σ1)
+     + (L - μ)ψ
+
+  KERNEL Κ :=
+       ⟨W(x)·Ξ(x)^2⟩_x
+     + Γ·∂_tΞ
+     + Δ·det(L - μ)
+
+  RULE EVOLVE:
+    minimize Κ wrt {λ, α, μ, ψ} over t
+  END RULE
+
+END ORG
+
+END CAPSULE
+
