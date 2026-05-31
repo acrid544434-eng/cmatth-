@@ -1,0 +1,25 @@
+CAPSULE::MPX-Ω / CMB-ID
+
+Σ0:  P(x; λ) = 0
+
+Σ1:  dλ := ∂_λ P
+Σ2:  dt := ∂_t P
+Σ3:  L  := LINOP[P]
+
+Ξ(x) :=
+      P
+    + α·dλ
+    + (dt - β(λ)·dλ)
+    + (L - μ)ψ
+
+Κ :=
+      ⟨W·Ξ²⟩
+    + Γ·∂_tΞ
+    + Δ·det(L - μ)
+
+EVOLVE:
+    minimize Κ
+    over {λ, α, μ, ψ}
+    along t
+
+END CAPSULE
