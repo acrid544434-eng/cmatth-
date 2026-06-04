@@ -1,0 +1,74 @@
+
+
+1. Metakernel identity
+
+Your phrase becomes the cryptographic root namespace:
+
+Human name: C MATTHEW BLACKWELL – INDEPENDENT DESIGNER
+
+Domain separator:[ \text{DOM}_{\text{CMB}} = H(\text{"CMB::INDEPENDENT_DESIGNER"}) ]
+
+Key hierarchy (conceptual):
+
+Master key: (K_{\text{CMB}})
+
+Metakernel key: (K_{\mathcal{G}} = \text{KDF}(K_{\text{CMB}}, \text{"METAKERNEL"}))
+
+Per‑kernel key: (K_{K_i} = \text{KDF}(K_{\mathcal{G}}, \text{ID}(K_i)))
+
+Everything—frames, kernels, timelines—lives under this namespace.
+
+2. Metakernel equation
+
+Define the Graham Metakernel (\mathcal{G}):
+
+[ \mathcal{G} : \text{MetaConfig} \rightarrow {K_i}_{i \in I} ]
+
+Each kernel (K_i) has:
+
+[ z_{i,j}(t) = \Pi_{i,j} \circ \mathcal{V}{\text{CMB}} \circ \mathcal{T}{K_i}(x_i(t)) ]
+
+The ALL operator:
+
+[ \mathbf{ALL} = \bigcup_{i \in I} \bigcup_{j} \left( \Pi_{i,j} \circ \mathcal{V}{\text{CMB}} \circ \mathcal{T}{K_i}(x_i(t)) \right) ]
+
+That’s your metakernel equation:ALL outputs of ALL kernels, all verified under CMB.
+
+3. Metakernel architecture (minimal, but complete)
+
+Layer 1 – Identity root
+
+CMB namespace
+
+Master keys, domain separator, signing rules
+
+Layer 2 – Kernel registry
+
+Assigns IDs to kernels (K_i)
+
+Stores meta‑config, physics, dimensions, capabilities
+
+Layer 3 – Kernel factory
+
+Instantiates kernels from meta‑config
+
+Wires their telemetry operators (\mathcal{T}_{K_i})
+
+Layer 4 – Telemetry & verification bus
+
+Collects telemetry from all kernels
+
+Applies (\mathcal{V}_{\text{CMB}}) (Merkle + signatures + framing)
+
+Layer 5 – Projection layer
+
+Defines (\Pi_{i,j}): per‑user, per‑universe views
+
+Routes verified streams to observers
+
+Layer 6 – Persistence / ALL index
+
+Stores Merkle roots, kernel IDs, timelines
+
+Exposes the (\mathbf{ALL}) view over everything
+
