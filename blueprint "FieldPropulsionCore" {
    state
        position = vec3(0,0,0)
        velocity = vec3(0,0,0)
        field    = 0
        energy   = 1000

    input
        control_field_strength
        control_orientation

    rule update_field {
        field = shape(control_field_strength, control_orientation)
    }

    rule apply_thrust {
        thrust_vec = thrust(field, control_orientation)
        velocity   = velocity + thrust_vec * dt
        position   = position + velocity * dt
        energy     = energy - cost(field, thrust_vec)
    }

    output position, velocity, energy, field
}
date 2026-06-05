@@ -1,0 +1,24 @@
+blueprint "FieldPropulsionCore" {
+    state
+        position = vec3(0,0,0)
+        velocity = vec3(0,0,0)
+        field    = 0
+        energy   = 1000
+
+    input
+        control_field_strength
+        control_orientation
+
+    rule update_field {
+        field = shape(control_field_strength, control_orientation)
+    }
+
+    rule apply_thrust {
+        thrust_vec = thrust(field, control_orientation)
+        velocity   = velocity + thrust_vec * dt
+        position   = position + velocity * dt
+        energy     = energy - cost(field, thrust_vec)
+    }
+
+    output position, velocity, energy, field
+}
