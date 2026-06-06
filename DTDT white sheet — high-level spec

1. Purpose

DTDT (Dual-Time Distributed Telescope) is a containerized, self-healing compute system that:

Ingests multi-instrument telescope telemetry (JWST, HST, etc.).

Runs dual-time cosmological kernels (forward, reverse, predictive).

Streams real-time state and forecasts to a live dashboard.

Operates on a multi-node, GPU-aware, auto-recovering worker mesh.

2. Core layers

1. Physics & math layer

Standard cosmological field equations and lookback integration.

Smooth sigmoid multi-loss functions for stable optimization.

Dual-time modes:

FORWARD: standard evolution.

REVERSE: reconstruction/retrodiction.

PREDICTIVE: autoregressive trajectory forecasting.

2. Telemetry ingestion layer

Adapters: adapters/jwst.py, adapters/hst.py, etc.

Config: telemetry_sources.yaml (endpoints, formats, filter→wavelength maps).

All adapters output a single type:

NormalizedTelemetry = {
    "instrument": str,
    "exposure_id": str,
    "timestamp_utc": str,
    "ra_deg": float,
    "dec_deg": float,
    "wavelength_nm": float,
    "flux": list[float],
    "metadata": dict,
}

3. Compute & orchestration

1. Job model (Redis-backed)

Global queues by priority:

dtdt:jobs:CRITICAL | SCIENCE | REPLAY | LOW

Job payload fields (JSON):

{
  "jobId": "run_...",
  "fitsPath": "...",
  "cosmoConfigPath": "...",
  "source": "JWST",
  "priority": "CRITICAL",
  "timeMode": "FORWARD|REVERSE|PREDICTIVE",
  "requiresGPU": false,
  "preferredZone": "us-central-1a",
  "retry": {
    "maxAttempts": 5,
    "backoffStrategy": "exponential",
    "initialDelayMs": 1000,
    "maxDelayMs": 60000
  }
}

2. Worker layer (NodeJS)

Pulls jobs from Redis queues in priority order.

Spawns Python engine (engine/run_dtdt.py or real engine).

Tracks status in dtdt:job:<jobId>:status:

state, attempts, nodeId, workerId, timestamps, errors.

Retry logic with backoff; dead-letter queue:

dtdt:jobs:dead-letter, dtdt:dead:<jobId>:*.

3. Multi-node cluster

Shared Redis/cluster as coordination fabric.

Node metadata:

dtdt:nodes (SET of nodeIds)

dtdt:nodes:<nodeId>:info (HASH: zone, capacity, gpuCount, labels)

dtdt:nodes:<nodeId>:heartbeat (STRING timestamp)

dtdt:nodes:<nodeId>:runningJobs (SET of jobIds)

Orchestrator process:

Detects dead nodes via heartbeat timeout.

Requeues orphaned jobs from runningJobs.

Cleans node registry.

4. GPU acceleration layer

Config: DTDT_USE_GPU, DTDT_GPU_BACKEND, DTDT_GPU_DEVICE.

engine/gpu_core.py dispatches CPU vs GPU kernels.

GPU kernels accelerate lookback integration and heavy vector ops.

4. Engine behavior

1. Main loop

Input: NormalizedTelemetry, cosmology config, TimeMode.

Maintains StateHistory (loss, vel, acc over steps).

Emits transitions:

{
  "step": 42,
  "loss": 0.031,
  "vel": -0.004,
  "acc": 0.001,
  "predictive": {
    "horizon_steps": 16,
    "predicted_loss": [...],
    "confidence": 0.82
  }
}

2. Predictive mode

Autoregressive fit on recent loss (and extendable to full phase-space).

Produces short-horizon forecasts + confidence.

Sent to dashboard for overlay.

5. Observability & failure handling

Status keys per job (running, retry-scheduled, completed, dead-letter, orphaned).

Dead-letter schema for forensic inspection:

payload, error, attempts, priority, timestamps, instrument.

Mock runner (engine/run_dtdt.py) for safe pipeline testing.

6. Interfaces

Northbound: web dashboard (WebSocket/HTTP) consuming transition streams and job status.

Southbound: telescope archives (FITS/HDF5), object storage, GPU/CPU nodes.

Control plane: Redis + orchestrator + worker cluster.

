@@ -1,0 +1,168 @@
+DTDT white sheet — high-level spec
+
+1. Purpose
+
+DTDT (Dual-Time Distributed Telescope) is a containerized, self-healing compute system that:
+
+Ingests multi-instrument telescope telemetry (JWST, HST, etc.).
+
+Runs dual-time cosmological kernels (forward, reverse, predictive).
+
+Streams real-time state and forecasts to a live dashboard.
+
+Operates on a multi-node, GPU-aware, auto-recovering worker mesh.
+
+2. Core layers
+
+1. Physics & math layer
+
+Standard cosmological field equations and lookback integration.
+
+Smooth sigmoid multi-loss functions for stable optimization.
+
+Dual-time modes:
+
+FORWARD: standard evolution.
+
+REVERSE: reconstruction/retrodiction.
+
+PREDICTIVE: autoregressive trajectory forecasting.
+
+2. Telemetry ingestion layer
+
+Adapters: adapters/jwst.py, adapters/hst.py, etc.
+
+Config: telemetry_sources.yaml (endpoints, formats, filter→wavelength maps).
+
+All adapters output a single type:
+
+NormalizedTelemetry = {
+    "instrument": str,
+    "exposure_id": str,
+    "timestamp_utc": str,
+    "ra_deg": float,
+    "dec_deg": float,
+    "wavelength_nm": float,
+    "flux": list[float],
+    "metadata": dict,
+}
+
+3. Compute & orchestration
+
+1. Job model (Redis-backed)
+
+Global queues by priority:
+
+dtdt:jobs:CRITICAL | SCIENCE | REPLAY | LOW
+
+Job payload fields (JSON):
+
+{
+  "jobId": "run_...",
+  "fitsPath": "...",
+  "cosmoConfigPath": "...",
+  "source": "JWST",
+  "priority": "CRITICAL",
+  "timeMode": "FORWARD|REVERSE|PREDICTIVE",
+  "requiresGPU": false,
+  "preferredZone": "us-central-1a",
+  "retry": {
+    "maxAttempts": 5,
+    "backoffStrategy": "exponential",
+    "initialDelayMs": 1000,
+    "maxDelayMs": 60000
+  }
+}
+
+2. Worker layer (NodeJS)
+
+Pulls jobs from Redis queues in priority order.
+
+Spawns Python engine (engine/run_dtdt.py or real engine).
+
+Tracks status in dtdt:job:<jobId>:status:
+
+state, attempts, nodeId, workerId, timestamps, errors.
+
+Retry logic with backoff; dead-letter queue:
+
+dtdt:jobs:dead-letter, dtdt:dead:<jobId>:*.
+
+3. Multi-node cluster
+
+Shared Redis/cluster as coordination fabric.
+
+Node metadata:
+
+dtdt:nodes (SET of nodeIds)
+
+dtdt:nodes:<nodeId>:info (HASH: zone, capacity, gpuCount, labels)
+
+dtdt:nodes:<nodeId>:heartbeat (STRING timestamp)
+
+dtdt:nodes:<nodeId>:runningJobs (SET of jobIds)
+
+Orchestrator process:
+
+Detects dead nodes via heartbeat timeout.
+
+Requeues orphaned jobs from runningJobs.
+
+Cleans node registry.
+
+4. GPU acceleration layer
+
+Config: DTDT_USE_GPU, DTDT_GPU_BACKEND, DTDT_GPU_DEVICE.
+
+engine/gpu_core.py dispatches CPU vs GPU kernels.
+
+GPU kernels accelerate lookback integration and heavy vector ops.
+
+4. Engine behavior
+
+1. Main loop
+
+Input: NormalizedTelemetry, cosmology config, TimeMode.
+
+Maintains StateHistory (loss, vel, acc over steps).
+
+Emits transitions:
+
+{
+  "step": 42,
+  "loss": 0.031,
+  "vel": -0.004,
+  "acc": 0.001,
+  "predictive": {
+    "horizon_steps": 16,
+    "predicted_loss": [...],
+    "confidence": 0.82
+  }
+}
+
+2. Predictive mode
+
+Autoregressive fit on recent loss (and extendable to full phase-space).
+
+Produces short-horizon forecasts + confidence.
+
+Sent to dashboard for overlay.
+
+5. Observability & failure handling
+
+Status keys per job (running, retry-scheduled, completed, dead-letter, orphaned).
+
+Dead-letter schema for forensic inspection:
+
+payload, error, attempts, priority, timestamps, instrument.
+
+Mock runner (engine/run_dtdt.py) for safe pipeline testing.
+
+6. Interfaces
+
+Northbound: web dashboard (WebSocket/HTTP) consuming transition streams and job status.
+
+Southbound: telescope archives (FITS/HDF5), object storage, GPU/CPU nodes.
+
+Control plane: Redis + orchestrator + worker cluster.
+
