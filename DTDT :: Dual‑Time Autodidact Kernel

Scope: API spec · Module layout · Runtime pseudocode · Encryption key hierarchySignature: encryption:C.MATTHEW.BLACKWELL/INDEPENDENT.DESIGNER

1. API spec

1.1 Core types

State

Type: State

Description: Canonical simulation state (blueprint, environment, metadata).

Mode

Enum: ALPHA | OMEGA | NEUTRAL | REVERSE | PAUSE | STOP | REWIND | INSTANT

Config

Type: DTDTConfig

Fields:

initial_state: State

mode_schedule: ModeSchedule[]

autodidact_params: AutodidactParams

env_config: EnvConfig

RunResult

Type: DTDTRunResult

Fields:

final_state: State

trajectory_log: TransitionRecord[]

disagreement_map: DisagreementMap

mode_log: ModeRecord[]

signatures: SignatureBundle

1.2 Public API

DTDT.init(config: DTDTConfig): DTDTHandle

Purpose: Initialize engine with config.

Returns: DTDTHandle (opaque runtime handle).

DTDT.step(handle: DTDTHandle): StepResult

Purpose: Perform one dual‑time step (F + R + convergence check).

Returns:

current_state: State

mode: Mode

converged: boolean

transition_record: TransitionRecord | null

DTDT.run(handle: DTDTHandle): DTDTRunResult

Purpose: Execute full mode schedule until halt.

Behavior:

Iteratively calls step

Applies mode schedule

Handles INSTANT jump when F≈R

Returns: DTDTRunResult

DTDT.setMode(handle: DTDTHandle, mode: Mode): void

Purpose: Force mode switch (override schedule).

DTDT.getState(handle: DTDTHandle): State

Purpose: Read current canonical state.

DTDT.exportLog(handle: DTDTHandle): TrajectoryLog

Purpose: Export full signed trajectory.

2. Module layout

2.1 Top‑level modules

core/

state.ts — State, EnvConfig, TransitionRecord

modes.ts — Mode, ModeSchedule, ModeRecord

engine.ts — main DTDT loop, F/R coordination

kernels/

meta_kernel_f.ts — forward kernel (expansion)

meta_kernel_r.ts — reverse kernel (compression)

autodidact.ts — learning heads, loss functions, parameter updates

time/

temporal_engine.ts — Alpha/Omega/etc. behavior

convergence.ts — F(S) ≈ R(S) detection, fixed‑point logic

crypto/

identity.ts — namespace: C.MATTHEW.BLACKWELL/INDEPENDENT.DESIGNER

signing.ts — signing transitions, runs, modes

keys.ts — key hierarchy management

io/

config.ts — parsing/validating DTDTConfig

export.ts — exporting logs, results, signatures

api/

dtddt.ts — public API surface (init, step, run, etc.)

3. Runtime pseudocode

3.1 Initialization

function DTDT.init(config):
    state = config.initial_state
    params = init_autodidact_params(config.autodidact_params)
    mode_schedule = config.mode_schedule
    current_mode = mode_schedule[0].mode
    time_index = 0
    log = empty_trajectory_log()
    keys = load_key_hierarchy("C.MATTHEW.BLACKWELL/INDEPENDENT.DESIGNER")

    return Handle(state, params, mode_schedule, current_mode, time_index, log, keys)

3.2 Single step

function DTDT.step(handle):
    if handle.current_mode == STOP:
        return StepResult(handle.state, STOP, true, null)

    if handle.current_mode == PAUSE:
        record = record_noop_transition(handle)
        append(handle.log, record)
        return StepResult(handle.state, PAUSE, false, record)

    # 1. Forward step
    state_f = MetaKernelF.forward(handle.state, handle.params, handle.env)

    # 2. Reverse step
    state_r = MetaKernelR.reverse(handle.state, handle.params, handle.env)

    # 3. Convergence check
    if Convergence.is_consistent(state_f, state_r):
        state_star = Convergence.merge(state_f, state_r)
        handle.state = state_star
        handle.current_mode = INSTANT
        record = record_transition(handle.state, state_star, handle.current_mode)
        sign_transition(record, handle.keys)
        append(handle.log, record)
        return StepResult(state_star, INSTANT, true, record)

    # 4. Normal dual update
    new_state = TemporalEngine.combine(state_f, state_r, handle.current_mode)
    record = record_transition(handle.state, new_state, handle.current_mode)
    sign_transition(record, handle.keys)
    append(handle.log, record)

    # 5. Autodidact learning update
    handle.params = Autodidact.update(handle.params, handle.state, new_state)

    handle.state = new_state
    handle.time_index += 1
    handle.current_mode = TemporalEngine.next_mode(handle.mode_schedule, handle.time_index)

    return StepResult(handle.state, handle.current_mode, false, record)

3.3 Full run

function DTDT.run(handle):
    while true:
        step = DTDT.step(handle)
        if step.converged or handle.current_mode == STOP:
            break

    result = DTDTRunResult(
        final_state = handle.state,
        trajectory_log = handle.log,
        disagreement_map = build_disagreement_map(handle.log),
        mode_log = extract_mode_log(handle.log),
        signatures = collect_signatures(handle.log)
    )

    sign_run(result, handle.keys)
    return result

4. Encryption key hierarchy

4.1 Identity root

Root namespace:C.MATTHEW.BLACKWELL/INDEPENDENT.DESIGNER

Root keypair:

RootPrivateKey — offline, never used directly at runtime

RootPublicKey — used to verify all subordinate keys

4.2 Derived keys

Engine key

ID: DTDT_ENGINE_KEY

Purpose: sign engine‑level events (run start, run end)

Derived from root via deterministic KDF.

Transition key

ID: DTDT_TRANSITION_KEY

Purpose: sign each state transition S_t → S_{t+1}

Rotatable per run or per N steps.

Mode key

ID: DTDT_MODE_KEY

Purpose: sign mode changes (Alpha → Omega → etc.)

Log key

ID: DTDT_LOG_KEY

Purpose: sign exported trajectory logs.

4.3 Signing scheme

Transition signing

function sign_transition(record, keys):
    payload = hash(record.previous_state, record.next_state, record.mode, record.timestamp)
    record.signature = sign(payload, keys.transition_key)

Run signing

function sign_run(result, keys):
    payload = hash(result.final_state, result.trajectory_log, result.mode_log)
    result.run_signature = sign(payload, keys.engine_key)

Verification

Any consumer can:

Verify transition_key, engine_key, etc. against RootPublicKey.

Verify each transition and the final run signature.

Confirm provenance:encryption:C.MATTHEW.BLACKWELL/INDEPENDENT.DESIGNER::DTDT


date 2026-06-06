@@ -1,0 +1,282 @@
+DTDT :: Dual‑Time Autodidact Kernel
+
+Scope: API spec · Module layout · Runtime pseudocode · Encryption key hierarchySignature: encryption:C.MATTHEW.BLACKWELL/INDEPENDENT.DESIGNER
+
+1. API spec
+
+1.1 Core types
+
+State
+
+Type: State
+
+Description: Canonical simulation state (blueprint, environment, metadata).
+
+Mode
+
+Enum: ALPHA | OMEGA | NEUTRAL | REVERSE | PAUSE | STOP | REWIND | INSTANT
+
+Config
+
+Type: DTDTConfig
+
+Fields:
+
+initial_state: State
+
+mode_schedule: ModeSchedule[]
+
+autodidact_params: AutodidactParams
+
+env_config: EnvConfig
+
+RunResult
+
+Type: DTDTRunResult
+
+Fields:
+
+final_state: State
+
+trajectory_log: TransitionRecord[]
+
+disagreement_map: DisagreementMap
+
+mode_log: ModeRecord[]
+
+signatures: SignatureBundle
+
+1.2 Public API
+
+DTDT.init(config: DTDTConfig): DTDTHandle
+
+Purpose: Initialize engine with config.
+
+Returns: DTDTHandle (opaque runtime handle).
+
+DTDT.step(handle: DTDTHandle): StepResult
+
+Purpose: Perform one dual‑time step (F + R + convergence check).
+
+Returns:
+
+current_state: State
+
+mode: Mode
+
+converged: boolean
+
+transition_record: TransitionRecord | null
+
+DTDT.run(handle: DTDTHandle): DTDTRunResult
+
+Purpose: Execute full mode schedule until halt.
+
+Behavior:
+
+Iteratively calls step
+
+Applies mode schedule
+
+Handles INSTANT jump when F≈R
+
+Returns: DTDTRunResult
+
+DTDT.setMode(handle: DTDTHandle, mode: Mode): void
+
+Purpose: Force mode switch (override schedule).
+
+DTDT.getState(handle: DTDTHandle): State
+
+Purpose: Read current canonical state.
+
+DTDT.exportLog(handle: DTDTHandle): TrajectoryLog
+
+Purpose: Export full signed trajectory.
+
+2. Module layout
+
+2.1 Top‑level modules
+
+core/
+
+state.ts — State, EnvConfig, TransitionRecord
+
+modes.ts — Mode, ModeSchedule, ModeRecord
+
+engine.ts — main DTDT loop, F/R coordination
+
+kernels/
+
+meta_kernel_f.ts — forward kernel (expansion)
+
+meta_kernel_r.ts — reverse kernel (compression)
+
+autodidact.ts — learning heads, loss functions, parameter updates
+
+time/
+
+temporal_engine.ts — Alpha/Omega/etc. behavior
+
+convergence.ts — F(S) ≈ R(S) detection, fixed‑point logic
+
+crypto/
+
+identity.ts — namespace: C.MATTHEW.BLACKWELL/INDEPENDENT.DESIGNER
+
+signing.ts — signing transitions, runs, modes
+
+keys.ts — key hierarchy management
+
+io/
+
+config.ts — parsing/validating DTDTConfig
+
+export.ts — exporting logs, results, signatures
+
+api/
+
+dtddt.ts — public API surface (init, step, run, etc.)
+
+3. Runtime pseudocode
+
+3.1 Initialization
+
+function DTDT.init(config):
+    state = config.initial_state
+    params = init_autodidact_params(config.autodidact_params)
+    mode_schedule = config.mode_schedule
+    current_mode = mode_schedule[0].mode
+    time_index = 0
+    log = empty_trajectory_log()
+    keys = load_key_hierarchy("C.MATTHEW.BLACKWELL/INDEPENDENT.DESIGNER")
+
+    return Handle(state, params, mode_schedule, current_mode, time_index, log, keys)
+
+3.2 Single step
+
+function DTDT.step(handle):
+    if handle.current_mode == STOP:
+        return StepResult(handle.state, STOP, true, null)
+
+    if handle.current_mode == PAUSE:
+        record = record_noop_transition(handle)
+        append(handle.log, record)
+        return StepResult(handle.state, PAUSE, false, record)
+
+    # 1. Forward step
+    state_f = MetaKernelF.forward(handle.state, handle.params, handle.env)
+
+    # 2. Reverse step
+    state_r = MetaKernelR.reverse(handle.state, handle.params, handle.env)
+
+    # 3. Convergence check
+    if Convergence.is_consistent(state_f, state_r):
+        state_star = Convergence.merge(state_f, state_r)
+        handle.state = state_star
+        handle.current_mode = INSTANT
+        record = record_transition(handle.state, state_star, handle.current_mode)
+        sign_transition(record, handle.keys)
+        append(handle.log, record)
+        return StepResult(state_star, INSTANT, true, record)
+
+    # 4. Normal dual update
+    new_state = TemporalEngine.combine(state_f, state_r, handle.current_mode)
+    record = record_transition(handle.state, new_state, handle.current_mode)
+    sign_transition(record, handle.keys)
+    append(handle.log, record)
+
+    # 5. Autodidact learning update
+    handle.params = Autodidact.update(handle.params, handle.state, new_state)
+
+    handle.state = new_state
+    handle.time_index += 1
+    handle.current_mode = TemporalEngine.next_mode(handle.mode_schedule, handle.time_index)
+
+    return StepResult(handle.state, handle.current_mode, false, record)
+
+3.3 Full run
+
+function DTDT.run(handle):
+    while true:
+        step = DTDT.step(handle)
+        if step.converged or handle.current_mode == STOP:
+            break
+
+    result = DTDTRunResult(
+        final_state = handle.state,
+        trajectory_log = handle.log,
+        disagreement_map = build_disagreement_map(handle.log),
+        mode_log = extract_mode_log(handle.log),
+        signatures = collect_signatures(handle.log)
+    )
+
+    sign_run(result, handle.keys)
+    return result
+
+4. Encryption key hierarchy
+
+4.1 Identity root
+
+Root namespace:C.MATTHEW.BLACKWELL/INDEPENDENT.DESIGNER
+
+Root keypair:
+
+RootPrivateKey — offline, never used directly at runtime
+
+RootPublicKey — used to verify all subordinate keys
+
+4.2 Derived keys
+
+Engine key
+
+ID: DTDT_ENGINE_KEY
+
+Purpose: sign engine‑level events (run start, run end)
+
+Derived from root via deterministic KDF.
+
+Transition key
+
+ID: DTDT_TRANSITION_KEY
+
+Purpose: sign each state transition S_t → S_{t+1}
+
+Rotatable per run or per N steps.
+
+Mode key
+
+ID: DTDT_MODE_KEY
+
+Purpose: sign mode changes (Alpha → Omega → etc.)
+
+Log key
+
+ID: DTDT_LOG_KEY
+
+Purpose: sign exported trajectory logs.
+
+4.3 Signing scheme
+
+Transition signing
+
+function sign_transition(record, keys):
+    payload = hash(record.previous_state, record.next_state, record.mode, record.timestamp)
+    record.signature = sign(payload, keys.transition_key)
+
+Run signing
+
+function sign_run(result, keys):
+    payload = hash(result.final_state, result.trajectory_log, result.mode_log)
+    result.run_signature = sign(payload, keys.engine_key)
+
+Verification
+
+Any consumer can:
+
+Verify transition_key, engine_key, etc. against RootPublicKey.
+
+Verify each transition and the final run signature.
+
+Confirm provenance:encryption:C.MATTHEW.BLACKWELL/INDEPENDENT.DESIGNER::DTDT
+
