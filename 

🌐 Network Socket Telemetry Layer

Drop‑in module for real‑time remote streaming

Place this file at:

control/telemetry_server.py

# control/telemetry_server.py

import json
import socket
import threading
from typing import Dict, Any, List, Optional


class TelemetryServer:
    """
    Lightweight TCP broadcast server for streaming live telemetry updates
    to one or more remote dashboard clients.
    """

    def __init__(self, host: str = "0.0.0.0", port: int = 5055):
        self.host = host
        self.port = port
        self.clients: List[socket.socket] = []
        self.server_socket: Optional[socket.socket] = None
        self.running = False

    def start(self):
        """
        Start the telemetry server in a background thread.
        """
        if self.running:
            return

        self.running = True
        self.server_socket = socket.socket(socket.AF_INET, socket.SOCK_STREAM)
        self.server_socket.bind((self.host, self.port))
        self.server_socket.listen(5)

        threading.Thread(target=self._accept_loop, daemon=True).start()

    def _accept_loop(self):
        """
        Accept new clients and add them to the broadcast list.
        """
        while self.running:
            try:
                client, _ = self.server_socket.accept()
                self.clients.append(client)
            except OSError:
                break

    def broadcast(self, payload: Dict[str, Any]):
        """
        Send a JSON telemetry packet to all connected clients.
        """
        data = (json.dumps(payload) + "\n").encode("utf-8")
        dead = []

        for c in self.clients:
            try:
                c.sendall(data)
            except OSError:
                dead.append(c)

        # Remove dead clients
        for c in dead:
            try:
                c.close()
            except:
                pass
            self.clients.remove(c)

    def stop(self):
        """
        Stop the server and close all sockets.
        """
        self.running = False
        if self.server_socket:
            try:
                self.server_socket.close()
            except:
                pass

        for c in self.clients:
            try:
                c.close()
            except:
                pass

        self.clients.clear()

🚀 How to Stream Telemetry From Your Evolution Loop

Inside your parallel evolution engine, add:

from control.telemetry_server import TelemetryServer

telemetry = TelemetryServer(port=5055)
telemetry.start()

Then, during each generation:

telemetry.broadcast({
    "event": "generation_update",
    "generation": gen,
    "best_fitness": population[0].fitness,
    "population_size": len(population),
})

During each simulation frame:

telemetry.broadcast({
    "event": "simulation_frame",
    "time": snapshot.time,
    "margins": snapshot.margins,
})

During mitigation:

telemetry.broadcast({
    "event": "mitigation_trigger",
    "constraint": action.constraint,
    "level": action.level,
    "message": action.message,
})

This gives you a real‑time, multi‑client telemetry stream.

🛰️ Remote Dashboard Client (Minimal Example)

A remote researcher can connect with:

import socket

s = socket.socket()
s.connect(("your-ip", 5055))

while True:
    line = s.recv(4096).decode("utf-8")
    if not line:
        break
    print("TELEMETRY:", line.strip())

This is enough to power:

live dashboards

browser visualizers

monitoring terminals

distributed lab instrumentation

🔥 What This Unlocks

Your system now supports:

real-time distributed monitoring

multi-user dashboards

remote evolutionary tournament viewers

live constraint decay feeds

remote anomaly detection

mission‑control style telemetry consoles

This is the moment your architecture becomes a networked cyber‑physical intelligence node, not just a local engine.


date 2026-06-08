@@ -1,0 +1,176 @@
+
+
+🌐 Network Socket Telemetry Layer
+
+Drop‑in module for real‑time remote streaming
+
+Place this file at:
+
+control/telemetry_server.py
+
+# control/telemetry_server.py
+
+import json
+import socket
+import threading
+from typing import Dict, Any, List, Optional
+
+
+class TelemetryServer:
+    """
+    Lightweight TCP broadcast server for streaming live telemetry updates
+    to one or more remote dashboard clients.
+    """
+
+    def __init__(self, host: str = "0.0.0.0", port: int = 5055):
+        self.host = host
+        self.port = port
+        self.clients: List[socket.socket] = []
+        self.server_socket: Optional[socket.socket] = None
+        self.running = False
+
+    def start(self):
+        """
+        Start the telemetry server in a background thread.
+        """
+        if self.running:
+            return
+
+        self.running = True
+        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server_socket.bind((self.host, self.port))
+        self.server_socket.listen(5)
+
+        threading.Thread(target=self._accept_loop, daemon=True).start()
+
+    def _accept_loop(self):
+        """
+        Accept new clients and add them to the broadcast list.
+        """
+        while self.running:
+            try:
+                client, _ = self.server_socket.accept()
+                self.clients.append(client)
+            except OSError:
+                break
+
+    def broadcast(self, payload: Dict[str, Any]):
+        """
+        Send a JSON telemetry packet to all connected clients.
+        """
+        data = (json.dumps(payload) + "\n").encode("utf-8")
+        dead = []
+
+        for c in self.clients:
+            try:
+                c.sendall(data)
+            except OSError:
+                dead.append(c)
+
+        # Remove dead clients
+        for c in dead:
+            try:
+                c.close()
+            except:
+                pass
+            self.clients.remove(c)
+
+    def stop(self):
+        """
+        Stop the server and close all sockets.
+        """
+        self.running = False
+        if self.server_socket:
+            try:
+                self.server_socket.close()
+            except:
+                pass
+
+        for c in self.clients:
+            try:
+                c.close()
+            except:
+                pass
+
+        self.clients.clear()
+
+🚀 How to Stream Telemetry From Your Evolution Loop
+
+Inside your parallel evolution engine, add:
+
+from control.telemetry_server import TelemetryServer
+
+telemetry = TelemetryServer(port=5055)
+telemetry.start()
+
+Then, during each generation:
+
+telemetry.broadcast({
+    "event": "generation_update",
+    "generation": gen,
+    "best_fitness": population[0].fitness,
+    "population_size": len(population),
+})
+
+During each simulation frame:
+
+telemetry.broadcast({
+    "event": "simulation_frame",
+    "time": snapshot.time,
+    "margins": snapshot.margins,
+})
+
+During mitigation:
+
+telemetry.broadcast({
+    "event": "mitigation_trigger",
+    "constraint": action.constraint,
+    "level": action.level,
+    "message": action.message,
+})
+
+This gives you a real‑time, multi‑client telemetry stream.
+
+🛰️ Remote Dashboard Client (Minimal Example)
+
+A remote researcher can connect with:
+
+import socket
+
+s = socket.socket()
+s.connect(("your-ip", 5055))
+
+while True:
+    line = s.recv(4096).decode("utf-8")
+    if not line:
+        break
+    print("TELEMETRY:", line.strip())
+
+This is enough to power:
+
+live dashboards
+
+browser visualizers
+
+monitoring terminals
+
+distributed lab instrumentation
+
+🔥 What This Unlocks
+
+Your system now supports:
+
+real-time distributed monitoring
+
+multi-user dashboards
+
+remote evolutionary tournament viewers
+
+live constraint decay feeds
+
+remote anomaly detection
+
+mission‑control style telemetry consoles
+
+This is the moment your architecture becomes a networked cyber‑physical intelligence node, not just a local engine.
+
