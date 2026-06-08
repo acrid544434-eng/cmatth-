@@ -1,0 +1,258 @@
+
+
+Sovereign Machine Architecture
+
+Identity‑Bound Computational Omniverse — White Sheet v1.0
+
+1. Core thesis
+
+Claim:A single human identity can anchor a fully deterministic, cryptographically sovereign computing universe that:
+
+Evolves: via a continuity operator (\mathcal{C}_{\text{CMB}}) over a state matrix (U_t).
+
+Persists: across power cycles and hardware changes without drift.
+
+Proves itself: to external systems via hardware‑rooted attestation.
+
+Scales: across multiple physical nodes as one un‑forkable timeline.
+
+2. Identity and origin anchor
+
+Normalized identity string:
+
+[ \text{ID}_{\text{norm}} = \text{Normalize}(\text{human_identifier}) ]
+
+Root identity hash:
+
+[ I = \text{SHA3\text{-}512}(\text{ID}_{\text{norm}}) ]
+
+Key derivation (example):
+
+[ K_{\text{CMB}} = \text{HKDF}(I,\ \text{salt} = \text{"CMB_ROOT"},\ \text{info} = \text{"SOVEREIGN_MACHINE"}) ]
+
+This identity anchor:
+
+Names the universe.
+
+Seeds all cryptographic keys.
+
+Tags every ledger, archive, and attestation.
+
+3. State space and continuity
+
+3.1 State matrix
+
+At time (t):
+
+[ U_t \in \mathbb{Q}^{H \times W \times C} ]
+
+Grid: height (H), width (W).
+
+Channels: (C) fields per cell (e.g. energy, phase, tags).
+
+Numeric format: Q32.32 fixed‑point, stored as int64.
+
+3.2 Continuity operator
+
+[ U_{t+1} = \mathcal{C}_{\text{CMB}}(U_t, I_t, I) ]
+
+(U_t): current lattice state.
+
+(I_t): serialized, ordered input batch for tick (t).
+
+(I): identity hash modulating behavior (weights, masks, seeds).
+
+(\mathcal{C}_{\text{CMB}}) is:
+
+Deterministic: same (U_t, I_t, I) → same (U_{t+1}).
+
+Local/global hybrid: local neighborhoods + identity‑weighted global terms.
+
+Side‑effect free: all external effects are ledger‑mediated.
+
+4. Ledger and continuity proofs
+
+4.1 Ledger entry
+
+Each step:
+
+[ L_t = (S_t, I_t, S_{t+1}, \Pi_t^{\text{CMB}}) ]
+
+(S_t): hash of (U_t).
+
+(S_{t+1}): hash of (U_{t+1}).
+
+(I_t): ordered input batch.
+
+(\Pi_t^{\text{CMB}}): continuity proof.
+
+4.2 Continuity proof
+
+Example:
+
+[ \Pi_t^{\text{CMB}} = \text{Sign}{K{\text{CMB}}}\big( H(S_t ,|, I_t ,|, S_{t+1}) \big) ]
+
+Ledger is strictly append‑only:
+
+One and only one (L_t) per tick.
+
+No rewrites; any divergence is a separate universe.
+
+5. Concurrency and scheduling
+
+5.1 Input serialization
+
+Incoming inputs are:
+
+Windowed: only those within a temporal window for tick (t).
+
+Filtered: by identity‑charge / rate limits (anti‑flood).
+
+Sorted: by cryptographic hash of payload:
+
+[ \text{order_key}(I) = \text{SHA3\text{-}256}(\text{payload}) ]
+
+Result: identical input sets → identical (I_t) ordering → race‑free determinism.
+
+5.2 Fault handling
+
+If any invariant fails:
+
+Trigger Metabolic Halt:
+
+break loops,
+
+close descriptors,
+
+purge keys from RAM.
+
+Ledger remains valid up to last good (L_t).
+
+6. Precision and storage
+
+6.1 Q32.32 fixed‑point
+
+Each value:
+
+[ v_{\text{real}} = \frac{v_{\text{int64}}}{2^{32}} ]
+
+Exact, deterministic across hardware.
+
+No floating‑point drift.
+
+6.2 Sealed storage
+
+Ledger + state snapshots encrypted and sealed via TPM + enclave identity.
+
+Only unsealable on:
+
+the right hardware,
+
+with the right measured software stack.
+
+7. Replay and temporal portability
+
+Replay protocol (high level):
+
+Boot secure enclave + bind to TPM.
+
+Load sealed ledger/archive.
+
+Verify:
+
+identity (I),
+
+engine spec hash,
+
+ledger integrity.
+
+Restore (U_t) and ledger head.
+
+Re‑enter live loop at tick (t+1).
+
+Result: same universe, new hardware instance—no continuity break.
+
+8. Remote attestation and perimeter
+
+8.1 Attestation bundle
+
+Node produces:
+
+[ \mathcal{A} = { Q_{\text{TEE}}, Q_{\text{TPM}}, H_{\text{engine}}, I } ]
+
+TEE quote (enclave measurement + key).
+
+TPM quote (PCRs).
+
+Engine spec hash.
+
+Identity hash.
+
+8.2 Verification
+
+Remote verifier:
+
+Validates vendor signatures.
+
+Checks measurements vs known‑good profiles.
+
+Confirms:
+
+[ H_{\text{engine}} = H_{\text{engine}}^{\text{spec}},\quad I = I^{\text{spec}} ]
+
+If valid, derives a session key and opens an attested channel.
+
+9. Networked cluster model
+
+Multiple nodes, each a Sovereign Machine instance.
+
+Sync based on:
+
+identity‑bound signatures,
+
+deterministic ordering,
+
+no voting/Byzantine consensus.
+
+All nodes converge to the same ledger and state for a given identity.
+
+10. Archive format (.mbu)
+
+Header:
+
+Magic, version, endianness.
+
+Identity hash (I).
+
+Engine spec hash.
+
+Dimensions (H, W, C).
+
+State count.
+
+Frames:
+
+Tick index (t).
+
+Ledger hash (H(L_t)).
+
+Compression flag.
+
+Payload (raw or delta‑compressed Q32.32 matrix).
+
+Footer:
+
+Archive hash.
+
+Identity‑bound signature.
+
+11. Control and visualization
+
+2D lattice engine: maps (U_t) → pixels for real‑time attractor visualization.
+
+JSON‑RPC API: identity‑gated commands to:
+
+init, step, set parameters, fetch frames, inspect ledger.
+
+All external control passes through the same identity namespace and attested perimeter.
+
