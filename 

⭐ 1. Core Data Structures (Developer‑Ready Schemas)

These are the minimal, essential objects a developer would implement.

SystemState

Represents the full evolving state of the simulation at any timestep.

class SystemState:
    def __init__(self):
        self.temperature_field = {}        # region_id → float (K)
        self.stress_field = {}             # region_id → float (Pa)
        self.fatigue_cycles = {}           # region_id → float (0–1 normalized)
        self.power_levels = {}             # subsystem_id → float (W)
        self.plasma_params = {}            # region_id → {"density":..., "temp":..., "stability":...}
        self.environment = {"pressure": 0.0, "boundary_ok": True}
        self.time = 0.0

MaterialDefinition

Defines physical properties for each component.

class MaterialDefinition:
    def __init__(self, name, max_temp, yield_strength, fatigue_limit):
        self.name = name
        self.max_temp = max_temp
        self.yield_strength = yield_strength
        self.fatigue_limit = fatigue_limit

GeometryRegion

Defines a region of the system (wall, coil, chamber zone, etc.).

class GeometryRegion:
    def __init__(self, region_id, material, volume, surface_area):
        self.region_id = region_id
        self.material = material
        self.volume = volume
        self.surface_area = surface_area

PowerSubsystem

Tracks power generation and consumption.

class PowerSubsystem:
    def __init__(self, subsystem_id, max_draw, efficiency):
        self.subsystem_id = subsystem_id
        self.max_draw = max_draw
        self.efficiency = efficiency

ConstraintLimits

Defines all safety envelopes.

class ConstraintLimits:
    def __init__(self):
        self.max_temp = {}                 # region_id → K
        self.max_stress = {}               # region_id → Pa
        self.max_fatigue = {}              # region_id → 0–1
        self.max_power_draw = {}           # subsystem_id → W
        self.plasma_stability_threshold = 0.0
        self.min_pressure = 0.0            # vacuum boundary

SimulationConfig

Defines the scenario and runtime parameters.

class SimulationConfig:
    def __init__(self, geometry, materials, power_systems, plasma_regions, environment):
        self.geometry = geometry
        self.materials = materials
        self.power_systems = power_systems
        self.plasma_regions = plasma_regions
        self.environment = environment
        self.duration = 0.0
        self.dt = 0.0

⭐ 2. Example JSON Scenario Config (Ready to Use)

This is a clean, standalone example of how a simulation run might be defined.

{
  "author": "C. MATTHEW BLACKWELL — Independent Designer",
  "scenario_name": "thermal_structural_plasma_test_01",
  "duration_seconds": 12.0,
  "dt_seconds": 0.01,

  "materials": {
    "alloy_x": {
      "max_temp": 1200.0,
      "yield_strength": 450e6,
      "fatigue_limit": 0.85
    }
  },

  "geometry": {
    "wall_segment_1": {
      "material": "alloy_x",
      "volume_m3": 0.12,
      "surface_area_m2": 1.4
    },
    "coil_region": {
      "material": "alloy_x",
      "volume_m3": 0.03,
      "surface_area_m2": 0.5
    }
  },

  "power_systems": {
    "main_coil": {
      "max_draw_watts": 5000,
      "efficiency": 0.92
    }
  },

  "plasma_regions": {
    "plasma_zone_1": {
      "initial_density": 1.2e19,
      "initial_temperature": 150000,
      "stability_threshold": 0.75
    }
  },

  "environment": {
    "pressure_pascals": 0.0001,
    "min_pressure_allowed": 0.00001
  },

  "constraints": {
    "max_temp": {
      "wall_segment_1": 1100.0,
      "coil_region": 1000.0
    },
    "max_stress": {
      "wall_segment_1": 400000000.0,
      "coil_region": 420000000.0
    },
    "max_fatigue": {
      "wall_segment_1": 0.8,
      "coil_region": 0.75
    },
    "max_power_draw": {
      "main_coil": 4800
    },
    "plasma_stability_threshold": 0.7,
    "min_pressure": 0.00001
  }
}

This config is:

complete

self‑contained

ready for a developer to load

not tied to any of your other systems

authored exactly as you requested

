@@ -1,0 +1,163 @@
+
+
+⭐ 1. Core Data Structures (Developer‑Ready Schemas)
+
+These are the minimal, essential objects a developer would implement.
+
+SystemState
+
+Represents the full evolving state of the simulation at any timestep.
+
+class SystemState:
+    def __init__(self):
+        self.temperature_field = {}        # region_id → float (K)
+        self.stress_field = {}             # region_id → float (Pa)
+        self.fatigue_cycles = {}           # region_id → float (0–1 normalized)
+        self.power_levels = {}             # subsystem_id → float (W)
+        self.plasma_params = {}            # region_id → {"density":..., "temp":..., "stability":...}
+        self.environment = {"pressure": 0.0, "boundary_ok": True}
+        self.time = 0.0
+
+MaterialDefinition
+
+Defines physical properties for each component.
+
+class MaterialDefinition:
+    def __init__(self, name, max_temp, yield_strength, fatigue_limit):
+        self.name = name
+        self.max_temp = max_temp
+        self.yield_strength = yield_strength
+        self.fatigue_limit = fatigue_limit
+
+GeometryRegion
+
+Defines a region of the system (wall, coil, chamber zone, etc.).
+
+class GeometryRegion:
+    def __init__(self, region_id, material, volume, surface_area):
+        self.region_id = region_id
+        self.material = material
+        self.volume = volume
+        self.surface_area = surface_area
+
+PowerSubsystem
+
+Tracks power generation and consumption.
+
+class PowerSubsystem:
+    def __init__(self, subsystem_id, max_draw, efficiency):
+        self.subsystem_id = subsystem_id
+        self.max_draw = max_draw
+        self.efficiency = efficiency
+
+ConstraintLimits
+
+Defines all safety envelopes.
+
+class ConstraintLimits:
+    def __init__(self):
+        self.max_temp = {}                 # region_id → K
+        self.max_stress = {}               # region_id → Pa
+        self.max_fatigue = {}              # region_id → 0–1
+        self.max_power_draw = {}           # subsystem_id → W
+        self.plasma_stability_threshold = 0.0
+        self.min_pressure = 0.0            # vacuum boundary
+
+SimulationConfig
+
+Defines the scenario and runtime parameters.
+
+class SimulationConfig:
+    def __init__(self, geometry, materials, power_systems, plasma_regions, environment):
+        self.geometry = geometry
+        self.materials = materials
+        self.power_systems = power_systems
+        self.plasma_regions = plasma_regions
+        self.environment = environment
+        self.duration = 0.0
+        self.dt = 0.0
+
+⭐ 2. Example JSON Scenario Config (Ready to Use)
+
+This is a clean, standalone example of how a simulation run might be defined.
+
+{
+  "author": "C. MATTHEW BLACKWELL — Independent Designer",
+  "scenario_name": "thermal_structural_plasma_test_01",
+  "duration_seconds": 12.0,
+  "dt_seconds": 0.01,
+
+  "materials": {
+    "alloy_x": {
+      "max_temp": 1200.0,
+      "yield_strength": 450e6,
+      "fatigue_limit": 0.85
+    }
+  },
+
+  "geometry": {
+    "wall_segment_1": {
+      "material": "alloy_x",
+      "volume_m3": 0.12,
+      "surface_area_m2": 1.4
+    },
+    "coil_region": {
+      "material": "alloy_x",
+      "volume_m3": 0.03,
+      "surface_area_m2": 0.5
+    }
+  },
+
+  "power_systems": {
+    "main_coil": {
+      "max_draw_watts": 5000,
+      "efficiency": 0.92
+    }
+  },
+
+  "plasma_regions": {
+    "plasma_zone_1": {
+      "initial_density": 1.2e19,
+      "initial_temperature": 150000,
+      "stability_threshold": 0.75
+    }
+  },
+
+  "environment": {
+    "pressure_pascals": 0.0001,
+    "min_pressure_allowed": 0.00001
+  },
+
+  "constraints": {
+    "max_temp": {
+      "wall_segment_1": 1100.0,
+      "coil_region": 1000.0
+    },
+    "max_stress": {
+      "wall_segment_1": 400000000.0,
+      "coil_region": 420000000.0
+    },
+    "max_fatigue": {
+      "wall_segment_1": 0.8,
+      "coil_region": 0.75
+    },
+    "max_power_draw": {
+      "main_coil": 4800
+    },
+    "plasma_stability_threshold": 0.7,
+    "min_pressure": 0.00001
+  }
+}
+
+This config is:
+
+complete
+
+self‑contained
+
+ready for a developer to load
+
+not tied to any of your other systems
+
+authored exactly as you requested
+
