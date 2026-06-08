@@ -1,0 +1,189 @@
+
+
+🧬 JSON Metadata Exporter for Comparative Logs
+
+Place this file at:
+
+analytics/metadata_exporter.py
+
+# analytics/metadata_exporter.py
+
+import json
+import time
+from typing import Any, Dict, List
+from dataclasses import asdict
+
+def _serialize_individual(ind):
+    """
+    Convert an Individual object into a JSON-safe dictionary.
+    """
+    return {
+        "design": ind.design,
+        "fitness": ind.fitness,
+        "metadata": ind.metadata,
+    }
+
+def _serialize_generation(gen_index, population, offspring, tournament_records):
+    """
+    Build a JSON-safe block describing a single evolutionary generation.
+    """
+    return {
+        "generation": gen_index,
+        "population": [_serialize_individual(i) for i in population],
+        "offspring": [_serialize_individual(i) for i in offspring],
+        "tournament_records": tournament_records,
+    }
+
+def export_evolution_metadata(
+    output_path: str,
+    base_design: Dict[str, Any],
+    limits: Dict[str, Any],
+    generations_data: List[Dict[str, Any]],
+    run_config: Dict[str, Any],
+    parallel_stats: Dict[str, Any],
+):
+    """
+    Write a complete JSON metadata log describing the entire evolutionary run.
+
+    Parameters:
+        output_path: where to write the JSON file
+        base_design: the initial design used to seed the population
+        limits: physics constraint limits
+        generations_data: list of generation blocks, each containing:
+            {
+                "generation": int,
+                "population": [...],
+                "offspring": [...],
+                "tournament_records": [...]
+            }
+        run_config: dictionary of evolution parameters
+        parallel_stats: worker timing, CPU usage, etc.
+    """
+    payload = {
+        "timestamp": time.time(),
+        "base_design": base_design,
+        "limits": limits,
+        "run_config": run_config,
+        "parallel_stats": parallel_stats,
+        "generations": generations_data,
+    }
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2)
+
+📦 What This Exporter Captures
+
+Each evolutionary run is saved as a complete JSON dataset containing:
+
+1. Base Design
+
+The original design before any mutations.
+
+2. Physics Limits
+
+Constraint boundaries used during simulation.
+
+3. Run Configuration
+
+Everything the user set via CLI:
+
+population size
+
+tournament size
+
+offspring per generation
+
+generation count
+
+parallel worker count
+
+dt, duration, etc.
+
+4. Parallel Execution Stats
+
+You can populate this with:
+
+worker runtimes
+
+CPU load
+
+queue latency
+
+simulation throughput
+
+5. Generation‑by‑Generation Blocks
+
+Each block contains:
+
+full population
+
+full offspring set
+
+tournament selection records
+
+fitness scores
+
+mutation metadata
+
+This is the complete evolutionary history, ready for lineage reconstruction.
+
+🧩 How to Use It Inside Your Evolution Loop
+
+Inside your evolve_population_parallel function, accumulate metadata like this:
+
+generations_data = []
+
+for gen in range(generations):
+    # ... run tournament, mutation, evaluation ...
+
+    generations_data.append({
+        "generation": gen,
+        "population": population,
+        "offspring": offspring,
+        "tournament_records": tournament_records,
+    })
+
+Then export:
+
+from analytics.metadata_exporter import export_evolution_metadata
+
+export_evolution_metadata(
+    output_path="evolution_log.json",
+    base_design=initial_design,
+    limits=limits,
+    generations_data=generations_data,
+    run_config={
+        "population_size": population_size,
+        "tournament_size": tournament_size,
+        "offspring_per_gen": offspring_per_gen,
+        "generations": generations,
+        "max_workers": max_workers,
+        "duration": duration,
+        "dt": dt,
+    },
+    parallel_stats={
+        "worker_count": max_workers,
+        "notes": "Add timing stats here",
+    }
+)
+
+🧠 Why This Matters
+
+This exporter becomes the historical backbone of your entire system:
+
+lineage trees
+
+multi‑run comparisons
+
+anomaly detection
+
+reproducibility
+
+research archiving
+
+forensic debugging
+
+evolutionary replay
+
+Your engine now remembers everything it ever did.
+
