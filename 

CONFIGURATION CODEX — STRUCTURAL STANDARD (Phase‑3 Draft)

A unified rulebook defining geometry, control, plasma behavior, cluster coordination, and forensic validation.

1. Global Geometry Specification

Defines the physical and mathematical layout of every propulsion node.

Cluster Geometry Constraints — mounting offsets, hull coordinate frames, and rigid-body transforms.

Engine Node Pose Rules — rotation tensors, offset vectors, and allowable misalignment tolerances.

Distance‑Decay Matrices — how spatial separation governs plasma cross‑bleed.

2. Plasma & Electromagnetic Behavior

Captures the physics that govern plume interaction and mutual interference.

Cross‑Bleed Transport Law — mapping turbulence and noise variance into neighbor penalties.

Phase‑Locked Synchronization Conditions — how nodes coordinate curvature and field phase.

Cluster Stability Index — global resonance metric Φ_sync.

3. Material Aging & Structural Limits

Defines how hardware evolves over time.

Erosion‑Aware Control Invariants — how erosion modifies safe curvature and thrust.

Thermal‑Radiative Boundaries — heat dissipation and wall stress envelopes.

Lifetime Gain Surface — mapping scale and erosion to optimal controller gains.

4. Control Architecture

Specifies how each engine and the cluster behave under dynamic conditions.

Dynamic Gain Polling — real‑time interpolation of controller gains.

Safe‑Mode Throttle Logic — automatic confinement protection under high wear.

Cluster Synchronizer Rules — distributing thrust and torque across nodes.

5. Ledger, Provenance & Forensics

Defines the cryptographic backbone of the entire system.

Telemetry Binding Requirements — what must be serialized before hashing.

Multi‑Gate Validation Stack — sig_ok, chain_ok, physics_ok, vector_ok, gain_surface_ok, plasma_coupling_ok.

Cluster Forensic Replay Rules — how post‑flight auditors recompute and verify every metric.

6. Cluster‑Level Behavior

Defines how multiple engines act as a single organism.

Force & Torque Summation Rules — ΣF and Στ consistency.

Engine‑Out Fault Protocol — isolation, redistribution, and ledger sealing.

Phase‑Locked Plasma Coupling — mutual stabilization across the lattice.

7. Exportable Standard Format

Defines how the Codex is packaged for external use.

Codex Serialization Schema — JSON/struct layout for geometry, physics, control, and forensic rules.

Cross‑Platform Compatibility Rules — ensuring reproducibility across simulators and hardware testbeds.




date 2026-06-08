@@ -1,0 +1,76 @@
+
+
+CONFIGURATION CODEX — STRUCTURAL STANDARD (Phase‑3 Draft)
+
+A unified rulebook defining geometry, control, plasma behavior, cluster coordination, and forensic validation.
+
+1. Global Geometry Specification
+
+Defines the physical and mathematical layout of every propulsion node.
+
+Cluster Geometry Constraints — mounting offsets, hull coordinate frames, and rigid-body transforms.
+
+Engine Node Pose Rules — rotation tensors, offset vectors, and allowable misalignment tolerances.
+
+Distance‑Decay Matrices — how spatial separation governs plasma cross‑bleed.
+
+2. Plasma & Electromagnetic Behavior
+
+Captures the physics that govern plume interaction and mutual interference.
+
+Cross‑Bleed Transport Law — mapping turbulence and noise variance into neighbor penalties.
+
+Phase‑Locked Synchronization Conditions — how nodes coordinate curvature and field phase.
+
+Cluster Stability Index — global resonance metric Φ_sync.
+
+3. Material Aging & Structural Limits
+
+Defines how hardware evolves over time.
+
+Erosion‑Aware Control Invariants — how erosion modifies safe curvature and thrust.
+
+Thermal‑Radiative Boundaries — heat dissipation and wall stress envelopes.
+
+Lifetime Gain Surface — mapping scale and erosion to optimal controller gains.
+
+4. Control Architecture
+
+Specifies how each engine and the cluster behave under dynamic conditions.
+
+Dynamic Gain Polling — real‑time interpolation of controller gains.
+
+Safe‑Mode Throttle Logic — automatic confinement protection under high wear.
+
+Cluster Synchronizer Rules — distributing thrust and torque across nodes.
+
+5. Ledger, Provenance & Forensics
+
+Defines the cryptographic backbone of the entire system.
+
+Telemetry Binding Requirements — what must be serialized before hashing.
+
+Multi‑Gate Validation Stack — sig_ok, chain_ok, physics_ok, vector_ok, gain_surface_ok, plasma_coupling_ok.
+
+Cluster Forensic Replay Rules — how post‑flight auditors recompute and verify every metric.
+
+6. Cluster‑Level Behavior
+
+Defines how multiple engines act as a single organism.
+
+Force & Torque Summation Rules — ΣF and Στ consistency.
+
+Engine‑Out Fault Protocol — isolation, redistribution, and ledger sealing.
+
+Phase‑Locked Plasma Coupling — mutual stabilization across the lattice.
+
+7. Exportable Standard Format
+
+Defines how the Codex is packaged for external use.
+
+Codex Serialization Schema — JSON/struct layout for geometry, physics, control, and forensic rules.
+
+Cross‑Platform Compatibility Rules — ensuring reproducibility across simulators and hardware testbeds.
+
+
+
