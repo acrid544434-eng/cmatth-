@@ -1,0 +1,142 @@
+engine/evolution.py (replacing the stub), wired for multi‑core parallel fitness evaluation.
+
+# engine/evolution.py
+
+from __future__ import annotations
+from dataclasses import dataclass
+from typing import Any, Dict, List, Callable, Tuple
+from concurrent.futures import ProcessPoolExecutor, as_completed
+
+from engine.simulation import run_simulation, SnapshotRecord
+
+
+@dataclass
+class Individual:
+    design: Dict[str, Any]
+    fitness: float
+    metadata: Dict[str, Any]
+
+
+def mutate_design(design: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Apply structural mutations to a design.
+    Replace this with your real mutation logic.
+    """
+    return dict(design)
+
+
+def evaluate_fitness(snapshots: List[SnapshotRecord]) -> float:
+    """
+    Compute fitness score from simulation snapshots.
+    Replace this with your real fitness function.
+    """
+    return float(len(snapshots))
+
+
+def _simulate_and_score(
+    design: Dict[str, Any],
+    limits: Dict[str, Any],
+    duration: float,
+    dt: float,
+) -> Tuple[Dict[str, Any], float]:
+    """
+    Worker function for parallel evaluation.
+    """
+    snaps = run_simulation(design, limits, duration, dt)
+    score = evaluate_fitness(snaps)
+    return design, score
+
+
+def _init_population(
+    base_design: Dict[str, Any],
+    population_size: int,
+) -> List[Individual]:
+    pop: List[Individual] = []
+    for _ in range(population_size):
+        d = mutate_design(base_design)
+        pop.append(Individual(design=d, fitness=float("-inf"), metadata={}))
+    return pop
+
+
+def _evaluate_population_parallel(
+    population: List[Individual],
+    limits: Dict[str, Any],
+    duration: float,
+    dt: float,
+    max_workers: int | None = None,
+) -> None:
+    """
+    Evaluate all individuals in parallel, updating their fitness in place.
+    """
+    with ProcessPoolExecutor(max_workers=max_workers) as ex:
+        futures = {
+            ex.submit(_simulate_and_score, ind.design, limits, duration, dt): ind
+            for ind in population
+        }
+        for fut in as_completed(futures):
+            ind = futures[fut]
+            design, score = fut.result()
+            ind.design = design
+            ind.fitness = score
+
+
+def _tournament_select(
+    population: List[Individual],
+    tournament_size: int,
+) -> Individual:
+    """
+    Tournament selection: sample k individuals, return the best.
+    """
+    import random
+
+    contenders = random.sample(population, k=min(tournament_size, len(population)))
+    return max(contenders, key=lambda i: i.fitness)
+
+
+def evolve_population_parallel(
+    initial_design: Dict[str, Any],
+    limits: Dict[str, Any],
+    duration: float,
+    dt: float,
+    generations: int = 10,
+    population_size: int = 16,
+    tournament_size: int = 4,
+    offspring_per_gen: int = 16,
+    max_workers: int | None = None,
+) -> Individual:
+    """
+    Asynchronous-style parallel tournament evolution loop.
+
+    - Initializes a population from the base design
+    - Evaluates fitness in parallel
+    - Uses tournament selection to pick parents
+    - Mutates parents to create offspring
+    - Repeats for N generations
+    - Returns the best individual found
+    """
+    # Initialize and evaluate first generation
+    population = _init_population(initial_design, population_size)
+    _evaluate_population_parallel(population, limits, duration, dt, max_workers)
+
+    for _ in range(generations):
+        # Tournament-based parent selection
+        parents: List[Individual] = []
+        for _ in range(offspring_per_gen):
+            parents.append(_tournament_select(population, tournament_size))
+
+        # Create offspring via mutation
+        offspring: List[Individual] = []
+        for p in parents:
+            child_design = mutate_design(p.design)
+            offspring.append(Individual(design=child_design, fitness=float("-inf"), metadata={}))
+
+        # Evaluate offspring in parallel
+        _evaluate_population_parallel(offspring, limits, duration, dt, max_workers)
+
+        # Combine and keep top population_size
+        combined = population + offspring
+        combined.sort(key=lambda i: i.fitness, reverse=True)
+        population = combined[:population_size]
+
+    # Return best individual
+    return max(population, key=lambda i: i.fitness)
