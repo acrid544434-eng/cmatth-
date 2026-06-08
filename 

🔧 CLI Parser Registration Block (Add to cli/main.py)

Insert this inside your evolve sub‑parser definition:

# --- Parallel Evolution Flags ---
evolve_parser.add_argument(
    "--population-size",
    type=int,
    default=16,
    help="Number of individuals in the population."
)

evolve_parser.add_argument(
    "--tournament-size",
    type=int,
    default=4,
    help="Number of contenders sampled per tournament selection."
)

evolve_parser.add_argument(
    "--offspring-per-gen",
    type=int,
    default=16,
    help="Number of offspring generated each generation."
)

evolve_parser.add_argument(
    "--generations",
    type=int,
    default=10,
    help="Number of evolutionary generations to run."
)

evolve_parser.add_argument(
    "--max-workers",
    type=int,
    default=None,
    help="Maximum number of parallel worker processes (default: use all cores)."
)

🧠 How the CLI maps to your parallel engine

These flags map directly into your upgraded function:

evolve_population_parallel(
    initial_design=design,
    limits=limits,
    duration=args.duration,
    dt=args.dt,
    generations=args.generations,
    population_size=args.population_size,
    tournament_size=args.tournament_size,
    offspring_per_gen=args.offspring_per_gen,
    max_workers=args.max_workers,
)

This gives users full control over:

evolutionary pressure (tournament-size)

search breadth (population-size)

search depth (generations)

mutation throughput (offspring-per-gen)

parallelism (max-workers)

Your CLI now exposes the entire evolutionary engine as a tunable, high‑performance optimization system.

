@@ -1,0 +1,72 @@
+
+
+🔧 CLI Parser Registration Block (Add to cli/main.py)
+
+Insert this inside your evolve sub‑parser definition:
+
+# --- Parallel Evolution Flags ---
+evolve_parser.add_argument(
+    "--population-size",
+    type=int,
+    default=16,
+    help="Number of individuals in the population."
+)
+
+evolve_parser.add_argument(
+    "--tournament-size",
+    type=int,
+    default=4,
+    help="Number of contenders sampled per tournament selection."
+)
+
+evolve_parser.add_argument(
+    "--offspring-per-gen",
+    type=int,
+    default=16,
+    help="Number of offspring generated each generation."
+)
+
+evolve_parser.add_argument(
+    "--generations",
+    type=int,
+    default=10,
+    help="Number of evolutionary generations to run."
+)
+
+evolve_parser.add_argument(
+    "--max-workers",
+    type=int,
+    default=None,
+    help="Maximum number of parallel worker processes (default: use all cores)."
+)
+
+🧠 How the CLI maps to your parallel engine
+
+These flags map directly into your upgraded function:
+
+evolve_population_parallel(
+    initial_design=design,
+    limits=limits,
+    duration=args.duration,
+    dt=args.dt,
+    generations=args.generations,
+    population_size=args.population_size,
+    tournament_size=args.tournament_size,
+    offspring_per_gen=args.offspring_per_gen,
+    max_workers=args.max_workers,
+)
+
+This gives users full control over:
+
+evolutionary pressure (tournament-size)
+
+search breadth (population-size)
+
+search depth (generations)
+
+mutation throughput (offspring-per-gen)
+
+parallelism (max-workers)
+
+Your CLI now exposes the entire evolutionary engine as a tunable, high‑performance optimization system.
+
