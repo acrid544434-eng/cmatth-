@@ -1,0 +1,165 @@
+
+
+🎨 Dashboard Color Protocol (DCP‑1.0)
+
+A unified color‑severity‑event standard for distributed evolutionary telemetry systems.
+
+1. Severity Levels (Canonical Set)
+
+Every dashboard log event MUST declare a level.Levels are strictly ordered by operational urgency.
+
+info — neutral system updates
+
+success — confirmed positive outcomes
+
+warning — non‑fatal anomalies or mitigations
+
+error — validation failures or worker faults
+
+critical — system‑threatening conditions
+
+These levels form the backbone of the protocol.
+
+2. Color Mapping (UI Rendering Contract)
+
+Each severity level maps to a single canonical color.
+
+Level
+
+Color
+
+Meaning
+
+info
+
+cyan
+
+Normal operational chatter
+
+success
+
+green
+
+Completed action, checkpoint, or stable state
+
+warning
+
+yellow
+
+Risk detected, mitigation triggered
+
+error
+
+red
+
+Validation failure, worker crash, malformed input
+
+critical
+
+magenta
+
+System‑level threat, cascading failure, unsafe state
+
+These colors are UI‑agnostic:HTML, terminal, and JS dashboards all follow the same mapping.
+
+3. Event Types (Dashboard‑Visible Categories)
+
+Every log packet MUST declare an event field.The dashboard recognizes the following event types:
+
+log — general system messages
+
+generation_update — evolution loop progress
+
+simulation_frame — physics snapshot
+
+mitigation_trigger — proactive safety action
+
+checkpoint_saved — async persistence event
+
+validation_error — schema or config failure
+
+worker_fault — parallel process crash
+
+Each event type has a default severity, but can be overridden.
+
+4. Packet Schema (Strict Contract)
+
+Every dashboard packet MUST follow this structure:
+
+{
+  "event": "log",
+  "level": "warning",
+  "color": "yellow",
+  "message": "Mitigation triggered",
+  "context": {
+    "constraint": "thermal_load",
+    "level": 2
+  }
+}
+
+Required fields:
+
+event — event category
+
+level — severity
+
+color — canonical color
+
+message — human‑readable text
+
+context — structured metadata (optional but recommended)
+
+This schema is enforced by your validation layer.
+
+5. Default Severity Rules
+
+If a packet does not explicitly set a severity, the dashboard applies:
+
+generation_update → info
+
+simulation_frame → info
+
+mitigation_trigger → warning
+
+checkpoint_saved → success
+
+validation_error → error
+
+worker_fault → critical
+
+This ensures consistent visual semantics across all nodes.
+
+6. Dashboard Rendering Rules
+
+The UI MUST:
+
+render the color field as the primary visual indicator
+
+display message prominently
+
+show context as expandable metadata
+
+group events by severity in the timeline
+
+animate critical events (pulse or highlight)
+
+persist error and critical events in a “sticky” alert bar
+
+This turns the dashboard into a real‑time operational cockpit.
+
+7. Non‑Negotiable Guarantees
+
+The protocol guarantees:
+
+deterministic color mapping
+
+consistent severity semantics
+
+schema‑validated packets
+
+UI‑portable rendering
+
+future extensibility (new event types allowed)
+
+This is the foundation for a scalable, multi‑node telemetry ecosystem.
+
