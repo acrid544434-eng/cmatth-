@@ -1,0 +1,196 @@
+1. Formal spec document (high-level design)
+
+1.1 Purpose
+
+Goal:Design a simulation blueprint engine that models engineered systems under:
+
+thermal limits
+
+material fatigue
+
+power budgets
+
+plasma instabilities
+
+vacuum chamber boundaries
+
+and seals each run with encryption + provenance, authored under:
+
+C. MATTHEW BLACKWELL — Independent Designer
+
+1.2 Top-level architecture
+
+Core Simulation KernelEvolves system state over time using numerical integration.
+
+Constraint ManagerEncodes and enforces physical limits (thermal, structural, power, plasma, environment).
+
+Scenario Definition LayerDescribes geometry, materials, power sources, plasma regions, and chamber configuration.
+
+Persistence & Encryption LayerStores runs as tamper‑evident records (hash + signature).
+
+Interface Layer (CLI + optional GUI)Controls simulations, validation, and reporting.
+
+1.3 Core modules
+
+Module: ThermalEngine
+
+Inputs: geometry, material properties, heat sources.
+
+Outputs: temperature fields over time.
+
+Constraints: max allowable temperature per region.
+
+Module: StructuralEngine
+
+Inputs: loads, geometry, material fatigue curves.
+
+Outputs: stress/strain, fatigue accumulation.
+
+Constraints: yield limits, fatigue life thresholds.
+
+Module: PowerEngine
+
+Inputs: power sources, loads, storage.
+
+Outputs: power usage, reserves, efficiency.
+
+Constraints: max draw, minimum reserve, duty cycles.
+
+Module: PlasmaEngine
+
+Inputs: plasma density, temperature, fields, chamber geometry.
+
+Outputs: stability metrics, interaction forces.
+
+Constraints: instability thresholds, wall loading limits.
+
+Module: EnvironmentEngine
+
+Inputs: chamber pressure, boundaries, external conditions.
+
+Outputs: environment state.
+
+Constraints: vacuum integrity, allowable leakage.
+
+Module: ConstraintManager
+
+Aggregates all module outputs.
+
+Evaluates constraint inequalities each timestep.
+
+Flags violations and can trigger mitigation (e.g., power throttling).
+
+1.4 Encryption & provenance
+
+RunMetadata:
+
+scenario config
+
+model versions
+
+timestamps
+
+authorship:C. MATTHEW BLACKWELL — Independent Designer
+
+Process:
+
+Serialize metadata + key state snapshots.
+
+Compute SHA‑256 hash.
+
+Sign hash with private key → signature block.
+
+Store {metadata, hash, signature} with simulation outputs.
+
+Verification:
+
+Recompute hash from stored metadata + states.
+
+Verify signature with public key.
+
+If mismatch → run is tampered.
+
+1.5 Interface layer
+
+CLI commands:
+
+simulate
+
+Args: --config, --duration, --dt.
+
+Runs scenario, enforces constraints, writes sealed record.
+
+validate-run
+
+Args: --input.
+
+Verifies hash + signature, checks constraint compliance.
+
+export-report
+
+Args: --input, --format.
+
+Outputs human‑readable summary (limits, margins, violations).
+
+Optional GUI:
+
+Plots: temperature vs. time, stress maps, power curves, plasma stability, constraint margins.
+
+2. Minimal module list for a developer
+
+Here’s the compact, buildable breakdown:
+
+core/state.py
+
+Defines global SystemState (temps, stresses, power, plasma, env).
+
+physics/thermal.py
+
+Functions: step_thermal(state, config, dt).
+
+physics/structural.py
+
+Functions: step_structural(state, config, dt).
+
+physics/power.py
+
+Functions: step_power(state, config, dt).
+
+physics/plasma.py
+
+Functions: step_plasma(state, config, dt).
+
+physics/environment.py
+
+Functions: step_environment(state, config, dt).
+
+constraints/manager.py
+
+Functions:
+
+evaluate_constraints(state, limits)
+
+returns flags + margin values.
+
+engine/integrator.py
+
+Function:
+
+run_simulation(config, limits, duration, dt)
+
+loops over timesteps, calls physics modules, constraint manager.
+
+security/provenance.py
+
+Functions:
+
+seal_run(metadata, state_snapshots, private_key)
+
+verify_run(record, public_key).
+
+cli/main.py
+
+Commands: simulate, validate-run, export-report.
+
+Authorship is embedded in metadata["author"] = "C. MATTHEW BLACKWELL — Independent Designer".
+
