@@ -1,0 +1,163 @@
+
+
+engine/checkpoint.py
+
+# engine/checkpoint.py
+
+import json
+import threading
+from typing import Any, Dict, List, Optional
+
+
+class CheckpointWriter:
+    """
+    Asynchronous checkpoint writer.
+
+    Usage:
+      writer = CheckpointWriter("checkpoint.json")
+      writer.start()
+      ...
+      writer.request_checkpoint(payload_dict)
+      ...
+      writer.stop()
+    """
+
+    def __init__(self, path: str):
+        self.path = path
+        self._lock = threading.Lock()
+        self._pending: Optional[Dict[str, Any]] = None
+        self._thread: Optional[threading.Thread] = None
+        self._running = False
+
+    def start(self):
+        if self._running:
+            return
+        self._running = True
+        self._thread = threading.Thread(target=self._loop, daemon=True)
+        self._thread.start()
+
+    def _loop(self):
+        while self._running:
+            payload = None
+            with self._lock:
+                if self._pending is not None:
+                    payload = self._pending
+                    self._pending = None
+            if payload is not None:
+                try:
+                    with open(self.path, "w", encoding="utf-8") as f:
+                        json.dump(payload, f, indent=2)
+                except Exception:
+                    # In production you might log this
+                    pass
+            # small sleep to avoid busy loop
+            import time
+            time.sleep(0.05)
+
+    def request_checkpoint(self, payload: Dict[str, Any]):
+        """
+        Schedule a checkpoint write. Newer payloads overwrite older pending ones.
+        """
+        with self._lock:
+            self._pending = payload
+
+    def stop(self):
+        self._running = False
+        if self._thread is not None:
+            self._thread.join(timeout=1.0)
+
+
+def serialize_individual(ind) -> Dict[str, Any]:
+    return {
+        "design": ind.design,
+        "fitness": ind.fitness,
+        "metadata": ind.metadata,
+    }
+
+
+def build_checkpoint_payload(
+    generation: int,
+    population,
+    run_config: Dict[str, Any],
+    rng_state: Any = None,
+) -> Dict[str, Any]:
+    """
+    Build a JSON-safe checkpoint payload.
+    """
+    return {
+        "generation": generation,
+        "population": [serialize_individual(i) for i in population],
+        "run_config": run_config,
+        "rng_state": rng_state,
+    }
+
+
+def load_checkpoint(path: str) -> Dict[str, Any]:
+    """
+    Load checkpoint payload from disk.
+    """
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+Integration into evolve_population_parallel
+
+Inside engine/evolution.py, wrap your loop like this:
+
+from engine.checkpoint import CheckpointWriter, build_checkpoint_payload
+
+def evolve_population_parallel(..., checkpoint_path: str | None = None, ...):
+
+    checkpoint_writer = None
+    if checkpoint_path is not None:
+        checkpoint_writer = CheckpointWriter(checkpoint_path)
+        checkpoint_writer.start()
+
+    try:
+        # init + first evaluation as before
+        population = _init_population(initial_design, population_size)
+        _evaluate_population_parallel(population, limits, duration, dt, max_workers)
+
+        for gen in range(generations):
+            # ... selection, mutation, evaluation ...
+
+            # after population is updated:
+            if checkpoint_writer is not None:
+                run_config = {
+                    "population_size": population_size,
+                    "tournament_size": tournament_size,
+                    "offspring_per_gen": offspring_per_gen,
+                    "generations": generations,
+                    "max_workers": max_workers,
+                    "duration": duration,
+                    "dt": dt,
+                }
+                payload = build_checkpoint_payload(
+                    generation=gen,
+                    population=population,
+                    run_config=run_config,
+                    rng_state=None,  # optionally capture RNG state
+                )
+                checkpoint_writer.request_checkpoint(payload)
+
+        return max(population, key=lambda i: i.fitness)
+
+    finally:
+        if checkpoint_writer is not None:
+            checkpoint_writer.stop()
+
+Resume-from-checkpoint sketch
+
+When you add resume support, you’ll:
+
+Load the checkpoint:
+
+from engine.checkpoint import load_checkpoint
+
+cp = load_checkpoint("checkpoint.json")
+start_gen = cp["generation"] + 1
+restored_population = cp["population"]  # rebuild Individuals from dicts
+run_config = cp["run_config"]
+
+Rebuild Individual objects from the stored dicts and continue the loop from start_gen.
+
+You’ve now given the system survivability: long runs can be paused, crashed, or migrated—and evolution can resume without losing its internal state.
