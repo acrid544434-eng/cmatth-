@@ -1,0 +1,168 @@
+
+
+🎨 Colorized Logging Hooks for Telemetry Dashboard
+
+Place this module at:
+
+control/colorlog.py
+
+It defines:
+
+a color‑tagging protocol
+
+a log event builder
+
+a safe dispatcher to your existing telemetry server
+
+standardized severity levels
+
+# control/colorlog.py
+
+from typing import Dict, Any
+from control.telemetry_server import TelemetryServer
+from engine.schema import SchemaError
+
+
+# Color protocol for dashboard rendering
+COLOR_MAP = {
+    "info": "cyan",
+    "success": "green",
+    "warning": "yellow",
+    "error": "red",
+    "critical": "magenta",
+}
+
+
+def build_log_event(
+    message: str,
+    level: str = "info",
+    context: Dict[str, Any] | None = None,
+) -> Dict[str, Any]:
+    """
+    Build a colorized log packet for the telemetry dashboard.
+    """
+    if level not in COLOR_MAP:
+        level = "info"
+
+    return {
+        "event": "log",
+        "level": level,
+        "color": COLOR_MAP[level],
+        "message": message,
+        "context": context or {},
+    }
+
+
+class ColorLogger:
+    """
+    Sends colorized log packets to the telemetry server.
+    """
+
+    def __init__(self, telemetry: TelemetryServer):
+        self.telemetry = telemetry
+
+    def info(self, msg: str, **ctx):
+        self.telemetry.broadcast(build_log_event(msg, "info", ctx))
+
+    def success(self, msg: str, **ctx):
+        self.telemetry.broadcast(build_log_event(msg, "success", ctx))
+
+    def warning(self, msg: str, **ctx):
+        self.telemetry.broadcast(build_log_event(msg, "warning", ctx))
+
+    def error(self, msg: str, **ctx):
+        self.telemetry.broadcast(build_log_event(msg, "error", ctx))
+
+    def critical(self, msg: str, **ctx):
+        self.telemetry.broadcast(build_log_event(msg, "critical", ctx))
+
+    def validation_error(self, exc: SchemaError, **ctx):
+        """
+        Specialized hook for schema validation failures.
+        """
+        self.error(f"Validation failed: {exc}", **ctx)
+
+🚀 How to integrate into your evolution loop
+
+Inside evolve_population_parallel, after creating your telemetry server:
+
+from control.colorlog import ColorLogger
+
+telemetry = TelemetryServer(port=5055)
+telemetry.start()
+
+log = ColorLogger(telemetry)
+
+Now you can emit colorized events anywhere:
+
+Generation updates
+
+log.info("Generation completed", generation=gen, best=population[0].fitness)
+
+Successful checkpoint
+
+log.success("Checkpoint saved", path=checkpoint_path)
+
+Schema validation failure
+
+try:
+    validate_evolution_config(run_config)
+except SchemaError as exc:
+    log.validation_error(exc, config=run_config)
+    raise
+
+Mitigation triggers
+
+log.warning("Mitigation triggered", constraint=action.constraint, level=action.level)
+
+Critical failures
+
+log.critical("Worker crashed", worker_id=wid)
+
+🖥️ Dashboard-side behavior
+
+Your browser UI will now receive packets like:
+
+{
+  "event": "log",
+  "level": "warning",
+  "color": "yellow",
+  "message": "Mitigation triggered",
+  "context": {
+    "constraint": "thermal_load",
+    "level": 2
+  }
+}
+
+Your frontend can render:
+
+green → success
+
+yellow → warnings
+
+red → validation errors
+
+magenta → critical failures
+
+cyan → informational updates
+
+This gives your dashboard instant situational awareness.
+
+🧠 What this unlocks
+
+Your system now supports:
+
+real‑time validation alerts
+
+color‑coded anomaly detection
+
+live checkpoint notifications
+
+worker‑level diagnostics
+
+mitigation event highlighting
+
+operational health visualization
+
+This is the final layer that transforms your distributed evolutionary engine into a human‑readable, cockpit‑grade control system.
+
