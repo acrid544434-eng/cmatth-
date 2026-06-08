@@ -1,0 +1,155 @@
+engine/schema.py — structured validation layer
+
+Here’s a focused schema framework you can drop straight into engine/schema.py to enforce strict input checks across designs, limits, evolution configs, telemetry packets, and checkpoints.
+
+# engine/schema.py
+
+from typing import Any, Dict, List
+
+
+class SchemaError(ValueError):
+    """Raised when input data fails schema validation."""
+
+
+# ---------- Design & Limits ----------
+
+def validate_design(design: Dict[str, Any]) -> None:
+    """
+    Validate a design dictionary before simulation or mutation.
+    Customize required fields to match your real engine.
+    """
+    if not isinstance(design, dict):
+        raise SchemaError("design must be a dict")
+
+    # Example required fields
+    required = ["id", "parameters"]
+    for key in required:
+        if key not in design:
+            raise SchemaError(f"design missing required field: {key}")
+
+    if not isinstance(design["parameters"], dict):
+        raise SchemaError("design.parameters must be a dict")
+
+
+def validate_limits(limits: Dict[str, Any]) -> None:
+    """
+    Validate physics constraint limits.
+    """
+    if not isinstance(limits, dict):
+        raise SchemaError("limits must be a dict")
+
+    # Example: each limit must have min/max
+    for name, spec in limits.items():
+        if not isinstance(spec, dict):
+            raise SchemaError(f"limit '{name}' must be a dict")
+        if "min" not in spec or "max" not in spec:
+            raise SchemaError(f"limit '{name}' must have 'min' and 'max'")
+        if spec["min"] >= spec["max"]:
+            raise SchemaError(f"limit '{name}' has min >= max")
+
+
+# ---------- Evolution Config ----------
+
+def validate_evolution_config(cfg: Dict[str, Any]) -> None:
+    """
+    Validate evolution parameters before starting a run.
+    Expected keys:
+      population_size, tournament_size, offspring_per_gen,
+      generations, max_workers, duration, dt
+    """
+    required = [
+        "population_size",
+        "tournament_size",
+        "offspring_per_gen",
+        "generations",
+        "duration",
+        "dt",
+    ]
+    for key in required:
+        if key not in cfg:
+            raise SchemaError(f"evolution config missing '{key}'")
+
+    if cfg["population_size"] <= 0:
+        raise SchemaError("population_size must be > 0")
+    if cfg["tournament_size"] <= 0:
+        raise SchemaError("tournament_size must be > 0")
+    if cfg["offspring_per_gen"] <= 0:
+        raise SchemaError("offspring_per_gen must be > 0")
+    if cfg["generations"] <= 0:
+        raise SchemaError("generations must be > 0")
+    if cfg["duration"] <= 0:
+        raise SchemaError("duration must be > 0")
+    if cfg["dt"] <= 0:
+        raise SchemaError("dt must be > 0")
+
+
+# ---------- Telemetry Packets ----------
+
+def validate_telemetry_packet(packet: Dict[str, Any]) -> None:
+    """
+    Validate outgoing telemetry payloads before broadcast.
+    """
+    if not isinstance(packet, dict):
+        raise SchemaError("telemetry packet must be a dict")
+
+    if "event" not in packet:
+        raise SchemaError("telemetry packet missing 'event'")
+
+    event = packet["event"]
+    if event == "generation_update":
+        for key in ["generation", "best_fitness", "population_size"]:
+            if key not in packet:
+                raise SchemaError(f"generation_update missing '{key}'")
+    elif event == "simulation_frame":
+        for key in ["time", "margins"]:
+            if key not in packet:
+                raise SchemaError(f"simulation_frame missing '{key}'")
+    elif event == "mitigation_trigger":
+        for key in ["constraint", "level", "message"]:
+            if key not in packet:
+                raise SchemaError(f"mitigation_trigger missing '{key}'")
+    # Extend with more event types as needed
+
+
+# ---------- Checkpoint Payload ----------
+
+def validate_checkpoint_payload(payload: Dict[str, Any]) -> None:
+    """
+    Validate checkpoint payload before writing or resuming.
+    Expected keys:
+      generation, population, run_config, rng_state
+    """
+    if not isinstance(payload, dict):
+        raise SchemaError("checkpoint payload must be a dict")
+
+    required = ["generation", "population", "run_config"]
+    for key in required:
+        if key not in payload:
+            raise SchemaError(f"checkpoint payload missing '{key}'")
+
+    if not isinstance(payload["generation"], int) or payload["generation"] < 0:
+        raise SchemaError("checkpoint.generation must be a non-negative int")
+
+    if not isinstance(payload["population"], list):
+        raise SchemaError("checkpoint.population must be a list")
+
+    validate_evolution_config(payload["run_config"])
+
+
+# ---------- Convenience entrypoints ----------
+
+def validate_simulation_inputs(design: Dict[str, Any], limits: Dict[str, Any]) -> None:
+    validate_design(design)
+    validate_limits(limits)
+
+You can now call these validators at the boundaries:
+
+before running simulations
+
+before starting evolution
+
+before broadcasting telemetry
+
+before writing or loading checkpoints
+
+This gives your system strict, centralized input armor without cluttering the core logic.
