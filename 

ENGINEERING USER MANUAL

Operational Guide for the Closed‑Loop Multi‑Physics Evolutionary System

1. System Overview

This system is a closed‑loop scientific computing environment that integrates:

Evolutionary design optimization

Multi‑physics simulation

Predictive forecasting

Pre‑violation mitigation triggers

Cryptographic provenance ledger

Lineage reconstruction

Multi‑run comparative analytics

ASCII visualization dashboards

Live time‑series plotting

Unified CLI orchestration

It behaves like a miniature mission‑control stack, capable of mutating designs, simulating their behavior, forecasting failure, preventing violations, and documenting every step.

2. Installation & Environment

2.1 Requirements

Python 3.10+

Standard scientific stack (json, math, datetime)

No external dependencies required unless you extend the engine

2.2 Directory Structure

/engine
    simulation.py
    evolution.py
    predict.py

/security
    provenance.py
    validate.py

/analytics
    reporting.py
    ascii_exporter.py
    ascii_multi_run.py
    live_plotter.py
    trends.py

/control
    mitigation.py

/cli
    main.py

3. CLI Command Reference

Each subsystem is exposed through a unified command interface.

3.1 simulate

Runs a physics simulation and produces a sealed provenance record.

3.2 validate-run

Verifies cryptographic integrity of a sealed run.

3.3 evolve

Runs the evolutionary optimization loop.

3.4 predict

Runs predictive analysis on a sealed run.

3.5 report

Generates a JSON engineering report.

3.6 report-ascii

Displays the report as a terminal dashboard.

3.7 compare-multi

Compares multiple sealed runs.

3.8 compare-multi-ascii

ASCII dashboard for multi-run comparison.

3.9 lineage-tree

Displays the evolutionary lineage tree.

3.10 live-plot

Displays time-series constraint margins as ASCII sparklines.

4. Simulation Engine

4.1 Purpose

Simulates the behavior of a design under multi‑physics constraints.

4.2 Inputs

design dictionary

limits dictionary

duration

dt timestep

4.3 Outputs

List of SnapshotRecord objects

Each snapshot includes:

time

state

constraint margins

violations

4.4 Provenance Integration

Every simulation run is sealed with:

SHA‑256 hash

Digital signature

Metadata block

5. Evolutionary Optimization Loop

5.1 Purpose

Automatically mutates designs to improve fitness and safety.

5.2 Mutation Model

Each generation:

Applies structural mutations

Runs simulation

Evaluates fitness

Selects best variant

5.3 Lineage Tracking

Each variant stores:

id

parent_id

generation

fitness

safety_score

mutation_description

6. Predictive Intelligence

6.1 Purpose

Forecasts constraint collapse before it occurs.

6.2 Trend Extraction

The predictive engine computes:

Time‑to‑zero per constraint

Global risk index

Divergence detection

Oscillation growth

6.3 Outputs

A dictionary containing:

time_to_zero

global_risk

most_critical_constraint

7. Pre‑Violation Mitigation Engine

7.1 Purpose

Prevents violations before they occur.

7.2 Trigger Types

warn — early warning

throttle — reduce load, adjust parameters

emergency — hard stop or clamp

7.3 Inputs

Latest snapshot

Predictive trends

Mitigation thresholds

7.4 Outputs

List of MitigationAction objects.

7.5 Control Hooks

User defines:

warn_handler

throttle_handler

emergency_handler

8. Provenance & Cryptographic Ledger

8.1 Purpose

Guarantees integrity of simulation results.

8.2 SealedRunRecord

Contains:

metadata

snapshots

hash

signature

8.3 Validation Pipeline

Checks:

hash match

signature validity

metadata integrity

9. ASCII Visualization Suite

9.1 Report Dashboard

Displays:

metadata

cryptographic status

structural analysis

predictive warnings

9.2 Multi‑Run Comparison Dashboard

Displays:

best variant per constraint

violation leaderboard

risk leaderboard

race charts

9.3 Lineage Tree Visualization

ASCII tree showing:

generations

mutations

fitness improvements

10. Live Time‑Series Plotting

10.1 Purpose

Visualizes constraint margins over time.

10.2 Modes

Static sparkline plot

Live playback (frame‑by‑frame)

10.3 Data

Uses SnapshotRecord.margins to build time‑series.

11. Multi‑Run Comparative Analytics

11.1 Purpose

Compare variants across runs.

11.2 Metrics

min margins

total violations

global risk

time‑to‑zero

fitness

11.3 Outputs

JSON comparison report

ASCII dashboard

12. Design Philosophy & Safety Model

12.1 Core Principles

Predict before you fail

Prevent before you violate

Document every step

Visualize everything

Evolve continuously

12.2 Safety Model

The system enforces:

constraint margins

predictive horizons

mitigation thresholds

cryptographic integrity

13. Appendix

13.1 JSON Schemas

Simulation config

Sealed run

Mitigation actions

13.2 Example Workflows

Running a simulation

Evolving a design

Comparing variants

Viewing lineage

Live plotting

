@@ -1,0 +1,400 @@
+
+
+ENGINEERING USER MANUAL
+
+Operational Guide for the Closed‑Loop Multi‑Physics Evolutionary System
+
+1. System Overview
+
+This system is a closed‑loop scientific computing environment that integrates:
+
+Evolutionary design optimization
+
+Multi‑physics simulation
+
+Predictive forecasting
+
+Pre‑violation mitigation triggers
+
+Cryptographic provenance ledger
+
+Lineage reconstruction
+
+Multi‑run comparative analytics
+
+ASCII visualization dashboards
+
+Live time‑series plotting
+
+Unified CLI orchestration
+
+It behaves like a miniature mission‑control stack, capable of mutating designs, simulating their behavior, forecasting failure, preventing violations, and documenting every step.
+
+2. Installation & Environment
+
+2.1 Requirements
+
+Python 3.10+
+
+Standard scientific stack (json, math, datetime)
+
+No external dependencies required unless you extend the engine
+
+2.2 Directory Structure
+
+/engine
+    simulation.py
+    evolution.py
+    predict.py
+
+/security
+    provenance.py
+    validate.py
+
+/analytics
+    reporting.py
+    ascii_exporter.py
+    ascii_multi_run.py
+    live_plotter.py
+    trends.py
+
+/control
+    mitigation.py
+
+/cli
+    main.py
+
+3. CLI Command Reference
+
+Each subsystem is exposed through a unified command interface.
+
+3.1 simulate
+
+Runs a physics simulation and produces a sealed provenance record.
+
+3.2 validate-run
+
+Verifies cryptographic integrity of a sealed run.
+
+3.3 evolve
+
+Runs the evolutionary optimization loop.
+
+3.4 predict
+
+Runs predictive analysis on a sealed run.
+
+3.5 report
+
+Generates a JSON engineering report.
+
+3.6 report-ascii
+
+Displays the report as a terminal dashboard.
+
+3.7 compare-multi
+
+Compares multiple sealed runs.
+
+3.8 compare-multi-ascii
+
+ASCII dashboard for multi-run comparison.
+
+3.9 lineage-tree
+
+Displays the evolutionary lineage tree.
+
+3.10 live-plot
+
+Displays time-series constraint margins as ASCII sparklines.
+
+4. Simulation Engine
+
+4.1 Purpose
+
+Simulates the behavior of a design under multi‑physics constraints.
+
+4.2 Inputs
+
+design dictionary
+
+limits dictionary
+
+duration
+
+dt timestep
+
+4.3 Outputs
+
+List of SnapshotRecord objects
+
+Each snapshot includes:
+
+time
+
+state
+
+constraint margins
+
+violations
+
+4.4 Provenance Integration
+
+Every simulation run is sealed with:
+
+SHA‑256 hash
+
+Digital signature
+
+Metadata block
+
+5. Evolutionary Optimization Loop
+
+5.1 Purpose
+
+Automatically mutates designs to improve fitness and safety.
+
+5.2 Mutation Model
+
+Each generation:
+
+Applies structural mutations
+
+Runs simulation
+
+Evaluates fitness
+
+Selects best variant
+
+5.3 Lineage Tracking
+
+Each variant stores:
+
+id
+
+parent_id
+
+generation
+
+fitness
+
+safety_score
+
+mutation_description
+
+6. Predictive Intelligence
+
+6.1 Purpose
+
+Forecasts constraint collapse before it occurs.
+
+6.2 Trend Extraction
+
+The predictive engine computes:
+
+Time‑to‑zero per constraint
+
+Global risk index
+
+Divergence detection
+
+Oscillation growth
+
+6.3 Outputs
+
+A dictionary containing:
+
+time_to_zero
+
+global_risk
+
+most_critical_constraint
+
+7. Pre‑Violation Mitigation Engine
+
+7.1 Purpose
+
+Prevents violations before they occur.
+
+7.2 Trigger Types
+
+warn — early warning
+
+throttle — reduce load, adjust parameters
+
+emergency — hard stop or clamp
+
+7.3 Inputs
+
+Latest snapshot
+
+Predictive trends
+
+Mitigation thresholds
+
+7.4 Outputs
+
+List of MitigationAction objects.
+
+7.5 Control Hooks
+
+User defines:
+
+warn_handler
+
+throttle_handler
+
+emergency_handler
+
+8. Provenance & Cryptographic Ledger
+
+8.1 Purpose
+
+Guarantees integrity of simulation results.
+
+8.2 SealedRunRecord
+
+Contains:
+
+metadata
+
+snapshots
+
+hash
+
+signature
+
+8.3 Validation Pipeline
+
+Checks:
+
+hash match
+
+signature validity
+
+metadata integrity
+
+9. ASCII Visualization Suite
+
+9.1 Report Dashboard
+
+Displays:
+
+metadata
+
+cryptographic status
+
+structural analysis
+
+predictive warnings
+
+9.2 Multi‑Run Comparison Dashboard
+
+Displays:
+
+best variant per constraint
+
+violation leaderboard
+
+risk leaderboard
+
+race charts
+
+9.3 Lineage Tree Visualization
+
+ASCII tree showing:
+
+generations
+
+mutations
+
+fitness improvements
+
+10. Live Time‑Series Plotting
+
+10.1 Purpose
+
+Visualizes constraint margins over time.
+
+10.2 Modes
+
+Static sparkline plot
+
+Live playback (frame‑by‑frame)
+
+10.3 Data
+
+Uses SnapshotRecord.margins to build time‑series.
+
+11. Multi‑Run Comparative Analytics
+
+11.1 Purpose
+
+Compare variants across runs.
+
+11.2 Metrics
+
+min margins
+
+total violations
+
+global risk
+
+time‑to‑zero
+
+fitness
+
+11.3 Outputs
+
+JSON comparison report
+
+ASCII dashboard
+
+12. Design Philosophy & Safety Model
+
+12.1 Core Principles
+
+Predict before you fail
+
+Prevent before you violate
+
+Document every step
+
+Visualize everything
+
+Evolve continuously
+
+12.2 Safety Model
+
+The system enforces:
+
+constraint margins
+
+predictive horizons
+
+mitigation thresholds
+
+cryptographic integrity
+
+13. Appendix
+
+13.1 JSON Schemas
+
+Simulation config
+
+Sealed run
+
+Mitigation actions
+
+13.2 Example Workflows
+
+Running a simulation
+
+Evolving a design
+
+Comparing variants
+
+Viewing lineage
+
+Live plotting
+
