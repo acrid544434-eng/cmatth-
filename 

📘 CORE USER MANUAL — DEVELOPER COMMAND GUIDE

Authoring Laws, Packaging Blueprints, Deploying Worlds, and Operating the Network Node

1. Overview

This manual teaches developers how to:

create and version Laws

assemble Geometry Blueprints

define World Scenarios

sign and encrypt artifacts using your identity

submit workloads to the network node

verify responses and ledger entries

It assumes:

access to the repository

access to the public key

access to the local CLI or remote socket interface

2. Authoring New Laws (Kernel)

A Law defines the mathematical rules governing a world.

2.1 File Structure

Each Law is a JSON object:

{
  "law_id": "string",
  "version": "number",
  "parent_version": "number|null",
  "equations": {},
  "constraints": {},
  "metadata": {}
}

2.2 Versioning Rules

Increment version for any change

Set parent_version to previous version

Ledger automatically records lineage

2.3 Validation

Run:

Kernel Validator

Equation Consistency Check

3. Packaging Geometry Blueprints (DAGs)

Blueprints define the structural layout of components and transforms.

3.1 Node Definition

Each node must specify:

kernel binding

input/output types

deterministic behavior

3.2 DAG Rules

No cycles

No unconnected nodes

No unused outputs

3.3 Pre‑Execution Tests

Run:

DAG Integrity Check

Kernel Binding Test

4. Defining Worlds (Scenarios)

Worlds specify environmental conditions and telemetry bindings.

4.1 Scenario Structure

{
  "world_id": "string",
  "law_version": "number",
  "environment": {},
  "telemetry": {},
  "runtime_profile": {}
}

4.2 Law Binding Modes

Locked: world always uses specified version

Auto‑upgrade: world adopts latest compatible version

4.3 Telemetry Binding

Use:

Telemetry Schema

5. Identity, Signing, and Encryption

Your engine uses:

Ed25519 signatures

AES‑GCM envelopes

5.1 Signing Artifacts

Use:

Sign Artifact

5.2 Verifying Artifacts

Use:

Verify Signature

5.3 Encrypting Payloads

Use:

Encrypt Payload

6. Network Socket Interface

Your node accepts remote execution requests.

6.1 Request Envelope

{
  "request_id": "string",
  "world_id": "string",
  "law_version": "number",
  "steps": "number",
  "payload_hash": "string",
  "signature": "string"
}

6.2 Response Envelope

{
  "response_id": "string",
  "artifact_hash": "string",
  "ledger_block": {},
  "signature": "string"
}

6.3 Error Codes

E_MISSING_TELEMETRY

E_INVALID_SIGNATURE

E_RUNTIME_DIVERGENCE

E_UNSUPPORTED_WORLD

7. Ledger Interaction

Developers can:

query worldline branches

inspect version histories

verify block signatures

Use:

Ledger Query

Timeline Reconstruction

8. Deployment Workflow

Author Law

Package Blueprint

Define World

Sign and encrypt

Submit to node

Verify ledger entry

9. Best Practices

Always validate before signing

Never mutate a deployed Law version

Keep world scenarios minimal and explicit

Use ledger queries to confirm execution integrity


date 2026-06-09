@@ -1,0 +1,219 @@
+
+
+📘 CORE USER MANUAL — DEVELOPER COMMAND GUIDE
+
+Authoring Laws, Packaging Blueprints, Deploying Worlds, and Operating the Network Node
+
+1. Overview
+
+This manual teaches developers how to:
+
+create and version Laws
+
+assemble Geometry Blueprints
+
+define World Scenarios
+
+sign and encrypt artifacts using your identity
+
+submit workloads to the network node
+
+verify responses and ledger entries
+
+It assumes:
+
+access to the repository
+
+access to the public key
+
+access to the local CLI or remote socket interface
+
+2. Authoring New Laws (Kernel)
+
+A Law defines the mathematical rules governing a world.
+
+2.1 File Structure
+
+Each Law is a JSON object:
+
+{
+  "law_id": "string",
+  "version": "number",
+  "parent_version": "number|null",
+  "equations": {},
+  "constraints": {},
+  "metadata": {}
+}
+
+2.2 Versioning Rules
+
+Increment version for any change
+
+Set parent_version to previous version
+
+Ledger automatically records lineage
+
+2.3 Validation
+
+Run:
+
+Kernel Validator
+
+Equation Consistency Check
+
+3. Packaging Geometry Blueprints (DAGs)
+
+Blueprints define the structural layout of components and transforms.
+
+3.1 Node Definition
+
+Each node must specify:
+
+kernel binding
+
+input/output types
+
+deterministic behavior
+
+3.2 DAG Rules
+
+No cycles
+
+No unconnected nodes
+
+No unused outputs
+
+3.3 Pre‑Execution Tests
+
+Run:
+
+DAG Integrity Check
+
+Kernel Binding Test
+
+4. Defining Worlds (Scenarios)
+
+Worlds specify environmental conditions and telemetry bindings.
+
+4.1 Scenario Structure
+
+{
+  "world_id": "string",
+  "law_version": "number",
+  "environment": {},
+  "telemetry": {},
+  "runtime_profile": {}
+}
+
+4.2 Law Binding Modes
+
+Locked: world always uses specified version
+
+Auto‑upgrade: world adopts latest compatible version
+
+4.3 Telemetry Binding
+
+Use:
+
+Telemetry Schema
+
+5. Identity, Signing, and Encryption
+
+Your engine uses:
+
+Ed25519 signatures
+
+AES‑GCM envelopes
+
+5.1 Signing Artifacts
+
+Use:
+
+Sign Artifact
+
+5.2 Verifying Artifacts
+
+Use:
+
+Verify Signature
+
+5.3 Encrypting Payloads
+
+Use:
+
+Encrypt Payload
+
+6. Network Socket Interface
+
+Your node accepts remote execution requests.
+
+6.1 Request Envelope
+
+{
+  "request_id": "string",
+  "world_id": "string",
+  "law_version": "number",
+  "steps": "number",
+  "payload_hash": "string",
+  "signature": "string"
+}
+
+6.2 Response Envelope
+
+{
+  "response_id": "string",
+  "artifact_hash": "string",
+  "ledger_block": {},
+  "signature": "string"
+}
+
+6.3 Error Codes
+
+E_MISSING_TELEMETRY
+
+E_INVALID_SIGNATURE
+
+E_RUNTIME_DIVERGENCE
+
+E_UNSUPPORTED_WORLD
+
+7. Ledger Interaction
+
+Developers can:
+
+query worldline branches
+
+inspect version histories
+
+verify block signatures
+
+Use:
+
+Ledger Query
+
+Timeline Reconstruction
+
+8. Deployment Workflow
+
+Author Law
+
+Package Blueprint
+
+Define World
+
+Sign and encrypt
+
+Submit to node
+
+Verify ledger entry
+
+9. Best Practices
+
+Always validate before signing
+
+Never mutate a deployed Law version
+
+Keep world scenarios minimal and explicit
+
+Use ledger queries to confirm execution integrity
+
