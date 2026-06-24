@@ -1,0 +1,37 @@
+---
+
+## Quick Start
+
+1. Install dependencies (Python + healpy + numpy + scipy).
+2. Download Planck/SDSS data using the links in `/data`.
+3. Run the relaxation solver to generate `T_sim`.
+4. Compute the residual map `ΔT`.
+5. Analyze the power spectrum and conservation audit.
+
+---
+
+## Scientific Purpose
+
+This solver provides a **model-independent reconstruction method** capable of
+revealing:
+
+- sub-grid dark-matter clustering  
+- relic-neutrino damping signatures  
+- dark-energy expansion-bias coupling  
+- non-Gaussian structure inconsistent with ΛCDM  
+
+The ΔT field may represent a **new cosmological observable**.
+
+---
+
+## Documentation
+
+- `/docs/PAPER_DRAFT.md` — first scientific paper draft  
+- `/docs/ARCHITECTURE_NOTES.md` — system architecture blueprint  
+
+---
+
+## Status
+
+This project is in the **Experimental Analysis Phase**.  
+Replication and independent verification are encouraged.
