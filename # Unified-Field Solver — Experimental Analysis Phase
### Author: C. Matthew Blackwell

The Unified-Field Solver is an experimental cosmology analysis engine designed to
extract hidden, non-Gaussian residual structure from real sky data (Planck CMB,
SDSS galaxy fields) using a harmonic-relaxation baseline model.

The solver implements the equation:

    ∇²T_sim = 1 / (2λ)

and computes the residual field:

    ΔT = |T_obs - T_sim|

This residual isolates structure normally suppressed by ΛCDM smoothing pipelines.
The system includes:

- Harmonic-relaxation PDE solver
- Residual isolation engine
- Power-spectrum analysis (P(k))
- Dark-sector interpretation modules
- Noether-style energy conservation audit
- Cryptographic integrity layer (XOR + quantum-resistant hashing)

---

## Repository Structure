@@ -1,0 +1,28 @@
+# Unified-Field Solver — Experimental Analysis Phase
+### Author: C. Matthew Blackwell
+
+The Unified-Field Solver is an experimental cosmology analysis engine designed to
+extract hidden, non-Gaussian residual structure from real sky data (Planck CMB,
+SDSS galaxy fields) using a harmonic-relaxation baseline model.
+
+The solver implements the equation:
+
+    ∇²T_sim = 1 / (2λ)
+
+and computes the residual field:
+
+    ΔT = |T_obs - T_sim|
+
+This residual isolates structure normally suppressed by ΛCDM smoothing pipelines.
+The system includes:
+
+- Harmonic-relaxation PDE solver
+- Residual isolation engine
+- Power-spectrum analysis (P(k))
+- Dark-sector interpretation modules
+- Noether-style energy conservation audit
+- Cryptographic integrity layer (XOR + quantum-resistant hashing)
+
+---
+
+## Repository Structure
