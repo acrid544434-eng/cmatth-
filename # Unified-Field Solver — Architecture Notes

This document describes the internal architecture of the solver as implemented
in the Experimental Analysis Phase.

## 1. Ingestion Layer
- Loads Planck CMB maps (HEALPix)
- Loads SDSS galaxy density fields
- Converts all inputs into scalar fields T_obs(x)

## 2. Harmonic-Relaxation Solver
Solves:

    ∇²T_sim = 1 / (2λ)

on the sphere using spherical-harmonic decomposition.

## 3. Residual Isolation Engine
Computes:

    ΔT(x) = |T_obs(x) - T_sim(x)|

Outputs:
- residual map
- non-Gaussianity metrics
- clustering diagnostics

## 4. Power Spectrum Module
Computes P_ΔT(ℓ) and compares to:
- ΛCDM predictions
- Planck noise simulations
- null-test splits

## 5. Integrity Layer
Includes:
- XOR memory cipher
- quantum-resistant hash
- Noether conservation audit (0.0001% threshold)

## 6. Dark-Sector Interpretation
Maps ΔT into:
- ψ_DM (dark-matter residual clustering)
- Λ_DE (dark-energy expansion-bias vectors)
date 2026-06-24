@@ -1,0 +1,43 @@
+# Unified-Field Solver — Architecture Notes
+
+This document describes the internal architecture of the solver as implemented
+in the Experimental Analysis Phase.
+
+## 1. Ingestion Layer
+- Loads Planck CMB maps (HEALPix)
+- Loads SDSS galaxy density fields
+- Converts all inputs into scalar fields T_obs(x)
+
+## 2. Harmonic-Relaxation Solver
+Solves:
+
+    ∇²T_sim = 1 / (2λ)
+
+on the sphere using spherical-harmonic decomposition.
+
+## 3. Residual Isolation Engine
+Computes:
+
+    ΔT(x) = |T_obs(x) - T_sim(x)|
+
+Outputs:
+- residual map
+- non-Gaussianity metrics
+- clustering diagnostics
+
+## 4. Power Spectrum Module
+Computes P_ΔT(ℓ) and compares to:
+- ΛCDM predictions
+- Planck noise simulations
+- null-test splits
+
+## 5. Integrity Layer
+Includes:
+- XOR memory cipher
+- quantum-resistant hash
+- Noether conservation audit (0.0001% threshold)
+
+## 6. Dark-Sector Interpretation
+Maps ΔT into:
+- ψ_DM (dark-matter residual clustering)
+- Λ_DE (dark-energy expansion-bias vectors)
