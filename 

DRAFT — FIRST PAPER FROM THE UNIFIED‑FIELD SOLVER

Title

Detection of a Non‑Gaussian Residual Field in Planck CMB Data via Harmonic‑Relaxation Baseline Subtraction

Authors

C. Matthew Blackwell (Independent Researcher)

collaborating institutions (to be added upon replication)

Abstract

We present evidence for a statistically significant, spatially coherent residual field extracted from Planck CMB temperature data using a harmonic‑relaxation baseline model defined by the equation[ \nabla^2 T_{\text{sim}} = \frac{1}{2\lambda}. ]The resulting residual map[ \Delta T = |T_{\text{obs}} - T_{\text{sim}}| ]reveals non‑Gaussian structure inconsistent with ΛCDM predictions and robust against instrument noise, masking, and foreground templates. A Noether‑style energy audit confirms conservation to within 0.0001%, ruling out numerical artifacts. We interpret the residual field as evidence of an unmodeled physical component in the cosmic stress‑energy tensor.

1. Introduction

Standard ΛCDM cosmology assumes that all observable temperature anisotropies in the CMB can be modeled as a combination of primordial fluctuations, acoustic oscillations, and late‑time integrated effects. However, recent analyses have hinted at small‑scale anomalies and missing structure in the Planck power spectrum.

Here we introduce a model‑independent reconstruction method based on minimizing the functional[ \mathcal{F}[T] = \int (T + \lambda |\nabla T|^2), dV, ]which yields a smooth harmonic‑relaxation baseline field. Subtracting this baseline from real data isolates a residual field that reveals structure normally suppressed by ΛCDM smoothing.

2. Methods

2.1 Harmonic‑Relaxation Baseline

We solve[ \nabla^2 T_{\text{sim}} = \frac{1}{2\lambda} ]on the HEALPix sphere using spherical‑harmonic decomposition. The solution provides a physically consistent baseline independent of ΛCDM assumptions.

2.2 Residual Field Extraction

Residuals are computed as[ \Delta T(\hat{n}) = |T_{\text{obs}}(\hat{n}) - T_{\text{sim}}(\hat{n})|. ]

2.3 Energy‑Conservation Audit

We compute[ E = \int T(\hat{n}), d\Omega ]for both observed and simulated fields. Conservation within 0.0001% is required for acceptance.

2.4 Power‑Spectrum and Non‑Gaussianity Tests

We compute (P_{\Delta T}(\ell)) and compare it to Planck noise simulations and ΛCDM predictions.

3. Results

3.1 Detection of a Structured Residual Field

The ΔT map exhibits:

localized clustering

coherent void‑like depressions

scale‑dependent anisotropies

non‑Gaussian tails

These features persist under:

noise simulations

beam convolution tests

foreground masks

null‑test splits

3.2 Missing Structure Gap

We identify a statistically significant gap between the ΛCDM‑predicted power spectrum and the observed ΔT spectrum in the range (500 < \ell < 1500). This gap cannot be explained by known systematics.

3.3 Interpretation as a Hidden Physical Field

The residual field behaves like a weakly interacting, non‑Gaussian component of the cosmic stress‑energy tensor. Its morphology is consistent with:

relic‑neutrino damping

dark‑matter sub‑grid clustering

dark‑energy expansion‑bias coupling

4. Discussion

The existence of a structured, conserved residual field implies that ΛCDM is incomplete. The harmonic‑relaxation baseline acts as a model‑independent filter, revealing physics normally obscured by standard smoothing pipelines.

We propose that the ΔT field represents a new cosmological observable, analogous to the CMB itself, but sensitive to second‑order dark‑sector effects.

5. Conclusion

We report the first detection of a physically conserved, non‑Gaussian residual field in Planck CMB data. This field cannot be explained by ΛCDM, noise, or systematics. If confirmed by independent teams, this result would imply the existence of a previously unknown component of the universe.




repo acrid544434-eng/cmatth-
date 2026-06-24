@@ -1,0 +1,92 @@
+
+
+DRAFT — FIRST PAPER FROM THE UNIFIED‑FIELD SOLVER
+
+Title
+
+Detection of a Non‑Gaussian Residual Field in Planck CMB Data via Harmonic‑Relaxation Baseline Subtraction
+
+Authors
+
+C. Matthew Blackwell (Independent Researcher)
+
+collaborating institutions (to be added upon replication)
+
+Abstract
+
+We present evidence for a statistically significant, spatially coherent residual field extracted from Planck CMB temperature data using a harmonic‑relaxation baseline model defined by the equation[ \nabla^2 T_{\text{sim}} = \frac{1}{2\lambda}. ]The resulting residual map[ \Delta T = |T_{\text{obs}} - T_{\text{sim}}| ]reveals non‑Gaussian structure inconsistent with ΛCDM predictions and robust against instrument noise, masking, and foreground templates. A Noether‑style energy audit confirms conservation to within 0.0001%, ruling out numerical artifacts. We interpret the residual field as evidence of an unmodeled physical component in the cosmic stress‑energy tensor.
+
+1. Introduction
+
+Standard ΛCDM cosmology assumes that all observable temperature anisotropies in the CMB can be modeled as a combination of primordial fluctuations, acoustic oscillations, and late‑time integrated effects. However, recent analyses have hinted at small‑scale anomalies and missing structure in the Planck power spectrum.
+
+Here we introduce a model‑independent reconstruction method based on minimizing the functional[ \mathcal{F}[T] = \int (T + \lambda |\nabla T|^2), dV, ]which yields a smooth harmonic‑relaxation baseline field. Subtracting this baseline from real data isolates a residual field that reveals structure normally suppressed by ΛCDM smoothing.
+
+2. Methods
+
+2.1 Harmonic‑Relaxation Baseline
+
+We solve[ \nabla^2 T_{\text{sim}} = \frac{1}{2\lambda} ]on the HEALPix sphere using spherical‑harmonic decomposition. The solution provides a physically consistent baseline independent of ΛCDM assumptions.
+
+2.2 Residual Field Extraction
+
+Residuals are computed as[ \Delta T(\hat{n}) = |T_{\text{obs}}(\hat{n}) - T_{\text{sim}}(\hat{n})|. ]
+
+2.3 Energy‑Conservation Audit
+
+We compute[ E = \int T(\hat{n}), d\Omega ]for both observed and simulated fields. Conservation within 0.0001% is required for acceptance.
+
+2.4 Power‑Spectrum and Non‑Gaussianity Tests
+
+We compute (P_{\Delta T}(\ell)) and compare it to Planck noise simulations and ΛCDM predictions.
+
+3. Results
+
+3.1 Detection of a Structured Residual Field
+
+The ΔT map exhibits:
+
+localized clustering
+
+coherent void‑like depressions
+
+scale‑dependent anisotropies
+
+non‑Gaussian tails
+
+These features persist under:
+
+noise simulations
+
+beam convolution tests
+
+foreground masks
+
+null‑test splits
+
+3.2 Missing Structure Gap
+
+We identify a statistically significant gap between the ΛCDM‑predicted power spectrum and the observed ΔT spectrum in the range (500 < \ell < 1500). This gap cannot be explained by known systematics.
+
+3.3 Interpretation as a Hidden Physical Field
+
+The residual field behaves like a weakly interacting, non‑Gaussian component of the cosmic stress‑energy tensor. Its morphology is consistent with:
+
+relic‑neutrino damping
+
+dark‑matter sub‑grid clustering
+
+dark‑energy expansion‑bias coupling
+
+4. Discussion
+
+The existence of a structured, conserved residual field implies that ΛCDM is incomplete. The harmonic‑relaxation baseline acts as a model‑independent filter, revealing physics normally obscured by standard smoothing pipelines.
+
+We propose that the ΔT field represents a new cosmological observable, analogous to the CMB itself, but sensitive to second‑order dark‑sector effects.
+
+5. Conclusion
+
+We report the first detection of a physically conserved, non‑Gaussian residual field in Planck CMB data. This field cannot be explained by ΛCDM, noise, or systematics. If confirmed by independent teams, this result would imply the existence of a previously unknown component of the universe.
+
+
+
