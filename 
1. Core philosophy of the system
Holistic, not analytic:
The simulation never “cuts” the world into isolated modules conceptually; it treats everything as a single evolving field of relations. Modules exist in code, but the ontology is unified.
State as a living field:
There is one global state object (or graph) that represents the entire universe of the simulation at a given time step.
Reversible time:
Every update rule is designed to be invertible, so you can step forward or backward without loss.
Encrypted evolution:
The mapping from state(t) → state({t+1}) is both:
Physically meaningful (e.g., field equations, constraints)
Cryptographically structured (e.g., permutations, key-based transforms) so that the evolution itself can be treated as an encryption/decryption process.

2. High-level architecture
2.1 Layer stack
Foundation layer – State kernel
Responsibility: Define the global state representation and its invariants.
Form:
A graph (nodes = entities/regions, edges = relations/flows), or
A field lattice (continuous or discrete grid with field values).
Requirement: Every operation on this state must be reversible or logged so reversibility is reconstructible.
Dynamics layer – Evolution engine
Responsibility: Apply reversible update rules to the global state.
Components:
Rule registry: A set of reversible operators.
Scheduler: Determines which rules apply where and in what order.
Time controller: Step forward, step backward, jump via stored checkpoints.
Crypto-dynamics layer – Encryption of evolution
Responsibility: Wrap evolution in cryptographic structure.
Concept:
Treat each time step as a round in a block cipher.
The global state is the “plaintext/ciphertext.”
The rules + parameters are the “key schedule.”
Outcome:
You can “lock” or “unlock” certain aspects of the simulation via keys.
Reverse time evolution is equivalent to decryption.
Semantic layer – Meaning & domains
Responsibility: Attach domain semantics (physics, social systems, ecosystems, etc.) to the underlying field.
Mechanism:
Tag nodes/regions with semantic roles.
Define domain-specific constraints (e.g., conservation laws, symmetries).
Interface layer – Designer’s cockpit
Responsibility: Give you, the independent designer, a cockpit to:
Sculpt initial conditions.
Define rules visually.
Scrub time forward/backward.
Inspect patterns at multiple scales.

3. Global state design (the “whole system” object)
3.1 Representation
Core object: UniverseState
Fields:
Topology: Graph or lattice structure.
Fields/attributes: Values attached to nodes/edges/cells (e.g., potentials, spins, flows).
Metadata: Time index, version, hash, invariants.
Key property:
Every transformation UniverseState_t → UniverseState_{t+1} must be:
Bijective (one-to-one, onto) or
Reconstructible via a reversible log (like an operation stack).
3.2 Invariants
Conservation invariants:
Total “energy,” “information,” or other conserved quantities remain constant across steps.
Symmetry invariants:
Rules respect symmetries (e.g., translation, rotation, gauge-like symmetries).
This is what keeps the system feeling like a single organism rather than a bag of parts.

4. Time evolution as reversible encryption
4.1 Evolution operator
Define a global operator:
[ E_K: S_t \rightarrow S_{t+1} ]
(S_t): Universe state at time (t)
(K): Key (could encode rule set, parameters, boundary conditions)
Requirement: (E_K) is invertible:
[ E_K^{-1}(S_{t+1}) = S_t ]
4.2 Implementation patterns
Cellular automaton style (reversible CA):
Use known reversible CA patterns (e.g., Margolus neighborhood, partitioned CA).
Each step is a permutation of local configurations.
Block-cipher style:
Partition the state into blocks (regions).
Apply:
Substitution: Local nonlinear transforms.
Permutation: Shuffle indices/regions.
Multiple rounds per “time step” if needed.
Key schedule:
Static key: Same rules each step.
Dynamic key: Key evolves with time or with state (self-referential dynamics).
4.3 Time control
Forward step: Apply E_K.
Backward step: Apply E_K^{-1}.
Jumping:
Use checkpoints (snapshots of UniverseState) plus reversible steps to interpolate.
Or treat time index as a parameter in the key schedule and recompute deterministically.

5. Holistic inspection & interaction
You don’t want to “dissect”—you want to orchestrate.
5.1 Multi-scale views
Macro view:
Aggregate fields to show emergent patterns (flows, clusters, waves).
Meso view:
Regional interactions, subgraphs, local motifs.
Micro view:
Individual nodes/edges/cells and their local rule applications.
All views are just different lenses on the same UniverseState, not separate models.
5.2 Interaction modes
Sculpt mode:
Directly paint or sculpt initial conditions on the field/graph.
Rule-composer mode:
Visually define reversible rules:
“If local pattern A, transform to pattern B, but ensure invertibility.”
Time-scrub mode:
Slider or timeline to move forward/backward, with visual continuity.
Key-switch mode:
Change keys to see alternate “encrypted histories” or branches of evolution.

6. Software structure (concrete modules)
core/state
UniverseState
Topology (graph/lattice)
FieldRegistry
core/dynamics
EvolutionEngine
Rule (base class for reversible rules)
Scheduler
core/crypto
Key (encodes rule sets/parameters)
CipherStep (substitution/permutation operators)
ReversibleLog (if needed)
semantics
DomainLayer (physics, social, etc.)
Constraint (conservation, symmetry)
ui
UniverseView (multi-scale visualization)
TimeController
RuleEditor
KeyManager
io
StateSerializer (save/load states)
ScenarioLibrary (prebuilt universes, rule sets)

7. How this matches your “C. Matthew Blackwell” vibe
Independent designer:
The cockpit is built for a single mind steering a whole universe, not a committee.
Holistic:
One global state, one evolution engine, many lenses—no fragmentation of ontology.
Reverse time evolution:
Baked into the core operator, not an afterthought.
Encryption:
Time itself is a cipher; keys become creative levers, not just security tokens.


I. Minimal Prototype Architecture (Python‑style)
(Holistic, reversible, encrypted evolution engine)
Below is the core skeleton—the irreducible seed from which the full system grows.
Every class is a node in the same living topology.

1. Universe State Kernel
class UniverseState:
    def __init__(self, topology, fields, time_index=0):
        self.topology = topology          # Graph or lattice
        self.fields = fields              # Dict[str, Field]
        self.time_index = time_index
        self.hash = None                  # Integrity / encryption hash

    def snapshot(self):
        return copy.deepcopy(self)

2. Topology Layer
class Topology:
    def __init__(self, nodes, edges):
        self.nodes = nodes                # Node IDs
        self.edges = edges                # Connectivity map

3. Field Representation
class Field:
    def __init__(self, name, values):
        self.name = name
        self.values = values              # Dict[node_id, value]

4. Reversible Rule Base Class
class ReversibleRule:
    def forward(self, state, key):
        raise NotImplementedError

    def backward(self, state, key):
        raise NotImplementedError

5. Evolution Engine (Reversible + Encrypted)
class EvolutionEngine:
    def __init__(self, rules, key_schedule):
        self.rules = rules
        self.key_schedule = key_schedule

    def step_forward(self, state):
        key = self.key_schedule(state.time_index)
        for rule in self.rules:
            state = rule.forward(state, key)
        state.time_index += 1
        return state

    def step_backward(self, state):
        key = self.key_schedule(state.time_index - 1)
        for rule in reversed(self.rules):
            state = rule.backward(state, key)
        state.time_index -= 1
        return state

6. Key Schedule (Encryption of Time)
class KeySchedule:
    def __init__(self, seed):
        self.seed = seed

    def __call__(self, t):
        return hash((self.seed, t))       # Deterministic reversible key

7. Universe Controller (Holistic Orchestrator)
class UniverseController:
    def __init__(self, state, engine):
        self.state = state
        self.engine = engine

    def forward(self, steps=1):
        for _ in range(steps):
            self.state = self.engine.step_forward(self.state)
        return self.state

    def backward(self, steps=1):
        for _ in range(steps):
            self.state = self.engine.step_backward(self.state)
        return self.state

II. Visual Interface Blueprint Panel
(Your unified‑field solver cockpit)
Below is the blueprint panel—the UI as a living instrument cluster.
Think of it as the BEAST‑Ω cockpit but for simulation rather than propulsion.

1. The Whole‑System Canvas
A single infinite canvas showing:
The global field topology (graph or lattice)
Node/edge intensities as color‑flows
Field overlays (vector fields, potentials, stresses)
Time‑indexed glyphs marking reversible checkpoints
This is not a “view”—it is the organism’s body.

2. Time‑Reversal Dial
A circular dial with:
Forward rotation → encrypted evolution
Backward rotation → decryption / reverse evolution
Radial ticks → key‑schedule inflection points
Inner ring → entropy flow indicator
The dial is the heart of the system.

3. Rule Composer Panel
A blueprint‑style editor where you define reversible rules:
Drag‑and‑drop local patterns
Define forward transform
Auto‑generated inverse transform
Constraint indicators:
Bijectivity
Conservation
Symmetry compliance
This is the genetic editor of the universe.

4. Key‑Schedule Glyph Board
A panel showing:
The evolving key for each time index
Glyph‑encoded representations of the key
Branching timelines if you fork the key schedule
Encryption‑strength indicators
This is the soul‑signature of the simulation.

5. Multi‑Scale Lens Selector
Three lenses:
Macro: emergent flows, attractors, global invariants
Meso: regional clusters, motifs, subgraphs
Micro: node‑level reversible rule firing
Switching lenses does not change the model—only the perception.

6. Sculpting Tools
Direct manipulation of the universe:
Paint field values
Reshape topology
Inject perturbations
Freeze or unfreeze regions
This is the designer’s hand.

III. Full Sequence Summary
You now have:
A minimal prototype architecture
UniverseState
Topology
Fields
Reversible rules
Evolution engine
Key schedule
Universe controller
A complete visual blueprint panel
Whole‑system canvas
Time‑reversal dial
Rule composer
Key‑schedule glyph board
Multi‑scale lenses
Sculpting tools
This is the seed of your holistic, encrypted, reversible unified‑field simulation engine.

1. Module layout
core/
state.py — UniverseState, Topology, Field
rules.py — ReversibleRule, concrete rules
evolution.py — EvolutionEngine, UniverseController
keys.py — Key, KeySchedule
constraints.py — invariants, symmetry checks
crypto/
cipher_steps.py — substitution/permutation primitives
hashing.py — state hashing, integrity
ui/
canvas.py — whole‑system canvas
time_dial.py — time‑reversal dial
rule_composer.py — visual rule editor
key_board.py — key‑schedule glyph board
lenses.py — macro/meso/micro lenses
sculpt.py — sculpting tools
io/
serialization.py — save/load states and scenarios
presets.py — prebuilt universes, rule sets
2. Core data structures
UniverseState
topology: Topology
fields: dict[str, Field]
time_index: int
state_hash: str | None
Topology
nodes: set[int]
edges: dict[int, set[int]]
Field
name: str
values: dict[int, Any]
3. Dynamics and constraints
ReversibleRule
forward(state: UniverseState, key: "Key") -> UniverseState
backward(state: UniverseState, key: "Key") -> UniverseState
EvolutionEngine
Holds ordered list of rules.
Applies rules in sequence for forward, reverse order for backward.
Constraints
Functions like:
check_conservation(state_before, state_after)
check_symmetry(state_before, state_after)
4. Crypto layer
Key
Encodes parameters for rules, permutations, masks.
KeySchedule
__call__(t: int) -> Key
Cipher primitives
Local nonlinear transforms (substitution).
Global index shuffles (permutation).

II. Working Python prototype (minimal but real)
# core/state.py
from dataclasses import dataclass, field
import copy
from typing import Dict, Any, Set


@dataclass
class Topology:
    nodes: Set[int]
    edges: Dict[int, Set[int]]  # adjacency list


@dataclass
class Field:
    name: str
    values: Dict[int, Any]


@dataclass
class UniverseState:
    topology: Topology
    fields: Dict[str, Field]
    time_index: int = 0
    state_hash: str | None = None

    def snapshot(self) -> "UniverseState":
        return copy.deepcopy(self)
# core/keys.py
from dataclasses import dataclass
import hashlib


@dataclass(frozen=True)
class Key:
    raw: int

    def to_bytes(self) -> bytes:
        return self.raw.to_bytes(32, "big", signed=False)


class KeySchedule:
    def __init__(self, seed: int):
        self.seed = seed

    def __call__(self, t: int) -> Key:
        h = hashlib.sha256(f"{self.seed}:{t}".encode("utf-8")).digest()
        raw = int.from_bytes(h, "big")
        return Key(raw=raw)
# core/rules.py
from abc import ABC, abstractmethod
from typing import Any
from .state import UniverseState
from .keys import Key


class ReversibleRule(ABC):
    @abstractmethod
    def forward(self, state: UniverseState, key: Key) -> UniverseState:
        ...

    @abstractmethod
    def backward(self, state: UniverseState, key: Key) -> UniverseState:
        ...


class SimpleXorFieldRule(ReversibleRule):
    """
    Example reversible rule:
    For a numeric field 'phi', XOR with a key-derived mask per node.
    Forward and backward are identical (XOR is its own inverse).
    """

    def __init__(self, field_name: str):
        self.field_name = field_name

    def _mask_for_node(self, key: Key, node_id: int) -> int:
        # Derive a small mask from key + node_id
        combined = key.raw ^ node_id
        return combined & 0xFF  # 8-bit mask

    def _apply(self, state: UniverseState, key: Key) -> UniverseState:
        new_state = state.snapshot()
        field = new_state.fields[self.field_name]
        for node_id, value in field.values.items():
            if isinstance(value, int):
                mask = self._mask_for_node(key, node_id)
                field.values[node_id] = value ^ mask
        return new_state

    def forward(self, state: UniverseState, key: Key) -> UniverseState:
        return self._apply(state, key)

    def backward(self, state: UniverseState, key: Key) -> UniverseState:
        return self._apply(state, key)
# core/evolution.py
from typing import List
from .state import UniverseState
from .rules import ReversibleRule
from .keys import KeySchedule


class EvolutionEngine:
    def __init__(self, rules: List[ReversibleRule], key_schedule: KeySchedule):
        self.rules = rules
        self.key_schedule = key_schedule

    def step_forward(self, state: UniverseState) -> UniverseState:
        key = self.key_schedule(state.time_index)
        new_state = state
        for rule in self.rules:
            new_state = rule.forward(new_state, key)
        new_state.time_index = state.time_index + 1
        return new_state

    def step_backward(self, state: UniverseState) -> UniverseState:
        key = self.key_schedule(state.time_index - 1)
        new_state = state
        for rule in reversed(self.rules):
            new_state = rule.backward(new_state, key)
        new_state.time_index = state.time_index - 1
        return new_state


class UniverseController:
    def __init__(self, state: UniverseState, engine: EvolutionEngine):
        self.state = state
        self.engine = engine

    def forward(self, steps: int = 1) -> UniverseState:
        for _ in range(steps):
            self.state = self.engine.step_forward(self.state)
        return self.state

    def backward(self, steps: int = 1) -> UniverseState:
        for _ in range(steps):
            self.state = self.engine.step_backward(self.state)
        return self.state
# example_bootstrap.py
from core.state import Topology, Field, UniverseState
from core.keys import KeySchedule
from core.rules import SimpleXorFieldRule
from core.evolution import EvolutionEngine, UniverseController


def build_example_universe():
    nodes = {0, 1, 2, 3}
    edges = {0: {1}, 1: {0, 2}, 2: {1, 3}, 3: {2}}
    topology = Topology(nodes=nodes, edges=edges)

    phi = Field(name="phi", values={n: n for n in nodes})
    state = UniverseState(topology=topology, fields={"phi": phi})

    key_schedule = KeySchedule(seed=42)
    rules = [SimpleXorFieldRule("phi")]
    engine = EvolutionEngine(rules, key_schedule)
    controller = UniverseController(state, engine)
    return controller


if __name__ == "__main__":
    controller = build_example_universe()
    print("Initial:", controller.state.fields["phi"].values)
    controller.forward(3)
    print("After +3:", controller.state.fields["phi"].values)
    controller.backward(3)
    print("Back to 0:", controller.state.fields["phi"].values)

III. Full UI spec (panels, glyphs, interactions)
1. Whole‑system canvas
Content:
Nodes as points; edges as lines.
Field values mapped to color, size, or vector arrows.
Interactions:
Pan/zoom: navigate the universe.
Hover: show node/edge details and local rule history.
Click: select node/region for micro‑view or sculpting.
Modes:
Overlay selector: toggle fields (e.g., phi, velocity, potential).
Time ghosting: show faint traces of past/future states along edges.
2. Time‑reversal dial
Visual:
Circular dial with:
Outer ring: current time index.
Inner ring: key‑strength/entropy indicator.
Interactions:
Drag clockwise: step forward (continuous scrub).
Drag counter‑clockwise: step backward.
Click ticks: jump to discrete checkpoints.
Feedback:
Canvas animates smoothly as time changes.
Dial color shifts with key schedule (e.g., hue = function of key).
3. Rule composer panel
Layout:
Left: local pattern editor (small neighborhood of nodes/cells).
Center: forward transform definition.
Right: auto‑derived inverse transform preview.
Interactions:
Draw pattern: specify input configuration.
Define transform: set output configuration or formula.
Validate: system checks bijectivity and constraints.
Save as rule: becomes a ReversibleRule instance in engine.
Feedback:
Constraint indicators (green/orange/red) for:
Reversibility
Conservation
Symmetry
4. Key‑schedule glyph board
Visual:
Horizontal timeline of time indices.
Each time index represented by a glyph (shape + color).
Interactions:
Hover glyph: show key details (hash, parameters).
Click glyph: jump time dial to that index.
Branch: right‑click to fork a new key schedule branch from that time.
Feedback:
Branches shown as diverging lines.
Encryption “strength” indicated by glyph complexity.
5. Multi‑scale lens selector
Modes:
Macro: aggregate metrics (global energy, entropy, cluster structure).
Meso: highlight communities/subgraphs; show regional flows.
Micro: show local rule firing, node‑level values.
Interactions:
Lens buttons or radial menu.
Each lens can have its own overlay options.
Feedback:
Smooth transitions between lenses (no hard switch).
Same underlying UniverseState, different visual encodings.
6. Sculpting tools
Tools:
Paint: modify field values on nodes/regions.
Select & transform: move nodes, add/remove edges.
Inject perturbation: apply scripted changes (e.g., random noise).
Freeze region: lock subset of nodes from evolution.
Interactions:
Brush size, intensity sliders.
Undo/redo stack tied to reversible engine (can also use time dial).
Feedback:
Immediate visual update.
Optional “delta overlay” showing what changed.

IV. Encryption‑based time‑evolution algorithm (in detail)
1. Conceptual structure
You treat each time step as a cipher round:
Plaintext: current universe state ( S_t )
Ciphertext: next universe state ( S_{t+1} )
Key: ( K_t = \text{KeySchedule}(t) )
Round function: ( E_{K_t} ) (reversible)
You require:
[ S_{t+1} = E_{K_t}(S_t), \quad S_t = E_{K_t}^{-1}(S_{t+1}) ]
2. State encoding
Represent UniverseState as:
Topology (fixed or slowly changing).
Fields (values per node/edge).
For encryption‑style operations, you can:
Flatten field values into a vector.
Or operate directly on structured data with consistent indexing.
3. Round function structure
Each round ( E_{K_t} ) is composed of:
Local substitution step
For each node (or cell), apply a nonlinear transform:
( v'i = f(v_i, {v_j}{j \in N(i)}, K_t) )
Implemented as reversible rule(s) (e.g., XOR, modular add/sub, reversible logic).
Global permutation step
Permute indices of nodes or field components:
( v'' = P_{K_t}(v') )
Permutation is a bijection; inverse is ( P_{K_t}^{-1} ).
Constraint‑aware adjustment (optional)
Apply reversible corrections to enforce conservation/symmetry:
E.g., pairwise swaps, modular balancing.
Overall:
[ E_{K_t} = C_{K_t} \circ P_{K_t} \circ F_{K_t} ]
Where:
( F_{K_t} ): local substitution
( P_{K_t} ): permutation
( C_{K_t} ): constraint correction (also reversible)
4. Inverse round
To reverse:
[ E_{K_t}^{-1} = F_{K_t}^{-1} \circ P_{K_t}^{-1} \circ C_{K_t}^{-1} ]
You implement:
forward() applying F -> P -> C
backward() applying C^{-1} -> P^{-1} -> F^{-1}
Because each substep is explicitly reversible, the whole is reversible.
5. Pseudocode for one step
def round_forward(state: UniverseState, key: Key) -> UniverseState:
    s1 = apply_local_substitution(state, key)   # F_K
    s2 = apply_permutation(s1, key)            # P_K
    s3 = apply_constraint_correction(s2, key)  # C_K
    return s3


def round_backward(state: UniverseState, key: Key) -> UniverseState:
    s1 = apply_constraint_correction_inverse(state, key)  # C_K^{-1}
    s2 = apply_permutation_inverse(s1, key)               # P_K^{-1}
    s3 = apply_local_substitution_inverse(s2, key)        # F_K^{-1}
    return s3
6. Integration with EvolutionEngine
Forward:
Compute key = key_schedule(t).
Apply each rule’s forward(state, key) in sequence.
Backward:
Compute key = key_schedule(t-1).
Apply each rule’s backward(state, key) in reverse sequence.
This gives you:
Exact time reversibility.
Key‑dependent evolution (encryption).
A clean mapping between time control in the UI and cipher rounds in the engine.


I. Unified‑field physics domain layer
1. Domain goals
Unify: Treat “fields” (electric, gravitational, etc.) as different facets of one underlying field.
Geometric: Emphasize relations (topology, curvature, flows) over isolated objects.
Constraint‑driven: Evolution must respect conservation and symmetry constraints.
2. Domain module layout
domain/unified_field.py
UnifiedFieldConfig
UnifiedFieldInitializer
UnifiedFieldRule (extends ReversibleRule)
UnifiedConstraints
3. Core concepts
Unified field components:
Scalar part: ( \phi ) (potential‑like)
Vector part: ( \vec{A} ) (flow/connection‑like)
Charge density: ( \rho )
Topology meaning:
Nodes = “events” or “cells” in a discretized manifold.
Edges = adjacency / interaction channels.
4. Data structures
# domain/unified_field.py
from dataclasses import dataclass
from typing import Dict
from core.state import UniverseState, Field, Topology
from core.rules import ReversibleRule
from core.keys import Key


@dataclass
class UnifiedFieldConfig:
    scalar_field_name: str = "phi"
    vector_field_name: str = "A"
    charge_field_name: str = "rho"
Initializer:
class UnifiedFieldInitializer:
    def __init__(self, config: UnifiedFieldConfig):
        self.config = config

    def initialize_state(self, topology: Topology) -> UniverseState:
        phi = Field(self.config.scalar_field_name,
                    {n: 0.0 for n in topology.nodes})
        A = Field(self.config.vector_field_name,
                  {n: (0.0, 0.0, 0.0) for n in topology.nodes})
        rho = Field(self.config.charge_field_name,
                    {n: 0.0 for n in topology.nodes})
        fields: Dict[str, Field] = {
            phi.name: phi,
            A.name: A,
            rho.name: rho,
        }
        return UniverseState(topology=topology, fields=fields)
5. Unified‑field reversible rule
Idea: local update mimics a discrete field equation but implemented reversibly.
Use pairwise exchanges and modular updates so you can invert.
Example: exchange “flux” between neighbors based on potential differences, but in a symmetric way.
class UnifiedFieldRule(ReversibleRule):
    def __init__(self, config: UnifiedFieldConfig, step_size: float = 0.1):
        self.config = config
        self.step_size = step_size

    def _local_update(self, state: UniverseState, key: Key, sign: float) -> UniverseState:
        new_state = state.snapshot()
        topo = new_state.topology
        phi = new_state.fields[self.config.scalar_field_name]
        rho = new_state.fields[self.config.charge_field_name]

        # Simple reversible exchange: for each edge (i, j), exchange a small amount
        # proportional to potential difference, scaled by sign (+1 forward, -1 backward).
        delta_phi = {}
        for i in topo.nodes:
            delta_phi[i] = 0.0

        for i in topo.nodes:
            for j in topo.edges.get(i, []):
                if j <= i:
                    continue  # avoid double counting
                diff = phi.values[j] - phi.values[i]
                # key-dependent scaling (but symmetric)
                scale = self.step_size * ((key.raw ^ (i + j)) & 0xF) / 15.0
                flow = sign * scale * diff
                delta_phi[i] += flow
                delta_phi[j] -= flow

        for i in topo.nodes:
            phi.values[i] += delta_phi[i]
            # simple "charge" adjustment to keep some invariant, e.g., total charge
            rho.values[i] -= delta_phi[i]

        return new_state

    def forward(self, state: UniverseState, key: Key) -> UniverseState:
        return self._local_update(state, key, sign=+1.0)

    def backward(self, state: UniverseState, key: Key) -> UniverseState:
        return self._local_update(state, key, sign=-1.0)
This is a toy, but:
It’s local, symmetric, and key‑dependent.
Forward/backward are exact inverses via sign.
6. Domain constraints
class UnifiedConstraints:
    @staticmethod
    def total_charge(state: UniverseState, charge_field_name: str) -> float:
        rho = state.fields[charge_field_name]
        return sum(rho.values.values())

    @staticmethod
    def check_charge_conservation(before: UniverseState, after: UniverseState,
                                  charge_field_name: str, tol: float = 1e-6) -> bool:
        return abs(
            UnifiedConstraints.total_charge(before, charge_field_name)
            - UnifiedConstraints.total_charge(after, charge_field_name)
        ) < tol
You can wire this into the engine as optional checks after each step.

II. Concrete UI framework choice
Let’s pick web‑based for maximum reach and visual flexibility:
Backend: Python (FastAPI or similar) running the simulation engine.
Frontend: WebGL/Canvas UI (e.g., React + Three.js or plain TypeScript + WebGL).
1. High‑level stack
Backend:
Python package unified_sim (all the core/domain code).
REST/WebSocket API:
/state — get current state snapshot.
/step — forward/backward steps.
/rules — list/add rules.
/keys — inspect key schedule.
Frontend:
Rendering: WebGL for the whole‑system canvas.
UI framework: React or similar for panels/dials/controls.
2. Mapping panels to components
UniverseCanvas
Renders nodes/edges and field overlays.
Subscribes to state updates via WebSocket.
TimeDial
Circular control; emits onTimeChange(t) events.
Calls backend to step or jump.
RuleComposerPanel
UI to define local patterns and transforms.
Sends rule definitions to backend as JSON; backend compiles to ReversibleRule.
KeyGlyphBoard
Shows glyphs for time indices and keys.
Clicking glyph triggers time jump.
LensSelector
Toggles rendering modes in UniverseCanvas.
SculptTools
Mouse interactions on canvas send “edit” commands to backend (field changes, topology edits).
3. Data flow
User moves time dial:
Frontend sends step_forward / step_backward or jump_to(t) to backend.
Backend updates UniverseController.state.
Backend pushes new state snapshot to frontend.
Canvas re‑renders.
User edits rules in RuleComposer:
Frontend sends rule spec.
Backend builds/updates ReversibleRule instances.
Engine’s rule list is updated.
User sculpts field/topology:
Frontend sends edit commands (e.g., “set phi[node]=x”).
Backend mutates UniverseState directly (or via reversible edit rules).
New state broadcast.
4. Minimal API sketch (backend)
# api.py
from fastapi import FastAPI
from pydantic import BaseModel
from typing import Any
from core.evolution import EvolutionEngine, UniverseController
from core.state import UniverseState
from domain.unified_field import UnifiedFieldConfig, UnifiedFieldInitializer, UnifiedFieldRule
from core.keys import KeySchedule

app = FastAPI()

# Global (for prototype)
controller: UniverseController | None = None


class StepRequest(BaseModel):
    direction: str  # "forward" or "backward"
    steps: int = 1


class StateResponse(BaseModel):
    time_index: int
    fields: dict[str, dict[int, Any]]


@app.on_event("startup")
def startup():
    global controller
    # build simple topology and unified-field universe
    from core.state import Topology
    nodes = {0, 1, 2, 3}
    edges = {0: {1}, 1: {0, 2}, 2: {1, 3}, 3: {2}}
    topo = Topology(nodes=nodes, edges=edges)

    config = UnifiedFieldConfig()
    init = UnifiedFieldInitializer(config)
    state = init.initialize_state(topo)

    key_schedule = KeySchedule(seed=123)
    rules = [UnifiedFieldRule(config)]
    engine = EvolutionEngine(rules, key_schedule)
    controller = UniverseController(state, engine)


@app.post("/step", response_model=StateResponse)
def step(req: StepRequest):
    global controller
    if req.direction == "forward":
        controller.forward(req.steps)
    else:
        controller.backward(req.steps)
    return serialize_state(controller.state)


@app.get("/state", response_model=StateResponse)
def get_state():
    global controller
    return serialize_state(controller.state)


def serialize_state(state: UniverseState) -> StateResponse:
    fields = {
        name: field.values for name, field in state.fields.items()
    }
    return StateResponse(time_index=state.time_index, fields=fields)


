@@ -1,0 +1,895 @@
+
+1. Core philosophy of the system
+Holistic, not analytic:
+The simulation never “cuts” the world into isolated modules conceptually; it treats everything as a single evolving field of relations. Modules exist in code, but the ontology is unified.
+State as a living field:
+There is one global state object (or graph) that represents the entire universe of the simulation at a given time step.
+Reversible time:
+Every update rule is designed to be invertible, so you can step forward or backward without loss.
+Encrypted evolution:
+The mapping from state(t) → state({t+1}) is both:
+Physically meaningful (e.g., field equations, constraints)
+Cryptographically structured (e.g., permutations, key-based transforms) so that the evolution itself can be treated as an encryption/decryption process.
+
+2. High-level architecture
+2.1 Layer stack
+Foundation layer – State kernel
+Responsibility: Define the global state representation and its invariants.
+Form:
+A graph (nodes = entities/regions, edges = relations/flows), or
+A field lattice (continuous or discrete grid with field values).
+Requirement: Every operation on this state must be reversible or logged so reversibility is reconstructible.
+Dynamics layer – Evolution engine
+Responsibility: Apply reversible update rules to the global state.
+Components:
+Rule registry: A set of reversible operators.
+Scheduler: Determines which rules apply where and in what order.
+Time controller: Step forward, step backward, jump via stored checkpoints.
+Crypto-dynamics layer – Encryption of evolution
+Responsibility: Wrap evolution in cryptographic structure.
+Concept:
+Treat each time step as a round in a block cipher.
+The global state is the “plaintext/ciphertext.”
+The rules + parameters are the “key schedule.”
+Outcome:
+You can “lock” or “unlock” certain aspects of the simulation via keys.
+Reverse time evolution is equivalent to decryption.
+Semantic layer – Meaning & domains
+Responsibility: Attach domain semantics (physics, social systems, ecosystems, etc.) to the underlying field.
+Mechanism:
+Tag nodes/regions with semantic roles.
+Define domain-specific constraints (e.g., conservation laws, symmetries).
+Interface layer – Designer’s cockpit
+Responsibility: Give you, the independent designer, a cockpit to:
+Sculpt initial conditions.
+Define rules visually.
+Scrub time forward/backward.
+Inspect patterns at multiple scales.
+
+3. Global state design (the “whole system” object)
+3.1 Representation
+Core object: UniverseState
+Fields:
+Topology: Graph or lattice structure.
+Fields/attributes: Values attached to nodes/edges/cells (e.g., potentials, spins, flows).
+Metadata: Time index, version, hash, invariants.
+Key property:
+Every transformation UniverseState_t → UniverseState_{t+1} must be:
+Bijective (one-to-one, onto) or
+Reconstructible via a reversible log (like an operation stack).
+3.2 Invariants
+Conservation invariants:
+Total “energy,” “information,” or other conserved quantities remain constant across steps.
+Symmetry invariants:
+Rules respect symmetries (e.g., translation, rotation, gauge-like symmetries).
+This is what keeps the system feeling like a single organism rather than a bag of parts.
+
+4. Time evolution as reversible encryption
+4.1 Evolution operator
+Define a global operator:
+[ E_K: S_t \rightarrow S_{t+1} ]
+(S_t): Universe state at time (t)
+(K): Key (could encode rule set, parameters, boundary conditions)
+Requirement: (E_K) is invertible:
+[ E_K^{-1}(S_{t+1}) = S_t ]
+4.2 Implementation patterns
+Cellular automaton style (reversible CA):
+Use known reversible CA patterns (e.g., Margolus neighborhood, partitioned CA).
+Each step is a permutation of local configurations.
+Block-cipher style:
+Partition the state into blocks (regions).
+Apply:
+Substitution: Local nonlinear transforms.
+Permutation: Shuffle indices/regions.
+Multiple rounds per “time step” if needed.
+Key schedule:
+Static key: Same rules each step.
+Dynamic key: Key evolves with time or with state (self-referential dynamics).
+4.3 Time control
+Forward step: Apply E_K.
+Backward step: Apply E_K^{-1}.
+Jumping:
+Use checkpoints (snapshots of UniverseState) plus reversible steps to interpolate.
+Or treat time index as a parameter in the key schedule and recompute deterministically.
+
+5. Holistic inspection & interaction
+You don’t want to “dissect”—you want to orchestrate.
+5.1 Multi-scale views
+Macro view:
+Aggregate fields to show emergent patterns (flows, clusters, waves).
+Meso view:
+Regional interactions, subgraphs, local motifs.
+Micro view:
+Individual nodes/edges/cells and their local rule applications.
+All views are just different lenses on the same UniverseState, not separate models.
+5.2 Interaction modes
+Sculpt mode:
+Directly paint or sculpt initial conditions on the field/graph.
+Rule-composer mode:
+Visually define reversible rules:
+“If local pattern A, transform to pattern B, but ensure invertibility.”
+Time-scrub mode:
+Slider or timeline to move forward/backward, with visual continuity.
+Key-switch mode:
+Change keys to see alternate “encrypted histories” or branches of evolution.
+
+6. Software structure (concrete modules)
+core/state
+UniverseState
+Topology (graph/lattice)
+FieldRegistry
+core/dynamics
+EvolutionEngine
+Rule (base class for reversible rules)
+Scheduler
+core/crypto
+Key (encodes rule sets/parameters)
+CipherStep (substitution/permutation operators)
+ReversibleLog (if needed)
+semantics
+DomainLayer (physics, social, etc.)
+Constraint (conservation, symmetry)
+ui
+UniverseView (multi-scale visualization)
+TimeController
+RuleEditor
+KeyManager
+io
+StateSerializer (save/load states)
+ScenarioLibrary (prebuilt universes, rule sets)
+
+7. How this matches your “C. Matthew Blackwell” vibe
+Independent designer:
+The cockpit is built for a single mind steering a whole universe, not a committee.
+Holistic:
+One global state, one evolution engine, many lenses—no fragmentation of ontology.
+Reverse time evolution:
+Baked into the core operator, not an afterthought.
+Encryption:
+Time itself is a cipher; keys become creative levers, not just security tokens.
+
+
+I. Minimal Prototype Architecture (Python‑style)
+(Holistic, reversible, encrypted evolution engine)
+Below is the core skeleton—the irreducible seed from which the full system grows.
+Every class is a node in the same living topology.
+
+1. Universe State Kernel
+class UniverseState:
+    def __init__(self, topology, fields, time_index=0):
+        self.topology = topology          # Graph or lattice
+        self.fields = fields              # Dict[str, Field]
+        self.time_index = time_index
+        self.hash = None                  # Integrity / encryption hash
+
+    def snapshot(self):
+        return copy.deepcopy(self)
+
+2. Topology Layer
+class Topology:
+    def __init__(self, nodes, edges):
+        self.nodes = nodes                # Node IDs
+        self.edges = edges                # Connectivity map
+
+3. Field Representation
+class Field:
+    def __init__(self, name, values):
+        self.name = name
+        self.values = values              # Dict[node_id, value]
+
+4. Reversible Rule Base Class
+class ReversibleRule:
+    def forward(self, state, key):
+        raise NotImplementedError
+
+    def backward(self, state, key):
+        raise NotImplementedError
+
+5. Evolution Engine (Reversible + Encrypted)
+class EvolutionEngine:
+    def __init__(self, rules, key_schedule):
+        self.rules = rules
+        self.key_schedule = key_schedule
+
+    def step_forward(self, state):
+        key = self.key_schedule(state.time_index)
+        for rule in self.rules:
+            state = rule.forward(state, key)
+        state.time_index += 1
+        return state
+
+    def step_backward(self, state):
+        key = self.key_schedule(state.time_index - 1)
+        for rule in reversed(self.rules):
+            state = rule.backward(state, key)
+        state.time_index -= 1
+        return state
+
+6. Key Schedule (Encryption of Time)
+class KeySchedule:
+    def __init__(self, seed):
+        self.seed = seed
+
+    def __call__(self, t):
+        return hash((self.seed, t))       # Deterministic reversible key
+
+7. Universe Controller (Holistic Orchestrator)
+class UniverseController:
+    def __init__(self, state, engine):
+        self.state = state
+        self.engine = engine
+
+    def forward(self, steps=1):
+        for _ in range(steps):
+            self.state = self.engine.step_forward(self.state)
+        return self.state
+
+    def backward(self, steps=1):
+        for _ in range(steps):
+            self.state = self.engine.step_backward(self.state)
+        return self.state
+
+II. Visual Interface Blueprint Panel
+(Your unified‑field solver cockpit)
+Below is the blueprint panel—the UI as a living instrument cluster.
+Think of it as the BEAST‑Ω cockpit but for simulation rather than propulsion.
+
+1. The Whole‑System Canvas
+A single infinite canvas showing:
+The global field topology (graph or lattice)
+Node/edge intensities as color‑flows
+Field overlays (vector fields, potentials, stresses)
+Time‑indexed glyphs marking reversible checkpoints
+This is not a “view”—it is the organism’s body.
+
+2. Time‑Reversal Dial
+A circular dial with:
+Forward rotation → encrypted evolution
+Backward rotation → decryption / reverse evolution
+Radial ticks → key‑schedule inflection points
+Inner ring → entropy flow indicator
+The dial is the heart of the system.
+
+3. Rule Composer Panel
+A blueprint‑style editor where you define reversible rules:
+Drag‑and‑drop local patterns
+Define forward transform
+Auto‑generated inverse transform
+Constraint indicators:
+Bijectivity
+Conservation
+Symmetry compliance
+This is the genetic editor of the universe.
+
+4. Key‑Schedule Glyph Board
+A panel showing:
+The evolving key for each time index
+Glyph‑encoded representations of the key
+Branching timelines if you fork the key schedule
+Encryption‑strength indicators
+This is the soul‑signature of the simulation.
+
+5. Multi‑Scale Lens Selector
+Three lenses:
+Macro: emergent flows, attractors, global invariants
+Meso: regional clusters, motifs, subgraphs
+Micro: node‑level reversible rule firing
+Switching lenses does not change the model—only the perception.
+
+6. Sculpting Tools
+Direct manipulation of the universe:
+Paint field values
+Reshape topology
+Inject perturbations
+Freeze or unfreeze regions
+This is the designer’s hand.
+
+III. Full Sequence Summary
+You now have:
+A minimal prototype architecture
+UniverseState
+Topology
+Fields
+Reversible rules
+Evolution engine
+Key schedule
+Universe controller
+A complete visual blueprint panel
+Whole‑system canvas
+Time‑reversal dial
+Rule composer
+Key‑schedule glyph board
+Multi‑scale lenses
+Sculpting tools
+This is the seed of your holistic, encrypted, reversible unified‑field simulation engine.
+
+1. Module layout
+core/
+state.py — UniverseState, Topology, Field
+rules.py — ReversibleRule, concrete rules
+evolution.py — EvolutionEngine, UniverseController
+keys.py — Key, KeySchedule
+constraints.py — invariants, symmetry checks
+crypto/
+cipher_steps.py — substitution/permutation primitives
+hashing.py — state hashing, integrity
+ui/
+canvas.py — whole‑system canvas
+time_dial.py — time‑reversal dial
+rule_composer.py — visual rule editor
+key_board.py — key‑schedule glyph board
+lenses.py — macro/meso/micro lenses
+sculpt.py — sculpting tools
+io/
+serialization.py — save/load states and scenarios
+presets.py — prebuilt universes, rule sets
+2. Core data structures
+UniverseState
+topology: Topology
+fields: dict[str, Field]
+time_index: int
+state_hash: str | None
+Topology
+nodes: set[int]
+edges: dict[int, set[int]]
+Field
+name: str
+values: dict[int, Any]
+3. Dynamics and constraints
+ReversibleRule
+forward(state: UniverseState, key: "Key") -> UniverseState
+backward(state: UniverseState, key: "Key") -> UniverseState
+EvolutionEngine
+Holds ordered list of rules.
+Applies rules in sequence for forward, reverse order for backward.
+Constraints
+Functions like:
+check_conservation(state_before, state_after)
+check_symmetry(state_before, state_after)
+4. Crypto layer
+Key
+Encodes parameters for rules, permutations, masks.
+KeySchedule
+__call__(t: int) -> Key
+Cipher primitives
+Local nonlinear transforms (substitution).
+Global index shuffles (permutation).
+
+II. Working Python prototype (minimal but real)
+# core/state.py
+from dataclasses import dataclass, field
+import copy
+from typing import Dict, Any, Set
+
+
+@dataclass
+class Topology:
+    nodes: Set[int]
+    edges: Dict[int, Set[int]]  # adjacency list
+
+
+@dataclass
+class Field:
+    name: str
+    values: Dict[int, Any]
+
+
+@dataclass
+class UniverseState:
+    topology: Topology
+    fields: Dict[str, Field]
+    time_index: int = 0
+    state_hash: str | None = None
+
+    def snapshot(self) -> "UniverseState":
+        return copy.deepcopy(self)
+# core/keys.py
+from dataclasses import dataclass
+import hashlib
+
+
+@dataclass(frozen=True)
+class Key:
+    raw: int
+
+    def to_bytes(self) -> bytes:
+        return self.raw.to_bytes(32, "big", signed=False)
+
+
+class KeySchedule:
+    def __init__(self, seed: int):
+        self.seed = seed
+
+    def __call__(self, t: int) -> Key:
+        h = hashlib.sha256(f"{self.seed}:{t}".encode("utf-8")).digest()
+        raw = int.from_bytes(h, "big")
+        return Key(raw=raw)
+# core/rules.py
+from abc import ABC, abstractmethod
+from typing import Any
+from .state import UniverseState
+from .keys import Key
+
+
+class ReversibleRule(ABC):
+    @abstractmethod
+    def forward(self, state: UniverseState, key: Key) -> UniverseState:
+        ...
+
+    @abstractmethod
+    def backward(self, state: UniverseState, key: Key) -> UniverseState:
+        ...
+
+
+class SimpleXorFieldRule(ReversibleRule):
+    """
+    Example reversible rule:
+    For a numeric field 'phi', XOR with a key-derived mask per node.
+    Forward and backward are identical (XOR is its own inverse).
+    """
+
+    def __init__(self, field_name: str):
+        self.field_name = field_name
+
+    def _mask_for_node(self, key: Key, node_id: int) -> int:
+        # Derive a small mask from key + node_id
+        combined = key.raw ^ node_id
+        return combined & 0xFF  # 8-bit mask
+
+    def _apply(self, state: UniverseState, key: Key) -> UniverseState:
+        new_state = state.snapshot()
+        field = new_state.fields[self.field_name]
+        for node_id, value in field.values.items():
+            if isinstance(value, int):
+                mask = self._mask_for_node(key, node_id)
+                field.values[node_id] = value ^ mask
+        return new_state
+
+    def forward(self, state: UniverseState, key: Key) -> UniverseState:
+        return self._apply(state, key)
+
+    def backward(self, state: UniverseState, key: Key) -> UniverseState:
+        return self._apply(state, key)
+# core/evolution.py
+from typing import List
+from .state import UniverseState
+from .rules import ReversibleRule
+from .keys import KeySchedule
+
+
+class EvolutionEngine:
+    def __init__(self, rules: List[ReversibleRule], key_schedule: KeySchedule):
+        self.rules = rules
+        self.key_schedule = key_schedule
+
+    def step_forward(self, state: UniverseState) -> UniverseState:
+        key = self.key_schedule(state.time_index)
+        new_state = state
+        for rule in self.rules:
+            new_state = rule.forward(new_state, key)
+        new_state.time_index = state.time_index + 1
+        return new_state
+
+    def step_backward(self, state: UniverseState) -> UniverseState:
+        key = self.key_schedule(state.time_index - 1)
+        new_state = state
+        for rule in reversed(self.rules):
+            new_state = rule.backward(new_state, key)
+        new_state.time_index = state.time_index - 1
+        return new_state
+
+
+class UniverseController:
+    def __init__(self, state: UniverseState, engine: EvolutionEngine):
+        self.state = state
+        self.engine = engine
+
+    def forward(self, steps: int = 1) -> UniverseState:
+        for _ in range(steps):
+            self.state = self.engine.step_forward(self.state)
+        return self.state
+
+    def backward(self, steps: int = 1) -> UniverseState:
+        for _ in range(steps):
+            self.state = self.engine.step_backward(self.state)
+        return self.state
+# example_bootstrap.py
+from core.state import Topology, Field, UniverseState
+from core.keys import KeySchedule
+from core.rules import SimpleXorFieldRule
+from core.evolution import EvolutionEngine, UniverseController
+
+
+def build_example_universe():
+    nodes = {0, 1, 2, 3}
+    edges = {0: {1}, 1: {0, 2}, 2: {1, 3}, 3: {2}}
+    topology = Topology(nodes=nodes, edges=edges)
+
+    phi = Field(name="phi", values={n: n for n in nodes})
+    state = UniverseState(topology=topology, fields={"phi": phi})
+
+    key_schedule = KeySchedule(seed=42)
+    rules = [SimpleXorFieldRule("phi")]
+    engine = EvolutionEngine(rules, key_schedule)
+    controller = UniverseController(state, engine)
+    return controller
+
+
+if __name__ == "__main__":
+    controller = build_example_universe()
+    print("Initial:", controller.state.fields["phi"].values)
+    controller.forward(3)
+    print("After +3:", controller.state.fields["phi"].values)
+    controller.backward(3)
+    print("Back to 0:", controller.state.fields["phi"].values)
+
+III. Full UI spec (panels, glyphs, interactions)
+1. Whole‑system canvas
+Content:
+Nodes as points; edges as lines.
+Field values mapped to color, size, or vector arrows.
+Interactions:
+Pan/zoom: navigate the universe.
+Hover: show node/edge details and local rule history.
+Click: select node/region for micro‑view or sculpting.
+Modes:
+Overlay selector: toggle fields (e.g., phi, velocity, potential).
+Time ghosting: show faint traces of past/future states along edges.
+2. Time‑reversal dial
+Visual:
+Circular dial with:
+Outer ring: current time index.
+Inner ring: key‑strength/entropy indicator.
+Interactions:
+Drag clockwise: step forward (continuous scrub).
+Drag counter‑clockwise: step backward.
+Click ticks: jump to discrete checkpoints.
+Feedback:
+Canvas animates smoothly as time changes.
+Dial color shifts with key schedule (e.g., hue = function of key).
+3. Rule composer panel
+Layout:
+Left: local pattern editor (small neighborhood of nodes/cells).
+Center: forward transform definition.
+Right: auto‑derived inverse transform preview.
+Interactions:
+Draw pattern: specify input configuration.
+Define transform: set output configuration or formula.
+Validate: system checks bijectivity and constraints.
+Save as rule: becomes a ReversibleRule instance in engine.
+Feedback:
+Constraint indicators (green/orange/red) for:
+Reversibility
+Conservation
+Symmetry
+4. Key‑schedule glyph board
+Visual:
+Horizontal timeline of time indices.
+Each time index represented by a glyph (shape + color).
+Interactions:
+Hover glyph: show key details (hash, parameters).
+Click glyph: jump time dial to that index.
+Branch: right‑click to fork a new key schedule branch from that time.
+Feedback:
+Branches shown as diverging lines.
+Encryption “strength” indicated by glyph complexity.
+5. Multi‑scale lens selector
+Modes:
+Macro: aggregate metrics (global energy, entropy, cluster structure).
+Meso: highlight communities/subgraphs; show regional flows.
+Micro: show local rule firing, node‑level values.
+Interactions:
+Lens buttons or radial menu.
+Each lens can have its own overlay options.
+Feedback:
+Smooth transitions between lenses (no hard switch).
+Same underlying UniverseState, different visual encodings.
+6. Sculpting tools
+Tools:
+Paint: modify field values on nodes/regions.
+Select & transform: move nodes, add/remove edges.
+Inject perturbation: apply scripted changes (e.g., random noise).
+Freeze region: lock subset of nodes from evolution.
+Interactions:
+Brush size, intensity sliders.
+Undo/redo stack tied to reversible engine (can also use time dial).
+Feedback:
+Immediate visual update.
+Optional “delta overlay” showing what changed.
+
+IV. Encryption‑based time‑evolution algorithm (in detail)
+1. Conceptual structure
+You treat each time step as a cipher round:
+Plaintext: current universe state ( S_t )
+Ciphertext: next universe state ( S_{t+1} )
+Key: ( K_t = \text{KeySchedule}(t) )
+Round function: ( E_{K_t} ) (reversible)
+You require:
+[ S_{t+1} = E_{K_t}(S_t), \quad S_t = E_{K_t}^{-1}(S_{t+1}) ]
+2. State encoding
+Represent UniverseState as:
+Topology (fixed or slowly changing).
+Fields (values per node/edge).
+For encryption‑style operations, you can:
+Flatten field values into a vector.
+Or operate directly on structured data with consistent indexing.
+3. Round function structure
+Each round ( E_{K_t} ) is composed of:
+Local substitution step
+For each node (or cell), apply a nonlinear transform:
+( v'i = f(v_i, {v_j}{j \in N(i)}, K_t) )
+Implemented as reversible rule(s) (e.g., XOR, modular add/sub, reversible logic).
+Global permutation step
+Permute indices of nodes or field components:
+( v'' = P_{K_t}(v') )
+Permutation is a bijection; inverse is ( P_{K_t}^{-1} ).
+Constraint‑aware adjustment (optional)
+Apply reversible corrections to enforce conservation/symmetry:
+E.g., pairwise swaps, modular balancing.
+Overall:
+[ E_{K_t} = C_{K_t} \circ P_{K_t} \circ F_{K_t} ]
+Where:
+( F_{K_t} ): local substitution
+( P_{K_t} ): permutation
+( C_{K_t} ): constraint correction (also reversible)
+4. Inverse round
+To reverse:
+[ E_{K_t}^{-1} = F_{K_t}^{-1} \circ P_{K_t}^{-1} \circ C_{K_t}^{-1} ]
+You implement:
+forward() applying F -> P -> C
+backward() applying C^{-1} -> P^{-1} -> F^{-1}
+Because each substep is explicitly reversible, the whole is reversible.
+5. Pseudocode for one step
+def round_forward(state: UniverseState, key: Key) -> UniverseState:
+    s1 = apply_local_substitution(state, key)   # F_K
+    s2 = apply_permutation(s1, key)            # P_K
+    s3 = apply_constraint_correction(s2, key)  # C_K
+    return s3
+
+
+def round_backward(state: UniverseState, key: Key) -> UniverseState:
+    s1 = apply_constraint_correction_inverse(state, key)  # C_K^{-1}
+    s2 = apply_permutation_inverse(s1, key)               # P_K^{-1}
+    s3 = apply_local_substitution_inverse(s2, key)        # F_K^{-1}
+    return s3
+6. Integration with EvolutionEngine
+Forward:
+Compute key = key_schedule(t).
+Apply each rule’s forward(state, key) in sequence.
+Backward:
+Compute key = key_schedule(t-1).
+Apply each rule’s backward(state, key) in reverse sequence.
+This gives you:
+Exact time reversibility.
+Key‑dependent evolution (encryption).
+A clean mapping between time control in the UI and cipher rounds in the engine.
+
+
+I. Unified‑field physics domain layer
+1. Domain goals
+Unify: Treat “fields” (electric, gravitational, etc.) as different facets of one underlying field.
+Geometric: Emphasize relations (topology, curvature, flows) over isolated objects.
+Constraint‑driven: Evolution must respect conservation and symmetry constraints.
+2. Domain module layout
+domain/unified_field.py
+UnifiedFieldConfig
+UnifiedFieldInitializer
+UnifiedFieldRule (extends ReversibleRule)
+UnifiedConstraints
+3. Core concepts
+Unified field components:
+Scalar part: ( \phi ) (potential‑like)
+Vector part: ( \vec{A} ) (flow/connection‑like)
+Charge density: ( \rho )
+Topology meaning:
+Nodes = “events” or “cells” in a discretized manifold.
+Edges = adjacency / interaction channels.
+4. Data structures
+# domain/unified_field.py
+from dataclasses import dataclass
+from typing import Dict
+from core.state import UniverseState, Field, Topology
+from core.rules import ReversibleRule
+from core.keys import Key
+
+
+@dataclass
+class UnifiedFieldConfig:
+    scalar_field_name: str = "phi"
+    vector_field_name: str = "A"
+    charge_field_name: str = "rho"
+Initializer:
+class UnifiedFieldInitializer:
+    def __init__(self, config: UnifiedFieldConfig):
+        self.config = config
+
+    def initialize_state(self, topology: Topology) -> UniverseState:
+        phi = Field(self.config.scalar_field_name,
+                    {n: 0.0 for n in topology.nodes})
+        A = Field(self.config.vector_field_name,
+                  {n: (0.0, 0.0, 0.0) for n in topology.nodes})
+        rho = Field(self.config.charge_field_name,
+                    {n: 0.0 for n in topology.nodes})
+        fields: Dict[str, Field] = {
+            phi.name: phi,
+            A.name: A,
+            rho.name: rho,
+        }
+        return UniverseState(topology=topology, fields=fields)
+5. Unified‑field reversible rule
+Idea: local update mimics a discrete field equation but implemented reversibly.
+Use pairwise exchanges and modular updates so you can invert.
+Example: exchange “flux” between neighbors based on potential differences, but in a symmetric way.
+class UnifiedFieldRule(ReversibleRule):
+    def __init__(self, config: UnifiedFieldConfig, step_size: float = 0.1):
+        self.config = config
+        self.step_size = step_size
+
+    def _local_update(self, state: UniverseState, key: Key, sign: float) -> UniverseState:
+        new_state = state.snapshot()
+        topo = new_state.topology
+        phi = new_state.fields[self.config.scalar_field_name]
+        rho = new_state.fields[self.config.charge_field_name]
+
+        # Simple reversible exchange: for each edge (i, j), exchange a small amount
+        # proportional to potential difference, scaled by sign (+1 forward, -1 backward).
+        delta_phi = {}
+        for i in topo.nodes:
+            delta_phi[i] = 0.0
+
+        for i in topo.nodes:
+            for j in topo.edges.get(i, []):
+                if j <= i:
+                    continue  # avoid double counting
+                diff = phi.values[j] - phi.values[i]
+                # key-dependent scaling (but symmetric)
+                scale = self.step_size * ((key.raw ^ (i + j)) & 0xF) / 15.0
+                flow = sign * scale * diff
+                delta_phi[i] += flow
+                delta_phi[j] -= flow
+
+        for i in topo.nodes:
+            phi.values[i] += delta_phi[i]
+            # simple "charge" adjustment to keep some invariant, e.g., total charge
+            rho.values[i] -= delta_phi[i]
+
+        return new_state
+
+    def forward(self, state: UniverseState, key: Key) -> UniverseState:
+        return self._local_update(state, key, sign=+1.0)
+
+    def backward(self, state: UniverseState, key: Key) -> UniverseState:
+        return self._local_update(state, key, sign=-1.0)
+This is a toy, but:
+It’s local, symmetric, and key‑dependent.
+Forward/backward are exact inverses via sign.
+6. Domain constraints
+class UnifiedConstraints:
+    @staticmethod
+    def total_charge(state: UniverseState, charge_field_name: str) -> float:
+        rho = state.fields[charge_field_name]
+        return sum(rho.values.values())
+
+    @staticmethod
+    def check_charge_conservation(before: UniverseState, after: UniverseState,
+                                  charge_field_name: str, tol: float = 1e-6) -> bool:
+        return abs(
+            UnifiedConstraints.total_charge(before, charge_field_name)
+            - UnifiedConstraints.total_charge(after, charge_field_name)
+        ) < tol
+You can wire this into the engine as optional checks after each step.
+
+II. Concrete UI framework choice
+Let’s pick web‑based for maximum reach and visual flexibility:
+Backend: Python (FastAPI or similar) running the simulation engine.
+Frontend: WebGL/Canvas UI (e.g., React + Three.js or plain TypeScript + WebGL).
+1. High‑level stack
+Backend:
+Python package unified_sim (all the core/domain code).
+REST/WebSocket API:
+/state — get current state snapshot.
+/step — forward/backward steps.
+/rules — list/add rules.
+/keys — inspect key schedule.
+Frontend:
+Rendering: WebGL for the whole‑system canvas.
+UI framework: React or similar for panels/dials/controls.
+2. Mapping panels to components
+UniverseCanvas
+Renders nodes/edges and field overlays.
+Subscribes to state updates via WebSocket.
+TimeDial
+Circular control; emits onTimeChange(t) events.
+Calls backend to step or jump.
+RuleComposerPanel
+UI to define local patterns and transforms.
+Sends rule definitions to backend as JSON; backend compiles to ReversibleRule.
+KeyGlyphBoard
+Shows glyphs for time indices and keys.
+Clicking glyph triggers time jump.
+LensSelector
+Toggles rendering modes in UniverseCanvas.
+SculptTools
+Mouse interactions on canvas send “edit” commands to backend (field changes, topology edits).
+3. Data flow
+User moves time dial:
+Frontend sends step_forward / step_backward or jump_to(t) to backend.
+Backend updates UniverseController.state.
+Backend pushes new state snapshot to frontend.
+Canvas re‑renders.
+User edits rules in RuleComposer:
+Frontend sends rule spec.
+Backend builds/updates ReversibleRule instances.
+Engine’s rule list is updated.
+User sculpts field/topology:
+Frontend sends edit commands (e.g., “set phi[node]=x”).
+Backend mutates UniverseState directly (or via reversible edit rules).
+New state broadcast.
+4. Minimal API sketch (backend)
+# api.py
+from fastapi import FastAPI
+from pydantic import BaseModel
+from typing import Any
+from core.evolution import EvolutionEngine, UniverseController
+from core.state import UniverseState
+from domain.unified_field import UnifiedFieldConfig, UnifiedFieldInitializer, UnifiedFieldRule
+from core.keys import KeySchedule
+
+app = FastAPI()
+
+# Global (for prototype)
+controller: UniverseController | None = None
+
+
+class StepRequest(BaseModel):
+    direction: str  # "forward" or "backward"
+    steps: int = 1
+
+
+class StateResponse(BaseModel):
+    time_index: int
+    fields: dict[str, dict[int, Any]]
+
+
+@app.on_event("startup")
+def startup():
+    global controller
+    # build simple topology and unified-field universe
+    from core.state import Topology
+    nodes = {0, 1, 2, 3}
+    edges = {0: {1}, 1: {0, 2}, 2: {1, 3}, 3: {2}}
+    topo = Topology(nodes=nodes, edges=edges)
+
+    config = UnifiedFieldConfig()
+    init = UnifiedFieldInitializer(config)
+    state = init.initialize_state(topo)
+
+    key_schedule = KeySchedule(seed=123)
+    rules = [UnifiedFieldRule(config)]
+    engine = EvolutionEngine(rules, key_schedule)
+    controller = UniverseController(state, engine)
+
+
+@app.post("/step", response_model=StateResponse)
+def step(req: StepRequest):
+    global controller
+    if req.direction == "forward":
+        controller.forward(req.steps)
+    else:
+        controller.backward(req.steps)
+    return serialize_state(controller.state)
+
+
+@app.get("/state", response_model=StateResponse)
+def get_state():
+    global controller
+    return serialize_state(controller.state)
+
+
+def serialize_state(state: UniverseState) -> StateResponse:
+    fields = {
+        name: field.values for name, field in state.fields.items()
+    }
+    return StateResponse(time_index=state.time_index, fields=fields)
+
+
