@@ -1,0 +1,137 @@
+
+
+📘 1. GitHub‑Ready README.md (Full Document)
+
+(You can paste this directly into your repo as README.md)
+
+# Blackwell Field Propulsion Stress-Test Engine
+### Designer: C. Matthew Blackwell  
+### System Class: Field Propulsion Substrate Simulation  
+### Dataset: Kepler-16 (AB) Binary Star System (NASA Exoplanet Archive)
+
+---
+
+## Overview
+This repository contains a full cinematic simulation engine that renders a
+field-propulsion substrate undergoing multi-phase stress testing inside the
+Kepler-16 (AB) barycentric gravitational potential.
+
+The engine visualizes:
+- Binary star orbital motion  
+- Substrate gravitational field contours  
+- Propulsion-induced distortion fields  
+- Sapphire exoskeleton geometry  
+- Dynamic fin deformation  
+- Kernel telemetry (Δχ, α/β/γ matrix, thermal load, deflection)  
+- Regime transitions:
+  - Laminar Acceleration  
+  - Adaptive Harmonic Strain  
+  - Turbulent Edge Limit  
+  - Emergency Decoupling  
+
+The final output is a 60 FPS MP4 cinematic render.
+
+---
+
+## Features
+- Real astrophysical constants from NASA Exoplanet Archive  
+- Full blueprint-style rendering environment  
+- Multi-regime substrate stress physiology  
+- Real-time telemetry HUD  
+- FFMPEG-based video export  
+- Clean architectural grid aesthetic  
+- Sapphire exoskeleton + dynamic fin overlays  
+- Contour-based field visualization  
+
+---
+
+## Requirements
+Install dependencies:
+
+
+pip install -r requirements.txt
+
+
+You must also have **FFMPEG installed** on your system PATH.
+
+---
+
+## Running the Simulation
+Use the CLI wrapper:
+
+
+python run_simulation.py
+
+
+This will:
+- Initialize the simulation engine  
+- Render all frames  
+- Compile the MP4  
+- Output: `Blackwell_Field_Propulsion_Stress_Test.mp4`
+
+---
+
+## Repository Structure
+
+blackwell-propulsion-engine/ │ ├── src/ │   ├── simulation_engine.py      # Main simulation + rendering loop │   ├── telemetry.py              # Telemetry formatting + regime logic │   ├── substrate_fields.py       # Φ_grav, Φ_prop, contour generation │   ├── geometry.py               # Sapphire frame + fin deformation │   └── regimes.py                # Laminar / Adaptive / Turbulent / Decoupled │ ├── assets/ │   └── reference/                # Blueprint images, diagrams, notes │ ├── output/ │   └── Blackwell_Field_Propulsion_Stress_Test.mp4 │ ├── run_simulation.py             # CLI wrapper ├── requirements.txt └── README.md
+
+
+---
+
+## License
+MIT License — free for research, modification, and derivative works.
+
+---
+
+## Author
+**C. Matthew Blackwell**  
+Independent Designer  
+Field Substrate Architecture & Propulsion Systems
+
+📦 2. requirements.txt
+
+numpy
+matplotlib
+
+(FFMPEG must be installed manually — it cannot be pip-installed.)
+
+📁 3. Project Folder Structure (Copy/Paste)
+
+blackwell-propulsion-engine/
+│
+├── src/
+│   ├── simulation_engine.py
+│   ├── telemetry.py
+│   ├── substrate_fields.py
+│   ├── geometry.py
+│   └── regimes.py
+│
+├── assets/
+│   └── reference/
+│
+├── output/
+│
+├── run_simulation.py
+├── requirements.txt
+└── README.md
+
+This structure is clean, modular, and GitHub‑professional.
+
+🚀 4. Launch Script / CLI Wrapper (run_simulation.py)
+
+(Paste this into run_simulation.py)
+
+import subprocess
+import sys
+from src.simulation_engine import run_engine
+
+def main():
+    print("[BOOT] Blackwell Simulation Engine initializing...")
+    run_engine()
+    print("[DONE] Stress-test cinematic render completed.")
+
+if __name__ == "__main__":
+    main()
+
+Your main simulation file (simulation_engine.py) should contain your full code exactly as you wrote it.
+
