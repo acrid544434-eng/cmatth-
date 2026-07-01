@@ -1,0 +1,207 @@
+# ==============================================================================
+# BLACKWELL BLUEPRINT SIMULATION ENGINE - VIDEO COMPILER
+# ==============================================================================
+# Authored by: C. MATTHEW BLACKWELL | Independent Designer
+# System Class: Field Propulsion Transceiver Stress-Testing Render
+# Baseline Constraints: Kepler-16 (AB) Empirical Dataset
+# ==============================================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+# --- 1. CORE SIMULATION AND DATA INITIALIZATION ---
+# Real-world astrophysics constraints (NASA Exoplanet Archive)
+M_A = 0.6897  # Mass of Kepler-16A (Solar Masses)
+M_B = 0.20255 # Mass of Kepler-16B (Solar Masses)
+R_orbit = 0.22431 # Semi-major axis (AU)
+T_period = 41.0792 # Days
+
+# Video & Frame Properties
+fps = 60
+duration = 30 # seconds
+total_frames = fps * duration
+
+# Spatial Grid Setup (Blueprint Canvas Coordinates)
+grid_size = 200
+x = np.linspace(-0.5, 0.5, grid_size)
+y = np.linspace(-0.5, 0.5, grid_size)
+X, Y = np.meshgrid(x, y)
+
+# --- 2. CONFIGURING THE PLOT ENVIRONMENT (BLUEPRINT AESTHETIC) ---
+fig, ax = plt.subplots(figsize=(16, 9), facecolor='#0b111e')
+ax.set_facecolor('#0b111e')
+
+# Draw clean technical grid lines
+ax.grid(True, color='#17233d', linestyle='--', linewidth=0.5)
+ax.set_xlim(-0.5, 0.5)
+ax.set_ylim(-0.5, 0.5)
+ax.set_aspect('equal')
+
+# Turn off standard structural borders, maintain clean architectural frame
+for spine in ax.spines.values():
+    spine.set_color('#17233d')
+
+# Fixed UI Labels (Blueprint Typography)
+ax.text(-0.48, 0.45, "SUBSTRATE PROPULSION VEHICLE ARCHETYPE", color='#e2e8f0', fontsize=12, fontweight='bold', family='monospace')
+ax.text(-0.48, 0.42, "SYSTEM TRANSIT COMPILATION | DATA: KEPLER-16 SYSTEM", color='#94a3b8', fontsize=9, family='monospace')
+ax.text(0.15, 0.45, "DESIGNER: C. MATTHEW BLACKWELL", color='#94a3b8', fontsize=10, fontweight='bold', family='monospace', ha='right')
+
+# Dynamic Telemetry UI Blocks
+telemetry_box = ax.text(-0.48, -0.45, "", color='#00f2fe', fontsize=10, family='monospace', va='bottom')
+phase_box = ax.text(0.48, 0.45, "", color='#00ff87', fontsize=12, fontweight='bold', family='monospace', ha='right')
+
+# Initialize render elements
+contour_set = [ax.contour(X, Y, np.zeros_like(X))] # Placeholder
+vehicle_body, = ax.plot([], [], color='#cbd5e1', linewidth=1.5, zorder=5)
+fin_left, = ax.plot([], [], color='#00f2fe', linewidth=1.2, alpha=0.0)
+fin_right, = ax.plot([], [], color='#00f2fe', linewidth=1.2, alpha=0.0)
+star_A, = ax.plot([], [], 'o', color='#ffea00', markersize=8, zorder=6)
+star_B, = ax.plot([], [], 'o', color='#ff9100', markersize=4, zorder=6)
+
+# --- 3. MATHEMATICAL RENDER ANIMATION LOOP ---
+def update_frame(frame_idx):
+    global contour_set
+    t_pct = frame_idx / total_frames
+    
+    # Remove previous frame's contour lines to prevent buffer stack
+    for coll in contour_set[0].collections:
+        coll.remove()
+        
+    # Calculate real-time binary orbital tracking positions
+    theta = 2 * np.pi * t_pct * (30 / T_period) # Time-scaled rotation
+    r_A = R_orbit * (M_B / (M_A + M_B)) * 1.5
+    r_B = R_orbit * (M_A / (M_A + M_B)) * 1.5
+    
+    xA, yA = r_A * np.cos(theta), r_A * np.sin(theta)
+    xB, yB = -r_B * np.cos(theta), -r_B * np.sin(theta)
+    
+    star_A.set_data([xA], [yA])
+    star_B.set_data([xB], [yB])
+    
+    # Core Vehicle Geometry Center Coordinate
+    v_x, v_y = 0.0, 0.0
+    
+    # ----------------------------------------------------------------------
+    # SYSTEM STATE NERVOUS SYSTEM TRANSITIONS (THREE STRESS REGIMES)
+    # ----------------------------------------------------------------------
+    if t_pct <= 0.33:
+        # MOVEMENT I: LAMINAR REGIME (GREEN BAND)
+        regime = "LAMINAR ACCELERATION"
+        regime_color = "#00ff87"
+        p_load = (t_pct / 0.33) * 50.0
+        delta_chi = 0.12 * (p_load / 50.0)
+        deflection = (p_load / 50.0) * 2.0
+        thermal = 120 + int(p_load * 4.5)
+        
+        alpha, beta, gamma = 0.40, 0.50, 0.30
+        fin_intensity = 0.0
+        
+    elif t_pct <= 0.73:
+        # MOVEMENT II: HARMONIC STRAIN REGIME (YELLOW BAND)
+        regime = "ADAPTIVE REGIME ACTIVE"
+        regime_color = "#ffb000"
+        p_load = 50.0 + ((t_pct - 0.33) / 0.40) * 45.0
+        delta_chi = 0.25 + ((p_load - 50.0) / 45.0) * 0.65
+        deflection = 2.0 + ((p_load - 50.0) / 45.0) * 21.0
+        thermal = 345 + int((p_load - 50.0) * 11.5)
+        
+        # Mirror the Parameter Matrix Inversion loop (Alpha up, Gamma down)
+        alpha = 0.40 + 0.45 * ((p_load - 50.0) / 45.0)
+        gamma = 0.30 - 0.25 * ((p_load - 50.0) / 45.0)
+        beta = 0.50 * (1.0 - (p_load / 110.0)**2)
+        fin_intensity = (p_load - 50.0) / 45.0
+        
+    elif t_pct <= 0.86:
+        # MOVEMENT III: TURBULENT REDLINE BOUNDARY (RED BAND)
+        regime = "TURBULENT EDGE LIMIT"
+        regime_color = "#ff2a2a"
+        p_load = 95.0 + ((t_pct - 0.73) / 0.13) * 15.0
+        delta_chi = 0.90 + ((p_load - 95.0) / 15.0) * 0.25
+        deflection = 23.0 + ((p_load - 95.0) / 15.0) * 8.0
+        thermal = 862 + int((p_load - 95.0) * 8.5)
+        
+        alpha, gamma = 0.85, 0.05
+        beta = 0.50 * (1.0 - (p_load / 110.0)**2)
+        fin_intensity = 1.0 + 0.2 * np.sin(frame_idx * 0.5) # Turbulent oscillation
+        
+    else:
+        # MOVEMENT IV: EMERGENCY DECOUPLING DISENGAGEMENT
+        regime = "CRITICAL SAFEGUARD: DECOUPLED"
+        regime_color = "#7c3aed"
+        p_load = 0.0
+        delta_chi = 0.0
+        deflection = 0.0
+        thermal = 45 # Idle computing dissipation
+        alpha, beta, gamma = 0.40, 0.00, 0.00
+        fin_intensity = 0.0
+
+    # ----------------------------------------------------------------------
+    # GRID MODULATION AND FIELD GENERATION
+    # ----------------------------------------------------------------------
+    # Map background gravity field substrate
+    R_A_dist = np.sqrt((X - xA)**2 + (Y - yA)**2 + 0.01)
+    R_B_dist = np.sqrt((X - xB)**2 + (Y - yB)**2 + 0.01)
+    Phi_grav = -(M_A / R_A_dist + M_B / R_B_dist)
+    
+    # Inject propulsive distortion vector patterns based on state parameters
+    Phi_prop = -5.0 * beta * np.exp(-((X - v_x)**2 + (Y - v_y)**2) / 0.02)
+    if fin_intensity > 0:
+        # Numerically deform substrate grid lines to render the structural field fins
+        Phi_prop += -3.0 * fin_intensity * np.exp(-((X - v_x)**2 + 4.0 * (Y - v_y - 0.08)**2) / 0.01)
+        Phi_prop += -3.0 * fin_intensity * np.exp(-((X - v_x)**2 + 4.0 * (Y - v_y + 0.08)**2) / 0.01)
+        
+    Phi_total = Phi_grav + Phi_prop
+    
+    # Re-draw the blueprint contour matrix
+    contour_set[0] = ax.contour(X, Y, Phi_total, levels=35, colors='#00f2fe', linewidths=0.4, alpha=0.35)
+    
+    # ----------------------------------------------------------------------
+    # PHYSICAL GEOMETRY UPDATE (SAPPHIRE EXOSKELETON FRAME)
+    # ----------------------------------------------------------------------
+    # Render immutable core coordinate node frame
+    r_core = 0.03
+    v_theta = np.linspace(0, 2*np.pi, 50)
+    vx = v_x + r_core * np.cos(v_theta)
+    vy = v_y + r_core * np.sin(v_theta)
+    vehicle_body.set_data(vx, vy)
+    
+    # Render active dynamic fluid deformations (Geometric Fin Overlays)
+    if fin_intensity > 0:
+        fx = np.linspace(-0.06, 0.06, 30)
+        fy_top = v_y + 0.03 + (0.08 * fin_intensity) * np.cos(fx * 25)
+        fy_bot = v_y - 0.03 - (0.08 * fin_intensity) * np.cos(fx * 25)
+        fin_left.set_data(fx, fy_top)
+        fin_right.set_data(fx, fy_bot)
+        fin_left.set_alpha(alpha * 0.8)
+        fin_right.set_alpha(alpha * 0.8)
+    else:
+        fin_left.set_alpha(0.0)
+        fin_right.set_alpha(0.0)
+        
+    # --- 4. TELEMETRY DISPLAY PANEL STREAM UPDATE ---
+    phase_box.set_text(f"REGIME: {regime}")
+    phase_box.set_color(regime_color)
+    
+    telemetry_data = (
+        f" [KERNEL CONTROLLER LOGS]\n"
+        f" ───\n"
+        f" P_EFF PROPULSION LOAD : {p_load:6.2f} %\n"
+        f" COHERENCE LOSS Δχ     : {delta_chi:6.3f} / χ_crit\n"
+        f" CONTOUR DEFLECTION    : {deflection:6.2f} %\n"
+        f" VAPOR CHAMBER THERMAL : {thermal:6d} W\n"
+        f" ───\n"
+        f" MATRIX CONSTANTS: α={alpha:.2f} | β={beta:.2f} | γ={gamma:.2f}"
+    )
+    telemetry_box.set_text(telemetry_data)
+    
+    return [vehicle_body, fin_left, fin_right, star_A, star_B, phase_box, telemetry_box]
+
+# --- 5. COMPILING FILE EXPORT SELECTION ---
+print("[STATUS] Blackwell Blueprint Engine initializing frame interpolation pass...")
+ani = animation.FuncAnimation(fig, update_frame, frames=total_frames, interval=1000/fps, blit=False)
+
+# Export configuration via FFMPEG backend compiler
+writer = animation.FFMpegWriter(fps=fps, metadata=dict(artist='C. Matthew Blackwell'), bitrate=15000)
+ani.save('Blackwell_Field_Propulsion_Stress_Test.mp4', writer=writer)
+print("[COMPLETED] Binary video generation trace finalized: 'Blackwell_Field_Propulsion_Stress_Test.mp4' exported successfully.")
