@@ -1,0 +1,75 @@
+aethelgard/
+├── README.md
+├── LICENSE
+├── CONTRIBUTING.md
+├── docs/
+│   ├── WhiteSheet.pdf
+│   ├── Architecture_Overview.md
+│   ├── Modules/
+│   │   ├── RADE_Ingest.md
+│   │   ├── Atomic_Solver.md
+│   │   ├── Synthesis_Bridge.md
+│   │   ├── RSI_Engine.md
+│   ├── Equations/
+│   │   ├── Atomic_Evolution.tex
+│   │   ├── Thermal_Mapping.tex
+│   │   ├── Cosmic_Mapping.tex
+│   │   ├── Discrepancy_and_RSI.tex
+│   └── Glossary.md
+│
+├── src/
+│   ├── ingest/
+│   │   ├── pki_auth.py
+│   │   ├── aes256_encrypt.py
+│   │   ├── zkp_validate.py
+│   │   ├── edw_wrap.py
+│   │   └── sdv_store.py
+│   │
+│   ├── atomic_solver/
+│   │   ├── voxel_octree.py
+│   │   ├── md_core.py
+│   │   ├── quantum_tunnel.py
+│   │   ├── nbody_gravity.py
+│   │   ├── whim_feedback.py
+│   │   └── sha3_provenance.py
+│   │
+│   ├── synthesis_bridge/
+│   │   ├── atomic_to_thermal.py
+│   │   ├── thermal_pde_solver.py
+│   │   ├── atomic_to_cosmic.py
+│   │   └── cosmic_density_field.py
+│   │
+│   ├── rsi/
+│   │   ├── discrepancy_eval.py
+│   │   ├── parameter_update.py
+│   │   └── convergence_monitor.py
+│   │
+│   └── utils/
+│       ├── logging.py
+│       ├── config.py
+│       └── crypto_helpers.py
+│
+├── tests/
+│   ├── test_ingest.py
+│   ├── test_atomic_solver.py
+│   ├── test_synthesis_bridge.py
+│   ├── test_rsi.py
+│   └── test_end_to_end.py
+│
+├── examples/
+│   ├── Example_Ingest_Flow.md
+│   ├── Example_Atomic_Simulation.md
+│   ├── Example_Thermal_Map.md
+│   ├── Example_Cosmic_Field.md
+│   └── Example_RSI_Correction.md
+│
+└── assets/
+    ├── posters/
+    │   └── aethelgard_blueprint.png
+    ├── diagrams/
+    │   ├── architecture_flow.png
+    │   ├── atomic_solver.png
+    │   ├── synthesis_bridge.png
+    │   └── rsi_loop.png
+    └── branding/
+        └── c_matthew_blackwell_signature.png
