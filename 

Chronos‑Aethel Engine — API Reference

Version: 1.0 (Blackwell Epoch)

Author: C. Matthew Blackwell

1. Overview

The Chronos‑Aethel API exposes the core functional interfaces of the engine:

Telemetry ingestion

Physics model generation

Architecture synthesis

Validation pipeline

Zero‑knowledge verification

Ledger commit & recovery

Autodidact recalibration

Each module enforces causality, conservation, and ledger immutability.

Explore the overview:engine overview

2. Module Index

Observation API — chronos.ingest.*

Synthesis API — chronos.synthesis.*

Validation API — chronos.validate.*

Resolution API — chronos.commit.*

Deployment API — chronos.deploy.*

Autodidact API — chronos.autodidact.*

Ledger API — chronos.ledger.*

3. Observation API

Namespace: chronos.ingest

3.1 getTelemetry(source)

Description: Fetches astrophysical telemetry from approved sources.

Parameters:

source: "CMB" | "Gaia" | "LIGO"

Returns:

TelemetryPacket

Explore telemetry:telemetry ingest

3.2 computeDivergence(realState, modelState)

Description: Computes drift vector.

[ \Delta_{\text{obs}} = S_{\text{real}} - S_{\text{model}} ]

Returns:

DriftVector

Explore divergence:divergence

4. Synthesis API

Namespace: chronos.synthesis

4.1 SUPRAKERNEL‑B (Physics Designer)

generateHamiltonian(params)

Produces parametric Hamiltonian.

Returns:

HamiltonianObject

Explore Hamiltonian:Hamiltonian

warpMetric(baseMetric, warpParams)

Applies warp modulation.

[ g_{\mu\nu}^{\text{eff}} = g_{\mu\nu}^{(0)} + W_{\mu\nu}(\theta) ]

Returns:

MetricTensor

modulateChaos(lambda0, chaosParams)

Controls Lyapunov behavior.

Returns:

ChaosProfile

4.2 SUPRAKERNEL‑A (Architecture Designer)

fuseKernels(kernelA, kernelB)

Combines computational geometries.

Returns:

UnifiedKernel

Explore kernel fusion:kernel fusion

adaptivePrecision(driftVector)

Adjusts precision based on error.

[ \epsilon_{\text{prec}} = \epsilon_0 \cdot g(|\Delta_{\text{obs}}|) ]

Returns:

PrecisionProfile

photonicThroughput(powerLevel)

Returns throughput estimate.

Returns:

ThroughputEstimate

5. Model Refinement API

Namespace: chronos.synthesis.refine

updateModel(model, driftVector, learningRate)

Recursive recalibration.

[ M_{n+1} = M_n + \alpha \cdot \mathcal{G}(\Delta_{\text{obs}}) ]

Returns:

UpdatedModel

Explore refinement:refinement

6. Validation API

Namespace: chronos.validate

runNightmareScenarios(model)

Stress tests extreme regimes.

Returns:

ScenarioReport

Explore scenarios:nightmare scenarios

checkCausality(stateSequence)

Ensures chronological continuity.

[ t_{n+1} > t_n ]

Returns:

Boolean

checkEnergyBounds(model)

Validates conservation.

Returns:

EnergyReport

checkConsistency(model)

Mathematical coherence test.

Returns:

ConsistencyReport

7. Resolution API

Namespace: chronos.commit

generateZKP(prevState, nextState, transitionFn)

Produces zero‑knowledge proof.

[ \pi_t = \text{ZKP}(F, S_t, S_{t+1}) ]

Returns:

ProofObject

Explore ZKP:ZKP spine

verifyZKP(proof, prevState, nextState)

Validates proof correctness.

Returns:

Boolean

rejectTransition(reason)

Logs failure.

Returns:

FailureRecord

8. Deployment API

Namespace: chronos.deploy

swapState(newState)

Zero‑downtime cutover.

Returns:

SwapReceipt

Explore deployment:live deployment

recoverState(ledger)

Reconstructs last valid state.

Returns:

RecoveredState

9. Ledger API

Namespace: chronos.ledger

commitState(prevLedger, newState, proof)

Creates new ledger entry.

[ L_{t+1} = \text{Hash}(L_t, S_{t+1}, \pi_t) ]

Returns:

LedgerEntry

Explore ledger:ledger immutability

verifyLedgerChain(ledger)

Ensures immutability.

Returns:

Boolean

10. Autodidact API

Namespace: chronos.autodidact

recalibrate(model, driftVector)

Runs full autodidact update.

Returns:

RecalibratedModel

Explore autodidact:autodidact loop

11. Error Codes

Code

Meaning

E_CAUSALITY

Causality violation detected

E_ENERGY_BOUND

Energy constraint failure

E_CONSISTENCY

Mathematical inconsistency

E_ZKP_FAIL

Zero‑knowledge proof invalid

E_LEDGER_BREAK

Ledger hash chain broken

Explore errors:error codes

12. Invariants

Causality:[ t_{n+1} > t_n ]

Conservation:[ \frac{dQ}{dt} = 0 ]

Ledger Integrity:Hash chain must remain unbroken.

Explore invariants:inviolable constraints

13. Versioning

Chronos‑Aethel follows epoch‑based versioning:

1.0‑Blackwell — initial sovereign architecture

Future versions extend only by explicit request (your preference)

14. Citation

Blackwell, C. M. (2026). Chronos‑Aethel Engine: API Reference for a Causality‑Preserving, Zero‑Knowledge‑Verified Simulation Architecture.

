@@ -1,0 +1,338 @@
+
+
+Chronos‑Aethel Engine — API Reference
+
+Version: 1.0 (Blackwell Epoch)
+
+Author: C. Matthew Blackwell
+
+1. Overview
+
+The Chronos‑Aethel API exposes the core functional interfaces of the engine:
+
+Telemetry ingestion
+
+Physics model generation
+
+Architecture synthesis
+
+Validation pipeline
+
+Zero‑knowledge verification
+
+Ledger commit & recovery
+
+Autodidact recalibration
+
+Each module enforces causality, conservation, and ledger immutability.
+
+Explore the overview:engine overview
+
+2. Module Index
+
+Observation API — chronos.ingest.*
+
+Synthesis API — chronos.synthesis.*
+
+Validation API — chronos.validate.*
+
+Resolution API — chronos.commit.*
+
+Deployment API — chronos.deploy.*
+
+Autodidact API — chronos.autodidact.*
+
+Ledger API — chronos.ledger.*
+
+3. Observation API
+
+Namespace: chronos.ingest
+
+3.1 getTelemetry(source)
+
+Description: Fetches astrophysical telemetry from approved sources.
+
+Parameters:
+
+source: "CMB" | "Gaia" | "LIGO"
+
+Returns:
+
+TelemetryPacket
+
+Explore telemetry:telemetry ingest
+
+3.2 computeDivergence(realState, modelState)
+
+Description: Computes drift vector.
+
+[ \Delta_{\text{obs}} = S_{\text{real}} - S_{\text{model}} ]
+
+Returns:
+
+DriftVector
+
+Explore divergence:divergence
+
+4. Synthesis API
+
+Namespace: chronos.synthesis
+
+4.1 SUPRAKERNEL‑B (Physics Designer)
+
+generateHamiltonian(params)
+
+Produces parametric Hamiltonian.
+
+Returns:
+
+HamiltonianObject
+
+Explore Hamiltonian:Hamiltonian
+
+warpMetric(baseMetric, warpParams)
+
+Applies warp modulation.
+
+[ g_{\mu\nu}^{\text{eff}} = g_{\mu\nu}^{(0)} + W_{\mu\nu}(\theta) ]
+
+Returns:
+
+MetricTensor
+
+modulateChaos(lambda0, chaosParams)
+
+Controls Lyapunov behavior.
+
+Returns:
+
+ChaosProfile
+
+4.2 SUPRAKERNEL‑A (Architecture Designer)
+
+fuseKernels(kernelA, kernelB)
+
+Combines computational geometries.
+
+Returns:
+
+UnifiedKernel
+
+Explore kernel fusion:kernel fusion
+
+adaptivePrecision(driftVector)
+
+Adjusts precision based on error.
+
+[ \epsilon_{\text{prec}} = \epsilon_0 \cdot g(|\Delta_{\text{obs}}|) ]
+
+Returns:
+
+PrecisionProfile
+
+photonicThroughput(powerLevel)
+
+Returns throughput estimate.
+
+Returns:
+
+ThroughputEstimate
+
+5. Model Refinement API
+
+Namespace: chronos.synthesis.refine
+
+updateModel(model, driftVector, learningRate)
+
+Recursive recalibration.
+
+[ M_{n+1} = M_n + \alpha \cdot \mathcal{G}(\Delta_{\text{obs}}) ]
+
+Returns:
+
+UpdatedModel
+
+Explore refinement:refinement
+
+6. Validation API
+
+Namespace: chronos.validate
+
+runNightmareScenarios(model)
+
+Stress tests extreme regimes.
+
+Returns:
+
+ScenarioReport
+
+Explore scenarios:nightmare scenarios
+
+checkCausality(stateSequence)
+
+Ensures chronological continuity.
+
+[ t_{n+1} > t_n ]
+
+Returns:
+
+Boolean
+
+checkEnergyBounds(model)
+
+Validates conservation.
+
+Returns:
+
+EnergyReport
+
+checkConsistency(model)
+
+Mathematical coherence test.
+
+Returns:
+
+ConsistencyReport
+
+7. Resolution API
+
+Namespace: chronos.commit
+
+generateZKP(prevState, nextState, transitionFn)
+
+Produces zero‑knowledge proof.
+
+[ \pi_t = \text{ZKP}(F, S_t, S_{t+1}) ]
+
+Returns:
+
+ProofObject
+
+Explore ZKP:ZKP spine
+
+verifyZKP(proof, prevState, nextState)
+
+Validates proof correctness.
+
+Returns:
+
+Boolean
+
+rejectTransition(reason)
+
+Logs failure.
+
+Returns:
+
+FailureRecord
+
+8. Deployment API
+
+Namespace: chronos.deploy
+
+swapState(newState)
+
+Zero‑downtime cutover.
+
+Returns:
+
+SwapReceipt
+
+Explore deployment:live deployment
+
+recoverState(ledger)
+
+Reconstructs last valid state.
+
+Returns:
+
+RecoveredState
+
+9. Ledger API
+
+Namespace: chronos.ledger
+
+commitState(prevLedger, newState, proof)
+
+Creates new ledger entry.
+
+[ L_{t+1} = \text{Hash}(L_t, S_{t+1}, \pi_t) ]
+
+Returns:
+
+LedgerEntry
+
+Explore ledger:ledger immutability
+
+verifyLedgerChain(ledger)
+
+Ensures immutability.
+
+Returns:
+
+Boolean
+
+10. Autodidact API
+
+Namespace: chronos.autodidact
+
+recalibrate(model, driftVector)
+
+Runs full autodidact update.
+
+Returns:
+
+RecalibratedModel
+
+Explore autodidact:autodidact loop
+
+11. Error Codes
+
+Code
+
+Meaning
+
+E_CAUSALITY
+
+Causality violation detected
+
+E_ENERGY_BOUND
+
+Energy constraint failure
+
+E_CONSISTENCY
+
+Mathematical inconsistency
+
+E_ZKP_FAIL
+
+Zero‑knowledge proof invalid
+
+E_LEDGER_BREAK
+
+Ledger hash chain broken
+
+Explore errors:error codes
+
+12. Invariants
+
+Causality:[ t_{n+1} > t_n ]
+
+Conservation:[ \frac{dQ}{dt} = 0 ]
+
+Ledger Integrity:Hash chain must remain unbroken.
+
+Explore invariants:inviolable constraints
+
+13. Versioning
+
+Chronos‑Aethel follows epoch‑based versioning:
+
+1.0‑Blackwell — initial sovereign architecture
+
+Future versions extend only by explicit request (your preference)
+
+14. Citation
+
+Blackwell, C. M. (2026). Chronos‑Aethel Engine: API Reference for a Causality‑Preserving, Zero‑Knowledge‑Verified Simulation Architecture.
+
