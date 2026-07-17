@@ -1,0 +1,368 @@
+# core_api.py
+# Spacetime Topology Simulation Software
+# Author: C. Matthew Blackwell — Independent Designer
+
+from dataclasses import dataclass
+from typing import Callable, Any, Optional, List
+
+
+# ========= 1. Core Types =========
+
+@dataclass
+class ManifoldState:
+    x: Any          # spacetime coordinates (tensor/array)
+    p: Any          # canonical momenta (tensor/array)
+    theta: Any      # warp/control parameters
+    sigma: Any      # encrypted metadata / identifiers
+
+
+@dataclass
+class WarpParams:
+    vs: Callable    # bubble velocity profile v_s(t)
+    alpha: float
+    beta: float
+    extra: dict
+
+
+@dataclass
+class MetricTensor:
+    g: Any          # g_{mu nu}
+    g_inv: Any      # g^{mu nu}
+
+
+@dataclass
+class CurvatureInvariants:
+    scalar_R: float
+    kretschmann: float
+    extras: dict
+
+
+@dataclass
+class AstroDataset:
+    raw_data: Any
+    metadata: dict
+
+
+@dataclass
+class StressEnergyTensorField:
+    T: Any          # T_{mu nu} field
+
+
+@dataclass
+class IVOAMetadata:
+    identifier: str
+    tags: dict
+
+
+@dataclass
+class TwinSnapshot:
+    state: ManifoldState
+    timestamp: float
+    metadata: dict
+
+
+@dataclass
+class ErrorMetrics:
+    orbital_error: float
+    lensing_error: float
+    curvature_error: float
+    extras: dict
+
+
+@dataclass
+class HashDigest:
+    value: str
+
+
+@dataclass
+class IVOAIdentifier:
+    value: str
+
+
+@dataclass
+class EncryptedState:
+    payload: bytes
+    mode: str
+    metadata: dict
+
+
+@dataclass
+class TLSChannel:
+    endpoint: str
+    session: Any
+
+
+@dataclass
+class StabilityReport:
+    lyapunov: float
+    curvature: CurvatureInvariants
+    volatility_score: float
+    extras: dict
+
+
+@dataclass
+class SnapshotArtifact:
+    path: str
+    format: str
+    metadata: dict
+
+
+@dataclass
+class ValidationResult:
+    name: str
+    passed: bool
+    details: str
+
+
+@dataclass
+class PeerReviewSummary:
+    results: List[ValidationResult]
+    consensus: str
+    notes: str
+
+
+# ========= 2. Hamiltonian Manifold Engine =========
+
+class HamiltonianEngine:
+    def __init__(self, metric: Optional['WarpMetric'] = None):
+        self.metric = metric
+
+    def set_metric(self, metric: 'WarpMetric') -> None:
+        """Assigns the metric field used in Hamiltonian evaluation."""
+        self.metric = metric
+
+    def compute_hamiltonian(self, state: ManifoldState) -> float:
+        """
+        Evaluates H(x, p; theta) = 1/2 g^{mu nu}(x; theta) p_mu p_nu + V_warp(theta).
+        Placeholder: implement tensor math here.
+        """
+        raise NotImplementedError
+
+    def step(self, state: ManifoldState, dt: float) -> ManifoldState:
+        """
+        Advances the state using Hamilton's equations:
+        dot{x}^mu = dH/dp_mu, dot{p}_mu = -dH/dx^mu.
+        """
+        raise NotImplementedError
+
+    def compute_lyapunov(
+        self,
+        state: ManifoldState,
+        perturbation: ManifoldState,
+        t_max: float
+    ) -> float:
+        """
+        Computes Lyapunov exponent for given initial perturbation.
+        """
+        raise NotImplementedError
+
+
+# ========= 3. Warp-Metric Module =========
+
+class WarpMetric:
+    def __init__(self, params: WarpParams, f_profile: Callable, vs_profile: Callable):
+        self.params = params
+        self.f_profile = f_profile
+        self.vs_profile = vs_profile
+
+    def set_bubble_profile(self, f: Callable) -> None:
+        """Sets shaping function f(r_s)."""
+        self.f_profile = f
+
+    def set_velocity_profile(self, vs: Callable) -> None:
+        """Sets bubble velocity profile v_s(t)."""
+        self.vs_profile = vs
+
+    def evaluate_metric(self, x: Any, theta: WarpParams) -> MetricTensor:
+        """Returns g_{mu nu} for given coordinates and parameters."""
+        raise NotImplementedError
+
+    def evaluate_inverse_metric(self, x: Any, theta: WarpParams) -> MetricTensor:
+        """Returns g^{mu nu} for given coordinates and parameters."""
+        raise NotImplementedError
+
+    def compute_curvature(self, x: Any, theta: WarpParams) -> CurvatureInvariants:
+        """Computes curvature invariants for volatility mapping."""
+        raise NotImplementedError
+
+
+# ========= 4. Galactica-Terminus Data Pipeline =========
+
+class AstroDataIngestor:
+    def load_dataset(self, path: str) -> AstroDataset:
+        """Loads astrophysical dataset from disk or remote source."""
+        raise NotImplementedError
+
+    def compute_stress_energy(self, dataset: AstroDataset) -> StressEnergyTensorField:
+        """Builds T_{mu nu} from astrophysical data."""
+        raise NotImplementedError
+
+    def update_metric_from_data(
+        self,
+        metric: WarpMetric,
+        T: StressEnergyTensorField
+    ) -> MetricTensor:
+        """
+        Approximates G_{mu nu} = 8 pi G T_{mu nu} and updates metric field.
+        """
+        raise NotImplementedError
+
+    def tag_metadata(self, dataset: AstroDataset) -> IVOAMetadata:
+        """Generates IVOA-compliant metadata tags."""
+        raise NotImplementedError
+
+
+class DigitalTwinManager:
+    def sync_state(self, state: ManifoldState, dataset: AstroDataset) -> ManifoldState:
+        """Aligns simulation state with latest astrophysical data."""
+        raise NotImplementedError
+
+    def snapshot(self, state: ManifoldState, timestamp: float) -> TwinSnapshot:
+        """Creates a versioned digital twin snapshot."""
+        raise NotImplementedError
+
+    def compare_to_observation(
+        self,
+        snapshot: TwinSnapshot,
+        dataset: AstroDataset
+    ) -> ErrorMetrics:
+        """Computes fidelity metrics vs observational data."""
+        raise NotImplementedError
+
+
+# ========= 5. Dual-Layer Encryption Protocol =========
+
+class SignatureManager:
+    def hash_state(self, state: ManifoldState) -> HashDigest:
+        """Computes SHA-3512 hash of manifold state."""
+        raise NotImplementedError
+
+    def generate_ivoa_id(self, state: ManifoldState, digest: HashDigest) -> IVOAIdentifier:
+        """Binds state to an IVOA identifier."""
+        raise NotImplementedError
+
+
+class EncryptionManager:
+    def encrypt_state(self, state: ManifoldState, mode: str) -> EncryptedState:
+        """
+        Encrypts manifold state using cylindrical or rock-layer mode.
+        """
+        raise NotImplementedError
+
+    def decrypt_state(self, enc_state: EncryptedState) -> ManifoldState:
+        """Decrypts encrypted manifold state."""
+        raise NotImplementedError
+
+    def homomorphic_step(self, enc_state: EncryptedState, dt: float) -> EncryptedState:
+        """
+        Computes Enc(z_{t+1}) = F_hom(Enc(z_t)) using homomorphic operations.
+        """
+        raise NotImplementedError
+
+
+class TransportLayer:
+    def open_secure_channel(self, endpoint: str) -> TLSChannel:
+        """Opens a TLS 1.3 secure channel to endpoint."""
+        raise NotImplementedError
+
+    def send_encrypted_state(self, channel: TLSChannel, enc_state: EncryptedState) -> None:
+        """Sends encrypted state over secure channel."""
+        raise NotImplementedError
+
+    def receive_encrypted_state(self, channel: TLSChannel) -> EncryptedState:
+        """Receives encrypted state from secure channel."""
+        raise NotImplementedError
+
+
+# ========= 6. Simulation Orchestrator =========
+
+class SimulationRunner:
+    def __init__(
+        self,
+        manifold: WarpMetric,
+        engine: HamiltonianEngine,
+        data_ingestor: AstroDataIngestor,
+        enc_mgr: EncryptionManager,
+        twin_mgr: Optional[DigitalTwinManager] = None
+    ):
+        self.manifold = manifold
+        self.engine = engine
+        self.data_ingestor = data_ingestor
+        self.enc_mgr = enc_mgr
+        self.twin_mgr = twin_mgr
+
+    def run_step(self, state: ManifoldState, dt: float) -> ManifoldState:
+        """
+        Executes one full plaintext simulation step:
+        physics + data + stability evaluation.
+        """
+        raise NotImplementedError
+
+    def run_encrypted_step(self, enc_state: EncryptedState, dt: float) -> EncryptedState:
+        """
+        Executes one full encrypted simulation step via homomorphic operations.
+        """
+        raise NotImplementedError
+
+    def evaluate_stability(self, state: ManifoldState) -> StabilityReport:
+        """Aggregates Lyapunov, curvature, and volatility metrics."""
+        raise NotImplementedError
+
+    def export_snapshot(
+        self,
+        state: ManifoldState,
+        fmt: str,
+        path: str
+    ) -> SnapshotArtifact:
+        """Exports a snapshot artifact for analysis or publication."""
+        raise NotImplementedError
+
+
+# ========= 7. Validation Suite =========
+
+class ValidationSuite:
+    def run_math_validation(
+        self,
+        engine: HamiltonianEngine,
+        metric: WarpMetric
+    ) -> ValidationResult:
+        """Validates Hamiltonian consistency and geodesic correctness."""
+        raise NotImplementedError
+
+    def run_astro_validation(
+        self,
+        twin: DigitalTwinManager,
+        dataset: AstroDataset
+    ) -> ValidationResult:
+        """Validates astrophysical fidelity of digital twin."""
+        raise NotImplementedError
+
+    def run_engineering_validation(
+        self,
+        predictions: TwinSnapshot,
+        telemetry: Any
+    ) -> ValidationResult:
+        """Validates satellite/spacecraft prediction accuracy."""
+        raise NotImplementedError
+
+    def run_encryption_validation(
+        self,
+        enc_mgr: EncryptionManager,
+        state: ManifoldState
+    ) -> ValidationResult:
+        """Compares encrypted vs plaintext simulation outputs."""
+        raise NotImplementedError
+
+    def run_warp_metric_validation(
+        self,
+        metric: WarpMetric
+    ) -> ValidationResult:
+        """Tests warp-bubble stability and curvature behavior."""
+        raise NotImplementedError
+
+    def run_peer_validation(
+        self,
+        results: List[ValidationResult]
+    ) -> PeerReviewSummary:
+        """Aggregates validation results into a peer-review style summary."""
+        raise NotImplementedError
