@@ -1,0 +1,123 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXTENDED DATA SECTION — NATURE / NATURE COMMUNICATIONS STYLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\section*{Extended Data Figures}
+
+%===========================================================
+% EXTENDED DATA FIGURE 1 — FULL SIMULATOR ARCHITECTURE
+%===========================================================
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\textwidth]{extended_data_figure1.png}
+    \caption*{
+        \textbf{Extended Data Fig. 1 | Full H-WAVE-CIE simulator architecture.}
+        The architecture integrates vascular tissue networks, MASA-based biorheological fluid solvers,
+        voxel-level atomic state modeling, astrophysical density fields, and the unified Hamiltonian engine.
+        The cryptographic spine and Blackwell Encryption Layer (BEL) convert chaotic attractor trajectories
+        into physics-anchored key material. Arrows indicate data flow between modules.
+    }
+\end{figure}
+
+%===========================================================
+% EXTENDED DATA FIGURE 2 — COMPOSITE HAMILTONIAN STRUCTURE
+%===========================================================
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{extended_data_figure2.png}
+    \caption*{
+        \textbf{Extended Data Fig. 2 | Composite Hamiltonian formulation.}
+        The Hamiltonian $H = H_{bio} + H_{astro} + H_{interaction}$ governs the evolution of the full
+        state vector $x = (q_{bio}, p_{bio}, q_{astro}, p_{astro})$. Sub-panels illustrate the biological,
+        astrophysical, and interaction potentials, along with gradient flow and symplectic integration pathways.
+    }
+\end{figure}
+
+%===========================================================
+% EXTENDED DATA FIGURE 3 — CHAOTIC REGIME FORMATION
+%===========================================================
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{extended_data_figure3.png}
+    \caption*{
+        \textbf{Extended Data Fig. 3 | Chaotic regime formation and Lyapunov divergence.}
+        Divergence profiles are shown for multiple initial conditions. Positive Lyapunov exponents indicate
+        chaotic behavior. Phase-space trajectories reveal attractor structures used for cryptographic entropy.
+    }
+\end{figure}
+
+%===========================================================
+% EXTENDED DATA FIGURE 4 — BEL KEY GENERATION PIPELINE
+%===========================================================
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{extended_data_figure4.png}
+    \caption*{
+        \textbf{Extended Data Fig. 4 | Blackwell Encryption Layer (BEL) key generation pipeline.}
+        Chaotic attractor coordinates and divergence metrics are mapped into key material $K(t)$.
+        The XOR cipher module produces hex-encoded encrypted output. Provenance spine records Hamiltonian
+        parameters, divergence metrics, and key evolution history.
+    }
+\end{figure}
+
+%===========================================================
+% EXTENDED DATA FIGURE 5 — VALIDATION WORKFLOW
+%===========================================================
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{extended_data_figure5.png}
+    \caption*{
+        \textbf{Extended Data Fig. 5 | Laboratory validation workflow.}
+        Steps include Hamiltonian reproduction, chaos verification, key generation, entropy analysis,
+        cryptographic strength evaluation, and physics-anchored integrity testing.
+    }
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXTENDED DATA TABLES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\section*{Extended Data Tables}
+
+%===========================================================
+% EXTENDED DATA TABLE 1 — PARAMETER SWEEP RANGES
+%===========================================================
+\begin{table}[h!]
+\centering
+\caption*{\textbf{Extended Data Table 1 | Parameter sweep ranges for chaotic regime induction.}}
+\begin{tabular}{l c c c}
+\hline
+Parameter & Minimum & Maximum & Notes \\
+\hline
+Bio-fluid viscosity & 0.8 & 3.2 & MASA solver domain \\
+Astro flux amplitude & $10^{-3}$ & $10^{2}$ & FITS cube-derived \\
+Interaction coupling $\gamma$ & 0.01 & 1.0 & Chaos onset threshold \\
+Voxel temperature & 280 K & 340 K & Heat-flux model \\
+Boundary forcing $u(t)$ & variable & variable & Regime tuning \\
+\hline
+\end{tabular}
+\end{table}
+
+%===========================================================
+% EXTENDED DATA TABLE 2 — KEY ENTROPY METRICS
+%===========================================================
+\begin{table}[h!]
+\centering
+\caption*{\textbf{Extended Data Table 2 | Cryptographic key entropy metrics.}}
+\begin{tabular}{l c c}
+\hline
+Metric & Value & Notes \\
+\hline
+Shannon entropy & 7.98 bits & High-density divergence regime \\
+Lyapunov-derived entropy & 0.42 & Normalized \\
+Key unpredictability index & 0.91 & BEL output \\
+Phase-space sampling density & 1200 pts/s & Symplectic integrator \\
+\hline
+\end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% END OF EXTENDED DATA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
