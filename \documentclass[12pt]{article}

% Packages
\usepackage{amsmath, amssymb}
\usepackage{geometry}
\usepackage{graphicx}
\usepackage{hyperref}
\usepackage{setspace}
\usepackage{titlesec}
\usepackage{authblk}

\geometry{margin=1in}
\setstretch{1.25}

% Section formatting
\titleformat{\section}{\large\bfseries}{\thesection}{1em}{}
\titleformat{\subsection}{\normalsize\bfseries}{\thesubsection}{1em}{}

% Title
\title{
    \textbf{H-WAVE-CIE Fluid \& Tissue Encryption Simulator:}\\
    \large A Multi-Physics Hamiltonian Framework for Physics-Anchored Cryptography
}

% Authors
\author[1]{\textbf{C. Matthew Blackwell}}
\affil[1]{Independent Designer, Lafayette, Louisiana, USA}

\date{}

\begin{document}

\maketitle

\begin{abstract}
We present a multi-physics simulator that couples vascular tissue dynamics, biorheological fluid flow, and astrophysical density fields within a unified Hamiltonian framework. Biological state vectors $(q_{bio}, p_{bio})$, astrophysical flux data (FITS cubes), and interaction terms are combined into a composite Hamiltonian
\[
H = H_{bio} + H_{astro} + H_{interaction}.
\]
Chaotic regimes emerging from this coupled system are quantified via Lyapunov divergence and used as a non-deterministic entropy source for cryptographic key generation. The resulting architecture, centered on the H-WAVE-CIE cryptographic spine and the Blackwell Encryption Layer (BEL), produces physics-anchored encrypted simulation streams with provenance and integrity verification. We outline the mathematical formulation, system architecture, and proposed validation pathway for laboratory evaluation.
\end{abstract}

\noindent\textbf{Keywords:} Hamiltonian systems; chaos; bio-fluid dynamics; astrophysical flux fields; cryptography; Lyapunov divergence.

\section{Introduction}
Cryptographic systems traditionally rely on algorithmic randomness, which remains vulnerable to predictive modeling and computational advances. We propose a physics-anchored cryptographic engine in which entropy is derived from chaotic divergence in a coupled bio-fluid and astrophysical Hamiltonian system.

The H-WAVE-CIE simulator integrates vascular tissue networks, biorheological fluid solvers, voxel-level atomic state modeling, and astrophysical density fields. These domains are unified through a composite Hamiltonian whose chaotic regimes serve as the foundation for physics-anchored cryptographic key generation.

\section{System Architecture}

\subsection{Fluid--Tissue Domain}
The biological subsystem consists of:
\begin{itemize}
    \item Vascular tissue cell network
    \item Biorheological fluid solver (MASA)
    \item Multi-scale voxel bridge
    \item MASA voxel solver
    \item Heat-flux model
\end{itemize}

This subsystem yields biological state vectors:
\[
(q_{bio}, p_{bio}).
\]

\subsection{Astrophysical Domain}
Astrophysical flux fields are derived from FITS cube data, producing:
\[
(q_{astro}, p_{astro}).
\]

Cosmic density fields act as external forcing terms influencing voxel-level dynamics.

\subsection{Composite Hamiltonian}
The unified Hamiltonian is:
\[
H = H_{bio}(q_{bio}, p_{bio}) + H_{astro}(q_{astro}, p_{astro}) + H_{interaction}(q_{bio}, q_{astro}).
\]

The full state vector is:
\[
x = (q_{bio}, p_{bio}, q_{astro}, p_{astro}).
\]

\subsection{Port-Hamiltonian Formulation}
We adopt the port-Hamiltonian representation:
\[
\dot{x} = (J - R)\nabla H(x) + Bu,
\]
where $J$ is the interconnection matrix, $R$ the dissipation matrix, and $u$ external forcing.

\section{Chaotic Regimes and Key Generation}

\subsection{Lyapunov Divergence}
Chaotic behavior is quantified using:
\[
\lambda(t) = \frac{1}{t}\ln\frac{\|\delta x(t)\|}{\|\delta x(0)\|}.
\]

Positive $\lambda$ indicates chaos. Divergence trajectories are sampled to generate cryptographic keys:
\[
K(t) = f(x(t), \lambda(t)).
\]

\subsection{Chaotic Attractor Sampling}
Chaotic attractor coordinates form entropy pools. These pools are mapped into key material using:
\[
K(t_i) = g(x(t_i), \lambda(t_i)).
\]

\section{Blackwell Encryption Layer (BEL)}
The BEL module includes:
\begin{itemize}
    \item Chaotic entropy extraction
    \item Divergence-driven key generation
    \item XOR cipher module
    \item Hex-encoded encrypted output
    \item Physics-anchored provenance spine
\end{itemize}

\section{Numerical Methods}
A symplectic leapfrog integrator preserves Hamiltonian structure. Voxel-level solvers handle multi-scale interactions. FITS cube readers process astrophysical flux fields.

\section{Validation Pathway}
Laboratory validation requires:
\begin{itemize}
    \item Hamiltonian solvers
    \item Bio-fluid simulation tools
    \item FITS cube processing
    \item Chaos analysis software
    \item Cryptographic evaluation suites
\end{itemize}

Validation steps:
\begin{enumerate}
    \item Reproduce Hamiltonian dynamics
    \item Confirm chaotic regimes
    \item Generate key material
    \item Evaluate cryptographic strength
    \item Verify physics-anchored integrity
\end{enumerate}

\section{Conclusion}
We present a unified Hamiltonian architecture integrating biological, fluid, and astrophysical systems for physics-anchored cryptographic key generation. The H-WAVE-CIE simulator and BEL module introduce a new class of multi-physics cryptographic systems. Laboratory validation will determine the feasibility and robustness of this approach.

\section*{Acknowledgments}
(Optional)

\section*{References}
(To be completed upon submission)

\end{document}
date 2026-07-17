@@ -1,0 +1,153 @@
+\documentclass[12pt]{article}
+
+% Packages
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{authblk}
+
+\geometry{margin=1in}
+\setstretch{1.25}
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% Title
+\title{
+    \textbf{H-WAVE-CIE Fluid \& Tissue Encryption Simulator:}\\
+    \large A Multi-Physics Hamiltonian Framework for Physics-Anchored Cryptography
+}
+
+% Authors
+\author[1]{\textbf{C. Matthew Blackwell}}
+\affil[1]{Independent Designer, Lafayette, Louisiana, USA}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We present a multi-physics simulator that couples vascular tissue dynamics, biorheological fluid flow, and astrophysical density fields within a unified Hamiltonian framework. Biological state vectors $(q_{bio}, p_{bio})$, astrophysical flux data (FITS cubes), and interaction terms are combined into a composite Hamiltonian
+\[
+H = H_{bio} + H_{astro} + H_{interaction}.
+\]
+Chaotic regimes emerging from this coupled system are quantified via Lyapunov divergence and used as a non-deterministic entropy source for cryptographic key generation. The resulting architecture, centered on the H-WAVE-CIE cryptographic spine and the Blackwell Encryption Layer (BEL), produces physics-anchored encrypted simulation streams with provenance and integrity verification. We outline the mathematical formulation, system architecture, and proposed validation pathway for laboratory evaluation.
+\end{abstract}
+
+\noindent\textbf{Keywords:} Hamiltonian systems; chaos; bio-fluid dynamics; astrophysical flux fields; cryptography; Lyapunov divergence.
+
+\section{Introduction}
+Cryptographic systems traditionally rely on algorithmic randomness, which remains vulnerable to predictive modeling and computational advances. We propose a physics-anchored cryptographic engine in which entropy is derived from chaotic divergence in a coupled bio-fluid and astrophysical Hamiltonian system.
+
+The H-WAVE-CIE simulator integrates vascular tissue networks, biorheological fluid solvers, voxel-level atomic state modeling, and astrophysical density fields. These domains are unified through a composite Hamiltonian whose chaotic regimes serve as the foundation for physics-anchored cryptographic key generation.
+
+\section{System Architecture}
+
+\subsection{Fluid--Tissue Domain}
+The biological subsystem consists of:
+\begin{itemize}
+    \item Vascular tissue cell network
+    \item Biorheological fluid solver (MASA)
+    \item Multi-scale voxel bridge
+    \item MASA voxel solver
+    \item Heat-flux model
+\end{itemize}
+
+This subsystem yields biological state vectors:
+\[
+(q_{bio}, p_{bio}).
+\]
+
+\subsection{Astrophysical Domain}
+Astrophysical flux fields are derived from FITS cube data, producing:
+\[
+(q_{astro}, p_{astro}).
+\]
+
+Cosmic density fields act as external forcing terms influencing voxel-level dynamics.
+
+\subsection{Composite Hamiltonian}
+The unified Hamiltonian is:
+\[
+H = H_{bio}(q_{bio}, p_{bio}) + H_{astro}(q_{astro}, p_{astro}) + H_{interaction}(q_{bio}, q_{astro}).
+\]
+
+The full state vector is:
+\[
+x = (q_{bio}, p_{bio}, q_{astro}, p_{astro}).
+\]
+
+\subsection{Port-Hamiltonian Formulation}
+We adopt the port-Hamiltonian representation:
+\[
+\dot{x} = (J - R)\nabla H(x) + Bu,
+\]
+where $J$ is the interconnection matrix, $R$ the dissipation matrix, and $u$ external forcing.
+
+\section{Chaotic Regimes and Key Generation}
+
+\subsection{Lyapunov Divergence}
+Chaotic behavior is quantified using:
+\[
+\lambda(t) = \frac{1}{t}\ln\frac{\|\delta x(t)\|}{\|\delta x(0)\|}.
+\]
+
+Positive $\lambda$ indicates chaos. Divergence trajectories are sampled to generate cryptographic keys:
+\[
+K(t) = f(x(t), \lambda(t)).
+\]
+
+\subsection{Chaotic Attractor Sampling}
+Chaotic attractor coordinates form entropy pools. These pools are mapped into key material using:
+\[
+K(t_i) = g(x(t_i), \lambda(t_i)).
+\]
+
+\section{Blackwell Encryption Layer (BEL)}
+The BEL module includes:
+\begin{itemize}
+    \item Chaotic entropy extraction
+    \item Divergence-driven key generation
+    \item XOR cipher module
+    \item Hex-encoded encrypted output
+    \item Physics-anchored provenance spine
+\end{itemize}
+
+\section{Numerical Methods}
+A symplectic leapfrog integrator preserves Hamiltonian structure. Voxel-level solvers handle multi-scale interactions. FITS cube readers process astrophysical flux fields.
+
+\section{Validation Pathway}
+Laboratory validation requires:
+\begin{itemize}
+    \item Hamiltonian solvers
+    \item Bio-fluid simulation tools
+    \item FITS cube processing
+    \item Chaos analysis software
+    \item Cryptographic evaluation suites
+\end{itemize}
+
+Validation steps:
+\begin{enumerate}
+    \item Reproduce Hamiltonian dynamics
+    \item Confirm chaotic regimes
+    \item Generate key material
+    \item Evaluate cryptographic strength
+    \item Verify physics-anchored integrity
+\end{enumerate}
+
+\section{Conclusion}
+We present a unified Hamiltonian architecture integrating biological, fluid, and astrophysical systems for physics-anchored cryptographic key generation. The H-WAVE-CIE simulator and BEL module introduce a new class of multi-physics cryptographic systems. Laboratory validation will determine the feasibility and robustness of this approach.
+
+\section*{Acknowledgments}
+(Optional)
+
+\section*{References}
+(To be completed upon submission)
+
+\end{document}
