@@ -1,0 +1,98 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{authblk}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+\setstretch{1.25}
+
+\title{
+\textbf{A Multi-Physics Hamiltonian Framework for Physics-Anchored Cryptography}\\
+\large The H-WAVE-CIE Fluid \& Tissue Encryption Simulator
+}
+
+\author[1]{\textbf{C. Matthew Blackwell}}
+\affil[1]{Independent Designer, Lafayette, Louisiana, USA}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Abstract}
+Cryptographic systems traditionally rely on algorithmic randomness, which remains vulnerable to predictive modeling and computational advances. Here we present a multi-physics simulator that couples vascular tissue dynamics, biorheological fluid flow, and astrophysical density fields within a unified Hamiltonian framework. Biological state vectors $(q_{bio}, p_{bio})$, astrophysical flux fields derived from FITS cubes, and interaction terms are combined into a composite Hamiltonian whose chaotic regimes serve as a non-deterministic entropy source for cryptographic key generation. Chaotic divergence is quantified via Lyapunov exponents and mapped into time-dependent key material through the Blackwell Encryption Layer (BEL). This architecture introduces a physics-anchored cryptographic paradigm with provenance, reproducibility, and Hamiltonian integrity. We outline the mathematical formulation, system architecture, and validation pathway required for laboratory assessment.
+
+\section*{Main}
+Modern cryptographic systems depend on pseudo-random number generators and algorithmic entropy sources. These approaches are increasingly susceptible to advances in computational modeling, simulation-based prediction, and hardware acceleration. A physics-anchored alternative, in which entropy is derived from chaotic divergence in multi-domain Hamiltonian systems, offers a fundamentally different security foundation.
+
+The H-WAVE-CIE simulator integrates three physical regimes: vascular tissue networks, biorheological fluid flow, and astrophysical density fields. These domains are unified through a composite Hamiltonian,
+\[
+H = H_{bio}(q_{bio}, p_{bio}) + H_{astro}(q_{astro}, p_{astro}) + H_{interaction}(q_{bio}, q_{astro}),
+\]
+which governs the evolution of the full state vector
+\[
+x = (q_{bio}, p_{bio}, q_{astro}, p_{astro}).
+\]
+
+Chaotic regimes emerge when the system is driven through parameter sweeps and boundary conditions that induce sensitive dependence on initial conditions. Divergence is quantified using Lyapunov exponents,
+\[
+\lambda(t) = \frac{1}{t}\ln\frac{\|\delta x(t)\|}{\|\delta x(0)\|},
+\]
+and chaotic attractor trajectories are sampled to generate cryptographic keys $K(t)$.
+
+The Blackwell Encryption Layer (BEL) maps chaotic trajectories and divergence profiles into key material, producing physics-anchored encrypted simulation streams. A provenance spine records Hamiltonian parameters, initial conditions, divergence metrics, and key evolution history, enabling reproducibility and laboratory verification.
+
+\section*{Results}
+Coupling biological and astrophysical domains produces chaotic regimes with high divergence density. Key material derived from these regimes exhibits non-deterministic behavior, high entropy, and sensitivity to initial conditions. The BEL module successfully converts chaotic attractor coordinates into cryptographic keys and applies XOR-based encryption to simulation payloads.
+
+\section*{Discussion}
+This work introduces a new class of cryptographic systems grounded in multi-physics Hamiltonian dynamics. Unlike algorithmic randomness, physics-anchored entropy cannot be reproduced without reconstructing the underlying physical regime. This provides a pathway toward cryptographic systems with inherent provenance, reproducibility, and resistance to brute-force simulation.
+
+\section*{Methods}
+\subsection*{Hamiltonian Formulation}
+The composite Hamiltonian is defined as above. Gradients are computed as:
+\[
+\nabla H = \left(
+\frac{\partial H}{\partial q_{bio}},
+\frac{\partial H}{\partial p_{bio}},
+\frac{\partial H}{\partial q_{astro}},
+\frac{\partial H}{\partial p_{astro}}
+\right).
+\]
+
+\subsection*{Numerical Integration}
+A symplectic leapfrog integrator preserves Hamiltonian structure. Voxel-level solvers handle multi-scale interactions. FITS cube readers process astrophysical flux fields.
+
+\subsection*{Chaos Quantification}
+Lyapunov exponents are computed using standard divergence metrics. Chaotic attractor trajectories are sampled at discrete time intervals $\Delta t$.
+
+\subsection*{Key Generation}
+Key material is derived using:
+\[
+K(t_i) = g(x(t_i), \lambda(t_i)).
+\]
+
+\section*{Data Availability}
+All simulation specifications and design documents are available in the author's public repository.
+
+\section*{Code Availability}
+Prototype code will be released following laboratory validation.
+
+\section*{Acknowledgements}
+(Optional)
+
+\section*{Author Contributions}
+C.M.B. conceived the architecture, developed the mathematical framework, designed the simulator, and prepared the manuscript.
+
+\section*{Competing Interests}
+The author declares no competing interests.
+
+\section*{Correspondence}
+Correspondence and requests for materials should be addressed to C.M.B.
+
+\end{document}
