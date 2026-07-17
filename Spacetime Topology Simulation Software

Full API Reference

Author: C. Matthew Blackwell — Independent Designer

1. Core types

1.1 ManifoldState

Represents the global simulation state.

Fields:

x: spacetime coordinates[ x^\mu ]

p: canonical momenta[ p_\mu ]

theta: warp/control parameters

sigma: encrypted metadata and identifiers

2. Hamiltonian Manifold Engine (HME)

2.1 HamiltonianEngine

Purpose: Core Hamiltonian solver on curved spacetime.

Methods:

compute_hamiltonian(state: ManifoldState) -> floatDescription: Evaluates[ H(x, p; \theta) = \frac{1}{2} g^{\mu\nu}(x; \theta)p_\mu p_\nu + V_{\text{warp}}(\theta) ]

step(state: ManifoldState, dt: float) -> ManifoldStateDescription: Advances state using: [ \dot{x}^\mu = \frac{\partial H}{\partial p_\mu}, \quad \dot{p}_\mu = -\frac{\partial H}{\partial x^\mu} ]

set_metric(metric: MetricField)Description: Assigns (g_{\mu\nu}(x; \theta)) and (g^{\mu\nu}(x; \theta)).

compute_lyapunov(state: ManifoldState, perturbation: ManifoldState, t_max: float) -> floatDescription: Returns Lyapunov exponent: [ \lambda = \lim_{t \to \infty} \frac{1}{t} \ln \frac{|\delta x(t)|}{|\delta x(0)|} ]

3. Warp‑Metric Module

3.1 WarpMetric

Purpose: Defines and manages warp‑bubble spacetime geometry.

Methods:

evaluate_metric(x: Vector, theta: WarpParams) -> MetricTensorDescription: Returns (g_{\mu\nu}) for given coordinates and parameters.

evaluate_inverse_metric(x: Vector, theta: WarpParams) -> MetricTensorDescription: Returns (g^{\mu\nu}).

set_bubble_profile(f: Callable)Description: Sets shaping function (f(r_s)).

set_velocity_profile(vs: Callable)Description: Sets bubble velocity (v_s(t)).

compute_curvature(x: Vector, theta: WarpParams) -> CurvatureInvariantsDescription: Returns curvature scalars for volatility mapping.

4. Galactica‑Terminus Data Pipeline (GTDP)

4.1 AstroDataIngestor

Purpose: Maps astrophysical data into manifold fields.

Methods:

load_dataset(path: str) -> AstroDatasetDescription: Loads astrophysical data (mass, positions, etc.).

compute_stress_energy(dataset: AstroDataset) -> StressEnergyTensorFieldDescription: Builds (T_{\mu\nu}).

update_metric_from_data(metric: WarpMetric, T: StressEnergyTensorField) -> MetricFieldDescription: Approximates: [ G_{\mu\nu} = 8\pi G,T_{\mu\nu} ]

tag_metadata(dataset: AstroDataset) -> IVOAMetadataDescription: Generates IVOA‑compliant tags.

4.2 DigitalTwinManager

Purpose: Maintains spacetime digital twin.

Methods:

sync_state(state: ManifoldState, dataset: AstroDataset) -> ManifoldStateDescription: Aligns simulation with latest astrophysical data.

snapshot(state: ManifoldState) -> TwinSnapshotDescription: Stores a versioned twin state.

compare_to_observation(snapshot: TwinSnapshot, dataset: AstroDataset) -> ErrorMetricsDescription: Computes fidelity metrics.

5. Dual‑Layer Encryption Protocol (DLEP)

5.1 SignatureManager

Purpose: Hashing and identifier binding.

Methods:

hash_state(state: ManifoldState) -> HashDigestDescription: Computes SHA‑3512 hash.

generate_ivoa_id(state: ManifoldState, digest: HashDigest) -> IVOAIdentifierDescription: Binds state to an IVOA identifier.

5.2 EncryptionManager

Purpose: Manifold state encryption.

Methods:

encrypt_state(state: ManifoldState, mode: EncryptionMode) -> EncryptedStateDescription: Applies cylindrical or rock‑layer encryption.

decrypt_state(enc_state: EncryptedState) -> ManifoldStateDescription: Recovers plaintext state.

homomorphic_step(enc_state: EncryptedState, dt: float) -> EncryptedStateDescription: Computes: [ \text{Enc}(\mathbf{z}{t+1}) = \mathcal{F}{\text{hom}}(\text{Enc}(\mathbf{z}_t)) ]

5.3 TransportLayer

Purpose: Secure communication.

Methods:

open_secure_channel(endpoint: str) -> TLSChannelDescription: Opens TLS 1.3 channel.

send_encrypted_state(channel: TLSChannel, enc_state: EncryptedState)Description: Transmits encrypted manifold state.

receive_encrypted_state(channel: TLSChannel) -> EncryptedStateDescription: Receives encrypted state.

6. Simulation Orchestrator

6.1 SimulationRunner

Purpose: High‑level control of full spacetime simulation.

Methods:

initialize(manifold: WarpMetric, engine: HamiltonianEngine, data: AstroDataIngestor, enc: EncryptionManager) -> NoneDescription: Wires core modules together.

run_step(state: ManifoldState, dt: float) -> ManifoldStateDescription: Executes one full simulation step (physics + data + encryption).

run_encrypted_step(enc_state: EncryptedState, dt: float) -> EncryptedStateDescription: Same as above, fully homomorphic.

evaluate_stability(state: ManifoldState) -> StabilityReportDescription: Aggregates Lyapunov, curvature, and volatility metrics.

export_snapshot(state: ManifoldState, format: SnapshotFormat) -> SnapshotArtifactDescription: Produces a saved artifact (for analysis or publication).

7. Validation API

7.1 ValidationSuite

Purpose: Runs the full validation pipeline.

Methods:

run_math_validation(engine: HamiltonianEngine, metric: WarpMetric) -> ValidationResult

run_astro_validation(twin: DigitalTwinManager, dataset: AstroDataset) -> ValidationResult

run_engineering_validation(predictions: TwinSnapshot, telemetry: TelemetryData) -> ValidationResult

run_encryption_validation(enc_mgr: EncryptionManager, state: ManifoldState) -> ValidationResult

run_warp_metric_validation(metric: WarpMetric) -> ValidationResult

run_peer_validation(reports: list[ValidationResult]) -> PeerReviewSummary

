@@ -1,0 +1,158 @@
+Spacetime Topology Simulation Software
+
+Full API Reference
+
+Author: C. Matthew Blackwell — Independent Designer
+
+1. Core types
+
+1.1 ManifoldState
+
+Represents the global simulation state.
+
+Fields:
+
+x: spacetime coordinates[ x^\mu ]
+
+p: canonical momenta[ p_\mu ]
+
+theta: warp/control parameters
+
+sigma: encrypted metadata and identifiers
+
+2. Hamiltonian Manifold Engine (HME)
+
+2.1 HamiltonianEngine
+
+Purpose: Core Hamiltonian solver on curved spacetime.
+
+Methods:
+
+compute_hamiltonian(state: ManifoldState) -> floatDescription: Evaluates[ H(x, p; \theta) = \frac{1}{2} g^{\mu\nu}(x; \theta)p_\mu p_\nu + V_{\text{warp}}(\theta) ]
+
+step(state: ManifoldState, dt: float) -> ManifoldStateDescription: Advances state using: [ \dot{x}^\mu = \frac{\partial H}{\partial p_\mu}, \quad \dot{p}_\mu = -\frac{\partial H}{\partial x^\mu} ]
+
+set_metric(metric: MetricField)Description: Assigns (g_{\mu\nu}(x; \theta)) and (g^{\mu\nu}(x; \theta)).
+
+compute_lyapunov(state: ManifoldState, perturbation: ManifoldState, t_max: float) -> floatDescription: Returns Lyapunov exponent: [ \lambda = \lim_{t \to \infty} \frac{1}{t} \ln \frac{|\delta x(t)|}{|\delta x(0)|} ]
+
+3. Warp‑Metric Module
+
+3.1 WarpMetric
+
+Purpose: Defines and manages warp‑bubble spacetime geometry.
+
+Methods:
+
+evaluate_metric(x: Vector, theta: WarpParams) -> MetricTensorDescription: Returns (g_{\mu\nu}) for given coordinates and parameters.
+
+evaluate_inverse_metric(x: Vector, theta: WarpParams) -> MetricTensorDescription: Returns (g^{\mu\nu}).
+
+set_bubble_profile(f: Callable)Description: Sets shaping function (f(r_s)).
+
+set_velocity_profile(vs: Callable)Description: Sets bubble velocity (v_s(t)).
+
+compute_curvature(x: Vector, theta: WarpParams) -> CurvatureInvariantsDescription: Returns curvature scalars for volatility mapping.
+
+4. Galactica‑Terminus Data Pipeline (GTDP)
+
+4.1 AstroDataIngestor
+
+Purpose: Maps astrophysical data into manifold fields.
+
+Methods:
+
+load_dataset(path: str) -> AstroDatasetDescription: Loads astrophysical data (mass, positions, etc.).
+
+compute_stress_energy(dataset: AstroDataset) -> StressEnergyTensorFieldDescription: Builds (T_{\mu\nu}).
+
+update_metric_from_data(metric: WarpMetric, T: StressEnergyTensorField) -> MetricFieldDescription: Approximates: [ G_{\mu\nu} = 8\pi G,T_{\mu\nu} ]
+
+tag_metadata(dataset: AstroDataset) -> IVOAMetadataDescription: Generates IVOA‑compliant tags.
+
+4.2 DigitalTwinManager
+
+Purpose: Maintains spacetime digital twin.
+
+Methods:
+
+sync_state(state: ManifoldState, dataset: AstroDataset) -> ManifoldStateDescription: Aligns simulation with latest astrophysical data.
+
+snapshot(state: ManifoldState) -> TwinSnapshotDescription: Stores a versioned twin state.
+
+compare_to_observation(snapshot: TwinSnapshot, dataset: AstroDataset) -> ErrorMetricsDescription: Computes fidelity metrics.
+
+5. Dual‑Layer Encryption Protocol (DLEP)
+
+5.1 SignatureManager
+
+Purpose: Hashing and identifier binding.
+
+Methods:
+
+hash_state(state: ManifoldState) -> HashDigestDescription: Computes SHA‑3512 hash.
+
+generate_ivoa_id(state: ManifoldState, digest: HashDigest) -> IVOAIdentifierDescription: Binds state to an IVOA identifier.
+
+5.2 EncryptionManager
+
+Purpose: Manifold state encryption.
+
+Methods:
+
+encrypt_state(state: ManifoldState, mode: EncryptionMode) -> EncryptedStateDescription: Applies cylindrical or rock‑layer encryption.
+
+decrypt_state(enc_state: EncryptedState) -> ManifoldStateDescription: Recovers plaintext state.
+
+homomorphic_step(enc_state: EncryptedState, dt: float) -> EncryptedStateDescription: Computes: [ \text{Enc}(\mathbf{z}{t+1}) = \mathcal{F}{\text{hom}}(\text{Enc}(\mathbf{z}_t)) ]
+
+5.3 TransportLayer
+
+Purpose: Secure communication.
+
+Methods:
+
+open_secure_channel(endpoint: str) -> TLSChannelDescription: Opens TLS 1.3 channel.
+
+send_encrypted_state(channel: TLSChannel, enc_state: EncryptedState)Description: Transmits encrypted manifold state.
+
+receive_encrypted_state(channel: TLSChannel) -> EncryptedStateDescription: Receives encrypted state.
+
+6. Simulation Orchestrator
+
+6.1 SimulationRunner
+
+Purpose: High‑level control of full spacetime simulation.
+
+Methods:
+
+initialize(manifold: WarpMetric, engine: HamiltonianEngine, data: AstroDataIngestor, enc: EncryptionManager) -> NoneDescription: Wires core modules together.
+
+run_step(state: ManifoldState, dt: float) -> ManifoldStateDescription: Executes one full simulation step (physics + data + encryption).
+
+run_encrypted_step(enc_state: EncryptedState, dt: float) -> EncryptedStateDescription: Same as above, fully homomorphic.
+
+evaluate_stability(state: ManifoldState) -> StabilityReportDescription: Aggregates Lyapunov, curvature, and volatility metrics.
+
+export_snapshot(state: ManifoldState, format: SnapshotFormat) -> SnapshotArtifactDescription: Produces a saved artifact (for analysis or publication).
+
+7. Validation API
+
+7.1 ValidationSuite
+
+Purpose: Runs the full validation pipeline.
+
+Methods:
+
+run_math_validation(engine: HamiltonianEngine, metric: WarpMetric) -> ValidationResult
+
+run_astro_validation(twin: DigitalTwinManager, dataset: AstroDataset) -> ValidationResult
+
+run_engineering_validation(predictions: TwinSnapshot, telemetry: TelemetryData) -> ValidationResult
+
+run_encryption_validation(enc_mgr: EncryptionManager, state: ManifoldState) -> ValidationResult
+
+run_warp_metric_validation(metric: WarpMetric) -> ValidationResult
+
+run_peer_validation(reports: list[ValidationResult]) -> PeerReviewSummary
+
