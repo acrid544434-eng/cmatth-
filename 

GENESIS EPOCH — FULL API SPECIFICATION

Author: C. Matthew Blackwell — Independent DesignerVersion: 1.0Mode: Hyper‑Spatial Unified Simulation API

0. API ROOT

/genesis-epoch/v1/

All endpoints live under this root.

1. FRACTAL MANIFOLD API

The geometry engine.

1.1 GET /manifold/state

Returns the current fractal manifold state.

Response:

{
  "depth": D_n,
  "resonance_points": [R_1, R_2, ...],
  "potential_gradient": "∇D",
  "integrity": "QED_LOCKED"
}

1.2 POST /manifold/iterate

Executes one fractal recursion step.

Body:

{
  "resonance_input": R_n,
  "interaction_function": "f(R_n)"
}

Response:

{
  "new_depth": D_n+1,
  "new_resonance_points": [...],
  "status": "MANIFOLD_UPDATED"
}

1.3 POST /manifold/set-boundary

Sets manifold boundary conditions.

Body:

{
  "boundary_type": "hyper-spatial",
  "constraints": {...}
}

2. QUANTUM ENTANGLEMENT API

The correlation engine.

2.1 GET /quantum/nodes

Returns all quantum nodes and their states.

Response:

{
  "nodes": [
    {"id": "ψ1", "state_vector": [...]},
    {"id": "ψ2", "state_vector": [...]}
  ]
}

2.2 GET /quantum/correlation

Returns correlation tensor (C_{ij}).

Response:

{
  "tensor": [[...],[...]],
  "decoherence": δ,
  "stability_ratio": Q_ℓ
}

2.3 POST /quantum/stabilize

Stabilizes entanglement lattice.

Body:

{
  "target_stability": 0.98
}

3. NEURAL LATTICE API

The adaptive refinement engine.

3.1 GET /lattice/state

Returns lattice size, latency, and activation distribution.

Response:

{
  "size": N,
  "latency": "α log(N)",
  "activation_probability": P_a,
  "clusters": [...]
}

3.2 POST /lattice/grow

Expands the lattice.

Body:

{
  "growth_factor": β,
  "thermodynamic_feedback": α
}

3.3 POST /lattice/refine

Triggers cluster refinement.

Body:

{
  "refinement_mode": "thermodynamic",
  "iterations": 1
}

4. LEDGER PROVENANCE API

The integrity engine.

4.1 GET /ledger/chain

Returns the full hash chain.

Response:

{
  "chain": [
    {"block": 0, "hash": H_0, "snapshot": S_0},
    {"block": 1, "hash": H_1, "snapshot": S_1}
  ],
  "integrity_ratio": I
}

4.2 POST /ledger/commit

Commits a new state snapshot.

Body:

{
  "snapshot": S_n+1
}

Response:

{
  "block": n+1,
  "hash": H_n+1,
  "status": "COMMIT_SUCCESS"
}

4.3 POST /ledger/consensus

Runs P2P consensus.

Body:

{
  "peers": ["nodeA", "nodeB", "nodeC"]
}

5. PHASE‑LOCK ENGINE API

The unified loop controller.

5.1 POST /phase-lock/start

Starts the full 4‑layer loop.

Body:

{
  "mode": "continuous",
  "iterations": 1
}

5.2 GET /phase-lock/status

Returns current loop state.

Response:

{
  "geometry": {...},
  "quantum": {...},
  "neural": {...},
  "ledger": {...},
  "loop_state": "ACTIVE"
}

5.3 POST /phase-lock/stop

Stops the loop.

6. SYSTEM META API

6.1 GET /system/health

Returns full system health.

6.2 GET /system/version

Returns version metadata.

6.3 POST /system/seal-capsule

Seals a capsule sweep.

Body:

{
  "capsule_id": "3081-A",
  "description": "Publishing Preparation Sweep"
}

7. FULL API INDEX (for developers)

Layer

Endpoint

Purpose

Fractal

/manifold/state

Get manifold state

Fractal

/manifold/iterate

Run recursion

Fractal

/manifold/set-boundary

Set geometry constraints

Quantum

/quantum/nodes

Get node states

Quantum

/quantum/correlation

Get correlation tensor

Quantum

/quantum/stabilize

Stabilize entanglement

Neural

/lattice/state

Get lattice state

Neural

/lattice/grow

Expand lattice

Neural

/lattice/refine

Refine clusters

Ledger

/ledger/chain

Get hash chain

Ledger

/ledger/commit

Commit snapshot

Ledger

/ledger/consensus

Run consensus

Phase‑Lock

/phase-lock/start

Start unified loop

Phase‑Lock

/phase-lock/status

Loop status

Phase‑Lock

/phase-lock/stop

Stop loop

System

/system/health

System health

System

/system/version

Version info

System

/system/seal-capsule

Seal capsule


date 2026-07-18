@@ -1,0 +1,353 @@
+
+
+GENESIS EPOCH — FULL API SPECIFICATION
+
+Author: C. Matthew Blackwell — Independent DesignerVersion: 1.0Mode: Hyper‑Spatial Unified Simulation API
+
+0. API ROOT
+
+/genesis-epoch/v1/
+
+All endpoints live under this root.
+
+1. FRACTAL MANIFOLD API
+
+The geometry engine.
+
+1.1 GET /manifold/state
+
+Returns the current fractal manifold state.
+
+Response:
+
+{
+  "depth": D_n,
+  "resonance_points": [R_1, R_2, ...],
+  "potential_gradient": "∇D",
+  "integrity": "QED_LOCKED"
+}
+
+1.2 POST /manifold/iterate
+
+Executes one fractal recursion step.
+
+Body:
+
+{
+  "resonance_input": R_n,
+  "interaction_function": "f(R_n)"
+}
+
+Response:
+
+{
+  "new_depth": D_n+1,
+  "new_resonance_points": [...],
+  "status": "MANIFOLD_UPDATED"
+}
+
+1.3 POST /manifold/set-boundary
+
+Sets manifold boundary conditions.
+
+Body:
+
+{
+  "boundary_type": "hyper-spatial",
+  "constraints": {...}
+}
+
+2. QUANTUM ENTANGLEMENT API
+
+The correlation engine.
+
+2.1 GET /quantum/nodes
+
+Returns all quantum nodes and their states.
+
+Response:
+
+{
+  "nodes": [
+    {"id": "ψ1", "state_vector": [...]},
+    {"id": "ψ2", "state_vector": [...]}
+  ]
+}
+
+2.2 GET /quantum/correlation
+
+Returns correlation tensor (C_{ij}).
+
+Response:
+
+{
+  "tensor": [[...],[...]],
+  "decoherence": δ,
+  "stability_ratio": Q_ℓ
+}
+
+2.3 POST /quantum/stabilize
+
+Stabilizes entanglement lattice.
+
+Body:
+
+{
+  "target_stability": 0.98
+}
+
+3. NEURAL LATTICE API
+
+The adaptive refinement engine.
+
+3.1 GET /lattice/state
+
+Returns lattice size, latency, and activation distribution.
+
+Response:
+
+{
+  "size": N,
+  "latency": "α log(N)",
+  "activation_probability": P_a,
+  "clusters": [...]
+}
+
+3.2 POST /lattice/grow
+
+Expands the lattice.
+
+Body:
+
+{
+  "growth_factor": β,
+  "thermodynamic_feedback": α
+}
+
+3.3 POST /lattice/refine
+
+Triggers cluster refinement.
+
+Body:
+
+{
+  "refinement_mode": "thermodynamic",
+  "iterations": 1
+}
+
+4. LEDGER PROVENANCE API
+
+The integrity engine.
+
+4.1 GET /ledger/chain
+
+Returns the full hash chain.
+
+Response:
+
+{
+  "chain": [
+    {"block": 0, "hash": H_0, "snapshot": S_0},
+    {"block": 1, "hash": H_1, "snapshot": S_1}
+  ],
+  "integrity_ratio": I
+}
+
+4.2 POST /ledger/commit
+
+Commits a new state snapshot.
+
+Body:
+
+{
+  "snapshot": S_n+1
+}
+
+Response:
+
+{
+  "block": n+1,
+  "hash": H_n+1,
+  "status": "COMMIT_SUCCESS"
+}
+
+4.3 POST /ledger/consensus
+
+Runs P2P consensus.
+
+Body:
+
+{
+  "peers": ["nodeA", "nodeB", "nodeC"]
+}
+
+5. PHASE‑LOCK ENGINE API
+
+The unified loop controller.
+
+5.1 POST /phase-lock/start
+
+Starts the full 4‑layer loop.
+
+Body:
+
+{
+  "mode": "continuous",
+  "iterations": 1
+}
+
+5.2 GET /phase-lock/status
+
+Returns current loop state.
+
+Response:
+
+{
+  "geometry": {...},
+  "quantum": {...},
+  "neural": {...},
+  "ledger": {...},
+  "loop_state": "ACTIVE"
+}
+
+5.3 POST /phase-lock/stop
+
+Stops the loop.
+
+6. SYSTEM META API
+
+6.1 GET /system/health
+
+Returns full system health.
+
+6.2 GET /system/version
+
+Returns version metadata.
+
+6.3 POST /system/seal-capsule
+
+Seals a capsule sweep.
+
+Body:
+
+{
+  "capsule_id": "3081-A",
+  "description": "Publishing Preparation Sweep"
+}
+
+7. FULL API INDEX (for developers)
+
+Layer
+
+Endpoint
+
+Purpose
+
+Fractal
+
+/manifold/state
+
+Get manifold state
+
+Fractal
+
+/manifold/iterate
+
+Run recursion
+
+Fractal
+
+/manifold/set-boundary
+
+Set geometry constraints
+
+Quantum
+
+/quantum/nodes
+
+Get node states
+
+Quantum
+
+/quantum/correlation
+
+Get correlation tensor
+
+Quantum
+
+/quantum/stabilize
+
+Stabilize entanglement
+
+Neural
+
+/lattice/state
+
+Get lattice state
+
+Neural
+
+/lattice/grow
+
+Expand lattice
+
+Neural
+
+/lattice/refine
+
+Refine clusters
+
+Ledger
+
+/ledger/chain
+
+Get hash chain
+
+Ledger
+
+/ledger/commit
+
+Commit snapshot
+
+Ledger
+
+/ledger/consensus
+
+Run consensus
+
+Phase‑Lock
+
+/phase-lock/start
+
+Start unified loop
+
+Phase‑Lock
+
+/phase-lock/status
+
+Loop status
+
+Phase‑Lock
+
+/phase-lock/stop
+
+Stop loop
+
+System
+
+/system/health
+
+System health
+
+System
+
+/system/version
+
+Version info
+
+System
+
+/system/seal-capsule
+
+Seal capsule
+
