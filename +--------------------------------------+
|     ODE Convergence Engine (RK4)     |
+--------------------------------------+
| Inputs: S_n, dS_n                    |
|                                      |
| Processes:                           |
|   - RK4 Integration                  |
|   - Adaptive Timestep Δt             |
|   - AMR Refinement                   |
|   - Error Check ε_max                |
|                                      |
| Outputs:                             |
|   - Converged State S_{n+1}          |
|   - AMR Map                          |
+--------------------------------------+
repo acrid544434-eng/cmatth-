@@ -1,0 +1,15 @@
++--------------------------------------+
+|     ODE Convergence Engine (RK4)     |
++--------------------------------------+
+| Inputs: S_n, dS_n                    |
+|                                      |
+| Processes:                           |
+|   - RK4 Integration                  |
+|   - Adaptive Timestep Δt             |
+|   - AMR Refinement                   |
+|   - Error Check ε_max                |
+|                                      |
+| Outputs:                             |
+|   - Converged State S_{n+1}          |
+|   - AMR Map                          |
++--------------------------------------+
