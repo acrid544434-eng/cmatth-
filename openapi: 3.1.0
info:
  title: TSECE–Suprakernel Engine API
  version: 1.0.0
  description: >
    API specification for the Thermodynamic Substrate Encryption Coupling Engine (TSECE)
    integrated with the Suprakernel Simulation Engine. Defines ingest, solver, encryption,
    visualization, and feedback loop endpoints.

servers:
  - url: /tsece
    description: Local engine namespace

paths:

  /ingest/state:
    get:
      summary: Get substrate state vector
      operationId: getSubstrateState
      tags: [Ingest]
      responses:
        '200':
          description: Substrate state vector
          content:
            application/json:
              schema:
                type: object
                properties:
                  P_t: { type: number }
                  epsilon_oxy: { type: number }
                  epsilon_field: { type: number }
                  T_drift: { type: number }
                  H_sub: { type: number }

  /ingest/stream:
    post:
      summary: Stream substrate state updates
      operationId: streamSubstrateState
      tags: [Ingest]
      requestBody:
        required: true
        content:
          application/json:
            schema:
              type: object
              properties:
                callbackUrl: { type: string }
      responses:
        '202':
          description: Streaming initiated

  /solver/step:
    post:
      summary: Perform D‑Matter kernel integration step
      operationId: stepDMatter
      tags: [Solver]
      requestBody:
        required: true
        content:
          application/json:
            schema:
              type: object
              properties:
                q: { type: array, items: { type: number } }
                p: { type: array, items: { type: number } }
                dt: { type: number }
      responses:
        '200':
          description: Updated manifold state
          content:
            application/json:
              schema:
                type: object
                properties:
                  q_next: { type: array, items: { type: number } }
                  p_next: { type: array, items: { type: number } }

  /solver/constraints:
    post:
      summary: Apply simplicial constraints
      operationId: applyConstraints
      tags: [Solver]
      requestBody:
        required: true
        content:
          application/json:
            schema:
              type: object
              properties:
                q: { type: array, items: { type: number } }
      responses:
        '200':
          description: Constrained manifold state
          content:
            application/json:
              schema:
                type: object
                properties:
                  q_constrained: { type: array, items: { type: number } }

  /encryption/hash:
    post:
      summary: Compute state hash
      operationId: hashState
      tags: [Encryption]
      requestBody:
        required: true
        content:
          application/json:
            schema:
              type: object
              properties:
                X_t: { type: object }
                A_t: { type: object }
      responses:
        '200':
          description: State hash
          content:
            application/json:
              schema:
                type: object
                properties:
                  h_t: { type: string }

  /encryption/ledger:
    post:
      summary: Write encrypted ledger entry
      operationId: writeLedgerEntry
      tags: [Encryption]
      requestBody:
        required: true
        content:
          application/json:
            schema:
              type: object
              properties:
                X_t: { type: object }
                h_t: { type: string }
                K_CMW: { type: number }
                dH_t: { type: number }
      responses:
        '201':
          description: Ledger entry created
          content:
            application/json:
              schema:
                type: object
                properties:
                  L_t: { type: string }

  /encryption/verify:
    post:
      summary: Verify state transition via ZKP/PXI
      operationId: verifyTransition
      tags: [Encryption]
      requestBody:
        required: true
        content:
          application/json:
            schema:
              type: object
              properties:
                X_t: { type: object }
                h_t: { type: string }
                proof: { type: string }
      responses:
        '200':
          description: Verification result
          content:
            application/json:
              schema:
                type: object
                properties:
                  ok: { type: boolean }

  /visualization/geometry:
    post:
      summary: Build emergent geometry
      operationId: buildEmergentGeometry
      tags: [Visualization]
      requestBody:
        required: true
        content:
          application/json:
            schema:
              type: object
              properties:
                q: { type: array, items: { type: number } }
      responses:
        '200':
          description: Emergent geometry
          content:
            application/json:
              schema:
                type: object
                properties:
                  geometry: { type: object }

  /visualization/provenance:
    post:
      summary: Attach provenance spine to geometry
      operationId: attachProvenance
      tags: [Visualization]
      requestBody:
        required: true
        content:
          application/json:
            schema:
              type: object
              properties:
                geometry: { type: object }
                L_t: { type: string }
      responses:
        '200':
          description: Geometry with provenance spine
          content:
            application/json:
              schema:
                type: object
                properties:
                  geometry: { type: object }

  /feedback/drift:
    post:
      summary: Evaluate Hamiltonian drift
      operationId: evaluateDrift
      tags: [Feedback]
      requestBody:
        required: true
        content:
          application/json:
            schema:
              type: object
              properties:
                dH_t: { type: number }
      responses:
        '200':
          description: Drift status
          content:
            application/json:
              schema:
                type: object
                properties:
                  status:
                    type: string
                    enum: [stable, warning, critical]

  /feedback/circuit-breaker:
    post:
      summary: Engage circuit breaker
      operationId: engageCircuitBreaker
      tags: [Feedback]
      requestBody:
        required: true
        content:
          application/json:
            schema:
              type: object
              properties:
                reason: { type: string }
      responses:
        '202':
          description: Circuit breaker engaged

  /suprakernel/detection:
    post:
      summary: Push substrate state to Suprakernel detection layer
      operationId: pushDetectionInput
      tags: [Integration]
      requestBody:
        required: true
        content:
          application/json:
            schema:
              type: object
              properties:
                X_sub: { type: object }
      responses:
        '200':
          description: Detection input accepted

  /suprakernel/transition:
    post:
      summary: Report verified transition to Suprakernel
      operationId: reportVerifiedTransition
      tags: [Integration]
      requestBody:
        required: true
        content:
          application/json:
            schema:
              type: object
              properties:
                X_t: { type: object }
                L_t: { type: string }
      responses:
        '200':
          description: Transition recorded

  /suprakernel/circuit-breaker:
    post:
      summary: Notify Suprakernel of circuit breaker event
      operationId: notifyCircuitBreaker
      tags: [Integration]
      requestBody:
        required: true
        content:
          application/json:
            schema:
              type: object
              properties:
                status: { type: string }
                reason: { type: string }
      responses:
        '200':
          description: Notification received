@@ -1,0 +1,316 @@
+openapi: 3.1.0
+info:
+  title: TSECE–Suprakernel Engine API
+  version: 1.0.0
+  description: >
+    API specification for the Thermodynamic Substrate Encryption Coupling Engine (TSECE)
+    integrated with the Suprakernel Simulation Engine. Defines ingest, solver, encryption,
+    visualization, and feedback loop endpoints.
+
+servers:
+  - url: /tsece
+    description: Local engine namespace
+
+paths:
+
+  /ingest/state:
+    get:
+      summary: Get substrate state vector
+      operationId: getSubstrateState
+      tags: [Ingest]
+      responses:
+        '200':
+          description: Substrate state vector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  P_t: { type: number }
+                  epsilon_oxy: { type: number }
+                  epsilon_field: { type: number }
+                  T_drift: { type: number }
+                  H_sub: { type: number }
+
+  /ingest/stream:
+    post:
+      summary: Stream substrate state updates
+      operationId: streamSubstrateState
+      tags: [Ingest]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                callbackUrl: { type: string }
+      responses:
+        '202':
+          description: Streaming initiated
+
+  /solver/step:
+    post:
+      summary: Perform D‑Matter kernel integration step
+      operationId: stepDMatter
+      tags: [Solver]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                q: { type: array, items: { type: number } }
+                p: { type: array, items: { type: number } }
+                dt: { type: number }
+      responses:
+        '200':
+          description: Updated manifold state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  q_next: { type: array, items: { type: number } }
+                  p_next: { type: array, items: { type: number } }
+
+  /solver/constraints:
+    post:
+      summary: Apply simplicial constraints
+      operationId: applyConstraints
+      tags: [Solver]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                q: { type: array, items: { type: number } }
+      responses:
+        '200':
+          description: Constrained manifold state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  q_constrained: { type: array, items: { type: number } }
+
+  /encryption/hash:
+    post:
+      summary: Compute state hash
+      operationId: hashState
+      tags: [Encryption]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                X_t: { type: object }
+                A_t: { type: object }
+      responses:
+        '200':
+          description: State hash
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  h_t: { type: string }
+
+  /encryption/ledger:
+    post:
+      summary: Write encrypted ledger entry
+      operationId: writeLedgerEntry
+      tags: [Encryption]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                X_t: { type: object }
+                h_t: { type: string }
+                K_CMW: { type: number }
+                dH_t: { type: number }
+      responses:
+        '201':
+          description: Ledger entry created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  L_t: { type: string }
+
+  /encryption/verify:
+    post:
+      summary: Verify state transition via ZKP/PXI
+      operationId: verifyTransition
+      tags: [Encryption]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                X_t: { type: object }
+                h_t: { type: string }
+                proof: { type: string }
+      responses:
+        '200':
+          description: Verification result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+
+  /visualization/geometry:
+    post:
+      summary: Build emergent geometry
+      operationId: buildEmergentGeometry
+      tags: [Visualization]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                q: { type: array, items: { type: number } }
+      responses:
+        '200':
+          description: Emergent geometry
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  geometry: { type: object }
+
+  /visualization/provenance:
+    post:
+      summary: Attach provenance spine to geometry
+      operationId: attachProvenance
+      tags: [Visualization]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                geometry: { type: object }
+                L_t: { type: string }
+      responses:
+        '200':
+          description: Geometry with provenance spine
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  geometry: { type: object }
+
+  /feedback/drift:
+    post:
+      summary: Evaluate Hamiltonian drift
+      operationId: evaluateDrift
+      tags: [Feedback]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                dH_t: { type: number }
+      responses:
+        '200':
+          description: Drift status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [stable, warning, critical]
+
+  /feedback/circuit-breaker:
+    post:
+      summary: Engage circuit breaker
+      operationId: engageCircuitBreaker
+      tags: [Feedback]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason: { type: string }
+      responses:
+        '202':
+          description: Circuit breaker engaged
+
+  /suprakernel/detection:
+    post:
+      summary: Push substrate state to Suprakernel detection layer
+      operationId: pushDetectionInput
+      tags: [Integration]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                X_sub: { type: object }
+      responses:
+        '200':
+          description: Detection input accepted
+
+  /suprakernel/transition:
+    post:
+      summary: Report verified transition to Suprakernel
+      operationId: reportVerifiedTransition
+      tags: [Integration]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                X_t: { type: object }
+                L_t: { type: string }
+      responses:
+        '200':
+          description: Transition recorded
+
+  /suprakernel/circuit-breaker:
+    post:
+      summary: Notify Suprakernel of circuit breaker event
+      operationId: notifyCircuitBreaker
+      tags: [Integration]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status: { type: string }
+                reason: { type: string }
+      responses:
+        '200':
+          description: Notification received
