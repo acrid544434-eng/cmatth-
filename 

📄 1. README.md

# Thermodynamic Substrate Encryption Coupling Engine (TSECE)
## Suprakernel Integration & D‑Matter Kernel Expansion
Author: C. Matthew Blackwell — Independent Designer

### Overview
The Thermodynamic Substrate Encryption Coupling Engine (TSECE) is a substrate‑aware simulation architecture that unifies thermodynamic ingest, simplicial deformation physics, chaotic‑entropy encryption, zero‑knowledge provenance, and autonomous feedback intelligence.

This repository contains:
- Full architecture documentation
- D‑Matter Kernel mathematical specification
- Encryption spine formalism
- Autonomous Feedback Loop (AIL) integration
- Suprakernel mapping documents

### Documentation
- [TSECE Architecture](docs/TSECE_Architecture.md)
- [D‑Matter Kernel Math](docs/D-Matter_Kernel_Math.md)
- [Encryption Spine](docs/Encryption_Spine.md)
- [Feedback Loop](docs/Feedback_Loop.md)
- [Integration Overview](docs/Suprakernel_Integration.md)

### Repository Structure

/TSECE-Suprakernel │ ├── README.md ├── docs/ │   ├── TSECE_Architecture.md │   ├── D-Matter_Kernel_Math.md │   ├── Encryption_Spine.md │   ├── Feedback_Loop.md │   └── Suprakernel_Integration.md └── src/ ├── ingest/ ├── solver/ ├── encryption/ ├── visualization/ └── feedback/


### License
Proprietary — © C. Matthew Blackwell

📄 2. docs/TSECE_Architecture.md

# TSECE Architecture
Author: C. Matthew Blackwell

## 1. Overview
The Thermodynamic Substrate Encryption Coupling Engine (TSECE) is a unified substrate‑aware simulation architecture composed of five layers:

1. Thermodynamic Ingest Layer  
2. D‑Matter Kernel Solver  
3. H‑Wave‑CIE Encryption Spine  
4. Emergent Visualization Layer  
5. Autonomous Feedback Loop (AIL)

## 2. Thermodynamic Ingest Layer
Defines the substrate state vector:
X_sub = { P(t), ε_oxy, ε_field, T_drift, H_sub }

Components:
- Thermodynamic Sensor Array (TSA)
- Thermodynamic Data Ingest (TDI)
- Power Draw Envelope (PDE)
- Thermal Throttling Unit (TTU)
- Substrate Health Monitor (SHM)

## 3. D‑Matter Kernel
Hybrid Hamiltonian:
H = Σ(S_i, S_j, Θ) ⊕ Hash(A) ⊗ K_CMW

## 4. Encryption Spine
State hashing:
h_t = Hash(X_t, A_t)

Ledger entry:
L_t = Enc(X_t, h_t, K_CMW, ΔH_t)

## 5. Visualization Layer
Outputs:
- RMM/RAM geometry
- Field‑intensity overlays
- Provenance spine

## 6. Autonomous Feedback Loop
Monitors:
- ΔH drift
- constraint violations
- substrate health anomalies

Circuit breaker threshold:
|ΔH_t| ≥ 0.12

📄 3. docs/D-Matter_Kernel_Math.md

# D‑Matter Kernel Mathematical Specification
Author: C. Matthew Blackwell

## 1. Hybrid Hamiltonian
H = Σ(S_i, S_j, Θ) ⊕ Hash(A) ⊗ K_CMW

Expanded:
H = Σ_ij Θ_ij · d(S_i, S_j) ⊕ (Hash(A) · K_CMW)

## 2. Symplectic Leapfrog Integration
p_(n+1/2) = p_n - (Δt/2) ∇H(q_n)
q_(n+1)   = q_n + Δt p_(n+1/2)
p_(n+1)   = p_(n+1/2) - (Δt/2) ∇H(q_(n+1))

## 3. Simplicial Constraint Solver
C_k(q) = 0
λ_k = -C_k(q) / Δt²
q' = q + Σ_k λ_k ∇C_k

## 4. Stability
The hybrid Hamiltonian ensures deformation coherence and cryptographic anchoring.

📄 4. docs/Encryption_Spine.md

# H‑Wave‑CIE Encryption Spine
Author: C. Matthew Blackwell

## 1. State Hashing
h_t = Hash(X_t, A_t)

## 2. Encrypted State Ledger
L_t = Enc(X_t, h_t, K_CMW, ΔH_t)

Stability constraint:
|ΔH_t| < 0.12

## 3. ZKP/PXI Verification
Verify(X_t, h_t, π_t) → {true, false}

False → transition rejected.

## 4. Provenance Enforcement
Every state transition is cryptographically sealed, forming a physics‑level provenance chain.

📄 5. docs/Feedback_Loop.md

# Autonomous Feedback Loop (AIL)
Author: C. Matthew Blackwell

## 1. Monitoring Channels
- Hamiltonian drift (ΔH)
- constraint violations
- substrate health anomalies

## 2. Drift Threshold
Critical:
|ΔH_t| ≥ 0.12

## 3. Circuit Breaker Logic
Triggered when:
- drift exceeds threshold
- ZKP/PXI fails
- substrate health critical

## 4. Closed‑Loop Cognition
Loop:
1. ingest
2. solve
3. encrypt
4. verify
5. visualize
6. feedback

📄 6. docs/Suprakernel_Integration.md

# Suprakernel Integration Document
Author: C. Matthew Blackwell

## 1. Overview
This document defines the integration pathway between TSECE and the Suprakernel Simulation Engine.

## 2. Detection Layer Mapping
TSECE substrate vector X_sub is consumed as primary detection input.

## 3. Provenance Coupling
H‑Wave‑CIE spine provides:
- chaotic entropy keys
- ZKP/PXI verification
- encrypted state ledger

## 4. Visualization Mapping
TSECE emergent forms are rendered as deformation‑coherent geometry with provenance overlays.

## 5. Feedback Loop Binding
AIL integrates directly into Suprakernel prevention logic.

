@@ -1,0 +1,182 @@
+
+
+📄 1. README.md
+
+# Thermodynamic Substrate Encryption Coupling Engine (TSECE)
+## Suprakernel Integration & D‑Matter Kernel Expansion
+Author: C. Matthew Blackwell — Independent Designer
+
+### Overview
+The Thermodynamic Substrate Encryption Coupling Engine (TSECE) is a substrate‑aware simulation architecture that unifies thermodynamic ingest, simplicial deformation physics, chaotic‑entropy encryption, zero‑knowledge provenance, and autonomous feedback intelligence.
+
+This repository contains:
+- Full architecture documentation
+- D‑Matter Kernel mathematical specification
+- Encryption spine formalism
+- Autonomous Feedback Loop (AIL) integration
+- Suprakernel mapping documents
+
+### Documentation
+- [TSECE Architecture](docs/TSECE_Architecture.md)
+- [D‑Matter Kernel Math](docs/D-Matter_Kernel_Math.md)
+- [Encryption Spine](docs/Encryption_Spine.md)
+- [Feedback Loop](docs/Feedback_Loop.md)
+- [Integration Overview](docs/Suprakernel_Integration.md)
+
+### Repository Structure
+
+/TSECE-Suprakernel │ ├── README.md ├── docs/ │   ├── TSECE_Architecture.md │   ├── D-Matter_Kernel_Math.md │   ├── Encryption_Spine.md │   ├── Feedback_Loop.md │   └── Suprakernel_Integration.md └── src/ ├── ingest/ ├── solver/ ├── encryption/ ├── visualization/ └── feedback/
+
+
+### License
+Proprietary — © C. Matthew Blackwell
+
+📄 2. docs/TSECE_Architecture.md
+
+# TSECE Architecture
+Author: C. Matthew Blackwell
+
+## 1. Overview
+The Thermodynamic Substrate Encryption Coupling Engine (TSECE) is a unified substrate‑aware simulation architecture composed of five layers:
+
+1. Thermodynamic Ingest Layer  
+2. D‑Matter Kernel Solver  
+3. H‑Wave‑CIE Encryption Spine  
+4. Emergent Visualization Layer  
+5. Autonomous Feedback Loop (AIL)
+
+## 2. Thermodynamic Ingest Layer
+Defines the substrate state vector:
+X_sub = { P(t), ε_oxy, ε_field, T_drift, H_sub }
+
+Components:
+- Thermodynamic Sensor Array (TSA)
+- Thermodynamic Data Ingest (TDI)
+- Power Draw Envelope (PDE)
+- Thermal Throttling Unit (TTU)
+- Substrate Health Monitor (SHM)
+
+## 3. D‑Matter Kernel
+Hybrid Hamiltonian:
+H = Σ(S_i, S_j, Θ) ⊕ Hash(A) ⊗ K_CMW
+
+## 4. Encryption Spine
+State hashing:
+h_t = Hash(X_t, A_t)
+
+Ledger entry:
+L_t = Enc(X_t, h_t, K_CMW, ΔH_t)
+
+## 5. Visualization Layer
+Outputs:
+- RMM/RAM geometry
+- Field‑intensity overlays
+- Provenance spine
+
+## 6. Autonomous Feedback Loop
+Monitors:
+- ΔH drift
+- constraint violations
+- substrate health anomalies
+
+Circuit breaker threshold:
+|ΔH_t| ≥ 0.12
+
+📄 3. docs/D-Matter_Kernel_Math.md
+
+# D‑Matter Kernel Mathematical Specification
+Author: C. Matthew Blackwell
+
+## 1. Hybrid Hamiltonian
+H = Σ(S_i, S_j, Θ) ⊕ Hash(A) ⊗ K_CMW
+
+Expanded:
+H = Σ_ij Θ_ij · d(S_i, S_j) ⊕ (Hash(A) · K_CMW)
+
+## 2. Symplectic Leapfrog Integration
+p_(n+1/2) = p_n - (Δt/2) ∇H(q_n)
+q_(n+1)   = q_n + Δt p_(n+1/2)
+p_(n+1)   = p_(n+1/2) - (Δt/2) ∇H(q_(n+1))
+
+## 3. Simplicial Constraint Solver
+C_k(q) = 0
+λ_k = -C_k(q) / Δt²
+q' = q + Σ_k λ_k ∇C_k
+
+## 4. Stability
+The hybrid Hamiltonian ensures deformation coherence and cryptographic anchoring.
+
+📄 4. docs/Encryption_Spine.md
+
+# H‑Wave‑CIE Encryption Spine
+Author: C. Matthew Blackwell
+
+## 1. State Hashing
+h_t = Hash(X_t, A_t)
+
+## 2. Encrypted State Ledger
+L_t = Enc(X_t, h_t, K_CMW, ΔH_t)
+
+Stability constraint:
+|ΔH_t| < 0.12
+
+## 3. ZKP/PXI Verification
+Verify(X_t, h_t, π_t) → {true, false}
+
+False → transition rejected.
+
+## 4. Provenance Enforcement
+Every state transition is cryptographically sealed, forming a physics‑level provenance chain.
+
+📄 5. docs/Feedback_Loop.md
+
+# Autonomous Feedback Loop (AIL)
+Author: C. Matthew Blackwell
+
+## 1. Monitoring Channels
+- Hamiltonian drift (ΔH)
+- constraint violations
+- substrate health anomalies
+
+## 2. Drift Threshold
+Critical:
+|ΔH_t| ≥ 0.12
+
+## 3. Circuit Breaker Logic
+Triggered when:
+- drift exceeds threshold
+- ZKP/PXI fails
+- substrate health critical
+
+## 4. Closed‑Loop Cognition
+Loop:
+1. ingest
+2. solve
+3. encrypt
+4. verify
+5. visualize
+6. feedback
+
+📄 6. docs/Suprakernel_Integration.md
+
+# Suprakernel Integration Document
+Author: C. Matthew Blackwell
+
+## 1. Overview
+This document defines the integration pathway between TSECE and the Suprakernel Simulation Engine.
+
+## 2. Detection Layer Mapping
+TSECE substrate vector X_sub is consumed as primary detection input.
+
+## 3. Provenance Coupling
+H‑Wave‑CIE spine provides:
+- chaotic entropy keys
+- ZKP/PXI verification
+- encrypted state ledger
+
+## 4. Visualization Mapping
+TSECE emergent forms are rendered as deformation‑coherent geometry with provenance overlays.
+
+## 5. Feedback Loop Binding
+AIL integrates directly into Suprakernel prevention logic.
+
