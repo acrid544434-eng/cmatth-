@@ -1,0 +1,166 @@
+TSECE–Suprakernel API Specification
+
+Author: C. Matthew BlackwellScope: Internal engine‑level API between TSECE subsystems and Suprakernel.
+
+1. Module overview
+
+Ingest API: tsece.ingest.*
+
+Solver API (D‑Matter): tsece.solver.*
+
+Encryption Spine API: tsece.encryption.*
+
+Visualization API: tsece.visualization.*
+
+Feedback Loop API: tsece.feedback.*
+
+Integration Hooks (Suprakernel): suprakernel.bridge.*
+
+2. Ingest API (tsece.ingest)
+
+2.1 get_substrate_state()
+
+Description: Returns current thermodynamic substrate state vector.
+
+Signature:
+
+X_sub = get_substrate_state()
+
+Return:
+
+X_sub = { P(t), ε_oxy, ε_field, T_drift, H_sub }
+
+2.2 stream_substrate_state(callback)
+
+Description: Streams substrate state updates to a callback.
+
+Signature:
+
+stream_substrate_state(fn: (X_sub) -> None)
+
+3. Solver API (tsece.solver)
+
+3.1 step_dmatter(q, p, dt)
+
+Description: Performs one D‑Matter kernel integration step.
+
+Signature:
+
+(q_next, p_next) = step_dmatter(q, p, dt)
+
+Inputs:
+
+q: positions (simplicial manifold)
+
+p: momenta
+
+dt: timestep
+
+Outputs:
+
+q_next, p_next
+
+3.2 apply_constraints(q)
+
+Description: Applies simplicial constraints.
+
+Signature:
+
+q_constrained = apply_constraints(q)
+
+4. Encryption Spine API (tsece.encryption)
+
+4.1 hash_state(X_t, A_t)
+
+Description: Computes state hash.
+
+Signature:
+
+h_t = hash_state(X_t, A_t)
+
+4.2 write_ledger_entry(X_t, h_t, K_CMW, dH_t)
+
+Description: Writes encrypted ledger entry.
+
+Signature:
+
+L_t = write_ledger_entry(X_t, h_t, K_CMW, dH_t)
+
+4.3 verify_transition(X_t, h_t, proof)
+
+Description: Verifies state transition via ZKP/PXI.
+
+Signature:
+
+ok = verify_transition(X_t, h_t, proof)
+
+Return:
+
+ok: boolean
+
+5. Visualization API (tsece.visualization)
+
+5.1 build_emergent_geometry(q)
+
+Description: Builds emergent geometry from manifold state.
+
+Signature:
+
+geom = build_emergent_geometry(q)
+
+5.2 attach_provenance(geom, L_t)
+
+Description: Attaches provenance spine to geometry.
+
+Signature:
+
+geom_with_spine = attach_provenance(geom, L_t)
+
+6. Feedback Loop API (tsece.feedback)
+
+6.1 evaluate_drift(dH_t)
+
+Description: Evaluates Hamiltonian drift against threshold.
+
+Signature:
+
+status = evaluate_drift(dH_t)
+
+Return:
+
+status ∈ { "stable", "warning", "critical" }
+
+6.2 engage_circuit_breaker(reason)
+
+Description: Engages circuit breaker mode.
+
+Signature:
+
+engage_circuit_breaker(reason: str)
+
+7. Suprakernel Integration Hooks (suprakernel.bridge)
+
+7.1 push_detection_input(X_sub)
+
+Description: Pushes substrate state into Suprakernel detection layer.
+
+Signature:
+
+push_detection_input(X_sub)
+
+7.2 report_verified_transition(X_t, L_t)
+
+Description: Reports a verified transition to Suprakernel.
+
+Signature:
+
+report_verified_transition(X_t, L_t)
+
+7.3 notify_circuit_breaker(status, reason)
+
+Description: Notifies Suprakernel of feedback loop circuit breaker events.
+
+Signature:
+
+notify_circuit_breaker(status, reason)
+
