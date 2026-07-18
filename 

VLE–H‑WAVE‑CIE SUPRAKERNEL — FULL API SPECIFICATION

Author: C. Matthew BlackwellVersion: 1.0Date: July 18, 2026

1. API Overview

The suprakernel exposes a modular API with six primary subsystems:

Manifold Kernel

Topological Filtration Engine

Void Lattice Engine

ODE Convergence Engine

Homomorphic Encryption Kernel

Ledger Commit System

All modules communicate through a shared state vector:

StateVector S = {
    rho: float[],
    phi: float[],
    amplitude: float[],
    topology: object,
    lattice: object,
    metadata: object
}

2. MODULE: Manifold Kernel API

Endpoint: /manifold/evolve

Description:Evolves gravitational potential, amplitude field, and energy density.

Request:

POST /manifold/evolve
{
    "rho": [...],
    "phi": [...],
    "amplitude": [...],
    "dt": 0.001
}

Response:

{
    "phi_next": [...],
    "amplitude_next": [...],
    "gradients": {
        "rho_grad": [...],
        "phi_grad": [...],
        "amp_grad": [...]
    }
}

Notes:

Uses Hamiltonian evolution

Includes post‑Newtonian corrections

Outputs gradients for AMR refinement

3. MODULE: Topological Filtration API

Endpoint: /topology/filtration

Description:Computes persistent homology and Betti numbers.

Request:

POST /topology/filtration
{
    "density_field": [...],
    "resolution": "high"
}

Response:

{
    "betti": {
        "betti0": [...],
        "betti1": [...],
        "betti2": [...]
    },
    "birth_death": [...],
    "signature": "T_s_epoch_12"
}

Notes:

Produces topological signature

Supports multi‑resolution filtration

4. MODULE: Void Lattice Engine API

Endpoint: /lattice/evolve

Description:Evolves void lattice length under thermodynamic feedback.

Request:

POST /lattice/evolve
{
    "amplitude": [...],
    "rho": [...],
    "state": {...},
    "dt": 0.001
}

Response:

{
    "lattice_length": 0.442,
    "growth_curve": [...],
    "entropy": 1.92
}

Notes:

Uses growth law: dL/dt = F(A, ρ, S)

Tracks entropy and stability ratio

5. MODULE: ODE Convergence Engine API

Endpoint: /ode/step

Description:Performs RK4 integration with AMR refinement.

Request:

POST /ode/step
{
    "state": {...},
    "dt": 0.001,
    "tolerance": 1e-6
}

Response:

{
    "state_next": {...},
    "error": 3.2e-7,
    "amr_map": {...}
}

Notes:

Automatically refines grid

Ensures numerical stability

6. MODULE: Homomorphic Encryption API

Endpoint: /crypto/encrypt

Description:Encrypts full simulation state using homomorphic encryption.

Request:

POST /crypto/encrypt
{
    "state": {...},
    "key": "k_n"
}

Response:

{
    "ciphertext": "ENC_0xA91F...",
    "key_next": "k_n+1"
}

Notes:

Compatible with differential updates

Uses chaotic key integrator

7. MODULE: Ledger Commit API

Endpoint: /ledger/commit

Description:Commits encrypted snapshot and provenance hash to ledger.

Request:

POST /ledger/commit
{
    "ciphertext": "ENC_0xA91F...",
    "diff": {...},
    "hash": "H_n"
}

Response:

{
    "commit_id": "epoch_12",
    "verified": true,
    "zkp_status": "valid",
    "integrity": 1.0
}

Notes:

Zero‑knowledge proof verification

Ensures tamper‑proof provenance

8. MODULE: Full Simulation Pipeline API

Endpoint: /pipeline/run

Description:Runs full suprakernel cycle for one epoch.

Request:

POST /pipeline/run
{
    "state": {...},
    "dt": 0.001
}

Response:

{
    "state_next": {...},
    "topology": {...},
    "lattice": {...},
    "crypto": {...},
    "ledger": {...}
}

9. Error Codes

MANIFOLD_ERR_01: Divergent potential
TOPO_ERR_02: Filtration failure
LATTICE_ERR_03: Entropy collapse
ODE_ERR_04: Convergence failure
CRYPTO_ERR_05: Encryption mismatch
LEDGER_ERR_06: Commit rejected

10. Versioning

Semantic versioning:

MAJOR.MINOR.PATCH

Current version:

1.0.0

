@@ -1,0 +1,260 @@
+
+
+VLE–H‑WAVE‑CIE SUPRAKERNEL — FULL API SPECIFICATION
+
+Author: C. Matthew BlackwellVersion: 1.0Date: July 18, 2026
+
+1. API Overview
+
+The suprakernel exposes a modular API with six primary subsystems:
+
+Manifold Kernel
+
+Topological Filtration Engine
+
+Void Lattice Engine
+
+ODE Convergence Engine
+
+Homomorphic Encryption Kernel
+
+Ledger Commit System
+
+All modules communicate through a shared state vector:
+
+StateVector S = {
+    rho: float[],
+    phi: float[],
+    amplitude: float[],
+    topology: object,
+    lattice: object,
+    metadata: object
+}
+
+2. MODULE: Manifold Kernel API
+
+Endpoint: /manifold/evolve
+
+Description:Evolves gravitational potential, amplitude field, and energy density.
+
+Request:
+
+POST /manifold/evolve
+{
+    "rho": [...],
+    "phi": [...],
+    "amplitude": [...],
+    "dt": 0.001
+}
+
+Response:
+
+{
+    "phi_next": [...],
+    "amplitude_next": [...],
+    "gradients": {
+        "rho_grad": [...],
+        "phi_grad": [...],
+        "amp_grad": [...]
+    }
+}
+
+Notes:
+
+Uses Hamiltonian evolution
+
+Includes post‑Newtonian corrections
+
+Outputs gradients for AMR refinement
+
+3. MODULE: Topological Filtration API
+
+Endpoint: /topology/filtration
+
+Description:Computes persistent homology and Betti numbers.
+
+Request:
+
+POST /topology/filtration
+{
+    "density_field": [...],
+    "resolution": "high"
+}
+
+Response:
+
+{
+    "betti": {
+        "betti0": [...],
+        "betti1": [...],
+        "betti2": [...]
+    },
+    "birth_death": [...],
+    "signature": "T_s_epoch_12"
+}
+
+Notes:
+
+Produces topological signature
+
+Supports multi‑resolution filtration
+
+4. MODULE: Void Lattice Engine API
+
+Endpoint: /lattice/evolve
+
+Description:Evolves void lattice length under thermodynamic feedback.
+
+Request:
+
+POST /lattice/evolve
+{
+    "amplitude": [...],
+    "rho": [...],
+    "state": {...},
+    "dt": 0.001
+}
+
+Response:
+
+{
+    "lattice_length": 0.442,
+    "growth_curve": [...],
+    "entropy": 1.92
+}
+
+Notes:
+
+Uses growth law: dL/dt = F(A, ρ, S)
+
+Tracks entropy and stability ratio
+
+5. MODULE: ODE Convergence Engine API
+
+Endpoint: /ode/step
+
+Description:Performs RK4 integration with AMR refinement.
+
+Request:
+
+POST /ode/step
+{
+    "state": {...},
+    "dt": 0.001,
+    "tolerance": 1e-6
+}
+
+Response:
+
+{
+    "state_next": {...},
+    "error": 3.2e-7,
+    "amr_map": {...}
+}
+
+Notes:
+
+Automatically refines grid
+
+Ensures numerical stability
+
+6. MODULE: Homomorphic Encryption API
+
+Endpoint: /crypto/encrypt
+
+Description:Encrypts full simulation state using homomorphic encryption.
+
+Request:
+
+POST /crypto/encrypt
+{
+    "state": {...},
+    "key": "k_n"
+}
+
+Response:
+
+{
+    "ciphertext": "ENC_0xA91F...",
+    "key_next": "k_n+1"
+}
+
+Notes:
+
+Compatible with differential updates
+
+Uses chaotic key integrator
+
+7. MODULE: Ledger Commit API
+
+Endpoint: /ledger/commit
+
+Description:Commits encrypted snapshot and provenance hash to ledger.
+
+Request:
+
+POST /ledger/commit
+{
+    "ciphertext": "ENC_0xA91F...",
+    "diff": {...},
+    "hash": "H_n"
+}
+
+Response:
+
+{
+    "commit_id": "epoch_12",
+    "verified": true,
+    "zkp_status": "valid",
+    "integrity": 1.0
+}
+
+Notes:
+
+Zero‑knowledge proof verification
+
+Ensures tamper‑proof provenance
+
+8. MODULE: Full Simulation Pipeline API
+
+Endpoint: /pipeline/run
+
+Description:Runs full suprakernel cycle for one epoch.
+
+Request:
+
+POST /pipeline/run
+{
+    "state": {...},
+    "dt": 0.001
+}
+
+Response:
+
+{
+    "state_next": {...},
+    "topology": {...},
+    "lattice": {...},
+    "crypto": {...},
+    "ledger": {...}
+}
+
+9. Error Codes
+
+MANIFOLD_ERR_01: Divergent potential
+TOPO_ERR_02: Filtration failure
+LATTICE_ERR_03: Entropy collapse
+ODE_ERR_04: Convergence failure
+CRYPTO_ERR_05: Encryption mismatch
+LEDGER_ERR_06: Commit rejected
+
+10. Versioning
+
+Semantic versioning:
+
+MAJOR.MINOR.PATCH
+
+Current version:
+
+1.0.0
+
