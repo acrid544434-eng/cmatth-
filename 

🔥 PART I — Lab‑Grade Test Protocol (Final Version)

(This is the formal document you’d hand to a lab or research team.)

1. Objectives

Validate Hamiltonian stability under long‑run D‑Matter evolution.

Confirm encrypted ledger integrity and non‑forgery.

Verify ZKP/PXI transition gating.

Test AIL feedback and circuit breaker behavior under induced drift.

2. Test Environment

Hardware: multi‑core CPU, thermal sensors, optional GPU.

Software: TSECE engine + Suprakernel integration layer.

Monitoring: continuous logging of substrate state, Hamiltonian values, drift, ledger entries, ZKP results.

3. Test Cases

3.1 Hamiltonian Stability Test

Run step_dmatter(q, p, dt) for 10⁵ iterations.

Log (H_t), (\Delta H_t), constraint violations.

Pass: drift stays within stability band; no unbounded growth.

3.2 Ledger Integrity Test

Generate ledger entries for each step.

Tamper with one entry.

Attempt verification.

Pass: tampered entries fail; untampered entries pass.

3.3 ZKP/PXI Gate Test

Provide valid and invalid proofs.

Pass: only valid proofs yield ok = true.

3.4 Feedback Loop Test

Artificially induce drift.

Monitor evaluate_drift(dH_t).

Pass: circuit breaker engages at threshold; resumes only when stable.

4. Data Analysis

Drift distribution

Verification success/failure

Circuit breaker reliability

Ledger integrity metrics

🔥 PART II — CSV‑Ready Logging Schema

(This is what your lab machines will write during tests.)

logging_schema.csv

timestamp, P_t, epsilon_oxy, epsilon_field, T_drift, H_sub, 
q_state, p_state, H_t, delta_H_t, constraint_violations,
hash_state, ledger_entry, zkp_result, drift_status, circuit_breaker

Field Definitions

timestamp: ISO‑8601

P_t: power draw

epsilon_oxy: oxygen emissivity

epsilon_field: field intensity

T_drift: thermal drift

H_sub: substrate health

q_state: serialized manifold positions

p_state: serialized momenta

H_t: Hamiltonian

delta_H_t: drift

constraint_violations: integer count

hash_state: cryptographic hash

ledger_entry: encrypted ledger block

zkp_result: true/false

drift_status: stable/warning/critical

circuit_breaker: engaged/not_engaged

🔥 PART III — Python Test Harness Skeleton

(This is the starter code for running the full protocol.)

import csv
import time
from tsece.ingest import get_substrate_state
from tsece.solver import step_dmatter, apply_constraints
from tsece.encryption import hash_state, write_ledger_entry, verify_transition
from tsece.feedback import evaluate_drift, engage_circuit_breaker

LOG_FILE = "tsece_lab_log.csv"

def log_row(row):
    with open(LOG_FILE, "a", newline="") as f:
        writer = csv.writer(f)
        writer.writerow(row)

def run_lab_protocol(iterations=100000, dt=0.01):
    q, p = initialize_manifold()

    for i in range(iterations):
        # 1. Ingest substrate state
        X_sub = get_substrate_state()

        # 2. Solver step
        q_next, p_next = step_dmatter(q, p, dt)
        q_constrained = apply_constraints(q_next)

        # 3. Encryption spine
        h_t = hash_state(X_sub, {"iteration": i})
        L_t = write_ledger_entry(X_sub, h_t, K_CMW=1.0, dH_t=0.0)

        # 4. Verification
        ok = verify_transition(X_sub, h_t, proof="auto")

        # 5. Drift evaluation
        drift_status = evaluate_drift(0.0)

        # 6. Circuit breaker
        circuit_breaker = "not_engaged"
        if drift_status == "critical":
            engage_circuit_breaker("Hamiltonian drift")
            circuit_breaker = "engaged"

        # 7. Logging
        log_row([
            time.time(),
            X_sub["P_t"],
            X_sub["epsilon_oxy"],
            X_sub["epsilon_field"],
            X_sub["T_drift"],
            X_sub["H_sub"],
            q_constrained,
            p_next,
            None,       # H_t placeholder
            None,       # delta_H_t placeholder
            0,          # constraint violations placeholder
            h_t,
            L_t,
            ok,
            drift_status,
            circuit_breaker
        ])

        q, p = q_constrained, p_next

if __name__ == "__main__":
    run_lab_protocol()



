@@ -1,0 +1,184 @@
+
+
+🔥 PART I — Lab‑Grade Test Protocol (Final Version)
+
+(This is the formal document you’d hand to a lab or research team.)
+
+1. Objectives
+
+Validate Hamiltonian stability under long‑run D‑Matter evolution.
+
+Confirm encrypted ledger integrity and non‑forgery.
+
+Verify ZKP/PXI transition gating.
+
+Test AIL feedback and circuit breaker behavior under induced drift.
+
+2. Test Environment
+
+Hardware: multi‑core CPU, thermal sensors, optional GPU.
+
+Software: TSECE engine + Suprakernel integration layer.
+
+Monitoring: continuous logging of substrate state, Hamiltonian values, drift, ledger entries, ZKP results.
+
+3. Test Cases
+
+3.1 Hamiltonian Stability Test
+
+Run step_dmatter(q, p, dt) for 10⁵ iterations.
+
+Log (H_t), (\Delta H_t), constraint violations.
+
+Pass: drift stays within stability band; no unbounded growth.
+
+3.2 Ledger Integrity Test
+
+Generate ledger entries for each step.
+
+Tamper with one entry.
+
+Attempt verification.
+
+Pass: tampered entries fail; untampered entries pass.
+
+3.3 ZKP/PXI Gate Test
+
+Provide valid and invalid proofs.
+
+Pass: only valid proofs yield ok = true.
+
+3.4 Feedback Loop Test
+
+Artificially induce drift.
+
+Monitor evaluate_drift(dH_t).
+
+Pass: circuit breaker engages at threshold; resumes only when stable.
+
+4. Data Analysis
+
+Drift distribution
+
+Verification success/failure
+
+Circuit breaker reliability
+
+Ledger integrity metrics
+
+🔥 PART II — CSV‑Ready Logging Schema
+
+(This is what your lab machines will write during tests.)
+
+logging_schema.csv
+
+timestamp, P_t, epsilon_oxy, epsilon_field, T_drift, H_sub, 
+q_state, p_state, H_t, delta_H_t, constraint_violations,
+hash_state, ledger_entry, zkp_result, drift_status, circuit_breaker
+
+Field Definitions
+
+timestamp: ISO‑8601
+
+P_t: power draw
+
+epsilon_oxy: oxygen emissivity
+
+epsilon_field: field intensity
+
+T_drift: thermal drift
+
+H_sub: substrate health
+
+q_state: serialized manifold positions
+
+p_state: serialized momenta
+
+H_t: Hamiltonian
+
+delta_H_t: drift
+
+constraint_violations: integer count
+
+hash_state: cryptographic hash
+
+ledger_entry: encrypted ledger block
+
+zkp_result: true/false
+
+drift_status: stable/warning/critical
+
+circuit_breaker: engaged/not_engaged
+
+🔥 PART III — Python Test Harness Skeleton
+
+(This is the starter code for running the full protocol.)
+
+import csv
+import time
+from tsece.ingest import get_substrate_state
+from tsece.solver import step_dmatter, apply_constraints
+from tsece.encryption import hash_state, write_ledger_entry, verify_transition
+from tsece.feedback import evaluate_drift, engage_circuit_breaker
+
+LOG_FILE = "tsece_lab_log.csv"
+
+def log_row(row):
+    with open(LOG_FILE, "a", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(row)
+
+def run_lab_protocol(iterations=100000, dt=0.01):
+    q, p = initialize_manifold()
+
+    for i in range(iterations):
+        # 1. Ingest substrate state
+        X_sub = get_substrate_state()
+
+        # 2. Solver step
+        q_next, p_next = step_dmatter(q, p, dt)
+        q_constrained = apply_constraints(q_next)
+
+        # 3. Encryption spine
+        h_t = hash_state(X_sub, {"iteration": i})
+        L_t = write_ledger_entry(X_sub, h_t, K_CMW=1.0, dH_t=0.0)
+
+        # 4. Verification
+        ok = verify_transition(X_sub, h_t, proof="auto")
+
+        # 5. Drift evaluation
+        drift_status = evaluate_drift(0.0)
+
+        # 6. Circuit breaker
+        circuit_breaker = "not_engaged"
+        if drift_status == "critical":
+            engage_circuit_breaker("Hamiltonian drift")
+            circuit_breaker = "engaged"
+
+        # 7. Logging
+        log_row([
+            time.time(),
+            X_sub["P_t"],
+            X_sub["epsilon_oxy"],
+            X_sub["epsilon_field"],
+            X_sub["T_drift"],
+            X_sub["H_sub"],
+            q_constrained,
+            p_next,
+            None,       # H_t placeholder
+            None,       # delta_H_t placeholder
+            0,          # constraint violations placeholder
+            h_t,
+            L_t,
+            ok,
+            drift_status,
+            circuit_breaker
+        ])
+
+        q, p = q_constrained, p_next
+
+if __name__ == "__main__":
+    run_lab_protocol()
+
+
+
