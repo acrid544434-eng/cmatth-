@@ -1,0 +1,106 @@
+Experimental validation plan for Aetheris
+
+1. Objectives
+
+Verify: Each module reproduces known, measurable phenomena in its own domain.
+
+Validate: Cross‑scale coupling behaves consistently and does not violate conservation laws.
+
+Assess: Stability, robustness, and reproducibility of the full multi‑scale system.
+
+2. Single‑module validation
+
+2.1 Astrophysics module (macro)
+
+Benchmarks:
+
+Galaxy rotation curves vs. SDSS/GAIA data.
+
+Cluster formation vs. known N‑body benchmark problems.
+
+Shock/turbulence tests (e.g., Sod shock tube, Kelvin–Helmholtz instability).
+
+Metrics:
+
+Error norms between simulated and observed density/velocity fields.
+
+Conservation of mass, momentum, and energy over long runs.
+
+2.2 Mechanobiology module (meso)
+
+Benchmarks:
+
+Cell deformation under known mechanical loads (micropipette aspiration, AFM indentation).
+
+Cytoskeletal tension patterns vs. published FEM/experimental data.
+
+Metrics:
+
+Strain/stress field comparison to experimental curves.
+
+Agreement with known elastic/viscoelastic parameters.
+
+2.3 Molecular dynamics module (micro)
+
+Benchmarks:
+
+Protein or small‑molecule MD trajectories vs. established MD packages (e.g., GROMACS, NAMD).
+
+Binding energy profiles vs. experimental or high‑level computational data.
+
+Metrics:
+
+RMSD of trajectories.
+
+Energy drift over time.
+
+Agreement of binding energies and conformational states.
+
+3. Cross‑scale validation
+
+3.1 Macro → meso
+
+Experiment: Apply macro‑scale field (pressure/gravity gradient) and compare predicted cell‑scale stress patterns to mechanobiology experiments under similar loading.
+
+Metrics: Correlation between macro‑derived stress fields and measured cellular deformation.
+
+3.2 Meso → micro
+
+Experiment: Impose meso‑scale mechanical tension on a molecular system (e.g., stretch a protein domain) and compare conformational changes to single‑molecule experiments (optical tweezers, AFM).
+
+Metrics: Agreement in force–extension curves and unfolding/refolding pathways.
+
+3.3 Micro → meso / meso → macro
+
+Experiment: Use molecular conformational changes to alter effective material properties (e.g., stiffness) and observe resulting meso‑scale deformation, then propagate that change to macro‑scale fields.
+
+Metrics: Consistency of updated material parameters and resulting stress/strain fields.
+
+4. Full multi‑scale validation
+
+Scenario: Define a synthetic but physically plausible setup where macro, meso, and micro modules all interact (e.g., a region with fluid flow, embedded cellular structures, and key molecular complexes).
+
+Checks:
+
+Conservation of total energy across all scales.
+
+Stability of time‑stepping under realistic parameter ranges.
+
+Emergent patterns that persist across scales (e.g., macro flow influencing cell alignment and molecular conformations).
+
+5. Robustness and sensitivity
+
+Parameter sweeps: Vary key parameters (viscosity, stiffness, interaction strengths) and observe system response.
+
+Initial condition variation: Run ensembles with slightly perturbed initial states.
+
+Metrics: Identify regimes of stability vs. chaos; quantify sensitivity using variance and Lyapunov‑like indicators.
+
+6. Reproducibility protocol
+
+Fixed seeds: Use controlled random seeds for all stochastic components.
+
+Versioned configs: Store all configuration files and input datasets with version tags.
+
+Repeat runs: Perform multiple runs per scenario and report variability.
+
