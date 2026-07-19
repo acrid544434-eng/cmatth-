@@ -1,0 +1,211 @@
+
+
+Curvature‑Flux Helix Engine — API Specification
+
+Author: C. Matthew Blackwell — Independent Designer
+
+1. Overview
+
+The Curvature‑Flux Helix Engine API provides a unified interface for:
+
+curvature/torsion geometry injection
+
+MRI solver execution
+
+exotic‑matter stability transformation
+
+cryptographic provenance generation
+
+simulation snapshot retrieval
+
+topology visualization hooks
+
+It is designed for GPU clusters, distributed simulation environments, and secure scientific workflows.
+
+2. Base URL
+
+/helix-engine/v1/
+
+3. Authentication
+
+All endpoints require:
+
+X-Shear-Key: <cryptographic-shear-key>
+X-Simulation-ID: <uuid>
+
+The shear key is derived from geometry parameters and ensures provenance integrity.
+
+4. Endpoints
+
+4.1 Geometry Initialization
+
+POST /geometry/init
+
+Initializes helix geometry.
+
+Body:
+
+{
+  "curvature": "kappa(s)",
+  "torsion": "tau(s)",
+  "flux_density": "Phi(s)",
+  "domain": {
+    "r_min": 0.1,
+    "r_max": 50.0,
+    "z_min": -5.0,
+    "z_max": 5.0
+  }
+}
+
+Response:
+
+{
+  "status": "initialized",
+  "geometry_id": "<uuid>"
+}
+
+4.2 MRI Solver Execution
+
+POST /mri/run
+
+Runs MRI solver with curvature‑flux coupling.
+
+Body:
+
+{
+  "geometry_id": "<uuid>",
+  "angular_velocity": "Omega(r)",
+  "seed_field": "B0(r,z)"
+}
+
+Response:
+
+{
+  "status": "completed",
+  "mri_zones": [...],
+  "growth_rates": [...],
+  "vorticity_field": "<binary-field-hash>"
+}
+
+4.3 Stress Transformation
+
+POST /stability/transform
+
+Applies shear and exotic‑matter transformation matrices.
+
+Body:
+
+{
+  "stress_tensor": "sigma_ij",
+  "shear_matrix": "S",
+  "exotic_matrix": "E"
+}
+
+Response:
+
+{
+  "stability": "stable | unstable",
+  "eigenvalues": [...],
+  "pockets": [...]
+}
+
+4.4 Cryptographic Provenance
+
+POST /provenance/sign
+
+Signs and chains simulation snapshots.
+
+Body:
+
+{
+  "snapshot_hash": "<sha256>",
+  "previous_signature": "<sha256>"
+}
+
+Response:
+
+{
+  "signature": "<sha256>",
+  "chain_valid": true
+}
+
+4.5 Snapshot Retrieval
+
+GET /snapshot/{id}
+
+Returns encrypted simulation snapshot.
+
+Response:
+
+{
+  "snapshot_id": "<uuid>",
+  "encrypted_payload": "<base64>"
+}
+
+4.6 Topology Visualization Hook
+
+GET /visualization/topology
+
+Returns topology metadata for rendering.
+
+Response:
+
+{
+  "helix_path": [...],
+  "mri_zones": [...],
+  "stability_pockets": [...],
+  "vorticity_surfaces": [...]
+}
+
+5. Data Models
+
+HelixGeometry
+
+{
+  "kappa": "float[]",
+  "tau": "float[]",
+  "Phi": "float[]"
+}
+
+MRIResult
+
+{
+  "zones": "region[]",
+  "growth_rates": "float[]",
+  "vorticity": "tensor"
+}
+
+StabilityResult
+
+{
+  "eigenvalues": "float[]",
+  "stable": "boolean",
+  "regions": "region[]"
+}
+
+6. Provenance Guarantees
+
+Every snapshot is cryptographically signed.
+
+Every signature is chained to the previous.
+
+Every simulation run is self‑verifying.
+
+Every artifact has tamper‑proof lineage.
+
+7. Error Codes
+
+400 — Invalid geometry parameters  
+401 — Invalid shear key  
+404 — Snapshot not found  
+409 — Provenance chain mismatch  
+500 — MRI solver failure  
+
+8. Versioning
+
+Semantic versioning:
+
+v1.x — stable  
+v2.x — experimental geometry modules  
+v3.x — exotic‑matter extended transforms  
+
