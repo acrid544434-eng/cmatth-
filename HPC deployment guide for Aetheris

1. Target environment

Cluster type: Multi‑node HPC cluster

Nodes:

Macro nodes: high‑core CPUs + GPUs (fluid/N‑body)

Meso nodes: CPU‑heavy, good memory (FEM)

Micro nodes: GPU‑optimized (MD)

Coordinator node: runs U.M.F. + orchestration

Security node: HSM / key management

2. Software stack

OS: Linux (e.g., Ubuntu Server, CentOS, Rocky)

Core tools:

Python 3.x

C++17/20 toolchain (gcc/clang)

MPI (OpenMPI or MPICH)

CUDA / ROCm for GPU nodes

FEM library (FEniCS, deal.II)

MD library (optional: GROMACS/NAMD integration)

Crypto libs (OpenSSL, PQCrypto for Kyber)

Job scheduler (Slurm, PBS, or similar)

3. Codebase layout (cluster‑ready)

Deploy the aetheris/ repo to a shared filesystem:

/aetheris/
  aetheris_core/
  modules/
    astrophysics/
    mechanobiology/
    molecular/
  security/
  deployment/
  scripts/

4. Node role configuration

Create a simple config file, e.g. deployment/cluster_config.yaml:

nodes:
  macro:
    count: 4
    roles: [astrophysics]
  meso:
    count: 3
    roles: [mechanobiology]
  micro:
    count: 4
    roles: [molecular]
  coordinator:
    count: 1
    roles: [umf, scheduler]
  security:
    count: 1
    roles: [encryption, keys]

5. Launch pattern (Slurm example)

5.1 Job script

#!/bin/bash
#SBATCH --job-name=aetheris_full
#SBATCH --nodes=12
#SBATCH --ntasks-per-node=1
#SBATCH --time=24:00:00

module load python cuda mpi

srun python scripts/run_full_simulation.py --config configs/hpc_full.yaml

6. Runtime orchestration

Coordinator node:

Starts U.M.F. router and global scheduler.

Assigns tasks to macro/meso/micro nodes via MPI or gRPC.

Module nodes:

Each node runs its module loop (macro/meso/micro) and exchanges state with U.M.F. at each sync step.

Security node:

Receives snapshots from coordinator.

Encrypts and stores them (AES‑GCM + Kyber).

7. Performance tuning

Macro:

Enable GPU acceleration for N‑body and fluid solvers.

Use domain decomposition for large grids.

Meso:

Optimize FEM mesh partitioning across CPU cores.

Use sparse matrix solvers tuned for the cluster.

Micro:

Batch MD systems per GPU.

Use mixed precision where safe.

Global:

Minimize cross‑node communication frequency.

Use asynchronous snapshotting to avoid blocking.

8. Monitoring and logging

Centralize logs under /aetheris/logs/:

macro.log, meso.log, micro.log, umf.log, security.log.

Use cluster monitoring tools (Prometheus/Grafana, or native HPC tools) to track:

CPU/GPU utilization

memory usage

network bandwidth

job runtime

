@@ -1,0 +1,149 @@
+HPC deployment guide for Aetheris
+
+1. Target environment
+
+Cluster type: Multi‑node HPC cluster
+
+Nodes:
+
+Macro nodes: high‑core CPUs + GPUs (fluid/N‑body)
+
+Meso nodes: CPU‑heavy, good memory (FEM)
+
+Micro nodes: GPU‑optimized (MD)
+
+Coordinator node: runs U.M.F. + orchestration
+
+Security node: HSM / key management
+
+2. Software stack
+
+OS: Linux (e.g., Ubuntu Server, CentOS, Rocky)
+
+Core tools:
+
+Python 3.x
+
+C++17/20 toolchain (gcc/clang)
+
+MPI (OpenMPI or MPICH)
+
+CUDA / ROCm for GPU nodes
+
+FEM library (FEniCS, deal.II)
+
+MD library (optional: GROMACS/NAMD integration)
+
+Crypto libs (OpenSSL, PQCrypto for Kyber)
+
+Job scheduler (Slurm, PBS, or similar)
+
+3. Codebase layout (cluster‑ready)
+
+Deploy the aetheris/ repo to a shared filesystem:
+
+/aetheris/
+  aetheris_core/
+  modules/
+    astrophysics/
+    mechanobiology/
+    molecular/
+  security/
+  deployment/
+  scripts/
+
+4. Node role configuration
+
+Create a simple config file, e.g. deployment/cluster_config.yaml:
+
+nodes:
+  macro:
+    count: 4
+    roles: [astrophysics]
+  meso:
+    count: 3
+    roles: [mechanobiology]
+  micro:
+    count: 4
+    roles: [molecular]
+  coordinator:
+    count: 1
+    roles: [umf, scheduler]
+  security:
+    count: 1
+    roles: [encryption, keys]
+
+5. Launch pattern (Slurm example)
+
+5.1 Job script
+
+#!/bin/bash
+#SBATCH --job-name=aetheris_full
+#SBATCH --nodes=12
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=24:00:00
+
+module load python cuda mpi
+
+srun python scripts/run_full_simulation.py --config configs/hpc_full.yaml
+
+6. Runtime orchestration
+
+Coordinator node:
+
+Starts U.M.F. router and global scheduler.
+
+Assigns tasks to macro/meso/micro nodes via MPI or gRPC.
+
+Module nodes:
+
+Each node runs its module loop (macro/meso/micro) and exchanges state with U.M.F. at each sync step.
+
+Security node:
+
+Receives snapshots from coordinator.
+
+Encrypts and stores them (AES‑GCM + Kyber).
+
+7. Performance tuning
+
+Macro:
+
+Enable GPU acceleration for N‑body and fluid solvers.
+
+Use domain decomposition for large grids.
+
+Meso:
+
+Optimize FEM mesh partitioning across CPU cores.
+
+Use sparse matrix solvers tuned for the cluster.
+
+Micro:
+
+Batch MD systems per GPU.
+
+Use mixed precision where safe.
+
+Global:
+
+Minimize cross‑node communication frequency.
+
+Use asynchronous snapshotting to avoid blocking.
+
+8. Monitoring and logging
+
+Centralize logs under /aetheris/logs/:
+
+macro.log, meso.log, micro.log, umf.log, security.log.
+
+Use cluster monitoring tools (Prometheus/Grafana, or native HPC tools) to track:
+
+CPU/GPU utilization
+
+memory usage
+
+network bandwidth
+
+job runtime
+
