@@ -1,0 +1,216 @@
+KCFM‑v1.0 API Documentation
+
+Kinetic‑Cryptographic Fluid Matrix — Cryptophysical Engine
+
+Module overview
+
+Module
+
+Purpose
+
+solver
+
+Fluid dynamics (Navier–Stokes / Darcy)
+
+tensorizer
+
+State tensor fieldization + vectorization
+
+entropy
+
+Kinetic entropy computation
+
+crypto
+
+Key derivation + authenticated encryption
+
+verification
+
+Mass conservation + integrity checks
+
+ledger
+
+Cryptophysical state storage
+
+1. solver module
+
+1.1 Types
+
+DomainConfigFields:
+
+geometry: domain shape (e.g. "cylinder")
+
+length: float
+
+diameter: float
+
+grid_resolution: {nx, ny, nz}
+
+FluidPropertiesFields:
+
+density: float ((\rho))
+
+viscosity: float ((\mu))
+
+BoundaryConditionsFields:
+
+inlet_pressure(t): function or time series
+
+outlet_pressure(t): function or time series
+
+transient_events: list of events (e.g. motor hammer)
+
+SolverStateFields:
+
+pressure_field: 3D array
+
+velocity_field: 3D vector field
+
+turbulence_field: 3D array
+
+time: float
+
+1.2 Functions
+
+initialize_solver(domain: DomainConfig, fluid: FluidProperties, bc: BoundaryConditions) -> SolverStateInitializes the CFD solver with geometry, fluid, and boundary conditions.
+
+step_solver(state: SolverState, dt: float) -> SolverStateAdvances the solution by timestep dt, updating pressure, velocity, and turbulence fields.
+
+compute_flow_rates(state: SolverState) -> {qin: float, qout: float}Computes inlet and outlet volumetric flow rates (Q_{\text{in}}, Q_{\text{out}}).
+
+2. tensorizer module
+
+2.1 Types
+
+TensorStateFields:
+
+tensor: 4D array [i,j,k,5] for ([p,u,v,w,\eta])
+
+time: float
+
+VectorStateFields:
+
+vector: 1D array
+
+time: float
+
+2.2 Functions
+
+build_tensor(state: SolverState) -> TensorStateMaps solver fields into tensor (T_{i,j,k}(t) = [p,u,v,w,\eta]).
+
+flatten_tensor(tensor_state: TensorState) -> VectorStateFlattens tensor into high‑dimensional state vector (\mathbf{S}(t)).
+
+3. entropy module
+
+3.1 Types
+
+EntropyStateFields:
+
+kinetic_entropy: float
+
+time: float
+
+3.2 Functions
+
+compute_kinetic_entropy(state: SolverState) -> EntropyStateComputes[ H_{\text{kinetic}} = \int |\nabla \mathbf{u}|^2 dV ]from the velocity field.
+
+4. crypto module
+
+4.1 Types
+
+KeyStateFields:
+
+key: bytes
+
+time: float
+
+CipherStateFields:
+
+ciphertext: bytes
+
+time: float
+
+4.2 Functions
+
+derive_key(entropy: EntropyState, vector: VectorState) -> KeyStateUses HKDF or similar:(K(t) = \text{HKDF}(H_{\text{kinetic}} \parallel \mathbf{S}(t))).
+
+encrypt_state(vector: VectorState, key: KeyState) -> CipherStateEncrypts (\mathbf{S}(t)) with AES‑GCM‑SIV (and optional lattice layer).
+
+5. verification module
+
+5.1 Types
+
+MassCheckFields:
+
+delta_q: float
+
+valid: bool
+
+time: float
+
+IntegrityCheckFields:
+
+crc32: string
+
+sha3: string
+
+time: float
+
+5.2 Functions
+
+check_mass_conservation(flow: {qin: float, qout: float}) -> MassCheckComputes (\Delta Q = Q_{\text{in}} - Q_{\text{out}}) and validates (|\Delta Q| < 10^{-7}).
+
+compute_integrity_hashes(cipher: CipherState) -> IntegrityCheckComputes CRC32 and SHA‑3 over ciphertext.
+
+6. ledger module
+
+6.1 Types
+
+LedgerRecordFields:
+
+time: float
+
+ciphertext: bytes
+
+delta_q: float
+
+crc32: string
+
+sha3: string
+
+entropy: float
+
+6.2 Functions
+
+append_record(record: LedgerRecord) -> NoneAppends record to cryptophysical ledger (append‑only).
+
+get_record(time: float) -> LedgerRecordRetrieves record closest to given time.
+
+verify_record(record: LedgerRecord) -> boolRecomputes hashes and checks mass conservation to confirm integrity.
+
+7. End‑to‑end pipeline helper
+
+run_step(state: SolverState, dt: float) -> LedgerRecordPipeline:
+
+step_solver
+
+build_tensor
+
+flatten_tensor
+
+compute_kinetic_entropy
+
+derive_key
+
+encrypt_state
+
+compute_flow_rates
+
+check_mass_conservation
+
+compute_integrity_hashes
+
+append_record
+
+Returns the LedgerRecord for that timestep.
+
