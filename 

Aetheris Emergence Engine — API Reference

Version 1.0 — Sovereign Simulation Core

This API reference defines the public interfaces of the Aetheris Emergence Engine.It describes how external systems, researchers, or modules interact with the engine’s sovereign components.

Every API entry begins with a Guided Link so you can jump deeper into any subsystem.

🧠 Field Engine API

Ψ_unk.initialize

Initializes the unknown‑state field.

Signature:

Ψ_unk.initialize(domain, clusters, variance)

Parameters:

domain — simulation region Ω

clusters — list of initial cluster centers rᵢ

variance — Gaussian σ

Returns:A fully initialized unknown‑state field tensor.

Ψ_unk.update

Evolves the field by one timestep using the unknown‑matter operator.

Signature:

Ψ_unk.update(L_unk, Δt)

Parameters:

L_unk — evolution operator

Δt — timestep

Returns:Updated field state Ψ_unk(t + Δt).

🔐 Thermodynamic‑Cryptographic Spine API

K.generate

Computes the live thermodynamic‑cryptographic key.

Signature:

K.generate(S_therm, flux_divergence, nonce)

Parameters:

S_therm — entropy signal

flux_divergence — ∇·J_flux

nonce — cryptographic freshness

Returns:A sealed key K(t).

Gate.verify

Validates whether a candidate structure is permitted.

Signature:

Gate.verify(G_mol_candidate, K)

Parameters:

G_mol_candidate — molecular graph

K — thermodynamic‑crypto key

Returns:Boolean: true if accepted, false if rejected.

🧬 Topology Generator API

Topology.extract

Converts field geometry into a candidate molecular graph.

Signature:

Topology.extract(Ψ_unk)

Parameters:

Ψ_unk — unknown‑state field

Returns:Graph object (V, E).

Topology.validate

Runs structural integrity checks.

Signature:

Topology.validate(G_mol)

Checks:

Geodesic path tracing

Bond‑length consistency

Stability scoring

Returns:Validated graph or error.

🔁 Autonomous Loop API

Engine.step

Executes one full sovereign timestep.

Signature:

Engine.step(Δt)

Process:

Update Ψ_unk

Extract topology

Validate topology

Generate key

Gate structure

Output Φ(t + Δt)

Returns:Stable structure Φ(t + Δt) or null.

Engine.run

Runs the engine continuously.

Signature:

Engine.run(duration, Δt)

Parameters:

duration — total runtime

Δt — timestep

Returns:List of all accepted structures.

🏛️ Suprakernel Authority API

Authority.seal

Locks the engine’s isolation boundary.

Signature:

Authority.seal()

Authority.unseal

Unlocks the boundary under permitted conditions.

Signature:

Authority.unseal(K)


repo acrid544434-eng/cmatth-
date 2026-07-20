@@ -1,0 +1,176 @@
+
+
+Aetheris Emergence Engine — API Reference
+
+Version 1.0 — Sovereign Simulation Core
+
+This API reference defines the public interfaces of the Aetheris Emergence Engine.It describes how external systems, researchers, or modules interact with the engine’s sovereign components.
+
+Every API entry begins with a Guided Link so you can jump deeper into any subsystem.
+
+🧠 Field Engine API
+
+Ψ_unk.initialize
+
+Initializes the unknown‑state field.
+
+Signature:
+
+Ψ_unk.initialize(domain, clusters, variance)
+
+Parameters:
+
+domain — simulation region Ω
+
+clusters — list of initial cluster centers rᵢ
+
+variance — Gaussian σ
+
+Returns:A fully initialized unknown‑state field tensor.
+
+Ψ_unk.update
+
+Evolves the field by one timestep using the unknown‑matter operator.
+
+Signature:
+
+Ψ_unk.update(L_unk, Δt)
+
+Parameters:
+
+L_unk — evolution operator
+
+Δt — timestep
+
+Returns:Updated field state Ψ_unk(t + Δt).
+
+🔐 Thermodynamic‑Cryptographic Spine API
+
+K.generate
+
+Computes the live thermodynamic‑cryptographic key.
+
+Signature:
+
+K.generate(S_therm, flux_divergence, nonce)
+
+Parameters:
+
+S_therm — entropy signal
+
+flux_divergence — ∇·J_flux
+
+nonce — cryptographic freshness
+
+Returns:A sealed key K(t).
+
+Gate.verify
+
+Validates whether a candidate structure is permitted.
+
+Signature:
+
+Gate.verify(G_mol_candidate, K)
+
+Parameters:
+
+G_mol_candidate — molecular graph
+
+K — thermodynamic‑crypto key
+
+Returns:Boolean: true if accepted, false if rejected.
+
+🧬 Topology Generator API
+
+Topology.extract
+
+Converts field geometry into a candidate molecular graph.
+
+Signature:
+
+Topology.extract(Ψ_unk)
+
+Parameters:
+
+Ψ_unk — unknown‑state field
+
+Returns:Graph object (V, E).
+
+Topology.validate
+
+Runs structural integrity checks.
+
+Signature:
+
+Topology.validate(G_mol)
+
+Checks:
+
+Geodesic path tracing
+
+Bond‑length consistency
+
+Stability scoring
+
+Returns:Validated graph or error.
+
+🔁 Autonomous Loop API
+
+Engine.step
+
+Executes one full sovereign timestep.
+
+Signature:
+
+Engine.step(Δt)
+
+Process:
+
+Update Ψ_unk
+
+Extract topology
+
+Validate topology
+
+Generate key
+
+Gate structure
+
+Output Φ(t + Δt)
+
+Returns:Stable structure Φ(t + Δt) or null.
+
+Engine.run
+
+Runs the engine continuously.
+
+Signature:
+
+Engine.run(duration, Δt)
+
+Parameters:
+
+duration — total runtime
+
+Δt — timestep
+
+Returns:List of all accepted structures.
+
+🏛️ Suprakernel Authority API
+
+Authority.seal
+
+Locks the engine’s isolation boundary.
+
+Signature:
+
+Authority.seal()
+
+Authority.unseal
+
+Unlocks the boundary under permitted conditions.
+
+Signature:
+
+Authority.unseal(K)
+
