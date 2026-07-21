@@ -1,0 +1,182 @@
+
+
+Chronos‑State Matrix (state/chronos-state-matrix/matrix.py)
+
+Class: ChronosState
+
+Constructor:
+
+__init__(x0: float, y0: float, z0: float, w0: float)
+
+Description: Initializes the Chronos‑State 4‑D state vector.
+
+Attributes:
+
+state: tuple[float, float, float, float] — current ((x, y, z, w)).
+
+Raster Mapping (state/raster-mapping/mapping.py)
+
+Function: map_raster_to_state(raster) -> tuple[float, float, float, float]
+
+Description: Converts a raster/image payload into an initial Chronos‑State vector.
+
+Parameters:
+
+raster: image or raster data structure (placeholder).
+
+Returns:
+
+(x0, y0, z0, w0) — initial state.
+
+Hyper‑Chaotic Evolution (chaos/evolution-equations/equations.py)
+
+Function:
+
+evolve(x: float, y: float, z: float, w: float, a: float, b: float, c: float, r: float, j: float) -> tuple[float, float, float, float>
+
+Description: Computes instantaneous derivatives for the Chronos‑State system.
+
+Parameters:
+
+x, y, z, w: current state components.
+
+a, b, c, r, j: system parameters.
+
+Returns:
+
+(dx, dy, dz, dw) — derivatives for one step of integration.
+
+Perturbation Models (chaos/perturbation-models/perturb.py)
+
+Function: inject_perturbation(state: tuple[float, float, float, float], epsilon: float) -> tuple[float, float, float, float]
+
+Description: Applies a uniform perturbation to each component of the state vector.
+
+Parameters:
+
+state: current ((x, y, z, w)).
+
+epsilon: perturbation magnitude.
+
+Returns:
+
+new perturbed state.
+
+Divergence Analysis (chaos/divergence-analysis/divergence.py)
+
+Function: divergence(a: tuple[float, float, float, float], b: tuple[float, float, float, float]) -> float
+
+Description: Computes Euclidean distance between two Chronos‑State vectors.
+
+Parameters:
+
+a, b: two states to compare.
+
+Returns:
+
+scalar divergence (D).
+
+Baseline Timeline (sim/timelineA-baseline/run.py)
+
+Function: run_baseline(state) -> any
+
+Description: Placeholder entry point for baseline physics timeline.
+
+Parameters:
+
+state: initial Chronos‑State or environment.
+
+Returns:
+
+baseline simulation result (to be defined).
+
+Chaotic Timeline (sim/timelineB-chaotic/run.py)
+
+Function: run_chaotic(state) -> any
+
+Description: Placeholder entry point for chaotic timeline.
+
+Parameters:
+
+state: initial Chronos‑State or environment.
+
+Returns:
+
+chaotic simulation result (to be defined).
+
+Physics Solvers (sim/fluid-dynamics/fluid.py, sim/mhd/mhd.py, sim/nbody/nbody.py, sim/radiative-transfer/radiation.py)
+
+Function (each): solve_* (env) -> any
+
+solve_fluid(env)
+
+solve_mhd(env)
+
+solve_nbody(env)
+
+solve_radiation(env)
+
+Description: Placeholder physics solvers operating on environment/state.
+
+Parameters:
+
+env: environment or simulation state.
+
+Returns:
+
+updated environment (to be defined).
+
+SSIM Validation (validation/ssim/ssim.py)
+
+Function: compute_ssim(a, b) -> float
+
+Description: Placeholder SSIM computation between synthetic and observed data.
+
+Parameters:
+
+a, b: two comparable data structures.
+
+Returns:
+
+SSIM score (0–1).
+
+Plausibility Filter (validation/plausibility-filters/filter.py)
+
+Function: is_valid(ssim: float) -> bool
+
+Description: Checks whether a simulation output passes the SSIM threshold.
+
+Parameters:
+
+ssim: structural similarity score.
+
+Returns:
+
+True if ssim > 0.95, else False.
+
+Synthetic vs Observed Comparison (validation/synthetic-vs-observed/compare.py)
+
+Function: compare(synthetic, observed) -> float
+
+Description: Computes SSIM between synthetic output and observational reference.
+
+Parameters:
+
+synthetic: simulated data.
+
+observed: reference data.
+
+Returns:
+
+SSIM score.
+
+Tools (tools/converters/convert.py, tools/harmonizers/harmonize.py, tools/diagnostics/diagnose.py)
+
+Function:
+
+convert(data) -> any — generic data conversion.
+
+harmonize(data) -> any — generic harmonization utility.
+
+diagnose(system) -> str — returns diagnostic status string.
+
