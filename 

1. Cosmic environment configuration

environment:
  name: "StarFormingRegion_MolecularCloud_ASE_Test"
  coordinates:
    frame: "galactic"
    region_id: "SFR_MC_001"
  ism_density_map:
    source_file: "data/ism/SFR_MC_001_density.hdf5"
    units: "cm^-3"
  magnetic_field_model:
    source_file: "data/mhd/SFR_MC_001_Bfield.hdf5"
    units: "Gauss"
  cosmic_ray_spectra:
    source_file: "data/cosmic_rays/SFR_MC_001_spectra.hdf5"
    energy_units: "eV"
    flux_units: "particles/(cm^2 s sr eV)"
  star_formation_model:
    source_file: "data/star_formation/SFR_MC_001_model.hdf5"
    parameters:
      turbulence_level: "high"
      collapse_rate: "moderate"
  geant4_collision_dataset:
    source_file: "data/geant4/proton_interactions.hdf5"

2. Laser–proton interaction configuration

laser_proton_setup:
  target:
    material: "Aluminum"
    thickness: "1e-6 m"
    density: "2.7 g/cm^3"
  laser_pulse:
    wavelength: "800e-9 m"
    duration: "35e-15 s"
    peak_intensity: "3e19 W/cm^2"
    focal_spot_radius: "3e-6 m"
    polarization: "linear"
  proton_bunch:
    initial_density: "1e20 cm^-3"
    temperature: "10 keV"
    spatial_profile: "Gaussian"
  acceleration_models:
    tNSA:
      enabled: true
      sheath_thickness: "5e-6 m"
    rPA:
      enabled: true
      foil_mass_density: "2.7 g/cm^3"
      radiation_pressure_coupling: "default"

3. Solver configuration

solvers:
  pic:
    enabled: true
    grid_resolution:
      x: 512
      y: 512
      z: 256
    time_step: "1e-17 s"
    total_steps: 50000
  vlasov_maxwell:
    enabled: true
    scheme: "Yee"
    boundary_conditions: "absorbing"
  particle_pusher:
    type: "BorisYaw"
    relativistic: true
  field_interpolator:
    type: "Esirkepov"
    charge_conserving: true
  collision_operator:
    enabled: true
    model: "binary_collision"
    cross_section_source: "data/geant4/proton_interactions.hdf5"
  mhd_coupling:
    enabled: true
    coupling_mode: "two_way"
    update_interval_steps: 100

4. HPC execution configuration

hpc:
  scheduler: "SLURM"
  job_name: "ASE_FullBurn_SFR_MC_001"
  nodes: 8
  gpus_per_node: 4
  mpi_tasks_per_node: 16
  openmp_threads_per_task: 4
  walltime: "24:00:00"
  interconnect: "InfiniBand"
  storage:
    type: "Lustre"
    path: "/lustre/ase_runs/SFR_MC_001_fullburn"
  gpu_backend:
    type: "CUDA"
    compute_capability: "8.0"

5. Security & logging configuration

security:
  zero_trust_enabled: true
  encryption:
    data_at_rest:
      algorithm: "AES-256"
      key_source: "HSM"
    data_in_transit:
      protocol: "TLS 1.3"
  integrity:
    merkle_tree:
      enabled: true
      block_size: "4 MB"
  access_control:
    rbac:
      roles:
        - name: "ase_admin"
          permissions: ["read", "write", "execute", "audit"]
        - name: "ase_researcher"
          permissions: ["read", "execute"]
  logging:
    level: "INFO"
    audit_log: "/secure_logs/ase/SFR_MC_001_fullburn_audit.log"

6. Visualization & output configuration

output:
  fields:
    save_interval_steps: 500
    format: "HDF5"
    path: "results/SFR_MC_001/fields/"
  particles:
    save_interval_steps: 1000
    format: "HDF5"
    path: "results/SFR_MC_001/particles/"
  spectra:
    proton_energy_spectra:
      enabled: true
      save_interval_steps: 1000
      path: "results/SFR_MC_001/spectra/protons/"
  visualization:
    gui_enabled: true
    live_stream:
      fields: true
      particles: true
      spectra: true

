@@ -1,0 +1,149 @@
+
+
+1. Cosmic environment configuration
+
+environment:
+  name: "StarFormingRegion_MolecularCloud_ASE_Test"
+  coordinates:
+    frame: "galactic"
+    region_id: "SFR_MC_001"
+  ism_density_map:
+    source_file: "data/ism/SFR_MC_001_density.hdf5"
+    units: "cm^-3"
+  magnetic_field_model:
+    source_file: "data/mhd/SFR_MC_001_Bfield.hdf5"
+    units: "Gauss"
+  cosmic_ray_spectra:
+    source_file: "data/cosmic_rays/SFR_MC_001_spectra.hdf5"
+    energy_units: "eV"
+    flux_units: "particles/(cm^2 s sr eV)"
+  star_formation_model:
+    source_file: "data/star_formation/SFR_MC_001_model.hdf5"
+    parameters:
+      turbulence_level: "high"
+      collapse_rate: "moderate"
+  geant4_collision_dataset:
+    source_file: "data/geant4/proton_interactions.hdf5"
+
+2. Laser–proton interaction configuration
+
+laser_proton_setup:
+  target:
+    material: "Aluminum"
+    thickness: "1e-6 m"
+    density: "2.7 g/cm^3"
+  laser_pulse:
+    wavelength: "800e-9 m"
+    duration: "35e-15 s"
+    peak_intensity: "3e19 W/cm^2"
+    focal_spot_radius: "3e-6 m"
+    polarization: "linear"
+  proton_bunch:
+    initial_density: "1e20 cm^-3"
+    temperature: "10 keV"
+    spatial_profile: "Gaussian"
+  acceleration_models:
+    tNSA:
+      enabled: true
+      sheath_thickness: "5e-6 m"
+    rPA:
+      enabled: true
+      foil_mass_density: "2.7 g/cm^3"
+      radiation_pressure_coupling: "default"
+
+3. Solver configuration
+
+solvers:
+  pic:
+    enabled: true
+    grid_resolution:
+      x: 512
+      y: 512
+      z: 256
+    time_step: "1e-17 s"
+    total_steps: 50000
+  vlasov_maxwell:
+    enabled: true
+    scheme: "Yee"
+    boundary_conditions: "absorbing"
+  particle_pusher:
+    type: "BorisYaw"
+    relativistic: true
+  field_interpolator:
+    type: "Esirkepov"
+    charge_conserving: true
+  collision_operator:
+    enabled: true
+    model: "binary_collision"
+    cross_section_source: "data/geant4/proton_interactions.hdf5"
+  mhd_coupling:
+    enabled: true
+    coupling_mode: "two_way"
+    update_interval_steps: 100
+
+4. HPC execution configuration
+
+hpc:
+  scheduler: "SLURM"
+  job_name: "ASE_FullBurn_SFR_MC_001"
+  nodes: 8
+  gpus_per_node: 4
+  mpi_tasks_per_node: 16
+  openmp_threads_per_task: 4
+  walltime: "24:00:00"
+  interconnect: "InfiniBand"
+  storage:
+    type: "Lustre"
+    path: "/lustre/ase_runs/SFR_MC_001_fullburn"
+  gpu_backend:
+    type: "CUDA"
+    compute_capability: "8.0"
+
+5. Security & logging configuration
+
+security:
+  zero_trust_enabled: true
+  encryption:
+    data_at_rest:
+      algorithm: "AES-256"
+      key_source: "HSM"
+    data_in_transit:
+      protocol: "TLS 1.3"
+  integrity:
+    merkle_tree:
+      enabled: true
+      block_size: "4 MB"
+  access_control:
+    rbac:
+      roles:
+        - name: "ase_admin"
+          permissions: ["read", "write", "execute", "audit"]
+        - name: "ase_researcher"
+          permissions: ["read", "execute"]
+  logging:
+    level: "INFO"
+    audit_log: "/secure_logs/ase/SFR_MC_001_fullburn_audit.log"
+
+6. Visualization & output configuration
+
+output:
+  fields:
+    save_interval_steps: 500
+    format: "HDF5"
+    path: "results/SFR_MC_001/fields/"
+  particles:
+    save_interval_steps: 1000
+    format: "HDF5"
+    path: "results/SFR_MC_001/particles/"
+  spectra:
+    proton_energy_spectra:
+      enabled: true
+      save_interval_steps: 1000
+      path: "results/SFR_MC_001/spectra/protons/"
+  visualization:
+    gui_enabled: true
+    live_stream:
+      fields: true
+      particles: true
+      spectra: true
+
