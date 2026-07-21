@@ -1,0 +1,234 @@
+
+
+Methods
+
+1. System Overview
+
+The Supernumeracy Species Simulation Engine integrates encrypted astrophysical data ingestion, multi‑species manifold evolution, GPU‑accelerated PDE/ODE solvers, and stellar coupling overlays. All computation is performed on ciphertext fields using homomorphic encryption to preserve reversibility and auditability.
+
+The methods below describe the full computational pipeline, including data preparation, mathematical operators, numerical solvers, GPU kernel architecture, and validation procedures.
+
+2. Data Ingestion & Encryption
+
+2.1 Astrophysical Dataset Acquisition
+
+Real astrophysical datasets are sourced from external observatories and machine‑curated pipelines (AstroMachine). Data types include:
+
+Stellar density fields
+
+Spectral energy distributions
+
+Gas/particle distribution maps
+
+Temporal evolution snapshots
+
+2.2 Encryption Pipeline
+
+All incoming data is encrypted using AES‑GCM‑256 with homomorphic extensions. The encryption operator (E) maps plaintext fields (x) to ciphertext fields (E(x)) while preserving polynomial operations.
+
+Key components:
+
+Post‑quantum key management
+
+Encrypted database storage
+
+Homomorphic gate compatibility
+
+This ensures the simulation operates entirely on encrypted data.
+
+3. Species Definition & Initialization
+
+3.1 Species Definition Matrix
+
+The system defines (N = 100) species fields. Each species (s_i) is represented as a scalar density function over a spatial grid:
+
+[ s_i : \Omega \times \mathbb{R}^+ \rightarrow \mathbb{R} ]
+
+3.2 Interaction Graph Construction
+
+Species interactions are encoded in a 100×100 adjacency matrix (A):
+
+[ A_{ij} \in \mathbb{R} ]
+
+Edges represent:
+
+cooperative interactions
+
+competitive interactions
+
+predator–prey dynamics
+
+oscillatory couplings
+
+The graph is sparse to ensure computational efficiency.
+
+4. Governing Equations
+
+4.1 PDE/ODE Dynamics
+
+Species evolution is governed by:
+
+[ \frac{d s_i}{dt} = D_i \nabla^2 s_i + \sum_{j=1}^{100} A_{ij} F_{ij}(s_i, s_j) + G_i(s_i, \nabla s_i, t) ]
+
+Where:
+
+(D_i): diffusion coefficient
+
+(F_{ij}): pairwise interaction function
+
+(G_i): self‑dynamics
+
+4.2 Interaction Functions
+
+Supported interaction functions include:
+
+multiplicative coupling
+
+predator–prey dynamics
+
+competitive exclusion
+
+oscillatory resonance
+
+These functions are polynomial‑expressible, enabling homomorphic evaluation.
+
+5. Numerical Methods
+
+5.1 Spatial Discretization
+
+The spatial domain (\Omega) is discretized into a uniform grid (128×128 minimum). Laplacian operators use a 5‑point or 9‑point stencil depending on precision requirements.
+
+5.2 Temporal Integration
+
+Time evolution uses:
+
+Euler method (baseline)
+
+Runge–Kutta 4 (high‑precision mode)
+
+All integrators operate on encrypted fields.
+
+5.3 Stability Controls
+
+To ensure numerical stability:
+
+CFL condition checks
+
+adaptive timestep selection
+
+diffusion‑dominant stabilization
+
+encrypted error monitoring
+
+6. GPU Kernel Architecture
+
+6.1 Kernel Classes
+
+Six kernel classes operate in parallel:
+
+Diffusion Kernel
+
+Interaction Kernel
+
+Self‑Dynamics Kernel
+
+PDE/ODE Integrator Kernel
+
+Stellar Coupling Kernel
+
+Homomorphic Gate Kernel
+
+Each kernel processes encrypted tensors using CUDA/ROCm.
+
+6.2 Parallelization Strategy
+
+Species fields are updated in parallel across GPU threads. Interaction terms use shared memory for adjacency matrix access. Encryption gates are evaluated using polynomial approximations compatible with ciphertext operations.
+
+7. Stellar Coupling Methods
+
+7.1 Astrophysical Overlay
+
+Stellar evolution models ingest species fields to compute:
+
+density overlays
+
+resonance patterns
+
+collapse signatures
+
+formation correlations
+
+7.2 Coupling Operator
+
+A coupling operator (H) maps species fields to stellar overlays:
+
+[ H(s_i, \text{astro}) \rightarrow \text{stellar_map} ]
+
+This operator is polynomial‑expressible and homomorphically compatible.
+
+8. Provenance & Audit Trail
+
+8.1 Logging
+
+Every timestep logs:
+
+encrypted species fields
+
+kernel outputs
+
+parameter sets
+
+version identifiers
+
+8.2 Cryptographic Anchoring
+
+All logs are cryptographically signed to ensure reproducibility.
+
+9. Validation Methods
+
+9.1 Mathematical Validation
+
+operator stability analysis
+
+conservation law checks
+
+commutation law proof
+
+polynomial compatibility verification
+
+9.2 Simulation Verification
+
+manufactured solutions
+
+grid refinement tests
+
+kernel unit tests
+
+encrypted error convergence
+
+9.3 Empirical Validation
+
+comparison to real astrophysical data
+
+correlation metrics
+
+residual analysis
+
+9.4 Reproducibility
+
+release of encrypted datasets
+
+parameter sets
+
+provenance logs
+
+10. Software & Hardware Environment
+
+GPU: CUDA/ROCm compatible
+
+Grid size: 128×128 minimum
+
+Encryption: AES‑GCM‑256 + homomorphic layer
+
+Runtime: encrypted tensor compute engine
+
