@@ -1,0 +1,138 @@
+Magnesium Crucible API Documentation
+
+Scope: Core modules, main classes, and primary functions for the Magnesium Crucible Engine.
+
+1. Magnesium Physicochemistry Core
+
+core/magnesium-physicochemistry/
+
+Class: MagnesiumMaterial
+
+Constructor:
+
+__init__(composition: dict, temperature: float, pressure: float)
+
+Attributes:
+
+composition — elemental/oxide fractions (e.g., MgO, SiO₂, Al₂O₃).
+
+temperature — current temperature (K).
+
+pressure — current pressure (Pa).
+
+Methods:
+
+compute_vmt() -> dictDescription: Returns Volumetric Material Tensors (elastic, thermal, magnetic).
+
+phase_state() -> strDescription: Returns current phase (solid, melt, mixed).
+
+Function: form_mineral(material: MagnesiumMaterial) -> str
+
+Description: Determines dominant mineral phase (olivine, pyroxene, spinel).
+
+Function: compute_magnetization(material: MagnesiumMaterial, field_strength: float) -> dict
+
+Description: Computes induced and remanent magnetization given external field.
+
+2. Celestial & Geomagnetic Oracles
+
+oracles/
+
+Class: PlanetOracle
+
+Constructor:
+
+__init__(radius: float, mass: float, rotation_rate: float, obliquity: float)
+
+Methods:
+
+to_dict() -> dict — returns planetary parameters.
+
+Class: AtmosphereOracle
+
+Constructor:
+
+__init__(composition: dict, photolysis_cycles: dict, cloud_decks: dict)
+
+Methods:
+
+profile() -> dict — returns atmospheric state profile.
+
+Class: MagnetosphereOracle
+
+Constructor:
+
+__init__(dipole_offset: float, tilt_angle: float, multipolar_params: dict)
+
+Methods:
+
+field_geometry() -> dict — returns magnetosphere geometry description.
+
+Class: InteriorOracle
+
+Constructor:
+
+__init__(mantle_model: dict, core_model: dict)
+
+Methods:
+
+structure() -> dict — returns interior structure model.
+
+3. 4D Hyper‑Chaotic System
+
+core/chaotic-system/
+
+Function:step_chaos(x: float, y: float, z: float, w: float, a: float, b: float, c: float, r: float, j: float, dt: float) -> tuple[float, float, float, float]
+
+Description: Performs one integration step of the 4D hyper‑chaotic system.
+
+Returns: updated (x, y, z, w).
+
+Function:generate_trajectory(initial_state: tuple[float, float, float, float], params: dict, steps: int, dt: float) -> list[tuple[float, float, float, float]]
+
+Description: Generates a chaotic trajectory for use in key generation and perturbations.
+
+4. Hyper‑Chaotic Cryptographic Core (HCCC)
+
+core/cryptographic-core/
+
+Function:decompose_image(image) -> dict
+
+Description: Converts input image into VMT‑aligned components for encryption.
+
+Function:derive_key_vector(trajectory: list[tuple[float, float, float, float]]) -> bytes
+
+Description: Derives a cryptographic key from a 4D chaotic trajectory.
+
+Function:encrypt_payload(data: bytes, key: bytes) -> bytes
+
+Description: Applies row permutation + chaotic diffusion to produce .cbf encrypted payload.
+
+Function:decrypt_payload(encrypted: bytes, key: bytes) -> bytes
+
+Description: Reverses the encryption process to recover original data.
+
+5. HPC Orchestration Layer
+
+hpc/
+
+Function:ingest_and_harmonize(inputs: dict) -> dict
+
+Description: Loads, validates, and harmonizes observational and simulation inputs.
+
+Function:run_solvers(material: MagnesiumMaterial, oracles: dict, chaos_params: dict) -> dict
+
+Description: Executes coupled mineral, magnetosphere, and chaotic solvers.
+
+Function:apply_perturbations(state: dict, trajectory: list[tuple[float, float, float, float]]) -> dict
+
+Description: Applies chaotic perturbations to magnetosphere and interior states.
+
+Function:validate_output(synthetic: dict, reference: dict, threshold: float = 0.96) -> bool
+
+Description: Computes SSIM and checks if output passes plausibility threshold.
+
+Function:watermark_and_store(result: dict, key: bytes) -> str
+
+Description: Cryptographically watermarks and archives final outputs; returns archive ID.
+
