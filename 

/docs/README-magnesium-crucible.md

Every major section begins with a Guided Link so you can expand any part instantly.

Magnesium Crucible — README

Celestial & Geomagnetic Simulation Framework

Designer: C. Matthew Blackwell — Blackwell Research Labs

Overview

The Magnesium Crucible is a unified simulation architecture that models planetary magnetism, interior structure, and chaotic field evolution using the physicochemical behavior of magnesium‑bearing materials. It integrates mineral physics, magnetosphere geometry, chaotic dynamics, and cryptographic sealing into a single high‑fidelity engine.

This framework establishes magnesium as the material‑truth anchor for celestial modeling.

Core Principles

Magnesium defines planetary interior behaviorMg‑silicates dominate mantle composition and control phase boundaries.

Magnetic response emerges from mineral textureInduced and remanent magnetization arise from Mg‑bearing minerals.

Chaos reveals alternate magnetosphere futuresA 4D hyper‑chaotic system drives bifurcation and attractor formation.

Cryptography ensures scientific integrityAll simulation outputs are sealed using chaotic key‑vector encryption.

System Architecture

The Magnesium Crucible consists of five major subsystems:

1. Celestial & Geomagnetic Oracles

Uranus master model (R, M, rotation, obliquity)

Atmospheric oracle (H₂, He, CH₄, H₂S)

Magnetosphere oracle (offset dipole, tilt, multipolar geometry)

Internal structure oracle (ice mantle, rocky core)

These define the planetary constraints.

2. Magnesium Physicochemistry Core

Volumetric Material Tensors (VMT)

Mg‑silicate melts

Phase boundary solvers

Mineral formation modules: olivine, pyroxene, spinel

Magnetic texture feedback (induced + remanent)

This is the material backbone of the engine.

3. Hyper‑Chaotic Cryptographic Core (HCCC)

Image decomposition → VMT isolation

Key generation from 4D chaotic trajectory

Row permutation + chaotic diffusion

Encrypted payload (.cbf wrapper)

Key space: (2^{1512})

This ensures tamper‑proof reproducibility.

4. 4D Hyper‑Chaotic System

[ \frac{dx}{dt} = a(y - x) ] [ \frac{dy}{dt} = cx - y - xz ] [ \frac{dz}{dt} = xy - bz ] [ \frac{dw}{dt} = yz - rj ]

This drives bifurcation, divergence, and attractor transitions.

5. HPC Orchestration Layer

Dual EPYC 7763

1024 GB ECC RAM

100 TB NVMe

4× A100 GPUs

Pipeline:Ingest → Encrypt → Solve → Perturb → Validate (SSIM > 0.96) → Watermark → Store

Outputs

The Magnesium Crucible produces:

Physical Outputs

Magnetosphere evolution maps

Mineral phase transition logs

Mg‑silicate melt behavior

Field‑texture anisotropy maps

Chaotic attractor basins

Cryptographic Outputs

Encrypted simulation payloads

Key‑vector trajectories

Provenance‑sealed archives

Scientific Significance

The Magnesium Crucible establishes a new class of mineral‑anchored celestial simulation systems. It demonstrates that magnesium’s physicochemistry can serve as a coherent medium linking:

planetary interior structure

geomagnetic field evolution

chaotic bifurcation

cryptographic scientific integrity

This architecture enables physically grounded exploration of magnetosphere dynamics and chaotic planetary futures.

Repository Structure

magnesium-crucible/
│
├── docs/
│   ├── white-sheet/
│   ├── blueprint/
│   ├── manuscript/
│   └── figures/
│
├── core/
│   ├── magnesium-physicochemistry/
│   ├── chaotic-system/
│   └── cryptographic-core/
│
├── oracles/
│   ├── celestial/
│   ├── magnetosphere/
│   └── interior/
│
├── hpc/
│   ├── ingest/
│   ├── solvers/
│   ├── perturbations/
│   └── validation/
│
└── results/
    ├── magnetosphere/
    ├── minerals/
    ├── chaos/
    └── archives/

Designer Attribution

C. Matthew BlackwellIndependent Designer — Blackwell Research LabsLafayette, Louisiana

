@@ -1,0 +1,164 @@
+
+
+/docs/README-magnesium-crucible.md
+
+Every major section begins with a Guided Link so you can expand any part instantly.
+
+Magnesium Crucible — README
+
+Celestial & Geomagnetic Simulation Framework
+
+Designer: C. Matthew Blackwell — Blackwell Research Labs
+
+Overview
+
+The Magnesium Crucible is a unified simulation architecture that models planetary magnetism, interior structure, and chaotic field evolution using the physicochemical behavior of magnesium‑bearing materials. It integrates mineral physics, magnetosphere geometry, chaotic dynamics, and cryptographic sealing into a single high‑fidelity engine.
+
+This framework establishes magnesium as the material‑truth anchor for celestial modeling.
+
+Core Principles
+
+Magnesium defines planetary interior behaviorMg‑silicates dominate mantle composition and control phase boundaries.
+
+Magnetic response emerges from mineral textureInduced and remanent magnetization arise from Mg‑bearing minerals.
+
+Chaos reveals alternate magnetosphere futuresA 4D hyper‑chaotic system drives bifurcation and attractor formation.
+
+Cryptography ensures scientific integrityAll simulation outputs are sealed using chaotic key‑vector encryption.
+
+System Architecture
+
+The Magnesium Crucible consists of five major subsystems:
+
+1. Celestial & Geomagnetic Oracles
+
+Uranus master model (R, M, rotation, obliquity)
+
+Atmospheric oracle (H₂, He, CH₄, H₂S)
+
+Magnetosphere oracle (offset dipole, tilt, multipolar geometry)
+
+Internal structure oracle (ice mantle, rocky core)
+
+These define the planetary constraints.
+
+2. Magnesium Physicochemistry Core
+
+Volumetric Material Tensors (VMT)
+
+Mg‑silicate melts
+
+Phase boundary solvers
+
+Mineral formation modules: olivine, pyroxene, spinel
+
+Magnetic texture feedback (induced + remanent)
+
+This is the material backbone of the engine.
+
+3. Hyper‑Chaotic Cryptographic Core (HCCC)
+
+Image decomposition → VMT isolation
+
+Key generation from 4D chaotic trajectory
+
+Row permutation + chaotic diffusion
+
+Encrypted payload (.cbf wrapper)
+
+Key space: (2^{1512})
+
+This ensures tamper‑proof reproducibility.
+
+4. 4D Hyper‑Chaotic System
+
+[ \frac{dx}{dt} = a(y - x) ] [ \frac{dy}{dt} = cx - y - xz ] [ \frac{dz}{dt} = xy - bz ] [ \frac{dw}{dt} = yz - rj ]
+
+This drives bifurcation, divergence, and attractor transitions.
+
+5. HPC Orchestration Layer
+
+Dual EPYC 7763
+
+1024 GB ECC RAM
+
+100 TB NVMe
+
+4× A100 GPUs
+
+Pipeline:Ingest → Encrypt → Solve → Perturb → Validate (SSIM > 0.96) → Watermark → Store
+
+Outputs
+
+The Magnesium Crucible produces:
+
+Physical Outputs
+
+Magnetosphere evolution maps
+
+Mineral phase transition logs
+
+Mg‑silicate melt behavior
+
+Field‑texture anisotropy maps
+
+Chaotic attractor basins
+
+Cryptographic Outputs
+
+Encrypted simulation payloads
+
+Key‑vector trajectories
+
+Provenance‑sealed archives
+
+Scientific Significance
+
+The Magnesium Crucible establishes a new class of mineral‑anchored celestial simulation systems. It demonstrates that magnesium’s physicochemistry can serve as a coherent medium linking:
+
+planetary interior structure
+
+geomagnetic field evolution
+
+chaotic bifurcation
+
+cryptographic scientific integrity
+
+This architecture enables physically grounded exploration of magnetosphere dynamics and chaotic planetary futures.
+
+Repository Structure
+
+magnesium-crucible/
+│
+├── docs/
+│   ├── white-sheet/
+│   ├── blueprint/
+│   ├── manuscript/
+│   └── figures/
+│
+├── core/
+│   ├── magnesium-physicochemistry/
+│   ├── chaotic-system/
+│   └── cryptographic-core/
+│
+├── oracles/
+│   ├── celestial/
+│   ├── magnetosphere/
+│   └── interior/
+│
+├── hpc/
+│   ├── ingest/
+│   ├── solvers/
+│   ├── perturbations/
+│   └── validation/
+│
+└── results/
+    ├── magnetosphere/
+    ├── minerals/
+    ├── chaos/
+    └── archives/
+
+Designer Attribution
+
+C. Matthew BlackwellIndependent Designer — Blackwell Research LabsLafayette, Louisiana
+
