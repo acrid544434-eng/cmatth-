@@ -1,0 +1,170 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+\onehalfspacing
+
+\title{GMSS: Geospatial Multi-Physics Stratum Simulator\\
+Scientific White Sheet}
+\author{C.~Matthew Blackwell\\Independent Designer}
+\date{July 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The Geospatial Multi-Physics Stratum Simulator (GMSS) is a unified computational framework designed to model coupled astrophysical, geomechanical, multiphase fluid, fracture-mechanical, and biogeochemical processes within Earth's subsurface. GMSS integrates dynamic gravitational forcing derived from astrophysical datasets, visco-elasto-plastic geomechanics, multiphase flow of water and methane, Mohr--Coulomb fracture mechanics, and microbial reaction-diffusion systems. All state transitions are computed within a homomorphically encrypted environment and validated using zero-knowledge proofs, producing a cryptographically governed record of planetary evolution. GMSS represents a novel class of multi-domain Earth system simulator with potential implications for geophysics, computational trust, and planetary science.
+\end{abstract}
+
+\section{Introduction}
+Earth system simulations traditionally isolate physical domains such as geomechanics, hydrology, fracture propagation, and biogeochemistry. This separation limits the ability to capture emergent phenomena arising from deep coupling between physical, chemical, and biological processes. GMSS proposes a unified architecture that integrates these domains and introduces cryptographic verification to ensure the integrity of simulation outputs.
+
+The primary objectives of GMSS are:
+\begin{enumerate}
+    \item To incorporate astrophysical forcing into subsurface physics.
+    \item To unify geomechanical, fluid, fracture, and biogeochemical processes.
+    \item To enforce cryptographic validation of all state transitions.
+    \item To produce tamper-proof, physically consistent planetary evolution histories.
+\end{enumerate}
+
+\section{System Architecture}
+
+\subsection{Core Components}
+GMSS consists of the following core modules:
+\begin{itemize}
+    \item Astrophysical Forcing Module
+    \item Encrypted Compute Kernel (homomorphic encryption)
+    \item Zero-Knowledge Verification Layer (ZK-Snarks)
+    \item Geomechanical Solver (Biot consolidation)
+    \item Multiphase Flow Engine (water--methane)
+    \item Fracture Mechanics Engine (Mohr--Coulomb)
+    \item Biogeochemical Engine (reaction--diffusion)
+    \item Global Ledger for state checkpointing
+\end{itemize}
+
+\subsection{Unified State Vector}
+The global state vector is defined as:
+\begin{equation}
+\Psi = \{u, p, S_i, C_i, \sigma, \tau, T, P, S\},
+\end{equation}
+where $u$ is displacement, $p$ is pressure, $S_i$ are phase saturations, $C_i$ are chemical/microbial concentrations, $\sigma$ is stress, $\tau$ is shear stress, $T$ is temperature, $P$ is pressure, and $S$ is salinity.
+
+\section{Governing Equations}
+
+\subsection{Astrophysical Gravitational Forcing}
+The gravitational energy field is given by:
+\begin{equation}
+E = \int_V G(r,t)\, dV,
+\end{equation}
+where $G(r,t)$ is a time-varying gravitational field derived from astrophysical datasets.
+
+\subsection{Geomechanics (Biot Consolidation)}
+The geomechanical behavior is governed by:
+\begin{equation}
+\partial_t\left(\frac{p_M}{M} + \alpha \nabla\cdot \mathbf{u}\right)
+= \nabla\cdot\left(\frac{k}{\mu}\nabla p\right) + Q',
+\end{equation}
+where $p_M$ is matrix pressure, $M$ is constrained modulus, $\alpha$ is the Biot coefficient, $\mathbf{u}$ is displacement, $k$ is permeability, $\mu$ is fluid viscosity, and $Q'$ is a source/sink term.
+
+\subsection{Multiphase Flow (Water--Methane)}
+Multiphase Darcy flow is described by:
+\begin{equation}
+\mathbf{v}_i = -\frac{k k_{ri}}{\mu_i} \nabla p_i,
+\end{equation}
+with saturation constraint:
+\begin{equation}
+S_w + S_g = 1,
+\end{equation}
+where $\mathbf{v}_i$ is phase velocity, $k_{ri}$ is relative permeability, $\mu_i$ is phase viscosity, and $S_w$, $S_g$ are water and gas saturations.
+
+\subsection{Fracture Mechanics (Mohr--Coulomb)}
+Fracture and fault failure follow:
+\begin{equation}
+\sigma_{\text{yield}} = C + \sigma_n \tan(\phi),
+\end{equation}
+where $C$ is cohesion, $\sigma_n$ is normal stress, and $\phi$ is friction angle.
+
+\subsection{Biogeochemical Reaction--Diffusion}
+Biogeochemical and microbial processes are modeled as:
+\begin{equation}
+\partial_t C_i = D_i \nabla^2 C_i + R_i(C_i, T, P, S),
+\end{equation}
+where $C_i$ is concentration of species $i$, $D_i$ is diffusion coefficient, and $R_i$ is a nonlinear reaction term dependent on temperature $T$, pressure $P$, and salinity $S$.
+
+\section{Simulation Workflow}
+
+\subsection{Execution Pipeline}
+Each timestep in GMSS proceeds as follows:
+\begin{enumerate}
+    \item Import astrophysical forcing.
+    \item Solve geomechanical deformation.
+    \item Compute multiphase flow.
+    \item Evaluate fracture propagation.
+    \item Solve biogeochemical reaction--diffusion.
+    \item Update the unified state vector $\Psi$.
+    \item Generate a zero-knowledge proof for the timestep.
+    \item Write the state and proof to the global ledger.
+    \item Advance the simulation time.
+\end{enumerate}
+
+\section{Cryptographic Governance}
+
+\subsection{Homomorphic Encryption}
+All physics computations are performed on encrypted state, enabling privacy-preserving simulation while maintaining full functionality.
+
+\subsection{Zero-Knowledge Proofs}
+For each timestep, a zero-knowledge proof is generated to certify that the state transition obeys the governing equations and constraints:
+\begin{equation}
+ZK\text{-}P(d) = \text{True}.
+\end{equation}
+
+\subsection{Ledger Integration}
+Validated states and their associated proofs are written to a secure ledger, forming an immutable record of physically consistent evolution.
+
+\section{Multi-Year System Behavior (Conceptual Summary)}
+Over multi-year simulations, GMSS produces coupled evolution across domains:
+\begin{itemize}
+    \item Geomechanical: basin compaction, uplift, stress redistribution.
+    \item Fluid flow: reorganization of water and methane pathways.
+    \item Fracture dynamics: growth and connectivity of fracture networks.
+    \item Biogeochemistry: microbial metabolism alters mineralogy and porosity.
+    \item Cosmic forcing: stellar motion modulates stress fields.
+    \item Cryptographic governance: all transitions are validated and immutable.
+\end{itemize}
+
+\section{Scientific Significance}
+GMSS introduces a new class of multi-domain Earth system simulator that integrates astrophysical forcing, subsurface physics, biological processes, and cryptographic verification. This architecture may enable:
+\begin{itemize}
+    \item Tamper-proof planetary evolution records.
+    \item Improved modeling of coupled geophysical and biogeochemical systems.
+    \item New approaches to computational trust in scientific simulations.
+    \item A foundation for next-generation Earth system models.
+\end{itemize}
+
+\section{Future Work}
+Future work includes:
+\begin{itemize}
+    \item Formal mathematical validation of coupled modules.
+    \item Implementation of the encrypted physics kernel.
+    \item Construction of zero-knowledge proof circuits for governing equations.
+    \item Benchmarking against existing geomechanical and Earth system models.
+    \item Expansion into multi-volume technical documentation.
+\end{itemize}
+
+\section*{References}
+\begin{itemize}
+    \item Biot, M.A. (1941). General theory of three-dimensional consolidation.
+    \item Darcy, H. (1856). \textit{Les Fontaines Publiques de la Ville de Dijon}.
+    \item Mohr, C. (1900). Strength of materials.
+    \item Coulomb, C.A. (1773). Essai sur une application des règles de maximis et minimis.
+    \item GAIA mission data releases (e.g., DR3).
+    \item Literature on homomorphic encryption and zero-knowledge proofs.
+\end{itemize}
+
+\end{document}
