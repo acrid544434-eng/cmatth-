@@ -1,0 +1,44 @@
+
+
+Figure 1 — System Architecture Overview
+
+Description:This figure presents the full Chronos‑State Engine architecture, showing the flow of data from observational ingestion through cryptographic sealing, state‑space initialization, chaotic evolution, and dual‑timeline simulation. The diagram highlights the modular structure of the system, including the Data Harmonization Layer, Cryptographic Provenance Layer, Chronos‑State Matrix, Hyper‑Chaotic Evolution Module, and the Simulation Sandbox. Arrows indicate the direction of data flow, and subsystem boundaries are clearly delineated to emphasize the layered design.
+
+Figure 2 — Data Harmonization Pipeline
+
+Description:This figure illustrates the multi‑instrument harmonization process applied to Voyager 2, Keck/VLT, and JWST datasets. The pipeline includes temporal resampling to UTC J2000, spatial co‑registration, covariance propagation, and conversion into standardized multi‑dimensional data cubes. Each stage is represented as a processing block, with annotations describing the transformations applied to the raw observational data.
+
+Figure 3 — Chronos‑State Matrix Mapping
+
+Description:This figure depicts the transformation of observational rasters and ImagePayData fields into the four‑dimensional Chronos‑State vector ((x_0, y_0, z_0, w_0)). The diagram shows how pixel‑level gradients, spectral intensities, and structural features are extracted and mapped into state‑space coordinates. The mapping function is illustrated as a compression and projection process, converting high‑dimensional imagery into a compact chaotic initial condition.
+
+Figure 4 — Hyper‑Chaotic Evolution Equations
+
+Description:This figure presents the system of nonlinear differential equations governing Chronos‑State evolution. Each equation is displayed alongside a visual representation of its influence on the trajectory, including coupling terms, nonlinear interactions, and sensitivity pathways. The figure emphasizes how small perturbations propagate through the system, enabling bifurcation and attractor transitions.
+
+Figure 5 — Dual‑Timeline Simulation Sandbox
+
+Description:This figure shows the bifurcated simulation environment where Timeline A (baseline physics) and Timeline B (chaotic perturbation path) evolve in parallel. The sandbox includes atmospheric fluid dynamics, magnetosphere MHD, ring and moon N‑body dynamics, and radiative energy flow. The figure visually separates the two timelines while illustrating shared physical solvers and divergence points.
+
+Figure 6 — Chronos‑State Divergence Plot
+
+Description:This figure displays the divergence between baseline and chaotic timelines over simulation time. The plot shows the state‑space distance (D(t)) increasing after perturbation injection, with distinct phases: stability window, chaotic lift‑off, full bifurcation, and attractor stabilization. The curve demonstrates how chaotic perturbations produce alternate futures while remaining physically plausible.
+
+Figure 7 — Attractor Basin Map
+
+Description:This figure illustrates the attractor basins occupied by baseline and chaotic trajectories. The baseline attractor appears as a stable, repeating structure, while the chaotic attractor exhibits stretched and folded geometry indicative of bifurcation. The map highlights the separation between attractor regions, confirming the existence of multiple stable futures.
+
+Figure 8 — Bifurcation Stability Map
+
+Description:This figure presents the stability landscape across parameter space, showing regions of stability, semi‑stability, instability, and full chaotic divergence. Color‑coded regions indicate how variations in system parameters influence bifurcation behavior. The map provides insight into the sensitivity of planetary systems under controlled perturbations.
+
+Figure 9 — SSIM Validation Results
+
+Description:This figure shows the structural similarity (SSIM) comparison between synthetic outputs and observational references. A threshold line at SSIM = 0.95 indicates the boundary for physical plausibility. The figure includes multiple SSIM curves representing different simulation outputs, demonstrating which timelines remain valid and which are discarded.
+
+Figure 10 — Full System Workflow
+
+Description:This figure provides a comprehensive workflow diagram summarizing the entire Chronos‑State Engine process from data ingestion to final validation. Each subsystem is represented with clear boundaries, and arrows indicate the sequential and parallel operations. The workflow emphasizes reproducibility, cryptographic integrity, and multi‑timeline evolution.
+
+
+
