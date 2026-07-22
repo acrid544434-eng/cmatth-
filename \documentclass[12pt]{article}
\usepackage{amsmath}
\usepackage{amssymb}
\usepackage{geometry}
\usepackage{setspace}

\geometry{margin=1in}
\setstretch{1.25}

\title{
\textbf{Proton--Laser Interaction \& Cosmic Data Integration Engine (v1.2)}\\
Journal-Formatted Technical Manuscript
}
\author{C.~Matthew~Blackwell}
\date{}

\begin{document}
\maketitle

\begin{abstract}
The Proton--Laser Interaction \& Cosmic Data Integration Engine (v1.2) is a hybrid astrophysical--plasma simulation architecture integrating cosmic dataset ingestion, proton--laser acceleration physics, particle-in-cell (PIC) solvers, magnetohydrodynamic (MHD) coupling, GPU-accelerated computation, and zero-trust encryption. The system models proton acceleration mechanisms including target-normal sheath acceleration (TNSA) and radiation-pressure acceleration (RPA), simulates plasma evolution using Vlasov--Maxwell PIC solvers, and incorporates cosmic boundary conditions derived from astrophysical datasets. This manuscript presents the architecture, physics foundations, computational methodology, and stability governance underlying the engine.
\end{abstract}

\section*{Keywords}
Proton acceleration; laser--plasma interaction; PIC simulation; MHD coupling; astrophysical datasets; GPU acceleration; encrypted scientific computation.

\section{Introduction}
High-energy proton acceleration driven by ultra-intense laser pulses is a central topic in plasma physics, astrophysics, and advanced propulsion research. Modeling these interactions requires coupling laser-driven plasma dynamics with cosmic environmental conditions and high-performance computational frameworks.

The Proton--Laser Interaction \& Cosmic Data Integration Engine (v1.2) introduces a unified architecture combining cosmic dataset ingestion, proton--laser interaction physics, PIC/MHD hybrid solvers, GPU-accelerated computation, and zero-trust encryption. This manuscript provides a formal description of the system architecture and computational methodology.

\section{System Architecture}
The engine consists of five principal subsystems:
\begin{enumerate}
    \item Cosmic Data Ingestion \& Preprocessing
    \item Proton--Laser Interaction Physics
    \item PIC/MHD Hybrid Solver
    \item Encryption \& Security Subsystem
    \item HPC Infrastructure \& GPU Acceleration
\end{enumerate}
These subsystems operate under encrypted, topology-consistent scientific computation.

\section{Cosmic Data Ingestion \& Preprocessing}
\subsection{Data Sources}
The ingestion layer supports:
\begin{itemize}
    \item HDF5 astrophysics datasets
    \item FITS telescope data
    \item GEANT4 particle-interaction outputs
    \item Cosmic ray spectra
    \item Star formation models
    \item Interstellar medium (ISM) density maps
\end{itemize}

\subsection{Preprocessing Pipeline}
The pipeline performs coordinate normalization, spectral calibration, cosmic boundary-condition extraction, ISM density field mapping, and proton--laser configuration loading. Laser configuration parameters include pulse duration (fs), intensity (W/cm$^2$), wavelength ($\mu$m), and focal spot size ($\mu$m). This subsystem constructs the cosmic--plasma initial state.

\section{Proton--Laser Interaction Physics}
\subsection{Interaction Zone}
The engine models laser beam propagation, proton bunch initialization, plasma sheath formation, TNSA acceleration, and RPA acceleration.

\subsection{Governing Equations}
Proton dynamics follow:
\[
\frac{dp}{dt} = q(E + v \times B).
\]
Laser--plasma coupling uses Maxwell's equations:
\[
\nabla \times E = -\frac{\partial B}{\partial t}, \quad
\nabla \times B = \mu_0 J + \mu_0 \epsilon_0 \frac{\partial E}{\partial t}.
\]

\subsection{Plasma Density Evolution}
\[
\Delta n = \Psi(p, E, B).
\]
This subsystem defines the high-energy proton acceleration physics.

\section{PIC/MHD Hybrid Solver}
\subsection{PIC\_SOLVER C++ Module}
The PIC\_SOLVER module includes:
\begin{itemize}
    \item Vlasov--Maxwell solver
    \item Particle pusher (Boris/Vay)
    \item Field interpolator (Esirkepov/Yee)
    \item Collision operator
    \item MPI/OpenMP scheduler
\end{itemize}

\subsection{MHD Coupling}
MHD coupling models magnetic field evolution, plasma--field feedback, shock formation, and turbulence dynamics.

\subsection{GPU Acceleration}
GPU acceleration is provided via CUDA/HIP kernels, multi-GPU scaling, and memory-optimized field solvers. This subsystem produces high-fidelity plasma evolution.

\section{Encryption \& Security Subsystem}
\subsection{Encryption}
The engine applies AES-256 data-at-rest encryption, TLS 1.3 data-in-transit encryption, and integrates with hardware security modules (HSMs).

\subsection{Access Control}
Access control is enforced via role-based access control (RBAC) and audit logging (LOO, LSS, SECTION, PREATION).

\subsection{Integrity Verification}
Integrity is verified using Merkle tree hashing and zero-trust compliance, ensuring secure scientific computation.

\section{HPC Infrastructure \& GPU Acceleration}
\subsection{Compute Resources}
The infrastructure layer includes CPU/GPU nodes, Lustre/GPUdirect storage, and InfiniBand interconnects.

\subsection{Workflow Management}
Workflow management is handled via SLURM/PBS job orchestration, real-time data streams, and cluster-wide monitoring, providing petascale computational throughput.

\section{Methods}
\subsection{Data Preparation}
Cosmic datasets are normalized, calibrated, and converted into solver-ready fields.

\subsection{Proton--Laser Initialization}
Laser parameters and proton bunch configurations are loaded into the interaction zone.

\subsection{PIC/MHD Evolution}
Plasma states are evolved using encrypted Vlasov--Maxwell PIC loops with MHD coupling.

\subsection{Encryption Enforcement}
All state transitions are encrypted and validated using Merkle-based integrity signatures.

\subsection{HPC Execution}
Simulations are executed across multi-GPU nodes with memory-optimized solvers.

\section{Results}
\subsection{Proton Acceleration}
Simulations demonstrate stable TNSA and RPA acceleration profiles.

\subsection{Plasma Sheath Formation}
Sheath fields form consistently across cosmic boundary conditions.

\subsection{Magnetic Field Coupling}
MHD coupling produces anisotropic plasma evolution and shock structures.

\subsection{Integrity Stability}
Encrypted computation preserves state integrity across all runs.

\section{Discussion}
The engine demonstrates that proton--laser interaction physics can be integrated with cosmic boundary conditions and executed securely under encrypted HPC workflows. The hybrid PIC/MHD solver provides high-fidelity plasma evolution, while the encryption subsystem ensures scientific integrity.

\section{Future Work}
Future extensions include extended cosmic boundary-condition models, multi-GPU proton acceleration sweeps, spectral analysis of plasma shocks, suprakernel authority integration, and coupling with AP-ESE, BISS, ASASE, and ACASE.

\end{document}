@@ -1,0 +1,148 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{setspace}
+
+\geometry{margin=1in}
+\setstretch{1.25}
+
+\title{
+\textbf{Proton--Laser Interaction \& Cosmic Data Integration Engine (v1.2)}\\
+Journal-Formatted Technical Manuscript
+}
+\author{C.~Matthew~Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Proton--Laser Interaction \& Cosmic Data Integration Engine (v1.2) is a hybrid astrophysical--plasma simulation architecture integrating cosmic dataset ingestion, proton--laser acceleration physics, particle-in-cell (PIC) solvers, magnetohydrodynamic (MHD) coupling, GPU-accelerated computation, and zero-trust encryption. The system models proton acceleration mechanisms including target-normal sheath acceleration (TNSA) and radiation-pressure acceleration (RPA), simulates plasma evolution using Vlasov--Maxwell PIC solvers, and incorporates cosmic boundary conditions derived from astrophysical datasets. This manuscript presents the architecture, physics foundations, computational methodology, and stability governance underlying the engine.
+\end{abstract}
+
+\section*{Keywords}
+Proton acceleration; laser--plasma interaction; PIC simulation; MHD coupling; astrophysical datasets; GPU acceleration; encrypted scientific computation.
+
+\section{Introduction}
+High-energy proton acceleration driven by ultra-intense laser pulses is a central topic in plasma physics, astrophysics, and advanced propulsion research. Modeling these interactions requires coupling laser-driven plasma dynamics with cosmic environmental conditions and high-performance computational frameworks.
+
+The Proton--Laser Interaction \& Cosmic Data Integration Engine (v1.2) introduces a unified architecture combining cosmic dataset ingestion, proton--laser interaction physics, PIC/MHD hybrid solvers, GPU-accelerated computation, and zero-trust encryption. This manuscript provides a formal description of the system architecture and computational methodology.
+
+\section{System Architecture}
+The engine consists of five principal subsystems:
+\begin{enumerate}
+    \item Cosmic Data Ingestion \& Preprocessing
+    \item Proton--Laser Interaction Physics
+    \item PIC/MHD Hybrid Solver
+    \item Encryption \& Security Subsystem
+    \item HPC Infrastructure \& GPU Acceleration
+\end{enumerate}
+These subsystems operate under encrypted, topology-consistent scientific computation.
+
+\section{Cosmic Data Ingestion \& Preprocessing}
+\subsection{Data Sources}
+The ingestion layer supports:
+\begin{itemize}
+    \item HDF5 astrophysics datasets
+    \item FITS telescope data
+    \item GEANT4 particle-interaction outputs
+    \item Cosmic ray spectra
+    \item Star formation models
+    \item Interstellar medium (ISM) density maps
+\end{itemize}
+
+\subsection{Preprocessing Pipeline}
+The pipeline performs coordinate normalization, spectral calibration, cosmic boundary-condition extraction, ISM density field mapping, and proton--laser configuration loading. Laser configuration parameters include pulse duration (fs), intensity (W/cm$^2$), wavelength ($\mu$m), and focal spot size ($\mu$m). This subsystem constructs the cosmic--plasma initial state.
+
+\section{Proton--Laser Interaction Physics}
+\subsection{Interaction Zone}
+The engine models laser beam propagation, proton bunch initialization, plasma sheath formation, TNSA acceleration, and RPA acceleration.
+
+\subsection{Governing Equations}
+Proton dynamics follow:
+\[
+\frac{dp}{dt} = q(E + v \times B).
+\]
+Laser--plasma coupling uses Maxwell's equations:
+\[
+\nabla \times E = -\frac{\partial B}{\partial t}, \quad
+\nabla \times B = \mu_0 J + \mu_0 \epsilon_0 \frac{\partial E}{\partial t}.
+\]
+
+\subsection{Plasma Density Evolution}
+\[
+\Delta n = \Psi(p, E, B).
+\]
+This subsystem defines the high-energy proton acceleration physics.
+
+\section{PIC/MHD Hybrid Solver}
+\subsection{PIC\_SOLVER C++ Module}
+The PIC\_SOLVER module includes:
+\begin{itemize}
+    \item Vlasov--Maxwell solver
+    \item Particle pusher (Boris/Vay)
+    \item Field interpolator (Esirkepov/Yee)
+    \item Collision operator
+    \item MPI/OpenMP scheduler
+\end{itemize}
+
+\subsection{MHD Coupling}
+MHD coupling models magnetic field evolution, plasma--field feedback, shock formation, and turbulence dynamics.
+
+\subsection{GPU Acceleration}
+GPU acceleration is provided via CUDA/HIP kernels, multi-GPU scaling, and memory-optimized field solvers. This subsystem produces high-fidelity plasma evolution.
+
+\section{Encryption \& Security Subsystem}
+\subsection{Encryption}
+The engine applies AES-256 data-at-rest encryption, TLS 1.3 data-in-transit encryption, and integrates with hardware security modules (HSMs).
+
+\subsection{Access Control}
+Access control is enforced via role-based access control (RBAC) and audit logging (LOO, LSS, SECTION, PREATION).
+
+\subsection{Integrity Verification}
+Integrity is verified using Merkle tree hashing and zero-trust compliance, ensuring secure scientific computation.
+
+\section{HPC Infrastructure \& GPU Acceleration}
+\subsection{Compute Resources}
+The infrastructure layer includes CPU/GPU nodes, Lustre/GPUdirect storage, and InfiniBand interconnects.
+
+\subsection{Workflow Management}
+Workflow management is handled via SLURM/PBS job orchestration, real-time data streams, and cluster-wide monitoring, providing petascale computational throughput.
+
+\section{Methods}
+\subsection{Data Preparation}
+Cosmic datasets are normalized, calibrated, and converted into solver-ready fields.
+
+\subsection{Proton--Laser Initialization}
+Laser parameters and proton bunch configurations are loaded into the interaction zone.
+
+\subsection{PIC/MHD Evolution}
+Plasma states are evolved using encrypted Vlasov--Maxwell PIC loops with MHD coupling.
+
+\subsection{Encryption Enforcement}
+All state transitions are encrypted and validated using Merkle-based integrity signatures.
+
+\subsection{HPC Execution}
+Simulations are executed across multi-GPU nodes with memory-optimized solvers.
+
+\section{Results}
+\subsection{Proton Acceleration}
+Simulations demonstrate stable TNSA and RPA acceleration profiles.
+
+\subsection{Plasma Sheath Formation}
+Sheath fields form consistently across cosmic boundary conditions.
+
+\subsection{Magnetic Field Coupling}
+MHD coupling produces anisotropic plasma evolution and shock structures.
+
+\subsection{Integrity Stability}
+Encrypted computation preserves state integrity across all runs.
+
+\section{Discussion}
+The engine demonstrates that proton--laser interaction physics can be integrated with cosmic boundary conditions and executed securely under encrypted HPC workflows. The hybrid PIC/MHD solver provides high-fidelity plasma evolution, while the encryption subsystem ensures scientific integrity.
+
+\section{Future Work}
+Future extensions include extended cosmic boundary-condition models, multi-GPU proton acceleration sweeps, spectral analysis of plasma shocks, suprakernel authority integration, and coupling with AP-ESE, BISS, ASASE, and ACASE.
+
+\end{document}
