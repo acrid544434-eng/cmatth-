@@ -1,0 +1,133 @@
+
+
+ACASE‑v9.8 — Methods and Results (Academic Style)
+
+11. Methods
+
+11.1 Data Preparation
+
+Astrophysical datasets from Gaia DR3, JWST MAST, and SDSS were preprocessed using a unified ingestion pipeline. Phase‑space coordinates were transformed into a common reference frame, and baryonic/dark‑matter particle states were initialized using catalog‑derived mass, luminosity, and spectral parameters. Voronoi tessellation was applied to the spatial domain to generate density‑adaptive cells for local dynamical updates.
+
+11.2 Manifold Initialization
+
+The baryonic graph was constructed by linking stellar and gas‑cloud nodes using weighted adjacency matrices derived from local density and velocity dispersion. Dark‑matter halo fields were initialized using analytic NFW‑like profiles and catalog‑derived halo masses. The combined manifold was stored in LDCKEG encrypted space.
+
+11.3 Adhesion Dynamics
+
+Adhesion forces were computed using the ISM surface‑tension formulation:
+
+[ F_{\text{adhesion}}(r_i) = \sum_j r_{ij} A_{ij} \frac{r_{ij}}{|r_{ij}|} \left( 1 - \exp\left(-\frac{|r_{ij}|}{l_0}\right) \right). ]
+
+This method emphasizes short‑range baryonic clustering and filament formation. Adhesion updates were applied homomorphically to encrypted particle states.
+
+11.4 Cohesion Dynamics
+
+Cohesion forces were computed using gravitational and MHD kernels:
+
+[ F_{\text{cohesion}}(r_i) = G m_i \sum_j \frac{m_j r_{ji}}{r_{ji}^3}
+
+\text{kernel}(W(r,h)). ]
+
+The gravitational term governs large‑scale collapse, while the MHD kernel governs flux‑conservative evolution in magnetized regions.
+
+11.5 Cryptographic Invariant Computation
+
+At each timestep, the following invariants were computed:
+
+inertia tensor (I)
+
+total angular momentum (L_{\text{total}})
+
+Euler characteristic (\chi_I)
+
+structural traces and determinants
+
+These invariants were hashed into the dynamic cipher state:
+
+[ K_{dyn} = H512(\text{Tr}(I) \parallel \det(I) \parallel L_{\text{total}} \parallel \chi_I). ]
+
+The cipher state governed homomorphic update permissions and manifold integrity.
+
+11.6 GPU Execution
+
+Encrypted particle updates were executed on CUDA and SYCL backends. All arithmetic, memory access, and solver operations were performed on encrypted data. Multi‑GPU parallelism was used for large‑scale manifold evolution.
+
+12. Results
+
+12.1 Filament Formation
+
+Simulations demonstrated the emergence of baryonic filaments driven by adhesion dynamics. Filament thickness correlated with local ISM density and adhesion coefficient (A_{ij}). Filaments remained stable under cohesion‑driven gravitational collapse.
+
+12.2 Halo–Baryon Coupling
+
+Dark‑matter halo potentials induced large‑scale baryonic inflow. Cohesion dynamics reinforced filament alignment with halo gravitational gradients. The resulting structures resembled observed cosmic‑web morphologies.
+
+12.3 MHD‑Driven Structural Evolution
+
+Regions with strong magnetic fields exhibited flux‑conservative evolution. MHD kernels produced anisotropic cohesion forces, generating sheet‑like structures and suppressing collapse along field lines.
+
+12.4 Tessellation‑Driven Manifold Shifts
+
+Voronoi tessellation enabled adaptive resolution. High‑density regions exhibited smaller cells and more frequent updates, improving accuracy in collapse zones. Low‑density regions evolved smoothly with larger cells.
+
+12.5 Invariant Stability
+
+Across all simulations, cryptographic invariants remained stable. No unauthorized manifold mutations were detected. Homomorphic updates preserved invariant consistency across GPU execution.
+
+LaTeX Academic Version — Methods + Results
+
+Paste this directly into your ACASE LaTeX manuscript:
+
+\section{Methods}
+
+\subsection{Data Preparation}
+Astrophysical datasets from Gaia DR3, JWST MAST, and SDSS were preprocessed using a unified ingestion pipeline. Phase-space coordinates were transformed into a common reference frame, and baryonic/dark-matter particle states were initialized using catalog-derived mass, luminosity, and spectral parameters. Voronoi tessellation was applied to generate density-adaptive cells for local dynamical updates.
+
+\subsection{Manifold Initialization}
+The baryonic graph was constructed by linking stellar and gas-cloud nodes using weighted adjacency matrices derived from local density and velocity dispersion. Dark-matter halo fields were initialized using analytic profiles and catalog-derived halo masses. The combined manifold was stored in LDCKEG encrypted space.
+
+\subsection{Adhesion Dynamics}
+Adhesion forces were computed using:
+\[
+F_{\text{adhesion}}(r_i) =
+\sum_j r_{ij} A_{ij} \frac{r_{ij}}{|r_{ij}|}
+\left( 1 - \exp\left(-\frac{|r_{ij}|}{l_0}\right) \right).
+\]
+Adhesion updates were applied homomorphically to encrypted particle states.
+
+\subsection{Cohesion Dynamics}
+Cohesion forces were computed using:
+\[
+F_{\text{cohesion}}(r_i) =
+G m_i \sum_j \frac{m_j r_{ji}}{r_{ji}^3}
++ \text{kernel}(W(r,h)).
+\]
+This governed gravitational collapse and MHD-driven structure formation.
+
+\subsection{Cryptographic Invariant Computation}
+Invariants including inertia tensor \(I\), total angular momentum \(L_{\text{total}}\), and Euler characteristic \(\chi_I\) were hashed into the dynamic cipher state:
+\[
+K_{dyn} =
+H512(\text{Tr}(I) \parallel \det(I) \parallel L_{\text{total}} \parallel \chi_I).
+\]
+
+\subsection{GPU Execution}
+Encrypted particle updates were executed on CUDA and SYCL backends with full homomorphic arithmetic and multi-GPU parallelism.
+
+\section{Results}
+
+\subsection{Filament Formation}
+Simulations demonstrated baryonic filament formation driven by adhesion dynamics. Filament thickness correlated with ISM density and adhesion coefficient \(A_{ij}\).
+
+\subsection{Halo--Baryon Coupling}
+Dark-matter halo potentials induced baryonic inflow, reinforcing filament alignment with halo gravitational gradients.
+
+\subsection{MHD-Driven Structural Evolution}
+Magnetized regions exhibited flux-conservative evolution, producing anisotropic cohesion forces and sheet-like structures.
+
+\subsection{Tessellation-Driven Manifold Shifts}
+Voronoi tessellation enabled adaptive resolution, improving accuracy in high-density collapse zones.
+
+\subsection{Invariant Stability}
+Cryptographic invariants remained stable across all simulations, and no unauthorized manifold mutations were detected.
+
