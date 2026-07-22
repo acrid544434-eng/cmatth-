@@ -1,0 +1,108 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{setspace}
+
+\geometry{margin=1in}
+\setstretch{1.2}
+
+\title{
+\textbf{Adhesion--Cohesion Astrophysical Simulation Engine (ACASE-v9.8)}\\
+Scientific White Sheet
+}
+\author{C.~Matthew~Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Abstract}
+The Adhesion--Cohesion Astrophysical Simulation Engine (ACASE-v9.8) is a sovereign-grade astrophysical manifold simulator integrating real astronomical datasets, baryonic and dark-matter manifold construction, adhesion/cohesion dynamical physics, and AICP cryptographic computation. The engine combines multi-source astrophysical ingestion, tessellation-based manifold generation, interstellar medium adhesion modeling, gravitational/MHD cohesion dynamics, and encrypted GPU execution. This white sheet provides a formal description of the architecture, mathematical foundations, subsystem interactions, and invariant-driven cryptographic governance.
+
+\section{System Overview}
+ACASE-v9.8 is structured into five primary subsystems:
+\begin{enumerate}
+    \item Astrophysical Data Ingestion
+    \item Manifold Construction Layer
+    \item Adhesion \& Cohesion Dynamical Cores
+    \item AICP Cryptographic Core
+    \item Encrypted GPU Execution Architecture
+\end{enumerate}
+These subsystems operate under invariant-driven cryptographic control and manifold-consistent state evolution.
+
+\section{Astrophysical Data Ingestion}
+\subsection{Supported Data Sources}
+ACASE-v9.8 ingests multi-catalog astrophysical datasets, including Gaia DR3 phase-space data, JWST MAST spectra, SDSS photometric and spectroscopic catalogs, and ADQL/TXP query outputs.
+
+\subsection{Ingestion Pipeline}
+The ingestion layer performs coordinate frame harmonization, unit normalization, spectral calibration, phase-space reconstruction, and particle-state preparation, producing a solver-ready particle field with baryonic and dark-matter components.
+
+\section{Manifold Construction Layer}
+\subsection{Baryonic Graph Construction}
+A baryonic interaction graph is built from stellar nodes, gas-cloud nodes, ISM density fields, and weighted adjacency matrices.
+
+\subsection{Voronoi Tessellation}
+Voronoi tessellation generates spatial partitions that define density-adaptive cells, local interaction kernels, and region-specific dynamical updates.
+
+\subsection{Dark Matter Halo Models}
+Dark-matter halo models include analytic profiles and catalog-derived halo masses, forming multi-component gravitational fields. The manifold layer yields a multi-scale cosmic manifold with baryonic, tessellated, and dark-matter structures.
+
+\section{Adhesion \& Cohesion Dynamical Cores}
+\subsection{Adhesion Engine}
+The adhesion engine models surface-tension-like forces in the interstellar medium:
+\[
+F_{\text{adhesion}}(r_i) =
+\sum_j r_{ij} A_{ij} \frac{r_{ij}}{|r_{ij}|}
+\left( 1 - \exp\left(-\frac{|r_{ij}|}{l_0}\right) \right).
+\]
+It governs ISM behavior, filament formation, and baryonic clustering.
+
+\subsection{Cohesion Engine}
+The cohesion engine simulates gravitational and MHD dynamics:
+\[
+F_{\text{cohesion}}(r_i) =
+G m_i \sum_j \frac{m_j r_{ji}}{r_{ji}^3}
++ \text{kernel}(W(r,h)),
+\]
+driving gravitational collapse, MHD-driven structure formation, filament reinforcement, and halo--baryon coupling. Together, the cores produce adhesion--cohesion cosmic evolution across the manifold.
+
+\section{AICP Cryptographic Core}
+\subsection{Physical Invariant Generator}
+The core computes manifold invariants, including inertia tensor \(I\), total angular momentum \(L_{\text{total}}\), Euler characteristic \(\chi_I\), and related traces and determinants.
+
+\subsection{Dynamic Cipher State}
+The dynamic encryption key is defined by
+\[
+K_{dyn} =
+H512(\text{Tr}(I) \parallel \det(I) \parallel L_{\text{total}} \parallel \chi_I),
+\]
+binding physical invariants into a cipher-secured manifold state.
+
+\subsection{Homomorphic Encryption Engine}
+Homomorphic encryption supports encrypted particle updates, encrypted manifold evolution, and encrypted solver execution, ensuring invariant-driven manifold integrity.
+
+\section{Encrypted GPU Execution Architecture}
+\subsection{CUDA/SYCL Execution}
+ACASE-v9.8 supports CUDA-accelerated and SYCL-compatible encrypted execution with multi-GPU parallelism.
+
+\subsection{LDCKEG Cipher Space}
+Particle states reside in LDCKEG encrypted manifold space with homomorphic update paths and invariant-validated memory blocks.
+
+\subsection{Encrypted Solver Pipeline}
+All dynamical updates occur under encrypted arithmetic, encrypted memory access, and encrypted manifold evolution, providing full-pipeline encrypted astrophysical simulation.
+
+\section{Mathematical Foundations}
+ACASE-v9.8 relies on formulations including adhesion surface-tension dynamics, gravitational cohesion tensors, MHD conservation relations, baryonic graph Laplacians, tessellation-driven interaction kernels, invariant-driven cryptographic hashing, and homomorphic update algebra. These define the mathematical backbone of the engine.
+
+\section{Validation Framework}
+\subsection{Scenario Types}
+Representative scenarios include baryonic filament formation, halo--baryon coupling, ISM adhesion clustering, MHD-driven structural evolution, and tessellation-driven manifold shifts.
+
+\subsection{Validation Criteria}
+A scenario is considered valid if manifold invariants remain consistent, adhesion/cohesion dynamics remain stable, encrypted updates remain homomorphic, GPU execution remains cipher-consistent, and no unauthorized manifold mutation occurs.
+
+\section{Future Extensions}
+Planned extensions include multi-GPU encrypted manifold solvers, expanded tessellation resolution, baryonic graph spectral analysis, dark-matter subhalo integration, and unified coupling with AP-ESE, BISS, and ASASE.
+
+\end{document}
