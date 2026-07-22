@@ -1,0 +1,196 @@
+
+
+Full Simulation Test Plan v1.0 — Proton–Laser Interaction & Cosmic Data Integration Engine
+
+1. Purpose
+
+This document defines the first full‑stack simulation test for the Proton–Laser Interaction & Cosmic Data Integration Engine (v1.2).The goal is to validate end‑to‑end functionality across ingestion, preprocessing, proton–laser physics, PIC/MHD evolution, encryption, and HPC execution.
+
+2. Test Scope
+
+This test covers:
+
+Cosmic dataset ingestion
+
+Laser + proton configuration loading
+
+PIC/MHD hybrid solver execution
+
+GPU acceleration layer
+
+Encrypted checkpoint generation
+
+Visualization + analysis pipeline
+
+Integrity verification
+
+It does not cover multi‑scenario sweeps, multi‑GPU scaling, or extended cosmic environments.
+
+3. Test Scenario Definition
+
+3.1 Cosmic Environment
+
+Dataset: Single HDF5 + FITS pair
+
+Components:
+
+ISM density field
+
+cosmic ray spectrum
+
+spectral calibration metadata
+
+3.2 Laser Configuration
+
+Pulse duration: 30 fs
+
+Intensity: 1×10²⁰ W/cm²
+
+Wavelength: 0.8 μm
+
+Focal spot size: 3 μm
+
+3.3 Proton Bunch
+
+Single bunch
+
+Defined initial energy spread
+
+Simple planar geometry
+
+3.4 Expected Physical Behavior
+
+Formation of sheath field
+
+TNSA‑driven proton acceleration
+
+MHD‑coupled magnetic field evolution
+
+Stable density gradients
+
+4. Test Procedure
+
+Step 1 — Ingestion & Preprocessing
+
+Load HDF5 + FITS datasets
+
+Normalize coordinate frames
+
+Extract cosmic boundary conditions
+
+Map ISM density → simulation grid
+
+Load laser + proton configuration
+
+Generate initial state file
+
+Pass Criteria:Initial state file contains coherent cosmic fields, laser parameters, and proton bunch.
+
+Step 2 — Core Simulation Execution
+
+Initialize PIC_SOLVER
+
+Run Vlasov–Maxwell loop
+
+Apply Boris/Vay particle pusher
+
+Interpolate fields (Esirkepov/Yee)
+
+Enable collision operator
+
+Activate MHD coupling
+
+Execute GPU kernels (CUDA/HIP)
+
+Pass Criteria:Simulation runs without solver failure, memory overflow, or divergence.
+
+Step 3 — Encryption & Integrity
+
+Encrypt checkpoint files (AES‑256)
+
+Stream data via TLS 1.3
+
+Generate Merkle tree integrity signatures
+
+Validate signatures across checkpoints
+
+Pass Criteria:Encrypted checkpoints decrypt cleanly and hash validation passes.
+
+Step 4 — Visualization & Analysis
+
+Load output into VTK/ParaView
+
+Render:
+
+proton energy spectrum
+
+sheath field evolution
+
+plasma density slices
+
+magnetic field topology
+
+Compare against analytic expectations or GEANT4 reference
+
+Pass Criteria:Plots show physically plausible acceleration and field behavior.
+
+Step 5 — Stability & Consistency Review
+
+Check for solver divergence
+
+Check for unphysical density spikes
+
+Check for MHD instability
+
+Check for inconsistent checkpoint hashes
+
+Confirm reproducibility across two runs
+
+Pass Criteria:Simulation produces stable, repeatable results with consistent integrity signatures.
+
+5. Pass/Fail Criteria
+
+PASS if:
+
+Engine runs end‑to‑end
+
+Proton acceleration profile is physically plausible
+
+Sheath field forms correctly
+
+MHD coupling behaves consistently
+
+All encrypted checkpoints validate
+
+Visualization pipeline loads without corruption
+
+FAIL if:
+
+Solver diverges
+
+GPU memory bottleneck halts execution
+
+Checkpoint hashes mismatch
+
+Plasma density becomes non‑physical
+
+Laser–proton interaction zone fails to initialize
+
+6. Test Artifacts
+
+Initial state file
+
+Encrypted checkpoint directory
+
+Merkle integrity manifest
+
+VTK/ParaView visualization outputs
+
+Proton energy spectrum logs
+
+Simulation metadata JSON
+
+7. Versioning
+
+Full Simulation Test Plan v1.0Created for Proton–Laser Interaction & Cosmic Data Integration Engine (v1.2)
+
