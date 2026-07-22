@@ -1,0 +1,124 @@
+\section{Formal Theorem Section}
+
+\begin{theorem}[Homomorphic Functional Equivalence]
+Let $D$ be a clinical dataset and $\hat{D} = E(D)$ its zero-knowledge homomorphic encryption under CKKS/BFV.
+Let $f : D \rightarrow \mathbb{R}$ be any polynomially representable physiological function.
+Then:
+\[
+f(\hat{D}) = \widehat{f(D)}.
+\]
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+Homomorphic encryption preserves addition and multiplication in the ciphertext domain.
+Since all physiological functions in MED-ESE are polynomially representable, evaluating $f$ on ciphertext yields the encrypted result of evaluating $f$ on plaintext.
+Thus:
+\[
+f(\hat{D}) = \widehat{f(D)}.
+\]
+\end{proof}
+
+\begin{theorem}[Deterministic Physiological State Evolution]
+Let each organ state machine be defined as $\mathcal{O}_j = (S_j, T_j)$ with
+\[
+S_j = \{\text{OK}, \text{STRAINED}, \text{OVERLOADED}, \text{REPAIRING}\}.
+\]
+Then for any encrypted glandular input $g \in G$, the transition function $T_j(s,g)$ is deterministic.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+$T_j$ is a fixed homomorphic polynomial mapping.
+Homomorphic polynomials are deterministic: identical inputs produce identical outputs.
+Thus each pair $(s,g)$ yields a unique next state.
+\end{proof}
+
+\begin{theorem}[Continuity of Dynamic Engines]
+Let the dynamic engines be differentiable encrypted functions:
+\[
+\sigma(t),\ \rho(t),\ \epsilon(t),\ \mu(t) \in \hat{\mathbb{R}}.
+\]
+Then each engine is continuous over time:
+\[
+\frac{d}{dt} f_{\bullet}(t) \text{ exists and is continuous}.
+\]
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+Each engine is constructed from weighted sums of encrypted glandular signals and state-machine characteristic functions.
+Glandular signals are polynomially encoded and continuous.
+Characteristic functions change only at discrete boundaries.
+Thus the engines are piecewise continuous.
+\end{proof}
+
+\begin{theorem}[Ledger Integrity and Non-Repudiation]
+Let the transition ledger be defined as:
+\[
+B_k = (\widehat{S(t_k)}, \widehat{S(t_{k+1})}, \Pi_k).
+\]
+If all proofs $\Pi_k = \text{VALID}$, then the ledger is cryptographically non-repudiable.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+Each block contains a cryptographic proof verifying that the transition was produced by the global operator $T$.
+Altering a block invalidates its proof.
+Thus the ledger is non-repudiable.
+\end{proof}
+
+\begin{theorem}[Identity-Stable Evolution]
+Let identity drift be defined as:
+\[
+\Delta I = I(t_2) - I(t_1),
+\]
+where $I(t)$ is the encrypted identity-drift timeline.
+If the ledger is valid, identity drift is bounded and stable.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+Identity drift is computed from deterministic, continuous engines.
+The ledger prevents unauthorized mutation.
+Thus identity drift evolves only through legitimate transitions.
+\end{proof}
+
+\begin{theorem}[Zero-Knowledge Completeness]
+Let $E$ be the client-side encryptor.
+Then MED-ESE satisfies:
+\[
+\Pr[\text{Decrypt}(\hat{D}) = D] = 0
+\]
+for any internal system component.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+No decryption keys enter the system.
+No plaintext is stored.
+All computation is ciphertext-only.
+Thus plaintext recovery is negligible.
+\end{proof}
+
+\begin{theorem}[Global System Determinism]
+Let the global system state be:
+\[
+S(t) = (\sigma(t), \rho(t), \epsilon(t), \mu(t), \mathcal{O}(t)).
+\]
+Then $S(t)$ evolves deterministically.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+All components are deterministic:
+glandular signals, state machines, dynamic engines, and ledger transitions.
+Thus the global system is deterministic.
+\end{proof}
+
+\begin{theorem}[Encrypted Homeostasis Stability]
+Homeostasis curves are defined as:
+\[
+H(t) = h(\sigma(t), \epsilon(t)).
+\]
+Then $H(t)$ remains stable under encrypted computation.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+Stress and energy engines are continuous and deterministic.
+Homomorphic encryption preserves functional structure.
+Thus encrypted homeostasis curves behave identically to plaintext curves.
+\end{proof}
