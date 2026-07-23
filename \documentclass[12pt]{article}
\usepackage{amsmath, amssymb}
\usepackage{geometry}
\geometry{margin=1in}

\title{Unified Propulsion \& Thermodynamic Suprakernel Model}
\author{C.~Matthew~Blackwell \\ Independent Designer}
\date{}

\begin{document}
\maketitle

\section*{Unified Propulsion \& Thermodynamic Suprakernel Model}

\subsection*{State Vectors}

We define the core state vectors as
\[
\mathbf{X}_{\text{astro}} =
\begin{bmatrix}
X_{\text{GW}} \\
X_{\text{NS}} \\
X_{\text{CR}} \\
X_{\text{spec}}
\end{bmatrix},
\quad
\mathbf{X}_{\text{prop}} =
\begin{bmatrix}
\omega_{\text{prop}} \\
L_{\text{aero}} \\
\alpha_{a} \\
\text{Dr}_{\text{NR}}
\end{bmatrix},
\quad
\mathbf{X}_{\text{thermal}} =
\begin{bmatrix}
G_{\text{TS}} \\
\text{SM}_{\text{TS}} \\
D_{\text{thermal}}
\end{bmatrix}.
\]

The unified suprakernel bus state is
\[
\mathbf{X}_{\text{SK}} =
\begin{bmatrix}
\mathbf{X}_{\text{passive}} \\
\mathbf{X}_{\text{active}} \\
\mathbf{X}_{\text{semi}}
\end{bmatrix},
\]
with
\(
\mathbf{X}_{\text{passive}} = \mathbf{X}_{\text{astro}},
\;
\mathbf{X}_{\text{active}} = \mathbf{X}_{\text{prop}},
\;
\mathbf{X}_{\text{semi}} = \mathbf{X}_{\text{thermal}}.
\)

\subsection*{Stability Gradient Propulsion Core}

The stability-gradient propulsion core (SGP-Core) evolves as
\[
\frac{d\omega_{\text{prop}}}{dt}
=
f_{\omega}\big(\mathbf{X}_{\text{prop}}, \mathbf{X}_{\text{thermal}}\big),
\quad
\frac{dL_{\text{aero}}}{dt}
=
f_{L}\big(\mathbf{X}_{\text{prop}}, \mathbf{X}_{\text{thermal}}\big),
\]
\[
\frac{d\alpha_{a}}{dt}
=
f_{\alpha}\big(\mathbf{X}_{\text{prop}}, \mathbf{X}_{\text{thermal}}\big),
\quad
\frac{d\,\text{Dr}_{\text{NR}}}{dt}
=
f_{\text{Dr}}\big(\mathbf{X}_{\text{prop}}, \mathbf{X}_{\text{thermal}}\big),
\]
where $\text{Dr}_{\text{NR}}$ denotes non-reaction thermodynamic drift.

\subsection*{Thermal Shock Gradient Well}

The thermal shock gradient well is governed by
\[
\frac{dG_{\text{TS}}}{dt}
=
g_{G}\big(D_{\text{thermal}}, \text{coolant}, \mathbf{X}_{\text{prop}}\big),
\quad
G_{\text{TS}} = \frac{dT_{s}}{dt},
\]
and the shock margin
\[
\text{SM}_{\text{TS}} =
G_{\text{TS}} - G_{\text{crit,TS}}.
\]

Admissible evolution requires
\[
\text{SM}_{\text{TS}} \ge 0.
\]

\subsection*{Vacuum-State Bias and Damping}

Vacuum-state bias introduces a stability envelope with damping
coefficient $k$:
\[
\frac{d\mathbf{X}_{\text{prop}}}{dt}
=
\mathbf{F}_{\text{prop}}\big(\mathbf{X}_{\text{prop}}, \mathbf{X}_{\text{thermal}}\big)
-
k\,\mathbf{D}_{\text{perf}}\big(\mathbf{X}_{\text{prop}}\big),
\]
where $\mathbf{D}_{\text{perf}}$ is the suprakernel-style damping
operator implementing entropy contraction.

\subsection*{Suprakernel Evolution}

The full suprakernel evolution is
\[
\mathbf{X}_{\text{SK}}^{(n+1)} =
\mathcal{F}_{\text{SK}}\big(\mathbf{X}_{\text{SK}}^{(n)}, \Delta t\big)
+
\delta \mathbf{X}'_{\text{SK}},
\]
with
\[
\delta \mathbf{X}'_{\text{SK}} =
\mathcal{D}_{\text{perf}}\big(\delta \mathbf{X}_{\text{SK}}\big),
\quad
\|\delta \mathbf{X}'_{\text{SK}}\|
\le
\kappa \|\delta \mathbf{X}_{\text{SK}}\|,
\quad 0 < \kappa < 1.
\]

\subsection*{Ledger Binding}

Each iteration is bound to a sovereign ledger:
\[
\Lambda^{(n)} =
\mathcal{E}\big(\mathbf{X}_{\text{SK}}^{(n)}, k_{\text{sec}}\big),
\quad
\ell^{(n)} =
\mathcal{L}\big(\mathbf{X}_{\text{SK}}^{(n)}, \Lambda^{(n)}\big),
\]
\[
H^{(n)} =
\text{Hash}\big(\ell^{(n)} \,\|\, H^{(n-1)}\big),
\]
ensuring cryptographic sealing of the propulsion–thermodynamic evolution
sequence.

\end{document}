@@ -1,0 +1,156 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Unified Propulsion \& Thermodynamic Suprakernel Model}
+\author{C.~Matthew~Blackwell \\ Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Unified Propulsion \& Thermodynamic Suprakernel Model}
+
+\subsection*{State Vectors}
+
+We define the core state vectors as
+\[
+\mathbf{X}_{\text{astro}} =
+\begin{bmatrix}
+X_{\text{GW}} \\
+X_{\text{NS}} \\
+X_{\text{CR}} \\
+X_{\text{spec}}
+\end{bmatrix},
+\quad
+\mathbf{X}_{\text{prop}} =
+\begin{bmatrix}
+\omega_{\text{prop}} \\
+L_{\text{aero}} \\
+\alpha_{a} \\
+\text{Dr}_{\text{NR}}
+\end{bmatrix},
+\quad
+\mathbf{X}_{\text{thermal}} =
+\begin{bmatrix}
+G_{\text{TS}} \\
+\text{SM}_{\text{TS}} \\
+D_{\text{thermal}}
+\end{bmatrix}.
+\]
+
+The unified suprakernel bus state is
+\[
+\mathbf{X}_{\text{SK}} =
+\begin{bmatrix}
+\mathbf{X}_{\text{passive}} \\
+\mathbf{X}_{\text{active}} \\
+\mathbf{X}_{\text{semi}}
+\end{bmatrix},
+\]
+with
+\(
+\mathbf{X}_{\text{passive}} = \mathbf{X}_{\text{astro}},
+\;
+\mathbf{X}_{\text{active}} = \mathbf{X}_{\text{prop}},
+\;
+\mathbf{X}_{\text{semi}} = \mathbf{X}_{\text{thermal}}.
+\)
+
+\subsection*{Stability Gradient Propulsion Core}
+
+The stability-gradient propulsion core (SGP-Core) evolves as
+\[
+\frac{d\omega_{\text{prop}}}{dt}
+=
+f_{\omega}\big(\mathbf{X}_{\text{prop}}, \mathbf{X}_{\text{thermal}}\big),
+\quad
+\frac{dL_{\text{aero}}}{dt}
+=
+f_{L}\big(\mathbf{X}_{\text{prop}}, \mathbf{X}_{\text{thermal}}\big),
+\]
+\[
+\frac{d\alpha_{a}}{dt}
+=
+f_{\alpha}\big(\mathbf{X}_{\text{prop}}, \mathbf{X}_{\text{thermal}}\big),
+\quad
+\frac{d\,\text{Dr}_{\text{NR}}}{dt}
+=
+f_{\text{Dr}}\big(\mathbf{X}_{\text{prop}}, \mathbf{X}_{\text{thermal}}\big),
+\]
+where $\text{Dr}_{\text{NR}}$ denotes non-reaction thermodynamic drift.
+
+\subsection*{Thermal Shock Gradient Well}
+
+The thermal shock gradient well is governed by
+\[
+\frac{dG_{\text{TS}}}{dt}
+=
+g_{G}\big(D_{\text{thermal}}, \text{coolant}, \mathbf{X}_{\text{prop}}\big),
+\quad
+G_{\text{TS}} = \frac{dT_{s}}{dt},
+\]
+and the shock margin
+\[
+\text{SM}_{\text{TS}} =
+G_{\text{TS}} - G_{\text{crit,TS}}.
+\]
+
+Admissible evolution requires
+\[
+\text{SM}_{\text{TS}} \ge 0.
+\]
+
+\subsection*{Vacuum-State Bias and Damping}
+
+Vacuum-state bias introduces a stability envelope with damping
+coefficient $k$:
+\[
+\frac{d\mathbf{X}_{\text{prop}}}{dt}
+=
+\mathbf{F}_{\text{prop}}\big(\mathbf{X}_{\text{prop}}, \mathbf{X}_{\text{thermal}}\big)
+-
+k\,\mathbf{D}_{\text{perf}}\big(\mathbf{X}_{\text{prop}}\big),
+\]
+where $\mathbf{D}_{\text{perf}}$ is the suprakernel-style damping
+operator implementing entropy contraction.
+
+\subsection*{Suprakernel Evolution}
+
+The full suprakernel evolution is
+\[
+\mathbf{X}_{\text{SK}}^{(n+1)} =
+\mathcal{F}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n)}, \Delta t\big)
++
+\delta \mathbf{X}'_{\text{SK}},
+\]
+with
+\[
+\delta \mathbf{X}'_{\text{SK}} =
+\mathcal{D}_{\text{perf}}\big(\delta \mathbf{X}_{\text{SK}}\big),
+\quad
+\|\delta \mathbf{X}'_{\text{SK}}\|
+\le
+\kappa \|\delta \mathbf{X}_{\text{SK}}\|,
+\quad 0 < \kappa < 1.
+\]
+
+\subsection*{Ledger Binding}
+
+Each iteration is bound to a sovereign ledger:
+\[
+\Lambda^{(n)} =
+\mathcal{E}\big(\mathbf{X}_{\text{SK}}^{(n)}, k_{\text{sec}}\big),
+\quad
+\ell^{(n)} =
+\mathcal{L}\big(\mathbf{X}_{\text{SK}}^{(n)}, \Lambda^{(n)}\big),
+\]
+\[
+H^{(n)} =
+\text{Hash}\big(\ell^{(n)} \,\|\, H^{(n-1)}\big),
+\]
+ensuring cryptographic sealing of the propulsion–thermodynamic evolution
+sequence.
+
+\end{document}
