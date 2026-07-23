@@ -1,0 +1,146 @@
+\appendix
+\section*{Mathematical Appendix: Formal Structures of the First Atoms Engine (FAE)}
+
+\subsection*{A.1 Atomic Stability Field Definitions}
+
+The external atomic stability field is defined as:
+\begin{equation}
+    \Phi_{A,ext}(t,\mathbf{x}) =
+    f\!\left(\mathcal{C}(t),\mathcal{S}(t,\lambda),Z_{env},\mathbf{x}\right),
+\end{equation}
+where $\mathcal{C}(t)$ is cosmic telemetry, $\mathcal{S}(t,\lambda)$ is spectral
+density, and $Z_{env}$ is the environmental atomic composition.
+
+The internal atomic anchor field is:
+\begin{equation}
+    \Phi_{A,int}(t,\mathbf{x}) =
+    g\!\left(\mathbf{F}_{Pt/U}(t),\mathbf{M}_{conf}(t),\Psi_{core}(t),\mathbf{x}\right),
+\end{equation}
+with $\mathbf{F}_{Pt/U}(t)$ the Pt/U fusion state vector, $\mathbf{M}_{conf}(t)$
+the MHD confinement parameters, and $\Psi_{core}(t)$ the coherence of the
+fusion anchor.
+
+The raw atomic stability gradient is:
+\begin{equation}
+    \nabla \Phi_{A}(t,\mathbf{x}) =
+    \Phi_{A,ext}(t,\mathbf{x}) - \Phi_{A,int}(t,\mathbf{x}).
+\end{equation}
+
+\subsection*{A.2 Supporting Physics Models}
+
+\paragraph{Magnetohydrodynamic (MHD) Stability}
+\begin{equation}
+    \mathcal{M}_{\text{MHD}} =
+    \nabla \cdot \left( \frac{\mathbf{B}\mathbf{B}}{\mu_{0}} \right)
+    - \nabla\left(\frac{B^{2}}{2\mu_{0}}\right)
+    + \rho \mathbf{g},
+\end{equation}
+where $\mathbf{B}$ is magnetic field, $\rho$ is density, and $\mathbf{g}$ is
+gravitational acceleration.
+
+\paragraph{Coulomb-Barrier Modulation}
+For atomic numbers $Z = 76$--$92$:
+\begin{equation}
+    \mathcal{C}_{Z}(Z) =
+    \frac{1}{4\pi\epsilon_{0}} \frac{Z e^{2}}{r},
+\end{equation}
+with $r$ the effective nuclear separation distance.
+
+\paragraph{Atomic Flux--Velocity Coupling}
+\begin{equation}
+    \mathcal{V}_{A} =
+    \gamma_{A} \left( \nabla \Phi_{A} \cdot \mathbf{u} \right),
+\end{equation}
+where $\mathbf{u}$ is the local atomic flux vector and $\gamma_{A}$ is a
+coupling coefficient.
+
+\subsection*{A.3 Entropy Reinforcement}
+
+Fusion energy spikes are detected via:
+\begin{equation}
+    E_{spike}(t) = \mathcal{D}_{E}\!\left(\mathbf{F}_{Pt/U}(t)\right),
+\end{equation}
+and converted to atomic-scale entropy:
+\begin{equation}
+    S_{A}(t) = k_{S} \cdot E_{spike}(t).
+\end{equation}
+
+The reinforced gradient is:
+\begin{equation}
+    \nabla \Phi_{A}^{*}(t,\mathbf{x}) =
+    \nabla \Phi_{A}(t,\mathbf{x})
+    \left(1 + \alpha_{S} S_{A}(t)\right).
+\end{equation}
+
+\subsection*{A.4 Drift Velocity and Acceleration}
+
+The effective drift velocity is:
+\begin{equation}
+    v_{eff}(t,\mathbf{x}) =
+    k_{A} \left|\nabla \Phi_{A}^{*}(t,\mathbf{x})\right| S_{A}(t),
+\end{equation}
+subject to the relativistic constraint:
+\begin{equation}
+    v_{eff}(t,\mathbf{x}) < c.
+\end{equation}
+
+Acceleration is defined as:
+\begin{equation}
+    a_{eff}(t,\mathbf{x}) =
+    \frac{\partial v_{eff}(t,\mathbf{x})}{\partial t}.
+\end{equation}
+
+\subsection*{A.5 Gradient Direction and Trajectory}
+
+The normalized gradient direction is:
+\begin{equation}
+    \hat{n}_{\Phi}(t,\mathbf{x}) =
+    \frac{\nabla \Phi_{A}^{*}(t,\mathbf{x})}
+         {\left|\nabla \Phi_{A}^{*}(t,\mathbf{x})\right|}.
+\end{equation}
+
+The trajectory of the craft is:
+\begin{equation}
+    \frac{d\mathbf{r}(t)}{dt} =
+    v_{eff}(t,\mathbf{r}(t)) \hat{n}_{\Phi}(t,\mathbf{r}(t)),
+\end{equation}
+and the second derivative is:
+\begin{equation}
+    \frac{d^{2}\mathbf{r}(t)}{dt^{2}} =
+    a_{eff}(t,\mathbf{r}(t)) \hat{n}_{\Phi}(t,\mathbf{r}(t))
+    + v_{eff}(t,\mathbf{r}(t))
+      \frac{d\hat{n}_{\Phi}(t,\mathbf{r}(t))}{dt}.
+\end{equation}
+
+\subsection*{A.6 Effective Potential Interpretation}
+
+Define an atomic-gradient potential:
+\begin{equation}
+    U_{A}(t,\mathbf{x}) =
+    -\beta_{A} \Phi_{A}^{*}(t,\mathbf{x}),
+\end{equation}
+with $\beta_{A}$ a scaling constant.
+
+The work done along a path $\mathcal{P}$ is:
+\begin{equation}
+    W_{A} =
+    \int_{\mathcal{P}}
+    \nabla U_{A}(t,\mathbf{x}) \cdot d\mathbf{x}.
+\end{equation}
+
+Motion corresponds to descent in $U_{A}$.
+
+\subsection*{A.7 Summary}
+
+This appendix formalizes:
+\begin{itemize}
+    \item atomic stability fields,
+    \item entropy reinforcement,
+    \item drift velocity and acceleration,
+    \item relativistic constraints,
+    \item gradient-based trajectory equations,
+    \item effective potential interpretation.
+\end{itemize}
+
+These mathematical structures constitute the foundation of the First Atoms
+Engine (FAE) conceptual propulsion model.
