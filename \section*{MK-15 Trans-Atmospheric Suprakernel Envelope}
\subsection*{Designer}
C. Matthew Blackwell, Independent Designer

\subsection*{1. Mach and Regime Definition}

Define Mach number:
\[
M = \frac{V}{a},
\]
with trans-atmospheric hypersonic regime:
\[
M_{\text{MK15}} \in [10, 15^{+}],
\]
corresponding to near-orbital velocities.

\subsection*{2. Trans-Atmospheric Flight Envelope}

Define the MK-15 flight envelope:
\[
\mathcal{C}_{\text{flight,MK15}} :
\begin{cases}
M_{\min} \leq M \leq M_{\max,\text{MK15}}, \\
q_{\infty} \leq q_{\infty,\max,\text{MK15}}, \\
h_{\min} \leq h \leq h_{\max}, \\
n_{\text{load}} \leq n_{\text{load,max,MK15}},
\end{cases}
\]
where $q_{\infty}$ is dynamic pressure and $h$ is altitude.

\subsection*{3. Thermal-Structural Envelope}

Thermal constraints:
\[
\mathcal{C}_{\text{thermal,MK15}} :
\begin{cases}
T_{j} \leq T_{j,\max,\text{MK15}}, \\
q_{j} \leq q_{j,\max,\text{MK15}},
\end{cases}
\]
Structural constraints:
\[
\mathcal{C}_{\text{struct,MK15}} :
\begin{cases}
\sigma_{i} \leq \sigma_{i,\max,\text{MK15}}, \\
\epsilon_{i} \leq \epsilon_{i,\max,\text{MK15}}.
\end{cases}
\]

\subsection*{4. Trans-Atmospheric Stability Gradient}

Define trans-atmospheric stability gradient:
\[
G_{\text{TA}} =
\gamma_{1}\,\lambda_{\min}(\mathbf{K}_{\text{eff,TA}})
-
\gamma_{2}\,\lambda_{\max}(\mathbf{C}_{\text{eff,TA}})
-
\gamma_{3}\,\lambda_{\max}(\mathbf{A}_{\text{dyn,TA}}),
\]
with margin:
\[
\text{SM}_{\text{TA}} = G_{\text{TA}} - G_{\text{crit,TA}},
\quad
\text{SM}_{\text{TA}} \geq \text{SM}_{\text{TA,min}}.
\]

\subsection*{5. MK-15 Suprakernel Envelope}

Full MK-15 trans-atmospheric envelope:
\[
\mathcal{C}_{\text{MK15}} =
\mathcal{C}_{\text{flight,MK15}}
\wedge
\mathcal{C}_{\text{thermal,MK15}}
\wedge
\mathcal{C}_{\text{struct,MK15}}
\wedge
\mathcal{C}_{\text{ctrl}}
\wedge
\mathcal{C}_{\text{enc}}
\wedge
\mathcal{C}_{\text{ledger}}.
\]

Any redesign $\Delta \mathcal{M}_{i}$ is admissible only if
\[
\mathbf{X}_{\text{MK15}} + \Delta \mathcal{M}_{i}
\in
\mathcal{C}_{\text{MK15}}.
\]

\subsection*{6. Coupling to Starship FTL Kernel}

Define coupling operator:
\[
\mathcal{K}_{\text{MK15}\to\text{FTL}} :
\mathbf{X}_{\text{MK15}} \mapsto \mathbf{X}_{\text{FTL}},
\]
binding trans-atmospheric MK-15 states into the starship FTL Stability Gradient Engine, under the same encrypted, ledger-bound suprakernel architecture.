@@ -1,0 +1,100 @@
+\section*{MK-15 Trans-Atmospheric Suprakernel Envelope}
+\subsection*{Designer}
+C. Matthew Blackwell, Independent Designer
+
+\subsection*{1. Mach and Regime Definition}
+
+Define Mach number:
+\[
+M = \frac{V}{a},
+\]
+with trans-atmospheric hypersonic regime:
+\[
+M_{\text{MK15}} \in [10, 15^{+}],
+\]
+corresponding to near-orbital velocities.
+
+\subsection*{2. Trans-Atmospheric Flight Envelope}
+
+Define the MK-15 flight envelope:
+\[
+\mathcal{C}_{\text{flight,MK15}} :
+\begin{cases}
+M_{\min} \leq M \leq M_{\max,\text{MK15}}, \\
+q_{\infty} \leq q_{\infty,\max,\text{MK15}}, \\
+h_{\min} \leq h \leq h_{\max}, \\
+n_{\text{load}} \leq n_{\text{load,max,MK15}},
+\end{cases}
+\]
+where $q_{\infty}$ is dynamic pressure and $h$ is altitude.
+
+\subsection*{3. Thermal-Structural Envelope}
+
+Thermal constraints:
+\[
+\mathcal{C}_{\text{thermal,MK15}} :
+\begin{cases}
+T_{j} \leq T_{j,\max,\text{MK15}}, \\
+q_{j} \leq q_{j,\max,\text{MK15}},
+\end{cases}
+\]
+Structural constraints:
+\[
+\mathcal{C}_{\text{struct,MK15}} :
+\begin{cases}
+\sigma_{i} \leq \sigma_{i,\max,\text{MK15}}, \\
+\epsilon_{i} \leq \epsilon_{i,\max,\text{MK15}}.
+\end{cases}
+\]
+
+\subsection*{4. Trans-Atmospheric Stability Gradient}
+
+Define trans-atmospheric stability gradient:
+\[
+G_{\text{TA}} =
+\gamma_{1}\,\lambda_{\min}(\mathbf{K}_{\text{eff,TA}})
+-
+\gamma_{2}\,\lambda_{\max}(\mathbf{C}_{\text{eff,TA}})
+-
+\gamma_{3}\,\lambda_{\max}(\mathbf{A}_{\text{dyn,TA}}),
+\]
+with margin:
+\[
+\text{SM}_{\text{TA}} = G_{\text{TA}} - G_{\text{crit,TA}},
+\quad
+\text{SM}_{\text{TA}} \geq \text{SM}_{\text{TA,min}}.
+\]
+
+\subsection*{5. MK-15 Suprakernel Envelope}
+
+Full MK-15 trans-atmospheric envelope:
+\[
+\mathcal{C}_{\text{MK15}} =
+\mathcal{C}_{\text{flight,MK15}}
+\wedge
+\mathcal{C}_{\text{thermal,MK15}}
+\wedge
+\mathcal{C}_{\text{struct,MK15}}
+\wedge
+\mathcal{C}_{\text{ctrl}}
+\wedge
+\mathcal{C}_{\text{enc}}
+\wedge
+\mathcal{C}_{\text{ledger}}.
+\]
+
+Any redesign $\Delta \mathcal{M}_{i}$ is admissible only if
+\[
+\mathbf{X}_{\text{MK15}} + \Delta \mathcal{M}_{i}
+\in
+\mathcal{C}_{\text{MK15}}.
+\]
+
+\subsection*{6. Coupling to Starship FTL Kernel}
+
+Define coupling operator:
+\[
+\mathcal{K}_{\text{MK15}\to\text{FTL}} :
+\mathbf{X}_{\text{MK15}} \mapsto \mathbf{X}_{\text{FTL}},
+\]
+binding trans-atmospheric MK-15 states into the starship FTL Stability Gradient Engine, under the same encrypted, ledger-bound suprakernel architecture.
