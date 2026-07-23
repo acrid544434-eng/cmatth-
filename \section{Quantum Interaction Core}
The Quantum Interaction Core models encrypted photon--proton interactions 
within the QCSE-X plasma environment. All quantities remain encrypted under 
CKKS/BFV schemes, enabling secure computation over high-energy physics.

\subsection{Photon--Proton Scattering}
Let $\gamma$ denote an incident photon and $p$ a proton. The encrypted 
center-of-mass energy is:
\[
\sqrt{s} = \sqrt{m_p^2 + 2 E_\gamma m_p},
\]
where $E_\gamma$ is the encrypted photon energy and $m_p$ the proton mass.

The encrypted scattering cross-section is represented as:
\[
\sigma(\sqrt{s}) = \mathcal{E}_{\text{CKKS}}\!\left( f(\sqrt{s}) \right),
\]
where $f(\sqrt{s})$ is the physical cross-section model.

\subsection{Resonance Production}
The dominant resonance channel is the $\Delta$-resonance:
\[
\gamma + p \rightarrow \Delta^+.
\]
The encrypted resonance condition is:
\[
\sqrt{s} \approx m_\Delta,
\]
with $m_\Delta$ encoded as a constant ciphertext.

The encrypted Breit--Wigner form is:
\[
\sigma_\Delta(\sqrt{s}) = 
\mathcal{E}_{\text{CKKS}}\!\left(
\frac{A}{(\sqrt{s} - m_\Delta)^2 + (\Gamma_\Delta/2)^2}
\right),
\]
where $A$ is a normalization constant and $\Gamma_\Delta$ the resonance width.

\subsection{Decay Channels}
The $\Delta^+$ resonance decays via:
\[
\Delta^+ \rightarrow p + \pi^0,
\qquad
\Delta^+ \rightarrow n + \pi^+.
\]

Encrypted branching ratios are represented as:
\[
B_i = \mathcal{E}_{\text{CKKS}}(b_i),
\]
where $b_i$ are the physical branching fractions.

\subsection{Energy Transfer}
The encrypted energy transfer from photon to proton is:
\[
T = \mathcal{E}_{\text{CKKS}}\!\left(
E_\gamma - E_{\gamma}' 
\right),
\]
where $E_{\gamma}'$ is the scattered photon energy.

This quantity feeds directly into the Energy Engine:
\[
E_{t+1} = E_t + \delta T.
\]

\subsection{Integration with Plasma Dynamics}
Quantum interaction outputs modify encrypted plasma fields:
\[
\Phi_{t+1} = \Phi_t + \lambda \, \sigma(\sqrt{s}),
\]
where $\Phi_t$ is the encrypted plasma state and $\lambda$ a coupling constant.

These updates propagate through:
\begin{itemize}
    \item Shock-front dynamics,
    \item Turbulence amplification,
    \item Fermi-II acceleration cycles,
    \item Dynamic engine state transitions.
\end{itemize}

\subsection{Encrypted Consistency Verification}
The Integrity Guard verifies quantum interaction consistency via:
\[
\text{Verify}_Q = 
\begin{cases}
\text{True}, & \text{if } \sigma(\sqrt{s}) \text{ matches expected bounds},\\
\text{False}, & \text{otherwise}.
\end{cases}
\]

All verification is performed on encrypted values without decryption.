@@ -1,0 +1,93 @@
+\section{Quantum Interaction Core}
+The Quantum Interaction Core models encrypted photon--proton interactions 
+within the QCSE-X plasma environment. All quantities remain encrypted under 
+CKKS/BFV schemes, enabling secure computation over high-energy physics.
+
+\subsection{Photon--Proton Scattering}
+Let $\gamma$ denote an incident photon and $p$ a proton. The encrypted 
+center-of-mass energy is:
+\[
+\sqrt{s} = \sqrt{m_p^2 + 2 E_\gamma m_p},
+\]
+where $E_\gamma$ is the encrypted photon energy and $m_p$ the proton mass.
+
+The encrypted scattering cross-section is represented as:
+\[
+\sigma(\sqrt{s}) = \mathcal{E}_{\text{CKKS}}\!\left( f(\sqrt{s}) \right),
+\]
+where $f(\sqrt{s})$ is the physical cross-section model.
+
+\subsection{Resonance Production}
+The dominant resonance channel is the $\Delta$-resonance:
+\[
+\gamma + p \rightarrow \Delta^+.
+\]
+The encrypted resonance condition is:
+\[
+\sqrt{s} \approx m_\Delta,
+\]
+with $m_\Delta$ encoded as a constant ciphertext.
+
+The encrypted Breit--Wigner form is:
+\[
+\sigma_\Delta(\sqrt{s}) = 
+\mathcal{E}_{\text{CKKS}}\!\left(
+\frac{A}{(\sqrt{s} - m_\Delta)^2 + (\Gamma_\Delta/2)^2}
+\right),
+\]
+where $A$ is a normalization constant and $\Gamma_\Delta$ the resonance width.
+
+\subsection{Decay Channels}
+The $\Delta^+$ resonance decays via:
+\[
+\Delta^+ \rightarrow p + \pi^0,
+\qquad
+\Delta^+ \rightarrow n + \pi^+.
+\]
+
+Encrypted branching ratios are represented as:
+\[
+B_i = \mathcal{E}_{\text{CKKS}}(b_i),
+\]
+where $b_i$ are the physical branching fractions.
+
+\subsection{Energy Transfer}
+The encrypted energy transfer from photon to proton is:
+\[
+T = \mathcal{E}_{\text{CKKS}}\!\left(
+E_\gamma - E_{\gamma}' 
+\right),
+\]
+where $E_{\gamma}'$ is the scattered photon energy.
+
+This quantity feeds directly into the Energy Engine:
+\[
+E_{t+1} = E_t + \delta T.
+\]
+
+\subsection{Integration with Plasma Dynamics}
+Quantum interaction outputs modify encrypted plasma fields:
+\[
+\Phi_{t+1} = \Phi_t + \lambda \, \sigma(\sqrt{s}),
+\]
+where $\Phi_t$ is the encrypted plasma state and $\lambda$ a coupling constant.
+
+These updates propagate through:
+\begin{itemize}
+    \item Shock-front dynamics,
+    \item Turbulence amplification,
+    \item Fermi-II acceleration cycles,
+    \item Dynamic engine state transitions.
+\end{itemize}
+
+\subsection{Encrypted Consistency Verification}
+The Integrity Guard verifies quantum interaction consistency via:
+\[
+\text{Verify}_Q = 
+\begin{cases}
+\text{True}, & \text{if } \sigma(\sqrt{s}) \text{ matches expected bounds},\\
+\text{False}, & \text{otherwise}.
+\end{cases}
+\]
+
+All verification is performed on encrypted values without decryption.
