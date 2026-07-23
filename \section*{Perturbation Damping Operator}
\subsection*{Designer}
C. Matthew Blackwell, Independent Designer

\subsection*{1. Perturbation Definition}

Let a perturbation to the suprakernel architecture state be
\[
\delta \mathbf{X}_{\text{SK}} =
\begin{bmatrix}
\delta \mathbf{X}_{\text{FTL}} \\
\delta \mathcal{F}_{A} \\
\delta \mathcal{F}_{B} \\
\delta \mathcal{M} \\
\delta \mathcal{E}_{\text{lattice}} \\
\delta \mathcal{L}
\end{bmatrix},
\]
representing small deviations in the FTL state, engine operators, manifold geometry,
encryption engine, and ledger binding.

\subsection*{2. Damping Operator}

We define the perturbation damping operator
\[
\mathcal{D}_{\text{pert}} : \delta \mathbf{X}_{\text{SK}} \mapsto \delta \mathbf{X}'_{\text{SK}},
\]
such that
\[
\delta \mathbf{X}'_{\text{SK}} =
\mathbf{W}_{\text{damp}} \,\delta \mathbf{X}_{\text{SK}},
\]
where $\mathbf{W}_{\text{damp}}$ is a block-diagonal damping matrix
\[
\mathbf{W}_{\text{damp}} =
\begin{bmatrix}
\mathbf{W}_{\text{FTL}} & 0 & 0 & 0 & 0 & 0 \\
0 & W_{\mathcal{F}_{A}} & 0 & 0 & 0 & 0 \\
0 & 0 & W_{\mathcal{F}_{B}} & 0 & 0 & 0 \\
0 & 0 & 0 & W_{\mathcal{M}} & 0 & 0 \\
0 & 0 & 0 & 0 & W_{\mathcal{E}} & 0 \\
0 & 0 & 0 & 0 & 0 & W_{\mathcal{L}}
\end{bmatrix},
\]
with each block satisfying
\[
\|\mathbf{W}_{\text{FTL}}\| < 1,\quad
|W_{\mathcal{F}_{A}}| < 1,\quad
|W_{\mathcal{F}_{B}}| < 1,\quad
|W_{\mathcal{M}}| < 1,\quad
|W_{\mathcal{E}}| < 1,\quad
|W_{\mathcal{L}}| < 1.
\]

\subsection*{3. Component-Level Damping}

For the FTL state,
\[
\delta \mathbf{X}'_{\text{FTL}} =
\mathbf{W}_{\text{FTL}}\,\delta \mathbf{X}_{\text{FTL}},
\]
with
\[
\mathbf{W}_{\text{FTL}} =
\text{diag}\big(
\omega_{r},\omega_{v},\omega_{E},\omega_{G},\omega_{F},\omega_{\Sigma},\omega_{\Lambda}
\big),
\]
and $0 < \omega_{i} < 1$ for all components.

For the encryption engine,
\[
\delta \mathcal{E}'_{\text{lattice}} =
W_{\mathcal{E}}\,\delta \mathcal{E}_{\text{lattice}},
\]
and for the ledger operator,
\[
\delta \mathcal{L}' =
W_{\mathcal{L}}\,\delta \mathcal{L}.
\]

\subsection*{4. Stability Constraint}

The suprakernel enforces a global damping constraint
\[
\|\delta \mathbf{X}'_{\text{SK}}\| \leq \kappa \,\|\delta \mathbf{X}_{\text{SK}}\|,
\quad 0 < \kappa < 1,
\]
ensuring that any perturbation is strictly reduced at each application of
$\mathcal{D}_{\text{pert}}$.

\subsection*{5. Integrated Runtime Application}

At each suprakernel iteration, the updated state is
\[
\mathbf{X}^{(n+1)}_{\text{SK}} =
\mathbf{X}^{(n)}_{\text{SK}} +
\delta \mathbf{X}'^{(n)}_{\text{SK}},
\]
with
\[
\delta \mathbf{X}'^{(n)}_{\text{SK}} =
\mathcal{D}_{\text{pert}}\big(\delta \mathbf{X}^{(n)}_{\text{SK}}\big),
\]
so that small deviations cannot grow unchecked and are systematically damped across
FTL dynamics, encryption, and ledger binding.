@@ -1,0 +1,106 @@
+\section*{Perturbation Damping Operator}
+\subsection*{Designer}
+C. Matthew Blackwell, Independent Designer
+
+\subsection*{1. Perturbation Definition}
+
+Let a perturbation to the suprakernel architecture state be
+\[
+\delta \mathbf{X}_{\text{SK}} =
+\begin{bmatrix}
+\delta \mathbf{X}_{\text{FTL}} \\
+\delta \mathcal{F}_{A} \\
+\delta \mathcal{F}_{B} \\
+\delta \mathcal{M} \\
+\delta \mathcal{E}_{\text{lattice}} \\
+\delta \mathcal{L}
+\end{bmatrix},
+\]
+representing small deviations in the FTL state, engine operators, manifold geometry,
+encryption engine, and ledger binding.
+
+\subsection*{2. Damping Operator}
+
+We define the perturbation damping operator
+\[
+\mathcal{D}_{\text{pert}} : \delta \mathbf{X}_{\text{SK}} \mapsto \delta \mathbf{X}'_{\text{SK}},
+\]
+such that
+\[
+\delta \mathbf{X}'_{\text{SK}} =
+\mathbf{W}_{\text{damp}} \,\delta \mathbf{X}_{\text{SK}},
+\]
+where $\mathbf{W}_{\text{damp}}$ is a block-diagonal damping matrix
+\[
+\mathbf{W}_{\text{damp}} =
+\begin{bmatrix}
+\mathbf{W}_{\text{FTL}} & 0 & 0 & 0 & 0 & 0 \\
+0 & W_{\mathcal{F}_{A}} & 0 & 0 & 0 & 0 \\
+0 & 0 & W_{\mathcal{F}_{B}} & 0 & 0 & 0 \\
+0 & 0 & 0 & W_{\mathcal{M}} & 0 & 0 \\
+0 & 0 & 0 & 0 & W_{\mathcal{E}} & 0 \\
+0 & 0 & 0 & 0 & 0 & W_{\mathcal{L}}
+\end{bmatrix},
+\]
+with each block satisfying
+\[
+\|\mathbf{W}_{\text{FTL}}\| < 1,\quad
+|W_{\mathcal{F}_{A}}| < 1,\quad
+|W_{\mathcal{F}_{B}}| < 1,\quad
+|W_{\mathcal{M}}| < 1,\quad
+|W_{\mathcal{E}}| < 1,\quad
+|W_{\mathcal{L}}| < 1.
+\]
+
+\subsection*{3. Component-Level Damping}
+
+For the FTL state,
+\[
+\delta \mathbf{X}'_{\text{FTL}} =
+\mathbf{W}_{\text{FTL}}\,\delta \mathbf{X}_{\text{FTL}},
+\]
+with
+\[
+\mathbf{W}_{\text{FTL}} =
+\text{diag}\big(
+\omega_{r},\omega_{v},\omega_{E},\omega_{G},\omega_{F},\omega_{\Sigma},\omega_{\Lambda}
+\big),
+\]
+and $0 < \omega_{i} < 1$ for all components.
+
+For the encryption engine,
+\[
+\delta \mathcal{E}'_{\text{lattice}} =
+W_{\mathcal{E}}\,\delta \mathcal{E}_{\text{lattice}},
+\]
+and for the ledger operator,
+\[
+\delta \mathcal{L}' =
+W_{\mathcal{L}}\,\delta \mathcal{L}.
+\]
+
+\subsection*{4. Stability Constraint}
+
+The suprakernel enforces a global damping constraint
+\[
+\|\delta \mathbf{X}'_{\text{SK}}\| \leq \kappa \,\|\delta \mathbf{X}_{\text{SK}}\|,
+\quad 0 < \kappa < 1,
+\]
+ensuring that any perturbation is strictly reduced at each application of
+$\mathcal{D}_{\text{pert}}$.
+
+\subsection*{5. Integrated Runtime Application}
+
+At each suprakernel iteration, the updated state is
+\[
+\mathbf{X}^{(n+1)}_{\text{SK}} =
+\mathbf{X}^{(n)}_{\text{SK}} +
+\delta \mathbf{X}'^{(n)}_{\text{SK}},
+\]
+with
+\[
+\delta \mathbf{X}'^{(n)}_{\text{SK}} =
+\mathcal{D}_{\text{pert}}\big(\delta \mathbf{X}^{(n)}_{\text{SK}}\big),
+\]
+so that small deviations cannot grow unchecked and are systematically damped across
+FTL dynamics, encryption, and ledger binding.
