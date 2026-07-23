@@ -1,0 +1,151 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{authblk}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\title{SPACE-TIME-REALITY Engine:\\
+A Unified Differential Framework for Geometry, Dynamics, and Event Verification}
+
+\author[1]{C.~Matthew Blackwell}
+\affil[1]{Independent Designer, Lafayette, Louisiana, USA}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The SPACE-TIME-REALITY Engine is a tri-layer computational architecture that unifies encrypted spatio-temporal geometry, interacting dynamical state machines, and cryptographically verified event logging into a single governing evolution equation. The system ingests multi-domain data, transforms it into curvature tensors, evolves reality nodes through coupled differential operators, and records verified events in an immutable ledger. This manuscript presents the governing equation, subsystem definitions, methods, simulation protocol, and implications for computable geometry and autonomous verification systems.
+\end{abstract}
+
+\section{Introduction}
+Computational systems traditionally treat geometry, dynamics, and verification as separate domains. Geometry is handled by physical models, dynamical behavior by simulation engines, and verification by cryptographic or logging systems. The SPACE-TIME-REALITY Engine integrates these domains into a unified mathematical structure consisting of:
+\begin{itemize}
+  \item an encrypted geometry layer,
+  \item a reality node dynamics layer,
+  \item an immutable ledger layer.
+\end{itemize}
+These layers evolve together under a single differential operator.
+
+\section{System States}
+
+\subsection{Geometry State}
+The geometry state is an encrypted spatio-temporal tensor field:
+\begin{equation}
+  X(t) = \text{encrypted spatio-temporal geometry tensor field}.
+\end{equation}
+
+\subsection{Reality Node State}
+Reality nodes form a collection of dynamical systems:
+\begin{equation}
+  R(t) = \{ R_1(t), R_2(t), \dots, R_N(t) \},
+\end{equation}
+where each $R_i(t)$ is a state vector with internal dynamics and coupling.
+
+\subsection{Ledger State}
+The ledger state stores verified events:
+\begin{equation}
+  L(t) = \text{sequence of verified events}.
+\end{equation}
+
+\section{Governing Equation}
+The unified evolution equation is:
+\begin{equation}
+\frac{d}{dt}
+\begin{bmatrix}
+X(t) \\
+R(t) \\
+L(t)
+\end{bmatrix}
+=
+\begin{bmatrix}
+\mathcal{G}\big(\mathcal{E}_{\text{QFE}}(\text{Ingest}(t))\big) \\
+\mathcal{D}\big(X(t), R(t)\big) \\
+\mathcal{H}\big(R(t), L(t)\big)
+\end{bmatrix},
+\label{eq:unified}
+\end{equation}
+where $\mathcal{G}$ is the geometry update operator, $\mathcal{D}$ the node dynamics and interaction operator, and $\mathcal{H}$ the ledger verification operator. $\mathcal{E}_{\text{QFE}}$ denotes a quantum field encryption transform applied to the ingested data stream $\text{Ingest}(t)$.
+
+\section{Methods}
+
+\subsection{Geometry Update}
+Geometry evolves according to:
+\begin{equation}
+X(t+\Delta t) = X(t) + \Delta t \cdot \mathcal{G}\big(\mathcal{E}_{\text{QFE}}(\text{Ingest}(t))\big)
++ \sigma_X \xi_X(t),
+\end{equation}
+where $\xi_X(t)$ is a stochastic noise term and $\sigma_X$ its amplitude.
+
+\subsection{Reality Node Dynamics}
+Each node $i$ evolves under internal dynamics and interactions:
+\begin{equation}
+\frac{dR_i}{dt} = D_i\big(X(t), R_i(t)\big)
++ \sum_{j \neq i} C_{ij}\big(R_i(t), R_j(t)\big)
++ \sigma_i \xi_i(t),
+\end{equation}
+with $D_i$ the internal ODEs, $C_{ij}$ the coupling terms, and $\xi_i(t)$ stochastic noise with amplitude $\sigma_i$.
+
+\subsection{Event Detection}
+Events are generated when node states cross predefined thresholds:
+\begin{equation}
+E(t) = \text{Detect}\big(R(t), X(t)\big).
+\end{equation}
+
+\subsection{Ledger Update}
+Each event $E_n$ is verified and appended to the ledger via:
+\begin{equation}
+\text{Proof}(E_n) = H\big(E_n \Vert E_{n-1}\big),
+\end{equation}
+where $H$ is a cryptographic hash function and $\Vert$ denotes concatenation.
+
+\section{Simulation Protocol}
+
+\subsection{Initialization}
+Set initial conditions $X(0)$, $R(0)$, and $L(0)$, choose timestep $\Delta t$ and total simulation time $T$.
+
+\subsection{Evolution Loop}
+A simple time-stepping scheme can be written as:
+\begin{verbatim}
+for t in [0, T]:
+
+    X = X + Δt * G( QFE( Ingest(t) ) ) + sigma_X * noise()
+
+    for each node i:
+        interactions = Σ_j C(i, j, R[i], R[j])
+        R[i] = R[i] + Δt * ( D(i, X, R[i]) + interactions )
+               + sigma_i * noise()
+
+    events = Detect(R, X)
+    L = UpdateLedger(L, events)
+\end{verbatim}
+
+\section{Results (Structural)}
+The engine produces:
+\begin{itemize}
+  \item geometry evolution trajectories,
+  \item node state trajectories,
+  \item event sequences,
+  \item ledger verification chains,
+  \item identity drift timelines,
+  \item curvature visualizations derived from $X(t)$.
+\end{itemize}
+
+\section{Discussion}
+The SPACE-TIME-REALITY Engine introduces a unified differential operator that merges geometry, dynamics, and verification. This structure enables computable curvature, autonomous event verification, multi-node dynamical interaction, stochastic perturbation modeling, and ledger-based causal history tracking. It suggests new directions for unified simulation architectures and autonomous verification systems.
+
+\section{Conclusion}
+We have defined a computational engine capable of evolving geometry, reality nodes, and verified events under a single governing equation. The SPACE-TIME-REALITY Engine provides a foundation for future work in multi-domain simulation and autonomous verification.
+
+\section*{Author Information}
+C.~Matthew Blackwell\\
+Independent Designer, Lafayette, Louisiana, USA.
+
+\bibliographystyle{plain}
+\bibliography{str_engine}
+
+\end{document}
