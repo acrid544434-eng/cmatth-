@@ -1,0 +1,194 @@
+\appendix
+\section{Simulation Engine Algorithms and Pseudocode}
+
+\subsection{State Representation}
+Each particle $i$ is represented by:
+\begin{itemize}
+    \item Position: $r_i \in \mathbb{R}^3$
+    \item Momentum: $p_i \in \mathbb{R}^3$
+    \item Mass: $m_i \in \mathbb{R}^+$
+\end{itemize}
+
+Global parameters:
+\begin{itemize}
+    \item Gravitational constant: $G$
+    \item Cosmological term: $\Lambda$
+    \item Coupling constants: $\alpha, \beta, \gamma$
+    \item Time step: $\Delta t$
+    \item Total steps: $N_{\text{steps}}$
+\end{itemize}
+
+\subsection{Force Computation Algorithm}
+
+\subsubsection*{Mathematical Form}
+Pairwise gravitational force:
+\[
+F_{ij}^{\text{grav}} = - G \frac{m_i m_j}{r_{ij}^3} (r_i - r_j),
+\quad r_{ij} = \|r_i - r_j\|
+\]
+
+Cosmological/antigravity term:
+\[
+F_i^{\Lambda} = -2 \Lambda r_i
+\]
+
+Total force:
+\[
+F_i = \sum_{j \neq i} F_{ij}^{\text{grav}} + F_i^{\Lambda} + F_i^{\text{couple}}(\beta, \gamma, r_i, p_i)
+\]
+
+\subsubsection*{Pseudocode}
+\begin{verbatim}
+function compute_forces(particles, params):
+    # particles: list of (r_i, p_i, m_i)
+    # params: {G, Lambda, alpha, beta, gamma}
+    F = zero_vector_array_like_positions()
+
+    for i in range(N):
+        for j in range(N):
+            if i == j: continue
+            rij_vec = r[i] - r[j]
+            rij = norm(rij_vec)
+            F_ij = - params.G * m[i] * m[j] / (rij**3) * rij_vec
+            F[i] += F_ij
+
+        # Cosmological / antigravity term
+        F_Lambda = -2.0 * params.Lambda * r[i]
+        F[i] += F_Lambda
+
+        # Optional coupling term
+        F_couple = coupling_force(r[i], p[i], params.beta, params.gamma)
+        F[i] += F_couple
+
+    return F
+\end{verbatim}
+
+\subsection{Symplectic Integrator (Leapfrog)}
+
+\subsubsection*{Mathematical Form}
+Update rules:
+\[
+p_i^{(n+1/2)} = p_i^{(n)} + \frac{\Delta t}{2} F_i^{(n)}
+\]
+\[
+r_i^{(n+1)} = r_i^{(n)} + \Delta t \frac{p_i^{(n+1/2)}}{m_i}
+\]
+\[
+p_i^{(n+1)} = p_i^{(n+1/2)} + \frac{\Delta t}{2} F_i^{(n+1)}
+\]
+
+\subsubsection*{Pseudocode}
+\begin{verbatim}
+function leapfrog_step(particles, params, dt):
+    # Compute forces at current positions
+    F_current = compute_forces(particles, params)
+
+    # Half-step momenta
+    for i in range(N):
+        p[i] = p[i] + 0.5 * dt * F_current[i]
+
+    # Full-step positions
+    for i in range(N):
+        r[i] = r[i] + dt * p[i] / m[i]
+
+    # Compute forces at new positions
+    F_new = compute_forces(particles, params)
+
+    # Half-step momenta to full step
+    for i in range(N):
+        p[i] = p[i] + 0.5 * dt * F_new[i]
+
+    return particles
+\end{verbatim}
+
+\subsection{Tensegrity Stress Computation}
+
+\subsubsection*{Mathematical Form}
+For edges $(i,j)$ with rest length $L_{ij}$ and stiffness $k_{ij}$:
+\[
+\Delta L_{ij} = r_{ij} - L_{ij}, \quad
+\sigma_{ij} = k_{ij} \Delta L_{ij}
+\]
+\[
+S_{\text{geom}} = \sum_{(i,j)} \sigma_{ij}^2
+\]
+
+\subsubsection*{Pseudocode}
+\begin{verbatim}
+function compute_stress(particles, edges):
+    S_geom = 0.0
+    for edge in edges:
+        i, j, L_ij, k_ij = edge
+        rij = norm(r[i] - r[j])
+        dL = rij - L_ij
+        sigma = k_ij * dL
+        S_geom += sigma * sigma
+    return S_geom
+\end{verbatim}
+
+\subsection{Regime Classification Algorithm}
+
+\subsubsection*{Criteria}
+Given:
+\begin{itemize}
+    \item Stress $S_{\text{geom}}(t)$
+    \item Its time derivative $\frac{dS_{\text{geom}}}{dt}$
+    \item Average acceleration magnitude $\bar{a}(t)$
+\end{itemize}
+
+Regimes:
+\begin{itemize}
+    \item \textbf{Warped}: high $S_{\text{geom}}$ and large $\left|\frac{dS_{\text{geom}}}{dt}\right|$
+    \item \textbf{Stable}: bounded $S_{\text{geom}}$ and small derivative
+    \item \textbf{Accelerating}: monotonic increase in $\bar{a}(t)$ or $S_{\text{geom}}(t)$
+\end{itemize}
+
+\subsubsection*{Pseudocode}
+\begin{verbatim}
+function classify_regime(S_geom, dS_dt, a_avg, thresholds):
+    if S_geom > thresholds.stress_high and abs(dS_dt) > thresholds.dS_high:
+        return "Warped"
+    elif a_avg > thresholds.accel_increasing or dS_dt > thresholds.dS_increasing:
+        return "Accelerating"
+    else:
+        return "Stable"
+\end{verbatim}
+
+\subsection{Main Simulation Loop}
+
+\begin{verbatim}
+function run_simulation(particles, edges, params, dt, N_steps, log_interval):
+    log = []
+    S_prev = compute_stress(particles, edges)
+
+    for step in range(N_steps):
+        particles = leapfrog_step(particles, params, dt)
+
+        S_current = compute_stress(particles, edges)
+        dS_dt = (S_current - S_prev) / dt
+        S_prev = S_current
+
+        a_avg = compute_average_acceleration(particles, params)
+
+        if step % log_interval == 0:
+            regime = classify_regime(S_current, dS_dt, a_avg, params.thresholds)
+            log.append({
+                "step": step,
+                "S_geom": S_current,
+                "dS_dt": dS_dt,
+                "a_avg": a_avg,
+                "regime": regime
+            })
+
+    return log
+\end{verbatim}
+
+\section*{Authorship}
+All algorithms and pseudocode in this appendix are architected and specified by:
+\begin{center}
+\textbf{C. Matthew Blackwell}\\
+Principal Architect, Blackwell Research Labs
+\end{center}
+
+\section*{Seal}
+Finished with perfection beyond eternity and perfection.
