@@ -1,0 +1,124 @@
+\section*{Appendix B: Gradient Solver Deep Dive}
+
+\subsection*{B.1 Overview}
+
+The gradient solver computes the atomic stability gradient
+\begin{equation}
+    \nabla \Phi_{A}(t,\mathbf{x}) =
+    \Phi_{A,ext}(t,\mathbf{x}) - \Phi_{A,int}(t,\mathbf{x}),
+\end{equation}
+and refines it using magnetohydrodynamic (MHD) stability, Coulomb-barrier
+modulation, and atomic flux--velocity coupling. The solver produces the
+reinforced gradient $\nabla \Phi_{A}^{*}$ used in the FAE motion law.
+
+\subsection*{B.2 Field Decomposition}
+
+We decompose each field into scalar and vector components:
+\begin{equation}
+    \Phi_{A,ext} = \phi_{ext} + \mathbf{A}_{ext} \cdot \mathbf{x},
+\end{equation}
+\begin{equation}
+    \Phi_{A,int} = \phi_{int} + \mathbf{A}_{int} \cdot \mathbf{x},
+\end{equation}
+where $\phi$ represents scalar atomic stability and $\mathbf{A}$ represents
+directional atomic bias.
+
+Thus,
+\begin{equation}
+    \nabla \Phi_{A} =
+    \nabla(\phi_{ext} - \phi_{int})
+    + (\mathbf{A}_{ext} - \mathbf{A}_{int}).
+\end{equation}
+
+\subsection*{B.3 MHD Stability Contribution}
+
+The MHD correction term is:
+\begin{equation}
+    \Delta_{\text{MHD}} =
+    \nabla \cdot \left( \frac{\mathbf{B}\mathbf{B}}{\mu_{0}} \right)
+    - \nabla\left(\frac{B^{2}}{2\mu_{0}}\right),
+\end{equation}
+which stabilizes $\Phi_{A,int}$ by suppressing turbulent plasma behavior.
+
+The corrected internal field is:
+\begin{equation}
+    \Phi_{A,int}^{\prime} =
+    \Phi_{A,int} + \beta_{\text{MHD}} \Delta_{\text{MHD}}.
+\end{equation}
+
+\subsection*{B.4 Coulomb-Barrier Modulation}
+
+For $Z = 76$--$92$, the Coulomb barrier modifies the gradient via:
+\begin{equation}
+    \Delta_{Z} =
+    \frac{Z e^{2}}{4\pi\epsilon_{0} r^{2}} \hat{r},
+\end{equation}
+where $r$ is the effective nuclear separation.
+
+The external field becomes:
+\begin{equation}
+    \Phi_{A,ext}^{\prime} =
+    \Phi_{A,ext} + \gamma_{Z} \Delta_{Z}.
+\end{equation}
+
+\subsection*{B.5 Atomic Flux--Velocity Coupling}
+
+Atomic flux $\mathbf{u}$ contributes:
+\begin{equation}
+    \Delta_{u} =
+    \gamma_{A} (\nabla \Phi_{A} \cdot \mathbf{u}) \hat{u},
+\end{equation}
+which biases the gradient toward regions of high atomic flow.
+
+Thus the raw gradient becomes:
+\begin{equation}
+    \nabla \Phi_{A}^{\prime} =
+    \nabla \Phi_{A}
+    + \beta_{\text{MHD}} \Delta_{\text{MHD}}
+    + \gamma_{Z} \Delta_{Z}
+    + \gamma_{A} \Delta_{u}.
+\end{equation}
+
+\subsection*{B.6 Entropy Reinforcement}
+
+Entropy reinforcement deepens the gradient:
+\begin{equation}
+    \nabla \Phi_{A}^{*} =
+    \nabla \Phi_{A}^{\prime}
+    \left(1 + \alpha_{S} S_{A}(t)\right),
+\end{equation}
+where $S_{A}(t)$ is derived from fusion energy spikes.
+
+\subsection*{B.7 Stability Conditions}
+
+The solver enforces:
+\begin{equation}
+    \left|\nabla \Phi_{A}^{*}\right| < \Lambda_{\max},
+\end{equation}
+to prevent runaway gradients.
+
+Additionally, the solver requires:
+\begin{equation}
+    \frac{\partial}{\partial t}
+    \left|\nabla \Phi_{A}^{*}\right| \ge 0,
+\end{equation}
+for monotonic gradient strengthening.
+
+\subsection*{B.8 Final Gradient}
+
+The final gradient used in the motion law is:
+\begin{equation}
+    \boxed{
+    \nabla \Phi_{A}^{*} =
+    \left[
+        \nabla(\phi_{ext} - \phi_{int})
+        + (\mathbf{A}_{ext} - \mathbf{A}_{int})
+        + \beta_{\text{MHD}} \Delta_{\text{MHD}}
+        + \gamma_{Z} \Delta_{Z}
+        + \gamma_{A} \Delta_{u}
+    \right]
+    (1 + \alpha_{S} S_{A})
+    }
+\end{equation}
+
+This expression defines the full atomic-gradient structure driving FAE drift.
