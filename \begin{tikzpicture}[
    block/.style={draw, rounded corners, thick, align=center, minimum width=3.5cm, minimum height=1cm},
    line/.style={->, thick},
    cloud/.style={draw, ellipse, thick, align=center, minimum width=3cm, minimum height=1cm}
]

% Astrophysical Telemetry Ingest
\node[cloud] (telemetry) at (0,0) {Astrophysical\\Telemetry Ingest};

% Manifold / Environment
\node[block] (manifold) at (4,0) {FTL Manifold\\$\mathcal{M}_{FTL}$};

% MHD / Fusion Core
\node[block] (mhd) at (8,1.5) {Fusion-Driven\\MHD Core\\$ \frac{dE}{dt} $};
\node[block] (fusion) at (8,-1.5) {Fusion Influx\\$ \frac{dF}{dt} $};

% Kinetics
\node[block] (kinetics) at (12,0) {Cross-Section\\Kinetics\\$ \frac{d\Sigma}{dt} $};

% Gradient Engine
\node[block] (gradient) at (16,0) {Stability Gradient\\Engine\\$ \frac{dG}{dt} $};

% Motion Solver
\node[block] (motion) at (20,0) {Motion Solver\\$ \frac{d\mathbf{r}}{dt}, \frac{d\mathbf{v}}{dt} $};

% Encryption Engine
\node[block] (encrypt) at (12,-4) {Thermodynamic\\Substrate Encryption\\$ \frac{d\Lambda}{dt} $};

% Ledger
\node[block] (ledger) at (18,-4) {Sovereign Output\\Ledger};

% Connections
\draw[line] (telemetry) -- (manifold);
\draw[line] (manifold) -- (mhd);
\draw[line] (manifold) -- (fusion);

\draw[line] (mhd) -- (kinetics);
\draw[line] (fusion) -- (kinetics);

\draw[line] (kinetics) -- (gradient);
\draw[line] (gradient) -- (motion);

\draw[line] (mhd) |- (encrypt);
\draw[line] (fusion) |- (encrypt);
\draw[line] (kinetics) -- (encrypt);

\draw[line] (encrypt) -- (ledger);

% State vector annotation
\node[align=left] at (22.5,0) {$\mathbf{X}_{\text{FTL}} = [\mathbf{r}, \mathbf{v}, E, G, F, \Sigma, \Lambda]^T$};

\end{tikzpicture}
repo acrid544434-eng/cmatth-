@@ -1,0 +1,52 @@
+\begin{tikzpicture}[
+    block/.style={draw, rounded corners, thick, align=center, minimum width=3.5cm, minimum height=1cm},
+    line/.style={->, thick},
+    cloud/.style={draw, ellipse, thick, align=center, minimum width=3cm, minimum height=1cm}
+]
+
+% Astrophysical Telemetry Ingest
+\node[cloud] (telemetry) at (0,0) {Astrophysical\\Telemetry Ingest};
+
+% Manifold / Environment
+\node[block] (manifold) at (4,0) {FTL Manifold\\$\mathcal{M}_{FTL}$};
+
+% MHD / Fusion Core
+\node[block] (mhd) at (8,1.5) {Fusion-Driven\\MHD Core\\$ \frac{dE}{dt} $};
+\node[block] (fusion) at (8,-1.5) {Fusion Influx\\$ \frac{dF}{dt} $};
+
+% Kinetics
+\node[block] (kinetics) at (12,0) {Cross-Section\\Kinetics\\$ \frac{d\Sigma}{dt} $};
+
+% Gradient Engine
+\node[block] (gradient) at (16,0) {Stability Gradient\\Engine\\$ \frac{dG}{dt} $};
+
+% Motion Solver
+\node[block] (motion) at (20,0) {Motion Solver\\$ \frac{d\mathbf{r}}{dt}, \frac{d\mathbf{v}}{dt} $};
+
+% Encryption Engine
+\node[block] (encrypt) at (12,-4) {Thermodynamic\\Substrate Encryption\\$ \frac{d\Lambda}{dt} $};
+
+% Ledger
+\node[block] (ledger) at (18,-4) {Sovereign Output\\Ledger};
+
+% Connections
+\draw[line] (telemetry) -- (manifold);
+\draw[line] (manifold) -- (mhd);
+\draw[line] (manifold) -- (fusion);
+
+\draw[line] (mhd) -- (kinetics);
+\draw[line] (fusion) -- (kinetics);
+
+\draw[line] (kinetics) -- (gradient);
+\draw[line] (gradient) -- (motion);
+
+\draw[line] (mhd) |- (encrypt);
+\draw[line] (fusion) |- (encrypt);
+\draw[line] (kinetics) -- (encrypt);
+
+\draw[line] (encrypt) -- (ledger);
+
+% State vector annotation
+\node[align=left] at (22.5,0) {$\mathbf{X}_{\text{FTL}} = [\mathbf{r}, \mathbf{v}, E, G, F, \Sigma, \Lambda]^T$};
+
+\end{tikzpicture}
