@@ -1,0 +1,27 @@
+FUNCTION BuildExternalField(EnvState):
+    RETURN f(EnvState.cosmicTelemetry,
+             EnvState.spectralDensity,
+             EnvState.Z_env)
+END FUNCTION
+
+FUNCTION BuildInternalField(AnchorState):
+    RETURN g(AnchorState.fusionState,
+             AnchorState.MHD_Confinement,
+             AnchorState.CoreCoherence)
+END FUNCTION
+
+FUNCTION ComputeMHD(AnchorState):
+    RETURN MHD_Operator(AnchorState.MHD_Confinement)
+END FUNCTION
+
+FUNCTION CoulombBarrier(Z_env):
+    RETURN (Z_env * e^2) / (4 * pi * epsilon_0 * r^2)
+END FUNCTION
+
+FUNCTION FluxVelocityCoupling(GradPhi, atomicFlux):
+    RETURN gamma_A * (GradPhi · atomicFlux) * Normalize(atomicFlux)
+END FUNCTION
+
+FUNCTION DetectFusionSpike(AnchorState):
+    RETURN SpikeDetector(AnchorState.fusionState)
+END FUNCTION
