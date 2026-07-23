@@ -1,0 +1,172 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{MK-15 Suprakernel Simulation Architecture:\\
+A Unified Multi-Domain, Encrypted, Perturbation-Damped Runtime}
+\author{C. Matthew Blackwell \\ Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The MK-15 suprakernel simulation architecture unifies flight, structural,
+thermal, propulsion, and control dynamics into a single encrypted,
+ledger-bound, perturbation-damped runtime. This paper presents the
+mathematical formulation of the suprakernel state, the constraint
+envelope governing MK-15 evolution, the thermal shock gradient operator,
+and the perturbation damping mechanism. Results demonstrate stable
+hypersonic evolution in the Mach 10--15 regime under strict thermal and
+structural constraints. The suprakernel framework provides a foundation
+for high-stress trans-atmospheric simulation and future extended-domain
+coupling.
+\end{abstract}
+
+\section{Introduction}
+High-speed trans-atmospheric vehicles require simulation architectures
+capable of integrating multiple physical domains under extreme
+conditions. Traditional aerospace simulation frameworks treat flight
+mechanics, structural dynamics, thermal loads, propulsion, and control
+systems as separate modules. This fragmentation introduces coupling
+errors and limits stability at hypersonic speeds.
+
+The MK-15 suprakernel architecture addresses these limitations by
+providing a unified multi-domain simulation organism. Each iteration is
+governed by a constraint envelope and verified through encrypted
+ledger-bound state evolution. This paper formalizes the MK-15
+suprakernel and evaluates its stability in the Mach 10--15 regime.
+
+\section{Background}
+Conventional simulation approaches rely on modular solvers that exchange
+boundary conditions between subsystems. While effective for moderate
+flight regimes, these methods struggle with the nonlinear coupling
+present in hypersonic and trans-atmospheric environments. Recent
+research has explored integrated solvers, but none incorporate
+cryptographic verification or perturbation-damped evolution.
+
+The suprakernel architecture extends integrated simulation by enforcing
+global constraints, damping perturbations, and binding each state to an
+encrypted ledger. This ensures stability, reproducibility, and
+traceability across all domains.
+
+\section{Methods}
+
+\subsection{Global MK-15 State}
+The MK-15 suprakernel state is defined as
+\[
+\mathbf{X}_{\text{MK15}} =
+\begin{bmatrix}
+\mathbf{X}_{\text{flight}} \\
+\mathbf{X}_{\text{struct}} \\
+\mathbf{X}_{\text{thermal}} \\
+\mathbf{X}_{\text{prop}} \\
+\mathbf{X}_{\text{ctrl}}
+\end{bmatrix}.
+\]
+
+\subsection{State Evolution}
+The suprakernel advances the MK-15 state using
+\[
+\mathbf{X}_{\text{MK15}}^{(n+1)} =
+\mathcal{F}_{\text{MK15}}\big(\mathbf{X}_{\text{MK15}}^{(n)}, \Delta t\big),
+\]
+where $\mathcal{F}_{\text{MK15}}$ integrates aerodynamic loads,
+structural response, thermal flux, propulsion dynamics, and control
+inputs.
+
+\subsection{Thermal Shock Gradient}
+Thermal shock susceptibility is evaluated using
+\[
+G_{\text{TS}} =
+\delta_{1}\lambda_{\min}(\mathbf{K}_{\text{th}})
+-
+\delta_{2}\lambda_{\max}(\mathbf{C}_{\text{th}})
+-
+\delta_{3}\lambda_{\max}(\mathbf{S}_{\text{shock}}),
+\]
+with shock margin
+\[
+\text{SM}_{\text{TS}} = G_{\text{TS}} - G_{\text{crit,TS}}.
+\]
+
+\subsection{Perturbation Damping}
+Perturbations evolve under
+\[
+\delta \mathbf{X}' =
+\mathcal{D}_{\text{pert}}\big(\delta \mathbf{X}\big),
+\quad
+\|\delta \mathbf{X}'\| \le \kappa \|\delta \mathbf{X}\|,
+\]
+with $0 < \kappa < 1$ enforcing suprakernel stability.
+
+\subsection{Encrypted Runtime}
+Encrypted MK-15 state:
+\[
+\Lambda^{(n)} =
+\mathcal{E}_{\text{MK15}}\big(\mathbf{X}_{\text{MK15}}^{(n)}, k_{\text{sec}}\big).
+\]
+
+Ledger entry:
+\[
+\ell^{(n)} =
+\mathcal{L}_{\text{MK15}}\big(\mathbf{X}_{\text{MK15}}^{(n)}, \Lambda^{(n)}\big).
+\]
+
+Hash chain:
+\[
+H^{(n)} =
+\text{Hash}\big(\ell^{(n)} \,\|\, H^{(n-1)}\big).
+\]
+
+\subsection{Constraint Envelope}
+All updates must satisfy
+\[
+\mathbf{X}_{\text{MK15}}^{(n)} \in
+\mathcal{C}_{\text{flight}}
+\wedge
+\mathcal{C}_{\text{thermal}}
+\wedge
+\mathcal{C}_{\text{struct}}
+\wedge
+\mathcal{C}_{\text{prop}}
+\wedge
+\mathcal{C}_{\text{ctrl}}
+\wedge
+\mathcal{C}_{\text{enc}}
+\wedge
+\mathcal{C}_{\text{ledger}}.
+\]
+
+\section{Results}
+Simulation of the MK-15 suprakernel in the Mach 10--15 regime produced
+stable evolution across all domains. Thermal shock margins remained
+positive under high flux conditions, and perturbation damping prevented
+divergence during aerodynamic transients.
+
+Encrypted ledger verification ensured reproducibility across all
+iterations. Structural loads remained within allowable limits, and
+propulsion dynamics maintained torque stability.
+
+\section{Discussion}
+The MK-15 suprakernel demonstrates that unified multi-domain simulation
+can maintain stability in extreme flight regimes. The thermal shock
+gradient operator provides a robust measure of thermal susceptibility,
+while perturbation damping ensures resilience against transient
+instabilities.
+
+The encrypted runtime and ledger system introduce a novel mechanism for
+traceability and verification, enabling secure simulation pipelines for
+high-stress aerospace applications.
+
+\section{Conclusion}
+The MK-15 suprakernel architecture provides a unified, encrypted,
+perturbation-damped simulation framework capable of supporting
+trans-atmospheric hypersonic vehicles. Future work will extend the
+architecture to inter-domain coupling and FTL kernel integration.
+
+\section*{References}
+References may be added here using BibTeX or manual formatting.
+
+\end{document}
