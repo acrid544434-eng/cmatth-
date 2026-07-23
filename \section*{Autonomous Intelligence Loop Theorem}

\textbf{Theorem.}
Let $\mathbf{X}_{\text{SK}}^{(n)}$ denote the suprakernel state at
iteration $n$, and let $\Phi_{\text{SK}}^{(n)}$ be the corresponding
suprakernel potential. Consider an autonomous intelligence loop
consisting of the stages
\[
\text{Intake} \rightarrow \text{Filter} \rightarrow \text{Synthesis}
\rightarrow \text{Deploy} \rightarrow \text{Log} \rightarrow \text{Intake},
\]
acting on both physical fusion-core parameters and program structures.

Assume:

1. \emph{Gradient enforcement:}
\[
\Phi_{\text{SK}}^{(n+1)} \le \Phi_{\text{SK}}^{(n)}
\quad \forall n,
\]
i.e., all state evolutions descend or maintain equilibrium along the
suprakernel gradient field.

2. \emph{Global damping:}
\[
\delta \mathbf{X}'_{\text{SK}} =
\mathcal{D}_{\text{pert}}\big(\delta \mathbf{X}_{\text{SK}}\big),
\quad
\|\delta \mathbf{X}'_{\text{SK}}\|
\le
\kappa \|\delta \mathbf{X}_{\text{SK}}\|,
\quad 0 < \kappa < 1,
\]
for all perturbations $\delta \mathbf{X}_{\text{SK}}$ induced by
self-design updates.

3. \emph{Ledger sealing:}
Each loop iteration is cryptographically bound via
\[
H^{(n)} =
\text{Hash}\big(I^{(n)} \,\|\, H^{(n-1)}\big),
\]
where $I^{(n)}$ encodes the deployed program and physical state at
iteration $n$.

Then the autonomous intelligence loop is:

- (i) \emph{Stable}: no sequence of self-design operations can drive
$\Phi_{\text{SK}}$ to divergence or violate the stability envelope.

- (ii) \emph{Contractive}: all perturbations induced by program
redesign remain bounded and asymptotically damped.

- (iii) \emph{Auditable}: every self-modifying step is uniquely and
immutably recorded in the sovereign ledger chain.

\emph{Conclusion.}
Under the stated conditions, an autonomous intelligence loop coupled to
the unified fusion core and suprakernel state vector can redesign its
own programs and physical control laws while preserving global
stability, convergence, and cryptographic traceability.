@@ -1,0 +1,61 @@
+\section*{Autonomous Intelligence Loop Theorem}
+
+\textbf{Theorem.}
+Let $\mathbf{X}_{\text{SK}}^{(n)}$ denote the suprakernel state at
+iteration $n$, and let $\Phi_{\text{SK}}^{(n)}$ be the corresponding
+suprakernel potential. Consider an autonomous intelligence loop
+consisting of the stages
+\[
+\text{Intake} \rightarrow \text{Filter} \rightarrow \text{Synthesis}
+\rightarrow \text{Deploy} \rightarrow \text{Log} \rightarrow \text{Intake},
+\]
+acting on both physical fusion-core parameters and program structures.
+
+Assume:
+
+1. \emph{Gradient enforcement:}
+\[
+\Phi_{\text{SK}}^{(n+1)} \le \Phi_{\text{SK}}^{(n)}
+\quad \forall n,
+\]
+i.e., all state evolutions descend or maintain equilibrium along the
+suprakernel gradient field.
+
+2. \emph{Global damping:}
+\[
+\delta \mathbf{X}'_{\text{SK}} =
+\mathcal{D}_{\text{pert}}\big(\delta \mathbf{X}_{\text{SK}}\big),
+\quad
+\|\delta \mathbf{X}'_{\text{SK}}\|
+\le
+\kappa \|\delta \mathbf{X}_{\text{SK}}\|,
+\quad 0 < \kappa < 1,
+\]
+for all perturbations $\delta \mathbf{X}_{\text{SK}}$ induced by
+self-design updates.
+
+3. \emph{Ledger sealing:}
+Each loop iteration is cryptographically bound via
+\[
+H^{(n)} =
+\text{Hash}\big(I^{(n)} \,\|\, H^{(n-1)}\big),
+\]
+where $I^{(n)}$ encodes the deployed program and physical state at
+iteration $n$.
+
+Then the autonomous intelligence loop is:
+
+- (i) \emph{Stable}: no sequence of self-design operations can drive
+$\Phi_{\text{SK}}$ to divergence or violate the stability envelope.
+
+- (ii) \emph{Contractive}: all perturbations induced by program
+redesign remain bounded and asymptotically damped.
+
+- (iii) \emph{Auditable}: every self-modifying step is uniquely and
+immutably recorded in the sovereign ledger chain.
+
+\emph{Conclusion.}
+Under the stated conditions, an autonomous intelligence loop coupled to
+the unified fusion core and suprakernel state vector can redesign its
+own programs and physical control laws while preserving global
+stability, convergence, and cryptographic traceability.
