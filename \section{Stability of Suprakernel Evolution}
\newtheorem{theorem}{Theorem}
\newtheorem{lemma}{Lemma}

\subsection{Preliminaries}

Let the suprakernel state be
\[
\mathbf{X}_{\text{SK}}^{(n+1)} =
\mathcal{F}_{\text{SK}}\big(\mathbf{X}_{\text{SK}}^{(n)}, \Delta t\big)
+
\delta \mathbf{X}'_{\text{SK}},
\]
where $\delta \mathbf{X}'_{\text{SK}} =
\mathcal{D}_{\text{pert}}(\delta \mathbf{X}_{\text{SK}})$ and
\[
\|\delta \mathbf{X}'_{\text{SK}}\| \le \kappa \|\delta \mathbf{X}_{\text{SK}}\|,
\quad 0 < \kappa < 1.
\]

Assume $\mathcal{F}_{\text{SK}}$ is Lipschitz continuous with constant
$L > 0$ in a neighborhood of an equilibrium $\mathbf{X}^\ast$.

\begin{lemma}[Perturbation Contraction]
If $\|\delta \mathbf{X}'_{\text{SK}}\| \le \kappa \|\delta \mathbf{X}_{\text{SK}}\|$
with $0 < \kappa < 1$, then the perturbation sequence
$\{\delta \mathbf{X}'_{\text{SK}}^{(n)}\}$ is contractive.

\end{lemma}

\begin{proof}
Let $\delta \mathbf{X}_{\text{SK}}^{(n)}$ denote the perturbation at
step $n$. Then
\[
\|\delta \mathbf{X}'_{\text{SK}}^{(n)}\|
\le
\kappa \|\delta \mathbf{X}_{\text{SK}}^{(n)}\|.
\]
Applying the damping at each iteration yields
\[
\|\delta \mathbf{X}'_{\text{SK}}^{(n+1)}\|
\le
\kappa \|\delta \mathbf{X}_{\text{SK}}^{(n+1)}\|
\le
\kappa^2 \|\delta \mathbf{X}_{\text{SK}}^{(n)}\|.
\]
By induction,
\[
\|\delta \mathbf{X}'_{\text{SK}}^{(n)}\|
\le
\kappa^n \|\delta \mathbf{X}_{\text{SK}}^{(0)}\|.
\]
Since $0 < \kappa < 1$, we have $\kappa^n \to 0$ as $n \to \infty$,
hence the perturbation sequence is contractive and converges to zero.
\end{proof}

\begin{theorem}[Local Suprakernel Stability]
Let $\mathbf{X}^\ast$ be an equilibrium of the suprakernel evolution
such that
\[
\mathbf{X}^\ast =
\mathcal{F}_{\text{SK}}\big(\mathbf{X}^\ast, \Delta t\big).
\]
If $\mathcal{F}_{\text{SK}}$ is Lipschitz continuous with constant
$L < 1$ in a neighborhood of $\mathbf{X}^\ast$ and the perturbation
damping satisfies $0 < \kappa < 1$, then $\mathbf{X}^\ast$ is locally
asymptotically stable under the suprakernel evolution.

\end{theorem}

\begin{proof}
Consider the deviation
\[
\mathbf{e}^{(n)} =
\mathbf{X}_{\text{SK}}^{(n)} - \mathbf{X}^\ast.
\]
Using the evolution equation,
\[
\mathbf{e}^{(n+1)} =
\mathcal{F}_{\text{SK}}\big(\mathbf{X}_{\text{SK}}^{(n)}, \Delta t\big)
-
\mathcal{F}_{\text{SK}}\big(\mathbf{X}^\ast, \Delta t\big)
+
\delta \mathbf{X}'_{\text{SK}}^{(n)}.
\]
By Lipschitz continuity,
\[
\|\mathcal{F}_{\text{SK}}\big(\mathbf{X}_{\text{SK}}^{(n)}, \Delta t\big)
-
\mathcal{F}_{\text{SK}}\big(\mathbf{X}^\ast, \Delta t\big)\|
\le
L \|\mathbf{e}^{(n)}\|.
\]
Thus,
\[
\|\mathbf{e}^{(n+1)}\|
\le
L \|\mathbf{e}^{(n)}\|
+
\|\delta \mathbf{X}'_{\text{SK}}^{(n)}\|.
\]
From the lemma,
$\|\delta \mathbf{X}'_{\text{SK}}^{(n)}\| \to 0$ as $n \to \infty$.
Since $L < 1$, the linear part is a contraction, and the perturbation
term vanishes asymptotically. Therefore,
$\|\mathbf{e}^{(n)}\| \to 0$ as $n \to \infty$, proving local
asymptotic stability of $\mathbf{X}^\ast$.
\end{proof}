@@ -1,0 +1,108 @@
+\section{Stability of Suprakernel Evolution}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+\subsection{Preliminaries}
+
+Let the suprakernel state be
+\[
+\mathbf{X}_{\text{SK}}^{(n+1)} =
+\mathcal{F}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n)}, \Delta t\big)
++
+\delta \mathbf{X}'_{\text{SK}},
+\]
+where $\delta \mathbf{X}'_{\text{SK}} =
+\mathcal{D}_{\text{pert}}(\delta \mathbf{X}_{\text{SK}})$ and
+\[
+\|\delta \mathbf{X}'_{\text{SK}}\| \le \kappa \|\delta \mathbf{X}_{\text{SK}}\|,
+\quad 0 < \kappa < 1.
+\]
+
+Assume $\mathcal{F}_{\text{SK}}$ is Lipschitz continuous with constant
+$L > 0$ in a neighborhood of an equilibrium $\mathbf{X}^\ast$.
+
+\begin{lemma}[Perturbation Contraction]
+If $\|\delta \mathbf{X}'_{\text{SK}}\| \le \kappa \|\delta \mathbf{X}_{\text{SK}}\|$
+with $0 < \kappa < 1$, then the perturbation sequence
+$\{\delta \mathbf{X}'_{\text{SK}}^{(n)}\}$ is contractive.
+
+\end{lemma}
+
+\begin{proof}
+Let $\delta \mathbf{X}_{\text{SK}}^{(n)}$ denote the perturbation at
+step $n$. Then
+\[
+\|\delta \mathbf{X}'_{\text{SK}}^{(n)}\|
+\le
+\kappa \|\delta \mathbf{X}_{\text{SK}}^{(n)}\|.
+\]
+Applying the damping at each iteration yields
+\[
+\|\delta \mathbf{X}'_{\text{SK}}^{(n+1)}\|
+\le
+\kappa \|\delta \mathbf{X}_{\text{SK}}^{(n+1)}\|
+\le
+\kappa^2 \|\delta \mathbf{X}_{\text{SK}}^{(n)}\|.
+\]
+By induction,
+\[
+\|\delta \mathbf{X}'_{\text{SK}}^{(n)}\|
+\le
+\kappa^n \|\delta \mathbf{X}_{\text{SK}}^{(0)}\|.
+\]
+Since $0 < \kappa < 1$, we have $\kappa^n \to 0$ as $n \to \infty$,
+hence the perturbation sequence is contractive and converges to zero.
+\end{proof}
+
+\begin{theorem}[Local Suprakernel Stability]
+Let $\mathbf{X}^\ast$ be an equilibrium of the suprakernel evolution
+such that
+\[
+\mathbf{X}^\ast =
+\mathcal{F}_{\text{SK}}\big(\mathbf{X}^\ast, \Delta t\big).
+\]
+If $\mathcal{F}_{\text{SK}}$ is Lipschitz continuous with constant
+$L < 1$ in a neighborhood of $\mathbf{X}^\ast$ and the perturbation
+damping satisfies $0 < \kappa < 1$, then $\mathbf{X}^\ast$ is locally
+asymptotically stable under the suprakernel evolution.
+
+\end{theorem}
+
+\begin{proof}
+Consider the deviation
+\[
+\mathbf{e}^{(n)} =
+\mathbf{X}_{\text{SK}}^{(n)} - \mathbf{X}^\ast.
+\]
+Using the evolution equation,
+\[
+\mathbf{e}^{(n+1)} =
+\mathcal{F}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n)}, \Delta t\big)
+-
+\mathcal{F}_{\text{SK}}\big(\mathbf{X}^\ast, \Delta t\big)
++
+\delta \mathbf{X}'_{\text{SK}}^{(n)}.
+\]
+By Lipschitz continuity,
+\[
+\|\mathcal{F}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n)}, \Delta t\big)
+-
+\mathcal{F}_{\text{SK}}\big(\mathbf{X}^\ast, \Delta t\big)\|
+\le
+L \|\mathbf{e}^{(n)}\|.
+\]
+Thus,
+\[
+\|\mathbf{e}^{(n+1)}\|
+\le
+L \|\mathbf{e}^{(n)}\|
++
+\|\delta \mathbf{X}'_{\text{SK}}^{(n)}\|.
+\]
+From the lemma,
+$\|\delta \mathbf{X}'_{\text{SK}}^{(n)}\| \to 0$ as $n \to \infty$.
+Since $L < 1$, the linear part is a contraction, and the perturbation
+term vanishes asymptotically. Therefore,
+$\|\mathbf{e}^{(n)}\| \to 0$ as $n \to \infty$, proving local
+asymptotic stability of $\mathbf{X}^\ast$.
+\end{proof}
