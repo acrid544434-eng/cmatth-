@@ -1,0 +1,69 @@
+FUNCTION FAE_Step(t):
+
+    # 1. ENVIRONMENT INGEST
+    EnvState = IngestEnvironment(
+        cosmicTelemetry(t),
+        spectralDensity(t),
+        Z_env
+    )
+
+    # 2. ANCHOR INGEST
+    AnchorState = IngestAnchor(
+        fusionState_PtU(t),
+        MHD_Confinement(t),
+        CoreCoherence(t)
+    )
+
+    # 3. FIELD CONSTRUCTION
+    Phi_ext = BuildExternalField(EnvState)
+    Phi_int = BuildInternalField(AnchorState)
+
+    # 4. RAW GRADIENT
+    GradPhi = Phi_ext - Phi_int
+
+    # 5. MHD CORRECTION
+    Delta_MHD = ComputeMHD(AnchorState)
+    Phi_int_prime = Phi_int + beta_MHD * Delta_MHD
+
+    # 6. COULOMB MODULATION
+    Delta_Z = CoulombBarrier(Z_env)
+    Phi_ext_prime = Phi_ext + gamma_Z * Delta_Z
+
+    # 7. ATOMIC FLUX–VELOCITY COUPLING
+    Delta_u = FluxVelocityCoupling(GradPhi, atomicFlux(t))
+    GradPhi_prime = GradPhi + beta_MHD * Delta_MHD
+                            + gamma_Z * Delta_Z
+                            + gamma_A * Delta_u
+
+    # 8. ENTROPY COMPUTATION
+    E_spike = DetectFusionSpike(AnchorState)
+    S_A = k_S * E_spike
+
+    # 9. ENTROPY REINFORCEMENT
+    GradPhi_star = GradPhi_prime * (1 + alpha_S * S_A)
+
+    # 10. DRIFT VELOCITY
+    v_eff = k_A * |GradPhi_star| * S_A
+
+    # 11. RELATIVISTIC CONSTRAINT
+    IF v_eff >= c:
+        v_eff = c - epsilon
+
+    # 12. ACCELERATION
+    a_eff = (v_eff - v_eff_prev) / dt
+
+    # 13. LOGGING
+    LogState(
+        t,
+        EnvState,
+        AnchorState,
+        Phi_ext_prime,
+        Phi_int_prime,
+        GradPhi_star,
+        S_A,
+        v_eff,
+        a_eff
+    )
+
+    RETURN DriftState(v_eff, a_eff)
+END FUNCTION
