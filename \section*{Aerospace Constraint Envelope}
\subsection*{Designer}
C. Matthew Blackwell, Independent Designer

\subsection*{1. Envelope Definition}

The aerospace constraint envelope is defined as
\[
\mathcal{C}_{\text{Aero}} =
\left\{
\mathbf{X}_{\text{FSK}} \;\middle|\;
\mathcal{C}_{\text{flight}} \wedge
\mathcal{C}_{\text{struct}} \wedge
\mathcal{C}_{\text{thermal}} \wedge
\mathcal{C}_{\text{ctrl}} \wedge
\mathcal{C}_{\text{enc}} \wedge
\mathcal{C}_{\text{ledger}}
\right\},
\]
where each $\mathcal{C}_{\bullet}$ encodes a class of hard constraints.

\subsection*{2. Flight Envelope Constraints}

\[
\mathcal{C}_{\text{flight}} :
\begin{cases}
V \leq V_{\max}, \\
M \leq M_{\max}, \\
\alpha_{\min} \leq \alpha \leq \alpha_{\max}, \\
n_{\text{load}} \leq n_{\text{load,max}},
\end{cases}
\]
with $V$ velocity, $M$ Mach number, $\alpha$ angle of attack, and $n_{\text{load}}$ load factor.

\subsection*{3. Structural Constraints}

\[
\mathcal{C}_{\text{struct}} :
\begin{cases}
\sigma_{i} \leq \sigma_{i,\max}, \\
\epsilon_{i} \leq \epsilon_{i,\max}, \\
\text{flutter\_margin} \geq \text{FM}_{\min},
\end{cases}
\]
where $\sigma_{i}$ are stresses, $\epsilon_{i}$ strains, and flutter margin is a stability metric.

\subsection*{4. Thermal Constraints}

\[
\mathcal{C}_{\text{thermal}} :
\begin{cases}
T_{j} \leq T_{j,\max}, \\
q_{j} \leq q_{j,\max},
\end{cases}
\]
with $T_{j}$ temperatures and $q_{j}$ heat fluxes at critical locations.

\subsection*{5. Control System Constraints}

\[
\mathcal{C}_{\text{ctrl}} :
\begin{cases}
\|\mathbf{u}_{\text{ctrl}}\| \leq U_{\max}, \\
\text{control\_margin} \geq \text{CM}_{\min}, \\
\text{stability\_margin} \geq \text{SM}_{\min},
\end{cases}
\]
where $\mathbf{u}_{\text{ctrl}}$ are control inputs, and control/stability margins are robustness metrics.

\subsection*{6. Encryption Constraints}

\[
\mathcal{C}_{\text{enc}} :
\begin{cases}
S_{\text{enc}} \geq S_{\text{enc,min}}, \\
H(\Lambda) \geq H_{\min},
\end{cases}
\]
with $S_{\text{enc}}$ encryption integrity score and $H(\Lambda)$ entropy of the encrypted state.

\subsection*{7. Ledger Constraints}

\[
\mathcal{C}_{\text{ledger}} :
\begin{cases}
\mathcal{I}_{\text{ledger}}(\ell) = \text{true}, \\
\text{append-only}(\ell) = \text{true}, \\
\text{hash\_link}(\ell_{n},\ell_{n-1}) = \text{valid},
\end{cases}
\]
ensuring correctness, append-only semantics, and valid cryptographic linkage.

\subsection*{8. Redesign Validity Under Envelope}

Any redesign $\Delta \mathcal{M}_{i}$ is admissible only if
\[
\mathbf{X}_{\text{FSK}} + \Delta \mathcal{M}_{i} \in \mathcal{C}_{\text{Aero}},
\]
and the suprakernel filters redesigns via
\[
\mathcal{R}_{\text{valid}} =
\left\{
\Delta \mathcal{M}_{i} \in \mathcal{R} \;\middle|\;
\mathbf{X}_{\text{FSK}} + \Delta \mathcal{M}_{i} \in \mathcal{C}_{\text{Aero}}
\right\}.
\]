@@ -1,0 +1,106 @@
+\section*{Aerospace Constraint Envelope}
+\subsection*{Designer}
+C. Matthew Blackwell, Independent Designer
+
+\subsection*{1. Envelope Definition}
+
+The aerospace constraint envelope is defined as
+\[
+\mathcal{C}_{\text{Aero}} =
+\left\{
+\mathbf{X}_{\text{FSK}} \;\middle|\;
+\mathcal{C}_{\text{flight}} \wedge
+\mathcal{C}_{\text{struct}} \wedge
+\mathcal{C}_{\text{thermal}} \wedge
+\mathcal{C}_{\text{ctrl}} \wedge
+\mathcal{C}_{\text{enc}} \wedge
+\mathcal{C}_{\text{ledger}}
+\right\},
+\]
+where each $\mathcal{C}_{\bullet}$ encodes a class of hard constraints.
+
+\subsection*{2. Flight Envelope Constraints}
+
+\[
+\mathcal{C}_{\text{flight}} :
+\begin{cases}
+V \leq V_{\max}, \\
+M \leq M_{\max}, \\
+\alpha_{\min} \leq \alpha \leq \alpha_{\max}, \\
+n_{\text{load}} \leq n_{\text{load,max}},
+\end{cases}
+\]
+with $V$ velocity, $M$ Mach number, $\alpha$ angle of attack, and $n_{\text{load}}$ load factor.
+
+\subsection*{3. Structural Constraints}
+
+\[
+\mathcal{C}_{\text{struct}} :
+\begin{cases}
+\sigma_{i} \leq \sigma_{i,\max}, \\
+\epsilon_{i} \leq \epsilon_{i,\max}, \\
+\text{flutter\_margin} \geq \text{FM}_{\min},
+\end{cases}
+\]
+where $\sigma_{i}$ are stresses, $\epsilon_{i}$ strains, and flutter margin is a stability metric.
+
+\subsection*{4. Thermal Constraints}
+
+\[
+\mathcal{C}_{\text{thermal}} :
+\begin{cases}
+T_{j} \leq T_{j,\max}, \\
+q_{j} \leq q_{j,\max},
+\end{cases}
+\]
+with $T_{j}$ temperatures and $q_{j}$ heat fluxes at critical locations.
+
+\subsection*{5. Control System Constraints}
+
+\[
+\mathcal{C}_{\text{ctrl}} :
+\begin{cases}
+\|\mathbf{u}_{\text{ctrl}}\| \leq U_{\max}, \\
+\text{control\_margin} \geq \text{CM}_{\min}, \\
+\text{stability\_margin} \geq \text{SM}_{\min},
+\end{cases}
+\]
+where $\mathbf{u}_{\text{ctrl}}$ are control inputs, and control/stability margins are robustness metrics.
+
+\subsection*{6. Encryption Constraints}
+
+\[
+\mathcal{C}_{\text{enc}} :
+\begin{cases}
+S_{\text{enc}} \geq S_{\text{enc,min}}, \\
+H(\Lambda) \geq H_{\min},
+\end{cases}
+\]
+with $S_{\text{enc}}$ encryption integrity score and $H(\Lambda)$ entropy of the encrypted state.
+
+\subsection*{7. Ledger Constraints}
+
+\[
+\mathcal{C}_{\text{ledger}} :
+\begin{cases}
+\mathcal{I}_{\text{ledger}}(\ell) = \text{true}, \\
+\text{append-only}(\ell) = \text{true}, \\
+\text{hash\_link}(\ell_{n},\ell_{n-1}) = \text{valid},
+\end{cases}
+\]
+ensuring correctness, append-only semantics, and valid cryptographic linkage.
+
+\subsection*{8. Redesign Validity Under Envelope}
+
+Any redesign $\Delta \mathcal{M}_{i}$ is admissible only if
+\[
+\mathbf{X}_{\text{FSK}} + \Delta \mathcal{M}_{i} \in \mathcal{C}_{\text{Aero}},
+\]
+and the suprakernel filters redesigns via
+\[
+\mathcal{R}_{\text{valid}} =
+\left\{
+\Delta \mathcal{M}_{i} \in \mathcal{R} \;\middle|\;
+\mathbf{X}_{\text{FSK}} + \Delta \mathcal{M}_{i} \in \mathcal{C}_{\text{Aero}}
+\right\}.
+\]
