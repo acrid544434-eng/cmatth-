@@ -1,0 +1,20 @@
+\subsection*{Bifurcation Engine}
+
+Given the FTL state $\mathbf{X}_{n}$, the bifurcation engine defines
+\[
+\mathcal{B} : \mathbf{X}_{n} \mapsto \{\mathbf{X}^{(k)}_{n+1}\}_{k=1}^{N},
+\]
+such that
+\[
+\mathbf{X}^{(k)}_{n+1} = \mathcal{F}_{k}(\mathbf{X}_{n}, \Delta t),
+\]
+with branch selection governed by a bifurcation condition
+\[
+\beta(\mathbf{X}_{n}) =
+\begin{cases}
+\text{single-branch}, & (G,\Sigma) \notin \mathcal{C}_{\text{crit}}, \\
+\text{multi-branch}, & (G,\Sigma) \in \mathcal{C}_{\text{crit}}.
+\end{cases}
+\]
+Each branch $k$ is associated with a distinct engine profile $\mathcal{F}_{k}$ (e.g. safe, extreme, exploratory),
+and each resulting state $\mathbf{X}^{(k)}_{n+1}$ is recorded in the sovereign ledger as a separate FTL event.
