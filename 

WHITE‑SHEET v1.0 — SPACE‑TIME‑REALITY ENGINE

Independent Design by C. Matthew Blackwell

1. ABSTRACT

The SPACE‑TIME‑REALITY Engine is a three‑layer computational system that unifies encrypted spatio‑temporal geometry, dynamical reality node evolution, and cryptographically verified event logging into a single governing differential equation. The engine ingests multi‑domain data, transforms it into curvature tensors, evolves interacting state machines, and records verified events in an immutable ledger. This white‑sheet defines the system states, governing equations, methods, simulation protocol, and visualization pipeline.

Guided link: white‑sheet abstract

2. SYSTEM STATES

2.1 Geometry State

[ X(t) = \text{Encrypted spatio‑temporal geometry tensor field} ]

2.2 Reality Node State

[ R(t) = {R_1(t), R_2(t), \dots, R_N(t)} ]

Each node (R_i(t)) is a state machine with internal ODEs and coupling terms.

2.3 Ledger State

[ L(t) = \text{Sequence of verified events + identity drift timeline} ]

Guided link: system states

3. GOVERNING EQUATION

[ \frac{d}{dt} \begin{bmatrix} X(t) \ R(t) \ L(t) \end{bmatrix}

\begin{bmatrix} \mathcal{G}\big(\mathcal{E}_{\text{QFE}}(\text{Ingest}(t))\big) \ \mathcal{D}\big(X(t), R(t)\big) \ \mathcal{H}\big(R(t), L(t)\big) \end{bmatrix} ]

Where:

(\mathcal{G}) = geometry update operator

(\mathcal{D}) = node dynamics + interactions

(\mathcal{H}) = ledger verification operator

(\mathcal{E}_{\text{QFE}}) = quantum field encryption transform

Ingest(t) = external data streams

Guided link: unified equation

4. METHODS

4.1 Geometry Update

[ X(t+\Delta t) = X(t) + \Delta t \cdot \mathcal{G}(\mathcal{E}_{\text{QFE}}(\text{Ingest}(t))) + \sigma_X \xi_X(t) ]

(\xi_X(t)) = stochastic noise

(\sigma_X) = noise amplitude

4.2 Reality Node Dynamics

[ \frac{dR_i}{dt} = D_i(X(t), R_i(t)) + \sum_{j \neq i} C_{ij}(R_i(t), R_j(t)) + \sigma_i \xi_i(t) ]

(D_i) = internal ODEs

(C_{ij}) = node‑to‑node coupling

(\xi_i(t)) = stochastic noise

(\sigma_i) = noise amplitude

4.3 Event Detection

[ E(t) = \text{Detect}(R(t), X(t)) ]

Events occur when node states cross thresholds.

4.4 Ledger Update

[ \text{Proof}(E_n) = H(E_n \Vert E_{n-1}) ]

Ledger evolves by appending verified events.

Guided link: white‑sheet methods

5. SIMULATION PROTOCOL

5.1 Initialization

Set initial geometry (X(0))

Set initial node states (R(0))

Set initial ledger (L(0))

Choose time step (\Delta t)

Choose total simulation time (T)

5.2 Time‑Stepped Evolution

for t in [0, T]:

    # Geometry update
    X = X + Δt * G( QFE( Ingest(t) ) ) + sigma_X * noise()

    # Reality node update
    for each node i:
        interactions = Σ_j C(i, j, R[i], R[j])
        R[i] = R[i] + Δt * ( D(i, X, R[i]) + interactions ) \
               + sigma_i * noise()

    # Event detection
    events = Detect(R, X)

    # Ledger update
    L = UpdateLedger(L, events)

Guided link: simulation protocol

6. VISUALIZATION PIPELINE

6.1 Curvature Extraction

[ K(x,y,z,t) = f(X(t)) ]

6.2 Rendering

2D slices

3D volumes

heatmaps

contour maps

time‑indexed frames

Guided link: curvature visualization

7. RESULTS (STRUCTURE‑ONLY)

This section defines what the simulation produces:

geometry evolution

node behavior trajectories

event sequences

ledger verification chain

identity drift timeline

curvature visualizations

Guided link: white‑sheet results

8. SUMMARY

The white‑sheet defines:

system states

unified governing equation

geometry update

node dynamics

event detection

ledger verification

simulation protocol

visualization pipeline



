@@ -1,0 +1,181 @@
+
+
+WHITE‑SHEET v1.0 — SPACE‑TIME‑REALITY ENGINE
+
+Independent Design by C. Matthew Blackwell
+
+1. ABSTRACT
+
+The SPACE‑TIME‑REALITY Engine is a three‑layer computational system that unifies encrypted spatio‑temporal geometry, dynamical reality node evolution, and cryptographically verified event logging into a single governing differential equation. The engine ingests multi‑domain data, transforms it into curvature tensors, evolves interacting state machines, and records verified events in an immutable ledger. This white‑sheet defines the system states, governing equations, methods, simulation protocol, and visualization pipeline.
+
+Guided link: white‑sheet abstract
+
+2. SYSTEM STATES
+
+2.1 Geometry State
+
+[ X(t) = \text{Encrypted spatio‑temporal geometry tensor field} ]
+
+2.2 Reality Node State
+
+[ R(t) = {R_1(t), R_2(t), \dots, R_N(t)} ]
+
+Each node (R_i(t)) is a state machine with internal ODEs and coupling terms.
+
+2.3 Ledger State
+
+[ L(t) = \text{Sequence of verified events + identity drift timeline} ]
+
+Guided link: system states
+
+3. GOVERNING EQUATION
+
+[ \frac{d}{dt} \begin{bmatrix} X(t) \ R(t) \ L(t) \end{bmatrix}
+
+\begin{bmatrix} \mathcal{G}\big(\mathcal{E}_{\text{QFE}}(\text{Ingest}(t))\big) \ \mathcal{D}\big(X(t), R(t)\big) \ \mathcal{H}\big(R(t), L(t)\big) \end{bmatrix} ]
+
+Where:
+
+(\mathcal{G}) = geometry update operator
+
+(\mathcal{D}) = node dynamics + interactions
+
+(\mathcal{H}) = ledger verification operator
+
+(\mathcal{E}_{\text{QFE}}) = quantum field encryption transform
+
+Ingest(t) = external data streams
+
+Guided link: unified equation
+
+4. METHODS
+
+4.1 Geometry Update
+
+[ X(t+\Delta t) = X(t) + \Delta t \cdot \mathcal{G}(\mathcal{E}_{\text{QFE}}(\text{Ingest}(t))) + \sigma_X \xi_X(t) ]
+
+(\xi_X(t)) = stochastic noise
+
+(\sigma_X) = noise amplitude
+
+4.2 Reality Node Dynamics
+
+[ \frac{dR_i}{dt} = D_i(X(t), R_i(t)) + \sum_{j \neq i} C_{ij}(R_i(t), R_j(t)) + \sigma_i \xi_i(t) ]
+
+(D_i) = internal ODEs
+
+(C_{ij}) = node‑to‑node coupling
+
+(\xi_i(t)) = stochastic noise
+
+(\sigma_i) = noise amplitude
+
+4.3 Event Detection
+
+[ E(t) = \text{Detect}(R(t), X(t)) ]
+
+Events occur when node states cross thresholds.
+
+4.4 Ledger Update
+
+[ \text{Proof}(E_n) = H(E_n \Vert E_{n-1}) ]
+
+Ledger evolves by appending verified events.
+
+Guided link: white‑sheet methods
+
+5. SIMULATION PROTOCOL
+
+5.1 Initialization
+
+Set initial geometry (X(0))
+
+Set initial node states (R(0))
+
+Set initial ledger (L(0))
+
+Choose time step (\Delta t)
+
+Choose total simulation time (T)
+
+5.2 Time‑Stepped Evolution
+
+for t in [0, T]:
+
+    # Geometry update
+    X = X + Δt * G( QFE( Ingest(t) ) ) + sigma_X * noise()
+
+    # Reality node update
+    for each node i:
+        interactions = Σ_j C(i, j, R[i], R[j])
+        R[i] = R[i] + Δt * ( D(i, X, R[i]) + interactions ) \
+               + sigma_i * noise()
+
+    # Event detection
+    events = Detect(R, X)
+
+    # Ledger update
+    L = UpdateLedger(L, events)
+
+Guided link: simulation protocol
+
+6. VISUALIZATION PIPELINE
+
+6.1 Curvature Extraction
+
+[ K(x,y,z,t) = f(X(t)) ]
+
+6.2 Rendering
+
+2D slices
+
+3D volumes
+
+heatmaps
+
+contour maps
+
+time‑indexed frames
+
+Guided link: curvature visualization
+
+7. RESULTS (STRUCTURE‑ONLY)
+
+This section defines what the simulation produces:
+
+geometry evolution
+
+node behavior trajectories
+
+event sequences
+
+ledger verification chain
+
+identity drift timeline
+
+curvature visualizations
+
+Guided link: white‑sheet results
+
+8. SUMMARY
+
+The white‑sheet defines:
+
+system states
+
+unified governing equation
+
+geometry update
+
+node dynamics
+
+event detection
+
+ledger verification
+
+simulation protocol
+
+visualization pipeline
+
+
+
