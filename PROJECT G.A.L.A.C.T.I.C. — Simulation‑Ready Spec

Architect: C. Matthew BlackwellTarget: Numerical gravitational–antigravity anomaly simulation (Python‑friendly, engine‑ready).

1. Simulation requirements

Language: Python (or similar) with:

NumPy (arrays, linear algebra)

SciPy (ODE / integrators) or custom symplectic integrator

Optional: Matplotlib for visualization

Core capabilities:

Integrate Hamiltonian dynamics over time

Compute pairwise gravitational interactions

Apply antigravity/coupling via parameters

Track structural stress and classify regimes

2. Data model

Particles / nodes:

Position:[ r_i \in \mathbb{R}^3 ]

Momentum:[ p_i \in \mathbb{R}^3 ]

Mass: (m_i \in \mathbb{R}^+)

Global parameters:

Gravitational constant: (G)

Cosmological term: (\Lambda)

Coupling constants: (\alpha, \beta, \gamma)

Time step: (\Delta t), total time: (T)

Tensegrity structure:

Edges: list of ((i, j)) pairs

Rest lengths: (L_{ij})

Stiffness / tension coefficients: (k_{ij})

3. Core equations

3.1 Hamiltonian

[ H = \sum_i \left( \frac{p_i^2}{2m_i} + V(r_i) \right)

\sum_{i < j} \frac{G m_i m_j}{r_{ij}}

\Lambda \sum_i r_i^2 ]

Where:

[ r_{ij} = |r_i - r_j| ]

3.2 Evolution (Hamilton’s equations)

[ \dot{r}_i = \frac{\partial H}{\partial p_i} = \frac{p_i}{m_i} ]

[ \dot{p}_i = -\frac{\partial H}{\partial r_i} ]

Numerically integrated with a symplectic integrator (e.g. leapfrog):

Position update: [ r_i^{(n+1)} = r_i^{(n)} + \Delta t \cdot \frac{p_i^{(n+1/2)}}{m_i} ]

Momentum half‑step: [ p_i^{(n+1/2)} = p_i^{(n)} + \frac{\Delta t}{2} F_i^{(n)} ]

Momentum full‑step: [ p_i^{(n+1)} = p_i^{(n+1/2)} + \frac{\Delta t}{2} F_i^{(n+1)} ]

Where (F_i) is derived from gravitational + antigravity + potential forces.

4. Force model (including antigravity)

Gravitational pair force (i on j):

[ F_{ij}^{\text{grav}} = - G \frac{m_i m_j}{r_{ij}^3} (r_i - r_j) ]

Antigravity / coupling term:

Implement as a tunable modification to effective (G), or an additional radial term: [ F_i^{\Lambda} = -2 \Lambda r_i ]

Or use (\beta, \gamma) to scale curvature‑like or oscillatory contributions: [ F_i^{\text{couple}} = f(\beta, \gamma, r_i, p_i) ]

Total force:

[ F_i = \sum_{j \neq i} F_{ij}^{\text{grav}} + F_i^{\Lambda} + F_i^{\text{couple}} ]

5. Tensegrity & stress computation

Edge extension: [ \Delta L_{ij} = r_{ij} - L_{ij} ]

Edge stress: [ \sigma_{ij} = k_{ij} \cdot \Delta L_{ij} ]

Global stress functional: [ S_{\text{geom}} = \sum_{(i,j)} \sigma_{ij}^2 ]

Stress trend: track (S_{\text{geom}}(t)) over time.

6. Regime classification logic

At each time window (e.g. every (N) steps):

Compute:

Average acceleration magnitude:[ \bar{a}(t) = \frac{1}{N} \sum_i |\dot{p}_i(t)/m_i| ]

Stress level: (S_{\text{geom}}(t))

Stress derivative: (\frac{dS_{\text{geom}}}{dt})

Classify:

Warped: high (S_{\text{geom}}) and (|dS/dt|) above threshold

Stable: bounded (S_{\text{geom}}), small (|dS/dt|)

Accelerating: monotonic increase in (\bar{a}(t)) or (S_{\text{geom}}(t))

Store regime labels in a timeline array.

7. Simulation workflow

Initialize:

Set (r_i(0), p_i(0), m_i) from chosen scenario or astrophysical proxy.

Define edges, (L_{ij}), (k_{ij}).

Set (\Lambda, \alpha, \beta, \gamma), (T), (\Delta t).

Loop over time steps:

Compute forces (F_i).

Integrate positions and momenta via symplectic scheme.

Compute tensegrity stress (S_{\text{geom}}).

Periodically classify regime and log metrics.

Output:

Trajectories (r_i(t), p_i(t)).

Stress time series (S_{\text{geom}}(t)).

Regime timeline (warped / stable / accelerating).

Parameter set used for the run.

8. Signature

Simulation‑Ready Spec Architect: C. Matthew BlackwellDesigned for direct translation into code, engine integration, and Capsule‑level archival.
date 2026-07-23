@@ -1,0 +1,163 @@
+PROJECT G.A.L.A.C.T.I.C. — Simulation‑Ready Spec
+
+Architect: C. Matthew BlackwellTarget: Numerical gravitational–antigravity anomaly simulation (Python‑friendly, engine‑ready).
+
+1. Simulation requirements
+
+Language: Python (or similar) with:
+
+NumPy (arrays, linear algebra)
+
+SciPy (ODE / integrators) or custom symplectic integrator
+
+Optional: Matplotlib for visualization
+
+Core capabilities:
+
+Integrate Hamiltonian dynamics over time
+
+Compute pairwise gravitational interactions
+
+Apply antigravity/coupling via parameters
+
+Track structural stress and classify regimes
+
+2. Data model
+
+Particles / nodes:
+
+Position:[ r_i \in \mathbb{R}^3 ]
+
+Momentum:[ p_i \in \mathbb{R}^3 ]
+
+Mass: (m_i \in \mathbb{R}^+)
+
+Global parameters:
+
+Gravitational constant: (G)
+
+Cosmological term: (\Lambda)
+
+Coupling constants: (\alpha, \beta, \gamma)
+
+Time step: (\Delta t), total time: (T)
+
+Tensegrity structure:
+
+Edges: list of ((i, j)) pairs
+
+Rest lengths: (L_{ij})
+
+Stiffness / tension coefficients: (k_{ij})
+
+3. Core equations
+
+3.1 Hamiltonian
+
+[ H = \sum_i \left( \frac{p_i^2}{2m_i} + V(r_i) \right)
+
+\sum_{i < j} \frac{G m_i m_j}{r_{ij}}
+
+\Lambda \sum_i r_i^2 ]
+
+Where:
+
+[ r_{ij} = |r_i - r_j| ]
+
+3.2 Evolution (Hamilton’s equations)
+
+[ \dot{r}_i = \frac{\partial H}{\partial p_i} = \frac{p_i}{m_i} ]
+
+[ \dot{p}_i = -\frac{\partial H}{\partial r_i} ]
+
+Numerically integrated with a symplectic integrator (e.g. leapfrog):
+
+Position update: [ r_i^{(n+1)} = r_i^{(n)} + \Delta t \cdot \frac{p_i^{(n+1/2)}}{m_i} ]
+
+Momentum half‑step: [ p_i^{(n+1/2)} = p_i^{(n)} + \frac{\Delta t}{2} F_i^{(n)} ]
+
+Momentum full‑step: [ p_i^{(n+1)} = p_i^{(n+1/2)} + \frac{\Delta t}{2} F_i^{(n+1)} ]
+
+Where (F_i) is derived from gravitational + antigravity + potential forces.
+
+4. Force model (including antigravity)
+
+Gravitational pair force (i on j):
+
+[ F_{ij}^{\text{grav}} = - G \frac{m_i m_j}{r_{ij}^3} (r_i - r_j) ]
+
+Antigravity / coupling term:
+
+Implement as a tunable modification to effective (G), or an additional radial term: [ F_i^{\Lambda} = -2 \Lambda r_i ]
+
+Or use (\beta, \gamma) to scale curvature‑like or oscillatory contributions: [ F_i^{\text{couple}} = f(\beta, \gamma, r_i, p_i) ]
+
+Total force:
+
+[ F_i = \sum_{j \neq i} F_{ij}^{\text{grav}} + F_i^{\Lambda} + F_i^{\text{couple}} ]
+
+5. Tensegrity & stress computation
+
+Edge extension: [ \Delta L_{ij} = r_{ij} - L_{ij} ]
+
+Edge stress: [ \sigma_{ij} = k_{ij} \cdot \Delta L_{ij} ]
+
+Global stress functional: [ S_{\text{geom}} = \sum_{(i,j)} \sigma_{ij}^2 ]
+
+Stress trend: track (S_{\text{geom}}(t)) over time.
+
+6. Regime classification logic
+
+At each time window (e.g. every (N) steps):
+
+Compute:
+
+Average acceleration magnitude:[ \bar{a}(t) = \frac{1}{N} \sum_i |\dot{p}_i(t)/m_i| ]
+
+Stress level: (S_{\text{geom}}(t))
+
+Stress derivative: (\frac{dS_{\text{geom}}}{dt})
+
+Classify:
+
+Warped: high (S_{\text{geom}}) and (|dS/dt|) above threshold
+
+Stable: bounded (S_{\text{geom}}), small (|dS/dt|)
+
+Accelerating: monotonic increase in (\bar{a}(t)) or (S_{\text{geom}}(t))
+
+Store regime labels in a timeline array.
+
+7. Simulation workflow
+
+Initialize:
+
+Set (r_i(0), p_i(0), m_i) from chosen scenario or astrophysical proxy.
+
+Define edges, (L_{ij}), (k_{ij}).
+
+Set (\Lambda, \alpha, \beta, \gamma), (T), (\Delta t).
+
+Loop over time steps:
+
+Compute forces (F_i).
+
+Integrate positions and momenta via symplectic scheme.
+
+Compute tensegrity stress (S_{\text{geom}}).
+
+Periodically classify regime and log metrics.
+
+Output:
+
+Trajectories (r_i(t), p_i(t)).
+
+Stress time series (S_{\text{geom}}(t)).
+
+Regime timeline (warped / stable / accelerating).
+
+Parameter set used for the run.
+
+8. Signature
+
+Simulation‑Ready Spec Architect: C. Matthew BlackwellDesigned for direct translation into code, engine integration, and Capsule‑level archival.
