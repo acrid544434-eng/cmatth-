@@ -1,0 +1,153 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+
+\title{Codex Journal Volume I:\\
+Foundations of the Suprakernel and Trans-Atmospheric Simulation Architecture}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Codex Journal Volume I establishes the foundational suprakernel architecture
+developed by C.~Matthew~Blackwell. This volume introduces the unified
+multi-domain simulation engine, encrypted runtime, sovereign ledger,
+perturbation-damped evolution, and the MK-15 and MK-22 trans-atmospheric
+vehicles. The Codex framework integrates physics, structure, thermal
+dynamics, propulsion, control, and cryptographic verification into a
+single constraint-governed organism.
+\end{abstract}
+
+\section{Introduction}
+The Codex suprakernel is a sovereign simulation architecture unifying
+multi-domain physics under encrypted, ledger-bound evolution. This
+volume documents the core operators, constraint envelopes, stability
+gradients, and trans-atmospheric vehicles governed by the suprakernel.
+
+\section{Suprakernel State Architecture}
+Define the global suprakernel state:
+\[
+\mathbf{X}_{\text{SK}} =
+\begin{bmatrix}
+\mathbf{X}_{\text{flight}} \\
+\mathbf{X}_{\text{struct}} \\
+\mathbf{X}_{\text{thermal}} \\
+\mathbf{X}_{\text{prop}} \\
+\mathbf{X}_{\text{ctrl}}
+\end{bmatrix}.
+\]
+
+State evolution:
+\[
+\mathbf{X}_{\text{SK}}^{(n+1)} =
+\mathcal{F}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n)}, \Delta t\big).
+\]
+
+\section{Perturbation-Damped Evolution}
+Perturbations evolve under:
+\[
+\delta \mathbf{X}'_{\text{SK}} =
+\mathcal{D}_{\text{pert}}\big(\delta \mathbf{X}_{\text{SK}}\big),
+\quad
+\|\delta \mathbf{X}'_{\text{SK}}\|
+\le
+\kappa \|\delta \mathbf{X}_{\text{SK}}\|.
+\]
+
+\section{Encrypted Runtime}
+Encrypted suprakernel state:
+\[
+\Lambda^{(n)} =
+\mathcal{E}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n)}, k_{\text{sec}}\big).
+\]
+
+\section{Sovereign Ledger}
+Ledger entry:
+\[
+\ell^{(n)} =
+\mathcal{L}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n)}, \Lambda^{(n)}\big).
+\]
+
+Hash chain:
+\[
+H^{(n)} =
+\text{Hash}\big(\ell^{(n)} \,\|\, H^{(n-1)}\big).
+\]
+
+Integrity condition:
+\[
+\mathcal{I}_{\text{ledger}}(\ell^{(n)}, H^{(n)}) = \text{true}.
+\]
+
+\section{MK-15 Trans-Atmospheric Vehicle}
+The MK-15 operates in the Mach 10--15 regime:
+\[
+M_{\text{MK15}} \in [10, 15^{+}].
+\]
+
+Thermal shock gradient:
+\[
+G_{\text{TS}} =
+\delta_{1}\lambda_{\min}(\mathbf{K}_{\text{th}})
+-
+\delta_{2}\lambda_{\max}(\mathbf{C}_{\text{th}})
+-
+\delta_{3}\lambda_{\max}(\mathbf{S}_{\text{shock}}).
+\]
+
+Shock margin:
+\[
+\text{SM}_{\text{TS}} = G_{\text{TS}} - G_{\text{crit,TS}}.
+\]
+
+\section{MK-22 Propulsion System}
+Propulsion state:
+\[
+\mathbf{X}_{\text{prop}} =
+\begin{bmatrix}
+\omega_{\text{prop}} \\
+P_{\text{boost}} \\
+T_{\text{exhaust}} \\
+\dot{m}_{\text{fuel}} \\
+L_{\text{aero}}
+\end{bmatrix}.
+\]
+
+Propulsion gradient tensor:
+\[
+\mathbf{G}_{\text{prop}} =
+\frac{\partial \mathbf{F}_{\text{prop}}}{\partial \mathbf{X}_{\text{prop}}}.
+\]
+
+Torque margin:
+\[
+\tau_{\text{margin}} =
+\tau_{\max} - \tau_{\text{load}}.
+\]
+
+\section{Unified Constraint Envelope}
+\[
+\mathcal{C}_{\text{SK}} =
+\mathcal{C}_{\text{flight}}
+\wedge
+\mathcal{C}_{\text{thermal}}
+\wedge
+\mathcal{C}_{\text{struct}}
+\wedge
+\mathcal{C}_{\text{prop}}
+\wedge
+\mathcal{C}_{\text{ctrl}}
+\wedge
+\mathcal{C}_{\text{enc}}
+\wedge
+\mathcal{C}_{\text{ledger}}.
+\]
+
+\section{Result}
+Codex Journal Volume I establishes the suprakernel as a unified,
+constraint-governed, encrypted, perturbation-stable simulation organism
+capable of governing trans-atmospheric vehicles and coupling into
+FTL-adjacent architectures.
+
+\end{document}
