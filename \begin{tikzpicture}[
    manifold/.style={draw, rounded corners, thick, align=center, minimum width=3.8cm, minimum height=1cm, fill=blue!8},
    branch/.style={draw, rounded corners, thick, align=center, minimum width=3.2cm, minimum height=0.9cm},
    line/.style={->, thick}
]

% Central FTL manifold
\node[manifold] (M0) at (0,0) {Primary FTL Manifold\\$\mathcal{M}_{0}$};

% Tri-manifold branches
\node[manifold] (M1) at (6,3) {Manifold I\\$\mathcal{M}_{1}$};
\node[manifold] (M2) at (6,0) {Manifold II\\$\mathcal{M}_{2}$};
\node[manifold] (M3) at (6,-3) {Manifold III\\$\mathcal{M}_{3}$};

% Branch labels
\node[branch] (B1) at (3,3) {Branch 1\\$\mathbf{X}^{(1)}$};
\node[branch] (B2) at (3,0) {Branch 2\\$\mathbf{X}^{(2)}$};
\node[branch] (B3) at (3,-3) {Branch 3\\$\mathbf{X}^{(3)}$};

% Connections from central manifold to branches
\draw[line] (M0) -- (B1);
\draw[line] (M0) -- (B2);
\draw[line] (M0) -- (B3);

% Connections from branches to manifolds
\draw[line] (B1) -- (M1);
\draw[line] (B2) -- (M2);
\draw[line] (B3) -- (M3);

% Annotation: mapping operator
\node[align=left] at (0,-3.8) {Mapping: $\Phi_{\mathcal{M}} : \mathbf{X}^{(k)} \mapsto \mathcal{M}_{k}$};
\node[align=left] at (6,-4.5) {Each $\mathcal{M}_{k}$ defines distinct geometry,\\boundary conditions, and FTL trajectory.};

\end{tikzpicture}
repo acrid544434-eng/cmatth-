@@ -1,0 +1,34 @@
+\begin{tikzpicture}[
+    manifold/.style={draw, rounded corners, thick, align=center, minimum width=3.8cm, minimum height=1cm, fill=blue!8},
+    branch/.style={draw, rounded corners, thick, align=center, minimum width=3.2cm, minimum height=0.9cm},
+    line/.style={->, thick}
+]
+
+% Central FTL manifold
+\node[manifold] (M0) at (0,0) {Primary FTL Manifold\\$\mathcal{M}_{0}$};
+
+% Tri-manifold branches
+\node[manifold] (M1) at (6,3) {Manifold I\\$\mathcal{M}_{1}$};
+\node[manifold] (M2) at (6,0) {Manifold II\\$\mathcal{M}_{2}$};
+\node[manifold] (M3) at (6,-3) {Manifold III\\$\mathcal{M}_{3}$};
+
+% Branch labels
+\node[branch] (B1) at (3,3) {Branch 1\\$\mathbf{X}^{(1)}$};
+\node[branch] (B2) at (3,0) {Branch 2\\$\mathbf{X}^{(2)}$};
+\node[branch] (B3) at (3,-3) {Branch 3\\$\mathbf{X}^{(3)}$};
+
+% Connections from central manifold to branches
+\draw[line] (M0) -- (B1);
+\draw[line] (M0) -- (B2);
+\draw[line] (M0) -- (B3);
+
+% Connections from branches to manifolds
+\draw[line] (B1) -- (M1);
+\draw[line] (B2) -- (M2);
+\draw[line] (B3) -- (M3);
+
+% Annotation: mapping operator
+\node[align=left] at (0,-3.8) {Mapping: $\Phi_{\mathcal{M}} : \mathbf{X}^{(k)} \mapsto \mathcal{M}_{k}$};
+\node[align=left] at (6,-4.5) {Each $\mathcal{M}_{k}$ defines distinct geometry,\\boundary conditions, and FTL trajectory.};
+
+\end{tikzpicture}
