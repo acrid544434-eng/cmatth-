@@ -1,0 +1,89 @@
+\section*{FTL Engine Simulation Module}
+
+\subsection*{State Vector Definition}
+
+The FTL engine evolves according to the state vector
+\[
+\mathbf{X}_{\text{FTL}}(t) =
+\begin{bmatrix}
+\mathbf{r}(t) \\
+\mathbf{v}(t) \\
+E(t) \\
+G(t) \\
+F(t) \\
+\Sigma(t) \\
+\Lambda(t)
+\end{bmatrix},
+\]
+where $\mathbf{r}$ is position, $\mathbf{v}$ is effective velocity, $E$ is fusion-driven energy,
+$G$ is the stability gradient, $F$ is the fusion influx term, $\Sigma$ is the cross-section
+kinetics coefficient, and $\Lambda$ is the encrypted thermodynamic substrate state.
+
+\subsection*{Core Evolution Equations}
+
+\paragraph{Energy Injection (MHD)}
+\[
+\frac{dE}{dt} = 195Pt\left(f_{1+M_{43}} + 107Pt + Z_{43}\right).
+\]
+
+\paragraph{Fusion Influx}
+\[
+\frac{dF}{dt} = \Phi\left(\frac{x_{9}}{U} + Z_{env},\,E\right).
+\]
+
+\paragraph{Cross-Section Kinetics}
+\[
+\frac{d\Sigma}{dt} = K(\Sigma, F, E),
+\]
+with initial condition
+\[
+\Sigma_0 = 9.2 + 7.11 + 1 + 52.52 + 3.5(h_m - m_0).
+\]
+
+\paragraph{Gradient Stability}
+\[
+G = Z_{43} + R_{lim} + P_{lim} S_{93},
+\]
+\[
+\frac{dG}{dt} = \Gamma(G, \Sigma, F).
+\]
+
+\paragraph{Motion in the FTL Manifold}
+\[
+\frac{d\mathbf{r}}{dt} = \mathbf{v},
+\]
+\[
+\frac{d\mathbf{v}}{dt} = \mathbf{a}(E, G, \Sigma).
+\]
+
+\paragraph{Thermodynamic Substrate Encryption}
+\[
+\frac{d\Lambda}{dt} = \Psi(\Lambda, E, F, \Sigma),
+\]
+\[
+\Lambda(t) = \mathcal{E}_{\text{lattice}}(E(t), F(t), \Sigma(t)).
+\]
+
+\subsection*{Discrete-Time Simulation Update}
+
+For timestep $\Delta t$, the engine evolves as
+\[
+\mathbf{X}_{t+\Delta t} =
+\begin{bmatrix}
+\mathbf{r}(t) + \mathbf{v}(t)\Delta t \\
+\mathbf{v}(t) + \mathbf{a}(E,G,\Sigma)\Delta t \\
+E(t) + \Phi_{MHD}\Delta t \\
+G(t) + \Gamma\Delta t \\
+F(t) + \Phi\Delta t \\
+\Sigma(t) + K\Delta t \\
+\Lambda(t) + \Psi\Delta t
+\end{bmatrix}.
+\]
+
+\subsection*{Simulation Loop}
+
+Given initial state $\mathbf{X}_{0}$, the simulation proceeds by iterating
+\[
+\mathbf{X}_{n+1} = \mathcal{F}(\mathbf{X}_{n},\,\Delta t),
+\]
+where $\mathcal{F}$ is the full FTL engine update operator defined by the equations above.
