@@ -1,0 +1,111 @@
+\section*{Appendix: Runtime Verification Protocol}
+
+This appendix documents the runtime verification procedures applied to
+the MK-15 suprakernel during multi-domain evolution. All verification
+steps were executed in parallel with the suprakernel operator
+$\mathcal{F}_{\text{SK}}$, ensuring continuous integrity monitoring,
+constraint enforcement, and ledger-bound reproducibility.
+
+\subsection*{A. Runtime State Capture}
+
+At each iteration $n$, the suprakernel records the full state vector
+\[
+\mathbf{X}_{\text{SK}}^{(n)} =
+\begin{bmatrix}
+\mathbf{X}_{\text{passive}}^{(n)} \\
+\mathbf{X}_{\text{active}}^{(n)} \\
+\mathbf{X}_{\text{semi}}^{(n)}
+\end{bmatrix},
+\]
+along with all domain-specific constraint margins. The capture is
+performed prior to perturbation damping to ensure accurate transient
+logging.
+
+\subsection*{B. Constraint Verification}
+
+For each iteration, the constraint envelope
+\[
+\mathcal{C}_{\text{SK}} =
+\mathcal{C}_{\text{passive}}
+\wedge
+\mathcal{C}_{\text{active}}
+\wedge
+\mathcal{C}_{\text{semi}}
+\wedge
+\mathcal{C}_{\text{thermal}}
+\wedge
+\mathcal{C}_{\text{ledger}}
+\wedge
+\mathcal{C}_{\text{enc}}
+\]
+is evaluated. The runtime enforces
+\[
+\mathbf{X}_{\text{SK}}^{(n)} \in \mathcal{C}_{\text{SK}}
+\quad
+\forall n,
+\]
+with violations flagged for immediate damping or termination.
+
+\subsection*{C. Perturbation Monitoring}
+
+Perturbations are measured as
+\[
+\delta \mathbf{X}_{\text{SK}}^{(n)} =
+\mathbf{X}_{\text{SK}}^{(n)} -
+\mathcal{F}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n-1)}, \Delta t\big),
+\]
+and the damping operator verifies the contraction bound
+\[
+\|\delta \mathbf{X}'_{\text{SK}}^{(n)}\|
+\le
+\kappa \|\delta \mathbf{X}_{\text{SK}}^{(n)}\|,
+\quad 0 < \kappa < 1.
+\]
+
+\subsection*{D. Thermal Shock Gradient Logging}
+
+Thermal shock gradients are computed as
+\[
+G_{\text{TS}}^{(n)} =
+\delta_{1}\lambda_{\min}(\mathbf{K}_{\text{th}}^{(n)})
+-
+\delta_{2}\lambda_{\max}(\mathbf{C}_{\text{th}}^{(n)})
+-
+\delta_{3}\lambda_{\max}(\mathbf{S}_{\text{shock}}^{(n)}),
+\]
+with admissibility enforced by
+\[
+\text{SM}_{\text{TS}}^{(n)} =
+G_{\text{TS}}^{(n)} - G_{\text{crit,TS}} \ge 0.
+\]
+
+\subsection*{E. Encrypted Runtime Binding}
+
+Each iteration produces an encrypted runtime block
+\[
+\Lambda^{(n)} =
+\mathcal{E}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n)}, k_{\text{sec}}\big),
+\]
+which is bound to a ledger entry
+\[
+\ell^{(n)} =
+\mathcal{L}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n)}, \Lambda^{(n)}\big).
+\]
+
+\subsection*{F. Sovereign Ledger Verification}
+
+The sovereign ledger chain is updated via
+\[
+H^{(n)} =
+\text{Hash}\big(\ell^{(n)} \,\|\, H^{(n-1)}\big),
+\]
+ensuring immutability, collision resistance, and full traceability of
+the suprakernel evolution sequence.
+
+\subsection*{G. Verification Outcome}
+
+All iterations satisfied the constraint envelope, perturbation
+contraction bound, thermal shock margin, and ledger integrity
+requirements. The runtime verification protocol confirms that the MK-15
+suprakernel evolution is reproducible, stable, and cryptographically
+sealed across the entire test sequence.
