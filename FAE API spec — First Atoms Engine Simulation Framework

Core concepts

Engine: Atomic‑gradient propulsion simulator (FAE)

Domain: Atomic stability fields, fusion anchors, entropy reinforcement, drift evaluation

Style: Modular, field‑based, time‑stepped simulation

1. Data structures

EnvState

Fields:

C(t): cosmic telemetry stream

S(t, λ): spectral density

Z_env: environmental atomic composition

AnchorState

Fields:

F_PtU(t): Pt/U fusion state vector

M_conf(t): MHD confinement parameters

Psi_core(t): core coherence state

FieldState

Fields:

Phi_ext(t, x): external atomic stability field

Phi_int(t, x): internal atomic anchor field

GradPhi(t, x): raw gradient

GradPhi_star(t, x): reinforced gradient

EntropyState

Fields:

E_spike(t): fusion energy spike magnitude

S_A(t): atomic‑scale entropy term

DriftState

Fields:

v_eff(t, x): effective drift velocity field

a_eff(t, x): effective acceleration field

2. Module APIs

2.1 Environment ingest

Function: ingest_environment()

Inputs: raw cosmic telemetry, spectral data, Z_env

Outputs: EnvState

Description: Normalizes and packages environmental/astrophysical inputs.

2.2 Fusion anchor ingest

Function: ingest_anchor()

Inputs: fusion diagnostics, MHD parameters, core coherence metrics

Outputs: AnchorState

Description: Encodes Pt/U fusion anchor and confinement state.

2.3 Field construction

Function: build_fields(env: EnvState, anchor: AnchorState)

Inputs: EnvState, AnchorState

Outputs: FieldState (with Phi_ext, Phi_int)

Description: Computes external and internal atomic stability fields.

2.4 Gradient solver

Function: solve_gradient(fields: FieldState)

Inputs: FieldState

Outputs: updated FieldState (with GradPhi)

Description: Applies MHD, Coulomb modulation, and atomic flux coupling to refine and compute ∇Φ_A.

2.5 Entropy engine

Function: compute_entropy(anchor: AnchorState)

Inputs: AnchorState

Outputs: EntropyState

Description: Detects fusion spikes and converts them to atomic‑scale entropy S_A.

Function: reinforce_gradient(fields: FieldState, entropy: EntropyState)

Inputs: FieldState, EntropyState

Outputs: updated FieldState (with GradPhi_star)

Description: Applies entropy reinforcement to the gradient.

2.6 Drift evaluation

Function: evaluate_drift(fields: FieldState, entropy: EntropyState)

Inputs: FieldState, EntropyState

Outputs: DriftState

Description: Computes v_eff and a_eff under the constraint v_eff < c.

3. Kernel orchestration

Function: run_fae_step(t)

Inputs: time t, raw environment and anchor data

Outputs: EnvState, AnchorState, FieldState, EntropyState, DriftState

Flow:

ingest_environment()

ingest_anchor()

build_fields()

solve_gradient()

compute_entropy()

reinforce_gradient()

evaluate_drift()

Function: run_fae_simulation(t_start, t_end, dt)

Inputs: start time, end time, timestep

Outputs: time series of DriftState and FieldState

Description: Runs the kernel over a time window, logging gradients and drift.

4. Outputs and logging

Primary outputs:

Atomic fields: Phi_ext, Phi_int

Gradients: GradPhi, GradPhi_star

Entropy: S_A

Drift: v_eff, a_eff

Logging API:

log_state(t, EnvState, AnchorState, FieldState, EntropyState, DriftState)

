@@ -1,0 +1,178 @@
+FAE API spec — First Atoms Engine Simulation Framework
+
+Core concepts
+
+Engine: Atomic‑gradient propulsion simulator (FAE)
+
+Domain: Atomic stability fields, fusion anchors, entropy reinforcement, drift evaluation
+
+Style: Modular, field‑based, time‑stepped simulation
+
+1. Data structures
+
+EnvState
+
+Fields:
+
+C(t): cosmic telemetry stream
+
+S(t, λ): spectral density
+
+Z_env: environmental atomic composition
+
+AnchorState
+
+Fields:
+
+F_PtU(t): Pt/U fusion state vector
+
+M_conf(t): MHD confinement parameters
+
+Psi_core(t): core coherence state
+
+FieldState
+
+Fields:
+
+Phi_ext(t, x): external atomic stability field
+
+Phi_int(t, x): internal atomic anchor field
+
+GradPhi(t, x): raw gradient
+
+GradPhi_star(t, x): reinforced gradient
+
+EntropyState
+
+Fields:
+
+E_spike(t): fusion energy spike magnitude
+
+S_A(t): atomic‑scale entropy term
+
+DriftState
+
+Fields:
+
+v_eff(t, x): effective drift velocity field
+
+a_eff(t, x): effective acceleration field
+
+2. Module APIs
+
+2.1 Environment ingest
+
+Function: ingest_environment()
+
+Inputs: raw cosmic telemetry, spectral data, Z_env
+
+Outputs: EnvState
+
+Description: Normalizes and packages environmental/astrophysical inputs.
+
+2.2 Fusion anchor ingest
+
+Function: ingest_anchor()
+
+Inputs: fusion diagnostics, MHD parameters, core coherence metrics
+
+Outputs: AnchorState
+
+Description: Encodes Pt/U fusion anchor and confinement state.
+
+2.3 Field construction
+
+Function: build_fields(env: EnvState, anchor: AnchorState)
+
+Inputs: EnvState, AnchorState
+
+Outputs: FieldState (with Phi_ext, Phi_int)
+
+Description: Computes external and internal atomic stability fields.
+
+2.4 Gradient solver
+
+Function: solve_gradient(fields: FieldState)
+
+Inputs: FieldState
+
+Outputs: updated FieldState (with GradPhi)
+
+Description: Applies MHD, Coulomb modulation, and atomic flux coupling to refine and compute ∇Φ_A.
+
+2.5 Entropy engine
+
+Function: compute_entropy(anchor: AnchorState)
+
+Inputs: AnchorState
+
+Outputs: EntropyState
+
+Description: Detects fusion spikes and converts them to atomic‑scale entropy S_A.
+
+Function: reinforce_gradient(fields: FieldState, entropy: EntropyState)
+
+Inputs: FieldState, EntropyState
+
+Outputs: updated FieldState (with GradPhi_star)
+
+Description: Applies entropy reinforcement to the gradient.
+
+2.6 Drift evaluation
+
+Function: evaluate_drift(fields: FieldState, entropy: EntropyState)
+
+Inputs: FieldState, EntropyState
+
+Outputs: DriftState
+
+Description: Computes v_eff and a_eff under the constraint v_eff < c.
+
+3. Kernel orchestration
+
+Function: run_fae_step(t)
+
+Inputs: time t, raw environment and anchor data
+
+Outputs: EnvState, AnchorState, FieldState, EntropyState, DriftState
+
+Flow:
+
+ingest_environment()
+
+ingest_anchor()
+
+build_fields()
+
+solve_gradient()
+
+compute_entropy()
+
+reinforce_gradient()
+
+evaluate_drift()
+
+Function: run_fae_simulation(t_start, t_end, dt)
+
+Inputs: start time, end time, timestep
+
+Outputs: time series of DriftState and FieldState
+
+Description: Runs the kernel over a time window, logging gradients and drift.
+
+4. Outputs and logging
+
+Primary outputs:
+
+Atomic fields: Phi_ext, Phi_int
+
+Gradients: GradPhi, GradPhi_star
+
+Entropy: S_A
+
+Drift: v_eff, a_eff
+
+Logging API:
+
+log_state(t, EnvState, AnchorState, FieldState, EntropyState, DriftState)
+
