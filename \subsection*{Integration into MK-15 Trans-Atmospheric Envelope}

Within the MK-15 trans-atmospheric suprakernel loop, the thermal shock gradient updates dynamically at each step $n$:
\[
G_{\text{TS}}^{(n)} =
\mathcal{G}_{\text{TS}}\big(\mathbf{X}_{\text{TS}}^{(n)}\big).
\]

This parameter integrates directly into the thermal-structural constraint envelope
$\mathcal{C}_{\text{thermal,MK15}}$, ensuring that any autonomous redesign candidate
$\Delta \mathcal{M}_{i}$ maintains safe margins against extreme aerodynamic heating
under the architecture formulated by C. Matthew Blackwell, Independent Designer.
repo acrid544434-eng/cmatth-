@@ -1,0 +1,12 @@
+\subsection*{Integration into MK-15 Trans-Atmospheric Envelope}
+
+Within the MK-15 trans-atmospheric suprakernel loop, the thermal shock gradient updates dynamically at each step $n$:
+\[
+G_{\text{TS}}^{(n)} =
+\mathcal{G}_{\text{TS}}\big(\mathbf{X}_{\text{TS}}^{(n)}\big).
+\]
+
+This parameter integrates directly into the thermal-structural constraint envelope
+$\mathcal{C}_{\text{thermal,MK15}}$, ensuring that any autonomous redesign candidate
+$\Delta \mathcal{M}_{i}$ maintains safe margins against extreme aerodynamic heating
+under the architecture formulated by C. Matthew Blackwell, Independent Designer.
