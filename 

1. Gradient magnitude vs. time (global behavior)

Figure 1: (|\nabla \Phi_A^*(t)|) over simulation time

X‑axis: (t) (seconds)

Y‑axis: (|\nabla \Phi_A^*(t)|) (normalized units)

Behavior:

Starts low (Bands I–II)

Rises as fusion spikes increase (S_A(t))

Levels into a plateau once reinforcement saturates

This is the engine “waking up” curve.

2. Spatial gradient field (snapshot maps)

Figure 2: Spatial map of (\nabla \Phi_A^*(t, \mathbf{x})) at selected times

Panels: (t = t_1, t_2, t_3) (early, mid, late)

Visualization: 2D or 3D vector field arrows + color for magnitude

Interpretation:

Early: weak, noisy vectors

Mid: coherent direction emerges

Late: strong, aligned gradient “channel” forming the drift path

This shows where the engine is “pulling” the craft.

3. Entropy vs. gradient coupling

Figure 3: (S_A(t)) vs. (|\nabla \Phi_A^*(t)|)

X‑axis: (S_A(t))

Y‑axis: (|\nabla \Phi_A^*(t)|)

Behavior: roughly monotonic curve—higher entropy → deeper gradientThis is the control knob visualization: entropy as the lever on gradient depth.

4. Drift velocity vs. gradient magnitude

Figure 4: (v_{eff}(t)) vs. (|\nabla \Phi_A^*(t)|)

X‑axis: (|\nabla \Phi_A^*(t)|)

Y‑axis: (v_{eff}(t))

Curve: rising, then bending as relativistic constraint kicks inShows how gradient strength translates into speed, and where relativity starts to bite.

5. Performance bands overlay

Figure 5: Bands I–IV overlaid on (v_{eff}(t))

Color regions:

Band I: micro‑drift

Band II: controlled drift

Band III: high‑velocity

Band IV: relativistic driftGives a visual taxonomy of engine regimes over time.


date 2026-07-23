@@ -1,0 +1,72 @@
+
+
+1. Gradient magnitude vs. time (global behavior)
+
+Figure 1: (|\nabla \Phi_A^*(t)|) over simulation time
+
+X‑axis: (t) (seconds)
+
+Y‑axis: (|\nabla \Phi_A^*(t)|) (normalized units)
+
+Behavior:
+
+Starts low (Bands I–II)
+
+Rises as fusion spikes increase (S_A(t))
+
+Levels into a plateau once reinforcement saturates
+
+This is the engine “waking up” curve.
+
+2. Spatial gradient field (snapshot maps)
+
+Figure 2: Spatial map of (\nabla \Phi_A^*(t, \mathbf{x})) at selected times
+
+Panels: (t = t_1, t_2, t_3) (early, mid, late)
+
+Visualization: 2D or 3D vector field arrows + color for magnitude
+
+Interpretation:
+
+Early: weak, noisy vectors
+
+Mid: coherent direction emerges
+
+Late: strong, aligned gradient “channel” forming the drift path
+
+This shows where the engine is “pulling” the craft.
+
+3. Entropy vs. gradient coupling
+
+Figure 3: (S_A(t)) vs. (|\nabla \Phi_A^*(t)|)
+
+X‑axis: (S_A(t))
+
+Y‑axis: (|\nabla \Phi_A^*(t)|)
+
+Behavior: roughly monotonic curve—higher entropy → deeper gradientThis is the control knob visualization: entropy as the lever on gradient depth.
+
+4. Drift velocity vs. gradient magnitude
+
+Figure 4: (v_{eff}(t)) vs. (|\nabla \Phi_A^*(t)|)
+
+X‑axis: (|\nabla \Phi_A^*(t)|)
+
+Y‑axis: (v_{eff}(t))
+
+Curve: rising, then bending as relativistic constraint kicks inShows how gradient strength translates into speed, and where relativity starts to bite.
+
+5. Performance bands overlay
+
+Figure 5: Bands I–IV overlaid on (v_{eff}(t))
+
+Color regions:
+
+Band I: micro‑drift
+
+Band II: controlled drift
+
+Band III: high‑velocity
+
+Band IV: relativistic driftGives a visual taxonomy of engine regimes over time.
+
