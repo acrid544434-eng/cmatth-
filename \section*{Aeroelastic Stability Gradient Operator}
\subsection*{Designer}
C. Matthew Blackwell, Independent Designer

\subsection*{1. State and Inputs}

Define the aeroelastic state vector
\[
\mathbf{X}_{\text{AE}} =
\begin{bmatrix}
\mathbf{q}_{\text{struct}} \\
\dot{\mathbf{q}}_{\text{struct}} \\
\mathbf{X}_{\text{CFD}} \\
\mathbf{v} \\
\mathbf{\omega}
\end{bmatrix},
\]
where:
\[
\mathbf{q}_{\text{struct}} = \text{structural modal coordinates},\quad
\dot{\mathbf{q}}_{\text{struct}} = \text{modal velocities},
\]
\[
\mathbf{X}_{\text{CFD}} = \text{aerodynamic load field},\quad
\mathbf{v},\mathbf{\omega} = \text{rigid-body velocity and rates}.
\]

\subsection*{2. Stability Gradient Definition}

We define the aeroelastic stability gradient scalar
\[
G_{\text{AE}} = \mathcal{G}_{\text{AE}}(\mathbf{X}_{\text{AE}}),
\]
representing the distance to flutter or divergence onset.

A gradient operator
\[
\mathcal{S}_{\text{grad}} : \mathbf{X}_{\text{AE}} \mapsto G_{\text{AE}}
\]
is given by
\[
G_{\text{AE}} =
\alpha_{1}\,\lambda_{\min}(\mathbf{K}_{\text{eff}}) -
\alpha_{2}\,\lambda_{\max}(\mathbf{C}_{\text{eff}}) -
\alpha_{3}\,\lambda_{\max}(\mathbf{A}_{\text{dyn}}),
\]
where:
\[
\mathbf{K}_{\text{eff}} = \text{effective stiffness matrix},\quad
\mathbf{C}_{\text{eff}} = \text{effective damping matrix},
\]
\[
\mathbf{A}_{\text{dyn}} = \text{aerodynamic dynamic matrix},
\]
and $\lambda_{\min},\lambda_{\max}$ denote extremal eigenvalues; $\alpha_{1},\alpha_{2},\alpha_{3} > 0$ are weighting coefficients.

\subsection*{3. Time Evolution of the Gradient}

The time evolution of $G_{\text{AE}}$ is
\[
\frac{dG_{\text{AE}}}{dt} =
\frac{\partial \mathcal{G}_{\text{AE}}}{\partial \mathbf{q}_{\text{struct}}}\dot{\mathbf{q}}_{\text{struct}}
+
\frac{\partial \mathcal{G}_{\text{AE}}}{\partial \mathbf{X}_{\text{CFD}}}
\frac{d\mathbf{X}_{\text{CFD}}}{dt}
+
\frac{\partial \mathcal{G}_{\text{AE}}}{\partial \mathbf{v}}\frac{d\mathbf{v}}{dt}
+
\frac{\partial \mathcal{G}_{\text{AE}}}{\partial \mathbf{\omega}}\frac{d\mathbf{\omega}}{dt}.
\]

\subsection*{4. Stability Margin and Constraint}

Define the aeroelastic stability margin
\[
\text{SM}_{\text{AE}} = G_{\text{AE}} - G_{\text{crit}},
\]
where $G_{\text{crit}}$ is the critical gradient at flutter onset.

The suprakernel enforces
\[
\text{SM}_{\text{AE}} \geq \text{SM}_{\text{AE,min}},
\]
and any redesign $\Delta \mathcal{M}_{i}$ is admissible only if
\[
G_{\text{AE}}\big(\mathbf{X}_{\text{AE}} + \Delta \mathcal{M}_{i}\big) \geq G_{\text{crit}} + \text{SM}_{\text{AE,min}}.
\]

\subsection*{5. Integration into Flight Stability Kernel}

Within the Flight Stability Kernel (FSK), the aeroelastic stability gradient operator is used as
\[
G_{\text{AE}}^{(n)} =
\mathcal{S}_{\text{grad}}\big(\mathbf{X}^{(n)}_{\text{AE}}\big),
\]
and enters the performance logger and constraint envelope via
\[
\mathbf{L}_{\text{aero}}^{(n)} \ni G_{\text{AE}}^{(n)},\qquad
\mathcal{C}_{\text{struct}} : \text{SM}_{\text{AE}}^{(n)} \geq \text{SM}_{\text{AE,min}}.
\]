@@ -1,0 +1,100 @@
+\section*{Aeroelastic Stability Gradient Operator}
+\subsection*{Designer}
+C. Matthew Blackwell, Independent Designer
+
+\subsection*{1. State and Inputs}
+
+Define the aeroelastic state vector
+\[
+\mathbf{X}_{\text{AE}} =
+\begin{bmatrix}
+\mathbf{q}_{\text{struct}} \\
+\dot{\mathbf{q}}_{\text{struct}} \\
+\mathbf{X}_{\text{CFD}} \\
+\mathbf{v} \\
+\mathbf{\omega}
+\end{bmatrix},
+\]
+where:
+\[
+\mathbf{q}_{\text{struct}} = \text{structural modal coordinates},\quad
+\dot{\mathbf{q}}_{\text{struct}} = \text{modal velocities},
+\]
+\[
+\mathbf{X}_{\text{CFD}} = \text{aerodynamic load field},\quad
+\mathbf{v},\mathbf{\omega} = \text{rigid-body velocity and rates}.
+\]
+
+\subsection*{2. Stability Gradient Definition}
+
+We define the aeroelastic stability gradient scalar
+\[
+G_{\text{AE}} = \mathcal{G}_{\text{AE}}(\mathbf{X}_{\text{AE}}),
+\]
+representing the distance to flutter or divergence onset.
+
+A gradient operator
+\[
+\mathcal{S}_{\text{grad}} : \mathbf{X}_{\text{AE}} \mapsto G_{\text{AE}}
+\]
+is given by
+\[
+G_{\text{AE}} =
+\alpha_{1}\,\lambda_{\min}(\mathbf{K}_{\text{eff}}) -
+\alpha_{2}\,\lambda_{\max}(\mathbf{C}_{\text{eff}}) -
+\alpha_{3}\,\lambda_{\max}(\mathbf{A}_{\text{dyn}}),
+\]
+where:
+\[
+\mathbf{K}_{\text{eff}} = \text{effective stiffness matrix},\quad
+\mathbf{C}_{\text{eff}} = \text{effective damping matrix},
+\]
+\[
+\mathbf{A}_{\text{dyn}} = \text{aerodynamic dynamic matrix},
+\]
+and $\lambda_{\min},\lambda_{\max}$ denote extremal eigenvalues; $\alpha_{1},\alpha_{2},\alpha_{3} > 0$ are weighting coefficients.
+
+\subsection*{3. Time Evolution of the Gradient}
+
+The time evolution of $G_{\text{AE}}$ is
+\[
+\frac{dG_{\text{AE}}}{dt} =
+\frac{\partial \mathcal{G}_{\text{AE}}}{\partial \mathbf{q}_{\text{struct}}}\dot{\mathbf{q}}_{\text{struct}}
++
+\frac{\partial \mathcal{G}_{\text{AE}}}{\partial \mathbf{X}_{\text{CFD}}}
+\frac{d\mathbf{X}_{\text{CFD}}}{dt}
++
+\frac{\partial \mathcal{G}_{\text{AE}}}{\partial \mathbf{v}}\frac{d\mathbf{v}}{dt}
++
+\frac{\partial \mathcal{G}_{\text{AE}}}{\partial \mathbf{\omega}}\frac{d\mathbf{\omega}}{dt}.
+\]
+
+\subsection*{4. Stability Margin and Constraint}
+
+Define the aeroelastic stability margin
+\[
+\text{SM}_{\text{AE}} = G_{\text{AE}} - G_{\text{crit}},
+\]
+where $G_{\text{crit}}$ is the critical gradient at flutter onset.
+
+The suprakernel enforces
+\[
+\text{SM}_{\text{AE}} \geq \text{SM}_{\text{AE,min}},
+\]
+and any redesign $\Delta \mathcal{M}_{i}$ is admissible only if
+\[
+G_{\text{AE}}\big(\mathbf{X}_{\text{AE}} + \Delta \mathcal{M}_{i}\big) \geq G_{\text{crit}} + \text{SM}_{\text{AE,min}}.
+\]
+
+\subsection*{5. Integration into Flight Stability Kernel}
+
+Within the Flight Stability Kernel (FSK), the aeroelastic stability gradient operator is used as
+\[
+G_{\text{AE}}^{(n)} =
+\mathcal{S}_{\text{grad}}\big(\mathbf{X}^{(n)}_{\text{AE}}\big),
+\]
+and enters the performance logger and constraint envelope via
+\[
+\mathbf{L}_{\text{aero}}^{(n)} \ni G_{\text{AE}}^{(n)},\qquad
+\mathcal{C}_{\text{struct}} : \text{SM}_{\text{AE}}^{(n)} \geq \text{SM}_{\text{AE,min}}.
+\]
