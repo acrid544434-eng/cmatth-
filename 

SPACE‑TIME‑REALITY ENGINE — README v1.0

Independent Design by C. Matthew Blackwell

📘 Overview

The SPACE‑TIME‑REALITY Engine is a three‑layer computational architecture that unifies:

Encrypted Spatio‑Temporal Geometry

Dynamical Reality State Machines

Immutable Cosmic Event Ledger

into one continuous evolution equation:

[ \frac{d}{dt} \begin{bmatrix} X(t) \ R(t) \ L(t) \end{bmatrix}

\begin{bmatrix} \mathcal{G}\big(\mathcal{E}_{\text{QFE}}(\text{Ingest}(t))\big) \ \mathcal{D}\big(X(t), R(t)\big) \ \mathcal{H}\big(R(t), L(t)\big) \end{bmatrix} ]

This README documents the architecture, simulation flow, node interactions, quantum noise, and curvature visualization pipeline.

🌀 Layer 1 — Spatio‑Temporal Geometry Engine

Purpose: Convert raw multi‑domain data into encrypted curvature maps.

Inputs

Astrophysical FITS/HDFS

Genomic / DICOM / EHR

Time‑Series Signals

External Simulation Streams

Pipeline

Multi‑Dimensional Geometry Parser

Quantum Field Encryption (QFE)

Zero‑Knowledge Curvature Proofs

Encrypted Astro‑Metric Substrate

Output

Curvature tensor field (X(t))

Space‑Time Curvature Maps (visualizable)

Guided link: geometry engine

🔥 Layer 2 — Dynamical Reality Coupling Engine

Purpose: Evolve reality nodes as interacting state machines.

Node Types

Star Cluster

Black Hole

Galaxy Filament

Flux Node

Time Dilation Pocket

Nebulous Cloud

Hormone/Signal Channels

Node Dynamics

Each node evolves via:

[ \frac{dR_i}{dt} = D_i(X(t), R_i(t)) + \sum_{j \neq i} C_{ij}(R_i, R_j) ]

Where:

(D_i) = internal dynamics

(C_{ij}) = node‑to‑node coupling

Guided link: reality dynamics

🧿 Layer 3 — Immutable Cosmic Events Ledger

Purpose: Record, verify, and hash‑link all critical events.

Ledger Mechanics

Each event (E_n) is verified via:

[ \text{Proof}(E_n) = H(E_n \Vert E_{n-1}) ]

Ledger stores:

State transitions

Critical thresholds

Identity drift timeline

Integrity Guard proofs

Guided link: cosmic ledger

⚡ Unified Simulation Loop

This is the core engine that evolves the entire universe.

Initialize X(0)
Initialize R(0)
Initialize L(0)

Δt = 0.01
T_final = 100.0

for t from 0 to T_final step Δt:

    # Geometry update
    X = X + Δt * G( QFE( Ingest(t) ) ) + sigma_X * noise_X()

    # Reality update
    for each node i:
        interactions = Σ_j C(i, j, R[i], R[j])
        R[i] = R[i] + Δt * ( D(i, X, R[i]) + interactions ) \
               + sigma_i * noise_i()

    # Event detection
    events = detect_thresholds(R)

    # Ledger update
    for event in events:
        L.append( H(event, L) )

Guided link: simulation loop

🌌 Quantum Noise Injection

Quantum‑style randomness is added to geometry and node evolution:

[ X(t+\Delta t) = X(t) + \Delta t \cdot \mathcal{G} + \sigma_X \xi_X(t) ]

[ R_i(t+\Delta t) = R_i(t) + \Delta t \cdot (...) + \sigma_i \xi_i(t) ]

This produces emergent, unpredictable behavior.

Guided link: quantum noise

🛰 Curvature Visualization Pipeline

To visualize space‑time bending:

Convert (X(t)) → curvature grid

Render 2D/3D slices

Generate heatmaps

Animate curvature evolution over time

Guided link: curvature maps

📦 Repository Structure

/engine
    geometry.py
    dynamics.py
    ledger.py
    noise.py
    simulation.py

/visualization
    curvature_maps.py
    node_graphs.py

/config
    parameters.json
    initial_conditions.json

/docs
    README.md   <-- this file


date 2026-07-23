@@ -1,0 +1,189 @@
+
+
+SPACE‑TIME‑REALITY ENGINE — README v1.0
+
+Independent Design by C. Matthew Blackwell
+
+📘 Overview
+
+The SPACE‑TIME‑REALITY Engine is a three‑layer computational architecture that unifies:
+
+Encrypted Spatio‑Temporal Geometry
+
+Dynamical Reality State Machines
+
+Immutable Cosmic Event Ledger
+
+into one continuous evolution equation:
+
+[ \frac{d}{dt} \begin{bmatrix} X(t) \ R(t) \ L(t) \end{bmatrix}
+
+\begin{bmatrix} \mathcal{G}\big(\mathcal{E}_{\text{QFE}}(\text{Ingest}(t))\big) \ \mathcal{D}\big(X(t), R(t)\big) \ \mathcal{H}\big(R(t), L(t)\big) \end{bmatrix} ]
+
+This README documents the architecture, simulation flow, node interactions, quantum noise, and curvature visualization pipeline.
+
+🌀 Layer 1 — Spatio‑Temporal Geometry Engine
+
+Purpose: Convert raw multi‑domain data into encrypted curvature maps.
+
+Inputs
+
+Astrophysical FITS/HDFS
+
+Genomic / DICOM / EHR
+
+Time‑Series Signals
+
+External Simulation Streams
+
+Pipeline
+
+Multi‑Dimensional Geometry Parser
+
+Quantum Field Encryption (QFE)
+
+Zero‑Knowledge Curvature Proofs
+
+Encrypted Astro‑Metric Substrate
+
+Output
+
+Curvature tensor field (X(t))
+
+Space‑Time Curvature Maps (visualizable)
+
+Guided link: geometry engine
+
+🔥 Layer 2 — Dynamical Reality Coupling Engine
+
+Purpose: Evolve reality nodes as interacting state machines.
+
+Node Types
+
+Star Cluster
+
+Black Hole
+
+Galaxy Filament
+
+Flux Node
+
+Time Dilation Pocket
+
+Nebulous Cloud
+
+Hormone/Signal Channels
+
+Node Dynamics
+
+Each node evolves via:
+
+[ \frac{dR_i}{dt} = D_i(X(t), R_i(t)) + \sum_{j \neq i} C_{ij}(R_i, R_j) ]
+
+Where:
+
+(D_i) = internal dynamics
+
+(C_{ij}) = node‑to‑node coupling
+
+Guided link: reality dynamics
+
+🧿 Layer 3 — Immutable Cosmic Events Ledger
+
+Purpose: Record, verify, and hash‑link all critical events.
+
+Ledger Mechanics
+
+Each event (E_n) is verified via:
+
+[ \text{Proof}(E_n) = H(E_n \Vert E_{n-1}) ]
+
+Ledger stores:
+
+State transitions
+
+Critical thresholds
+
+Identity drift timeline
+
+Integrity Guard proofs
+
+Guided link: cosmic ledger
+
+⚡ Unified Simulation Loop
+
+This is the core engine that evolves the entire universe.
+
+Initialize X(0)
+Initialize R(0)
+Initialize L(0)
+
+Δt = 0.01
+T_final = 100.0
+
+for t from 0 to T_final step Δt:
+
+    # Geometry update
+    X = X + Δt * G( QFE( Ingest(t) ) ) + sigma_X * noise_X()
+
+    # Reality update
+    for each node i:
+        interactions = Σ_j C(i, j, R[i], R[j])
+        R[i] = R[i] + Δt * ( D(i, X, R[i]) + interactions ) \
+               + sigma_i * noise_i()
+
+    # Event detection
+    events = detect_thresholds(R)
+
+    # Ledger update
+    for event in events:
+        L.append( H(event, L) )
+
+Guided link: simulation loop
+
+🌌 Quantum Noise Injection
+
+Quantum‑style randomness is added to geometry and node evolution:
+
+[ X(t+\Delta t) = X(t) + \Delta t \cdot \mathcal{G} + \sigma_X \xi_X(t) ]
+
+[ R_i(t+\Delta t) = R_i(t) + \Delta t \cdot (...) + \sigma_i \xi_i(t) ]
+
+This produces emergent, unpredictable behavior.
+
+Guided link: quantum noise
+
+🛰 Curvature Visualization Pipeline
+
+To visualize space‑time bending:
+
+Convert (X(t)) → curvature grid
+
+Render 2D/3D slices
+
+Generate heatmaps
+
+Animate curvature evolution over time
+
+Guided link: curvature maps
+
+📦 Repository Structure
+
+/engine
+    geometry.py
+    dynamics.py
+    ledger.py
+    noise.py
+    simulation.py
+
+/visualization
+    curvature_maps.py
+    node_graphs.py
+
+/config
+    parameters.json
+    initial_conditions.json
+
+/docs
+    README.md   <-- this file
+
