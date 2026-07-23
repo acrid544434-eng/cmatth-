@@ -1,0 +1,127 @@
+\section*{MK-22 Propulsion Gradient Tensor}
+\subsection*{Designer}
+C. Matthew Blackwell, Independent Designer
+
+\subsection*{1. Propulsion State Vector}
+
+Define the propulsion state vector
+\[
+\mathbf{X}_{\text{prop}} =
+\begin{bmatrix}
+\omega_{\text{prop}} \\
+P_{\text{boost}} \\
+T_{\text{exhaust}} \\
+\dot{m}_{\text{fuel}} \\
+L_{\text{aero}}
+\end{bmatrix},
+\]
+where:
+\[
+\omega_{\text{prop}} = \text{propeller angular velocity},\quad
+P_{\text{boost}} = \text{boost pressure},
+\]
+\[
+T_{\text{exhaust}} = \text{exhaust thermal load},\quad
+\dot{m}_{\text{fuel}} = \text{fuel mass flow rate},\quad
+L_{\text{aero}} = \text{aerodynamic load}.
+\]
+
+\subsection*{2. Gradient Tensor Definition}
+
+Define the MK-22 propulsion gradient tensor
+\[
+\mathbf{G}_{\text{prop}} =
+\frac{\partial \mathbf{F}_{\text{prop}}}{\partial \mathbf{X}_{\text{prop}}},
+\]
+where
+\[
+\mathbf{F}_{\text{prop}} =
+\begin{bmatrix}
+\tau_{\text{load}} \\
+P_{\text{shaft}} \\
+L_{\text{aero}} \\
+Q_{\text{thermal}}
+\end{bmatrix},
+\]
+with:
+\[
+\tau_{\text{load}} = \text{propeller torque load},\quad
+P_{\text{shaft}} = \text{shaft power},
+\]
+\[
+Q_{\text{thermal}} = \text{thermal power associated with } T_{\text{exhaust}}.
+\]
+
+Thus,
+\[
+\mathbf{G}_{\text{prop}} =
+\begin{bmatrix}
+\frac{\partial \tau_{\text{load}}}{\partial \omega_{\text{prop}}} &
+\frac{\partial \tau_{\text{load}}}{\partial P_{\text{boost}}} &
+\frac{\partial \tau_{\text{load}}}{\partial T_{\text{exhaust}}} &
+\frac{\partial \tau_{\text{load}}}{\partial \dot{m}_{\text{fuel}}} &
+\frac{\partial \tau_{\text{load}}}{\partial L_{\text{aero}}}
+\\[6pt]
+\frac{\partial P_{\text{shaft}}}{\partial \omega_{\text{prop}}} &
+\frac{\partial P_{\text{shaft}}}{\partial P_{\text{boost}}} &
+\frac{\partial P_{\text{shaft}}}{\partial T_{\text{exhaust}}} &
+\frac{\partial P_{\text{shaft}}}{\partial \dot{m}_{\text{fuel}}} &
+\frac{\partial P_{\text{shaft}}}{\partial L_{\text{aero}}}
+\\[6pt]
+\frac{\partial L_{\text{aero}}}{\partial \omega_{\text{prop}}} &
+\frac{\partial L_{\text{aero}}}{\partial P_{\text{boost}}} &
+\frac{\partial L_{\text{aero}}}{\partial T_{\text{exhaust}}} &
+\frac{\partial L_{\text{aero}}}{\partial \dot{m}_{\text{fuel}}} &
+\frac{\partial L_{\text{aero}}}{\partial L_{\text{aero}}}
+\\[6pt]
+\frac{\partial Q_{\text{thermal}}}{\partial \omega_{\text{prop}}} &
+\frac{\partial Q_{\text{thermal}}}{\partial P_{\text{boost}}} &
+\frac{\partial Q_{\text{thermal}}}{\partial T_{\text{exhaust}}} &
+\frac{\partial Q_{\text{thermal}}}{\partial \dot{m}_{\text{fuel}}} &
+\frac{\partial Q_{\text{thermal}}}{\partial L_{\text{aero}}}
+\end{bmatrix}.
+\]
+
+\subsection*{3. Coupling with MK-22 Dynamics}
+
+Using the MK-22 relation
+\[
+\frac{d\omega_{\text{prop}}}{dt}
+=
+\frac{dL_{\text{aero}}}{L_{\text{aero}}},
+\]
+we can express sensitivity of torque and power to aero load via
+\[
+\frac{d\tau_{\text{load}}}{dt}
+=
+\sum_{i}
+\frac{\partial \tau_{\text{load}}}{\partial X_{\text{prop},i}}
+\frac{dX_{\text{prop},i}}{dt},
+\]
+\[
+\frac{dP_{\text{shaft}}}{dt}
+=
+\sum_{i}
+\frac{\partial P_{\text{shaft}}}{\partial X_{\text{prop},i}}
+\frac{dX_{\text{prop},i}}{dt},
+\]
+where \(X_{\text{prop},i}\) are components of \(\mathbf{X}_{\text{prop}}\).
+
+\subsection*{4. Use in Suprakernel Redesign}
+
+The propulsion gradient tensor enters the suprakernel redesign engine as
+\[
+\mathcal{R}_{\text{eng,prop}} =
+\mathcal{R}_{\text{eng}}
+\big(
+\mathbf{X}_{\text{prop}},
+\mathbf{G}_{\text{prop}}
+\big),
+\]
+guiding admissible redesigns \(\Delta \mathcal{M}_{i}\) such that
+\[
+\mathbf{X}_{\text{MK22}} + \Delta \mathcal{M}_{i}
+\in
+\mathcal{C}_{\text{MK22}},
+\]
+and improving torque margin, shaft power efficiency, and aero load behavior under the MK-22 suprakernel loop.
