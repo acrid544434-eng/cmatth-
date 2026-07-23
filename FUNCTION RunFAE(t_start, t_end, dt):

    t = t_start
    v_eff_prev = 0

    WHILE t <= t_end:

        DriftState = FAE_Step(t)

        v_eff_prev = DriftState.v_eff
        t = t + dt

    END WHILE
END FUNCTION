@@ -1,0 +1,14 @@
+FUNCTION RunFAE(t_start, t_end, dt):
+
+    t = t_start
+    v_eff_prev = 0
+
+    WHILE t <= t_end:
+
+        DriftState = FAE_Step(t)
+
+        v_eff_prev = DriftState.v_eff
+        t = t + dt
+
+    END WHILE
+END FUNCTION
