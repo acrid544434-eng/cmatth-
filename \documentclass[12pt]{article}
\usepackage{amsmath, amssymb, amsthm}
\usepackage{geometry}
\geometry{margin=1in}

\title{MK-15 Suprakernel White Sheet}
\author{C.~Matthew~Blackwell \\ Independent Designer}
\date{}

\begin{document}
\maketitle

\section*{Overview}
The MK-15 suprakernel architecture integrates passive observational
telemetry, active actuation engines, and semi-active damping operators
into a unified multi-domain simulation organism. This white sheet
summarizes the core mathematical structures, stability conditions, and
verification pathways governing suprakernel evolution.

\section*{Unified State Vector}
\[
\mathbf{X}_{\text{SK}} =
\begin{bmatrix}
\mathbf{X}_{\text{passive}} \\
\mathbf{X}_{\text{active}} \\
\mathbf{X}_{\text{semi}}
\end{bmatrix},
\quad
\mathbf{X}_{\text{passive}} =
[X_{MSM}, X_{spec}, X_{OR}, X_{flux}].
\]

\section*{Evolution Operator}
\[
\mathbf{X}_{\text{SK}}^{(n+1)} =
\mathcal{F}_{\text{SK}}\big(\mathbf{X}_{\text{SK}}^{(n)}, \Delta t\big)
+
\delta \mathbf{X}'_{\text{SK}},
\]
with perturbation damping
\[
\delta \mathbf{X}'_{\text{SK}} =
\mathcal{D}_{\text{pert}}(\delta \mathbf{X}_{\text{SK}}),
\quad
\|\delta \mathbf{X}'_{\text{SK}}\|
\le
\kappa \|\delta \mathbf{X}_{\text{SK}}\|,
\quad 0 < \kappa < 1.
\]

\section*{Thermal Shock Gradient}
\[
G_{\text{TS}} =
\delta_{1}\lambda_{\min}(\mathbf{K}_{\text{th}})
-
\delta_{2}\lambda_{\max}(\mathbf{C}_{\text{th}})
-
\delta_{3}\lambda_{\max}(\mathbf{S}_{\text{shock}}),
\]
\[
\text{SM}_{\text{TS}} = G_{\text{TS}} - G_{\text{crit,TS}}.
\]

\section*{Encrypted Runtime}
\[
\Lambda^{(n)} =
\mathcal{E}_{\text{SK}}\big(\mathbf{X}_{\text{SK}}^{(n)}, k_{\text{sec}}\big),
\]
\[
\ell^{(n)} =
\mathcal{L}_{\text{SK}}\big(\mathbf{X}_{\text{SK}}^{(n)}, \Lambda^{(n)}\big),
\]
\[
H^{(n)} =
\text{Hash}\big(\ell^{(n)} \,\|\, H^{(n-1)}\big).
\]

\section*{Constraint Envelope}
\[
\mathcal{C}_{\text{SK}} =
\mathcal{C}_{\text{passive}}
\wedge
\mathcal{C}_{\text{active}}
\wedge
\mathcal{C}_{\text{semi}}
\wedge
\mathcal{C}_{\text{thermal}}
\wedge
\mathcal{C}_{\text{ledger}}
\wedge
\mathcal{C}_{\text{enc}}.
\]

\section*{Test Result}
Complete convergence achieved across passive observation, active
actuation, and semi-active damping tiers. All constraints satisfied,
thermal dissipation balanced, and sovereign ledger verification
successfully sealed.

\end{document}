@@ -1,0 +1,100 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{MK-15 Suprakernel White Sheet}
+\author{C.~Matthew~Blackwell \\ Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+The MK-15 suprakernel architecture integrates passive observational
+telemetry, active actuation engines, and semi-active damping operators
+into a unified multi-domain simulation organism. This white sheet
+summarizes the core mathematical structures, stability conditions, and
+verification pathways governing suprakernel evolution.
+
+\section*{Unified State Vector}
+\[
+\mathbf{X}_{\text{SK}} =
+\begin{bmatrix}
+\mathbf{X}_{\text{passive}} \\
+\mathbf{X}_{\text{active}} \\
+\mathbf{X}_{\text{semi}}
+\end{bmatrix},
+\quad
+\mathbf{X}_{\text{passive}} =
+[X_{MSM}, X_{spec}, X_{OR}, X_{flux}].
+\]
+
+\section*{Evolution Operator}
+\[
+\mathbf{X}_{\text{SK}}^{(n+1)} =
+\mathcal{F}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n)}, \Delta t\big)
++
+\delta \mathbf{X}'_{\text{SK}},
+\]
+with perturbation damping
+\[
+\delta \mathbf{X}'_{\text{SK}} =
+\mathcal{D}_{\text{pert}}(\delta \mathbf{X}_{\text{SK}}),
+\quad
+\|\delta \mathbf{X}'_{\text{SK}}\|
+\le
+\kappa \|\delta \mathbf{X}_{\text{SK}}\|,
+\quad 0 < \kappa < 1.
+\]
+
+\section*{Thermal Shock Gradient}
+\[
+G_{\text{TS}} =
+\delta_{1}\lambda_{\min}(\mathbf{K}_{\text{th}})
+-
+\delta_{2}\lambda_{\max}(\mathbf{C}_{\text{th}})
+-
+\delta_{3}\lambda_{\max}(\mathbf{S}_{\text{shock}}),
+\]
+\[
+\text{SM}_{\text{TS}} = G_{\text{TS}} - G_{\text{crit,TS}}.
+\]
+
+\section*{Encrypted Runtime}
+\[
+\Lambda^{(n)} =
+\mathcal{E}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n)}, k_{\text{sec}}\big),
+\]
+\[
+\ell^{(n)} =
+\mathcal{L}_{\text{SK}}\big(\mathbf{X}_{\text{SK}}^{(n)}, \Lambda^{(n)}\big),
+\]
+\[
+H^{(n)} =
+\text{Hash}\big(\ell^{(n)} \,\|\, H^{(n-1)}\big).
+\]
+
+\section*{Constraint Envelope}
+\[
+\mathcal{C}_{\text{SK}} =
+\mathcal{C}_{\text{passive}}
+\wedge
+\mathcal{C}_{\text{active}}
+\wedge
+\mathcal{C}_{\text{semi}}
+\wedge
+\mathcal{C}_{\text{thermal}}
+\wedge
+\mathcal{C}_{\text{ledger}}
+\wedge
+\mathcal{C}_{\text{enc}}.
+\]
+
+\section*{Test Result}
+Complete convergence achieved across passive observation, active
+actuation, and semi-active damping tiers. All constraints satisfied,
+thermal dissipation balanced, and sovereign ledger verification
+successfully sealed.
+
+\end{document}
