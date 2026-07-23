@@ -1,0 +1,132 @@
+\section*{Bifurcation Engine Architecture}
+
+\subsection*{1. FTL State Vector}
+
+The FTL engine evolves according to the state vector
+\[
+\mathbf{X}_{\text{FTL}} =
+\begin{bmatrix}
+\mathbf{r} \\
+\mathbf{v} \\
+E \\
+G \\
+F \\
+\Sigma \\
+\Lambda
+\end{bmatrix},
+\]
+where $\mathbf{r}$ is position, $\mathbf{v}$ is effective velocity, $E$ is fusion-driven energy,
+$G$ is the stability gradient, $F$ is the fusion influx term, $\Sigma$ is the cross-section
+kinetics coefficient, and $\Lambda$ is the encrypted thermodynamic substrate state.
+
+\subsection*{2. Core FTL Engine Operator}
+
+The core engine operator $\mathcal{F}$ defines the single-trajectory update
+\[
+\mathbf{X}_{n+1} = \mathcal{F}(\mathbf{X}_{n}, \Delta t),
+\]
+with component equations
+\[
+\frac{dE}{dt} = 195Pt(f_{1+M_{43}} + 107Pt + Z_{43}),
+\]
+\[
+\frac{dF}{dt} = \Phi\left(\frac{x_{9}}{U} + Z_{env}, E\right),
+\]
+\[
+\frac{d\Sigma}{dt} = K(\Sigma, F, E),
+\]
+\[
+\frac{dG}{dt} = \Gamma(G, \Sigma, F),
+\]
+\[
+\frac{d\mathbf{r}}{dt} = \mathbf{v}, \qquad
+\frac{d\mathbf{v}}{dt} = \mathbf{a}(E, G, \Sigma),
+\]
+\[
+\frac{d\Lambda}{dt} = \Psi(\Lambda, E, F, \Sigma).
+\]
+
+\subsection*{3. Critical Bifurcation Set}
+
+The bifurcation engine activates when the state enters the critical set
+\[
+\mathcal{C}_{\text{crit}} =
+\left\{
+(G,\Sigma) \;\middle|\;
+G \geq G_{\text{thresh}} \;\lor\; 
+\Sigma \geq \Sigma_{\text{thresh}}
+\right\}.
+\]
+
+Define the bifurcation condition
+\[
+\beta(\mathbf{X}_{n}) =
+\begin{cases}
+0, & (G,\Sigma) \notin \mathcal{C}_{\text{crit}}, \\
+1, & (G,\Sigma) \in \mathcal{C}_{\text{crit}}.
+\end{cases}
+\]
+
+\subsection*{4. Bifurcation Operator}
+
+When $\beta(\mathbf{X}_{n}) = 1$, the engine transitions from a single update to a multi-branch update:
+\[
+\mathcal{B} : \mathbf{X}_{n} \mapsto \{\mathbf{X}^{(k)}_{n+1}\}_{k=1}^{N},
+\]
+with each branch defined by a distinct evolution operator
+\[
+\mathbf{X}^{(k)}_{n+1} = \mathcal{F}_{k}(\mathbf{X}_{n}, \Delta t).
+\]
+
+Typical branch profiles include:
+\[
+\mathcal{F}_{1} = \mathcal{F}_{\text{safe}}, \qquad
+\mathcal{F}_{2} = \mathcal{F}_{\text{extreme}}, \qquad
+\mathcal{F}_{3} = \mathcal{F}_{\text{exploratory}}.
+\]
+
+\subsection*{5. Branch Evolution}
+
+Each branch evolves independently according to
+\[
+\mathbf{X}^{(k)}_{n+m} =
+\mathcal{F}_{k}^{(m)}(\mathbf{X}^{(k)}_{n}),
+\]
+where $\mathcal{F}_{k}^{(m)}$ denotes $m$ successive applications of the operator $\mathcal{F}_{k}$.
+
+\subsection*{6. Ledger Binding}
+
+Each branch produces a sovereign, cryptographically bound ledger entry
+\[
+\Lambda^{(k)}_{n+1} = \mathcal{L}\left(\mathbf{X}^{(k)}_{n+1}\right),
+\]
+where $\mathcal{L}$ is the ledger-binding operator defined by the thermodynamic substrate encryption engine:
+\[
+\Lambda^{(k)}_{n+1} = \mathcal{E}_{\text{lattice}}
+\left(
+E^{(k)}_{n+1},\,
+F^{(k)}_{n+1},\,
+\Sigma^{(k)}_{n+1}
+\right).
+\]
+
+The full bifurcation event is recorded as the set
+\[
+\mathcal{S}_{n+1} =
+\left\{
+\left(\mathbf{X}^{(k)}_{n+1},\,\Lambda^{(k)}_{n+1}\right)
+\right\}_{k=1}^{N}.
+\]
+
+\subsection*{7. Complete Runtime Loop}
+
+The combined engine operates as
+\[
+\mathbf{X}_{n+1} =
+\begin{cases}
+\mathcal{F}(\mathbf{X}_{n}, \Delta t), & \beta(\mathbf{X}_{n}) = 0, \\[6pt]
+\mathcal{B}(\mathbf{X}_{n}, \Delta t), & \beta(\mathbf{X}_{n}) = 1.
+\end{cases}
+\]
+
+Each branch is logged independently, forming a multi-trajectory FTL event structure.
