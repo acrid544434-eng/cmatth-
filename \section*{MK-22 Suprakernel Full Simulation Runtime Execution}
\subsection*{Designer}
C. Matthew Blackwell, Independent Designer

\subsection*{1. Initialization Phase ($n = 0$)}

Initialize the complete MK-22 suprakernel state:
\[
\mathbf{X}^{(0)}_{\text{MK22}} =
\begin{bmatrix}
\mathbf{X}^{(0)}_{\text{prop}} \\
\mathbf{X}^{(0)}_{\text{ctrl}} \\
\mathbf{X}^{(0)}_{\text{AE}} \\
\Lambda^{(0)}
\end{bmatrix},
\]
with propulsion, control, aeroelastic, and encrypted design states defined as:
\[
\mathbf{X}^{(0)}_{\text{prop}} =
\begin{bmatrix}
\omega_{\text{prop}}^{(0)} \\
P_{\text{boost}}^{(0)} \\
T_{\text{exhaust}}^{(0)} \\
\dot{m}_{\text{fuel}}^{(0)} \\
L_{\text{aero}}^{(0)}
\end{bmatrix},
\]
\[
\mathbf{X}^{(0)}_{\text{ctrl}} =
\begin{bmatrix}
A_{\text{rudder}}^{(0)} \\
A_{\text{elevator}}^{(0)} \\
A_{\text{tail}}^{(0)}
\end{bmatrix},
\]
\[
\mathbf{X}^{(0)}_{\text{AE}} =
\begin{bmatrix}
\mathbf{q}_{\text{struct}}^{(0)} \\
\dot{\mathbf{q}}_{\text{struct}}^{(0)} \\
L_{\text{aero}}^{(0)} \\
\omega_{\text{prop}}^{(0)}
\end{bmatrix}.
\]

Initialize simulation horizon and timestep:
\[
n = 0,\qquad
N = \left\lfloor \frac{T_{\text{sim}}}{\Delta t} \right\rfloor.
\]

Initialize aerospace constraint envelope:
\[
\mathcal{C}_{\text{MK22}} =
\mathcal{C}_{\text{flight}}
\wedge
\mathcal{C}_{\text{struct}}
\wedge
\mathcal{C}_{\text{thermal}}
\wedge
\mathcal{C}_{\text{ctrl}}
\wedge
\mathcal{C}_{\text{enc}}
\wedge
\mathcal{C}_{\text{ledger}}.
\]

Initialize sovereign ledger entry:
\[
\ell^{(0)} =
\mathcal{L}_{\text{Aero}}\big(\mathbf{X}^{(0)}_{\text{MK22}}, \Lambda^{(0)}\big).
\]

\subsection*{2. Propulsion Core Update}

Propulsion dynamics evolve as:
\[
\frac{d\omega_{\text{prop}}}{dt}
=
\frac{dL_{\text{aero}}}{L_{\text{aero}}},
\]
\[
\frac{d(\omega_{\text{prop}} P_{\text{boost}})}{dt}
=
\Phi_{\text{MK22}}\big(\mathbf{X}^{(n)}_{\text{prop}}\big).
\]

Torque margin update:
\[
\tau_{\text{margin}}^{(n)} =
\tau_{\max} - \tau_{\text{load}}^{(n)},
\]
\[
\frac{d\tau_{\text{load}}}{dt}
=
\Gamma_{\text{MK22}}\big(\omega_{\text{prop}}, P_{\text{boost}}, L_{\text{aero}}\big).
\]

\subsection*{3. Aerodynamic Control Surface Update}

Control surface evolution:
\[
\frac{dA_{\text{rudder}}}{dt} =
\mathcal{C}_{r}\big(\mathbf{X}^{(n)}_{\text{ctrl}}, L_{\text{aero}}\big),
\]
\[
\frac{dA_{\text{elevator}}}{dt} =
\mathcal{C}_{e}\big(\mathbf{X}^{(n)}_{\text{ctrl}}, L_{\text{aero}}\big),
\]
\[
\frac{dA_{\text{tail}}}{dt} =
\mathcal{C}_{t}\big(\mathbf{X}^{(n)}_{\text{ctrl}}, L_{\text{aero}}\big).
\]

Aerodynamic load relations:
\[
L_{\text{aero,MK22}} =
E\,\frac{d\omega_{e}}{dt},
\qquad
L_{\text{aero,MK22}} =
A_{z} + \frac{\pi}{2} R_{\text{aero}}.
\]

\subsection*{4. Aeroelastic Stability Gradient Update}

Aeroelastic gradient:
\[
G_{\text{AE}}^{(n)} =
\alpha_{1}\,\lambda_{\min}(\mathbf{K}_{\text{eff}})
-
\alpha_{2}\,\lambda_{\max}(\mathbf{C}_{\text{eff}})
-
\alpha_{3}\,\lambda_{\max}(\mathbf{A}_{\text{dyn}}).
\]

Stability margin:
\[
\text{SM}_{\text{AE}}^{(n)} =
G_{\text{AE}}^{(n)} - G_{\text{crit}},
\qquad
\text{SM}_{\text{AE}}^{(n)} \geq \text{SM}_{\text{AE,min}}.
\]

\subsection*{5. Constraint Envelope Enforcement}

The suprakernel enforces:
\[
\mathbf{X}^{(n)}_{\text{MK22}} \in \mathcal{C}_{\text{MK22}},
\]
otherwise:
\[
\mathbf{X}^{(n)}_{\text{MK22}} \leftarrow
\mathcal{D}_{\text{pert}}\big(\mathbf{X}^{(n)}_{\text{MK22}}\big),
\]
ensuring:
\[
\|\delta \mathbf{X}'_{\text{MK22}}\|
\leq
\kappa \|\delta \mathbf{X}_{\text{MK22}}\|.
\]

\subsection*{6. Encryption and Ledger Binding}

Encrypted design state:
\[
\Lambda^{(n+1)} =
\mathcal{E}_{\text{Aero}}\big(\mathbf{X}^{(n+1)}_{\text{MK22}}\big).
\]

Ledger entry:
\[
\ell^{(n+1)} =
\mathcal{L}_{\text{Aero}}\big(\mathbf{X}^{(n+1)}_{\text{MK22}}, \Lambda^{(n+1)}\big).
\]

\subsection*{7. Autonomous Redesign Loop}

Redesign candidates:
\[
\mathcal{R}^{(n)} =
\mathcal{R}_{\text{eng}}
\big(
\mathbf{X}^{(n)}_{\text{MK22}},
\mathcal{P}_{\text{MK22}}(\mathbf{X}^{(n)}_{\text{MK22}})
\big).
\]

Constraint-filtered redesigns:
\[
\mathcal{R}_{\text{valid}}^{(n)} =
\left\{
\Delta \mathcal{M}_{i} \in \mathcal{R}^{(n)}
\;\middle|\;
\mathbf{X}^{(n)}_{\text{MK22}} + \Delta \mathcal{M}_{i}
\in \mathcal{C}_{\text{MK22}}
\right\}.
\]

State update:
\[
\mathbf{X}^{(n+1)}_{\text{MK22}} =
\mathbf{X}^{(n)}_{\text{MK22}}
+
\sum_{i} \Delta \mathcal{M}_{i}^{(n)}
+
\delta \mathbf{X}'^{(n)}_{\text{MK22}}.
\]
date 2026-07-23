@@ -1,0 +1,207 @@
+\section*{MK-22 Suprakernel Full Simulation Runtime Execution}
+\subsection*{Designer}
+C. Matthew Blackwell, Independent Designer
+
+\subsection*{1. Initialization Phase ($n = 0$)}
+
+Initialize the complete MK-22 suprakernel state:
+\[
+\mathbf{X}^{(0)}_{\text{MK22}} =
+\begin{bmatrix}
+\mathbf{X}^{(0)}_{\text{prop}} \\
+\mathbf{X}^{(0)}_{\text{ctrl}} \\
+\mathbf{X}^{(0)}_{\text{AE}} \\
+\Lambda^{(0)}
+\end{bmatrix},
+\]
+with propulsion, control, aeroelastic, and encrypted design states defined as:
+\[
+\mathbf{X}^{(0)}_{\text{prop}} =
+\begin{bmatrix}
+\omega_{\text{prop}}^{(0)} \\
+P_{\text{boost}}^{(0)} \\
+T_{\text{exhaust}}^{(0)} \\
+\dot{m}_{\text{fuel}}^{(0)} \\
+L_{\text{aero}}^{(0)}
+\end{bmatrix},
+\]
+\[
+\mathbf{X}^{(0)}_{\text{ctrl}} =
+\begin{bmatrix}
+A_{\text{rudder}}^{(0)} \\
+A_{\text{elevator}}^{(0)} \\
+A_{\text{tail}}^{(0)}
+\end{bmatrix},
+\]
+\[
+\mathbf{X}^{(0)}_{\text{AE}} =
+\begin{bmatrix}
+\mathbf{q}_{\text{struct}}^{(0)} \\
+\dot{\mathbf{q}}_{\text{struct}}^{(0)} \\
+L_{\text{aero}}^{(0)} \\
+\omega_{\text{prop}}^{(0)}
+\end{bmatrix}.
+\]
+
+Initialize simulation horizon and timestep:
+\[
+n = 0,\qquad
+N = \left\lfloor \frac{T_{\text{sim}}}{\Delta t} \right\rfloor.
+\]
+
+Initialize aerospace constraint envelope:
+\[
+\mathcal{C}_{\text{MK22}} =
+\mathcal{C}_{\text{flight}}
+\wedge
+\mathcal{C}_{\text{struct}}
+\wedge
+\mathcal{C}_{\text{thermal}}
+\wedge
+\mathcal{C}_{\text{ctrl}}
+\wedge
+\mathcal{C}_{\text{enc}}
+\wedge
+\mathcal{C}_{\text{ledger}}.
+\]
+
+Initialize sovereign ledger entry:
+\[
+\ell^{(0)} =
+\mathcal{L}_{\text{Aero}}\big(\mathbf{X}^{(0)}_{\text{MK22}}, \Lambda^{(0)}\big).
+\]
+
+\subsection*{2. Propulsion Core Update}
+
+Propulsion dynamics evolve as:
+\[
+\frac{d\omega_{\text{prop}}}{dt}
+=
+\frac{dL_{\text{aero}}}{L_{\text{aero}}},
+\]
+\[
+\frac{d(\omega_{\text{prop}} P_{\text{boost}})}{dt}
+=
+\Phi_{\text{MK22}}\big(\mathbf{X}^{(n)}_{\text{prop}}\big).
+\]
+
+Torque margin update:
+\[
+\tau_{\text{margin}}^{(n)} =
+\tau_{\max} - \tau_{\text{load}}^{(n)},
+\]
+\[
+\frac{d\tau_{\text{load}}}{dt}
+=
+\Gamma_{\text{MK22}}\big(\omega_{\text{prop}}, P_{\text{boost}}, L_{\text{aero}}\big).
+\]
+
+\subsection*{3. Aerodynamic Control Surface Update}
+
+Control surface evolution:
+\[
+\frac{dA_{\text{rudder}}}{dt} =
+\mathcal{C}_{r}\big(\mathbf{X}^{(n)}_{\text{ctrl}}, L_{\text{aero}}\big),
+\]
+\[
+\frac{dA_{\text{elevator}}}{dt} =
+\mathcal{C}_{e}\big(\mathbf{X}^{(n)}_{\text{ctrl}}, L_{\text{aero}}\big),
+\]
+\[
+\frac{dA_{\text{tail}}}{dt} =
+\mathcal{C}_{t}\big(\mathbf{X}^{(n)}_{\text{ctrl}}, L_{\text{aero}}\big).
+\]
+
+Aerodynamic load relations:
+\[
+L_{\text{aero,MK22}} =
+E\,\frac{d\omega_{e}}{dt},
+\qquad
+L_{\text{aero,MK22}} =
+A_{z} + \frac{\pi}{2} R_{\text{aero}}.
+\]
+
+\subsection*{4. Aeroelastic Stability Gradient Update}
+
+Aeroelastic gradient:
+\[
+G_{\text{AE}}^{(n)} =
+\alpha_{1}\,\lambda_{\min}(\mathbf{K}_{\text{eff}})
+-
+\alpha_{2}\,\lambda_{\max}(\mathbf{C}_{\text{eff}})
+-
+\alpha_{3}\,\lambda_{\max}(\mathbf{A}_{\text{dyn}}).
+\]
+
+Stability margin:
+\[
+\text{SM}_{\text{AE}}^{(n)} =
+G_{\text{AE}}^{(n)} - G_{\text{crit}},
+\qquad
+\text{SM}_{\text{AE}}^{(n)} \geq \text{SM}_{\text{AE,min}}.
+\]
+
+\subsection*{5. Constraint Envelope Enforcement}
+
+The suprakernel enforces:
+\[
+\mathbf{X}^{(n)}_{\text{MK22}} \in \mathcal{C}_{\text{MK22}},
+\]
+otherwise:
+\[
+\mathbf{X}^{(n)}_{\text{MK22}} \leftarrow
+\mathcal{D}_{\text{pert}}\big(\mathbf{X}^{(n)}_{\text{MK22}}\big),
+\]
+ensuring:
+\[
+\|\delta \mathbf{X}'_{\text{MK22}}\|
+\leq
+\kappa \|\delta \mathbf{X}_{\text{MK22}}\|.
+\]
+
+\subsection*{6. Encryption and Ledger Binding}
+
+Encrypted design state:
+\[
+\Lambda^{(n+1)} =
+\mathcal{E}_{\text{Aero}}\big(\mathbf{X}^{(n+1)}_{\text{MK22}}\big).
+\]
+
+Ledger entry:
+\[
+\ell^{(n+1)} =
+\mathcal{L}_{\text{Aero}}\big(\mathbf{X}^{(n+1)}_{\text{MK22}}, \Lambda^{(n+1)}\big).
+\]
+
+\subsection*{7. Autonomous Redesign Loop}
+
+Redesign candidates:
+\[
+\mathcal{R}^{(n)} =
+\mathcal{R}_{\text{eng}}
+\big(
+\mathbf{X}^{(n)}_{\text{MK22}},
+\mathcal{P}_{\text{MK22}}(\mathbf{X}^{(n)}_{\text{MK22}})
+\big).
+\]
+
+Constraint-filtered redesigns:
+\[
+\mathcal{R}_{\text{valid}}^{(n)} =
+\left\{
+\Delta \mathcal{M}_{i} \in \mathcal{R}^{(n)}
+\;\middle|\;
+\mathbf{X}^{(n)}_{\text{MK22}} + \Delta \mathcal{M}_{i}
+\in \mathcal{C}_{\text{MK22}}
+\right\}.
+\]
+
+State update:
+\[
+\mathbf{X}^{(n+1)}_{\text{MK22}} =
+\mathbf{X}^{(n)}_{\text{MK22}}
++
+\sum_{i} \Delta \mathcal{M}_{i}^{(n)}
++
+\delta \mathbf{X}'^{(n)}_{\text{MK22}}.
+\]
