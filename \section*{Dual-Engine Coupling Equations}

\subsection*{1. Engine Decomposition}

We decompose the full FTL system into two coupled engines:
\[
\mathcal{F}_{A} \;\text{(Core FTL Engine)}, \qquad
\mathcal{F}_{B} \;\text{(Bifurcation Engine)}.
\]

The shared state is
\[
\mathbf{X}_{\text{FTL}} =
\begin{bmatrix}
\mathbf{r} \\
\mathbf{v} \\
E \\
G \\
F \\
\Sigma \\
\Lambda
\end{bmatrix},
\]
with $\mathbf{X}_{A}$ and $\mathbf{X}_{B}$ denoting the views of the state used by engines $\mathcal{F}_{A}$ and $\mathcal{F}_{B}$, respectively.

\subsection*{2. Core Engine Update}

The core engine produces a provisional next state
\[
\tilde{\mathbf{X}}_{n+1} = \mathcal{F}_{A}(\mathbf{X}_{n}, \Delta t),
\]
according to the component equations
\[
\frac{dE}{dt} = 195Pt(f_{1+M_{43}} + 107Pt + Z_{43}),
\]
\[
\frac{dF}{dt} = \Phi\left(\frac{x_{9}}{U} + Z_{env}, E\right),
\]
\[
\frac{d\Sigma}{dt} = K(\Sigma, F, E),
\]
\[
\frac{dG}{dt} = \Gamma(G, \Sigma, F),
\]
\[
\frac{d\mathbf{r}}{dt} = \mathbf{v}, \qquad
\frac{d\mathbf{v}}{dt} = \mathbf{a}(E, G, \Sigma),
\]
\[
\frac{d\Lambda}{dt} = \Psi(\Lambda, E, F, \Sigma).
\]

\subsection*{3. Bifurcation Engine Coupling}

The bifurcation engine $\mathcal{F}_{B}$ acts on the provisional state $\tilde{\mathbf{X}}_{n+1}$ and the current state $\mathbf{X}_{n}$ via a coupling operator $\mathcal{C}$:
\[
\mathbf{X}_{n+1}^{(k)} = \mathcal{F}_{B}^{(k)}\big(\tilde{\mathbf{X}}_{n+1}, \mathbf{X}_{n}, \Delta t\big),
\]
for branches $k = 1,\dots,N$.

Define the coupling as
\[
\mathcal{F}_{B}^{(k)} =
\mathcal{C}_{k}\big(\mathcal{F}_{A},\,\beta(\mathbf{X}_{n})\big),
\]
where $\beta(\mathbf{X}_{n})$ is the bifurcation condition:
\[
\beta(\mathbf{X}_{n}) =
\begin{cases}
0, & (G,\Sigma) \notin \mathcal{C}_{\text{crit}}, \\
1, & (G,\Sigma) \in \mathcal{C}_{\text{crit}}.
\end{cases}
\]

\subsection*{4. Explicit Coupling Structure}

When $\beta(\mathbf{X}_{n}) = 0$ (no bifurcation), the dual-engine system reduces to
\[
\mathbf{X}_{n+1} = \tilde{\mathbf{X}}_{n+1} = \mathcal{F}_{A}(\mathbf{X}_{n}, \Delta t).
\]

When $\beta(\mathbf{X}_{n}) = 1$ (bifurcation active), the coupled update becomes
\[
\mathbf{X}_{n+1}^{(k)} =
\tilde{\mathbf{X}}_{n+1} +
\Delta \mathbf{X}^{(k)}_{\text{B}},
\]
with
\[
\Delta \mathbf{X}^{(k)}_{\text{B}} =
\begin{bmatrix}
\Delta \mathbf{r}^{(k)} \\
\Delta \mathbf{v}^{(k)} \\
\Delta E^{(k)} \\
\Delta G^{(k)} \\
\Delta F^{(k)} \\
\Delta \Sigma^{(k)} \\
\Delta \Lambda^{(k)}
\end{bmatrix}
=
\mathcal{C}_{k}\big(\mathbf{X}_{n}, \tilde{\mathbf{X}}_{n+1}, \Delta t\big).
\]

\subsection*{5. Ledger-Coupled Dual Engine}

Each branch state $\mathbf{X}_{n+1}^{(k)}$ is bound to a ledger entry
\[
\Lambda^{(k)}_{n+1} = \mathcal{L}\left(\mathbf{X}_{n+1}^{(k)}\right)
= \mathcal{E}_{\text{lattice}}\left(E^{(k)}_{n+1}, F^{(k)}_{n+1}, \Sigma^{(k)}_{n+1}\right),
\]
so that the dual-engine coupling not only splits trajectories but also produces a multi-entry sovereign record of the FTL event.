@@ -1,0 +1,111 @@
+\section*{Dual-Engine Coupling Equations}
+
+\subsection*{1. Engine Decomposition}
+
+We decompose the full FTL system into two coupled engines:
+\[
+\mathcal{F}_{A} \;\text{(Core FTL Engine)}, \qquad
+\mathcal{F}_{B} \;\text{(Bifurcation Engine)}.
+\]
+
+The shared state is
+\[
+\mathbf{X}_{\text{FTL}} =
+\begin{bmatrix}
+\mathbf{r} \\
+\mathbf{v} \\
+E \\
+G \\
+F \\
+\Sigma \\
+\Lambda
+\end{bmatrix},
+\]
+with $\mathbf{X}_{A}$ and $\mathbf{X}_{B}$ denoting the views of the state used by engines $\mathcal{F}_{A}$ and $\mathcal{F}_{B}$, respectively.
+
+\subsection*{2. Core Engine Update}
+
+The core engine produces a provisional next state
+\[
+\tilde{\mathbf{X}}_{n+1} = \mathcal{F}_{A}(\mathbf{X}_{n}, \Delta t),
+\]
+according to the component equations
+\[
+\frac{dE}{dt} = 195Pt(f_{1+M_{43}} + 107Pt + Z_{43}),
+\]
+\[
+\frac{dF}{dt} = \Phi\left(\frac{x_{9}}{U} + Z_{env}, E\right),
+\]
+\[
+\frac{d\Sigma}{dt} = K(\Sigma, F, E),
+\]
+\[
+\frac{dG}{dt} = \Gamma(G, \Sigma, F),
+\]
+\[
+\frac{d\mathbf{r}}{dt} = \mathbf{v}, \qquad
+\frac{d\mathbf{v}}{dt} = \mathbf{a}(E, G, \Sigma),
+\]
+\[
+\frac{d\Lambda}{dt} = \Psi(\Lambda, E, F, \Sigma).
+\]
+
+\subsection*{3. Bifurcation Engine Coupling}
+
+The bifurcation engine $\mathcal{F}_{B}$ acts on the provisional state $\tilde{\mathbf{X}}_{n+1}$ and the current state $\mathbf{X}_{n}$ via a coupling operator $\mathcal{C}$:
+\[
+\mathbf{X}_{n+1}^{(k)} = \mathcal{F}_{B}^{(k)}\big(\tilde{\mathbf{X}}_{n+1}, \mathbf{X}_{n}, \Delta t\big),
+\]
+for branches $k = 1,\dots,N$.
+
+Define the coupling as
+\[
+\mathcal{F}_{B}^{(k)} =
+\mathcal{C}_{k}\big(\mathcal{F}_{A},\,\beta(\mathbf{X}_{n})\big),
+\]
+where $\beta(\mathbf{X}_{n})$ is the bifurcation condition:
+\[
+\beta(\mathbf{X}_{n}) =
+\begin{cases}
+0, & (G,\Sigma) \notin \mathcal{C}_{\text{crit}}, \\
+1, & (G,\Sigma) \in \mathcal{C}_{\text{crit}}.
+\end{cases}
+\]
+
+\subsection*{4. Explicit Coupling Structure}
+
+When $\beta(\mathbf{X}_{n}) = 0$ (no bifurcation), the dual-engine system reduces to
+\[
+\mathbf{X}_{n+1} = \tilde{\mathbf{X}}_{n+1} = \mathcal{F}_{A}(\mathbf{X}_{n}, \Delta t).
+\]
+
+When $\beta(\mathbf{X}_{n}) = 1$ (bifurcation active), the coupled update becomes
+\[
+\mathbf{X}_{n+1}^{(k)} =
+\tilde{\mathbf{X}}_{n+1} +
+\Delta \mathbf{X}^{(k)}_{\text{B}},
+\]
+with
+\[
+\Delta \mathbf{X}^{(k)}_{\text{B}} =
+\begin{bmatrix}
+\Delta \mathbf{r}^{(k)} \\
+\Delta \mathbf{v}^{(k)} \\
+\Delta E^{(k)} \\
+\Delta G^{(k)} \\
+\Delta F^{(k)} \\
+\Delta \Sigma^{(k)} \\
+\Delta \Lambda^{(k)}
+\end{bmatrix}
+=
+\mathcal{C}_{k}\big(\mathbf{X}_{n}, \tilde{\mathbf{X}}_{n+1}, \Delta t\big).
+\]
+
+\subsection*{5. Ledger-Coupled Dual Engine}
+
+Each branch state $\mathbf{X}_{n+1}^{(k)}$ is bound to a ledger entry
+\[
+\Lambda^{(k)}_{n+1} = \mathcal{L}\left(\mathbf{X}_{n+1}^{(k)}\right)
+= \mathcal{E}_{\text{lattice}}\left(E^{(k)}_{n+1}, F^{(k)}_{n+1}, \Sigma^{(k)}_{n+1}\right),
+\]
+so that the dual-engine coupling not only splits trajectories but also produces a multi-entry sovereign record of the FTL event.
