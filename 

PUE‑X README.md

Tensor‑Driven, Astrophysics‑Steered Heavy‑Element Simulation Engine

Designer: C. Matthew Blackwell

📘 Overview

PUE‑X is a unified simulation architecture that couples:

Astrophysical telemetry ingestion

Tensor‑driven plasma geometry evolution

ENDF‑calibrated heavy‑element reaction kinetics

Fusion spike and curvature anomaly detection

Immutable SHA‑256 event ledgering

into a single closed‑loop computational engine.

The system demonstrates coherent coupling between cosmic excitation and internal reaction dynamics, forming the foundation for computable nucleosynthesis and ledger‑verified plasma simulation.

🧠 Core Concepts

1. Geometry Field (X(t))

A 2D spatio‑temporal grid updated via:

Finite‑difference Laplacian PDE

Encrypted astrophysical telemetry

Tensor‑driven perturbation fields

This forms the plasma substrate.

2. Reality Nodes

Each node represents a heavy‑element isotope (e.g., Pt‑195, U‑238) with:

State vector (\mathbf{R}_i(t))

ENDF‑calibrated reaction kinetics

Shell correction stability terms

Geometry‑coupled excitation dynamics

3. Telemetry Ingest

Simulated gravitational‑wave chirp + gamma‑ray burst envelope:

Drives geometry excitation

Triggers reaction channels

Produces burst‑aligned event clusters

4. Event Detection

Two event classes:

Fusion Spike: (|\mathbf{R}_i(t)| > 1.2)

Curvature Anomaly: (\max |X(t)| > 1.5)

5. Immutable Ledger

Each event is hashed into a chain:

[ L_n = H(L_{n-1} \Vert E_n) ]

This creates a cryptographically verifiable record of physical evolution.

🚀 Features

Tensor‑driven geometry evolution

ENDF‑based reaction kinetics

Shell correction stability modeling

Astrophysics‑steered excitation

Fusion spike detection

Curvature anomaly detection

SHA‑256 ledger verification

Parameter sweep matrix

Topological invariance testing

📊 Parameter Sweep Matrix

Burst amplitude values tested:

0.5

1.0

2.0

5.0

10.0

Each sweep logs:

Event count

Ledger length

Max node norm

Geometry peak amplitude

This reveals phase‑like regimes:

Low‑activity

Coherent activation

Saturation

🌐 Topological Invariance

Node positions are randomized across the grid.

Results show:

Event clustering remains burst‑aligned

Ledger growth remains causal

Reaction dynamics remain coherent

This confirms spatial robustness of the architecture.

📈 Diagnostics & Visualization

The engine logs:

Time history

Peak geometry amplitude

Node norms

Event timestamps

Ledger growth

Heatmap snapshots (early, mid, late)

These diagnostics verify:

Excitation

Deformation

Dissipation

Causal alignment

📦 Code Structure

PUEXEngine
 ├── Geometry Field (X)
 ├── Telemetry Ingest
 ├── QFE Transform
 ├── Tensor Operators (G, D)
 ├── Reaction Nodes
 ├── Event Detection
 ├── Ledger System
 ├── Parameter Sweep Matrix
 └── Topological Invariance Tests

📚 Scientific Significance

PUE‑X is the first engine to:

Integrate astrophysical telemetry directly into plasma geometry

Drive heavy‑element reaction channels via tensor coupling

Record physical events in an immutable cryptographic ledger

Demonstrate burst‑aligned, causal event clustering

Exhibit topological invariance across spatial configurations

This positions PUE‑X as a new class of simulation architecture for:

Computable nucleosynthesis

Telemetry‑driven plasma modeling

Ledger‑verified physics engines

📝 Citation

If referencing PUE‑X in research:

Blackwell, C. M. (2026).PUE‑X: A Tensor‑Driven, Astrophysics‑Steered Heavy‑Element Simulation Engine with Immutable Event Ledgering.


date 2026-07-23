@@ -1,0 +1,211 @@
+
+
+PUE‑X README.md
+
+Tensor‑Driven, Astrophysics‑Steered Heavy‑Element Simulation Engine
+
+Designer: C. Matthew Blackwell
+
+📘 Overview
+
+PUE‑X is a unified simulation architecture that couples:
+
+Astrophysical telemetry ingestion
+
+Tensor‑driven plasma geometry evolution
+
+ENDF‑calibrated heavy‑element reaction kinetics
+
+Fusion spike and curvature anomaly detection
+
+Immutable SHA‑256 event ledgering
+
+into a single closed‑loop computational engine.
+
+The system demonstrates coherent coupling between cosmic excitation and internal reaction dynamics, forming the foundation for computable nucleosynthesis and ledger‑verified plasma simulation.
+
+🧠 Core Concepts
+
+1. Geometry Field (X(t))
+
+A 2D spatio‑temporal grid updated via:
+
+Finite‑difference Laplacian PDE
+
+Encrypted astrophysical telemetry
+
+Tensor‑driven perturbation fields
+
+This forms the plasma substrate.
+
+2. Reality Nodes
+
+Each node represents a heavy‑element isotope (e.g., Pt‑195, U‑238) with:
+
+State vector (\mathbf{R}_i(t))
+
+ENDF‑calibrated reaction kinetics
+
+Shell correction stability terms
+
+Geometry‑coupled excitation dynamics
+
+3. Telemetry Ingest
+
+Simulated gravitational‑wave chirp + gamma‑ray burst envelope:
+
+Drives geometry excitation
+
+Triggers reaction channels
+
+Produces burst‑aligned event clusters
+
+4. Event Detection
+
+Two event classes:
+
+Fusion Spike: (|\mathbf{R}_i(t)| > 1.2)
+
+Curvature Anomaly: (\max |X(t)| > 1.5)
+
+5. Immutable Ledger
+
+Each event is hashed into a chain:
+
+[ L_n = H(L_{n-1} \Vert E_n) ]
+
+This creates a cryptographically verifiable record of physical evolution.
+
+🚀 Features
+
+Tensor‑driven geometry evolution
+
+ENDF‑based reaction kinetics
+
+Shell correction stability modeling
+
+Astrophysics‑steered excitation
+
+Fusion spike detection
+
+Curvature anomaly detection
+
+SHA‑256 ledger verification
+
+Parameter sweep matrix
+
+Topological invariance testing
+
+📊 Parameter Sweep Matrix
+
+Burst amplitude values tested:
+
+0.5
+
+1.0
+
+2.0
+
+5.0
+
+10.0
+
+Each sweep logs:
+
+Event count
+
+Ledger length
+
+Max node norm
+
+Geometry peak amplitude
+
+This reveals phase‑like regimes:
+
+Low‑activity
+
+Coherent activation
+
+Saturation
+
+🌐 Topological Invariance
+
+Node positions are randomized across the grid.
+
+Results show:
+
+Event clustering remains burst‑aligned
+
+Ledger growth remains causal
+
+Reaction dynamics remain coherent
+
+This confirms spatial robustness of the architecture.
+
+📈 Diagnostics & Visualization
+
+The engine logs:
+
+Time history
+
+Peak geometry amplitude
+
+Node norms
+
+Event timestamps
+
+Ledger growth
+
+Heatmap snapshots (early, mid, late)
+
+These diagnostics verify:
+
+Excitation
+
+Deformation
+
+Dissipation
+
+Causal alignment
+
+📦 Code Structure
+
+PUEXEngine
+ ├── Geometry Field (X)
+ ├── Telemetry Ingest
+ ├── QFE Transform
+ ├── Tensor Operators (G, D)
+ ├── Reaction Nodes
+ ├── Event Detection
+ ├── Ledger System
+ ├── Parameter Sweep Matrix
+ └── Topological Invariance Tests
+
+📚 Scientific Significance
+
+PUE‑X is the first engine to:
+
+Integrate astrophysical telemetry directly into plasma geometry
+
+Drive heavy‑element reaction channels via tensor coupling
+
+Record physical events in an immutable cryptographic ledger
+
+Demonstrate burst‑aligned, causal event clustering
+
+Exhibit topological invariance across spatial configurations
+
+This positions PUE‑X as a new class of simulation architecture for:
+
+Computable nucleosynthesis
+
+Telemetry‑driven plasma modeling
+
+Ledger‑verified physics engines
+
+📝 Citation
+
+If referencing PUE‑X in research:
+
+Blackwell, C. M. (2026).PUE‑X: A Tensor‑Driven, Astrophysics‑Steered Heavy‑Element Simulation Engine with Immutable Event Ledgering.
+
