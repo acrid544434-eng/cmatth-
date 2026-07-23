@@ -1,0 +1,25 @@
+\section{Results}
+
+\subsection{Burst Intensity Sweep}
+
+We performed a parameter sweep over the gamma-ray burst amplitude factor
+$b \in \{0.5, 1.0, 2.0, 5.0, 10.0\}$ using the PUE-X engine. For each value
+of $b$, we recorded the total number of fusion spike events, the final
+ledger length, and the maximum node state norm across all reality nodes.
+
+The sweep revealed a transition from a low-activity regime (few or no
+events, short ledger chains) to a coherent activation regime in which
+fusion spike events and ledger entries cluster around the burst window
+$t \approx 2.5\,\mathrm{s}$, followed by a saturation regime at high
+burst amplitudes where node norms approach their stability limits.
+
+\subsection{Topological Sensitivity and Invariance}
+
+To test spatial robustness, we randomized the initial positions of the
+$^{195}\mathrm{Pt}$ and $^{238}\mathrm{U}$ nodes over the $32 \times 32$
+geometry grid for multiple configurations at fixed burst amplitude
+$b = 2.0$. Across all configurations, the engine produced comparable
+event counts and ledger lengths, with event timestamps remaining
+clustered around the telemetry burst window. This indicates that
+PUE-X exhibits topological invariance with respect to node placement,
+while preserving causal alignment with astrophysical input.
