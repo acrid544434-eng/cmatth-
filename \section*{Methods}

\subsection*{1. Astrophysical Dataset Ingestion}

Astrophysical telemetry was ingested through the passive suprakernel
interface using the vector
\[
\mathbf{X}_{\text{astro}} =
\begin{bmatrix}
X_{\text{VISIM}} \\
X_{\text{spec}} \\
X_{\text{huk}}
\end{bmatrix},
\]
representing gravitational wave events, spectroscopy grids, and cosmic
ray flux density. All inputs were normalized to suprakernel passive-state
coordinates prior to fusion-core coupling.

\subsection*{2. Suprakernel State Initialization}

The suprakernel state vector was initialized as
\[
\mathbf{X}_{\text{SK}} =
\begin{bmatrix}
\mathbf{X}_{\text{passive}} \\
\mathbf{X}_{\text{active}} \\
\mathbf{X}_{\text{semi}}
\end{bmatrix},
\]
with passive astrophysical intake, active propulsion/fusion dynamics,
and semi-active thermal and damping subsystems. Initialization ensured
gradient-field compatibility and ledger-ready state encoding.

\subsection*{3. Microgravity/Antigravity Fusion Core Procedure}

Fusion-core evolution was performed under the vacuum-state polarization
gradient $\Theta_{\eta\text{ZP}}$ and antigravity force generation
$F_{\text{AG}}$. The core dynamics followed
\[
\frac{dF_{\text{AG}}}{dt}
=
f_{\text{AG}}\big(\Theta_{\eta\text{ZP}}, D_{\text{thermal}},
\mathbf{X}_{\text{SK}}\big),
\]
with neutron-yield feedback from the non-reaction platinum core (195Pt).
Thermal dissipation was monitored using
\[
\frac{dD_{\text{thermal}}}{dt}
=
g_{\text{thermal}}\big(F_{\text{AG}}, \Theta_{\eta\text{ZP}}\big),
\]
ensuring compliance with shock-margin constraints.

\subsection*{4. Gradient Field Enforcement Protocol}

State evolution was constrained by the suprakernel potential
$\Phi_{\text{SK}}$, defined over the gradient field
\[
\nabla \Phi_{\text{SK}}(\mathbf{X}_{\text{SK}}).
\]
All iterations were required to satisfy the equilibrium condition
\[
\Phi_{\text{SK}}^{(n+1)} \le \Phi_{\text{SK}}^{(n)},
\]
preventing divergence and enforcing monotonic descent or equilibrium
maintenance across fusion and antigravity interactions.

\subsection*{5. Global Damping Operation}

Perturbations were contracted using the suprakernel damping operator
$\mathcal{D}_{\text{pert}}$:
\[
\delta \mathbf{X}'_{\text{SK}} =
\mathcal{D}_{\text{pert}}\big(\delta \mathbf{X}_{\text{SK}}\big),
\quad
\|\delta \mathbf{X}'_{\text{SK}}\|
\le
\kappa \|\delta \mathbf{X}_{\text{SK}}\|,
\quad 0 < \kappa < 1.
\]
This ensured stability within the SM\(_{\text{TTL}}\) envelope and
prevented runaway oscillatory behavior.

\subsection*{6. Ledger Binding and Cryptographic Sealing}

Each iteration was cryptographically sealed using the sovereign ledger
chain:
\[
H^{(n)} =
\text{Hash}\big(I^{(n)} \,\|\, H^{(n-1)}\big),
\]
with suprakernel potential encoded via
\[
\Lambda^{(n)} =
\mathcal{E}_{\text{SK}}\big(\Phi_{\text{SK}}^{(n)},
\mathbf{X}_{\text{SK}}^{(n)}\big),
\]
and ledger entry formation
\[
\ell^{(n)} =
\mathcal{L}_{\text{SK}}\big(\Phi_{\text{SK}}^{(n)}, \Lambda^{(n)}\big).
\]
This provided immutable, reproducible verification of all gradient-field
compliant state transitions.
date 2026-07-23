@@ -1,0 +1,104 @@
+\section*{Methods}
+
+\subsection*{1. Astrophysical Dataset Ingestion}
+
+Astrophysical telemetry was ingested through the passive suprakernel
+interface using the vector
+\[
+\mathbf{X}_{\text{astro}} =
+\begin{bmatrix}
+X_{\text{VISIM}} \\
+X_{\text{spec}} \\
+X_{\text{huk}}
+\end{bmatrix},
+\]
+representing gravitational wave events, spectroscopy grids, and cosmic
+ray flux density. All inputs were normalized to suprakernel passive-state
+coordinates prior to fusion-core coupling.
+
+\subsection*{2. Suprakernel State Initialization}
+
+The suprakernel state vector was initialized as
+\[
+\mathbf{X}_{\text{SK}} =
+\begin{bmatrix}
+\mathbf{X}_{\text{passive}} \\
+\mathbf{X}_{\text{active}} \\
+\mathbf{X}_{\text{semi}}
+\end{bmatrix},
+\]
+with passive astrophysical intake, active propulsion/fusion dynamics,
+and semi-active thermal and damping subsystems. Initialization ensured
+gradient-field compatibility and ledger-ready state encoding.
+
+\subsection*{3. Microgravity/Antigravity Fusion Core Procedure}
+
+Fusion-core evolution was performed under the vacuum-state polarization
+gradient $\Theta_{\eta\text{ZP}}$ and antigravity force generation
+$F_{\text{AG}}$. The core dynamics followed
+\[
+\frac{dF_{\text{AG}}}{dt}
+=
+f_{\text{AG}}\big(\Theta_{\eta\text{ZP}}, D_{\text{thermal}},
+\mathbf{X}_{\text{SK}}\big),
+\]
+with neutron-yield feedback from the non-reaction platinum core (195Pt).
+Thermal dissipation was monitored using
+\[
+\frac{dD_{\text{thermal}}}{dt}
+=
+g_{\text{thermal}}\big(F_{\text{AG}}, \Theta_{\eta\text{ZP}}\big),
+\]
+ensuring compliance with shock-margin constraints.
+
+\subsection*{4. Gradient Field Enforcement Protocol}
+
+State evolution was constrained by the suprakernel potential
+$\Phi_{\text{SK}}$, defined over the gradient field
+\[
+\nabla \Phi_{\text{SK}}(\mathbf{X}_{\text{SK}}).
+\]
+All iterations were required to satisfy the equilibrium condition
+\[
+\Phi_{\text{SK}}^{(n+1)} \le \Phi_{\text{SK}}^{(n)},
+\]
+preventing divergence and enforcing monotonic descent or equilibrium
+maintenance across fusion and antigravity interactions.
+
+\subsection*{5. Global Damping Operation}
+
+Perturbations were contracted using the suprakernel damping operator
+$\mathcal{D}_{\text{pert}}$:
+\[
+\delta \mathbf{X}'_{\text{SK}} =
+\mathcal{D}_{\text{pert}}\big(\delta \mathbf{X}_{\text{SK}}\big),
+\quad
+\|\delta \mathbf{X}'_{\text{SK}}\|
+\le
+\kappa \|\delta \mathbf{X}_{\text{SK}}\|,
+\quad 0 < \kappa < 1.
+\]
+This ensured stability within the SM\(_{\text{TTL}}\) envelope and
+prevented runaway oscillatory behavior.
+
+\subsection*{6. Ledger Binding and Cryptographic Sealing}
+
+Each iteration was cryptographically sealed using the sovereign ledger
+chain:
+\[
+H^{(n)} =
+\text{Hash}\big(I^{(n)} \,\|\, H^{(n-1)}\big),
+\]
+with suprakernel potential encoded via
+\[
+\Lambda^{(n)} =
+\mathcal{E}_{\text{SK}}\big(\Phi_{\text{SK}}^{(n)},
+\mathbf{X}_{\text{SK}}^{(n)}\big),
+\]
+and ledger entry formation
+\[
+\ell^{(n)} =
+\mathcal{L}_{\text{SK}}\big(\Phi_{\text{SK}}^{(n)}, \Lambda^{(n)}\big).
+\]
+This provided immutable, reproducible verification of all gradient-field
+compliant state transitions.
