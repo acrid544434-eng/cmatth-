@@ -1,0 +1,134 @@
+\section{Sovereign Loop Formalization}
+
+The QCSE-X v3.1 engine operates as a closed, encrypted feedback organism. 
+Each iteration of the sovereign loop updates the system state through 
+homomorphic computation, ensuring that no intermediate values are decrypted. 
+The loop consists of six sequential phases: ingest, encode, evolve, update, 
+record, and verify.
+
+\subsection{Loop Structure}
+Let $\mathcal{S}_t$ denote the full encrypted system state at iteration $t$:
+\[
+\mathcal{S}_t = 
+\left(
+C_t,\,
+\Phi_t,\,
+Q_t,\,
+E^{\text{eng}}_t,\,
+B_t
+\right),
+\]
+where:
+\begin{itemize}
+    \item $C_t$ is the encrypted ingest vector,
+    \item $\Phi_t$ is the encrypted plasma state,
+    \item $Q_t$ is the encrypted quantum interaction state,
+    \item $E^{\text{eng}}_t$ is the vector of dynamic engine states,
+    \item $B_t$ is the most recent ledger block.
+\end{itemize}
+
+The sovereign loop is defined as:
+\[
+\mathcal{S}_{t+1} = \Lambda(\mathcal{S}_t),
+\]
+where $\Lambda$ is the sovereign update operator.
+
+\subsection{Phase 1: Encrypted Ingest}
+Astrophysical datastreams $D_t$ are encoded into ciphertexts:
+\[
+C_t = \mathcal{E}_{\text{CKKS}}(D_t),
+\]
+with noise validation:
+\[
+\eta(C_t) < \eta_{\text{max}}.
+\]
+
+\subsection{Phase 2: Plasma and Quantum Evolution}
+Encrypted plasma fields evolve according to:
+\[
+\Phi_{t+1} = \Phi_t 
++ \lambda_1 \sigma_{\text{eff}}(\sqrt{s}_{\text{eff}})
++ \lambda_2 T_t
++ \lambda_3 \mathcal{A}_t.
+\]
+
+Quantum interaction state updates as:
+\[
+Q_{t+1} = 
+\left(
+\sigma(\sqrt{s}),\,
+\sigma_{\Delta}(\sqrt{s}),\,
+T_t
+\right).
+\]
+
+\subsection{Phase 3: Dynamic Engine Update}
+The four encrypted dynamic engines update via:
+\[
+E^{\text{eng}}_{t+1} 
+= \Gamma\!\left(
+\Phi_{t+1},\,
+Q_{t+1}
+\right),
+\]
+where $\Gamma$ is the engine update operator.
+
+Each engine computes encrypted behavioral responses:
+\[
+E^{\text{eng}}_{t+1} =
+\left(
+S_{t+1},\,
+R_{t+1},\,
+E_{t+1},\,
+M_{t+1}
+\right).
+\]
+
+\subsection{Phase 4: Ledger Block Construction}
+The ledger block for iteration $t+1$ is:
+\[
+B_{t+1} = \mathcal{H}(E_{t+1} \Vert B_t),
+\]
+forming a tamper-evident chain.
+
+\subsection{Phase 5: Encrypted Integrity Verification}
+The Integrity Guard evaluates:
+\[
+V_{t+1} = 
+\mathbf{1}_{B_{t+1} = \mathcal{H}(E_{t+1} \Vert B_t)}.
+\]
+
+The sovereign loop continues only if:
+\[
+V_{t+1} = 1.
+\]
+
+\subsection{Phase 6: Loop Continuation}
+If integrity is preserved:
+\[
+\mathcal{S}_{t+1} \rightarrow \mathcal{S}_{t+2}.
+\]
+
+If integrity fails:
+\[
+\mathcal{S}_{t+1} \rightarrow \text{Sovereign Fault}.
+\]
+
+\subsection{Complete Sovereign Loop}
+The full loop is:
+\[
+\boxed{
+\mathcal{S}_{t+1} =
+\Lambda(\mathcal{S}_t)
+=
+\left(
+\mathcal{E}(D_t),\,
+\Phi_{t+1},\,
+Q_{t+1},\,
+E^{\text{eng}}_{t+1},\,
+B_{t+1}
+\right)
+}
+\]
+
+This defines QCSE-X as a sovereign encrypted computational organism.
