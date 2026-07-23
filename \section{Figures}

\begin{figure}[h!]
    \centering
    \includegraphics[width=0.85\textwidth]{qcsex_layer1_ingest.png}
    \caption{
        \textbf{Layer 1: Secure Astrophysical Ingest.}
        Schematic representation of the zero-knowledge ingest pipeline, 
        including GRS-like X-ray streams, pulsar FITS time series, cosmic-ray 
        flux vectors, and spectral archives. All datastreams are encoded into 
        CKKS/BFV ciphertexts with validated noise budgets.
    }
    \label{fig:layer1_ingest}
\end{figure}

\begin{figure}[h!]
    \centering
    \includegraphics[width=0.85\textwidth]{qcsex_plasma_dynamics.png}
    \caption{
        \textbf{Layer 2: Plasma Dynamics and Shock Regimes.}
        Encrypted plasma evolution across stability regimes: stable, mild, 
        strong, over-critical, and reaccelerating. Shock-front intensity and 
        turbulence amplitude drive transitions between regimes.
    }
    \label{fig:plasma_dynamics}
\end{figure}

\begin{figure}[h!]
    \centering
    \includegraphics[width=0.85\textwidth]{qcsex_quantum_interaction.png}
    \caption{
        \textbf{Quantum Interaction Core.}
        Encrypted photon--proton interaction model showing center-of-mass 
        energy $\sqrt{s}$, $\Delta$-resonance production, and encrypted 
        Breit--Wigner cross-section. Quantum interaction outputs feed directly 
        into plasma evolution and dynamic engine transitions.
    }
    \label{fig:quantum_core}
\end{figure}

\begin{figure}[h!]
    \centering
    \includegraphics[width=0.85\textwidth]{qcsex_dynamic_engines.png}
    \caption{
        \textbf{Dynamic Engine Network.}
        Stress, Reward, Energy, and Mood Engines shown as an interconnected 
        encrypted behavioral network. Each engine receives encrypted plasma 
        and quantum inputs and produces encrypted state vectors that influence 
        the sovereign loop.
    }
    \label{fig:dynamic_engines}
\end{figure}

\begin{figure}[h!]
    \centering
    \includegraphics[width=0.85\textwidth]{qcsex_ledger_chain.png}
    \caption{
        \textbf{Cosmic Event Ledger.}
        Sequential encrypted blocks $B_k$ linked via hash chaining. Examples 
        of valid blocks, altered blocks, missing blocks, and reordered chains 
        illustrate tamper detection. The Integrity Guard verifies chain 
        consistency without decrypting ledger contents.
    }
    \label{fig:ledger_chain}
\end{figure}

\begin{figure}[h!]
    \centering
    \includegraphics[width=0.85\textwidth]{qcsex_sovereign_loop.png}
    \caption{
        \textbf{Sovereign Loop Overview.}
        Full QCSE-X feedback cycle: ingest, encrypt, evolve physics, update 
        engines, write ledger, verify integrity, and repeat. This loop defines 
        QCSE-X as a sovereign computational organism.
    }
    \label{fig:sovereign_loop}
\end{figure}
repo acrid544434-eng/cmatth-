@@ -1,0 +1,77 @@
+\section{Figures}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{qcsex_layer1_ingest.png}
+    \caption{
+        \textbf{Layer 1: Secure Astrophysical Ingest.}
+        Schematic representation of the zero-knowledge ingest pipeline, 
+        including GRS-like X-ray streams, pulsar FITS time series, cosmic-ray 
+        flux vectors, and spectral archives. All datastreams are encoded into 
+        CKKS/BFV ciphertexts with validated noise budgets.
+    }
+    \label{fig:layer1_ingest}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{qcsex_plasma_dynamics.png}
+    \caption{
+        \textbf{Layer 2: Plasma Dynamics and Shock Regimes.}
+        Encrypted plasma evolution across stability regimes: stable, mild, 
+        strong, over-critical, and reaccelerating. Shock-front intensity and 
+        turbulence amplitude drive transitions between regimes.
+    }
+    \label{fig:plasma_dynamics}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{qcsex_quantum_interaction.png}
+    \caption{
+        \textbf{Quantum Interaction Core.}
+        Encrypted photon--proton interaction model showing center-of-mass 
+        energy $\sqrt{s}$, $\Delta$-resonance production, and encrypted 
+        Breit--Wigner cross-section. Quantum interaction outputs feed directly 
+        into plasma evolution and dynamic engine transitions.
+    }
+    \label{fig:quantum_core}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{qcsex_dynamic_engines.png}
+    \caption{
+        \textbf{Dynamic Engine Network.}
+        Stress, Reward, Energy, and Mood Engines shown as an interconnected 
+        encrypted behavioral network. Each engine receives encrypted plasma 
+        and quantum inputs and produces encrypted state vectors that influence 
+        the sovereign loop.
+    }
+    \label{fig:dynamic_engines}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{qcsex_ledger_chain.png}
+    \caption{
+        \textbf{Cosmic Event Ledger.}
+        Sequential encrypted blocks $B_k$ linked via hash chaining. Examples 
+        of valid blocks, altered blocks, missing blocks, and reordered chains 
+        illustrate tamper detection. The Integrity Guard verifies chain 
+        consistency without decrypting ledger contents.
+    }
+    \label{fig:ledger_chain}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{qcsex_sovereign_loop.png}
+    \caption{
+        \textbf{Sovereign Loop Overview.}
+        Full QCSE-X feedback cycle: ingest, encrypt, evolve physics, update 
+        engines, write ledger, verify integrity, and repeat. This loop defines 
+        QCSE-X as a sovereign computational organism.
+    }
+    \label{fig:sovereign_loop}
+\end{figure}
