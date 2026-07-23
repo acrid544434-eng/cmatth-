@@ -1,0 +1,95 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{Expanded Atomic Motion Law for the First Atoms Engine (FAE)}}
+\author{C.~Matthew~Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{1. Baseline Motion Law}
+The baseline effective drift velocity for FAE is:
+\begin{equation}
+    v_{eff}(t, \mathbf{x}) = k_{A} \cdot \left|\nabla \Phi_{A}^{*}(t, \mathbf{x})\right| \cdot S_{A}(t)
+\end{equation}
+where:
+\begin{itemize}
+    \item $k_{A}$ is the atomic coupling coefficient,
+    \item $\left|\nabla \Phi_{A}^{*}\right|$ is the reinforced atomic stability gradient,
+    \item $S_{A}(t)$ is the atomic-scale entropy term.
+\end{itemize}
+
+\section*{2. Time-Dependent Acceleration}
+Define the local acceleration field as the time derivative of $v_{eff}$:
+\begin{equation}
+    a_{eff}(t, \mathbf{x}) = \frac{\partial v_{eff}(t, \mathbf{x})}{\partial t}
+\end{equation}
+Substituting the motion law:
+\begin{equation}
+    a_{eff}(t, \mathbf{x}) = k_{A} \left[
+        \frac{\partial}{\partial t}\left|\nabla \Phi_{A}^{*}(t, \mathbf{x})\right| \cdot S_{A}(t)
+        + \left|\nabla \Phi_{A}^{*}(t, \mathbf{x})\right| \cdot \frac{\partial S_{A}(t)}{\partial t}
+    \right]
+\end{equation}
+This shows that acceleration arises from:
+\begin{itemize}
+    \item temporal changes in the atomic gradient,
+    \item temporal changes in the entropy reinforcement.
+\end{itemize}
+
+\section*{3. Relativistic Correction}
+To respect the constraint $v_{eff} < c$, introduce a relativistic correction factor:
+\begin{equation}
+    \gamma_{A}(t, \mathbf{x}) = \frac{1}{\sqrt{1 - \left(\frac{v_{eff}(t, \mathbf{x})}{c}\right)^{2}}}
+\end{equation}
+The effective momentum-like quantity for the drift regime can be written as:
+\begin{equation}
+    p_{A}(t, \mathbf{x}) = \gamma_{A}(t, \mathbf{x}) \cdot m_{eff} \cdot v_{eff}(t, \mathbf{x})
+\end{equation}
+where $m_{eff}$ is an effective mass parameter representing the coupled craft–field system.
+
+\section*{4. Trajectory Equation}
+Assuming motion predominantly along the gradient direction $\hat{n}_{\Phi}$:
+\begin{equation}
+    \hat{n}_{\Phi}(t, \mathbf{x}) = \frac{\nabla \Phi_{A}^{*}(t, \mathbf{x})}{\left|\nabla \Phi_{A}^{*}(t, \mathbf{x})\right|}
+\end{equation}
+The position of the craft can be modeled as:
+\begin{equation}
+    \frac{d\mathbf{r}(t)}{dt} = v_{eff}(t, \mathbf{r}(t)) \cdot \hat{n}_{\Phi}(t, \mathbf{r}(t))
+\end{equation}
+and
+\begin{equation}
+    \frac{d^{2}\mathbf{r}(t)}{dt^{2}} = a_{eff}(t, \mathbf{r}(t)) \cdot \hat{n}_{\Phi}(t, \mathbf{r}(t))
+    + v_{eff}(t, \mathbf{r}(t)) \cdot \frac{d\hat{n}_{\Phi}(t, \mathbf{r}(t))}{dt}
+\end{equation}
+The second term captures curvature in the gradient field.
+
+\section*{5. Energy Interpretation}
+Define an effective atomic-gradient potential:
+\begin{equation}
+    U_{A}(t, \mathbf{x}) = -\beta_{A} \cdot \Phi_{A}^{*}(t, \mathbf{x})
+\end{equation}
+with $\beta_{A}$ a scaling constant. The work done along a path $\mathcal{P}$ is:
+\begin{equation}
+    W_{A} = \int_{\mathcal{P}} \nabla U_{A}(t, \mathbf{x}) \cdot d\mathbf{x}
+\end{equation}
+and the drift behavior can be interpreted as motion toward lower $U_{A}$, consistent
+with falling into a stability-biased atomic well.
+
+\section*{6. Summary}
+The expanded atomic motion law for FAE:
+\begin{itemize}
+    \item defines velocity as a product of gradient magnitude and entropy,
+    \item derives acceleration from time variation in both gradient and entropy,
+    \item incorporates relativistic constraints via $\gamma_{A}$,
+    \item models trajectories along the gradient direction with curvature effects,
+    \item interprets motion as descent in an effective atomic-gradient potential.
+\end{itemize}
+This framework positions FAE as a continuous, gradient-driven drift system
+approaching relativistic speeds without exceeding the speed of light.
+
+\end{document}
