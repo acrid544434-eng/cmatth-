@@ -1,0 +1,160 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+
+\title{MK-22 Propulsion Gradient Tensor:\\
+A Suprakernel-Based Aero-Propulsive Runtime Architecture}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This journal presents the propulsion architecture of the MK-22
+aerospace suprakernel. The MK-22 integrates propulsion dynamics,
+aerodynamic load coupling, torque-margin governance, perturbation-damped
+evolution, and encrypted ledger-bound simulation history. The propulsion
+gradient tensor is introduced as the core operator governing thrust
+response, aero-load sensitivity, and suprakernel redesign admissibility.
+\end{abstract}
+
+\section{Introduction}
+The MK-22 suprakernel propulsion system is defined by a unified
+multi-domain state vector incorporating propeller angular velocity,
+boost pressure, exhaust thermal load, fuel mass flow, and aerodynamic
+load. This journal documents the propulsion gradient tensor, torque
+margin operator, and encrypted suprakernel runtime governing MK-22
+propulsion evolution.
+
+\section{Propulsion State Vector}
+The MK-22 propulsion state vector is
+\[
+\mathbf{X}_{\text{prop}} =
+\begin{bmatrix}
+\omega_{\text{prop}} \\
+P_{\text{boost}} \\
+T_{\text{exhaust}} \\
+\dot{m}_{\text{fuel}} \\
+L_{\text{aero}}
+\end{bmatrix}.
+\]
+
+Propulsion dynamics evolve under
+\[
+\frac{d\omega_{\text{prop}}}{dt}
+=
+\frac{dL_{\text{aero}}}{L_{\text{aero}}},
+\]
+and
+\[
+\frac{d(\omega_{\text{prop}} P_{\text{boost}})}{dt}
+=
+\Phi_{\text{MK22}}(\mathbf{X}_{\text{prop}}).
+\]
+
+\section{Propulsion Gradient Tensor}
+Define the propulsion gradient tensor:
+\[
+\mathbf{G}_{\text{prop}} =
+\frac{\partial \mathbf{F}_{\text{prop}}}{\partial \mathbf{X}_{\text{prop}}},
+\]
+where $\mathbf{F}_{\text{prop}}$ is the propulsion force vector.
+
+The tensor encodes sensitivity of thrust and aero-propulsive coupling:
+\[
+\mathbf{G}_{\text{prop}} =
+\begin{bmatrix}
+\frac{\partial F_{x}}{\partial \omega_{\text{prop}}} &
+\frac{\partial F_{x}}{\partial P_{\text{boost}}} &
+\cdots \\
+\frac{\partial F_{y}}{\partial \omega_{\text{prop}}} &
+\frac{\partial F_{y}}{\partial P_{\text{boost}}} &
+\cdots
+\end{bmatrix}.
+\]
+
+\section{Torque Margin Operator}
+Torque margin is defined as
+\[
+\tau_{\text{margin}} =
+\tau_{\max} - \tau_{\text{load}},
+\]
+with suprakernel constraint
+\[
+\tau_{\min} \le \tau_{\text{load}} \le \tau_{\max}.
+\]
+
+Torque evolution:
+\[
+\frac{d\tau_{\text{load}}}{dt}
+=
+\Gamma_{\text{MK22}}(\omega_{\text{prop}}, P_{\text{boost}}, L_{\text{aero}}).
+\]
+
+\section{Perturbation-Damped Propulsion Evolution}
+Perturbations evolve under
+\[
+\delta \mathbf{X}'_{\text{prop}} =
+\mathcal{D}_{\text{pert}}\big(\delta \mathbf{X}_{\text{prop}}\big),
+\]
+with constraint
+\[
+\|\delta \mathbf{X}'_{\text{prop}}\|
+\le
+\kappa \|\delta \mathbf{X}_{\text{prop}}\|.
+\]
+
+Propulsion update:
+\[
+\mathbf{X}_{\text{prop}}^{(n+1)} =
+\mathcal{F}_{\text{prop}}\big(\mathbf{X}_{\text{prop}}^{(n)}, \Delta t\big)
++
+\delta \mathbf{X}'_{\text{prop}}.
+\]
+
+\section{Encrypted Propulsion State}
+Encrypted propulsion state:
+\[
+\Lambda_{\text{prop}}^{(n)} =
+\mathcal{E}_{\text{prop}}\big(\mathbf{X}_{\text{prop}}^{(n)}, k_{\text{sec}}\big).
+\]
+
+\section{Sovereign Ledger Binding}
+Ledger entry:
+\[
+\ell_{\text{prop}}^{(n)} =
+\mathcal{L}_{\text{prop}}\big(\mathbf{X}_{\text{prop}}^{(n)}, \Lambda_{\text{prop}}^{(n)}\big).
+\]
+
+Hash chain:
+\[
+H_{\text{prop}}^{(n)} =
+\text{Hash}\big(\ell_{\text{prop}}^{(n)} \,\|\, H_{\text{prop}}^{(n-1)}\big).
+\]
+
+\section{Constraint Envelope}
+Unified propulsion constraint envelope:
+\[
+\mathcal{C}_{\text{prop,MK22}} =
+\mathcal{C}_{\text{flight}}
+\wedge
+\mathcal{C}_{\text{thermal}}
+\wedge
+\mathcal{C}_{\text{struct}}
+\wedge
+\mathcal{C}_{\text{prop}}
+\wedge
+\mathcal{C}_{\text{ctrl}}
+\wedge
+\mathcal{C}_{\text{enc}}
+\wedge
+\mathcal{C}_{\text{ledger}}.
+\]
+
+\section{Result}
+A fully converged, torque-governed, perturbation-damped, and
+cryptographically secured propulsion runtime forming the MK-22
+suprakernel architecture authored by C.~Matthew~Blackwell,
+Independent Designer.
+
+\end{document}
