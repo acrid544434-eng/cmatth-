@@ -1,0 +1,124 @@
+\section{Methods}
+
+\subsection{Overview}
+The QCSE-X v3.1 Sovereign Engine is evaluated using an end-to-end encrypted 
+computational pipeline consisting of: (1) secure astrophysical ingest, 
+(2) homomorphic encoding, (3) encrypted plasma and quantum-field evolution, 
+(4) dynamic engine state updates, and (5) cryptographically verified ledger 
+logging. All computations are performed without decrypting intermediate states.
+
+\subsection{Astrophysical Datastream Ingest}
+We simulate four classes of astrophysical inputs:
+\begin{enumerate}
+    \item GRS-like X-ray flux streams,
+    \item Pulsar FITS time series,
+    \item Cosmic-ray spectral flux vectors,
+    \item Archival broadband spectral distributions.
+\end{enumerate}
+
+Each datastream $D_i$ is validated for schema consistency and encoded using 
+CKKS/BFV homomorphic encryption:
+\[
+C_i = \mathcal{E}_{\text{CKKS}}(D_i).
+\]
+Noise budgets are checked to ensure solvability under encrypted plasma 
+dynamics.
+
+\subsection{Homomorphic Encoding and Noise Management}
+Ciphertexts are packed into vectorized form suitable for encrypted numerical 
+operations. Noise growth is monitored using:
+\[
+\eta(C_i) < \eta_{\text{max}},
+\]
+where $\eta(C_i)$ is the ciphertext noise and $\eta_{\text{max}}$ the 
+acceptable threshold for Layer 2 evolution.
+
+\subsection{Encrypted Plasma Dynamics}
+Plasma fields $\Phi_t$ evolve according to encrypted shock-front, turbulence, 
+and Fermi-II acceleration models. The encrypted energy update rule is:
+\[
+E_{t+1} = E_t 
++ \alpha A_t 
++ \beta F_t 
+- \gamma D_t 
++ \delta S_t,
+\]
+where $A_t$ is acceleration efficiency, $F_t$ cosmic-ray flux, $D_t$ turbulence 
+dissipation, and $S_t$ shock energy injection.
+
+All terms remain encrypted throughout the computation.
+
+\subsection{Quantum Interaction Core}
+Photon--proton interactions are modeled using encrypted center-of-mass energy:
+\[
+\sqrt{s} = \sqrt{m_p^2 + 2 E_\gamma m_p}.
+\]
+The encrypted cross-section is:
+\[
+\sigma(\sqrt{s}) = \mathcal{E}_{\text{CKKS}}\!\left( f(\sqrt{s}) \right).
+\]
+
+Resonance production is modeled via encrypted Breit--Wigner form:
+\[
+\sigma_\Delta(\sqrt{s}) =
+\mathcal{E}_{\text{CKKS}}\!\left(
+\frac{A}{(\sqrt{s} - m_\Delta)^2 + (\Gamma_\Delta/2)^2}
+\right).
+\]
+
+\subsection{Quantum--Plasma Coupling}
+Quantum interaction outputs modify plasma fields according to:
+\[
+\Phi_{t+1} = \Phi_t 
++ \lambda_1 \sigma_{\text{eff}}(\sqrt{s}_{\text{eff}})
++ \lambda_2 T
++ \lambda_3 \mathcal{A}_t,
+\]
+where $T$ is encrypted energy transfer and $\mathcal{A}_t$ is acceleration 
+efficiency.
+
+Plasma density and turbulence amplitude modify the effective interaction rate:
+\[
+\sqrt{s}_{\text{eff}} = \sqrt{s} + \eta_1 \rho_t + \eta_2 \tau_t.
+\]
+
+\subsection{Dynamic Engine Updates}
+Four encrypted dynamic engines interpret plasma and quantum states:
+\begin{enumerate}
+    \item Stress Engine,
+    \item Reward Engine,
+    \item Energy Engine,
+    \item Mood Engine.
+\end{enumerate}
+
+Each engine receives encrypted vectors and updates its internal state using 
+homomorphic arithmetic. Engine outputs feed back into plasma evolution and 
+ledger logging.
+
+\subsection{Cosmic Event Ledger Construction}
+Each event $E_k$ is encoded and hashed into a sequential block:
+\[
+B_k = \mathcal{H}(E_k \Vert B_{k-1}).
+\]
+The ledger is validated using encrypted consistency checks:
+\[
+V_k = \mathbf{1}_{B_k = \mathcal{H}(E_k \Vert B_{k-1})}.
+\]
+
+The chain is accepted if:
+\[
+\prod_{k=1}^{N} V_k = 1.
+\]
+
+\subsection{Sovereign Loop Execution}
+QCSE-X is executed as a closed feedback organism:
+\begin{enumerate}
+    \item Ingest encrypted datastreams,
+    \item Evolve plasma and quantum states,
+    \item Update dynamic engines,
+    \item Write ledger blocks,
+    \item Verify encrypted integrity,
+    \item Repeat.
+\end{enumerate}
+
+This loop continues until termination or sovereign fault detection.
