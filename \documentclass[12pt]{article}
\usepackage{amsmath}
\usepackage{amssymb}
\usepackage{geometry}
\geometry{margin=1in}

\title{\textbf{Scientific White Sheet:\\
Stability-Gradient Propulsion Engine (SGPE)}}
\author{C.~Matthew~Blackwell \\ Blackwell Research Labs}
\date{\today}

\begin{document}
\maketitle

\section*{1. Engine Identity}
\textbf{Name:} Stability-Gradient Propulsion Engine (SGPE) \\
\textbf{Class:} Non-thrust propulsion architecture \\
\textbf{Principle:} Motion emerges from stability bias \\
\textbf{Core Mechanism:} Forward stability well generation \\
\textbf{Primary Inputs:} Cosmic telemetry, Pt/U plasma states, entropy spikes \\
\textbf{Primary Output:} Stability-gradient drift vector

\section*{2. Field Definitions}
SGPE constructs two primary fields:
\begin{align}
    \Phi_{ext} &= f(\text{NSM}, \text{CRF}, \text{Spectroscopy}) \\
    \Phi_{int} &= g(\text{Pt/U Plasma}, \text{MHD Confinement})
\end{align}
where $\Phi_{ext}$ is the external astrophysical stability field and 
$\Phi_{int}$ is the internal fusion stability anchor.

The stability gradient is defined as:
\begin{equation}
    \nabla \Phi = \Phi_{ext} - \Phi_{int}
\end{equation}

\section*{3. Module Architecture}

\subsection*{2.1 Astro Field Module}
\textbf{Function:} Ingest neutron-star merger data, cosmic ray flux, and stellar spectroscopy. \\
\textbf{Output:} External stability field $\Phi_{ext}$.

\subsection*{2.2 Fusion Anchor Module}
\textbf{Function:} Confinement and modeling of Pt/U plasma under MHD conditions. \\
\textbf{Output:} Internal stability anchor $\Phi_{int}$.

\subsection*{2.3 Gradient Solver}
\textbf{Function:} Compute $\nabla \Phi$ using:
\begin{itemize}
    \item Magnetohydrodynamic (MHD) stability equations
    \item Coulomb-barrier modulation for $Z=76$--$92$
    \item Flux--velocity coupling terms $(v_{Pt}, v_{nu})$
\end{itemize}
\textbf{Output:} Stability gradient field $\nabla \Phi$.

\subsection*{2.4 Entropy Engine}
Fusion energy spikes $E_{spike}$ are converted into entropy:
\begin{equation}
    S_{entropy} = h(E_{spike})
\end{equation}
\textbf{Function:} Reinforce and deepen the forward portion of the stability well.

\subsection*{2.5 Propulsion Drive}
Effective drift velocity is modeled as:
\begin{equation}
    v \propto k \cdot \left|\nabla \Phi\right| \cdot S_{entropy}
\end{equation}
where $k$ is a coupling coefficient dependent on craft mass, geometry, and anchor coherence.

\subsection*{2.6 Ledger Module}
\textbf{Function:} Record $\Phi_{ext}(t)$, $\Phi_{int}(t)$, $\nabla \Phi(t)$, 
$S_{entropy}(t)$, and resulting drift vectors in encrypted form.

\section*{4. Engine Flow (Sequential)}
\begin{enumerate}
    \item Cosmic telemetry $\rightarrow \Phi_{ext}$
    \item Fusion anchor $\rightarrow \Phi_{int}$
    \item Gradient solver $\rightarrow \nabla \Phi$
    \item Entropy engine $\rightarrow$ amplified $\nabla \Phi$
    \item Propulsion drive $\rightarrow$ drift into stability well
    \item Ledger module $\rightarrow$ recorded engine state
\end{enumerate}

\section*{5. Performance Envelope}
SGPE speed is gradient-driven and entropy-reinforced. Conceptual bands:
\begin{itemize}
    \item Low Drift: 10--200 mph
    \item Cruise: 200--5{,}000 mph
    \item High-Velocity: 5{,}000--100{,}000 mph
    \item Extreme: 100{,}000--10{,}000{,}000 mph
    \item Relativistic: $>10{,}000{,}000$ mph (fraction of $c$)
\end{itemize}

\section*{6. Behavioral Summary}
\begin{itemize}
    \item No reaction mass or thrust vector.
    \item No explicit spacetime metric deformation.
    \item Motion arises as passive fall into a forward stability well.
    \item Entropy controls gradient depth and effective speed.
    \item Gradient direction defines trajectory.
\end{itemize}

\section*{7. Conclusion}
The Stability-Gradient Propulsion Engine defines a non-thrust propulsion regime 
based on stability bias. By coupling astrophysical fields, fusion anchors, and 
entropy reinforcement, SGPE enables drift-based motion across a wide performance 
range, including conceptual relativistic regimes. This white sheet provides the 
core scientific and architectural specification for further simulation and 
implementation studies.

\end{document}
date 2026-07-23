@@ -1,0 +1,111 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{Scientific White Sheet:\\
+Stability-Gradient Propulsion Engine (SGPE)}}
+\author{C.~Matthew~Blackwell \\ Blackwell Research Labs}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{1. Engine Identity}
+\textbf{Name:} Stability-Gradient Propulsion Engine (SGPE) \\
+\textbf{Class:} Non-thrust propulsion architecture \\
+\textbf{Principle:} Motion emerges from stability bias \\
+\textbf{Core Mechanism:} Forward stability well generation \\
+\textbf{Primary Inputs:} Cosmic telemetry, Pt/U plasma states, entropy spikes \\
+\textbf{Primary Output:} Stability-gradient drift vector
+
+\section*{2. Field Definitions}
+SGPE constructs two primary fields:
+\begin{align}
+    \Phi_{ext} &= f(\text{NSM}, \text{CRF}, \text{Spectroscopy}) \\
+    \Phi_{int} &= g(\text{Pt/U Plasma}, \text{MHD Confinement})
+\end{align}
+where $\Phi_{ext}$ is the external astrophysical stability field and 
+$\Phi_{int}$ is the internal fusion stability anchor.
+
+The stability gradient is defined as:
+\begin{equation}
+    \nabla \Phi = \Phi_{ext} - \Phi_{int}
+\end{equation}
+
+\section*{3. Module Architecture}
+
+\subsection*{2.1 Astro Field Module}
+\textbf{Function:} Ingest neutron-star merger data, cosmic ray flux, and stellar spectroscopy. \\
+\textbf{Output:} External stability field $\Phi_{ext}$.
+
+\subsection*{2.2 Fusion Anchor Module}
+\textbf{Function:} Confinement and modeling of Pt/U plasma under MHD conditions. \\
+\textbf{Output:} Internal stability anchor $\Phi_{int}$.
+
+\subsection*{2.3 Gradient Solver}
+\textbf{Function:} Compute $\nabla \Phi$ using:
+\begin{itemize}
+    \item Magnetohydrodynamic (MHD) stability equations
+    \item Coulomb-barrier modulation for $Z=76$--$92$
+    \item Flux--velocity coupling terms $(v_{Pt}, v_{nu})$
+\end{itemize}
+\textbf{Output:} Stability gradient field $\nabla \Phi$.
+
+\subsection*{2.4 Entropy Engine}
+Fusion energy spikes $E_{spike}$ are converted into entropy:
+\begin{equation}
+    S_{entropy} = h(E_{spike})
+\end{equation}
+\textbf{Function:} Reinforce and deepen the forward portion of the stability well.
+
+\subsection*{2.5 Propulsion Drive}
+Effective drift velocity is modeled as:
+\begin{equation}
+    v \propto k \cdot \left|\nabla \Phi\right| \cdot S_{entropy}
+\end{equation}
+where $k$ is a coupling coefficient dependent on craft mass, geometry, and anchor coherence.
+
+\subsection*{2.6 Ledger Module}
+\textbf{Function:} Record $\Phi_{ext}(t)$, $\Phi_{int}(t)$, $\nabla \Phi(t)$, 
+$S_{entropy}(t)$, and resulting drift vectors in encrypted form.
+
+\section*{4. Engine Flow (Sequential)}
+\begin{enumerate}
+    \item Cosmic telemetry $\rightarrow \Phi_{ext}$
+    \item Fusion anchor $\rightarrow \Phi_{int}$
+    \item Gradient solver $\rightarrow \nabla \Phi$
+    \item Entropy engine $\rightarrow$ amplified $\nabla \Phi$
+    \item Propulsion drive $\rightarrow$ drift into stability well
+    \item Ledger module $\rightarrow$ recorded engine state
+\end{enumerate}
+
+\section*{5. Performance Envelope}
+SGPE speed is gradient-driven and entropy-reinforced. Conceptual bands:
+\begin{itemize}
+    \item Low Drift: 10--200 mph
+    \item Cruise: 200--5{,}000 mph
+    \item High-Velocity: 5{,}000--100{,}000 mph
+    \item Extreme: 100{,}000--10{,}000{,}000 mph
+    \item Relativistic: $>10{,}000{,}000$ mph (fraction of $c$)
+\end{itemize}
+
+\section*{6. Behavioral Summary}
+\begin{itemize}
+    \item No reaction mass or thrust vector.
+    \item No explicit spacetime metric deformation.
+    \item Motion arises as passive fall into a forward stability well.
+    \item Entropy controls gradient depth and effective speed.
+    \item Gradient direction defines trajectory.
+\end{itemize}
+
+\section*{7. Conclusion}
+The Stability-Gradient Propulsion Engine defines a non-thrust propulsion regime 
+based on stability bias. By coupling astrophysical fields, fusion anchors, and 
+entropy reinforcement, SGPE enables drift-based motion across a wide performance 
+range, including conceptual relativistic regimes. This white sheet provides the 
+core scientific and architectural specification for further simulation and 
+implementation studies.
+
+\end{document}
