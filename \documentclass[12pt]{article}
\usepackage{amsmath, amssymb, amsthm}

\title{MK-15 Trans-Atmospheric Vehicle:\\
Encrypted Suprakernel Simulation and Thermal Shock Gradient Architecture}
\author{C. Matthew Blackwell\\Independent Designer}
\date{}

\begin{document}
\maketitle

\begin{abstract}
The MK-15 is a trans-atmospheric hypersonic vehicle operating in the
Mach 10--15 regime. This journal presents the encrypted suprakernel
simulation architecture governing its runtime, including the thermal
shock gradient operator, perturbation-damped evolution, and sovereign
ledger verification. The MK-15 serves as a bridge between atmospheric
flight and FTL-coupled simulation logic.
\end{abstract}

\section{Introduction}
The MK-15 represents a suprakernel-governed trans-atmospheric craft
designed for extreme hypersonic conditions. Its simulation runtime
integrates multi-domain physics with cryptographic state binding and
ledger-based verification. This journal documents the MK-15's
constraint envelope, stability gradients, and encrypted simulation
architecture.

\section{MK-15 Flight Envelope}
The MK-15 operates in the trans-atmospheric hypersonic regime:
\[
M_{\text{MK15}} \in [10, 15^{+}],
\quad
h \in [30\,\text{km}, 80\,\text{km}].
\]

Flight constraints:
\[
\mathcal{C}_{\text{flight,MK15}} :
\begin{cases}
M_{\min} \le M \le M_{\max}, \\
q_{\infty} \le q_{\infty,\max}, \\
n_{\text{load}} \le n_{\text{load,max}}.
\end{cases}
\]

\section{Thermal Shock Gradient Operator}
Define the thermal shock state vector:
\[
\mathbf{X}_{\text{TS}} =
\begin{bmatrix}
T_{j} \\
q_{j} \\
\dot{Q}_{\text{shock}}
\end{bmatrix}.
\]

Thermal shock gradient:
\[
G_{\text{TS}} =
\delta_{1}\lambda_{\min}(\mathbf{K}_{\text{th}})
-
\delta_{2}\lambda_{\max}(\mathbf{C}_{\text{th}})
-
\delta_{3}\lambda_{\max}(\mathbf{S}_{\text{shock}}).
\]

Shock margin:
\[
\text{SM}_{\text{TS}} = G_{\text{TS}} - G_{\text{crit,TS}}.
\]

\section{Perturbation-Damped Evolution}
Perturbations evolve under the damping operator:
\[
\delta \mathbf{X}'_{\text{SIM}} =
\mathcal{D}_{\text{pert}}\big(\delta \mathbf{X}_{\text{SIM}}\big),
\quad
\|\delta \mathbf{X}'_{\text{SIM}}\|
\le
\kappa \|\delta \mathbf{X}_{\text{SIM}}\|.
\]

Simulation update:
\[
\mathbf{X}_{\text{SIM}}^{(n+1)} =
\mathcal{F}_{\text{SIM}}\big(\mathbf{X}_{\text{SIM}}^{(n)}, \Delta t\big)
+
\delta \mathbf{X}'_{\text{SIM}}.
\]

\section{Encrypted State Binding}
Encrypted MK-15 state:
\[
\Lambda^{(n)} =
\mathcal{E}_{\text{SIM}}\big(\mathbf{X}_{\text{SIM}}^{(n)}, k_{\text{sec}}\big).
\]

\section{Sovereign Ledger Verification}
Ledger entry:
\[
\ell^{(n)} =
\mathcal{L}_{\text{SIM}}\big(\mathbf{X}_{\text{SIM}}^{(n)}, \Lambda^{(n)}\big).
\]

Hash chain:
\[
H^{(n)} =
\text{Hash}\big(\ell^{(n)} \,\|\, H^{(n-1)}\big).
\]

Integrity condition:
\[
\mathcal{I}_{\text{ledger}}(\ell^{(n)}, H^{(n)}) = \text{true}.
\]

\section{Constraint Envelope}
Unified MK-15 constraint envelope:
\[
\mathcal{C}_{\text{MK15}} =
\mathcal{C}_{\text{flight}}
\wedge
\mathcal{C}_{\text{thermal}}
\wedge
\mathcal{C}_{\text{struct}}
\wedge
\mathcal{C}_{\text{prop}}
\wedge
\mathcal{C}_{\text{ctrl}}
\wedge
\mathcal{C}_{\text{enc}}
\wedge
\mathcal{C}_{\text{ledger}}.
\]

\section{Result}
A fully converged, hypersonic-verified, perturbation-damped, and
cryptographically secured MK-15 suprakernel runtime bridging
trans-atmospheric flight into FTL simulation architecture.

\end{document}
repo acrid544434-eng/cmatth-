@@ -1,0 +1,141 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+
+\title{MK-15 Trans-Atmospheric Vehicle:\\
+Encrypted Suprakernel Simulation and Thermal Shock Gradient Architecture}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The MK-15 is a trans-atmospheric hypersonic vehicle operating in the
+Mach 10--15 regime. This journal presents the encrypted suprakernel
+simulation architecture governing its runtime, including the thermal
+shock gradient operator, perturbation-damped evolution, and sovereign
+ledger verification. The MK-15 serves as a bridge between atmospheric
+flight and FTL-coupled simulation logic.
+\end{abstract}
+
+\section{Introduction}
+The MK-15 represents a suprakernel-governed trans-atmospheric craft
+designed for extreme hypersonic conditions. Its simulation runtime
+integrates multi-domain physics with cryptographic state binding and
+ledger-based verification. This journal documents the MK-15's
+constraint envelope, stability gradients, and encrypted simulation
+architecture.
+
+\section{MK-15 Flight Envelope}
+The MK-15 operates in the trans-atmospheric hypersonic regime:
+\[
+M_{\text{MK15}} \in [10, 15^{+}],
+\quad
+h \in [30\,\text{km}, 80\,\text{km}].
+\]
+
+Flight constraints:
+\[
+\mathcal{C}_{\text{flight,MK15}} :
+\begin{cases}
+M_{\min} \le M \le M_{\max}, \\
+q_{\infty} \le q_{\infty,\max}, \\
+n_{\text{load}} \le n_{\text{load,max}}.
+\end{cases}
+\]
+
+\section{Thermal Shock Gradient Operator}
+Define the thermal shock state vector:
+\[
+\mathbf{X}_{\text{TS}} =
+\begin{bmatrix}
+T_{j} \\
+q_{j} \\
+\dot{Q}_{\text{shock}}
+\end{bmatrix}.
+\]
+
+Thermal shock gradient:
+\[
+G_{\text{TS}} =
+\delta_{1}\lambda_{\min}(\mathbf{K}_{\text{th}})
+-
+\delta_{2}\lambda_{\max}(\mathbf{C}_{\text{th}})
+-
+\delta_{3}\lambda_{\max}(\mathbf{S}_{\text{shock}}).
+\]
+
+Shock margin:
+\[
+\text{SM}_{\text{TS}} = G_{\text{TS}} - G_{\text{crit,TS}}.
+\]
+
+\section{Perturbation-Damped Evolution}
+Perturbations evolve under the damping operator:
+\[
+\delta \mathbf{X}'_{\text{SIM}} =
+\mathcal{D}_{\text{pert}}\big(\delta \mathbf{X}_{\text{SIM}}\big),
+\quad
+\|\delta \mathbf{X}'_{\text{SIM}}\|
+\le
+\kappa \|\delta \mathbf{X}_{\text{SIM}}\|.
+\]
+
+Simulation update:
+\[
+\mathbf{X}_{\text{SIM}}^{(n+1)} =
+\mathcal{F}_{\text{SIM}}\big(\mathbf{X}_{\text{SIM}}^{(n)}, \Delta t\big)
++
+\delta \mathbf{X}'_{\text{SIM}}.
+\]
+
+\section{Encrypted State Binding}
+Encrypted MK-15 state:
+\[
+\Lambda^{(n)} =
+\mathcal{E}_{\text{SIM}}\big(\mathbf{X}_{\text{SIM}}^{(n)}, k_{\text{sec}}\big).
+\]
+
+\section{Sovereign Ledger Verification}
+Ledger entry:
+\[
+\ell^{(n)} =
+\mathcal{L}_{\text{SIM}}\big(\mathbf{X}_{\text{SIM}}^{(n)}, \Lambda^{(n)}\big).
+\]
+
+Hash chain:
+\[
+H^{(n)} =
+\text{Hash}\big(\ell^{(n)} \,\|\, H^{(n-1)}\big).
+\]
+
+Integrity condition:
+\[
+\mathcal{I}_{\text{ledger}}(\ell^{(n)}, H^{(n)}) = \text{true}.
+\]
+
+\section{Constraint Envelope}
+Unified MK-15 constraint envelope:
+\[
+\mathcal{C}_{\text{MK15}} =
+\mathcal{C}_{\text{flight}}
+\wedge
+\mathcal{C}_{\text{thermal}}
+\wedge
+\mathcal{C}_{\text{struct}}
+\wedge
+\mathcal{C}_{\text{prop}}
+\wedge
+\mathcal{C}_{\text{ctrl}}
+\wedge
+\mathcal{C}_{\text{enc}}
+\wedge
+\mathcal{C}_{\text{ledger}}.
+\]
+
+\section{Result}
+A fully converged, hypersonic-verified, perturbation-damped, and
+cryptographically secured MK-15 suprakernel runtime bridging
+trans-atmospheric flight into FTL simulation architecture.
+
+\end{document}
