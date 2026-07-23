@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, graphicx, hyperref, geometry}
+\geometry{margin=1in}
+
+\title{\textbf{PUE-X: A Tensor-Driven, Astrophysics-Steered Heavy-Element Simulation Engine with Immutable Event Ledgering}}
+\author{C.~Matthew~Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We introduce PUE-X, a unified tensor-driven simulation architecture that couples
+astrophysical telemetry, heavy-element reaction kinetics, and cryptographically
+immutable event ledgering. The engine integrates a spatio-temporal geometry
+field, ENDF-calibrated reaction nodes, and a SHA-256 ledger into a closed-loop
+system capable of responding coherently to external astrophysical excitation.
+Parameter sweeps across burst intensity reveal distinct dynamical regimes,
+while topological invariance tests demonstrate robustness to spatial
+initialization noise. The results constitute the first empirical demonstration
+of a simulation engine that fuses astrophysical input, nuclear reaction
+dynamics, and information-theoretic verification into a single computational
+framework.
+\end{abstract}
+
+\section{Introduction}
+
+Astrophysical r-process nucleosynthesis remains one of the most challenging
+phenomena to model due to its dependence on extreme environments such as
+neutron star mergers and gamma-ray bursts. Traditional fusion simulations do
+not incorporate real-time astrophysical telemetry, nor do they provide
+cryptographically verifiable records of emergent physical events.
+
+PUE-X introduces a new class of simulation engine that unifies three domains:
+(1) tensor-driven plasma geometry, (2) heavy-element reaction kinetics, and
+(3) immutable ledger-based verification. This architecture enables coherent
+coupling between astrophysical excitation and internal reaction dynamics,
+providing a novel pathway for studying computable nucleosynthesis.
+
+\section{Methods}
+
+\subsection{Geometry Field}
+The geometry field $X(t)$ is represented as a $32 \times 32$ spatio-temporal
+grid updated via a finite-difference Laplacian operator:
+\[
+X(t+\Delta t) = X(t) + \Delta t \cdot \mathcal{G}(X(t), E(t)) + \sigma_X \xi_X(t),
+\]
+where $\mathcal{G}$ incorporates encrypted astrophysical telemetry and tensor
+fields $\xi_{kl}$.
+
+\subsection{Astrophysical Telemetry Ingest}
+Telemetry is modeled as a combined gravitational-wave chirp and gamma-ray burst
+flux envelope:
+\[
+E(t) = \sin(2\pi t + 0.5 t^2) + b \exp\left(-\frac{(t-2.5)^2}{0.1}\right)
+\cos(10\pi t),
+\]
+where $b$ is the burst amplitude multiplier.
+
+\subsection{Reality Nodes and Reaction Kinetics}
+Two reaction nodes represent $^{195}\mathrm{Pt}$ and $^{238}\mathrm{U}$,
+each with state vector $\mathbf{R}_i(t)$. Node dynamics follow:
+\[
+\frac{d\mathbf{R}_i}{dt} = D_i(X(t), \mathbf{R}_i(t)) + \sigma_R \xi_i(t),
+\]
+with ENDF-calibrated cross-sections and shell corrections:
+\[
+S(Z,N) = 2.5 \exp\left(-0.1 (Z - Z_{\text{magic}})^2\right).
+\]
+
+\subsection{Event Detection}
+Fusion spike events occur when $\|\mathbf{R}_i(t)\| > 1.2$. Geometry anomalies
+occur when $\max |X(t)| > 1.5$.
+
+\subsection{Immutable Ledger}
+Events are recorded in a SHA-256 ledger:
+\[
+L_n = H(L_{n-1} \Vert E_n),
+\]
+forming a cryptographically verifiable chain of physical events.
+
+\subsection{Parameter Sweep and Topological Invariance}
+Burst amplitude $b$ is
