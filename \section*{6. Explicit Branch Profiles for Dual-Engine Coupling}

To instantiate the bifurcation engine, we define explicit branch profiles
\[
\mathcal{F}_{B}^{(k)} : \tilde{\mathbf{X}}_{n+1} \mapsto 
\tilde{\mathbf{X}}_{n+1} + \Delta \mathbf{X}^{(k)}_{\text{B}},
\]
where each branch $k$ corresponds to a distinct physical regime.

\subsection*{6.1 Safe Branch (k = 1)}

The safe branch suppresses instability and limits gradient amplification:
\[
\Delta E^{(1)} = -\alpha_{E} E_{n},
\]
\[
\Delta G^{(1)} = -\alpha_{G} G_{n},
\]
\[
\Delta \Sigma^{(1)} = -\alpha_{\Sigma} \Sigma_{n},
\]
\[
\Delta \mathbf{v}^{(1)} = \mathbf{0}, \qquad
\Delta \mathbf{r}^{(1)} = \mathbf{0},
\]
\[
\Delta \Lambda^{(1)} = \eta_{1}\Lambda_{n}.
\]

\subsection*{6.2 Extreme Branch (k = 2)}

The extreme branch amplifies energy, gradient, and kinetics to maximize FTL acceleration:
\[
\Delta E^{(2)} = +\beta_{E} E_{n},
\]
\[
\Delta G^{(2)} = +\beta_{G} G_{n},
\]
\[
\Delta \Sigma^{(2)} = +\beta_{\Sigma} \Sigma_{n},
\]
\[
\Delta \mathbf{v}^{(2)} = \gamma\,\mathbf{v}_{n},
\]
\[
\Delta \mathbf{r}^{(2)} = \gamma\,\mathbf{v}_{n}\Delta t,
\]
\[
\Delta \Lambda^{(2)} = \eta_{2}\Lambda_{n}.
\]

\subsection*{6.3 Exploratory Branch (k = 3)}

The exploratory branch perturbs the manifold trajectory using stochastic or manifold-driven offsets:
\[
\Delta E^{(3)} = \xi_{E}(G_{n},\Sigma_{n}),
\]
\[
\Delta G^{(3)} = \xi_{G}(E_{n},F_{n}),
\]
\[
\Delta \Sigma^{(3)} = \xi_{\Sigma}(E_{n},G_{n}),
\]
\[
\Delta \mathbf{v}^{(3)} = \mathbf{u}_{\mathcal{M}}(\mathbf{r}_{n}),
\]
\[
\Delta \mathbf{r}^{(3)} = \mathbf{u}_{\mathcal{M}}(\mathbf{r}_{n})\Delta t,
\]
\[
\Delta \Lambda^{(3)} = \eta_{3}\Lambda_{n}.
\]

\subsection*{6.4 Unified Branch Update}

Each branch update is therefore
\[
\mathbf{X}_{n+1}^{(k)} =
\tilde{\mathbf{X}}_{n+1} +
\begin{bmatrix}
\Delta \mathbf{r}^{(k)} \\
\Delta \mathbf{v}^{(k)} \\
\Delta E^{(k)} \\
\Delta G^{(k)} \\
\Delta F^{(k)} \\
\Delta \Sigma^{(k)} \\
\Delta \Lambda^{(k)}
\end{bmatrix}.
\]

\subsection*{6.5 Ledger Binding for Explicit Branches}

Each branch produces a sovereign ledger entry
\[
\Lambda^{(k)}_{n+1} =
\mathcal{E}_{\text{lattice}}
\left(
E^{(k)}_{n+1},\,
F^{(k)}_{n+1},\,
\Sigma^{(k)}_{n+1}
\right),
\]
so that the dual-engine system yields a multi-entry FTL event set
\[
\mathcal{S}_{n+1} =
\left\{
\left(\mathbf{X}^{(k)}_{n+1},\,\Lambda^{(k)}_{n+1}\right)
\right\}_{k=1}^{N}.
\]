@@ -1,0 +1,109 @@
+\section*{6. Explicit Branch Profiles for Dual-Engine Coupling}
+
+To instantiate the bifurcation engine, we define explicit branch profiles
+\[
+\mathcal{F}_{B}^{(k)} : \tilde{\mathbf{X}}_{n+1} \mapsto 
+\tilde{\mathbf{X}}_{n+1} + \Delta \mathbf{X}^{(k)}_{\text{B}},
+\]
+where each branch $k$ corresponds to a distinct physical regime.
+
+\subsection*{6.1 Safe Branch (k = 1)}
+
+The safe branch suppresses instability and limits gradient amplification:
+\[
+\Delta E^{(1)} = -\alpha_{E} E_{n},
+\]
+\[
+\Delta G^{(1)} = -\alpha_{G} G_{n},
+\]
+\[
+\Delta \Sigma^{(1)} = -\alpha_{\Sigma} \Sigma_{n},
+\]
+\[
+\Delta \mathbf{v}^{(1)} = \mathbf{0}, \qquad
+\Delta \mathbf{r}^{(1)} = \mathbf{0},
+\]
+\[
+\Delta \Lambda^{(1)} = \eta_{1}\Lambda_{n}.
+\]
+
+\subsection*{6.2 Extreme Branch (k = 2)}
+
+The extreme branch amplifies energy, gradient, and kinetics to maximize FTL acceleration:
+\[
+\Delta E^{(2)} = +\beta_{E} E_{n},
+\]
+\[
+\Delta G^{(2)} = +\beta_{G} G_{n},
+\]
+\[
+\Delta \Sigma^{(2)} = +\beta_{\Sigma} \Sigma_{n},
+\]
+\[
+\Delta \mathbf{v}^{(2)} = \gamma\,\mathbf{v}_{n},
+\]
+\[
+\Delta \mathbf{r}^{(2)} = \gamma\,\mathbf{v}_{n}\Delta t,
+\]
+\[
+\Delta \Lambda^{(2)} = \eta_{2}\Lambda_{n}.
+\]
+
+\subsection*{6.3 Exploratory Branch (k = 3)}
+
+The exploratory branch perturbs the manifold trajectory using stochastic or manifold-driven offsets:
+\[
+\Delta E^{(3)} = \xi_{E}(G_{n},\Sigma_{n}),
+\]
+\[
+\Delta G^{(3)} = \xi_{G}(E_{n},F_{n}),
+\]
+\[
+\Delta \Sigma^{(3)} = \xi_{\Sigma}(E_{n},G_{n}),
+\]
+\[
+\Delta \mathbf{v}^{(3)} = \mathbf{u}_{\mathcal{M}}(\mathbf{r}_{n}),
+\]
+\[
+\Delta \mathbf{r}^{(3)} = \mathbf{u}_{\mathcal{M}}(\mathbf{r}_{n})\Delta t,
+\]
+\[
+\Delta \Lambda^{(3)} = \eta_{3}\Lambda_{n}.
+\]
+
+\subsection*{6.4 Unified Branch Update}
+
+Each branch update is therefore
+\[
+\mathbf{X}_{n+1}^{(k)} =
+\tilde{\mathbf{X}}_{n+1} +
+\begin{bmatrix}
+\Delta \mathbf{r}^{(k)} \\
+\Delta \mathbf{v}^{(k)} \\
+\Delta E^{(k)} \\
+\Delta G^{(k)} \\
+\Delta F^{(k)} \\
+\Delta \Sigma^{(k)} \\
+\Delta \Lambda^{(k)}
+\end{bmatrix}.
+\]
+
+\subsection*{6.5 Ledger Binding for Explicit Branches}
+
+Each branch produces a sovereign ledger entry
+\[
+\Lambda^{(k)}_{n+1} =
+\mathcal{E}_{\text{lattice}}
+\left(
+E^{(k)}_{n+1},\,
+F^{(k)}_{n+1},\,
+\Sigma^{(k)}_{n+1}
+\right),
+\]
+so that the dual-engine system yields a multi-entry FTL event set
+\[
+\mathcal{S}_{n+1} =
+\left\{
+\left(\mathbf{X}^{(k)}_{n+1},\,\Lambda^{(k)}_{n+1}\right)
+\right\}_{k=1}^{N}.
+\]
