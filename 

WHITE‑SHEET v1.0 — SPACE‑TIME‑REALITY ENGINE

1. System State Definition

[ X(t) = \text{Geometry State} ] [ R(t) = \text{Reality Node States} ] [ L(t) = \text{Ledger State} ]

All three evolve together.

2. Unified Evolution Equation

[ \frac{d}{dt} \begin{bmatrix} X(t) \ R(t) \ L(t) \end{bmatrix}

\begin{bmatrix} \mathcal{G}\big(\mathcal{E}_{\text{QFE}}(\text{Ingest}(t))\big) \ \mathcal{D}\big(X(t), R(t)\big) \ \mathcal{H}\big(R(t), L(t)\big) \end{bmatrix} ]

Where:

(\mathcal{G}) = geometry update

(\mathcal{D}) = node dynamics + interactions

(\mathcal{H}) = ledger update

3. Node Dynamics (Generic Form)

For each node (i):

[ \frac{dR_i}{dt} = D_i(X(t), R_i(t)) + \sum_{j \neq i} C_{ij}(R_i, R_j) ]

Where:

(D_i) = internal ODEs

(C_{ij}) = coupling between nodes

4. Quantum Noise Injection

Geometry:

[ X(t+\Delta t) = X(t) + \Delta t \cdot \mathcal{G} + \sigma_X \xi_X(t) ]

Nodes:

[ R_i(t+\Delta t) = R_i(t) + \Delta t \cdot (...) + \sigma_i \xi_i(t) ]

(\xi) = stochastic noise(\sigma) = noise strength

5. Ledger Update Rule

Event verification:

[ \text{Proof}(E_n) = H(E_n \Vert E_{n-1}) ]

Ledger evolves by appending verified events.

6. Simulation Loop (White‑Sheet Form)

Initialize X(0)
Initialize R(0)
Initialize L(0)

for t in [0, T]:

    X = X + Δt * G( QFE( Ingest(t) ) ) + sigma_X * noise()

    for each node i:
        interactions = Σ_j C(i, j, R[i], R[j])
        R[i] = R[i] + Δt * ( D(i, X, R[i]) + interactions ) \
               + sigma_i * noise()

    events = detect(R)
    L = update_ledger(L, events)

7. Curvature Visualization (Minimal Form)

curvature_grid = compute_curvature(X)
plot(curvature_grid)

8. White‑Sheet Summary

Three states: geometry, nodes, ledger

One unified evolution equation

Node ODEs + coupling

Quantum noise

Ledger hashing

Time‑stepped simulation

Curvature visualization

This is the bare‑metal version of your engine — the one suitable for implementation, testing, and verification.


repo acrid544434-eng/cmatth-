@@ -1,0 +1,97 @@
+
+
+WHITE‑SHEET v1.0 — SPACE‑TIME‑REALITY ENGINE
+
+1. System State Definition
+
+[ X(t) = \text{Geometry State} ] [ R(t) = \text{Reality Node States} ] [ L(t) = \text{Ledger State} ]
+
+All three evolve together.
+
+2. Unified Evolution Equation
+
+[ \frac{d}{dt} \begin{bmatrix} X(t) \ R(t) \ L(t) \end{bmatrix}
+
+\begin{bmatrix} \mathcal{G}\big(\mathcal{E}_{\text{QFE}}(\text{Ingest}(t))\big) \ \mathcal{D}\big(X(t), R(t)\big) \ \mathcal{H}\big(R(t), L(t)\big) \end{bmatrix} ]
+
+Where:
+
+(\mathcal{G}) = geometry update
+
+(\mathcal{D}) = node dynamics + interactions
+
+(\mathcal{H}) = ledger update
+
+3. Node Dynamics (Generic Form)
+
+For each node (i):
+
+[ \frac{dR_i}{dt} = D_i(X(t), R_i(t)) + \sum_{j \neq i} C_{ij}(R_i, R_j) ]
+
+Where:
+
+(D_i) = internal ODEs
+
+(C_{ij}) = coupling between nodes
+
+4. Quantum Noise Injection
+
+Geometry:
+
+[ X(t+\Delta t) = X(t) + \Delta t \cdot \mathcal{G} + \sigma_X \xi_X(t) ]
+
+Nodes:
+
+[ R_i(t+\Delta t) = R_i(t) + \Delta t \cdot (...) + \sigma_i \xi_i(t) ]
+
+(\xi) = stochastic noise(\sigma) = noise strength
+
+5. Ledger Update Rule
+
+Event verification:
+
+[ \text{Proof}(E_n) = H(E_n \Vert E_{n-1}) ]
+
+Ledger evolves by appending verified events.
+
+6. Simulation Loop (White‑Sheet Form)
+
+Initialize X(0)
+Initialize R(0)
+Initialize L(0)
+
+for t in [0, T]:
+
+    X = X + Δt * G( QFE( Ingest(t) ) ) + sigma_X * noise()
+
+    for each node i:
+        interactions = Σ_j C(i, j, R[i], R[j])
+        R[i] = R[i] + Δt * ( D(i, X, R[i]) + interactions ) \
+               + sigma_i * noise()
+
+    events = detect(R)
+    L = update_ledger(L, events)
+
+7. Curvature Visualization (Minimal Form)
+
+curvature_grid = compute_curvature(X)
+plot(curvature_grid)
+
+8. White‑Sheet Summary
+
+Three states: geometry, nodes, ledger
+
+One unified evolution equation
+
+Node ODEs + coupling
+
+Quantum noise
+
+Ledger hashing
+
+Time‑stepped simulation
+
+Curvature visualization
+
+This is the bare‑metal version of your engine — the one suitable for implementation, testing, and verification.
+
