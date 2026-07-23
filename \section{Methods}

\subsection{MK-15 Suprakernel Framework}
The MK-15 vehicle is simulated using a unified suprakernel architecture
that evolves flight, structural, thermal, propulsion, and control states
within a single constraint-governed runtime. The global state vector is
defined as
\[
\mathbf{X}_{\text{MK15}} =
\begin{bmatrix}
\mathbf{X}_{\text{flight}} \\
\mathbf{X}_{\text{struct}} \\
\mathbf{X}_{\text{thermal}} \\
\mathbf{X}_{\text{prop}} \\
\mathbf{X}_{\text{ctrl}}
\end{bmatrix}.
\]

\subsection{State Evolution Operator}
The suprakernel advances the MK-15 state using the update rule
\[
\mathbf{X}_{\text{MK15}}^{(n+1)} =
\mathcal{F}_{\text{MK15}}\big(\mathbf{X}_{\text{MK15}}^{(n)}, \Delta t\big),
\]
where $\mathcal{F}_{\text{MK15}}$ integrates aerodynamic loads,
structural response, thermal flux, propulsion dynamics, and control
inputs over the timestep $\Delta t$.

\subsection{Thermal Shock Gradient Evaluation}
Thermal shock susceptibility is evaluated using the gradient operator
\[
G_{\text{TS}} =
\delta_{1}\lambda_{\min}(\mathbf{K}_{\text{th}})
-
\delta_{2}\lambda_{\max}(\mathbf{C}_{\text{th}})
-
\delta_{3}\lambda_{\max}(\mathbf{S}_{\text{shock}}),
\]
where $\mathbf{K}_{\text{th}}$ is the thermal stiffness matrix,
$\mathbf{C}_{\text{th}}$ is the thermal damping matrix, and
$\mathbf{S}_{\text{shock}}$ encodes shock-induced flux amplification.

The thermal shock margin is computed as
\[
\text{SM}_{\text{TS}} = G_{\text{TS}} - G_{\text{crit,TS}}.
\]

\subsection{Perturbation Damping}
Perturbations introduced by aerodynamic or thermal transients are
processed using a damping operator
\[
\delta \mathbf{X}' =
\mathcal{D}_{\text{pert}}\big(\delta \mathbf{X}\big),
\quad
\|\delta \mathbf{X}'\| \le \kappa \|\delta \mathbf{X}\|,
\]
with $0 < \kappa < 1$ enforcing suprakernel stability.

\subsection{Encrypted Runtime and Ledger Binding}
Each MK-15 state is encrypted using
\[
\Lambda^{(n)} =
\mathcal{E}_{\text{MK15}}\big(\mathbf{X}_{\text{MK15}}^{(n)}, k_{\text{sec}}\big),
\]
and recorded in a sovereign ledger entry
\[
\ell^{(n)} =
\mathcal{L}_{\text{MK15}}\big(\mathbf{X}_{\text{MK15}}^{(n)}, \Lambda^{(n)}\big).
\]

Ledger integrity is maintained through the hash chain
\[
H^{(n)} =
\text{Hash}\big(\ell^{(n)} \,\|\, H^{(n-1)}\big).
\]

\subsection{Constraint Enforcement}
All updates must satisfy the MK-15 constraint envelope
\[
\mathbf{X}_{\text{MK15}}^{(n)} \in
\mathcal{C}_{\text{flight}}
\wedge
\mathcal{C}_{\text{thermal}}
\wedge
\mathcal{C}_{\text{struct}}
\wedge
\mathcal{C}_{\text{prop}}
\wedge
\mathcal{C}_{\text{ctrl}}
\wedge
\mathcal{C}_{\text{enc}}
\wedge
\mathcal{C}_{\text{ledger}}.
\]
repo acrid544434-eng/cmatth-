@@ -1,0 +1,94 @@
+\section{Methods}
+
+\subsection{MK-15 Suprakernel Framework}
+The MK-15 vehicle is simulated using a unified suprakernel architecture
+that evolves flight, structural, thermal, propulsion, and control states
+within a single constraint-governed runtime. The global state vector is
+defined as
+\[
+\mathbf{X}_{\text{MK15}} =
+\begin{bmatrix}
+\mathbf{X}_{\text{flight}} \\
+\mathbf{X}_{\text{struct}} \\
+\mathbf{X}_{\text{thermal}} \\
+\mathbf{X}_{\text{prop}} \\
+\mathbf{X}_{\text{ctrl}}
+\end{bmatrix}.
+\]
+
+\subsection{State Evolution Operator}
+The suprakernel advances the MK-15 state using the update rule
+\[
+\mathbf{X}_{\text{MK15}}^{(n+1)} =
+\mathcal{F}_{\text{MK15}}\big(\mathbf{X}_{\text{MK15}}^{(n)}, \Delta t\big),
+\]
+where $\mathcal{F}_{\text{MK15}}$ integrates aerodynamic loads,
+structural response, thermal flux, propulsion dynamics, and control
+inputs over the timestep $\Delta t$.
+
+\subsection{Thermal Shock Gradient Evaluation}
+Thermal shock susceptibility is evaluated using the gradient operator
+\[
+G_{\text{TS}} =
+\delta_{1}\lambda_{\min}(\mathbf{K}_{\text{th}})
+-
+\delta_{2}\lambda_{\max}(\mathbf{C}_{\text{th}})
+-
+\delta_{3}\lambda_{\max}(\mathbf{S}_{\text{shock}}),
+\]
+where $\mathbf{K}_{\text{th}}$ is the thermal stiffness matrix,
+$\mathbf{C}_{\text{th}}$ is the thermal damping matrix, and
+$\mathbf{S}_{\text{shock}}$ encodes shock-induced flux amplification.
+
+The thermal shock margin is computed as
+\[
+\text{SM}_{\text{TS}} = G_{\text{TS}} - G_{\text{crit,TS}}.
+\]
+
+\subsection{Perturbation Damping}
+Perturbations introduced by aerodynamic or thermal transients are
+processed using a damping operator
+\[
+\delta \mathbf{X}' =
+\mathcal{D}_{\text{pert}}\big(\delta \mathbf{X}\big),
+\quad
+\|\delta \mathbf{X}'\| \le \kappa \|\delta \mathbf{X}\|,
+\]
+with $0 < \kappa < 1$ enforcing suprakernel stability.
+
+\subsection{Encrypted Runtime and Ledger Binding}
+Each MK-15 state is encrypted using
+\[
+\Lambda^{(n)} =
+\mathcal{E}_{\text{MK15}}\big(\mathbf{X}_{\text{MK15}}^{(n)}, k_{\text{sec}}\big),
+\]
+and recorded in a sovereign ledger entry
+\[
+\ell^{(n)} =
+\mathcal{L}_{\text{MK15}}\big(\mathbf{X}_{\text{MK15}}^{(n)}, \Lambda^{(n)}\big).
+\]
+
+Ledger integrity is maintained through the hash chain
+\[
+H^{(n)} =
+\text{Hash}\big(\ell^{(n)} \,\|\, H^{(n-1)}\big).
+\]
+
+\subsection{Constraint Enforcement}
+All updates must satisfy the MK-15 constraint envelope
+\[
+\mathbf{X}_{\text{MK15}}^{(n)} \in
+\mathcal{C}_{\text{flight}}
+\wedge
+\mathcal{C}_{\text{thermal}}
+\wedge
+\mathcal{C}_{\text{struct}}
+\wedge
+\mathcal{C}_{\text{prop}}
+\wedge
+\mathcal{C}_{\text{ctrl}}
+\wedge
+\mathcal{C}_{\text{enc}}
+\wedge
+\mathcal{C}_{\text{ledger}}.
+\]
