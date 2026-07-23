@@ -1,0 +1,40 @@
+\begin{tikzpicture}[
+    block/.style={draw, rounded corners, thick, align=center, minimum width=3.8cm, minimum height=1cm},
+    line/.style={->, thick},
+    branch/.style={draw, rounded corners, thick, align=center, minimum width=3.2cm, minimum height=0.9cm},
+    ledger/.style={draw, rounded corners, thick, align=center, minimum width=3.2cm, minimum height=0.9cm, fill=gray!15}
+]
+
+% Engine A (Core FTL Engine)
+\node[block] (engineA) at (0,0) {Core FTL Engine\\$\mathcal{F}$};
+
+% Bifurcation Engine
+\node[block] (bifurcation) at (5,0) {Bifurcation Engine\\$\mathcal{B}$};
+
+% Branches
+\node[branch] (branch1) at (10,2) {Branch 1\\$\mathbf{X}^{(1)}$};
+\node[branch] (branch2) at (10,0) {Branch 2\\$\mathbf{X}^{(2)}$};
+\node[branch] (branch3) at (10,-2) {Branch 3\\$\mathbf{X}^{(3)}$};
+
+% Ledger entries
+\node[ledger] (ledger1) at (15,2) {Ledger Entry\\$\Lambda^{(1)}$};
+\node[ledger] (ledger2) at (15,0) {Ledger Entry\\$\Lambda^{(2)}$};
+\node[ledger] (ledger3) at (15,-2) {Ledger Entry\\$\Lambda^{(3)}$};
+
+% Connections
+\draw[line] (engineA) -- (bifurcation);
+
+\draw[line] (bifurcation) -- (branch1);
+\draw[line] (bifurcation) -- (branch2);
+\draw[line] (bifurcation) -- (branch3);
+
+\draw[line] (branch1) -- (ledger1);
+\draw[line] (branch2) -- (ledger2);
+\draw[line] (branch3) -- (ledger3);
+
+% Annotation
+\node[align=left] at (0,-2.5) {State: $\mathbf{X}_{\text{FTL}} = [\mathbf{r},\mathbf{v},E,G,F,\Sigma,\Lambda]^T$};
+\node[align=left] at (5,-2.5) {Condition: $\beta(\mathbf{X}) \rightarrow$ multi-branch};
+\node[align=left] at (10,-3.5) {Branches evolve independently};
+\node[align=left] at (15,-3.5) {Each branch recorded as sovereign event};
+\end{tikzpicture}
