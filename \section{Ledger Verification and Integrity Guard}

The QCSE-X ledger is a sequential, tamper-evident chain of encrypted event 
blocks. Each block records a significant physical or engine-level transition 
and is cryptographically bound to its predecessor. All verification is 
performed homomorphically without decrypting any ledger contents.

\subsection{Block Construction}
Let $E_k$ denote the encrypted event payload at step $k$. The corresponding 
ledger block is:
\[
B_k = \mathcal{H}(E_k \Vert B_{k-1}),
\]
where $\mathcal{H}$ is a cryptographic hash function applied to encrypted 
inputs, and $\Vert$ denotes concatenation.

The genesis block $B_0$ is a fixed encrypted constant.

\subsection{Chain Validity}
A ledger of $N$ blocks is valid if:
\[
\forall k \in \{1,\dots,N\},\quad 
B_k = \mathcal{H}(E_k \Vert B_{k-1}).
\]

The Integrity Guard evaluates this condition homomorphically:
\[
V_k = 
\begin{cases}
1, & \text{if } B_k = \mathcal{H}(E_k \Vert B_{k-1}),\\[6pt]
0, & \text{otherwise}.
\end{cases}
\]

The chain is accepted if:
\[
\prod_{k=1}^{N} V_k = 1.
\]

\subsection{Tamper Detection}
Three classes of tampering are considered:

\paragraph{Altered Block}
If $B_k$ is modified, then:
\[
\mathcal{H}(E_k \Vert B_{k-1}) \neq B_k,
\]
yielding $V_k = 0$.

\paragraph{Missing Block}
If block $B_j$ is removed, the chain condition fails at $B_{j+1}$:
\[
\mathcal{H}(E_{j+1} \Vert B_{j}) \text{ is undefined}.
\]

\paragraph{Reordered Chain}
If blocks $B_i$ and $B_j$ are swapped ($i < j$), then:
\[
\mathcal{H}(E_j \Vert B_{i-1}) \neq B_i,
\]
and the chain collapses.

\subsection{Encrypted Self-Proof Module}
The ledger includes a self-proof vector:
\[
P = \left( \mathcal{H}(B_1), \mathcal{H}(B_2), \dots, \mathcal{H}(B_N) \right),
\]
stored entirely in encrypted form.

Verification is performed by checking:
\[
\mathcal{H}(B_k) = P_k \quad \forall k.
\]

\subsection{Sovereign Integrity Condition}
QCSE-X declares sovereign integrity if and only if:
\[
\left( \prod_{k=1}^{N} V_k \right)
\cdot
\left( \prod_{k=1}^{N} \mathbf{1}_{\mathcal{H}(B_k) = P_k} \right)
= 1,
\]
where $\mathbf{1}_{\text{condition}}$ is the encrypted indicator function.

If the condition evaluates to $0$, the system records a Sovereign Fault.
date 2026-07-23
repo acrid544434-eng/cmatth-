@@ -1,0 +1,85 @@
+\section{Ledger Verification and Integrity Guard}
+
+The QCSE-X ledger is a sequential, tamper-evident chain of encrypted event 
+blocks. Each block records a significant physical or engine-level transition 
+and is cryptographically bound to its predecessor. All verification is 
+performed homomorphically without decrypting any ledger contents.
+
+\subsection{Block Construction}
+Let $E_k$ denote the encrypted event payload at step $k$. The corresponding 
+ledger block is:
+\[
+B_k = \mathcal{H}(E_k \Vert B_{k-1}),
+\]
+where $\mathcal{H}$ is a cryptographic hash function applied to encrypted 
+inputs, and $\Vert$ denotes concatenation.
+
+The genesis block $B_0$ is a fixed encrypted constant.
+
+\subsection{Chain Validity}
+A ledger of $N$ blocks is valid if:
+\[
+\forall k \in \{1,\dots,N\},\quad 
+B_k = \mathcal{H}(E_k \Vert B_{k-1}).
+\]
+
+The Integrity Guard evaluates this condition homomorphically:
+\[
+V_k = 
+\begin{cases}
+1, & \text{if } B_k = \mathcal{H}(E_k \Vert B_{k-1}),\\[6pt]
+0, & \text{otherwise}.
+\end{cases}
+\]
+
+The chain is accepted if:
+\[
+\prod_{k=1}^{N} V_k = 1.
+\]
+
+\subsection{Tamper Detection}
+Three classes of tampering are considered:
+
+\paragraph{Altered Block}
+If $B_k$ is modified, then:
+\[
+\mathcal{H}(E_k \Vert B_{k-1}) \neq B_k,
+\]
+yielding $V_k = 0$.
+
+\paragraph{Missing Block}
+If block $B_j$ is removed, the chain condition fails at $B_{j+1}$:
+\[
+\mathcal{H}(E_{j+1} \Vert B_{j}) \text{ is undefined}.
+\]
+
+\paragraph{Reordered Chain}
+If blocks $B_i$ and $B_j$ are swapped ($i < j$), then:
+\[
+\mathcal{H}(E_j \Vert B_{i-1}) \neq B_i,
+\]
+and the chain collapses.
+
+\subsection{Encrypted Self-Proof Module}
+The ledger includes a self-proof vector:
+\[
+P = \left( \mathcal{H}(B_1), \mathcal{H}(B_2), \dots, \mathcal{H}(B_N) \right),
+\]
+stored entirely in encrypted form.
+
+Verification is performed by checking:
+\[
+\mathcal{H}(B_k) = P_k \quad \forall k.
+\]
+
+\subsection{Sovereign Integrity Condition}
+QCSE-X declares sovereign integrity if and only if:
+\[
+\left( \prod_{k=1}^{N} V_k \right)
+\cdot
+\left( \prod_{k=1}^{N} \mathbf{1}_{\mathcal{H}(B_k) = P_k} \right)
+= 1,
+\]
+where $\mathbf{1}_{\text{condition}}$ is the encrypted indicator function.
+
+If the condition evaluates to $0$, the system records a Sovereign Fault.
