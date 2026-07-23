@@ -1,0 +1,235 @@
+
+
+PUE‑X API Reference
+
+Tensor‑Driven, Astrophysics‑Steered Heavy‑Element Simulation Engine
+
+Designer: C. Matthew Blackwell
+
+1. Overview
+
+The PUE‑X API exposes the full simulation engine through a clean, modular class interface.It provides access to:
+
+Geometry field evolution
+
+Telemetry ingestion
+
+Tensor operators
+
+ENDF‑calibrated reaction kinetics
+
+Event detection
+
+Immutable ledgering
+
+Parameter sweeps
+
+Topological invariance tests
+
+This reference describes every callable component of the engine.
+
+2. Class: PUEXEngine
+
+The core simulation object.
+
+Constructor
+
+PUEXEngine(
+    nx=32,
+    ny=32,
+    burst_mult=2.0,
+    node_positions=None
+)
+
+Parameters
+
+nx, ny — geometry grid dimensions
+
+burst_mult — gamma‑ray burst amplitude multiplier
+
+node_positions — optional custom node placement list
+
+Attributes
+
+X — geometry field
+
+nodes — list of heavy‑element reaction nodes
+
+tensors — tensor fields (xi, lambda_val, eta)
+
+ledger — immutable event chain
+
+time_history — simulation timestamps
+
+peak_X_history — geometry amplitude log
+
+event_timestamps — event occurrence times
+
+3. Telemetry API
+
+ingest_telemetry(t)
+
+Returns astrophysical excitation signal at time t.
+
+Includes:
+
+gravitational‑wave chirp
+
+gamma‑ray burst envelope
+
+burst amplitude multiplier
+
+Guided link: telemetry ingest
+
+4. Encryption API
+
+QFE_transform(signal)
+
+Quantum‑Field Encryption transform.
+
+compresses
+
+normalizes
+
+saturates
+
+Guided link: QFE transform
+
+5. Geometry API
+
+G_tensor_operator(enc_signal)
+
+Updates geometry field using:
+
+finite‑difference Laplacian
+
+tensor perturbation field xi
+
+encrypted telemetry input
+
+damping coefficient eta
+
+Guided link: geometry operator
+
+6. Nuclear Reaction API
+
+D_tensor_operator(node)
+
+Computes reaction node state update.
+
+Includes:
+
+ENDF‑calibrated cross‑sections
+
+shell correction stability term
+
+geometry‑coupled excitation
+
+non‑linear Pt/U reaction matrix
+
+Guided link: reaction kinetics
+
+7. Shell Correction API
+
+shell_correction(Z, N)
+
+Returns microscopic–macroscopic shell correction (MeV).
+
+Magic numbers included:
+
+28
+
+50
+
+82
+
+126
+
+Guided link: shell correction model
+
+8. Event Detection API
+
+detect_events()
+
+Returns list of triggered events:
+
+PUE_Fusion_Spike_<isotope>
+
+Geometry_Curvature_Anomaly
+
+Fusion threshold:[ |\mathbf{R}_i| > 1.2 ]
+
+Geometry threshold:[ \max |X| > 1.5 ]
+
+Guided link: event detection
+
+9. Ledger API
+
+update_ledger(events)
+
+Appends events to immutable SHA‑256 chain.
+
+Genesis block:GENESIS_BLOCK_PUE_X
+
+Guided link: ledger mechanism
+
+10. Simulation API
+
+run()
+
+Executes full simulation loop.
+
+Returns dictionary:
+
+{
+    "max_norm": float,
+    "ledger_length": int,
+    "event_count": int
+}
+
+Guided link: simulation loop
+
+11. Parameter Sweep API
+
+Burst Sweep
+
+Run multiple engines with varying burst_mult.
+
+Guided link: burst sweep
+
+Topological Invariance
+
+Randomize node positions and test robustness.
+
+Guided link: topological invariance
+
+12. Diagnostics API
+
+The engine logs:
+
+time_history
+
+peak_X_history
+
+event_timestamps
+
+ledger_length
+
+geometry snapshots
+
+Guided link: diagnostics
+
+13. Recommended Extensions
+
+Multi‑node networks
+
+3D geometry field
+
+Real astrophysical datasets
+
+Expanded tensor families
+
+Multi‑isotope reaction chains
+
+Guided link: future extensions
+
