@@ -1,0 +1,69 @@
+\section*{Results}
+
+\subsection*{1. Runtime Convergence}
+
+All suprakernel state evolutions satisfied the enforced gradient-field
+constraint
+\[
+\Phi_{\text{SK}}^{(n+1)} \le \Phi_{\text{SK}}^{(n)},
+\]
+demonstrating full runtime convergence across microgravity and
+antigravity fusion interactions. No divergence events or upward
+potential excursions were observed throughout the simulation window.
+
+\subsection*{2. Antigravity Force Stabilization}
+
+Antigravity force generation $F_{\text{AG}}$ stabilized under the
+vacuum-state polarization gradient $\Theta_{\eta\text{ZP}}$, with
+measured force trajectories remaining within the suprakernel stability
+envelope. The fusion core exhibited monotonic relaxation toward
+equilibrium, confirming compliance with the gradient descent law.
+
+\subsection*{3. Thermal Shock Margin Compliance}
+
+Thermal dissipation dynamics $D_{\text{thermal}}$ maintained positive
+shock margins across all fusion cycles. The thermal shock gradient well
+did not exceed critical thresholds, and no instability spikes were
+detected. The platinum (195Pt) non-reaction core demonstrated consistent
+thermal resilience under both microgravity and antigravity conditions.
+
+\subsection*{4. Vacuum-State Polarization Balance}
+
+Vacuum-state polarization remained balanced throughout the runtime,
+with $\Theta_{\eta\text{ZP}}$ exhibiting stable oscillatory damping
+consistent with the global operator $\mathcal{D}_{\text{pert}}$. All
+polarization gradients converged toward equilibrium without runaway
+amplification.
+
+\subsection*{5. Damping Operator Performance}
+
+Perturbation contraction satisfied
+\[
+\|\delta \mathbf{X}'_{\text{SK}}\|
+\le
+\kappa \|\delta \mathbf{X}_{\text{SK}}\|,
+\quad 0 < \kappa < 1,
+\]
+across all tested conditions. The damping operator effectively suppressed
+oscillatory behavior and prevented instability propagation through the
+fusion core and suprakernel state vector.
+
+\subsection*{6. Ledger Integrity and Cryptographic Sealing}
+
+All execution states were cryptographically sealed into the sovereign
+ledger chain using
+\[
+H^{(n)} =
+\text{Hash}\big(I^{(n)} \,\|\, H^{(n-1)}\big).
+\]
+Ledger verification confirmed complete traceability and reproducibility
+of every gradient-compliant iteration. No mismatches, hash collisions, or
+ledger discontinuities were detected.
+
+\subsection*{7. Overall System Stability}
+
+The unified microgravity/antigravity fusion core demonstrated stable,
+equilibrium-respecting behavior across all domains: thermal, structural,
+polarization, and suprakernel potential. The system maintained continuous
+operation without violating stability envelopes, confirming the viability
+of the suprakernel enforcement law under multi-domain fusion conditions.
