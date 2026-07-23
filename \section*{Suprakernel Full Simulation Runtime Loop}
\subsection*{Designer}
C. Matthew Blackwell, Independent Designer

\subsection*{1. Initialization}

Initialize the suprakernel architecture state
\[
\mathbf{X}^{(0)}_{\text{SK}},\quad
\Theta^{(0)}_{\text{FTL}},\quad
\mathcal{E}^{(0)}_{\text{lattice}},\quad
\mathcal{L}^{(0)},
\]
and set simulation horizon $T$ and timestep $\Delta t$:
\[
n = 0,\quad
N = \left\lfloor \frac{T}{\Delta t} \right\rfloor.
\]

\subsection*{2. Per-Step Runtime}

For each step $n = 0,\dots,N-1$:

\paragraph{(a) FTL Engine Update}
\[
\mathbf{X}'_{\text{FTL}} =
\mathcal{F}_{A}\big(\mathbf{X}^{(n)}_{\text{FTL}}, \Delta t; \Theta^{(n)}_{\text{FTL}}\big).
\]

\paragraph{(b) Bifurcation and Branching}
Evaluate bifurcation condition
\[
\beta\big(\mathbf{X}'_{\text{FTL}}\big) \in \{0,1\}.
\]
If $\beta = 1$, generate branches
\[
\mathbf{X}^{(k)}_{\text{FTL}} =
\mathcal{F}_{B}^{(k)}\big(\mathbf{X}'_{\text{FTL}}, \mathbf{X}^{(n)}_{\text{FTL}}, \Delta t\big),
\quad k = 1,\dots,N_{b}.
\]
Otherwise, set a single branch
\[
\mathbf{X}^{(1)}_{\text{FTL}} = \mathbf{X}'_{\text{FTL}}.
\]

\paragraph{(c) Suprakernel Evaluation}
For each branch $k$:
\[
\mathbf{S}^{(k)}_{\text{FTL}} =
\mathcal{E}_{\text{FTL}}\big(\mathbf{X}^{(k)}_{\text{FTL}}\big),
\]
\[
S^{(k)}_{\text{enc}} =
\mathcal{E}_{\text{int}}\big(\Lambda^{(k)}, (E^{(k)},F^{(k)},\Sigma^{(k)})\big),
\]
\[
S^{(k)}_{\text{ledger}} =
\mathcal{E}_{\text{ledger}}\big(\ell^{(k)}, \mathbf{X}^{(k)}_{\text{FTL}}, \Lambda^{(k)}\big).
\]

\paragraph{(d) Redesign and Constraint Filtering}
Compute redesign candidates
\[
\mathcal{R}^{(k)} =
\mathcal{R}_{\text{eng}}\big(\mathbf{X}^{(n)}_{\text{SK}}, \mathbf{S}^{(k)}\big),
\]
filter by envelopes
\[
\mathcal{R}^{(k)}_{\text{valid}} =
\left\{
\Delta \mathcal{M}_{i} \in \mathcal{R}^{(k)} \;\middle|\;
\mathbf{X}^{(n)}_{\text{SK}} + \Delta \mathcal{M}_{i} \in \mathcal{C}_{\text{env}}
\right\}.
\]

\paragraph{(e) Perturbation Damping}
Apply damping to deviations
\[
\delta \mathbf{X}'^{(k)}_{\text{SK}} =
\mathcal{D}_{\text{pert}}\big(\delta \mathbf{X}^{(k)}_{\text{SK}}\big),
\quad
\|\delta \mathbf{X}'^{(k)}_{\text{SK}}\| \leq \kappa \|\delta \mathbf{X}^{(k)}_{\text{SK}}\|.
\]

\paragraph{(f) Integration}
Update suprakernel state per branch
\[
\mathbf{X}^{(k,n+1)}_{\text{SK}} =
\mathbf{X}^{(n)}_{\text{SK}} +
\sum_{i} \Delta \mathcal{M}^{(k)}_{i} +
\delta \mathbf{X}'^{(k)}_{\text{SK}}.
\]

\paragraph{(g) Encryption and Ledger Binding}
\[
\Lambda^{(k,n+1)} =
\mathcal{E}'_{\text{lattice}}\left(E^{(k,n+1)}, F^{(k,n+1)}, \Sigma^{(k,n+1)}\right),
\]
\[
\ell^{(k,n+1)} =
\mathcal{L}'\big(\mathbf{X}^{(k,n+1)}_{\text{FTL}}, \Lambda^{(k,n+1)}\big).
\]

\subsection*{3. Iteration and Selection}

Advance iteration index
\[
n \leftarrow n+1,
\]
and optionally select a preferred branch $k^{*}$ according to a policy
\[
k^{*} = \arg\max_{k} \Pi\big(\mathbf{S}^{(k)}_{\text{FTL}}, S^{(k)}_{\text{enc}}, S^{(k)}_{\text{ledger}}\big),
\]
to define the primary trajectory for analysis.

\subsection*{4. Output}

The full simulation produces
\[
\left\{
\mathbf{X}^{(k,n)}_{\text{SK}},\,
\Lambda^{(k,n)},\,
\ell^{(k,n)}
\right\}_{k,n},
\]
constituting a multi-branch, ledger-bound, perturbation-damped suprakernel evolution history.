@@ -1,0 +1,126 @@
+\section*{Suprakernel Full Simulation Runtime Loop}
+\subsection*{Designer}
+C. Matthew Blackwell, Independent Designer
+
+\subsection*{1. Initialization}
+
+Initialize the suprakernel architecture state
+\[
+\mathbf{X}^{(0)}_{\text{SK}},\quad
+\Theta^{(0)}_{\text{FTL}},\quad
+\mathcal{E}^{(0)}_{\text{lattice}},\quad
+\mathcal{L}^{(0)},
+\]
+and set simulation horizon $T$ and timestep $\Delta t$:
+\[
+n = 0,\quad
+N = \left\lfloor \frac{T}{\Delta t} \right\rfloor.
+\]
+
+\subsection*{2. Per-Step Runtime}
+
+For each step $n = 0,\dots,N-1$:
+
+\paragraph{(a) FTL Engine Update}
+\[
+\mathbf{X}'_{\text{FTL}} =
+\mathcal{F}_{A}\big(\mathbf{X}^{(n)}_{\text{FTL}}, \Delta t; \Theta^{(n)}_{\text{FTL}}\big).
+\]
+
+\paragraph{(b) Bifurcation and Branching}
+Evaluate bifurcation condition
+\[
+\beta\big(\mathbf{X}'_{\text{FTL}}\big) \in \{0,1\}.
+\]
+If $\beta = 1$, generate branches
+\[
+\mathbf{X}^{(k)}_{\text{FTL}} =
+\mathcal{F}_{B}^{(k)}\big(\mathbf{X}'_{\text{FTL}}, \mathbf{X}^{(n)}_{\text{FTL}}, \Delta t\big),
+\quad k = 1,\dots,N_{b}.
+\]
+Otherwise, set a single branch
+\[
+\mathbf{X}^{(1)}_{\text{FTL}} = \mathbf{X}'_{\text{FTL}}.
+\]
+
+\paragraph{(c) Suprakernel Evaluation}
+For each branch $k$:
+\[
+\mathbf{S}^{(k)}_{\text{FTL}} =
+\mathcal{E}_{\text{FTL}}\big(\mathbf{X}^{(k)}_{\text{FTL}}\big),
+\]
+\[
+S^{(k)}_{\text{enc}} =
+\mathcal{E}_{\text{int}}\big(\Lambda^{(k)}, (E^{(k)},F^{(k)},\Sigma^{(k)})\big),
+\]
+\[
+S^{(k)}_{\text{ledger}} =
+\mathcal{E}_{\text{ledger}}\big(\ell^{(k)}, \mathbf{X}^{(k)}_{\text{FTL}}, \Lambda^{(k)}\big).
+\]
+
+\paragraph{(d) Redesign and Constraint Filtering}
+Compute redesign candidates
+\[
+\mathcal{R}^{(k)} =
+\mathcal{R}_{\text{eng}}\big(\mathbf{X}^{(n)}_{\text{SK}}, \mathbf{S}^{(k)}\big),
+\]
+filter by envelopes
+\[
+\mathcal{R}^{(k)}_{\text{valid}} =
+\left\{
+\Delta \mathcal{M}_{i} \in \mathcal{R}^{(k)} \;\middle|\;
+\mathbf{X}^{(n)}_{\text{SK}} + \Delta \mathcal{M}_{i} \in \mathcal{C}_{\text{env}}
+\right\}.
+\]
+
+\paragraph{(e) Perturbation Damping}
+Apply damping to deviations
+\[
+\delta \mathbf{X}'^{(k)}_{\text{SK}} =
+\mathcal{D}_{\text{pert}}\big(\delta \mathbf{X}^{(k)}_{\text{SK}}\big),
+\quad
+\|\delta \mathbf{X}'^{(k)}_{\text{SK}}\| \leq \kappa \|\delta \mathbf{X}^{(k)}_{\text{SK}}\|.
+\]
+
+\paragraph{(f) Integration}
+Update suprakernel state per branch
+\[
+\mathbf{X}^{(k,n+1)}_{\text{SK}} =
+\mathbf{X}^{(n)}_{\text{SK}} +
+\sum_{i} \Delta \mathcal{M}^{(k)}_{i} +
+\delta \mathbf{X}'^{(k)}_{\text{SK}}.
+\]
+
+\paragraph{(g) Encryption and Ledger Binding}
+\[
+\Lambda^{(k,n+1)} =
+\mathcal{E}'_{\text{lattice}}\left(E^{(k,n+1)}, F^{(k,n+1)}, \Sigma^{(k,n+1)}\right),
+\]
+\[
+\ell^{(k,n+1)} =
+\mathcal{L}'\big(\mathbf{X}^{(k,n+1)}_{\text{FTL}}, \Lambda^{(k,n+1)}\big).
+\]
+
+\subsection*{3. Iteration and Selection}
+
+Advance iteration index
+\[
+n \leftarrow n+1,
+\]
+and optionally select a preferred branch $k^{*}$ according to a policy
+\[
+k^{*} = \arg\max_{k} \Pi\big(\mathbf{S}^{(k)}_{\text{FTL}}, S^{(k)}_{\text{enc}}, S^{(k)}_{\text{ledger}}\big),
+\]
+to define the primary trajectory for analysis.
+
+\subsection*{4. Output}
+
+The full simulation produces
+\[
+\left\{
+\mathbf{X}^{(k,n)}_{\text{SK}},\,
+\Lambda^{(k,n)},\,
+\ell^{(k,n)}
+\right\}_{k,n},
+\]
+constituting a multi-branch, ledger-bound, perturbation-damped suprakernel evolution history.
