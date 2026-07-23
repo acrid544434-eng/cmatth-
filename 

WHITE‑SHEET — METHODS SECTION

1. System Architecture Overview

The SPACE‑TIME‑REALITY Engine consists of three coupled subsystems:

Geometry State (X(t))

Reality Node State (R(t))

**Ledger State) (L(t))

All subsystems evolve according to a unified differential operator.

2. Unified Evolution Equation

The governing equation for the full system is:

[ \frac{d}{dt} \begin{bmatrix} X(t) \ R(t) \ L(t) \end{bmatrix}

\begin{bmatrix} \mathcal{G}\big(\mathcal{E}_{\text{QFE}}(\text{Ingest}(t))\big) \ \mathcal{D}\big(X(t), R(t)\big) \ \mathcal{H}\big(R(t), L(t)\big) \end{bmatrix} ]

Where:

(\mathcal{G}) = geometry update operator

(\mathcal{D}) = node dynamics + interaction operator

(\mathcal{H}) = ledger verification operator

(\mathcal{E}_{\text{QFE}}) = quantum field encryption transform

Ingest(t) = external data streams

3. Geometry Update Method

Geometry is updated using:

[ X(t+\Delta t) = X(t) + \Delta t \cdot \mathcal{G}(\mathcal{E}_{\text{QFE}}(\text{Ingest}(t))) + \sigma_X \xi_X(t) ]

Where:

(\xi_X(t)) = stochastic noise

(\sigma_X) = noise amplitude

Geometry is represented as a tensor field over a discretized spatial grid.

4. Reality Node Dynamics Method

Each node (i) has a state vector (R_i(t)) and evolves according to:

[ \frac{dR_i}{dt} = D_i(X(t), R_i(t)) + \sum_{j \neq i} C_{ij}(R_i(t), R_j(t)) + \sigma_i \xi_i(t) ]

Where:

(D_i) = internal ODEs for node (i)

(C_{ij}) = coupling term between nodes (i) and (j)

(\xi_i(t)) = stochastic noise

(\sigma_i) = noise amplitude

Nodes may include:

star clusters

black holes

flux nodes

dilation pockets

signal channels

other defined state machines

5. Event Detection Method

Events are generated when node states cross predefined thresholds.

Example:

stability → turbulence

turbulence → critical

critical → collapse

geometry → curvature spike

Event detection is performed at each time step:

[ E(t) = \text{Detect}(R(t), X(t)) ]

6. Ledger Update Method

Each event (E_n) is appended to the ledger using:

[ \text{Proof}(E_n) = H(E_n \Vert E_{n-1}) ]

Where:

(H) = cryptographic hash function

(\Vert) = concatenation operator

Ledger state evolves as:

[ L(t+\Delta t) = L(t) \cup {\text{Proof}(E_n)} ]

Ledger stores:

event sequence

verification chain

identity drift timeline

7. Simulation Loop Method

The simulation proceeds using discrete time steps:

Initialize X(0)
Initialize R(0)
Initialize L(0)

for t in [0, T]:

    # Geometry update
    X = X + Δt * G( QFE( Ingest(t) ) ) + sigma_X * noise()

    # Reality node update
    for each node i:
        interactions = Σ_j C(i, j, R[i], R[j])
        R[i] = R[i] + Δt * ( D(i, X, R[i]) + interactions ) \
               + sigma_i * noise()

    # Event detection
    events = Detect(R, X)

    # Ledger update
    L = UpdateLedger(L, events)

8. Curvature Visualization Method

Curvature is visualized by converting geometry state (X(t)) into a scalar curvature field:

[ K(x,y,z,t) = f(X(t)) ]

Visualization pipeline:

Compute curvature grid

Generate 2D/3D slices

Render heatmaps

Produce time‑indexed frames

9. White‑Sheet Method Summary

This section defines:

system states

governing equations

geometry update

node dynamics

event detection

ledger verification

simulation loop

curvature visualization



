@@ -1,0 +1,185 @@
+
+
+WHITE‑SHEET — METHODS SECTION
+
+1. System Architecture Overview
+
+The SPACE‑TIME‑REALITY Engine consists of three coupled subsystems:
+
+Geometry State (X(t))
+
+Reality Node State (R(t))
+
+**Ledger State) (L(t))
+
+All subsystems evolve according to a unified differential operator.
+
+2. Unified Evolution Equation
+
+The governing equation for the full system is:
+
+[ \frac{d}{dt} \begin{bmatrix} X(t) \ R(t) \ L(t) \end{bmatrix}
+
+\begin{bmatrix} \mathcal{G}\big(\mathcal{E}_{\text{QFE}}(\text{Ingest}(t))\big) \ \mathcal{D}\big(X(t), R(t)\big) \ \mathcal{H}\big(R(t), L(t)\big) \end{bmatrix} ]
+
+Where:
+
+(\mathcal{G}) = geometry update operator
+
+(\mathcal{D}) = node dynamics + interaction operator
+
+(\mathcal{H}) = ledger verification operator
+
+(\mathcal{E}_{\text{QFE}}) = quantum field encryption transform
+
+Ingest(t) = external data streams
+
+3. Geometry Update Method
+
+Geometry is updated using:
+
+[ X(t+\Delta t) = X(t) + \Delta t \cdot \mathcal{G}(\mathcal{E}_{\text{QFE}}(\text{Ingest}(t))) + \sigma_X \xi_X(t) ]
+
+Where:
+
+(\xi_X(t)) = stochastic noise
+
+(\sigma_X) = noise amplitude
+
+Geometry is represented as a tensor field over a discretized spatial grid.
+
+4. Reality Node Dynamics Method
+
+Each node (i) has a state vector (R_i(t)) and evolves according to:
+
+[ \frac{dR_i}{dt} = D_i(X(t), R_i(t)) + \sum_{j \neq i} C_{ij}(R_i(t), R_j(t)) + \sigma_i \xi_i(t) ]
+
+Where:
+
+(D_i) = internal ODEs for node (i)
+
+(C_{ij}) = coupling term between nodes (i) and (j)
+
+(\xi_i(t)) = stochastic noise
+
+(\sigma_i) = noise amplitude
+
+Nodes may include:
+
+star clusters
+
+black holes
+
+flux nodes
+
+dilation pockets
+
+signal channels
+
+other defined state machines
+
+5. Event Detection Method
+
+Events are generated when node states cross predefined thresholds.
+
+Example:
+
+stability → turbulence
+
+turbulence → critical
+
+critical → collapse
+
+geometry → curvature spike
+
+Event detection is performed at each time step:
+
+[ E(t) = \text{Detect}(R(t), X(t)) ]
+
+6. Ledger Update Method
+
+Each event (E_n) is appended to the ledger using:
+
+[ \text{Proof}(E_n) = H(E_n \Vert E_{n-1}) ]
+
+Where:
+
+(H) = cryptographic hash function
+
+(\Vert) = concatenation operator
+
+Ledger state evolves as:
+
+[ L(t+\Delta t) = L(t) \cup {\text{Proof}(E_n)} ]
+
+Ledger stores:
+
+event sequence
+
+verification chain
+
+identity drift timeline
+
+7. Simulation Loop Method
+
+The simulation proceeds using discrete time steps:
+
+Initialize X(0)
+Initialize R(0)
+Initialize L(0)
+
+for t in [0, T]:
+
+    # Geometry update
+    X = X + Δt * G( QFE( Ingest(t) ) ) + sigma_X * noise()
+
+    # Reality node update
+    for each node i:
+        interactions = Σ_j C(i, j, R[i], R[j])
+        R[i] = R[i] + Δt * ( D(i, X, R[i]) + interactions ) \
+               + sigma_i * noise()
+
+    # Event detection
+    events = Detect(R, X)
+
+    # Ledger update
+    L = UpdateLedger(L, events)
+
+8. Curvature Visualization Method
+
+Curvature is visualized by converting geometry state (X(t)) into a scalar curvature field:
+
+[ K(x,y,z,t) = f(X(t)) ]
+
+Visualization pipeline:
+
+Compute curvature grid
+
+Generate 2D/3D slices
+
+Render heatmaps
+
+Produce time‑indexed frames
+
+9. White‑Sheet Method Summary
+
+This section defines:
+
+system states
+
+governing equations
+
+geometry update
+
+node dynamics
+
+event detection
+
+ledger verification
+
+simulation loop
+
+curvature visualization
+
+
+
