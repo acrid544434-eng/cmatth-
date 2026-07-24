@@ -1,0 +1,253 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage[margin=1in]{geometry}
+\usepackage{bm}
+
+\title{Unified Mathematical Execution of the National Infrastructure Stress Test Protocol}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{0. Global Definitions}
+
+Let:
+\begin{itemize}
+  \item $\Omega$: simulation manifold
+  \item $x$: regional node coordinate
+  \item $t$: simulation time
+  \item $\Psi(x,t)$: encrypted state tensor
+  \item $S(y)$: entropy field
+  \item $K(x,y;t)$: thermodynamic kernel
+  \item $\rho(y,t)$: density / probability distribution
+  \item $q$: RLWE modulus
+  \item $R = \mathbb{Z}[y]/(y^4 + y^3 + y^2)$: polynomial ring
+  \item $\epsilon_{\mu\nu}^{(\text{crypto})}$: cryptographic stress-energy term
+\end{itemize}
+
+\section*{Phase 1 — Ingest Bandwidth Saturation}
+
+\subsection*{1.1 Ingest Rate}
+\begin{equation}
+\lambda_{\text{in}} = 10^3 \lambda_{\text{baseline}}.
+\end{equation}
+
+\subsection*{1.2 Packet Drop Fraction}
+\begin{equation}
+D = \frac{N_{\text{dropped}}}{N_{\text{total}}}.
+\end{equation}
+
+\subsection*{1.3 Lattice Decryption Latency}
+\begin{equation}
+L_{\text{dec}}
+=
+\frac{1}{N_{\text{blocks}}}
+\sum_{i=1}^{N_{\text{blocks}}}
+\left(
+t^{(i)}_{\text{end}} - t^{(i)}_{\text{start}}
+\right).
+\end{equation}
+
+\subsection*{1.4 TEE Memory Footprint}
+\begin{equation}
+M_{\text{TEE}}(t)
+=
+\sum_{j=1}^{N_{\text{TEE}}}
+m_j(t).
+\end{equation}
+
+\section*{Phase 2 — Thermodynamic Substrate Shock}
+
+\subsection*{2.1 Entropy Field Perturbation}
+\begin{equation}
+S(y) = S_0(y) + \eta(y),
+\end{equation}
+where $\eta(y)$ is a stochastic perturbation.
+
+\subsection*{2.2 Thermodynamic Transform}
+\begin{equation}
+\Psi(x,t)
+=
+\int_{\Omega}
+K(x,y;t)
+\exp\left(
+\frac{S_0(y) + \eta(y)}{k_B}
+\right)
+\rho(y,t)\, dy.
+\end{equation}
+
+\subsection*{2.3 First-Order Expansion}
+For small entropy variations,
+\begin{equation}
+\exp\left(\frac{S}{k_B}\right)
+\approx
+1 + \frac{S}{k_B},
+\end{equation}
+so
+\begin{equation}
+\Psi(x,t)
+\approx
+\int_{\Omega} K(x,y;t)\rho(y,t)\, dy
++
+\frac{1}{k_B}
+\int_{\Omega} K(x,y;t) S(y)\rho(y,t)\, dy.
+\end{equation}
+
+\subsection*{2.4 Stability Metric}
+Define the variance of the state tensor:
+\begin{equation}
+\sigma_{\Psi}^2(t)
+=
+\int_{\Omega}
+\left|
+\Psi(x,t) - \bar{\Psi}(t)
+\right|^2 dx,
+\end{equation}
+where
+\begin{equation}
+\bar{\Psi}(t)
+=
+\frac{1}{|\Omega|}
+\int_{\Omega}
+\Psi(x,t)\, dx.
+\end{equation}
+Instability condition:
+\begin{equation}
+\sigma_{\Psi}(t) > \sigma_{\text{crit}}.
+\end{equation}
+
+\section*{Phase 3 — Sovereign Kernel Fault Injection}
+
+\subsection*{3.1 Fault Set}
+\begin{equation}
+\mathcal{F} = \{ f_k \mid k = 1,\dots,N_f \}.
+\end{equation}
+
+\subsection*{3.2 Mean Time to Self-Correction (MTS)}
+\begin{equation}
+\text{MTS}
+=
+\frac{1}{N_f}
+\sum_{k=1}^{N_f}
+\left(
+t^{(k)}_{\text{recovered}}
+-
+t^{(k)}_{\text{fault}}
+\right).
+\end{equation}
+
+\subsection*{3.3 Zero-Knowledge Invariant Success Rate}
+\begin{equation}
+R_{\text{ZK}}
+=
+\frac{N_{\text{ZK, passed}}}{N_{\text{ZK, total}}},
+\end{equation}
+with target
+\begin{equation}
+R_{\text{ZK}} = 1.0.
+\end{equation}
+
+\section*{Phase 4 — Zero-Knowledge Audit \& Ledger Commit}
+
+\subsection*{4.1 Ledger Write Latency}
+\begin{equation}
+L_{\text{ledger}}
+=
+\frac{1}{N_{\text{writes}}}
+\sum_{i=1}^{N_{\text{writes}}}
+\left(
+t^{(i)}_{\text{commit}}
+-
+t^{(i)}_{\text{issue}}
+\right).
+\end{equation}
+
+\subsection*{4.2 Cryptographic Verification Throughput}
+\begin{equation}
+\Theta_{\text{crypto}}
+=
+\frac{N_{\text{proofs}}}{T_{\text{window}}}.
+\end{equation}
+
+\subsection*{4.3 Integrity Failure Rate}
+\begin{equation}
+F_{\text{int}}
+=
+\frac{N_{\text{failed}}}{N_{\text{verified}}},
+\end{equation}
+with target
+\begin{equation}
+F_{\text{int}} = 0.00.
+\end{equation}
+
+\section*{Einstein–Crypto Coupled Field Equation}
+
+\begin{equation}
+G_{\mu\nu} + \Lambda g_{\mu\nu}
+=
+\frac{8\pi G}{c^4}
+\left(
+T_{\mu\nu}^{(\text{astro})}
++
+\epsilon_{\mu\nu}^{(\text{crypto})}
+\right).
+\end{equation}
+
+Solving for the cryptographic stress-energy term:
+\begin{equation}
+\epsilon_{\mu\nu}^{(\text{crypto})}
+=
+\frac{c^4}{8\pi G}
+\left(
+G_{\mu\nu} + \Lambda g_{\mu\nu}
+\right)
+-
+T_{\mu\nu}^{(\text{astro})}.
+\end{equation}
+
+\section*{RLWE Polynomial Ring Reduction}
+
+Define the ring:
+\begin{equation}
+R = \mathbb{Z}[y]/(y^4 + y^3 + y^2).
+\end{equation}
+
+Example reduction:
+\begin{equation}
+y^5 = y(y^4)
+\equiv y(-y^3 - y^2)
+= -y^4 - y^3,
+\end{equation}
+and
+\begin{equation}
+-y^4 - y^3
+\equiv
+-( -y^3 - y^2 ) - y^3
+=
+y^2 - 2y^3.
+\end{equation}
+
+\section*{Unified Invariant Functional}
+
+Define a global invariant functional:
+\begin{equation}
+\mathcal{I}_{\text{cc}}[\Psi]
+=
+\int_{\Omega}
+w(x)\,\Psi(x,t)\, dx,
+\end{equation}
+for a fixed weight function $w(x)$.
+
+The invariant condition is:
+\begin{equation}
+\Delta \mathcal{I}_{\text{cc}}
+=
+\mathcal{I}_{\text{cc}}[\Psi(x,t+\Delta t)]
+-
+\mathcal{I}_{\text{cc}}[\Psi(x,t)]
+=
+0.
+\end{equation}
+
+\end{document}
