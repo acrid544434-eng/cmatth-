@@ -1,0 +1,190 @@
+\documentclass[12pt]{article}
+
+% ---------------------------------------------------------
+% PACKAGES
+% ---------------------------------------------------------
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{authblk}
+
+% ---------------------------------------------------------
+% PAGE SETUP
+% ---------------------------------------------------------
+\geometry{margin=1in}
+\onehalfspacing
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% ---------------------------------------------------------
+% TITLE & AUTHORS
+% ---------------------------------------------------------
+\title{
+\textbf{Sovereign Regenerative Engine:}\\
+\large A Closed-Loop, Invariant-Locked Architecture for Controlled Biological Regeneration
+}
+
+\author[1]{C. Matthew Blackwell}
+\affil[1]{Independent Systems Architect, Holistic Multi-Scale Conceptual Design}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+% ---------------------------------------------------------
+% ABSTRACT
+% ---------------------------------------------------------
+\begin{abstract}
+The Sovereign Regenerative Engine is a multi-scale regenerative control architecture
+designed to maintain biological stability across molecular, cellular, and tissue domains.
+This manuscript presents the mathematical foundations, invariant systems, manifold closure
+mechanisms, recursion-safe mitosis controls, and sovereign audit logic that together form
+a unified regenerative kernel cycle. The system enforces strict invariants, prevents
+neoplastic drift, and restores tissue geometry through topological convergence.
+\end{abstract}
+
+% ---------------------------------------------------------
+% KEYWORDS
+% ---------------------------------------------------------
+\noindent\textbf{Keywords:} Regeneration, Invariant Systems, Tissue Manifold Closure,
+Recursion-Safe Mitosis, Regenerative Control Architecture, Sovereign Kernel
+
+% ---------------------------------------------------------
+% INTRODUCTION
+% ---------------------------------------------------------
+\section{Introduction}
+Biological regeneration is constrained by competing demands: structural integrity,
+cell-cycle safety, and multi-domain coordination. The Sovereign Regenerative Engine
+addresses these constraints through a closed-loop architecture that integrates timing
+control, invariant enforcement, geometric closure, recursion safety, and sovereign audit
+mechanisms.
+
+This manuscript provides a formal academic presentation of the system.
+
+% ---------------------------------------------------------
+% MATHEMATICAL FOUNDATIONS
+% ---------------------------------------------------------
+\section{Mathematical Foundations}
+
+\subsection{Manifold Definition}
+Let $\Omega$ denote a multi-domain bio-mechanical manifold. Each point $x \in \Omega$
+carries:
+\begin{itemize}
+    \item Stress tensor $\mathcal{E}_{\text{stress}}(x,t)$
+    \item DNA integrity tensor $\mathcal{K}_{\text{DNA}}(x,t)$
+    \item Metric distortion $\Psi_{\text{current}}^{(ij)}(x,t)$
+\end{itemize}
+
+\subsection{Invariant Clamp}
+The system enforces:
+\[
+\Delta \mathcal{I}_{\text{cc}} \equiv 0,
+\]
+ensuring drift-free cell-cycle and topological invariants.
+
+% ---------------------------------------------------------
+% REGENERATION TIMING MODEL
+% ---------------------------------------------------------
+\section{Regeneration Timing Model}
+
+Regeneration is governed by:
+\[
+T_{\text{reg}} = \tau_0 \cdot f\big(\|\mathcal{E}_{\text{stress}}(x,t)\|\big),
+\]
+where $\tau_0$ is a baseline refractory period and $f$ is monotonic.
+
+Activation damping:
+\[
+\sigma_{\text{threshold}} = g\big(\|\mathcal{E}_{\text{stress}}(x,t)\|\big).
+\]
+
+% ---------------------------------------------------------
+% CELL-CYCLE INVARIANTS
+% ---------------------------------------------------------
+\section{Cell-Cycle Invariant System}
+
+Define:
+\[
+\mathcal{I}_{\text{cc}} = F\big(n(x,t), \mathcal{K}_{\text{DNA}}(x,t),
+\mathbf{J}_{\text{biochem}}(x,t)\big),
+\]
+with recursion depth bounded by:
+\[
+n(x,t) \leq n_{\max}.
+\]
+
+% ---------------------------------------------------------
+% TISSUE MANIFOLD CLOSURE
+% ---------------------------------------------------------
+\section{Tissue Manifold Closure}
+
+Tissue geometry is modeled by a metric tensor $g_{ij}(x,t)$.
+
+Closure update:
+\[
+g_{ij}(t+\Delta t) = g_{ij}(t) +
+\lambda_{\text{reg}} \cdot
+\big(\Psi_{\text{target}}^{(ij)} - \Psi_{\text{current}}^{(ij)}\big).
+\]
+
+Residual error:
+\[
+\epsilon = \left\| \Psi_{\text{target}}^{(ij)} -
+\Psi_{\text{current}}^{(ij)} \right\|.
+\]
+
+% ---------------------------------------------------------
+% RECURSION-SAFE MITOSIS
+% ---------------------------------------------------------
+\section{Recursion-Safe Mitosis}
+
+If a lineage attempts:
+\[
+n(x,t) > n_{\max},
+\]
+the system clamps recursion and transitions the lineage to terminal differentiation.
+
+% ---------------------------------------------------------
+% SOVEREIGN KERNEL CYCLE
+% ---------------------------------------------------------
+\section{Sovereign Kernel Cycle}
+
+Each cycle consists of:
+\begin{enumerate}
+    \item Sense environmental and biological fields.
+    \item Compute timing, invariants, and closure error.
+    \item Decide legality of regenerative actions.
+    \item Act through closure updates and controlled mitosis.
+    \item Stabilize invariants.
+    \item Audit all operations to a sovereign ledger.
+\end{enumerate}
+
+% ---------------------------------------------------------
+% DISCUSSION
+% ---------------------------------------------------------
+\section{Discussion}
+The Sovereign Regenerative Engine provides a unified regenerative architecture capable
+of maintaining biological stability under stress, preventing neoplastic drift, and
+restoring tissue geometry with high precision.
+
+% ---------------------------------------------------------
+% CONCLUSION
+% ---------------------------------------------------------
+\section{Conclusion}
+This journal-format manuscript presents the academic foundation of the Sovereign
+Regenerative Engine. Future work may extend the system toward organ-scale modeling,
+biological synchronization constants, and applied regenerative technologies.
+
+% ---------------------------------------------------------
+% REFERENCES (User Inserts)
+% ---------------------------------------------------------
+\section*{References}
+% User inserts bibliography entries here.
+
+\end{document}
