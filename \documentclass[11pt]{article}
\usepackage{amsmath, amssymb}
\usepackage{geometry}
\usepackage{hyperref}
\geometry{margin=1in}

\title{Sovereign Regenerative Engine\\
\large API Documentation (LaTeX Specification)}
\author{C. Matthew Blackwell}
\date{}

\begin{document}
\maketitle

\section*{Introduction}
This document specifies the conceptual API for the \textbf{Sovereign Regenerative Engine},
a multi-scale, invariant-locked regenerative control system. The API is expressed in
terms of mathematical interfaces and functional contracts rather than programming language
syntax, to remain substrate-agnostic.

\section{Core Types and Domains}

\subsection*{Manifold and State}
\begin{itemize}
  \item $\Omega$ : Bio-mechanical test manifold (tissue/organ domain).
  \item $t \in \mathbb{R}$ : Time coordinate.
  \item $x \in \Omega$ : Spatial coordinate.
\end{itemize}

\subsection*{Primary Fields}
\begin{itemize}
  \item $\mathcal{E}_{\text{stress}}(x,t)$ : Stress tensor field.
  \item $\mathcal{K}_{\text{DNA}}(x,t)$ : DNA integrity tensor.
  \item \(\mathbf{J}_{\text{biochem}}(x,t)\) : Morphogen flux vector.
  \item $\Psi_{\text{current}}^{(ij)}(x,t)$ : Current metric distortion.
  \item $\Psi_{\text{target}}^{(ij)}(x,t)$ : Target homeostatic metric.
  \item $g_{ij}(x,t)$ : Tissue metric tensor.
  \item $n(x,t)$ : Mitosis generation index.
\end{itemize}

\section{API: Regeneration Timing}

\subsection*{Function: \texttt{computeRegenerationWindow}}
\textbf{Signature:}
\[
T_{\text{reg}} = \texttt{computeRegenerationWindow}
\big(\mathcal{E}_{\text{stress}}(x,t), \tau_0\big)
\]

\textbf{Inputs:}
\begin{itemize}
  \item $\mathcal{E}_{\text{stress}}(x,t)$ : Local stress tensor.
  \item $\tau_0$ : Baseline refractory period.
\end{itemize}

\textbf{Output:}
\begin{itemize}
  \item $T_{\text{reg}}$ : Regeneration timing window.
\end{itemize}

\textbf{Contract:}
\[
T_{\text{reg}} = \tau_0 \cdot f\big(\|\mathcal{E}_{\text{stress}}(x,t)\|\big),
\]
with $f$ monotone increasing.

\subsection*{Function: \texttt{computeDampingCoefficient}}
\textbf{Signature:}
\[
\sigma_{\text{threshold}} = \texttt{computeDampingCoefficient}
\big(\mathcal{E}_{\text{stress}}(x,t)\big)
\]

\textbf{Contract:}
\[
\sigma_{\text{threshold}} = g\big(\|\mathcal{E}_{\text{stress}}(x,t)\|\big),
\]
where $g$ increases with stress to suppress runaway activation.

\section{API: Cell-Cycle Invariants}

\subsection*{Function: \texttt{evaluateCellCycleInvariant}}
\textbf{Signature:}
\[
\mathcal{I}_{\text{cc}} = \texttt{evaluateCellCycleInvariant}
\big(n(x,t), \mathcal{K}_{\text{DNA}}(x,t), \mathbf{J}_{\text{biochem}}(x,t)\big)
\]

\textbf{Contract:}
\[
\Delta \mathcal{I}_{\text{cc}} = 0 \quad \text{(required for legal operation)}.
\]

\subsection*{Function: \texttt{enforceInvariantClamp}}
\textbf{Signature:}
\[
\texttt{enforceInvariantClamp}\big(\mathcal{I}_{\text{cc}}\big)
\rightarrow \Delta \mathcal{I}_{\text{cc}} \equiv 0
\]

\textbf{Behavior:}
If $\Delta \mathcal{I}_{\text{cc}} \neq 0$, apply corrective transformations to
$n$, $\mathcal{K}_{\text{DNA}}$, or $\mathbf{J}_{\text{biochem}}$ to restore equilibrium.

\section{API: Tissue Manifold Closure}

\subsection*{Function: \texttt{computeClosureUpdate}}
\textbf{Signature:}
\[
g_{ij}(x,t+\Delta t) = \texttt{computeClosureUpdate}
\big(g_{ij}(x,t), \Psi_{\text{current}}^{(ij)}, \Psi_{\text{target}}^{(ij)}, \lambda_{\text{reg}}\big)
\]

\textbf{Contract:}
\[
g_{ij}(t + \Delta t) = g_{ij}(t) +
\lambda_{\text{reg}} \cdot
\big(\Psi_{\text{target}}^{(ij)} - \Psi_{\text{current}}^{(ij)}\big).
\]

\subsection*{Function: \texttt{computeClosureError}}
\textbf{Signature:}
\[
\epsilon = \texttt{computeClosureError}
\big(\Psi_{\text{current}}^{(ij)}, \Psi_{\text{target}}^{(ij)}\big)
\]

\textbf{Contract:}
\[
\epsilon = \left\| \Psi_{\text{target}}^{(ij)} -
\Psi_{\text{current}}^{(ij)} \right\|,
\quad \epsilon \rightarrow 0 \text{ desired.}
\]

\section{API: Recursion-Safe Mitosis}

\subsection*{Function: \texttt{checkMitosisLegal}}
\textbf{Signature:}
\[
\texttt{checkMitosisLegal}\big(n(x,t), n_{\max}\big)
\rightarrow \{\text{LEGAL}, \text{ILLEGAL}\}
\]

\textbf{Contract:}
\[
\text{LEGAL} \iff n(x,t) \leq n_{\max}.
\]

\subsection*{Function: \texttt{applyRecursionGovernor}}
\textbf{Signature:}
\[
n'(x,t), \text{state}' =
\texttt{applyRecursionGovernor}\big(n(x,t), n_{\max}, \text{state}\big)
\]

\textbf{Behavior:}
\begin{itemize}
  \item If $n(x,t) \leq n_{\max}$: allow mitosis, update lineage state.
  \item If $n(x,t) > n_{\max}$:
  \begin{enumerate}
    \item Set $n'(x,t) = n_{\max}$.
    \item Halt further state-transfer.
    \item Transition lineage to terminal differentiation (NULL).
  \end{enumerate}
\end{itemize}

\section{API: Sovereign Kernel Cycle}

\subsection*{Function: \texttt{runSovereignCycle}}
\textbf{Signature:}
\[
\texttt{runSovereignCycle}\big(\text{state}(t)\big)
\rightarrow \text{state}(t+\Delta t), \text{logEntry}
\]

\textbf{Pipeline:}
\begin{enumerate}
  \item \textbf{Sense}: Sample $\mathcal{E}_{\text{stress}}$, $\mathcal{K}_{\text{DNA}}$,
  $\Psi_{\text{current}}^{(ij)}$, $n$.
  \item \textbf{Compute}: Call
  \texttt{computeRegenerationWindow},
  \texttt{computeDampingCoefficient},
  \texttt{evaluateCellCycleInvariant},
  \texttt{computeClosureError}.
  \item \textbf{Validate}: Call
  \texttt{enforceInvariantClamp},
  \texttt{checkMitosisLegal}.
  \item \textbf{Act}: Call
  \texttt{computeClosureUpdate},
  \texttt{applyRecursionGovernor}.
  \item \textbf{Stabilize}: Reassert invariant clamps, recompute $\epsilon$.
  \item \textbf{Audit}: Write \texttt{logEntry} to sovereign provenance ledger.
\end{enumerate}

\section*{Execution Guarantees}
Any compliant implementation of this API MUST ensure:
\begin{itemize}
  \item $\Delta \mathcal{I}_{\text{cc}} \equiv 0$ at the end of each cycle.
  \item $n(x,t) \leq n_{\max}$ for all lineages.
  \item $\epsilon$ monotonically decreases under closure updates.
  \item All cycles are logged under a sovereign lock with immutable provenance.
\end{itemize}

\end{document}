@@ -1,0 +1,204 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\title{Sovereign Regenerative Engine\\
+\large API Documentation (LaTeX Specification)}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Introduction}
+This document specifies the conceptual API for the \textbf{Sovereign Regenerative Engine},
+a multi-scale, invariant-locked regenerative control system. The API is expressed in
+terms of mathematical interfaces and functional contracts rather than programming language
+syntax, to remain substrate-agnostic.
+
+\section{Core Types and Domains}
+
+\subsection*{Manifold and State}
+\begin{itemize}
+  \item $\Omega$ : Bio-mechanical test manifold (tissue/organ domain).
+  \item $t \in \mathbb{R}$ : Time coordinate.
+  \item $x \in \Omega$ : Spatial coordinate.
+\end{itemize}
+
+\subsection*{Primary Fields}
+\begin{itemize}
+  \item $\mathcal{E}_{\text{stress}}(x,t)$ : Stress tensor field.
+  \item $\mathcal{K}_{\text{DNA}}(x,t)$ : DNA integrity tensor.
+  \item \(\mathbf{J}_{\text{biochem}}(x,t)\) : Morphogen flux vector.
+  \item $\Psi_{\text{current}}^{(ij)}(x,t)$ : Current metric distortion.
+  \item $\Psi_{\text{target}}^{(ij)}(x,t)$ : Target homeostatic metric.
+  \item $g_{ij}(x,t)$ : Tissue metric tensor.
+  \item $n(x,t)$ : Mitosis generation index.
+\end{itemize}
+
+\section{API: Regeneration Timing}
+
+\subsection*{Function: \texttt{computeRegenerationWindow}}
+\textbf{Signature:}
+\[
+T_{\text{reg}} = \texttt{computeRegenerationWindow}
+\big(\mathcal{E}_{\text{stress}}(x,t), \tau_0\big)
+\]
+
+\textbf{Inputs:}
+\begin{itemize}
+  \item $\mathcal{E}_{\text{stress}}(x,t)$ : Local stress tensor.
+  \item $\tau_0$ : Baseline refractory period.
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+  \item $T_{\text{reg}}$ : Regeneration timing window.
+\end{itemize}
+
+\textbf{Contract:}
+\[
+T_{\text{reg}} = \tau_0 \cdot f\big(\|\mathcal{E}_{\text{stress}}(x,t)\|\big),
+\]
+with $f$ monotone increasing.
+
+\subsection*{Function: \texttt{computeDampingCoefficient}}
+\textbf{Signature:}
+\[
+\sigma_{\text{threshold}} = \texttt{computeDampingCoefficient}
+\big(\mathcal{E}_{\text{stress}}(x,t)\big)
+\]
+
+\textbf{Contract:}
+\[
+\sigma_{\text{threshold}} = g\big(\|\mathcal{E}_{\text{stress}}(x,t)\|\big),
+\]
+where $g$ increases with stress to suppress runaway activation.
+
+\section{API: Cell-Cycle Invariants}
+
+\subsection*{Function: \texttt{evaluateCellCycleInvariant}}
+\textbf{Signature:}
+\[
+\mathcal{I}_{\text{cc}} = \texttt{evaluateCellCycleInvariant}
+\big(n(x,t), \mathcal{K}_{\text{DNA}}(x,t), \mathbf{J}_{\text{biochem}}(x,t)\big)
+\]
+
+\textbf{Contract:}
+\[
+\Delta \mathcal{I}_{\text{cc}} = 0 \quad \text{(required for legal operation)}.
+\]
+
+\subsection*{Function: \texttt{enforceInvariantClamp}}
+\textbf{Signature:}
+\[
+\texttt{enforceInvariantClamp}\big(\mathcal{I}_{\text{cc}}\big)
+\rightarrow \Delta \mathcal{I}_{\text{cc}} \equiv 0
+\]
+
+\textbf{Behavior:}
+If $\Delta \mathcal{I}_{\text{cc}} \neq 0$, apply corrective transformations to
+$n$, $\mathcal{K}_{\text{DNA}}$, or $\mathbf{J}_{\text{biochem}}$ to restore equilibrium.
+
+\section{API: Tissue Manifold Closure}
+
+\subsection*{Function: \texttt{computeClosureUpdate}}
+\textbf{Signature:}
+\[
+g_{ij}(x,t+\Delta t) = \texttt{computeClosureUpdate}
+\big(g_{ij}(x,t), \Psi_{\text{current}}^{(ij)}, \Psi_{\text{target}}^{(ij)}, \lambda_{\text{reg}}\big)
+\]
+
+\textbf{Contract:}
+\[
+g_{ij}(t + \Delta t) = g_{ij}(t) +
+\lambda_{\text{reg}} \cdot
+\big(\Psi_{\text{target}}^{(ij)} - \Psi_{\text{current}}^{(ij)}\big).
+\]
+
+\subsection*{Function: \texttt{computeClosureError}}
+\textbf{Signature:}
+\[
+\epsilon = \texttt{computeClosureError}
+\big(\Psi_{\text{current}}^{(ij)}, \Psi_{\text{target}}^{(ij)}\big)
+\]
+
+\textbf{Contract:}
+\[
+\epsilon = \left\| \Psi_{\text{target}}^{(ij)} -
+\Psi_{\text{current}}^{(ij)} \right\|,
+\quad \epsilon \rightarrow 0 \text{ desired.}
+\]
+
+\section{API: Recursion-Safe Mitosis}
+
+\subsection*{Function: \texttt{checkMitosisLegal}}
+\textbf{Signature:}
+\[
+\texttt{checkMitosisLegal}\big(n(x,t), n_{\max}\big)
+\rightarrow \{\text{LEGAL}, \text{ILLEGAL}\}
+\]
+
+\textbf{Contract:}
+\[
+\text{LEGAL} \iff n(x,t) \leq n_{\max}.
+\]
+
+\subsection*{Function: \texttt{applyRecursionGovernor}}
+\textbf{Signature:}
+\[
+n'(x,t), \text{state}' =
+\texttt{applyRecursionGovernor}\big(n(x,t), n_{\max}, \text{state}\big)
+\]
+
+\textbf{Behavior:}
+\begin{itemize}
+  \item If $n(x,t) \leq n_{\max}$: allow mitosis, update lineage state.
+  \item If $n(x,t) > n_{\max}$:
+  \begin{enumerate}
+    \item Set $n'(x,t) = n_{\max}$.
+    \item Halt further state-transfer.
+    \item Transition lineage to terminal differentiation (NULL).
+  \end{enumerate}
+\end{itemize}
+
+\section{API: Sovereign Kernel Cycle}
+
+\subsection*{Function: \texttt{runSovereignCycle}}
+\textbf{Signature:}
+\[
+\texttt{runSovereignCycle}\big(\text{state}(t)\big)
+\rightarrow \text{state}(t+\Delta t), \text{logEntry}
+\]
+
+\textbf{Pipeline:}
+\begin{enumerate}
+  \item \textbf{Sense}: Sample $\mathcal{E}_{\text{stress}}$, $\mathcal{K}_{\text{DNA}}$,
+  $\Psi_{\text{current}}^{(ij)}$, $n$.
+  \item \textbf{Compute}: Call
+  \texttt{computeRegenerationWindow},
+  \texttt{computeDampingCoefficient},
+  \texttt{evaluateCellCycleInvariant},
+  \texttt{computeClosureError}.
+  \item \textbf{Validate}: Call
+  \texttt{enforceInvariantClamp},
+  \texttt{checkMitosisLegal}.
+  \item \textbf{Act}: Call
+  \texttt{computeClosureUpdate},
+  \texttt{applyRecursionGovernor}.
+  \item \textbf{Stabilize}: Reassert invariant clamps, recompute $\epsilon$.
+  \item \textbf{Audit}: Write \texttt{logEntry} to sovereign provenance ledger.
+\end{enumerate}
+
+\section*{Execution Guarantees}
+Any compliant implementation of this API MUST ensure:
+\begin{itemize}
+  \item $\Delta \mathcal{I}_{\text{cc}} \equiv 0$ at the end of each cycle.
+  \item $n(x,t) \leq n_{\max}$ for all lineages.
+  \item $\epsilon$ monotonically decreases under closure updates.
+  \item All cycles are logged under a sovereign lock with immutable provenance.
+\end{itemize}
+
+\end{document}
