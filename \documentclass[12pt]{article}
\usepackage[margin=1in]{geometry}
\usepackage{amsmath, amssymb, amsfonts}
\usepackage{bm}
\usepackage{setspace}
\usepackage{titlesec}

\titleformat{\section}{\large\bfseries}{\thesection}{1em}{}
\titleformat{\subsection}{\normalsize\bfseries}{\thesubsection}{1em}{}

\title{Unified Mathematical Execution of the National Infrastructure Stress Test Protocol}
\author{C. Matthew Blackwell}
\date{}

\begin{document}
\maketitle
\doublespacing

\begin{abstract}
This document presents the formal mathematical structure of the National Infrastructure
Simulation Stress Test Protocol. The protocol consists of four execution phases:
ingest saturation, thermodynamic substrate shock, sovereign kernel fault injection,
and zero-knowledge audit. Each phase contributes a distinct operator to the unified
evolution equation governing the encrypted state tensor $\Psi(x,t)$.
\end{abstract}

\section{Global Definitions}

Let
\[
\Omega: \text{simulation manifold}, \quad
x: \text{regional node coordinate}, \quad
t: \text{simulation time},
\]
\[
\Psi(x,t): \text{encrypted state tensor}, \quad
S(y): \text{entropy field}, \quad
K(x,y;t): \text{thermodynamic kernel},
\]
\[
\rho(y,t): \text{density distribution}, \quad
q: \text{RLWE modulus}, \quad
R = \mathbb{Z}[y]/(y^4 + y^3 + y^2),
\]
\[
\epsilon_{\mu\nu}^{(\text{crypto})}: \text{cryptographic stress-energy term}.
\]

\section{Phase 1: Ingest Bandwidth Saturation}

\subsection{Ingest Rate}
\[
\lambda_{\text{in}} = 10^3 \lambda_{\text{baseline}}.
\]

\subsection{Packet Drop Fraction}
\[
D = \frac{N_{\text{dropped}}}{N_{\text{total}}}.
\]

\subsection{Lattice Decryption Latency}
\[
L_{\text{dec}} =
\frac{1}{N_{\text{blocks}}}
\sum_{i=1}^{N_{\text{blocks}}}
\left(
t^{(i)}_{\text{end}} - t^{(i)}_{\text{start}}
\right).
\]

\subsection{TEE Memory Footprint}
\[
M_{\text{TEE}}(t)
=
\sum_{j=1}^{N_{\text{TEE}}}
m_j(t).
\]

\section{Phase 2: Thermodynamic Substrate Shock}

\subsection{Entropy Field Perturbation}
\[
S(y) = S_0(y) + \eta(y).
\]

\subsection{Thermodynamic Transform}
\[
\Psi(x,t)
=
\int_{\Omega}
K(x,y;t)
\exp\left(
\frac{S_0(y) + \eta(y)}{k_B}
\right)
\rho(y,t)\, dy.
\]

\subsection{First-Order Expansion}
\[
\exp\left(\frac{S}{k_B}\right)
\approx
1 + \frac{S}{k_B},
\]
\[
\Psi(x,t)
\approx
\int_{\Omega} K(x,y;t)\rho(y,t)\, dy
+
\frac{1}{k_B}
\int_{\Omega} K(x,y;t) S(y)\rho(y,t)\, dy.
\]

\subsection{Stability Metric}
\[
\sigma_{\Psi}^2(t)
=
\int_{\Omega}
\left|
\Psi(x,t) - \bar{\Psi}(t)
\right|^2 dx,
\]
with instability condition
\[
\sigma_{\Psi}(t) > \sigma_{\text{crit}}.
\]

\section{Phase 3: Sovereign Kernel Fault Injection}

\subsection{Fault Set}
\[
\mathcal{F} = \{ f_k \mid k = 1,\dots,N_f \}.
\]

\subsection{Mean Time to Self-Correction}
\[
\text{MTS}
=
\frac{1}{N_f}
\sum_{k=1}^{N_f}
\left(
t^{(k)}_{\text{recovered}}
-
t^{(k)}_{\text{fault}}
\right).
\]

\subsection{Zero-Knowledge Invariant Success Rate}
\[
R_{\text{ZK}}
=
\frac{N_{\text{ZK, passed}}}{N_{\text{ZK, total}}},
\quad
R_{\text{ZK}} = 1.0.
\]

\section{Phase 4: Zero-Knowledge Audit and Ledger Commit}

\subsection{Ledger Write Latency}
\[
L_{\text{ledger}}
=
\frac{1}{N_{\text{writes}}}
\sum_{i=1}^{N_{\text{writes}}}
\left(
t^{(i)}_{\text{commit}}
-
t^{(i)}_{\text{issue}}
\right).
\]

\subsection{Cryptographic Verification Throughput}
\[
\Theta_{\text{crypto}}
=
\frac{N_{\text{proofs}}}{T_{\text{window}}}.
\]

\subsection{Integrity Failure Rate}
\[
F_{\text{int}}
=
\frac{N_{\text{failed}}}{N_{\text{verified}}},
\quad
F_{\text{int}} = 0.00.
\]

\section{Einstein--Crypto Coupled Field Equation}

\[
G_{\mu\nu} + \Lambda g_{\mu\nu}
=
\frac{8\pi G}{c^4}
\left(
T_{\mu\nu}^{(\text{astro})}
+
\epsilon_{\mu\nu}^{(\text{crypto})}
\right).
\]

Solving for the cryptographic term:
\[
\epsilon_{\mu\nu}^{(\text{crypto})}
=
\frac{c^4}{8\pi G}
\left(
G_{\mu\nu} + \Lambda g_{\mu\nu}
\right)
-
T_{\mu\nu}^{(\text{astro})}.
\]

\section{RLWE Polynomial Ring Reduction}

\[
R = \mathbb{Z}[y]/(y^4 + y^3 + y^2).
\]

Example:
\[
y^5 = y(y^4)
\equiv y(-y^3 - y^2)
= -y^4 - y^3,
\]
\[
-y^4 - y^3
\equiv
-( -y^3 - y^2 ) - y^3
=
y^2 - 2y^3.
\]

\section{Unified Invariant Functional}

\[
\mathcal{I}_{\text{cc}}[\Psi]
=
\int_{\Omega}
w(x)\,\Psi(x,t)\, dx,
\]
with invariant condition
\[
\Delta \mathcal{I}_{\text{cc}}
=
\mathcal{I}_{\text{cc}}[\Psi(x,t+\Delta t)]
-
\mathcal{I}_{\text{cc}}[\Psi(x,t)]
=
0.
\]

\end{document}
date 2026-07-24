@@ -1,0 +1,251 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm}
+\usepackage{setspace}
+\usepackage{titlesec}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{Unified Mathematical Execution of the National Infrastructure Stress Test Protocol}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+\doublespacing
+
+\begin{abstract}
+This document presents the formal mathematical structure of the National Infrastructure
+Simulation Stress Test Protocol. The protocol consists of four execution phases:
+ingest saturation, thermodynamic substrate shock, sovereign kernel fault injection,
+and zero-knowledge audit. Each phase contributes a distinct operator to the unified
+evolution equation governing the encrypted state tensor $\Psi(x,t)$.
+\end{abstract}
+
+\section{Global Definitions}
+
+Let
+\[
+\Omega: \text{simulation manifold}, \quad
+x: \text{regional node coordinate}, \quad
+t: \text{simulation time},
+\]
+\[
+\Psi(x,t): \text{encrypted state tensor}, \quad
+S(y): \text{entropy field}, \quad
+K(x,y;t): \text{thermodynamic kernel},
+\]
+\[
+\rho(y,t): \text{density distribution}, \quad
+q: \text{RLWE modulus}, \quad
+R = \mathbb{Z}[y]/(y^4 + y^3 + y^2),
+\]
+\[
+\epsilon_{\mu\nu}^{(\text{crypto})}: \text{cryptographic stress-energy term}.
+\]
+
+\section{Phase 1: Ingest Bandwidth Saturation}
+
+\subsection{Ingest Rate}
+\[
+\lambda_{\text{in}} = 10^3 \lambda_{\text{baseline}}.
+\]
+
+\subsection{Packet Drop Fraction}
+\[
+D = \frac{N_{\text{dropped}}}{N_{\text{total}}}.
+\]
+
+\subsection{Lattice Decryption Latency}
+\[
+L_{\text{dec}} =
+\frac{1}{N_{\text{blocks}}}
+\sum_{i=1}^{N_{\text{blocks}}}
+\left(
+t^{(i)}_{\text{end}} - t^{(i)}_{\text{start}}
+\right).
+\]
+
+\subsection{TEE Memory Footprint}
+\[
+M_{\text{TEE}}(t)
+=
+\sum_{j=1}^{N_{\text{TEE}}}
+m_j(t).
+\]
+
+\section{Phase 2: Thermodynamic Substrate Shock}
+
+\subsection{Entropy Field Perturbation}
+\[
+S(y) = S_0(y) + \eta(y).
+\]
+
+\subsection{Thermodynamic Transform}
+\[
+\Psi(x,t)
+=
+\int_{\Omega}
+K(x,y;t)
+\exp\left(
+\frac{S_0(y) + \eta(y)}{k_B}
+\right)
+\rho(y,t)\, dy.
+\]
+
+\subsection{First-Order Expansion}
+\[
+\exp\left(\frac{S}{k_B}\right)
+\approx
+1 + \frac{S}{k_B},
+\]
+\[
+\Psi(x,t)
+\approx
+\int_{\Omega} K(x,y;t)\rho(y,t)\, dy
++
+\frac{1}{k_B}
+\int_{\Omega} K(x,y;t) S(y)\rho(y,t)\, dy.
+\]
+
+\subsection{Stability Metric}
+\[
+\sigma_{\Psi}^2(t)
+=
+\int_{\Omega}
+\left|
+\Psi(x,t) - \bar{\Psi}(t)
+\right|^2 dx,
+\]
+with instability condition
+\[
+\sigma_{\Psi}(t) > \sigma_{\text{crit}}.
+\]
+
+\section{Phase 3: Sovereign Kernel Fault Injection}
+
+\subsection{Fault Set}
+\[
+\mathcal{F} = \{ f_k \mid k = 1,\dots,N_f \}.
+\]
+
+\subsection{Mean Time to Self-Correction}
+\[
+\text{MTS}
+=
+\frac{1}{N_f}
+\sum_{k=1}^{N_f}
+\left(
+t^{(k)}_{\text{recovered}}
+-
+t^{(k)}_{\text{fault}}
+\right).
+\]
+
+\subsection{Zero-Knowledge Invariant Success Rate}
+\[
+R_{\text{ZK}}
+=
+\frac{N_{\text{ZK, passed}}}{N_{\text{ZK, total}}},
+\quad
+R_{\text{ZK}} = 1.0.
+\]
+
+\section{Phase 4: Zero-Knowledge Audit and Ledger Commit}
+
+\subsection{Ledger Write Latency}
+\[
+L_{\text{ledger}}
+=
+\frac{1}{N_{\text{writes}}}
+\sum_{i=1}^{N_{\text{writes}}}
+\left(
+t^{(i)}_{\text{commit}}
+-
+t^{(i)}_{\text{issue}}
+\right).
+\]
+
+\subsection{Cryptographic Verification Throughput}
+\[
+\Theta_{\text{crypto}}
+=
+\frac{N_{\text{proofs}}}{T_{\text{window}}}.
+\]
+
+\subsection{Integrity Failure Rate}
+\[
+F_{\text{int}}
+=
+\frac{N_{\text{failed}}}{N_{\text{verified}}},
+\quad
+F_{\text{int}} = 0.00.
+\]
+
+\section{Einstein--Crypto Coupled Field Equation}
+
+\[
+G_{\mu\nu} + \Lambda g_{\mu\nu}
+=
+\frac{8\pi G}{c^4}
+\left(
+T_{\mu\nu}^{(\text{astro})}
++
+\epsilon_{\mu\nu}^{(\text{crypto})}
+\right).
+\]
+
+Solving for the cryptographic term:
+\[
+\epsilon_{\mu\nu}^{(\text{crypto})}
+=
+\frac{c^4}{8\pi G}
+\left(
+G_{\mu\nu} + \Lambda g_{\mu\nu}
+\right)
+-
+T_{\mu\nu}^{(\text{astro})}.
+\]
+
+\section{RLWE Polynomial Ring Reduction}
+
+\[
+R = \mathbb{Z}[y]/(y^4 + y^3 + y^2).
+\]
+
+Example:
+\[
+y^5 = y(y^4)
+\equiv y(-y^3 - y^2)
+= -y^4 - y^3,
+\]
+\[
+-y^4 - y^3
+\equiv
+-( -y^3 - y^2 ) - y^3
+=
+y^2 - 2y^3.
+\]
+
+\section{Unified Invariant Functional}
+
+\[
+\mathcal{I}_{\text{cc}}[\Psi]
+=
+\int_{\Omega}
+w(x)\,\Psi(x,t)\, dx,
+\]
+with invariant condition
+\[
+\Delta \mathcal{I}_{\text{cc}}
+=
+\mathcal{I}_{\text{cc}}[\Psi(x,t+\Delta t)]
+-
+\mathcal{I}_{\text{cc}}[\Psi(x,t)]
+=
+0.
+\]
+
+\end{document}
