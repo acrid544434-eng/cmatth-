@@ -1,0 +1,244 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{authblk}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{booktabs}
+
+% -------------------------------
+% Theorem Environments
+% -------------------------------
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{Unified Mathematical Execution of the National Infrastructure Stress Test Protocol}}
+\author[1]{C.~Matthew~Blackwell}
+\affil[1]{Independent Systems Architect, Lafayette, Louisiana, USA}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+\doublespacing
+
+\begin{abstract}
+This journal article presents a unified mathematical formulation of the National
+Infrastructure Simulation Stress Test Protocol. The protocol consists of four
+execution phases: ingest saturation, thermodynamic substrate shock, sovereign
+kernel fault injection, and zero-knowledge audit. Each phase contributes a
+distinct operator to the evolution of the encrypted state tensor $\Psi(x,t)$.
+We derive the governing equations, stability metrics, invariant conditions,
+and cryptographic--astrophysical coupling terms relevant to the sovereign
+simulation architecture.
+\end{abstract}
+
+\section{Introduction}
+
+Large-scale national infrastructure simulations require robust stress testing
+under extreme ingest rates, thermodynamic perturbations, cryptographic load,
+and autonomous kernel recovery conditions. This work formalizes the mathematical
+structure of the stress-test protocol and provides a unified evolution equation
+for the encrypted state tensor $\Psi(x,t)$.
+
+\section{Global Definitions}
+
+\begin{definition}[Simulation Manifold]
+The simulation manifold $\Omega$ is the domain over which the encrypted state
+tensor $\Psi(x,t)$ evolves.
+\end{definition}
+
+\[
+R = \mathbb{Z}[y]/(y^4 + y^3 + y^2),
+\qquad
+\epsilon_{\mu\nu}^{(\text{crypto})}: \text{cryptographic stress-energy term}.
+\]
+
+\section{Unified Evolution Equation}
+
+\begin{theorem}[Unified Stress-Test Evolution]
+Let $\mathcal{F}_1, \mathcal{F}_2, \mathcal{F}_3, \mathcal{F}_4$ denote the
+operators corresponding to the four stress-test phases. Then the encrypted
+state tensor evolves according to
+\[
+\Psi(x,t+\Delta t)
+=
+\mathcal{F}_{4}
+\circ
+\mathcal{F}_{3}
+\circ
+\mathcal{F}_{2}
+\circ
+\mathcal{F}_{1}
+\left[\Psi(x,t)\right].
+\]
+\end{theorem}
+
+\begin{proof}
+Each operator $\mathcal{F}_i$ represents a deterministic transformation applied
+to $\Psi(x,t)$ during the corresponding stress-test phase. The sequential
+composition of these operators yields the stated evolution law.
+\end{proof}
+
+\section{Phase I: Ingest Bandwidth Saturation}
+
+\[
+\lambda_{\text{in}} = 10^3 \lambda_{\text{baseline}},
+\qquad
+D = \frac{N_{\text{dropped}}}{N_{\text{total}}}.
+\]
+
+\section{Figures: Ingest Saturation}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{fig_ingest_pipeline.png}
+    \caption{High-rate ingest pipeline showing FITS/RLWE concurrency layers.}
+    \label{fig:ingest_pipeline}
+\end{figure}
+
+\section{Tables: Ingest Metrics}
+
+\begin{table}[h]
+\centering
+\caption{Ingest Saturation Metrics}
+\begin{tabular}{lcc}
+\toprule
+Metric & Symbol & Description \\
+\midrule
+Ingest Rate & $\lambda_{\text{in}}$ & $10^3$ baseline \\
+Packet Drop Fraction & $D$ & $N_{\text{dropped}}/N_{\text{total}}$ \\
+Decryption Latency & $L_{\text{dec}}$ & Mean block latency \\
+TEE Memory Footprint & $M_{\text{TEE}}$ & Total secure memory \\
+\bottomrule
+\end{tabular}
+\label{tab:ingest_metrics}
+\end{table}
+
+\section{Phase II: Thermodynamic Substrate Shock}
+
+\[
+S(y) = S_0(y) + \eta(y),
+\qquad
+\Psi(x,t)
+=
+\int_{\Omega}
+K(x,y;t)
+\exp\left(
+\frac{S_0(y) + \eta(y)}{k_B}
+\right)
+\rho(y,t)\, dy.
+\]
+
+\begin{lemma}[First-Order Expansion]
+For small entropy perturbations,
+\[
+\exp\left(\frac{S}{k_B}\right)
+\approx
+1 + \frac{S}{k_B}.
+\]
+\end{lemma}
+
+\begin{proof}
+This follows from the Taylor expansion of the exponential function.
+\end{proof}
+
+\section{Figures: Thermodynamic Shock}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\textwidth]{fig_thermo_shock.png}
+    \caption{Thermodynamic substrate shock under entropy perturbation.}
+    \label{fig:thermo_shock}
+\end{figure}
+
+\section{Phase III: Sovereign Kernel Fault Injection}
+
+\[
+\mathcal{F} = \{ f_k \mid k = 1,\dots,N_f \},
+\qquad
+\text{MTS}
+=
+\frac{1}{N_f}
+\sum_{k}
+\left(
+t^{(k)}_{\text{recovered}}
+-
+t^{(k)}_{\text{fault}}
+\right).
+\]
+
+\begin{proposition}[Zero-Knowledge Invariant]
+The zero-knowledge invariant success rate satisfies
+\[
+R_{\text{ZK}} = 1.0
+\]
+under ideal autonomous kernel recovery.
+\end{proposition}
+
+\begin{proof}
+If each injected fault is corrected without violating cryptographic invariants,
+the success rate is unity.
+\end{proof}
+
+\section{Phase IV: Zero-Knowledge Audit}
+
+\[
+L_{\text{ledger}}
+=
+\frac{1}{N_{\text{writes}}}
+\sum_{i}
+\left(
+t^{(i)}_{\text{commit}}
+-
+t^{(i)}_{\text{issue}}
+\right),
+\qquad
+\Theta_{\text{crypto}}
+=
+\frac{N_{\text{proofs}}}{T_{\text{window}}}.
+\]
+
+\section{Unified Invariant Functional}
+
+\begin{definition}[Sovereign Invariant]
+\[
+\mathcal{I}_{\text{cc}}[\Psi]
+=
+\int_{\Omega}
+w(x)\,\Psi(x,t)\, dx.
+\]
+\end{definition}
+
+\begin{theorem}[Invariant Condition]
+The sovereign invariant satisfies
+\[
+\Delta \mathcal{I}_{\text{cc}} = 0.
+\]
+\end{theorem}
+
+\begin{proof}
+The invariant is preserved if the weighted contributions of all stress-test
+operators sum to zero.
+\end{proof}
+
+\section{Conclusion}
+
+We have presented a unified mathematical execution of the National Infrastructure
+Stress Test Protocol, including governing operators, stability metrics, invariant
+conditions, and cryptographic coupling. Theorem and proof environments provide
+a rigorous foundation for future analysis.
+
+\end{document}
