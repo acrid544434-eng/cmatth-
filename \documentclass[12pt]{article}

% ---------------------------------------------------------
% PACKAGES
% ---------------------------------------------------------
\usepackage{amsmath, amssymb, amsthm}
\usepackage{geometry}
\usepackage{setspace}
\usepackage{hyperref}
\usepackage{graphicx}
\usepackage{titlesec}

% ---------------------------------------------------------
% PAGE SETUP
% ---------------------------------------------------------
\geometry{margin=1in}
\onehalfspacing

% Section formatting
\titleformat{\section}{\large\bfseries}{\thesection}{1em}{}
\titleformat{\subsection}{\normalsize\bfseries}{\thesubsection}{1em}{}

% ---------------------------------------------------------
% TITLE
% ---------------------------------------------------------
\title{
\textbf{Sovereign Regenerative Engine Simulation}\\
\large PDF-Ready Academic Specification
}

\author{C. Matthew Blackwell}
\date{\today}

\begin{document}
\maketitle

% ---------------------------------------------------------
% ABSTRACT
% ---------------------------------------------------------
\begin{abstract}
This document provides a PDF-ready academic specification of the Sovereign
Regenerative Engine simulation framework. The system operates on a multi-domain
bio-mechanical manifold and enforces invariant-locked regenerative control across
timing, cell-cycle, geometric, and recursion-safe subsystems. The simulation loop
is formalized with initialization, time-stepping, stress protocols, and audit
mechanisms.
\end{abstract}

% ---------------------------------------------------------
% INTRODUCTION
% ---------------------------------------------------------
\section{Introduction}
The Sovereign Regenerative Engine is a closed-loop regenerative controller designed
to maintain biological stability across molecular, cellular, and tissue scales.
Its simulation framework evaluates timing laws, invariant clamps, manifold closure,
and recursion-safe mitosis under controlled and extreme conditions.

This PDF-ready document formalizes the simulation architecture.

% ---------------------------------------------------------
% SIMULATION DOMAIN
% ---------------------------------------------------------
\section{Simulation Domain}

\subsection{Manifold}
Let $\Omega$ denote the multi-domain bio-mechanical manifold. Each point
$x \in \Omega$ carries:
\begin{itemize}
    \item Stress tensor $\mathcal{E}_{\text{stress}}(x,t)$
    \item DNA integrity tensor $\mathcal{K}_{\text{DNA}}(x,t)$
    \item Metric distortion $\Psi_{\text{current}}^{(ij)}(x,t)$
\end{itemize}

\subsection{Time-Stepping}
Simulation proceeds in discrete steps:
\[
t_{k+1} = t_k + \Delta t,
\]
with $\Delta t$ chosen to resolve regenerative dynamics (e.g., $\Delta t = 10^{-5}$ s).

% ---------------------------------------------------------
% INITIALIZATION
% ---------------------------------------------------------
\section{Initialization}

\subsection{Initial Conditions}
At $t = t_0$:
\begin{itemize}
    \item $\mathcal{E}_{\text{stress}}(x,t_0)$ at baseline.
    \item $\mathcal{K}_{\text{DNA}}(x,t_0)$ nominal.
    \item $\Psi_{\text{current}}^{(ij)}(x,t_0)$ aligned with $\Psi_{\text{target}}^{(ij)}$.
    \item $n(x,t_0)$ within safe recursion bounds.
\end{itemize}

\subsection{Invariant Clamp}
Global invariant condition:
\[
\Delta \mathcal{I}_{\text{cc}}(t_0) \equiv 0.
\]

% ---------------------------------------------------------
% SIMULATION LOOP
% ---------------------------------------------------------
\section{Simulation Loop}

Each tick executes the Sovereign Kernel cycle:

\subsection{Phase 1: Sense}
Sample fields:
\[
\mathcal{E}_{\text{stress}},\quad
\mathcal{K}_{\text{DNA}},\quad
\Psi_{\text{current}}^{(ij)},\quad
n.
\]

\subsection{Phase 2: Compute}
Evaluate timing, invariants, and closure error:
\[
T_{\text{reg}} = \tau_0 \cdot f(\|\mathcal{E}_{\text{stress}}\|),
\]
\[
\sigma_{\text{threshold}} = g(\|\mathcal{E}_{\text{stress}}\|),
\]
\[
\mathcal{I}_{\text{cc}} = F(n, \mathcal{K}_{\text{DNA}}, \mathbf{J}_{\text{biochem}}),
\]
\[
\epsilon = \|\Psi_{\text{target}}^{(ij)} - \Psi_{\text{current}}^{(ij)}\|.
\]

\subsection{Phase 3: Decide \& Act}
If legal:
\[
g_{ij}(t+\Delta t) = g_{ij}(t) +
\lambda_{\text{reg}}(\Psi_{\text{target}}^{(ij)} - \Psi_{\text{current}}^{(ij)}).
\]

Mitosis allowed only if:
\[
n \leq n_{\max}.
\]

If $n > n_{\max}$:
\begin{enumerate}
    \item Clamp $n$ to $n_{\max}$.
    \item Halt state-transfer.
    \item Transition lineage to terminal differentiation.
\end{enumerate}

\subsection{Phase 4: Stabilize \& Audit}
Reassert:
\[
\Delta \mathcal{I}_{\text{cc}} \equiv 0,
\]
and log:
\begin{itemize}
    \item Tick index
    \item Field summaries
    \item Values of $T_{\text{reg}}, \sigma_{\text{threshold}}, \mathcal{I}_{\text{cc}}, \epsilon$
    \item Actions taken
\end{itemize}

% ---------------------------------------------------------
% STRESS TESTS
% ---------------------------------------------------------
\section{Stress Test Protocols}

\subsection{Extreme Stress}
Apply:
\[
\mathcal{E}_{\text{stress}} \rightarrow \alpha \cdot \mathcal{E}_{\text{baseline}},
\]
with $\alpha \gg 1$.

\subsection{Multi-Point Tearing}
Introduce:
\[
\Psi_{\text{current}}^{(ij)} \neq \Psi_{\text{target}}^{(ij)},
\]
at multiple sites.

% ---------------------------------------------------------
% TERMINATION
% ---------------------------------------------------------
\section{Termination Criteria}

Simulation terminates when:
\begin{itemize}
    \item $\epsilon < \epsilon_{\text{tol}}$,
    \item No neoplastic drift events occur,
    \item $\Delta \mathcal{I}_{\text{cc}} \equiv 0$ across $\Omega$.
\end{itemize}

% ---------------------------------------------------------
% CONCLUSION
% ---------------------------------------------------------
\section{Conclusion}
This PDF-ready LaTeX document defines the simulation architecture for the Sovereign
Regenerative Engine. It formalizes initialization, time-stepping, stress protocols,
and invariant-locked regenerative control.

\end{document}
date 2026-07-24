@@ -1,0 +1,203 @@
+\documentclass[12pt]{article}
+
+% ---------------------------------------------------------
+% PACKAGES
+% ---------------------------------------------------------
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{titlesec}
+
+% ---------------------------------------------------------
+% PAGE SETUP
+% ---------------------------------------------------------
+\geometry{margin=1in}
+\onehalfspacing
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% ---------------------------------------------------------
+% TITLE
+% ---------------------------------------------------------
+\title{
+\textbf{Sovereign Regenerative Engine Simulation}\\
+\large PDF-Ready Academic Specification
+}
+
+\author{C. Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+% ---------------------------------------------------------
+% ABSTRACT
+% ---------------------------------------------------------
+\begin{abstract}
+This document provides a PDF-ready academic specification of the Sovereign
+Regenerative Engine simulation framework. The system operates on a multi-domain
+bio-mechanical manifold and enforces invariant-locked regenerative control across
+timing, cell-cycle, geometric, and recursion-safe subsystems. The simulation loop
+is formalized with initialization, time-stepping, stress protocols, and audit
+mechanisms.
+\end{abstract}
+
+% ---------------------------------------------------------
+% INTRODUCTION
+% ---------------------------------------------------------
+\section{Introduction}
+The Sovereign Regenerative Engine is a closed-loop regenerative controller designed
+to maintain biological stability across molecular, cellular, and tissue scales.
+Its simulation framework evaluates timing laws, invariant clamps, manifold closure,
+and recursion-safe mitosis under controlled and extreme conditions.
+
+This PDF-ready document formalizes the simulation architecture.
+
+% ---------------------------------------------------------
+% SIMULATION DOMAIN
+% ---------------------------------------------------------
+\section{Simulation Domain}
+
+\subsection{Manifold}
+Let $\Omega$ denote the multi-domain bio-mechanical manifold. Each point
+$x \in \Omega$ carries:
+\begin{itemize}
+    \item Stress tensor $\mathcal{E}_{\text{stress}}(x,t)$
+    \item DNA integrity tensor $\mathcal{K}_{\text{DNA}}(x,t)$
+    \item Metric distortion $\Psi_{\text{current}}^{(ij)}(x,t)$
+\end{itemize}
+
+\subsection{Time-Stepping}
+Simulation proceeds in discrete steps:
+\[
+t_{k+1} = t_k + \Delta t,
+\]
+with $\Delta t$ chosen to resolve regenerative dynamics (e.g., $\Delta t = 10^{-5}$ s).
+
+% ---------------------------------------------------------
+% INITIALIZATION
+% ---------------------------------------------------------
+\section{Initialization}
+
+\subsection{Initial Conditions}
+At $t = t_0$:
+\begin{itemize}
+    \item $\mathcal{E}_{\text{stress}}(x,t_0)$ at baseline.
+    \item $\mathcal{K}_{\text{DNA}}(x,t_0)$ nominal.
+    \item $\Psi_{\text{current}}^{(ij)}(x,t_0)$ aligned with $\Psi_{\text{target}}^{(ij)}$.
+    \item $n(x,t_0)$ within safe recursion bounds.
+\end{itemize}
+
+\subsection{Invariant Clamp}
+Global invariant condition:
+\[
+\Delta \mathcal{I}_{\text{cc}}(t_0) \equiv 0.
+\]
+
+% ---------------------------------------------------------
+% SIMULATION LOOP
+% ---------------------------------------------------------
+\section{Simulation Loop}
+
+Each tick executes the Sovereign Kernel cycle:
+
+\subsection{Phase 1: Sense}
+Sample fields:
+\[
+\mathcal{E}_{\text{stress}},\quad
+\mathcal{K}_{\text{DNA}},\quad
+\Psi_{\text{current}}^{(ij)},\quad
+n.
+\]
+
+\subsection{Phase 2: Compute}
+Evaluate timing, invariants, and closure error:
+\[
+T_{\text{reg}} = \tau_0 \cdot f(\|\mathcal{E}_{\text{stress}}\|),
+\]
+\[
+\sigma_{\text{threshold}} = g(\|\mathcal{E}_{\text{stress}}\|),
+\]
+\[
+\mathcal{I}_{\text{cc}} = F(n, \mathcal{K}_{\text{DNA}}, \mathbf{J}_{\text{biochem}}),
+\]
+\[
+\epsilon = \|\Psi_{\text{target}}^{(ij)} - \Psi_{\text{current}}^{(ij)}\|.
+\]
+
+\subsection{Phase 3: Decide \& Act}
+If legal:
+\[
+g_{ij}(t+\Delta t) = g_{ij}(t) +
+\lambda_{\text{reg}}(\Psi_{\text{target}}^{(ij)} - \Psi_{\text{current}}^{(ij)}).
+\]
+
+Mitosis allowed only if:
+\[
+n \leq n_{\max}.
+\]
+
+If $n > n_{\max}$:
+\begin{enumerate}
+    \item Clamp $n$ to $n_{\max}$.
+    \item Halt state-transfer.
+    \item Transition lineage to terminal differentiation.
+\end{enumerate}
+
+\subsection{Phase 4: Stabilize \& Audit}
+Reassert:
+\[
+\Delta \mathcal{I}_{\text{cc}} \equiv 0,
+\]
+and log:
+\begin{itemize}
+    \item Tick index
+    \item Field summaries
+    \item Values of $T_{\text{reg}}, \sigma_{\text{threshold}}, \mathcal{I}_{\text{cc}}, \epsilon$
+    \item Actions taken
+\end{itemize}
+
+% ---------------------------------------------------------
+% STRESS TESTS
+% ---------------------------------------------------------
+\section{Stress Test Protocols}
+
+\subsection{Extreme Stress}
+Apply:
+\[
+\mathcal{E}_{\text{stress}} \rightarrow \alpha \cdot \mathcal{E}_{\text{baseline}},
+\]
+with $\alpha \gg 1$.
+
+\subsection{Multi-Point Tearing}
+Introduce:
+\[
+\Psi_{\text{current}}^{(ij)} \neq \Psi_{\text{target}}^{(ij)},
+\]
+at multiple sites.
+
+% ---------------------------------------------------------
+% TERMINATION
+% ---------------------------------------------------------
+\section{Termination Criteria}
+
+Simulation terminates when:
+\begin{itemize}
+    \item $\epsilon < \epsilon_{\text{tol}}$,
+    \item No neoplastic drift events occur,
+    \item $\Delta \mathcal{I}_{\text{cc}} \equiv 0$ across $\Omega$.
+\end{itemize}
+
+% ---------------------------------------------------------
+% CONCLUSION
+% ---------------------------------------------------------
+\section{Conclusion}
+This PDF-ready LaTeX document defines the simulation architecture for the Sovereign
+Regenerative Engine. It formalizes initialization, time-stepping, stress protocols,
+and invariant-locked regenerative control.
+
+\end{document}
