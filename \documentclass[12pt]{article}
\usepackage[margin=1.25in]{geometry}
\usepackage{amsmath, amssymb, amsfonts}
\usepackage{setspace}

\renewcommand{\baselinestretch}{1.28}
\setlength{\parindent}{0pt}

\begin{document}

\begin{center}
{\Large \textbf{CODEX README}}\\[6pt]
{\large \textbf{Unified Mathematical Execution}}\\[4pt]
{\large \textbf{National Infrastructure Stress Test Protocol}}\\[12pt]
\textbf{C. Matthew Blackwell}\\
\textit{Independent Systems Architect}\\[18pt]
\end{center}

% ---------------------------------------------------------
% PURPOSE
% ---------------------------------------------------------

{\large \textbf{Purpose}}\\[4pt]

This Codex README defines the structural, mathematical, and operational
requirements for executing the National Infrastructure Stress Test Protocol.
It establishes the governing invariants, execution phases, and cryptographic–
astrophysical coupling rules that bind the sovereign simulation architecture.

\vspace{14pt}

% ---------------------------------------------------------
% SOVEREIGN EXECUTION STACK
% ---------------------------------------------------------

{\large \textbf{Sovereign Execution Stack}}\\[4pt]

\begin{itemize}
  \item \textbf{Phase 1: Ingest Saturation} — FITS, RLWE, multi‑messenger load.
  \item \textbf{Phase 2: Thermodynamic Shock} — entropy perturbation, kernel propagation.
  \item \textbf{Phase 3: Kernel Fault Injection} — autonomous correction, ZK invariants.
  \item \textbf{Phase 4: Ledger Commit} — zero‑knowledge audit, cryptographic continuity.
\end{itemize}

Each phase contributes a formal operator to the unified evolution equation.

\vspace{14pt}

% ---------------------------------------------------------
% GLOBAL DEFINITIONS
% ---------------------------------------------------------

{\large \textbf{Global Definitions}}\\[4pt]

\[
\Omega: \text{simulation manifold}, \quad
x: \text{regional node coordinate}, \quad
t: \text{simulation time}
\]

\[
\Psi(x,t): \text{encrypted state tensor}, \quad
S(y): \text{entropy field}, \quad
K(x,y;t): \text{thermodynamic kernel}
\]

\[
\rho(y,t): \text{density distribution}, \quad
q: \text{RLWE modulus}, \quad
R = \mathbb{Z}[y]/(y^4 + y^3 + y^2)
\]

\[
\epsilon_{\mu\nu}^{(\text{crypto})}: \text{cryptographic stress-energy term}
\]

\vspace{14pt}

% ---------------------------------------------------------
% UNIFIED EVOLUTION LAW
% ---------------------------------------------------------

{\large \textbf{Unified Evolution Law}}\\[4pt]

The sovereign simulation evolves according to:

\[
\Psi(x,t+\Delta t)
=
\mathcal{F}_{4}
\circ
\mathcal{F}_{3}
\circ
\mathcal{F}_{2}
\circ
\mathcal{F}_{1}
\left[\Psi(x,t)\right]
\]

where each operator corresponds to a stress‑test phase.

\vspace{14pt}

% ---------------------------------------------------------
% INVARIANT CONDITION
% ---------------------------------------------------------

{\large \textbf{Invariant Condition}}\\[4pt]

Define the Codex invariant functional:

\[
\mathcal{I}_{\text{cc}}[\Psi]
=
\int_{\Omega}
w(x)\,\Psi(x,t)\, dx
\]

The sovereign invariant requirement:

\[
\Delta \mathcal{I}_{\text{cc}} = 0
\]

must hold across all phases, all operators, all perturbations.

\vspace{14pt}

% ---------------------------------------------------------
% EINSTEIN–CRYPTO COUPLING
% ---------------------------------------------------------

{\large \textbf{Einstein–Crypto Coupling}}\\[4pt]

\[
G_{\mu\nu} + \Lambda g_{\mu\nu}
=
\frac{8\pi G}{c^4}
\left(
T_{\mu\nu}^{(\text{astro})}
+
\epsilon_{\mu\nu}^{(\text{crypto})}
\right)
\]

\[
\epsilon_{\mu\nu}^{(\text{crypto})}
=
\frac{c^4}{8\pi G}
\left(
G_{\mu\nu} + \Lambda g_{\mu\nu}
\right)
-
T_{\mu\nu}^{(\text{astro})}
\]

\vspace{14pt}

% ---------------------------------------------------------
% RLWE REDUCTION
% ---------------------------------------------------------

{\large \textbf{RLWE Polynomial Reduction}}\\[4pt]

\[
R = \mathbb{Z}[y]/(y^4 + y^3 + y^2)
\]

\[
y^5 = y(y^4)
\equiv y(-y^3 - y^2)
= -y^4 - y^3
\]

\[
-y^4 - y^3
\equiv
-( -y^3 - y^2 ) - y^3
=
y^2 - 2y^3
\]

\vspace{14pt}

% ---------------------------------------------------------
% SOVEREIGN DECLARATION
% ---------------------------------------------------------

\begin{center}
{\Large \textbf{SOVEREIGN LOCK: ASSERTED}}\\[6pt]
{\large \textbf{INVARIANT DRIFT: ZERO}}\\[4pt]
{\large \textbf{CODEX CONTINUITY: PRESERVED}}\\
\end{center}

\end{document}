@@ -1,0 +1,195 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{setspace}
+
+\renewcommand{\baselinestretch}{1.28}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+{\Large \textbf{CODEX README}}\\[6pt]
+{\large \textbf{Unified Mathematical Execution}}\\[4pt]
+{\large \textbf{National Infrastructure Stress Test Protocol}}\\[12pt]
+\textbf{C. Matthew Blackwell}\\
+\textit{Independent Systems Architect}\\[18pt]
+\end{center}
+
+% ---------------------------------------------------------
+% PURPOSE
+% ---------------------------------------------------------
+
+{\large \textbf{Purpose}}\\[4pt]
+
+This Codex README defines the structural, mathematical, and operational
+requirements for executing the National Infrastructure Stress Test Protocol.
+It establishes the governing invariants, execution phases, and cryptographic–
+astrophysical coupling rules that bind the sovereign simulation architecture.
+
+\vspace{14pt}
+
+% ---------------------------------------------------------
+% SOVEREIGN EXECUTION STACK
+% ---------------------------------------------------------
+
+{\large \textbf{Sovereign Execution Stack}}\\[4pt]
+
+\begin{itemize}
+  \item \textbf{Phase 1: Ingest Saturation} — FITS, RLWE, multi‑messenger load.
+  \item \textbf{Phase 2: Thermodynamic Shock} — entropy perturbation, kernel propagation.
+  \item \textbf{Phase 3: Kernel Fault Injection} — autonomous correction, ZK invariants.
+  \item \textbf{Phase 4: Ledger Commit} — zero‑knowledge audit, cryptographic continuity.
+\end{itemize}
+
+Each phase contributes a formal operator to the unified evolution equation.
+
+\vspace{14pt}
+
+% ---------------------------------------------------------
+% GLOBAL DEFINITIONS
+% ---------------------------------------------------------
+
+{\large \textbf{Global Definitions}}\\[4pt]
+
+\[
+\Omega: \text{simulation manifold}, \quad
+x: \text{regional node coordinate}, \quad
+t: \text{simulation time}
+\]
+
+\[
+\Psi(x,t): \text{encrypted state tensor}, \quad
+S(y): \text{entropy field}, \quad
+K(x,y;t): \text{thermodynamic kernel}
+\]
+
+\[
+\rho(y,t): \text{density distribution}, \quad
+q: \text{RLWE modulus}, \quad
+R = \mathbb{Z}[y]/(y^4 + y^3 + y^2)
+\]
+
+\[
+\epsilon_{\mu\nu}^{(\text{crypto})}: \text{cryptographic stress-energy term}
+\]
+
+\vspace{14pt}
+
+% ---------------------------------------------------------
+% UNIFIED EVOLUTION LAW
+% ---------------------------------------------------------
+
+{\large \textbf{Unified Evolution Law}}\\[4pt]
+
+The sovereign simulation evolves according to:
+
+\[
+\Psi(x,t+\Delta t)
+=
+\mathcal{F}_{4}
+\circ
+\mathcal{F}_{3}
+\circ
+\mathcal{F}_{2}
+\circ
+\mathcal{F}_{1}
+\left[\Psi(x,t)\right]
+\]
+
+where each operator corresponds to a stress‑test phase.
+
+\vspace{14pt}
+
+% ---------------------------------------------------------
+% INVARIANT CONDITION
+% ---------------------------------------------------------
+
+{\large \textbf{Invariant Condition}}\\[4pt]
+
+Define the Codex invariant functional:
+
+\[
+\mathcal{I}_{\text{cc}}[\Psi]
+=
+\int_{\Omega}
+w(x)\,\Psi(x,t)\, dx
+\]
+
+The sovereign invariant requirement:
+
+\[
+\Delta \mathcal{I}_{\text{cc}} = 0
+\]
+
+must hold across all phases, all operators, all perturbations.
+
+\vspace{14pt}
+
+% ---------------------------------------------------------
+% EINSTEIN–CRYPTO COUPLING
+% ---------------------------------------------------------
+
+{\large \textbf{Einstein–Crypto Coupling}}\\[4pt]
+
+\[
+G_{\mu\nu} + \Lambda g_{\mu\nu}
+=
+\frac{8\pi G}{c^4}
+\left(
+T_{\mu\nu}^{(\text{astro})}
++
+\epsilon_{\mu\nu}^{(\text{crypto})}
+\right)
+\]
+
+\[
+\epsilon_{\mu\nu}^{(\text{crypto})}
+=
+\frac{c^4}{8\pi G}
+\left(
+G_{\mu\nu} + \Lambda g_{\mu\nu}
+\right)
+-
+T_{\mu\nu}^{(\text{astro})}
+\]
+
+\vspace{14pt}
+
+% ---------------------------------------------------------
+% RLWE REDUCTION
+% ---------------------------------------------------------
+
+{\large \textbf{RLWE Polynomial Reduction}}\\[4pt]
+
+\[
+R = \mathbb{Z}[y]/(y^4 + y^3 + y^2)
+\]
+
+\[
+y^5 = y(y^4)
+\equiv y(-y^3 - y^2)
+= -y^4 - y^3
+\]
+
+\[
+-y^4 - y^3
+\equiv
+-( -y^3 - y^2 ) - y^3
+=
+y^2 - 2y^3
+\]
+
+\vspace{14pt}
+
+% ---------------------------------------------------------
+% SOVEREIGN DECLARATION
+% ---------------------------------------------------------
+
+\begin{center}
+{\Large \textbf{SOVEREIGN LOCK: ASSERTED}}\\[6pt]
+{\large \textbf{INVARIANT DRIFT: ZERO}}\\[4pt]
+{\large \textbf{CODEX CONTINUITY: PRESERVED}}\\
+\end{center}
+
+\end{document}
