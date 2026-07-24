@@ -1,0 +1,147 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{authblk}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{Simulation Version Log: National Infrastructure Stress Test Protocol}}
+\author[1]{C.~Matthew~Blackwell}
+\affil[1]{Independent Systems Architect, Lafayette, Louisiana, USA}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+\doublespacing
+
+\section{Overview}
+
+This document records versioned simulations of the National Infrastructure
+Stress Test Protocol, including kernel revisions, parameter sets, and invariant
+checks.
+
+\section{Version Metadata}
+
+\begin{table}[h]
+\centering
+\caption{Simulation Version Summary}
+\begin{tabular}{lcc}
+\toprule
+Field & Symbol & Example \\
+\midrule
+Simulation ID & $\text{SimID}$ & SESS-v10-001 \\
+Kernel Version & $\text{KVer}$ & SK-1.3.2 \\
+Protocol Version & $\text{PVer}$ & NISTP-4.0 \\
+Date & -- & 2026-07-24 \\
+\bottomrule
+\end{tabular}
+\label{tab:version_summary}
+\end{table}
+
+\section{Core Equations (Reference)}
+
+\subsection{Unified Evolution}
+
+\[
+\Psi(x,t+\Delta t)
+=
+\mathcal{F}_{4}
+\circ
+\mathcal{F}_{3}
+\circ
+\mathcal{F}_{2}
+\circ
+\mathcal{F}_{1}
+\left[\Psi(x,t)\right].
+\]
+
+\subsection{Invariant Functional}
+
+\[
+\mathcal{I}_{\text{cc}}[\Psi]
+=
+\int_{\Omega}
+w(x)\,\Psi(x,t)\, dx,
+\qquad
+\Delta \mathcal{I}_{\text{cc}} = 0.
+\]
+
+\section{Run Configuration}
+
+\subsection{Spatial and Temporal Grid}
+
+\[
+x_i \in \Omega,\qquad
+t_n = n\Delta t,
+\]
+\[
+N_x: \text{number of spatial points},\quad
+N_t: \text{number of time steps}.
+\]
+
+\subsection{Phase Parameters}
+
+\begin{itemize}
+  \item Ingest rate: $\lambda_{\text{in}}$.
+  \item Entropy perturbation amplitude: $\|\eta\|$.
+  \item Fault set size: $N_f$.
+  \item Audit window: $T_{\text{window}}$.
+\end{itemize}
+
+\section{Diagnostics Per Version}
+
+\subsection{Stability Metric}
+
+\[
+\sigma_{\Psi}^2(t)
+=
+\sum_{i}
+\left|
+\Psi_i(t) - \bar{\Psi}(t)
+\right|^2.
+\]
+
+\subsection{Invariant Drift}
+
+\[
+\Delta \mathcal{I}_{\text{cc}}
+=
+\mathcal{I}_{\text{cc}}^{\text{end}}
+-
+\mathcal{I}_{\text{cc}}^{\text{start}}.
+\]
+
+\subsection{Kernel Recovery}
+
+\[
+\text{MTS}
+=
+\frac{1}{N_f}
+\sum_{k}
+\left(
+t^{(k)}_{\text{recovered}}
+-
+t^{(k)}_{\text{fault}}
+\right).
+\]
+
+\section{Version Notes}
+
+For each simulation version, record:
+
+\begin{itemize}
+  \item \textbf{Changes}: kernel, protocol, or parameter modifications.
+  \item \textbf{Anomalies}: instability, invariant drift, audit failures.
+  \item \textbf{Next Steps}: tuning, redesign, or new test scenarios.
+\end{itemize}
+
+\end{document}
