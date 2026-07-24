@@ -1,0 +1,183 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\title{Sovereign Regenerative Engine\\
+Codex Manual v1}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Preface}
+This Codex Manual v1 defines the foundational concepts, rules, and operational
+protocols of the \textbf{Sovereign Regenerative Engine}, a closed-loop,
+invariant-locked architecture for controlled biological regeneration.
+
+It is intended as the canonical reference for the design, verification, and
+extension of the Sovereign Kernel and its regenerative subsystems.
+
+\section{Foundational Definitions}
+
+\subsection*{Core Manifold}
+\begin{itemize}
+  \item $\Omega$ : Multi-domain bio-mechanical test manifold (tissue/organ domain).
+  \item $t \in \mathbb{R}$ : Time coordinate.
+  \item $x \in \Omega$ : Spatial coordinate.
+\end{itemize}
+
+\subsection*{Primary Fields}
+\begin{itemize}
+  \item $\mathcal{E}_{\text{stress}}(x,t)$ : Stress tensor field.
+  \item $\mathcal{K}_{\text{DNA}}(x,t)$ : DNA integrity tensor.
+  \item $\mathbf{J}_{\text{biochem}}(x,t)$ : Morphogen flux vector.
+  \item $\Psi_{\text{current}}^{(ij)}(x,t)$ : Current metric distortion.
+  \item $\Psi_{\text{target}}^{(ij)}(x,t)$ : Target homeostatic metric.
+  \item $g_{ij}(x,t)$ : Tissue metric tensor.
+  \item $n(x,t)$ : Mitosis generation index.
+\end{itemize}
+
+\subsection*{Global Invariant Clamp}
+\[
+\Delta \mathcal{I}_{\text{cc}} \equiv 0
+\]
+This expresses the requirement that cell-cycle and topological invariants
+remain drift-free under all legal operations.
+
+\section{Regeneration Timing Codex}
+
+\subsection*{Timing Law}
+Regeneration is governed by a timing window:
+\[
+T_{\text{reg}} = \tau_0 \cdot f\big(\|\mathcal{E}_{\text{stress}}(x,t)\|\big),
+\]
+where $\tau_0$ is a baseline refractory period and $f$ is monotone increasing
+with respect to stress magnitude.
+
+\subsection*{Damping Law}
+Activation is modulated by:
+\[
+\sigma_{\text{threshold}} = g\big(\|\mathcal{E}_{\text{stress}}(x,t)\|\big),
+\]
+with $g$ chosen such that higher stress yields stronger damping, preventing
+runaway regenerative pulses.
+
+\subsection*{Codex Rule T1}
+Regeneration MAY proceed only if:
+\[
+T_{\text{reg}} \text{ is finite and } \sigma_{\text{threshold}} \text{ is within a safe band.}
+\]
+
+\section{Cell-Cycle Invariant Codex}
+
+\subsection*{Invariant Functional}
+\[
+\mathcal{I}_{\text{cc}} = F\big(n(x,t), \mathcal{K}_{\text{DNA}}(x,t), \mathbf{J}_{\text{biochem}}(x,t)\big).
+\]
+
+\subsection*{Codex Rule C1}
+Legal operation REQUIRES:
+\[
+\Delta \mathcal{I}_{\text{cc}} = 0.
+\]
+
+\subsection*{Codex Rule C2}
+If $\Delta \mathcal{I}_{\text{cc}} \neq 0$, the suprakernel MUST:
+\begin{enumerate}
+  \item Detect the drift.
+  \item Apply corrective transformations to $n$, $\mathcal{K}_{\text{DNA}}$, or $\mathbf{J}_{\text{biochem}}$.
+  \item Restore $\Delta \mathcal{I}_{\text{cc}} \equiv 0$.
+\end{enumerate}
+
+\section{Tissue Manifold Closure Codex}
+
+\subsection*{Closure Update Law}
+\[
+g_{ij}(t + \Delta t) = g_{ij}(t) +
+\lambda_{\text{reg}} \cdot
+\big(\Psi_{\text{target}}^{(ij)} - \Psi_{\text{current}}^{(ij)}\big).
+\]
+
+\subsection*{Closure Error}
+\[
+\epsilon = \left\| \Psi_{\text{target}}^{(ij)} -
+\Psi_{\text{current}}^{(ij)} \right\|.
+\]
+
+\subsection*{Codex Rule M1}
+The closure engine MUST act to ensure:
+\[
+\epsilon \text{ decreases monotonically until } \epsilon < \epsilon_{\text{tol}},
+\]
+for some tolerance $\epsilon_{\text{tol}}$ (e.g., $10^{-8}$).
+
+\section{Recursion-Safe Mitosis Codex}
+
+\subsection*{Recursion Bound}
+\[
+n(x,t) \leq n_{\max}.
+\]
+
+\subsection*{Codex Rule R1}
+If a request attempts $n(x,t) > n_{\max}$, the recursion governor MUST:
+\begin{enumerate}
+  \item Clamp $n(x,t)$ to $n_{\max}$.
+  \item Halt further state-transfer operations for that lineage.
+  \item Transition the lineage to terminal differentiation (NULL state).
+\end{enumerate}
+
+\section{Sovereign Kernel Cycle Codex}
+
+\subsection*{Phase Definitions}
+Each cycle of the Sovereign Regenerative Engine consists of:
+
+\begin{enumerate}
+  \item \textbf{Sense}: Sample $\mathcal{E}_{\text{stress}}$, $\mathcal{K}_{\text{DNA}}$,
+  $\Psi_{\text{current}}^{(ij)}$, $n$ across $\Omega$.
+  \item \textbf{Compute}: Evaluate $T_{\text{reg}}$, $\sigma_{\text{threshold}}$,
+  $\mathcal{I}_{\text{cc}}$, and $\epsilon$.
+  \item \textbf{Decide}: Determine whether regeneration actions are legal under
+  timing and invariant constraints.
+  \item \textbf{Act}: Apply closure updates to $g_{ij}$ and legal mitosis operations.
+  \item \textbf{Stabilize}: Reassert invariant clamps and recompute $\epsilon$.
+  \item \textbf{Audit}: Write a complete log entry to the sovereign provenance ledger.
+\end{enumerate}
+
+\subsection*{Codex Rule S1}
+At the end of each cycle, the following MUST hold:
+\begin{itemize}
+  \item $\Delta \mathcal{I}_{\text{cc}} \equiv 0$.
+  \item $n(x,t) \leq n_{\max}$ for all lineages.
+  \item $\epsilon \leq \epsilon_{\text{tol}}$ for all active closure regions.
+\end{itemize}
+
+\section{Sovereign Lock and Provenance}
+
+\subsection*{Sovereign Lock}
+The suprakernel maintains a \emph{sovereign lock} over all invariants and
+regenerative operations. This lock guarantees:
+\[
+\text{No unauthorized modification of } \mathcal{I}_{\text{cc}}, n_{\max}, \lambda_{\text{reg}}.
+\]
+
+\subsection*{Provenance Ledger}
+Each cycle produces a log entry containing:
+\begin{itemize}
+  \item Time stamp $t$.
+  \item Summary of sensed fields.
+  \item Values of $T_{\text{reg}}$, $\sigma_{\text{threshold}}$, $\mathcal{I}_{\text{cc}}$, $\epsilon$.
+  \item Actions taken (closure updates, mitosis decisions).
+  \item Post-cycle invariant verification.
+\end{itemize}
+
+All entries are immutable once written.
+
+\section*{Versioning}
+This document defines \textbf{Codex Manual v1}. Future versions MAY extend
+the subsystem definitions, but MUST preserve the core invariant and recursion
+safety laws unless explicitly superseded under sovereign authority.
+
+\end{document}
