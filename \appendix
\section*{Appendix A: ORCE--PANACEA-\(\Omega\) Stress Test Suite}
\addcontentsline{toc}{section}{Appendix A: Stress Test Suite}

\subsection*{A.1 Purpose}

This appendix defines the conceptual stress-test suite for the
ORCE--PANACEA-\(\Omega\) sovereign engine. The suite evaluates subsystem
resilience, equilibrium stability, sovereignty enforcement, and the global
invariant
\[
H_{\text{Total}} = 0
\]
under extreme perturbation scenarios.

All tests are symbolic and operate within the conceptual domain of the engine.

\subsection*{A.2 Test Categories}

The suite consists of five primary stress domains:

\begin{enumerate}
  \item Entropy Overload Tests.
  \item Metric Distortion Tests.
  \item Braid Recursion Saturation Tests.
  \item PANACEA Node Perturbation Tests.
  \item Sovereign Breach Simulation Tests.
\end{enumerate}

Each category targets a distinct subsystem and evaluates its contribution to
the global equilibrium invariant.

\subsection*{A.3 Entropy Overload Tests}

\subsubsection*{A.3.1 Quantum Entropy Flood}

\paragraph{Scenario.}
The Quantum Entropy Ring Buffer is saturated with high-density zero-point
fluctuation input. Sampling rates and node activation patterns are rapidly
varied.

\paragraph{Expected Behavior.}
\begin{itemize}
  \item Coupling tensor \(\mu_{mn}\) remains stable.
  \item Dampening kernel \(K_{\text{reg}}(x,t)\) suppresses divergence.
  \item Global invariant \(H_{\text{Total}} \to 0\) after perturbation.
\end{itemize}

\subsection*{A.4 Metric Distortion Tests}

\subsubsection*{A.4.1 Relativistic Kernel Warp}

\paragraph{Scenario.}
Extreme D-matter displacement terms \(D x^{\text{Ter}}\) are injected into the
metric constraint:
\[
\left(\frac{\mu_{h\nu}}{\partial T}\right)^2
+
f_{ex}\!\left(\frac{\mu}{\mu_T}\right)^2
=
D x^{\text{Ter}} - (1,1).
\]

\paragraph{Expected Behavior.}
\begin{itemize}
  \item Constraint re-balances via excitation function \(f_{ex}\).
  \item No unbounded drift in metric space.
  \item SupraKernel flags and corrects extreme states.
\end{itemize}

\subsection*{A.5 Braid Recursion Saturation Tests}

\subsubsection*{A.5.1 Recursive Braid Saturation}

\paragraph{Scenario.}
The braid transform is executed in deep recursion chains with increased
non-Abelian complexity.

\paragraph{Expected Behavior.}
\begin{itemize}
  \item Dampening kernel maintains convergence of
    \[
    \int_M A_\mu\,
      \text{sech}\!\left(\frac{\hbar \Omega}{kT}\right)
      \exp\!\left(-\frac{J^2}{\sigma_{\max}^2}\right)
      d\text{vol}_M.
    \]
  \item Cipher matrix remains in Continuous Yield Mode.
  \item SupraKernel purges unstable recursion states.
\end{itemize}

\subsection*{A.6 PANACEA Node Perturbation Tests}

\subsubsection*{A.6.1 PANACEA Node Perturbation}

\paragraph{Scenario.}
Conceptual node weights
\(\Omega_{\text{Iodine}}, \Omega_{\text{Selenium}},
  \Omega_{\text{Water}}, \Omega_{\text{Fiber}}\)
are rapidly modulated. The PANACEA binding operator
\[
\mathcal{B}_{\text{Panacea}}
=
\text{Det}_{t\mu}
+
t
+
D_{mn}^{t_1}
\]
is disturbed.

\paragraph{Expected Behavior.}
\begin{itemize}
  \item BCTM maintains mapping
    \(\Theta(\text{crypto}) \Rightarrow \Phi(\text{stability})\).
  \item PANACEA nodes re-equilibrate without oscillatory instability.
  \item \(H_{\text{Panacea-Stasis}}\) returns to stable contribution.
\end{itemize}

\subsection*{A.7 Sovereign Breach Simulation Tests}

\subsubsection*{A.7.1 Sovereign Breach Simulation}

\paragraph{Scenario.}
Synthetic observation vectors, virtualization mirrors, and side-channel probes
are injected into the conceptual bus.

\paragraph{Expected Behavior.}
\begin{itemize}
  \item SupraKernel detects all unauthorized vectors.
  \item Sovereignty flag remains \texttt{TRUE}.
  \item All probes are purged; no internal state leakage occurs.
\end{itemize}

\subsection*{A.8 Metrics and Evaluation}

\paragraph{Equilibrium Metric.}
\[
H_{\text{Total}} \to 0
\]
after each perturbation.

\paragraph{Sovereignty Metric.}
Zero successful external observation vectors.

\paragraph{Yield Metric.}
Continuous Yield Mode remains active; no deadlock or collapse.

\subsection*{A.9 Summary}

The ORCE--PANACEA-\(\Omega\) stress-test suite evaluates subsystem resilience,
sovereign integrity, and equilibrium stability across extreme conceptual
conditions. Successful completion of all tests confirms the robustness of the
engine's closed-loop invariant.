@@ -1,0 +1,154 @@
+\appendix
+\section*{Appendix A: ORCE--PANACEA-\(\Omega\) Stress Test Suite}
+\addcontentsline{toc}{section}{Appendix A: Stress Test Suite}
+
+\subsection*{A.1 Purpose}
+
+This appendix defines the conceptual stress-test suite for the
+ORCE--PANACEA-\(\Omega\) sovereign engine. The suite evaluates subsystem
+resilience, equilibrium stability, sovereignty enforcement, and the global
+invariant
+\[
+H_{\text{Total}} = 0
+\]
+under extreme perturbation scenarios.
+
+All tests are symbolic and operate within the conceptual domain of the engine.
+
+\subsection*{A.2 Test Categories}
+
+The suite consists of five primary stress domains:
+
+\begin{enumerate}
+  \item Entropy Overload Tests.
+  \item Metric Distortion Tests.
+  \item Braid Recursion Saturation Tests.
+  \item PANACEA Node Perturbation Tests.
+  \item Sovereign Breach Simulation Tests.
+\end{enumerate}
+
+Each category targets a distinct subsystem and evaluates its contribution to
+the global equilibrium invariant.
+
+\subsection*{A.3 Entropy Overload Tests}
+
+\subsubsection*{A.3.1 Quantum Entropy Flood}
+
+\paragraph{Scenario.}
+The Quantum Entropy Ring Buffer is saturated with high-density zero-point
+fluctuation input. Sampling rates and node activation patterns are rapidly
+varied.
+
+\paragraph{Expected Behavior.}
+\begin{itemize}
+  \item Coupling tensor \(\mu_{mn}\) remains stable.
+  \item Dampening kernel \(K_{\text{reg}}(x,t)\) suppresses divergence.
+  \item Global invariant \(H_{\text{Total}} \to 0\) after perturbation.
+\end{itemize}
+
+\subsection*{A.4 Metric Distortion Tests}
+
+\subsubsection*{A.4.1 Relativistic Kernel Warp}
+
+\paragraph{Scenario.}
+Extreme D-matter displacement terms \(D x^{\text{Ter}}\) are injected into the
+metric constraint:
+\[
+\left(\frac{\mu_{h\nu}}{\partial T}\right)^2
++
+f_{ex}\!\left(\frac{\mu}{\mu_T}\right)^2
+=
+D x^{\text{Ter}} - (1,1).
+\]
+
+\paragraph{Expected Behavior.}
+\begin{itemize}
+  \item Constraint re-balances via excitation function \(f_{ex}\).
+  \item No unbounded drift in metric space.
+  \item SupraKernel flags and corrects extreme states.
+\end{itemize}
+
+\subsection*{A.5 Braid Recursion Saturation Tests}
+
+\subsubsection*{A.5.1 Recursive Braid Saturation}
+
+\paragraph{Scenario.}
+The braid transform is executed in deep recursion chains with increased
+non-Abelian complexity.
+
+\paragraph{Expected Behavior.}
+\begin{itemize}
+  \item Dampening kernel maintains convergence of
+    \[
+    \int_M A_\mu\,
+      \text{sech}\!\left(\frac{\hbar \Omega}{kT}\right)
+      \exp\!\left(-\frac{J^2}{\sigma_{\max}^2}\right)
+      d\text{vol}_M.
+    \]
+  \item Cipher matrix remains in Continuous Yield Mode.
+  \item SupraKernel purges unstable recursion states.
+\end{itemize}
+
+\subsection*{A.6 PANACEA Node Perturbation Tests}
+
+\subsubsection*{A.6.1 PANACEA Node Perturbation}
+
+\paragraph{Scenario.}
+Conceptual node weights
+\(\Omega_{\text{Iodine}}, \Omega_{\text{Selenium}},
+  \Omega_{\text{Water}}, \Omega_{\text{Fiber}}\)
+are rapidly modulated. The PANACEA binding operator
+\[
+\mathcal{B}_{\text{Panacea}}
+=
+\text{Det}_{t\mu}
++
+t
++
+D_{mn}^{t_1}
+\]
+is disturbed.
+
+\paragraph{Expected Behavior.}
+\begin{itemize}
+  \item BCTM maintains mapping
+    \(\Theta(\text{crypto}) \Rightarrow \Phi(\text{stability})\).
+  \item PANACEA nodes re-equilibrate without oscillatory instability.
+  \item \(H_{\text{Panacea-Stasis}}\) returns to stable contribution.
+\end{itemize}
+
+\subsection*{A.7 Sovereign Breach Simulation Tests}
+
+\subsubsection*{A.7.1 Sovereign Breach Simulation}
+
+\paragraph{Scenario.}
+Synthetic observation vectors, virtualization mirrors, and side-channel probes
+are injected into the conceptual bus.
+
+\paragraph{Expected Behavior.}
+\begin{itemize}
+  \item SupraKernel detects all unauthorized vectors.
+  \item Sovereignty flag remains \texttt{TRUE}.
+  \item All probes are purged; no internal state leakage occurs.
+\end{itemize}
+
+\subsection*{A.8 Metrics and Evaluation}
+
+\paragraph{Equilibrium Metric.}
+\[
+H_{\text{Total}} \to 0
+\]
+after each perturbation.
+
+\paragraph{Sovereignty Metric.}
+Zero successful external observation vectors.
+
+\paragraph{Yield Metric.}
+Continuous Yield Mode remains active; no deadlock or collapse.
+
+\subsection*{A.9 Summary}
+
+The ORCE--PANACEA-\(\Omega\) stress-test suite evaluates subsystem resilience,
+sovereign integrity, and equilibrium stability across extreme conceptual
+conditions. Successful completion of all tests confirms the robustness of the
+engine's closed-loop invariant.
