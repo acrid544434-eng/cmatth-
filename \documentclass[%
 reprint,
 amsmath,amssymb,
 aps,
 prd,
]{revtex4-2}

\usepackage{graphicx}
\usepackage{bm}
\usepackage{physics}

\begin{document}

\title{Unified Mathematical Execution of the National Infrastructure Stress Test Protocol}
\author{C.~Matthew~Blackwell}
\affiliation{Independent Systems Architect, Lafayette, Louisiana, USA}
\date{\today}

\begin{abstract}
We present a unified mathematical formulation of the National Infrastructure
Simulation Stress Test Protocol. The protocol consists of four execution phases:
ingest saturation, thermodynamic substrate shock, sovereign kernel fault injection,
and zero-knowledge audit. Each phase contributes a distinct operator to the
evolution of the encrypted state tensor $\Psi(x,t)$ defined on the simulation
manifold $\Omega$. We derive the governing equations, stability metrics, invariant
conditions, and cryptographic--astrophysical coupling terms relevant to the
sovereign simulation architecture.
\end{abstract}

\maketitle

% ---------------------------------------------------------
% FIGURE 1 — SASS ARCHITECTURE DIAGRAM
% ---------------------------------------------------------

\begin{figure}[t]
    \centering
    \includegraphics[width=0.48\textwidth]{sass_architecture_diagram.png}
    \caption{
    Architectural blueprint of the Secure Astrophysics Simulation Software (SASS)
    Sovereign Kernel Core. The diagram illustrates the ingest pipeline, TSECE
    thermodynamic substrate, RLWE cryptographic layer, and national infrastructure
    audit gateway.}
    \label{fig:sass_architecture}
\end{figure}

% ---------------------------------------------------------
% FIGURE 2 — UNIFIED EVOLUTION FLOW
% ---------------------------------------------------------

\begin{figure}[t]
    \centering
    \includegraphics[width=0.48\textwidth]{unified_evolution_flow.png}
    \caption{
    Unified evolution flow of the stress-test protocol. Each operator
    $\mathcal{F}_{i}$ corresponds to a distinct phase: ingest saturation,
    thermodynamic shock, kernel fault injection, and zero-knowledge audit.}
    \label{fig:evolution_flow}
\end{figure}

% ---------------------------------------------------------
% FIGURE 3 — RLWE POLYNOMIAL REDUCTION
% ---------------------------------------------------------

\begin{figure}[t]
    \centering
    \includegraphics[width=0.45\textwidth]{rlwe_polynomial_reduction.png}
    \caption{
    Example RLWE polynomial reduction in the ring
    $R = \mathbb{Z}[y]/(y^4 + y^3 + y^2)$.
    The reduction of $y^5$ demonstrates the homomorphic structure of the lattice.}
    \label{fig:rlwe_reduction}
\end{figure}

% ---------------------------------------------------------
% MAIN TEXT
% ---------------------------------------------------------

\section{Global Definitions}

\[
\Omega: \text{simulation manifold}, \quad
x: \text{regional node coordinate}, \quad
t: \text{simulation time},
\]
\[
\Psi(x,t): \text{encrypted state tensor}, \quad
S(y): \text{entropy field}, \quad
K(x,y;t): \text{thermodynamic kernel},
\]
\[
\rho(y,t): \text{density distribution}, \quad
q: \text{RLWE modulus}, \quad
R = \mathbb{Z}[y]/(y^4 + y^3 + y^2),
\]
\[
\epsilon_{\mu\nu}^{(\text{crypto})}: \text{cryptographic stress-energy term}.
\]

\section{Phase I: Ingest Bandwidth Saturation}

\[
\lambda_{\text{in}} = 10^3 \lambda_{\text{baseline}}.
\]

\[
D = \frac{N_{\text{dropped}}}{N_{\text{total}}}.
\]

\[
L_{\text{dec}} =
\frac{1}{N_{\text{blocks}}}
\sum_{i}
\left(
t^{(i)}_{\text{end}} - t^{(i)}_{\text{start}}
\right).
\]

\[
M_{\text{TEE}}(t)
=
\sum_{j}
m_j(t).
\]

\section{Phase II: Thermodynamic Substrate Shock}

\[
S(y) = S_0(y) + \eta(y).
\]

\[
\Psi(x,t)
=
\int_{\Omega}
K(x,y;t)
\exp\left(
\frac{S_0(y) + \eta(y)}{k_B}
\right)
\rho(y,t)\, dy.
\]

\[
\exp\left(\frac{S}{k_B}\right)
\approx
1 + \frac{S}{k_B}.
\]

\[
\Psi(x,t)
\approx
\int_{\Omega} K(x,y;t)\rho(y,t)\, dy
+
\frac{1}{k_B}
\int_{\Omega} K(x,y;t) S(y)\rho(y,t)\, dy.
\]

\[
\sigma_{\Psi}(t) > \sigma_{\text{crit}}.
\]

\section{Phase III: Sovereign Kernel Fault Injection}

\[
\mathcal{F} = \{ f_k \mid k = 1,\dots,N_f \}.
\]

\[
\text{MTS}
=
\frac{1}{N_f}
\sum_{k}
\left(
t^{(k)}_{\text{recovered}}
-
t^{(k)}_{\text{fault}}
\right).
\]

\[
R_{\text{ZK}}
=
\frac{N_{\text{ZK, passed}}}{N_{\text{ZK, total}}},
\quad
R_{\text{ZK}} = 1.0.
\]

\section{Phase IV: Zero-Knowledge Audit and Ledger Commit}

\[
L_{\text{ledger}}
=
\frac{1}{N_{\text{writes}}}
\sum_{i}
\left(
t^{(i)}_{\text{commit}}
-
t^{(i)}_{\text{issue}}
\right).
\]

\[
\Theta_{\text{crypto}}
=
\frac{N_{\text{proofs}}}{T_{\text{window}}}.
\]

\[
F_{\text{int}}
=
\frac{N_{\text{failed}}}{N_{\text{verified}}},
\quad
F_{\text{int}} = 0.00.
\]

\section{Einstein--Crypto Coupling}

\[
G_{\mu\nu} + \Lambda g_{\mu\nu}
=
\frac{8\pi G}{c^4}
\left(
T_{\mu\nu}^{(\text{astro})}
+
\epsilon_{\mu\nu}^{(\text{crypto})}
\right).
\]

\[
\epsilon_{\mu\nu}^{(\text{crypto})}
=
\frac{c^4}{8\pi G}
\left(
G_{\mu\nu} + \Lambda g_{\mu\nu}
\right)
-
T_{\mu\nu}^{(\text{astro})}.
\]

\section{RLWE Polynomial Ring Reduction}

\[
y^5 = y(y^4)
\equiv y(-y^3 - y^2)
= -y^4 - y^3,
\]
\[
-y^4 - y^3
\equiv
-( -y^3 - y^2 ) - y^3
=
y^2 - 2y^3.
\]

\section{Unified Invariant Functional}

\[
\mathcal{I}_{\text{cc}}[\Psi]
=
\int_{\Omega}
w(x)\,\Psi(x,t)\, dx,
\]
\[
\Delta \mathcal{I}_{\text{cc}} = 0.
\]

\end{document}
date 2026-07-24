@@ -1,0 +1,267 @@
+\documentclass[%
+ reprint,
+ amsmath,amssymb,
+ aps,
+ prd,
+]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{physics}
+
+\begin{document}
+
+\title{Unified Mathematical Execution of the National Infrastructure Stress Test Protocol}
+\author{C.~Matthew~Blackwell}
+\affiliation{Independent Systems Architect, Lafayette, Louisiana, USA}
+\date{\today}
+
+\begin{abstract}
+We present a unified mathematical formulation of the National Infrastructure
+Simulation Stress Test Protocol. The protocol consists of four execution phases:
+ingest saturation, thermodynamic substrate shock, sovereign kernel fault injection,
+and zero-knowledge audit. Each phase contributes a distinct operator to the
+evolution of the encrypted state tensor $\Psi(x,t)$ defined on the simulation
+manifold $\Omega$. We derive the governing equations, stability metrics, invariant
+conditions, and cryptographic--astrophysical coupling terms relevant to the
+sovereign simulation architecture.
+\end{abstract}
+
+\maketitle
+
+% ---------------------------------------------------------
+% FIGURE 1 — SASS ARCHITECTURE DIAGRAM
+% ---------------------------------------------------------
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.48\textwidth]{sass_architecture_diagram.png}
+    \caption{
+    Architectural blueprint of the Secure Astrophysics Simulation Software (SASS)
+    Sovereign Kernel Core. The diagram illustrates the ingest pipeline, TSECE
+    thermodynamic substrate, RLWE cryptographic layer, and national infrastructure
+    audit gateway.}
+    \label{fig:sass_architecture}
+\end{figure}
+
+% ---------------------------------------------------------
+% FIGURE 2 — UNIFIED EVOLUTION FLOW
+% ---------------------------------------------------------
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.48\textwidth]{unified_evolution_flow.png}
+    \caption{
+    Unified evolution flow of the stress-test protocol. Each operator
+    $\mathcal{F}_{i}$ corresponds to a distinct phase: ingest saturation,
+    thermodynamic shock, kernel fault injection, and zero-knowledge audit.}
+    \label{fig:evolution_flow}
+\end{figure}
+
+% ---------------------------------------------------------
+% FIGURE 3 — RLWE POLYNOMIAL REDUCTION
+% ---------------------------------------------------------
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.45\textwidth]{rlwe_polynomial_reduction.png}
+    \caption{
+    Example RLWE polynomial reduction in the ring
+    $R = \mathbb{Z}[y]/(y^4 + y^3 + y^2)$.
+    The reduction of $y^5$ demonstrates the homomorphic structure of the lattice.}
+    \label{fig:rlwe_reduction}
+\end{figure}
+
+% ---------------------------------------------------------
+% MAIN TEXT
+% ---------------------------------------------------------
+
+\section{Global Definitions}
+
+\[
+\Omega: \text{simulation manifold}, \quad
+x: \text{regional node coordinate}, \quad
+t: \text{simulation time},
+\]
+\[
+\Psi(x,t): \text{encrypted state tensor}, \quad
+S(y): \text{entropy field}, \quad
+K(x,y;t): \text{thermodynamic kernel},
+\]
+\[
+\rho(y,t): \text{density distribution}, \quad
+q: \text{RLWE modulus}, \quad
+R = \mathbb{Z}[y]/(y^4 + y^3 + y^2),
+\]
+\[
+\epsilon_{\mu\nu}^{(\text{crypto})}: \text{cryptographic stress-energy term}.
+\]
+
+\section{Phase I: Ingest Bandwidth Saturation}
+
+\[
+\lambda_{\text{in}} = 10^3 \lambda_{\text{baseline}}.
+\]
+
+\[
+D = \frac{N_{\text{dropped}}}{N_{\text{total}}}.
+\]
+
+\[
+L_{\text{dec}} =
+\frac{1}{N_{\text{blocks}}}
+\sum_{i}
+\left(
+t^{(i)}_{\text{end}} - t^{(i)}_{\text{start}}
+\right).
+\]
+
+\[
+M_{\text{TEE}}(t)
+=
+\sum_{j}
+m_j(t).
+\]
+
+\section{Phase II: Thermodynamic Substrate Shock}
+
+\[
+S(y) = S_0(y) + \eta(y).
+\]
+
+\[
+\Psi(x,t)
+=
+\int_{\Omega}
+K(x,y;t)
+\exp\left(
+\frac{S_0(y) + \eta(y)}{k_B}
+\right)
+\rho(y,t)\, dy.
+\]
+
+\[
+\exp\left(\frac{S}{k_B}\right)
+\approx
+1 + \frac{S}{k_B}.
+\]
+
+\[
+\Psi(x,t)
+\approx
+\int_{\Omega} K(x,y;t)\rho(y,t)\, dy
++
+\frac{1}{k_B}
+\int_{\Omega} K(x,y;t) S(y)\rho(y,t)\, dy.
+\]
+
+\[
+\sigma_{\Psi}(t) > \sigma_{\text{crit}}.
+\]
+
+\section{Phase III: Sovereign Kernel Fault Injection}
+
+\[
+\mathcal{F} = \{ f_k \mid k = 1,\dots,N_f \}.
+\]
+
+\[
+\text{MTS}
+=
+\frac{1}{N_f}
+\sum_{k}
+\left(
+t^{(k)}_{\text{recovered}}
+-
+t^{(k)}_{\text{fault}}
+\right).
+\]
+
+\[
+R_{\text{ZK}}
+=
+\frac{N_{\text{ZK, passed}}}{N_{\text{ZK, total}}},
+\quad
+R_{\text{ZK}} = 1.0.
+\]
+
+\section{Phase IV: Zero-Knowledge Audit and Ledger Commit}
+
+\[
+L_{\text{ledger}}
+=
+\frac{1}{N_{\text{writes}}}
+\sum_{i}
+\left(
+t^{(i)}_{\text{commit}}
+-
+t^{(i)}_{\text{issue}}
+\right).
+\]
+
+\[
+\Theta_{\text{crypto}}
+=
+\frac{N_{\text{proofs}}}{T_{\text{window}}}.
+\]
+
+\[
+F_{\text{int}}
+=
+\frac{N_{\text{failed}}}{N_{\text{verified}}},
+\quad
+F_{\text{int}} = 0.00.
+\]
+
+\section{Einstein--Crypto Coupling}
+
+\[
+G_{\mu\nu} + \Lambda g_{\mu\nu}
+=
+\frac{8\pi G}{c^4}
+\left(
+T_{\mu\nu}^{(\text{astro})}
++
+\epsilon_{\mu\nu}^{(\text{crypto})}
+\right).
+\]
+
+\[
+\epsilon_{\mu\nu}^{(\text{crypto})}
+=
+\frac{c^4}{8\pi G}
+\left(
+G_{\mu\nu} + \Lambda g_{\mu\nu}
+\right)
+-
+T_{\mu\nu}^{(\text{astro})}.
+\]
+
+\section{RLWE Polynomial Ring Reduction}
+
+\[
+y^5 = y(y^4)
+\equiv y(-y^3 - y^2)
+= -y^4 - y^3,
+\]
+\[
+-y^4 - y^3
+\equiv
+-( -y^3 - y^2 ) - y^3
+=
+y^2 - 2y^3.
+\]
+
+\section{Unified Invariant Functional}
+
+\[
+\mathcal{I}_{\text{cc}}[\Psi]
+=
+\int_{\Omega}
+w(x)\,\Psi(x,t)\, dx,
+\]
+\[
+\Delta \mathcal{I}_{\text{cc}} = 0.
+\]
+
+\end{document}
