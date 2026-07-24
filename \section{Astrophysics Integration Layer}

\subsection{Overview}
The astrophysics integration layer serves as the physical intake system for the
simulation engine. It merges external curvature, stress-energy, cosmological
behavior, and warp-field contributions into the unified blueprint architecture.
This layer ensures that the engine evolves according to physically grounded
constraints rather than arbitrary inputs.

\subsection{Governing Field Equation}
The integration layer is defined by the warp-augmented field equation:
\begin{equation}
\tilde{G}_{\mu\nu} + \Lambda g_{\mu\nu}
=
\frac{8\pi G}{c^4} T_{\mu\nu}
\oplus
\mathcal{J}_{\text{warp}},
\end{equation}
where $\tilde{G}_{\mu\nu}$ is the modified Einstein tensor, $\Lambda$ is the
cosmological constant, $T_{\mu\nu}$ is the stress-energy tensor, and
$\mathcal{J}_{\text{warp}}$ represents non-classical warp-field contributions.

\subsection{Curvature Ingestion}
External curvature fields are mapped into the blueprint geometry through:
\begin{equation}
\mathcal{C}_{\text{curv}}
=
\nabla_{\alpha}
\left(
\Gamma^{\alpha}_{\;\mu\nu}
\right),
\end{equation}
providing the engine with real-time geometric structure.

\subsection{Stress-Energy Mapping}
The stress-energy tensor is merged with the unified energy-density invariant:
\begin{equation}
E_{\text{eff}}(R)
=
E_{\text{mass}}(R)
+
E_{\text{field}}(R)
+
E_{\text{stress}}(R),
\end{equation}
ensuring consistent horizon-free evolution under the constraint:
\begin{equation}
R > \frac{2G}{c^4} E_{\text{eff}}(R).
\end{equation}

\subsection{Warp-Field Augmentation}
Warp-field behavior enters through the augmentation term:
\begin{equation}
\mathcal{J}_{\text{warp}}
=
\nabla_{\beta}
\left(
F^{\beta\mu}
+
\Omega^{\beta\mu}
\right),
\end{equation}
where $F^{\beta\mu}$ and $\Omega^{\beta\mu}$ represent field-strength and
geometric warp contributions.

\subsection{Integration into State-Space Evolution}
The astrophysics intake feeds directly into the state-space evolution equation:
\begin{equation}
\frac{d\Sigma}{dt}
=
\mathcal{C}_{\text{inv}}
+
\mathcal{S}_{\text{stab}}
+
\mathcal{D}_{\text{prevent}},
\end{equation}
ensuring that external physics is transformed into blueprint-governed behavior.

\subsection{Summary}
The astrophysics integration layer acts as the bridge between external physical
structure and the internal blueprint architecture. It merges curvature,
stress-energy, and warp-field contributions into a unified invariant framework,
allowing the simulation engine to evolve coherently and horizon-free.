@@ -1,0 +1,83 @@
+\section{Astrophysics Integration Layer}
+
+\subsection{Overview}
+The astrophysics integration layer serves as the physical intake system for the
+simulation engine. It merges external curvature, stress-energy, cosmological
+behavior, and warp-field contributions into the unified blueprint architecture.
+This layer ensures that the engine evolves according to physically grounded
+constraints rather than arbitrary inputs.
+
+\subsection{Governing Field Equation}
+The integration layer is defined by the warp-augmented field equation:
+\begin{equation}
+\tilde{G}_{\mu\nu} + \Lambda g_{\mu\nu}
+=
+\frac{8\pi G}{c^4} T_{\mu\nu}
+\oplus
+\mathcal{J}_{\text{warp}},
+\end{equation}
+where $\tilde{G}_{\mu\nu}$ is the modified Einstein tensor, $\Lambda$ is the
+cosmological constant, $T_{\mu\nu}$ is the stress-energy tensor, and
+$\mathcal{J}_{\text{warp}}$ represents non-classical warp-field contributions.
+
+\subsection{Curvature Ingestion}
+External curvature fields are mapped into the blueprint geometry through:
+\begin{equation}
+\mathcal{C}_{\text{curv}}
+=
+\nabla_{\alpha}
+\left(
+\Gamma^{\alpha}_{\;\mu\nu}
+\right),
+\end{equation}
+providing the engine with real-time geometric structure.
+
+\subsection{Stress-Energy Mapping}
+The stress-energy tensor is merged with the unified energy-density invariant:
+\begin{equation}
+E_{\text{eff}}(R)
+=
+E_{\text{mass}}(R)
++
+E_{\text{field}}(R)
++
+E_{\text{stress}}(R),
+\end{equation}
+ensuring consistent horizon-free evolution under the constraint:
+\begin{equation}
+R > \frac{2G}{c^4} E_{\text{eff}}(R).
+\end{equation}
+
+\subsection{Warp-Field Augmentation}
+Warp-field behavior enters through the augmentation term:
+\begin{equation}
+\mathcal{J}_{\text{warp}}
+=
+\nabla_{\beta}
+\left(
+F^{\beta\mu}
++
+\Omega^{\beta\mu}
+\right),
+\end{equation}
+where $F^{\beta\mu}$ and $\Omega^{\beta\mu}$ represent field-strength and
+geometric warp contributions.
+
+\subsection{Integration into State-Space Evolution}
+The astrophysics intake feeds directly into the state-space evolution equation:
+\begin{equation}
+\frac{d\Sigma}{dt}
+=
+\mathcal{C}_{\text{inv}}
++
+\mathcal{S}_{\text{stab}}
++
+\mathcal{D}_{\text{prevent}},
+\end{equation}
+ensuring that external physics is transformed into blueprint-governed behavior.
+
+\subsection{Summary}
+The astrophysics integration layer acts as the bridge between external physical
+structure and the internal blueprint architecture. It merges curvature,
+stress-energy, and warp-field contributions into a unified invariant framework,
+allowing the simulation engine to evolve coherently and horizon-free.
