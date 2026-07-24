@@ -1,0 +1,96 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.misc}
+\geometry{margin=1in}
+
+\title{Sovereign Regenerative Engine\\
+Architecture Diagram Sheet (LaTeX/TikZ)}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+This sheet provides a high-level architecture diagram of the
+\textbf{Sovereign Regenerative Engine} using TikZ. The diagram
+captures the main subsystems and their data flows within a single
+closed-loop kernel cycle.
+
+\section*{Diagram}
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1.8cm and 2.5cm,
+  box/.style={draw, rounded corners, thick, align=center, minimum width=3.5cm, minimum height=1cm},
+  io/.style={draw, rounded corners, thick, align=center, minimum width=3.0cm, minimum height=0.9cm, fill=gray!10},
+  arrow/.style={-{Latex[length=3mm]}, thick}
+]
+
+% Input / Environment
+\node[io] (env) {Environment \\ $\Omega$ \\ \small Sensors: $\mathcal{E}_{\text{stress}}, \mathcal{K}_{\text{DNA}}, \Psi^{(ij)}$};
+
+% Sense & Ingest
+\node[box, right=of env] (sense) {Phase 1: Sense \& Ingest \\ \small Sample fields over $\Omega$};
+
+% Compute & Validate
+\node[box, right=of sense] (compute) {Phase 2: Compute \& Validate \\ \small $T_{\text{reg}}, \sigma_{\text{threshold}}, \mathcal{I}_{\text{cc}}$};
+
+% Decide & Act
+\node[box, right=of compute] (decide) {Phase 3: Decide \& Act \\ \small $\mathcal{M}_{\text{close}}, R_{\text{mitosis}}$};
+
+% Stabilize & Audit
+\node[box, right=of decide] (stabilize) {Phase 4: Stabilize \& Audit \\ \small Invariant clamps \& ledger};
+
+% Sovereign Ledger
+\node[io, below=of stabilize] (ledger) {Sovereign \\ Provenance Ledger};
+
+% Suprakernel
+\node[io, above=of compute] (suprakernel) {Suprakernel \\ Sovereign Lock \\ \small $\Delta \mathcal{I}_{\text{cc}} \equiv 0$};
+
+% Arrows main pipeline
+\draw[arrow] (env) -- (sense);
+\draw[arrow] (sense) -- (compute);
+\draw[arrow] (compute) -- (decide);
+\draw[arrow] (decide) -- (stabilize);
+
+% Feedback loop to environment
+\draw[arrow] (stabilize.east) to[out=0, in=0] ++(1.0,0)
+  to[out=180, in=0] (env.east);
+
+% Suprakernel connections
+\draw[arrow] (suprakernel) -- (compute);
+\draw[arrow] (suprakernel) -- (decide);
+\draw[arrow] (suprakernel) -- (stabilize);
+
+% Ledger connection
+\draw[arrow] (stabilize) -- (ledger);
+
+% Subsystem boxes under compute/decide
+\node[box, below=1.5cm of compute] (timing) {Regeneration Timing \\ \small $T_{\text{reg}}, \sigma_{\text{threshold}}$};
+\node[box, below=1.5cm of decide] (closure) {Tissue Manifold Closure \\ \small $g_{ij}, \Psi^{(ij)}, \lambda_{\text{reg}}$};
+\node[box, below=of timing] (invariants) {Cell-Cycle Invariants \\ \small $\mathcal{I}_{\text{cc}}, n, \mathcal{K}_{\text{DNA}}$};
+\node[box, below=of closure] (mitosis) {Recursion-Safe Mitosis \\ \small $R_{\text{mitosis}}, n_{\max}$};
+
+% Connections from compute/decide to subsystems
+\draw[arrow] (compute) -- (timing);
+\draw[arrow] (compute) -- (invariants);
+\draw[arrow] (decide) -- (closure);
+\draw[arrow] (decide) -- (mitosis);
+
+\end{tikzpicture}
+\end{center}
+
+\section*{Subsystem Roles}
+\begin{itemize}
+  \item \textbf{Regeneration Timing}: Controls when regeneration is allowed via $T_{\text{reg}}$ and damping $\sigma_{\text{threshold}}$.
+  \item \textbf{Cell-Cycle Invariants}: Enforces $\Delta \mathcal{I}_{\text{cc}} \equiv 0$ and legal mitosis bounds.
+  \item \textbf{Tissue Manifold Closure}: Restores tissue geometry using metric updates and convergence of $\epsilon$.
+  \item \textbf{Recursion-Safe Mitosis}: Prevents runaway division by enforcing $n \leq n_{\max}$ and terminating unsafe lineages.
+  \item \textbf{Suprakernel Sovereign Lock}: Maintains global invariant clamps and oversees all phases.
+  \item \textbf{Sovereign Ledger}: Records each cycle for immutable provenance and audit.
+\end{itemize}
+
+\end{document}
