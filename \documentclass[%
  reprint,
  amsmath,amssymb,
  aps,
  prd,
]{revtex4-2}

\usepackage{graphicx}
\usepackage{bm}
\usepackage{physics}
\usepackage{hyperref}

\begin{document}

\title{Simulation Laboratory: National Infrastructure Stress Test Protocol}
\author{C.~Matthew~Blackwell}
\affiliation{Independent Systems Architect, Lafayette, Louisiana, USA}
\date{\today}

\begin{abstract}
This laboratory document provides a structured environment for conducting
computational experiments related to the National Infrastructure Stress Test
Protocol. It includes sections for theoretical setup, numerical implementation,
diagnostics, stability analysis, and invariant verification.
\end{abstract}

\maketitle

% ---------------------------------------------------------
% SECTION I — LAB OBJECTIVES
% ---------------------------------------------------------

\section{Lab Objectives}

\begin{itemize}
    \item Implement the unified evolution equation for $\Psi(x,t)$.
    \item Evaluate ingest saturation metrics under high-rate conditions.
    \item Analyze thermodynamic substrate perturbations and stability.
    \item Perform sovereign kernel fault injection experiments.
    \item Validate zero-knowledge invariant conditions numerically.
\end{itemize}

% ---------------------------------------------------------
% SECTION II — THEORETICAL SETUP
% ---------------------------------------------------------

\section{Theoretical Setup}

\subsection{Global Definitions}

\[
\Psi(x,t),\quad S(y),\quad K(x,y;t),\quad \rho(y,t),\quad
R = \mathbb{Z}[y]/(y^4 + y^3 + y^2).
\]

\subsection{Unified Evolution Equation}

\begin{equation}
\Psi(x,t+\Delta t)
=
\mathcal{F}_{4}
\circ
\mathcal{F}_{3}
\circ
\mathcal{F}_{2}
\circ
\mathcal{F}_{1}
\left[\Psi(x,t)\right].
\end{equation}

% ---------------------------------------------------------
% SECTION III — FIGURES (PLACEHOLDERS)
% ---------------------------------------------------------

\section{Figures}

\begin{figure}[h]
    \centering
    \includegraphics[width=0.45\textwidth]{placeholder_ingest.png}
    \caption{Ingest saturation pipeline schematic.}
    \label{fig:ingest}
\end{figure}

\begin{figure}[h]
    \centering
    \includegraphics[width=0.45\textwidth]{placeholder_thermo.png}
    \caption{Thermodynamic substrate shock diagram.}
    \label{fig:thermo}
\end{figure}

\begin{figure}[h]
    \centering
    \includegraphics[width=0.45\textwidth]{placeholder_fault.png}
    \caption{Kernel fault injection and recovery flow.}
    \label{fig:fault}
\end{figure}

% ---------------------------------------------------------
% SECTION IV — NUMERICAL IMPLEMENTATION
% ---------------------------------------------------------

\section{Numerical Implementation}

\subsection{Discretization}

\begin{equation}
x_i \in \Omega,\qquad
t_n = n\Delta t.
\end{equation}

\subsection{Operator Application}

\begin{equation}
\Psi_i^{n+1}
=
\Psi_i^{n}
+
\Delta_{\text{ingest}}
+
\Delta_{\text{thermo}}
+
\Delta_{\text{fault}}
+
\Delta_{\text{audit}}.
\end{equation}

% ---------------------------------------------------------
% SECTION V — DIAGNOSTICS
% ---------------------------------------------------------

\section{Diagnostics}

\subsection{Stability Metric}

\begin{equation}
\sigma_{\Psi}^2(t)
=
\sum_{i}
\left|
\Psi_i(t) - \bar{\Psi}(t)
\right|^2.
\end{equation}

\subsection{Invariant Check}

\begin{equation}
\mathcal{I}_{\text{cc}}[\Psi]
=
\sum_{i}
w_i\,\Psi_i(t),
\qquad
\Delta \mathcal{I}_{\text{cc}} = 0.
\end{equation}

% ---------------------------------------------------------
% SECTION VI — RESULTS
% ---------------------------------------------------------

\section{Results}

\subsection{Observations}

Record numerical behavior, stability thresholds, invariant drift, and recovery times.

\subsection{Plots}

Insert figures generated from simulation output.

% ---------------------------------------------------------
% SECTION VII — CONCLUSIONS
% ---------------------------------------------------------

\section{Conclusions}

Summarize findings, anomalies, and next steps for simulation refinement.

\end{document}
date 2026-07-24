@@ -1,0 +1,177 @@
+\documentclass[%
+  reprint,
+  amsmath,amssymb,
+  aps,
+  prd,
+]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Simulation Laboratory: National Infrastructure Stress Test Protocol}
+\author{C.~Matthew~Blackwell}
+\affiliation{Independent Systems Architect, Lafayette, Louisiana, USA}
+\date{\today}
+
+\begin{abstract}
+This laboratory document provides a structured environment for conducting
+computational experiments related to the National Infrastructure Stress Test
+Protocol. It includes sections for theoretical setup, numerical implementation,
+diagnostics, stability analysis, and invariant verification.
+\end{abstract}
+
+\maketitle
+
+% ---------------------------------------------------------
+% SECTION I — LAB OBJECTIVES
+% ---------------------------------------------------------
+
+\section{Lab Objectives}
+
+\begin{itemize}
+    \item Implement the unified evolution equation for $\Psi(x,t)$.
+    \item Evaluate ingest saturation metrics under high-rate conditions.
+    \item Analyze thermodynamic substrate perturbations and stability.
+    \item Perform sovereign kernel fault injection experiments.
+    \item Validate zero-knowledge invariant conditions numerically.
+\end{itemize}
+
+% ---------------------------------------------------------
+% SECTION II — THEORETICAL SETUP
+% ---------------------------------------------------------
+
+\section{Theoretical Setup}
+
+\subsection{Global Definitions}
+
+\[
+\Psi(x,t),\quad S(y),\quad K(x,y;t),\quad \rho(y,t),\quad
+R = \mathbb{Z}[y]/(y^4 + y^3 + y^2).
+\]
+
+\subsection{Unified Evolution Equation}
+
+\begin{equation}
+\Psi(x,t+\Delta t)
+=
+\mathcal{F}_{4}
+\circ
+\mathcal{F}_{3}
+\circ
+\mathcal{F}_{2}
+\circ
+\mathcal{F}_{1}
+\left[\Psi(x,t)\right].
+\end{equation}
+
+% ---------------------------------------------------------
+% SECTION III — FIGURES (PLACEHOLDERS)
+% ---------------------------------------------------------
+
+\section{Figures}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{placeholder_ingest.png}
+    \caption{Ingest saturation pipeline schematic.}
+    \label{fig:ingest}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{placeholder_thermo.png}
+    \caption{Thermodynamic substrate shock diagram.}
+    \label{fig:thermo}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{placeholder_fault.png}
+    \caption{Kernel fault injection and recovery flow.}
+    \label{fig:fault}
+\end{figure}
+
+% ---------------------------------------------------------
+% SECTION IV — NUMERICAL IMPLEMENTATION
+% ---------------------------------------------------------
+
+\section{Numerical Implementation}
+
+\subsection{Discretization}
+
+\begin{equation}
+x_i \in \Omega,\qquad
+t_n = n\Delta t.
+\end{equation}
+
+\subsection{Operator Application}
+
+\begin{equation}
+\Psi_i^{n+1}
+=
+\Psi_i^{n}
++
+\Delta_{\text{ingest}}
++
+\Delta_{\text{thermo}}
++
+\Delta_{\text{fault}}
++
+\Delta_{\text{audit}}.
+\end{equation}
+
+% ---------------------------------------------------------
+% SECTION V — DIAGNOSTICS
+% ---------------------------------------------------------
+
+\section{Diagnostics}
+
+\subsection{Stability Metric}
+
+\begin{equation}
+\sigma_{\Psi}^2(t)
+=
+\sum_{i}
+\left|
+\Psi_i(t) - \bar{\Psi}(t)
+\right|^2.
+\end{equation}
+
+\subsection{Invariant Check}
+
+\begin{equation}
+\mathcal{I}_{\text{cc}}[\Psi]
+=
+\sum_{i}
+w_i\,\Psi_i(t),
+\qquad
+\Delta \mathcal{I}_{\text{cc}} = 0.
+\end{equation}
+
+% ---------------------------------------------------------
+% SECTION VI — RESULTS
+% ---------------------------------------------------------
+
+\section{Results}
+
+\subsection{Observations}
+
+Record numerical behavior, stability thresholds, invariant drift, and recovery times.
+
+\subsection{Plots}
+
+Insert figures generated from simulation output.
+
+% ---------------------------------------------------------
+% SECTION VII — CONCLUSIONS
+% ---------------------------------------------------------
+
+\section{Conclusions}
+
+Summarize findings, anomalies, and next steps for simulation refinement.
+
+\end{document}
