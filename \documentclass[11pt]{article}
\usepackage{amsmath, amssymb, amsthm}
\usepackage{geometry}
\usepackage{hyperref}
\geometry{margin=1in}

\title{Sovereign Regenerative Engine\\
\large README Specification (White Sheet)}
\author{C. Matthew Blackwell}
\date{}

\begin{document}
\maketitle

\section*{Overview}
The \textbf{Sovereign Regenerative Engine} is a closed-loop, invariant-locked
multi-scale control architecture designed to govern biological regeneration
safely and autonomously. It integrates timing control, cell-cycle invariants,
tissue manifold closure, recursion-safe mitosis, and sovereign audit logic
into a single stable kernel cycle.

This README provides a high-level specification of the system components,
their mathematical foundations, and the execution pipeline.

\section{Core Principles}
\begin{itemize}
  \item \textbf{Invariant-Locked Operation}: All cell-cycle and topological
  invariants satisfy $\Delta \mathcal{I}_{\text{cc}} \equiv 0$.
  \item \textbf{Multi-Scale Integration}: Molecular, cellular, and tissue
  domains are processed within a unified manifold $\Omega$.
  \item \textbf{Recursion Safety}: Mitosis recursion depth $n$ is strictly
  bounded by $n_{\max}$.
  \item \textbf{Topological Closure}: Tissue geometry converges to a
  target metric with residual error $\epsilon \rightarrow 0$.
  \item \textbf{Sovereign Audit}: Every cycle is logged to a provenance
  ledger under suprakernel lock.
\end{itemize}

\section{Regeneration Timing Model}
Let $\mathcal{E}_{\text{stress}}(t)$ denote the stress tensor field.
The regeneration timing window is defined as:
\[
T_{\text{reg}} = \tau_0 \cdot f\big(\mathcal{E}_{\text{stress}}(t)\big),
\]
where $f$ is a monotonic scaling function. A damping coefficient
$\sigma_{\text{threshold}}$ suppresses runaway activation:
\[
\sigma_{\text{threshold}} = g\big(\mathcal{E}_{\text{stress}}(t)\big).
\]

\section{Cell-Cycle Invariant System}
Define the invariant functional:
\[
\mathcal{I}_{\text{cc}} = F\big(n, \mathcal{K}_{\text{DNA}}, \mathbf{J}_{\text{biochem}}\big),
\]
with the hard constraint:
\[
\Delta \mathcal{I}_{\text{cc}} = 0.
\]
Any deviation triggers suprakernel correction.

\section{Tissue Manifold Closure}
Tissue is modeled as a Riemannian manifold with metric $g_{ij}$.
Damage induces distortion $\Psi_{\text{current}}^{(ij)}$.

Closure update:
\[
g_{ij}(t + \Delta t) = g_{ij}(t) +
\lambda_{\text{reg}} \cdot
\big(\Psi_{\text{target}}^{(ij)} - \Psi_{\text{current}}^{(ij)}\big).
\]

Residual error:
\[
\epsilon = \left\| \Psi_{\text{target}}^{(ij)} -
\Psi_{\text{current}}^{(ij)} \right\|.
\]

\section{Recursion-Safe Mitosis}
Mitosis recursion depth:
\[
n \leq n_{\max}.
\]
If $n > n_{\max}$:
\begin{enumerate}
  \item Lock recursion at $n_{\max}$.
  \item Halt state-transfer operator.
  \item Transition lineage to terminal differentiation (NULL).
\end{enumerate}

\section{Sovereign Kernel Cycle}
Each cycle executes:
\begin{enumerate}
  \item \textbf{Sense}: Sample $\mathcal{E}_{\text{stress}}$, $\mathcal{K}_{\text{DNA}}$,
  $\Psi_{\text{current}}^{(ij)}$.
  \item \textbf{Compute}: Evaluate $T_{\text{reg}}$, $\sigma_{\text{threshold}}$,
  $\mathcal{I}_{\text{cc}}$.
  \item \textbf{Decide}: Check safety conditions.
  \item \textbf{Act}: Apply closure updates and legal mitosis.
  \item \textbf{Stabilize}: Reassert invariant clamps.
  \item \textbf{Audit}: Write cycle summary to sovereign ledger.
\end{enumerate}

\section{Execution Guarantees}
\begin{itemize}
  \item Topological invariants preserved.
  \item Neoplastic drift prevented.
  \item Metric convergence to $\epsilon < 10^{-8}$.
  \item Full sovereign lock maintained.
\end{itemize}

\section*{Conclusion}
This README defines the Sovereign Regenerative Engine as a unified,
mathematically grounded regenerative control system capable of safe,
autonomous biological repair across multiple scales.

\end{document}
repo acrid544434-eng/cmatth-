@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\title{Sovereign Regenerative Engine\\
+\large README Specification (White Sheet)}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+The \textbf{Sovereign Regenerative Engine} is a closed-loop, invariant-locked
+multi-scale control architecture designed to govern biological regeneration
+safely and autonomously. It integrates timing control, cell-cycle invariants,
+tissue manifold closure, recursion-safe mitosis, and sovereign audit logic
+into a single stable kernel cycle.
+
+This README provides a high-level specification of the system components,
+their mathematical foundations, and the execution pipeline.
+
+\section{Core Principles}
+\begin{itemize}
+  \item \textbf{Invariant-Locked Operation}: All cell-cycle and topological
+  invariants satisfy $\Delta \mathcal{I}_{\text{cc}} \equiv 0$.
+  \item \textbf{Multi-Scale Integration}: Molecular, cellular, and tissue
+  domains are processed within a unified manifold $\Omega$.
+  \item \textbf{Recursion Safety}: Mitosis recursion depth $n$ is strictly
+  bounded by $n_{\max}$.
+  \item \textbf{Topological Closure}: Tissue geometry converges to a
+  target metric with residual error $\epsilon \rightarrow 0$.
+  \item \textbf{Sovereign Audit}: Every cycle is logged to a provenance
+  ledger under suprakernel lock.
+\end{itemize}
+
+\section{Regeneration Timing Model}
+Let $\mathcal{E}_{\text{stress}}(t)$ denote the stress tensor field.
+The regeneration timing window is defined as:
+\[
+T_{\text{reg}} = \tau_0 \cdot f\big(\mathcal{E}_{\text{stress}}(t)\big),
+\]
+where $f$ is a monotonic scaling function. A damping coefficient
+$\sigma_{\text{threshold}}$ suppresses runaway activation:
+\[
+\sigma_{\text{threshold}} = g\big(\mathcal{E}_{\text{stress}}(t)\big).
+\]
+
+\section{Cell-Cycle Invariant System}
+Define the invariant functional:
+\[
+\mathcal{I}_{\text{cc}} = F\big(n, \mathcal{K}_{\text{DNA}}, \mathbf{J}_{\text{biochem}}\big),
+\]
+with the hard constraint:
+\[
+\Delta \mathcal{I}_{\text{cc}} = 0.
+\]
+Any deviation triggers suprakernel correction.
+
+\section{Tissue Manifold Closure}
+Tissue is modeled as a Riemannian manifold with metric $g_{ij}$.
+Damage induces distortion $\Psi_{\text{current}}^{(ij)}$.
+
+Closure update:
+\[
+g_{ij}(t + \Delta t) = g_{ij}(t) +
+\lambda_{\text{reg}} \cdot
+\big(\Psi_{\text{target}}^{(ij)} - \Psi_{\text{current}}^{(ij)}\big).
+\]
+
+Residual error:
+\[
+\epsilon = \left\| \Psi_{\text{target}}^{(ij)} -
+\Psi_{\text{current}}^{(ij)} \right\|.
+\]
+
+\section{Recursion-Safe Mitosis}
+Mitosis recursion depth:
+\[
+n \leq n_{\max}.
+\]
+If $n > n_{\max}$:
+\begin{enumerate}
+  \item Lock recursion at $n_{\max}$.
+  \item Halt state-transfer operator.
+  \item Transition lineage to terminal differentiation (NULL).
+\end{enumerate}
+
+\section{Sovereign Kernel Cycle}
+Each cycle executes:
+\begin{enumerate}
+  \item \textbf{Sense}: Sample $\mathcal{E}_{\text{stress}}$, $\mathcal{K}_{\text{DNA}}$,
+  $\Psi_{\text{current}}^{(ij)}$.
+  \item \textbf{Compute}: Evaluate $T_{\text{reg}}$, $\sigma_{\text{threshold}}$,
+  $\mathcal{I}_{\text{cc}}$.
+  \item \textbf{Decide}: Check safety conditions.
+  \item \textbf{Act}: Apply closure updates and legal mitosis.
+  \item \textbf{Stabilize}: Reassert invariant clamps.
+  \item \textbf{Audit}: Write cycle summary to sovereign ledger.
+\end{enumerate}
+
+\section{Execution Guarantees}
+\begin{itemize}
+  \item Topological invariants preserved.
+  \item Neoplastic drift prevented.
+  \item Metric convergence to $\epsilon < 10^{-8}$.
+  \item Full sovereign lock maintained.
+\end{itemize}
+
+\section*{Conclusion}
+This README defines the Sovereign Regenerative Engine as a unified,
+mathematically grounded regenerative control system capable of safe,
+autonomous biological repair across multiple scales.
+
+\end{document}
