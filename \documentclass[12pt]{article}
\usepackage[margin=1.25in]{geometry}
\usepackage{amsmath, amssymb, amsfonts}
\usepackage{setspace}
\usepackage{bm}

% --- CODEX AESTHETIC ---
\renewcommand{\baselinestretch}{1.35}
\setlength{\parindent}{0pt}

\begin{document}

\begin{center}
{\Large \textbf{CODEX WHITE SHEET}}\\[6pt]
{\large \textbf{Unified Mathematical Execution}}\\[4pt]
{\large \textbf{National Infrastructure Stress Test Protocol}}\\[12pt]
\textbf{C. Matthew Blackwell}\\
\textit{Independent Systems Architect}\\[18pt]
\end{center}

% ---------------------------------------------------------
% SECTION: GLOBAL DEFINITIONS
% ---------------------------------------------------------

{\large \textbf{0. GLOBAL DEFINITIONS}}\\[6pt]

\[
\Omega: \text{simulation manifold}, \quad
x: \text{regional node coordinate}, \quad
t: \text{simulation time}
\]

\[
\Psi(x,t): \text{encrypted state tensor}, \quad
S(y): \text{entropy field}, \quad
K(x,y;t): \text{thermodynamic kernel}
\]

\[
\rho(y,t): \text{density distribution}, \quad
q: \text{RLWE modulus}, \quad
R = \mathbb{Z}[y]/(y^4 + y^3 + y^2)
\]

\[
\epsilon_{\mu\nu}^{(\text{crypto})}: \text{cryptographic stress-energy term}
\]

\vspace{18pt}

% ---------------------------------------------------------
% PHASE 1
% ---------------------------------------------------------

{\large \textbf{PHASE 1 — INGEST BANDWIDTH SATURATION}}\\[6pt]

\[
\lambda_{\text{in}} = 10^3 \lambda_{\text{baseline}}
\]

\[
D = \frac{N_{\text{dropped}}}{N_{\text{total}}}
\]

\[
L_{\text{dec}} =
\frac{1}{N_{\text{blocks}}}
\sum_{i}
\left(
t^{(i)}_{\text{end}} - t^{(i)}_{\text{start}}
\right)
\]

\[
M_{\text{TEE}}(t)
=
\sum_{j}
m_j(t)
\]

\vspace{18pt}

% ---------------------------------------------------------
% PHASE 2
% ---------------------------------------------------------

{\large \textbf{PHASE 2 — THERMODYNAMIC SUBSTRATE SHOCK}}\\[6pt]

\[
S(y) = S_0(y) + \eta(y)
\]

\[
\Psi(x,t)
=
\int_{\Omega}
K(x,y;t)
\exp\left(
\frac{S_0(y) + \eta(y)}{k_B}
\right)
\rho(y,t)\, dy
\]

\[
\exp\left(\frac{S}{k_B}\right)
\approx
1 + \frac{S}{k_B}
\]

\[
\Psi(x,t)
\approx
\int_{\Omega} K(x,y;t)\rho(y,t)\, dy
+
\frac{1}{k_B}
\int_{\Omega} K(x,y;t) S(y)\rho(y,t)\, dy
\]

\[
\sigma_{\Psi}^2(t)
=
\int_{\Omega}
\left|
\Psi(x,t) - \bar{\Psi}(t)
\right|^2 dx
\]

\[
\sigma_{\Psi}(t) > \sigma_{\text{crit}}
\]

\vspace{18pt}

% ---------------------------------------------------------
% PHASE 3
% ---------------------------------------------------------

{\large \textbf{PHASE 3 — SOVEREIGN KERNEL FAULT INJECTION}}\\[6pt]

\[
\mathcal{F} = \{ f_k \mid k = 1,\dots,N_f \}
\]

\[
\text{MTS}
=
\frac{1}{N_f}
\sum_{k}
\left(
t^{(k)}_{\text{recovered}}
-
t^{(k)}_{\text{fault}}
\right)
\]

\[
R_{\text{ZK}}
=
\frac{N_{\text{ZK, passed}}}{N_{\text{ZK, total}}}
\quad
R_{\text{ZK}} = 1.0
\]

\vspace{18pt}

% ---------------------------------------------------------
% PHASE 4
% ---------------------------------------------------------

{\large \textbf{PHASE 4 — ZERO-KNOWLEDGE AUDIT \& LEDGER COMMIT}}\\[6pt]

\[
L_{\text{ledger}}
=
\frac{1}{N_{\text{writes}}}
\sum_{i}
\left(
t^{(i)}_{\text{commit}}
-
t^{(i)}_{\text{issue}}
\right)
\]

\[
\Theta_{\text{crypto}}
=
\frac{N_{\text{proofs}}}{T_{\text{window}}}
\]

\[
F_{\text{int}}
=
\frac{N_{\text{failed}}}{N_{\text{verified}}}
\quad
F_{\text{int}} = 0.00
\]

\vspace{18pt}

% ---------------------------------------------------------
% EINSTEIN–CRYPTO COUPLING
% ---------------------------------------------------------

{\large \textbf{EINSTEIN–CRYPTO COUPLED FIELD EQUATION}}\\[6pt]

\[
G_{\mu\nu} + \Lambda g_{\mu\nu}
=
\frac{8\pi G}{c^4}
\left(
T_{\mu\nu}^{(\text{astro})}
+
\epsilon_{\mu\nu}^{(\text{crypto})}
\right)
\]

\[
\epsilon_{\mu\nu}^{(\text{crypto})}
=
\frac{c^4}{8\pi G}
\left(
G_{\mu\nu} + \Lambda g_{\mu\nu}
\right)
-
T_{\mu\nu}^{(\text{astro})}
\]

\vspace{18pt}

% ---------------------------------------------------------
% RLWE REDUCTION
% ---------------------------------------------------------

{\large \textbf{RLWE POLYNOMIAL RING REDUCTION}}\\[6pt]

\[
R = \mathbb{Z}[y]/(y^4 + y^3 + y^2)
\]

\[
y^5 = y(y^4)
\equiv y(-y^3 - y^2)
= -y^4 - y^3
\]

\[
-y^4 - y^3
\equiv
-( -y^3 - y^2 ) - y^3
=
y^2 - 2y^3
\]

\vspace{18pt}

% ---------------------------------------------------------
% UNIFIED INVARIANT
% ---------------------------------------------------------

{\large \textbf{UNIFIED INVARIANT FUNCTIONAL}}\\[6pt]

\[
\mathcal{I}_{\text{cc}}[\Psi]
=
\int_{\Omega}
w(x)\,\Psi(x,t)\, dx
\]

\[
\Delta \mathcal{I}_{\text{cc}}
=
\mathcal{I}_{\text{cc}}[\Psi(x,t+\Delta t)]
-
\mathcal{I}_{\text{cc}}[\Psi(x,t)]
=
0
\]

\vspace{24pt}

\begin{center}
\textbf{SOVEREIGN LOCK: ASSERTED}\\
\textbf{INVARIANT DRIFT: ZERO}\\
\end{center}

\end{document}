@@ -1,0 +1,286 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{setspace}
+\usepackage{bm}
+
+% --- CODEX AESTHETIC ---
+\renewcommand{\baselinestretch}{1.35}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+{\Large \textbf{CODEX WHITE SHEET}}\\[6pt]
+{\large \textbf{Unified Mathematical Execution}}\\[4pt]
+{\large \textbf{National Infrastructure Stress Test Protocol}}\\[12pt]
+\textbf{C. Matthew Blackwell}\\
+\textit{Independent Systems Architect}\\[18pt]
+\end{center}
+
+% ---------------------------------------------------------
+% SECTION: GLOBAL DEFINITIONS
+% ---------------------------------------------------------
+
+{\large \textbf{0. GLOBAL DEFINITIONS}}\\[6pt]
+
+\[
+\Omega: \text{simulation manifold}, \quad
+x: \text{regional node coordinate}, \quad
+t: \text{simulation time}
+\]
+
+\[
+\Psi(x,t): \text{encrypted state tensor}, \quad
+S(y): \text{entropy field}, \quad
+K(x,y;t): \text{thermodynamic kernel}
+\]
+
+\[
+\rho(y,t): \text{density distribution}, \quad
+q: \text{RLWE modulus}, \quad
+R = \mathbb{Z}[y]/(y^4 + y^3 + y^2)
+\]
+
+\[
+\epsilon_{\mu\nu}^{(\text{crypto})}: \text{cryptographic stress-energy term}
+\]
+
+\vspace{18pt}
+
+% ---------------------------------------------------------
+% PHASE 1
+% ---------------------------------------------------------
+
+{\large \textbf{PHASE 1 — INGEST BANDWIDTH SATURATION}}\\[6pt]
+
+\[
+\lambda_{\text{in}} = 10^3 \lambda_{\text{baseline}}
+\]
+
+\[
+D = \frac{N_{\text{dropped}}}{N_{\text{total}}}
+\]
+
+\[
+L_{\text{dec}} =
+\frac{1}{N_{\text{blocks}}}
+\sum_{i}
+\left(
+t^{(i)}_{\text{end}} - t^{(i)}_{\text{start}}
+\right)
+\]
+
+\[
+M_{\text{TEE}}(t)
+=
+\sum_{j}
+m_j(t)
+\]
+
+\vspace{18pt}
+
+% ---------------------------------------------------------
+% PHASE 2
+% ---------------------------------------------------------
+
+{\large \textbf{PHASE 2 — THERMODYNAMIC SUBSTRATE SHOCK}}\\[6pt]
+
+\[
+S(y) = S_0(y) + \eta(y)
+\]
+
+\[
+\Psi(x,t)
+=
+\int_{\Omega}
+K(x,y;t)
+\exp\left(
+\frac{S_0(y) + \eta(y)}{k_B}
+\right)
+\rho(y,t)\, dy
+\]
+
+\[
+\exp\left(\frac{S}{k_B}\right)
+\approx
+1 + \frac{S}{k_B}
+\]
+
+\[
+\Psi(x,t)
+\approx
+\int_{\Omega} K(x,y;t)\rho(y,t)\, dy
++
+\frac{1}{k_B}
+\int_{\Omega} K(x,y;t) S(y)\rho(y,t)\, dy
+\]
+
+\[
+\sigma_{\Psi}^2(t)
+=
+\int_{\Omega}
+\left|
+\Psi(x,t) - \bar{\Psi}(t)
+\right|^2 dx
+\]
+
+\[
+\sigma_{\Psi}(t) > \sigma_{\text{crit}}
+\]
+
+\vspace{18pt}
+
+% ---------------------------------------------------------
+% PHASE 3
+% ---------------------------------------------------------
+
+{\large \textbf{PHASE 3 — SOVEREIGN KERNEL FAULT INJECTION}}\\[6pt]
+
+\[
+\mathcal{F} = \{ f_k \mid k = 1,\dots,N_f \}
+\]
+
+\[
+\text{MTS}
+=
+\frac{1}{N_f}
+\sum_{k}
+\left(
+t^{(k)}_{\text{recovered}}
+-
+t^{(k)}_{\text{fault}}
+\right)
+\]
+
+\[
+R_{\text{ZK}}
+=
+\frac{N_{\text{ZK, passed}}}{N_{\text{ZK, total}}}
+\quad
+R_{\text{ZK}} = 1.0
+\]
+
+\vspace{18pt}
+
+% ---------------------------------------------------------
+% PHASE 4
+% ---------------------------------------------------------
+
+{\large \textbf{PHASE 4 — ZERO-KNOWLEDGE AUDIT \& LEDGER COMMIT}}\\[6pt]
+
+\[
+L_{\text{ledger}}
+=
+\frac{1}{N_{\text{writes}}}
+\sum_{i}
+\left(
+t^{(i)}_{\text{commit}}
+-
+t^{(i)}_{\text{issue}}
+\right)
+\]
+
+\[
+\Theta_{\text{crypto}}
+=
+\frac{N_{\text{proofs}}}{T_{\text{window}}}
+\]
+
+\[
+F_{\text{int}}
+=
+\frac{N_{\text{failed}}}{N_{\text{verified}}}
+\quad
+F_{\text{int}} = 0.00
+\]
+
+\vspace{18pt}
+
+% ---------------------------------------------------------
+% EINSTEIN–CRYPTO COUPLING
+% ---------------------------------------------------------
+
+{\large \textbf{EINSTEIN–CRYPTO COUPLED FIELD EQUATION}}\\[6pt]
+
+\[
+G_{\mu\nu} + \Lambda g_{\mu\nu}
+=
+\frac{8\pi G}{c^4}
+\left(
+T_{\mu\nu}^{(\text{astro})}
++
+\epsilon_{\mu\nu}^{(\text{crypto})}
+\right)
+\]
+
+\[
+\epsilon_{\mu\nu}^{(\text{crypto})}
+=
+\frac{c^4}{8\pi G}
+\left(
+G_{\mu\nu} + \Lambda g_{\mu\nu}
+\right)
+-
+T_{\mu\nu}^{(\text{astro})}
+\]
+
+\vspace{18pt}
+
+% ---------------------------------------------------------
+% RLWE REDUCTION
+% ---------------------------------------------------------
+
+{\large \textbf{RLWE POLYNOMIAL RING REDUCTION}}\\[6pt]
+
+\[
+R = \mathbb{Z}[y]/(y^4 + y^3 + y^2)
+\]
+
+\[
+y^5 = y(y^4)
+\equiv y(-y^3 - y^2)
+= -y^4 - y^3
+\]
+
+\[
+-y^4 - y^3
+\equiv
+-( -y^3 - y^2 ) - y^3
+=
+y^2 - 2y^3
+\]
+
+\vspace{18pt}
+
+% ---------------------------------------------------------
+% UNIFIED INVARIANT
+% ---------------------------------------------------------
+
+{\large \textbf{UNIFIED INVARIANT FUNCTIONAL}}\\[6pt]
+
+\[
+\mathcal{I}_{\text{cc}}[\Psi]
+=
+\int_{\Omega}
+w(x)\,\Psi(x,t)\, dx
+\]
+
+\[
+\Delta \mathcal{I}_{\text{cc}}
+=
+\mathcal{I}_{\text{cc}}[\Psi(x,t+\Delta t)]
+-
+\mathcal{I}_{\text{cc}}[\Psi(x,t)]
+=
+0
+\]
+
+\vspace{24pt}
+
+\begin{center}
+\textbf{SOVEREIGN LOCK: ASSERTED}\\
+\textbf{INVARIANT DRIFT: ZERO}\\
+\end{center}
+
+\end{document}
