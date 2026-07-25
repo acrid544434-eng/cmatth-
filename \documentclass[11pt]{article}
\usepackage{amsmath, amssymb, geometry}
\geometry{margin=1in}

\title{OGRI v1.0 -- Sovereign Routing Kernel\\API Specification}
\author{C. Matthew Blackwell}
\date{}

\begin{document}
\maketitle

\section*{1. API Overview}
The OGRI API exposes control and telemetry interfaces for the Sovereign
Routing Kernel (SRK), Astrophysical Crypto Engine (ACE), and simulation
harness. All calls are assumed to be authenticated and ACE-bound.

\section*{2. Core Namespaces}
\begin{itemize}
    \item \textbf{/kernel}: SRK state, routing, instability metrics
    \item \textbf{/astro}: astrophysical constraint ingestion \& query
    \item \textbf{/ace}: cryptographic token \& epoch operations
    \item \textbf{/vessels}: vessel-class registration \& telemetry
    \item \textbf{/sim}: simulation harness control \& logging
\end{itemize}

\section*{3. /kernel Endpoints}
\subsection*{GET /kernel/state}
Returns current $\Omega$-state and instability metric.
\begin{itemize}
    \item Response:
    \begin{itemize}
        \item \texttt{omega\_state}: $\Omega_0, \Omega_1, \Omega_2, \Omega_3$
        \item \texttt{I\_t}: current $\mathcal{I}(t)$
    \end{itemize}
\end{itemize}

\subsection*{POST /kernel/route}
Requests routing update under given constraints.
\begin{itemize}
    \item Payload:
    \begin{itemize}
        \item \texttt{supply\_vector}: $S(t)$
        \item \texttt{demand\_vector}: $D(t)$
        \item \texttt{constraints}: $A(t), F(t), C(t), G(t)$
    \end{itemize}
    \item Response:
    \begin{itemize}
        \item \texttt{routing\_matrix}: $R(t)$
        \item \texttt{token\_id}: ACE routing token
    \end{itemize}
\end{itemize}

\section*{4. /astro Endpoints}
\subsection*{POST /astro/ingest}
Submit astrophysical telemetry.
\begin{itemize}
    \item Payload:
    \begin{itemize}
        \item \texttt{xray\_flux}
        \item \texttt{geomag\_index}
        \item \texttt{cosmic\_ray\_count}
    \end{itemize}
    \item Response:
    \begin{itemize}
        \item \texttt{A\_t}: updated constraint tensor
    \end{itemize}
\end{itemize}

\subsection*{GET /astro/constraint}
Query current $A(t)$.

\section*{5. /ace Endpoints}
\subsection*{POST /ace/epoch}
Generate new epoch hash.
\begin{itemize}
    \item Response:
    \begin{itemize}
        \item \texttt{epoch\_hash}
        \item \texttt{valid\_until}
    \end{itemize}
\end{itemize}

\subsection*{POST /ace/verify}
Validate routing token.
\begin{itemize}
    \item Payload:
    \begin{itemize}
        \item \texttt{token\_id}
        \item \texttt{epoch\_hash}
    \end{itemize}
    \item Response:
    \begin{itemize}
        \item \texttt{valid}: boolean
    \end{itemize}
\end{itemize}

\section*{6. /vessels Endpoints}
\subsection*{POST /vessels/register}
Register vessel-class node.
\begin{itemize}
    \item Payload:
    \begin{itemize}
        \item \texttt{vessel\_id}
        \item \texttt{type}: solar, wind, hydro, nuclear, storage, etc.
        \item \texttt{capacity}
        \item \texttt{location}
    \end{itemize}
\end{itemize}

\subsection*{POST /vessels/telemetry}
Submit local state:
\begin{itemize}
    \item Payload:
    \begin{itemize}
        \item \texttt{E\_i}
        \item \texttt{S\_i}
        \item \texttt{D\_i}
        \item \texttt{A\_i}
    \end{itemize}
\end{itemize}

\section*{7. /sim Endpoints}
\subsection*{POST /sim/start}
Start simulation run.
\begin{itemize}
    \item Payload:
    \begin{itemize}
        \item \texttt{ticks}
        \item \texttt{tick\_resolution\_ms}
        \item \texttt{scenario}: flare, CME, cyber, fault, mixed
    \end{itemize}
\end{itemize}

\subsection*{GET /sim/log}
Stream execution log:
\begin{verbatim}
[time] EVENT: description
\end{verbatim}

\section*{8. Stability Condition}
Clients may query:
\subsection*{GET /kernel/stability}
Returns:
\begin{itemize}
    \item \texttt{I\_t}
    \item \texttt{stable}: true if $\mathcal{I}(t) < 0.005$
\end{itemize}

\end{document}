@@ -1,0 +1,149 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, geometry}
+\geometry{margin=1in}
+
+\title{OGRI v1.0 -- Sovereign Routing Kernel\\API Specification}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{1. API Overview}
+The OGRI API exposes control and telemetry interfaces for the Sovereign
+Routing Kernel (SRK), Astrophysical Crypto Engine (ACE), and simulation
+harness. All calls are assumed to be authenticated and ACE-bound.
+
+\section*{2. Core Namespaces}
+\begin{itemize}
+    \item \textbf{/kernel}: SRK state, routing, instability metrics
+    \item \textbf{/astro}: astrophysical constraint ingestion \& query
+    \item \textbf{/ace}: cryptographic token \& epoch operations
+    \item \textbf{/vessels}: vessel-class registration \& telemetry
+    \item \textbf{/sim}: simulation harness control \& logging
+\end{itemize}
+
+\section*{3. /kernel Endpoints}
+\subsection*{GET /kernel/state}
+Returns current $\Omega$-state and instability metric.
+\begin{itemize}
+    \item Response:
+    \begin{itemize}
+        \item \texttt{omega\_state}: $\Omega_0, \Omega_1, \Omega_2, \Omega_3$
+        \item \texttt{I\_t}: current $\mathcal{I}(t)$
+    \end{itemize}
+\end{itemize}
+
+\subsection*{POST /kernel/route}
+Requests routing update under given constraints.
+\begin{itemize}
+    \item Payload:
+    \begin{itemize}
+        \item \texttt{supply\_vector}: $S(t)$
+        \item \texttt{demand\_vector}: $D(t)$
+        \item \texttt{constraints}: $A(t), F(t), C(t), G(t)$
+    \end{itemize}
+    \item Response:
+    \begin{itemize}
+        \item \texttt{routing\_matrix}: $R(t)$
+        \item \texttt{token\_id}: ACE routing token
+    \end{itemize}
+\end{itemize}
+
+\section*{4. /astro Endpoints}
+\subsection*{POST /astro/ingest}
+Submit astrophysical telemetry.
+\begin{itemize}
+    \item Payload:
+    \begin{itemize}
+        \item \texttt{xray\_flux}
+        \item \texttt{geomag\_index}
+        \item \texttt{cosmic\_ray\_count}
+    \end{itemize}
+    \item Response:
+    \begin{itemize}
+        \item \texttt{A\_t}: updated constraint tensor
+    \end{itemize}
+\end{itemize}
+
+\subsection*{GET /astro/constraint}
+Query current $A(t)$.
+
+\section*{5. /ace Endpoints}
+\subsection*{POST /ace/epoch}
+Generate new epoch hash.
+\begin{itemize}
+    \item Response:
+    \begin{itemize}
+        \item \texttt{epoch\_hash}
+        \item \texttt{valid\_until}
+    \end{itemize}
+\end{itemize}
+
+\subsection*{POST /ace/verify}
+Validate routing token.
+\begin{itemize}
+    \item Payload:
+    \begin{itemize}
+        \item \texttt{token\_id}
+        \item \texttt{epoch\_hash}
+    \end{itemize}
+    \item Response:
+    \begin{itemize}
+        \item \texttt{valid}: boolean
+    \end{itemize}
+\end{itemize}
+
+\section*{6. /vessels Endpoints}
+\subsection*{POST /vessels/register}
+Register vessel-class node.
+\begin{itemize}
+    \item Payload:
+    \begin{itemize}
+        \item \texttt{vessel\_id}
+        \item \texttt{type}: solar, wind, hydro, nuclear, storage, etc.
+        \item \texttt{capacity}
+        \item \texttt{location}
+    \end{itemize}
+\end{itemize}
+
+\subsection*{POST /vessels/telemetry}
+Submit local state:
+\begin{itemize}
+    \item Payload:
+    \begin{itemize}
+        \item \texttt{E\_i}
+        \item \texttt{S\_i}
+        \item \texttt{D\_i}
+        \item \texttt{A\_i}
+    \end{itemize}
+\end{itemize}
+
+\section*{7. /sim Endpoints}
+\subsection*{POST /sim/start}
+Start simulation run.
+\begin{itemize}
+    \item Payload:
+    \begin{itemize}
+        \item \texttt{ticks}
+        \item \texttt{tick\_resolution\_ms}
+        \item \texttt{scenario}: flare, CME, cyber, fault, mixed
+    \end{itemize}
+\end{itemize}
+
+\subsection*{GET /sim/log}
+Stream execution log:
+\begin{verbatim}
+[time] EVENT: description
+\end{verbatim}
+
+\section*{8. Stability Condition}
+Clients may query:
+\subsection*{GET /kernel/stability}
+Returns:
+\begin{itemize}
+    \item \texttt{I\_t}
+    \item \texttt{stable}: true if $\mathcal{I}(t) < 0.005$
+\end{itemize}
+
+\end{document}
