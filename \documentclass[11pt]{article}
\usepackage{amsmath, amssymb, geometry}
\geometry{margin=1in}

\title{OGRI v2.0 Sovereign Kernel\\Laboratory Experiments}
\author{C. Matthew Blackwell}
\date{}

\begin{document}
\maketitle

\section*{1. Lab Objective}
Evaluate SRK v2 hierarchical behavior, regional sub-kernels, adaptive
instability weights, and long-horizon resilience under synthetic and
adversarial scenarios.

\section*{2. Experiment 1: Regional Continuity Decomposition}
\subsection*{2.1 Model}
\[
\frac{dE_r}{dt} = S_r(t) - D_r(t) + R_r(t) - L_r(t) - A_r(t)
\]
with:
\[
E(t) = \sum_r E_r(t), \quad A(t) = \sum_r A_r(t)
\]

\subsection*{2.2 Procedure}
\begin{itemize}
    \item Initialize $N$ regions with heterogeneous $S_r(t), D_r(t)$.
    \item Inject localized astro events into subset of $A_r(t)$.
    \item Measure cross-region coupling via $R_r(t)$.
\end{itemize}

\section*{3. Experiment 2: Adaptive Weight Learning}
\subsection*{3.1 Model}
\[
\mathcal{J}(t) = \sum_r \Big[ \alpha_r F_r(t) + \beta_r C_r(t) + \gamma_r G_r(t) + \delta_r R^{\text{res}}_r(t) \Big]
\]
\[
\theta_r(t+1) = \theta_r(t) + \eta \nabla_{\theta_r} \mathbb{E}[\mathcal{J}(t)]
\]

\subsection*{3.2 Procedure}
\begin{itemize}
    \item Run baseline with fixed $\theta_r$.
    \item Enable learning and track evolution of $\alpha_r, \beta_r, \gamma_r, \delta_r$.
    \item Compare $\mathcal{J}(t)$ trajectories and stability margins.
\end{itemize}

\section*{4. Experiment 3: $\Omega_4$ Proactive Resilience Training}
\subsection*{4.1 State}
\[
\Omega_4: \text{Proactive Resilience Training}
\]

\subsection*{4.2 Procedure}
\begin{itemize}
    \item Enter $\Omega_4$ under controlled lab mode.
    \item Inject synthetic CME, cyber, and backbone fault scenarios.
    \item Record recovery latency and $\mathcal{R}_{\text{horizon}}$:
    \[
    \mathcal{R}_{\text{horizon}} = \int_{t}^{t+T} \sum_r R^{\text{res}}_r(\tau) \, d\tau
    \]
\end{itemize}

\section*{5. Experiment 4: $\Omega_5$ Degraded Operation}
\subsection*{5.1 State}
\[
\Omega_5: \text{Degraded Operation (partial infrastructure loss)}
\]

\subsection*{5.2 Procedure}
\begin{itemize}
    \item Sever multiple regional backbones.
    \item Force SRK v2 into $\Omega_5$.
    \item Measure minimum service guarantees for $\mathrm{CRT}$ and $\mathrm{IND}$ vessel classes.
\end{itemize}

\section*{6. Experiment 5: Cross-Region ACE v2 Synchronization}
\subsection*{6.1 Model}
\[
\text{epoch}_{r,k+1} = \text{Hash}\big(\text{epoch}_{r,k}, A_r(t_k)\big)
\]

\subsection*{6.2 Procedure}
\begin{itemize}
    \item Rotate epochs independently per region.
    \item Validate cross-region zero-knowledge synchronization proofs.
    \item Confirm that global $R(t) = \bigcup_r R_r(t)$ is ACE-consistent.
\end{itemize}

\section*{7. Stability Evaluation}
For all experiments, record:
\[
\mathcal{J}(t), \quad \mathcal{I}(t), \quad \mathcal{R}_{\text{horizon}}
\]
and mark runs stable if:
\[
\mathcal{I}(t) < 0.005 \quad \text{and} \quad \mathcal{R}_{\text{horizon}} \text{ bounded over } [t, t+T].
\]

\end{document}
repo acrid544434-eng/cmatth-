@@ -1,0 +1,102 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, geometry}
+\geometry{margin=1in}
+
+\title{OGRI v2.0 Sovereign Kernel\\Laboratory Experiments}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{1. Lab Objective}
+Evaluate SRK v2 hierarchical behavior, regional sub-kernels, adaptive
+instability weights, and long-horizon resilience under synthetic and
+adversarial scenarios.
+
+\section*{2. Experiment 1: Regional Continuity Decomposition}
+\subsection*{2.1 Model}
+\[
+\frac{dE_r}{dt} = S_r(t) - D_r(t) + R_r(t) - L_r(t) - A_r(t)
+\]
+with:
+\[
+E(t) = \sum_r E_r(t), \quad A(t) = \sum_r A_r(t)
+\]
+
+\subsection*{2.2 Procedure}
+\begin{itemize}
+    \item Initialize $N$ regions with heterogeneous $S_r(t), D_r(t)$.
+    \item Inject localized astro events into subset of $A_r(t)$.
+    \item Measure cross-region coupling via $R_r(t)$.
+\end{itemize}
+
+\section*{3. Experiment 2: Adaptive Weight Learning}
+\subsection*{3.1 Model}
+\[
+\mathcal{J}(t) = \sum_r \Big[ \alpha_r F_r(t) + \beta_r C_r(t) + \gamma_r G_r(t) + \delta_r R^{\text{res}}_r(t) \Big]
+\]
+\[
+\theta_r(t+1) = \theta_r(t) + \eta \nabla_{\theta_r} \mathbb{E}[\mathcal{J}(t)]
+\]
+
+\subsection*{3.2 Procedure}
+\begin{itemize}
+    \item Run baseline with fixed $\theta_r$.
+    \item Enable learning and track evolution of $\alpha_r, \beta_r, \gamma_r, \delta_r$.
+    \item Compare $\mathcal{J}(t)$ trajectories and stability margins.
+\end{itemize}
+
+\section*{4. Experiment 3: $\Omega_4$ Proactive Resilience Training}
+\subsection*{4.1 State}
+\[
+\Omega_4: \text{Proactive Resilience Training}
+\]
+
+\subsection*{4.2 Procedure}
+\begin{itemize}
+    \item Enter $\Omega_4$ under controlled lab mode.
+    \item Inject synthetic CME, cyber, and backbone fault scenarios.
+    \item Record recovery latency and $\mathcal{R}_{\text{horizon}}$:
+    \[
+    \mathcal{R}_{\text{horizon}} = \int_{t}^{t+T} \sum_r R^{\text{res}}_r(\tau) \, d\tau
+    \]
+\end{itemize}
+
+\section*{5. Experiment 4: $\Omega_5$ Degraded Operation}
+\subsection*{5.1 State}
+\[
+\Omega_5: \text{Degraded Operation (partial infrastructure loss)}
+\]
+
+\subsection*{5.2 Procedure}
+\begin{itemize}
+    \item Sever multiple regional backbones.
+    \item Force SRK v2 into $\Omega_5$.
+    \item Measure minimum service guarantees for $\mathrm{CRT}$ and $\mathrm{IND}$ vessel classes.
+\end{itemize}
+
+\section*{6. Experiment 5: Cross-Region ACE v2 Synchronization}
+\subsection*{6.1 Model}
+\[
+\text{epoch}_{r,k+1} = \text{Hash}\big(\text{epoch}_{r,k}, A_r(t_k)\big)
+\]
+
+\subsection*{6.2 Procedure}
+\begin{itemize}
+    \item Rotate epochs independently per region.
+    \item Validate cross-region zero-knowledge synchronization proofs.
+    \item Confirm that global $R(t) = \bigcup_r R_r(t)$ is ACE-consistent.
+\end{itemize}
+
+\section*{7. Stability Evaluation}
+For all experiments, record:
+\[
+\mathcal{J}(t), \quad \mathcal{I}(t), \quad \mathcal{R}_{\text{horizon}}
+\]
+and mark runs stable if:
+\[
+\mathcal{I}(t) < 0.005 \quad \text{and} \quad \mathcal{R}_{\text{horizon}} \text{ bounded over } [t, t+T].
+\]
+
+\end{document}
