@@ -1,0 +1,21 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2.2cm,
+    step/.style={rectangle, draw, rounded corners,
+                 minimum width=4cm, minimum height=1cm,
+                 align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[step] (stmt) {Routing Statement $s$};
+\node[step, right of=stmt, xshift=4cm] (prove) {ACE Prover: $\pi = \mathrm{Prove}(s,w)$};
+\node[step, right of=prove, xshift=4cm] (verify) {Verifier: $\mathrm{Verify}(s,\pi)$};
+\node[step, right of=verify, xshift=4cm] (result) {Accept / Reject};
+
+\draw[arrow] (stmt) -- (prove);
+\draw[arrow] (prove) -- (verify);
+\draw[arrow] (verify) -- (result);
+
+\caption{ACE Zero-Knowledge Routing Verification Pipeline}
+\end{figure}
