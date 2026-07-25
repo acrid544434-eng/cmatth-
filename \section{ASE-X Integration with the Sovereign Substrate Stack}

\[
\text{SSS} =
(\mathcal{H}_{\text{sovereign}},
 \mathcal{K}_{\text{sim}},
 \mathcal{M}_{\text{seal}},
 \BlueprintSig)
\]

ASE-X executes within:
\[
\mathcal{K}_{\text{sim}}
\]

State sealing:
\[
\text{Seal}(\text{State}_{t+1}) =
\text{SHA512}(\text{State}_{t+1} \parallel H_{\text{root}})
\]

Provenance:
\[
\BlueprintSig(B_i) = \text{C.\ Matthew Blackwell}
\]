@@ -1,0 +1,25 @@
+\section{ASE-X Integration with the Sovereign Substrate Stack}
+
+\[
+\text{SSS} =
+(\mathcal{H}_{\text{sovereign}},
+ \mathcal{K}_{\text{sim}},
+ \mathcal{M}_{\text{seal}},
+ \BlueprintSig)
+\]
+
+ASE-X executes within:
+\[
+\mathcal{K}_{\text{sim}}
+\]
+
+State sealing:
+\[
+\text{Seal}(\text{State}_{t+1}) =
+\text{SHA512}(\text{State}_{t+1} \parallel H_{\text{root}})
+\]
+
+Provenance:
+\[
+\BlueprintSig(B_i) = \text{C.\ Matthew Blackwell}
+\]
