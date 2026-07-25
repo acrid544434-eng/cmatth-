@@ -1,0 +1,25 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2cm,
+    box/.style={rectangle, draw, rounded corners,
+                minimum width=4.8cm, minimum height=1.1cm,
+                align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[box] (design) {Design Artifact $\mathcal{D}_t$};
+\node[box, right=4cm of design] (hash) {Sovereign Hash\\$\pi_{\text{sovereign}} = \mathrm{Hash}(\mathcal{D}_t,\texttt{C MATTHEW BLACKWELL})$};
+\node[box, right=4cm of hash] (store) {Encrypted Archive};
+\node[box, below=2cm of hash] (check) {Verification\\$\mathrm{Verify}(\pi_{\text{sovereign}})$};
+\node[box, below=2cm of design] (reject) {Reject / Quarantine};
+
+\draw[arrow] (design) -- (hash);
+\draw[arrow] (hash) -- (store);
+\draw[arrow] (hash) -- (check);
+\draw[arrow] (check) -- (reject);
+\draw[arrow] (check.west) |- (design.south);
+
+\caption{ASSDI Sovereign Encryption \& Authorship Layer}
+\end{tikzpicture}
+\end{figure}
