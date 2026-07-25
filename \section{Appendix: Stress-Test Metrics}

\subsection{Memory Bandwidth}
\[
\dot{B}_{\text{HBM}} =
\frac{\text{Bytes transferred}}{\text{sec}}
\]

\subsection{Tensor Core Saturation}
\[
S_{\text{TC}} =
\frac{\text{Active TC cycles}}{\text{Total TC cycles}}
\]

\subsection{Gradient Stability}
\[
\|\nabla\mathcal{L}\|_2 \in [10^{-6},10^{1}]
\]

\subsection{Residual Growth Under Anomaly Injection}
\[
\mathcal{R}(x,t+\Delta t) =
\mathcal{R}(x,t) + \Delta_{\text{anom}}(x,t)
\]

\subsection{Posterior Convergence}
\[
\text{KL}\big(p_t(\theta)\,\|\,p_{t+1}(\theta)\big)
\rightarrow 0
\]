@@ -1,0 +1,30 @@
+\section{Appendix: Stress-Test Metrics}
+
+\subsection{Memory Bandwidth}
+\[
+\dot{B}_{\text{HBM}} =
+\frac{\text{Bytes transferred}}{\text{sec}}
+\]
+
+\subsection{Tensor Core Saturation}
+\[
+S_{\text{TC}} =
+\frac{\text{Active TC cycles}}{\text{Total TC cycles}}
+\]
+
+\subsection{Gradient Stability}
+\[
+\|\nabla\mathcal{L}\|_2 \in [10^{-6},10^{1}]
+\]
+
+\subsection{Residual Growth Under Anomaly Injection}
+\[
+\mathcal{R}(x,t+\Delta t) =
+\mathcal{R}(x,t) + \Delta_{\text{anom}}(x,t)
+\]
+
+\subsection{Posterior Convergence}
+\[
+\text{KL}\big(p_t(\theta)\,\|\,p_{t+1}(\theta)\big)
+\rightarrow 0
+\]
