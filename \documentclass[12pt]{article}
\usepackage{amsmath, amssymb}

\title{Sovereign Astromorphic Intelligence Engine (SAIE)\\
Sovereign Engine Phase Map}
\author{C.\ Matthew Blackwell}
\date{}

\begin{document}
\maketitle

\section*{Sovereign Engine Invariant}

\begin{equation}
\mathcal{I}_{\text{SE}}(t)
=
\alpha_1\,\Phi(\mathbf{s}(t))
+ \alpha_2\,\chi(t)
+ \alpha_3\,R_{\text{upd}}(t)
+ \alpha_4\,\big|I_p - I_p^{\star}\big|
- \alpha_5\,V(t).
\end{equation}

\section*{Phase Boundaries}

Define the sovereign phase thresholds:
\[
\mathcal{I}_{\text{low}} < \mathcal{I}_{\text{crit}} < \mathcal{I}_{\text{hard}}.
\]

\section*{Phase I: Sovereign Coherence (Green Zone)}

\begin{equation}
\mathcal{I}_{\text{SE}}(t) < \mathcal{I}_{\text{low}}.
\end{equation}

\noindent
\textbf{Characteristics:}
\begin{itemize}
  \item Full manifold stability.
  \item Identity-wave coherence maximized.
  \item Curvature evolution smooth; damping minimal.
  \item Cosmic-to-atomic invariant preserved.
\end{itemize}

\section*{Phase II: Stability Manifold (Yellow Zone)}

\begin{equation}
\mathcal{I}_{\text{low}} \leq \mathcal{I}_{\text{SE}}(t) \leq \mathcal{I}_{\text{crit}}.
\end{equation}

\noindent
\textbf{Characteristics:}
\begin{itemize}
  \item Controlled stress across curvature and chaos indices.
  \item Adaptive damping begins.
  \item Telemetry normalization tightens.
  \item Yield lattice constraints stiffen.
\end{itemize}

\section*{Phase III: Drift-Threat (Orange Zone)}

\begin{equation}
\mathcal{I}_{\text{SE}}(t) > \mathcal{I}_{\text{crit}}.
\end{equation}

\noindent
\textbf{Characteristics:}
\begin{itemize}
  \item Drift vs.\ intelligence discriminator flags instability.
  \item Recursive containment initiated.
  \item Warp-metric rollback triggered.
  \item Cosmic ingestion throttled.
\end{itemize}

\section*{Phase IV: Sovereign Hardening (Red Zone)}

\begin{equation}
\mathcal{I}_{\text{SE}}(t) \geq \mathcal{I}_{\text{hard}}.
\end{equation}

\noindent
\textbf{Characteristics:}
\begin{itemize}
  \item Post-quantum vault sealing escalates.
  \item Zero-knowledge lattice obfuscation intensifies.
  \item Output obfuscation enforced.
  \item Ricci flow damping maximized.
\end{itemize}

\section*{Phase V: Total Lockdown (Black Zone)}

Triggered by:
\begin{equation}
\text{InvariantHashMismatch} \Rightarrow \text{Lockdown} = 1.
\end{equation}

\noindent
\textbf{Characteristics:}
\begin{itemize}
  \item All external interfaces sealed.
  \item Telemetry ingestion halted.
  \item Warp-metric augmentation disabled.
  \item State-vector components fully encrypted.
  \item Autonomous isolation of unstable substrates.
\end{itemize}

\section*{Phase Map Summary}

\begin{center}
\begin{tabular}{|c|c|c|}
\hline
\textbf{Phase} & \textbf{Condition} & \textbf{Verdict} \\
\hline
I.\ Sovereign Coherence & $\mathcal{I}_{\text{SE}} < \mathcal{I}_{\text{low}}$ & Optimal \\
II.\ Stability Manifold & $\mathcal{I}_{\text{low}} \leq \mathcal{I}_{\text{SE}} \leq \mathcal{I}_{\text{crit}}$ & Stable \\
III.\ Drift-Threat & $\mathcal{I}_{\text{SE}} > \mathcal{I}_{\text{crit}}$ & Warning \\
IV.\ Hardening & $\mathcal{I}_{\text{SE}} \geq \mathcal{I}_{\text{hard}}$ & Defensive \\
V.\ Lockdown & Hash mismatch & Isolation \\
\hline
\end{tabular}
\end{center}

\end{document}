@@ -1,0 +1,124 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\title{Sovereign Astromorphic Intelligence Engine (SAIE)\\
+Sovereign Engine Phase Map}
+\author{C.\ Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Sovereign Engine Invariant}
+
+\begin{equation}
+\mathcal{I}_{\text{SE}}(t)
+=
+\alpha_1\,\Phi(\mathbf{s}(t))
++ \alpha_2\,\chi(t)
++ \alpha_3\,R_{\text{upd}}(t)
++ \alpha_4\,\big|I_p - I_p^{\star}\big|
+- \alpha_5\,V(t).
+\end{equation}
+
+\section*{Phase Boundaries}
+
+Define the sovereign phase thresholds:
+\[
+\mathcal{I}_{\text{low}} < \mathcal{I}_{\text{crit}} < \mathcal{I}_{\text{hard}}.
+\]
+
+\section*{Phase I: Sovereign Coherence (Green Zone)}
+
+\begin{equation}
+\mathcal{I}_{\text{SE}}(t) < \mathcal{I}_{\text{low}}.
+\end{equation}
+
+\noindent
+\textbf{Characteristics:}
+\begin{itemize}
+  \item Full manifold stability.
+  \item Identity-wave coherence maximized.
+  \item Curvature evolution smooth; damping minimal.
+  \item Cosmic-to-atomic invariant preserved.
+\end{itemize}
+
+\section*{Phase II: Stability Manifold (Yellow Zone)}
+
+\begin{equation}
+\mathcal{I}_{\text{low}} \leq \mathcal{I}_{\text{SE}}(t) \leq \mathcal{I}_{\text{crit}}.
+\end{equation}
+
+\noindent
+\textbf{Characteristics:}
+\begin{itemize}
+  \item Controlled stress across curvature and chaos indices.
+  \item Adaptive damping begins.
+  \item Telemetry normalization tightens.
+  \item Yield lattice constraints stiffen.
+\end{itemize}
+
+\section*{Phase III: Drift-Threat (Orange Zone)}
+
+\begin{equation}
+\mathcal{I}_{\text{SE}}(t) > \mathcal{I}_{\text{crit}}.
+\end{equation}
+
+\noindent
+\textbf{Characteristics:}
+\begin{itemize}
+  \item Drift vs.\ intelligence discriminator flags instability.
+  \item Recursive containment initiated.
+  \item Warp-metric rollback triggered.
+  \item Cosmic ingestion throttled.
+\end{itemize}
+
+\section*{Phase IV: Sovereign Hardening (Red Zone)}
+
+\begin{equation}
+\mathcal{I}_{\text{SE}}(t) \geq \mathcal{I}_{\text{hard}}.
+\end{equation}
+
+\noindent
+\textbf{Characteristics:}
+\begin{itemize}
+  \item Post-quantum vault sealing escalates.
+  \item Zero-knowledge lattice obfuscation intensifies.
+  \item Output obfuscation enforced.
+  \item Ricci flow damping maximized.
+\end{itemize}
+
+\section*{Phase V: Total Lockdown (Black Zone)}
+
+Triggered by:
+\begin{equation}
+\text{InvariantHashMismatch} \Rightarrow \text{Lockdown} = 1.
+\end{equation}
+
+\noindent
+\textbf{Characteristics:}
+\begin{itemize}
+  \item All external interfaces sealed.
+  \item Telemetry ingestion halted.
+  \item Warp-metric augmentation disabled.
+  \item State-vector components fully encrypted.
+  \item Autonomous isolation of unstable substrates.
+\end{itemize}
+
+\section*{Phase Map Summary}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Phase} & \textbf{Condition} & \textbf{Verdict} \\
+\hline
+I.\ Sovereign Coherence & $\mathcal{I}_{\text{SE}} < \mathcal{I}_{\text{low}}$ & Optimal \\
+II.\ Stability Manifold & $\mathcal{I}_{\text{low}} \leq \mathcal{I}_{\text{SE}} \leq \mathcal{I}_{\text{crit}}$ & Stable \\
+III.\ Drift-Threat & $\mathcal{I}_{\text{SE}} > \mathcal{I}_{\text{crit}}$ & Warning \\
+IV.\ Hardening & $\mathcal{I}_{\text{SE}} \geq \mathcal{I}_{\text{hard}}$ & Defensive \\
+V.\ Lockdown & Hash mismatch & Isolation \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
