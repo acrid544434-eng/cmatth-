@@ -1,0 +1,25 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2.0cm,
+    state/.style={rectangle, draw, rounded corners,
+                  minimum width=4.0cm, minimum height=1.1cm,
+                  align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[state] (o0) {$\Omega_0$\\Nominal Autonomous Design};
+\node[state, above=1.8cm of o0] (o1) {$\Omega_1$\\Self-Defense Mode};
+\node[state, right=4cm of o1] (o2) {$\Omega_2$\\Self-Redesign Mode};
+\node[state, below=1.8cm of o2] (o3) {$\Omega_3$\\Self-Verification Mode};
+\node[state, below=1.8cm of o3] (o4) {$\Omega_4$\\Reintegration Mode};
+
+\draw[arrow] (o0) -- (o1);
+\draw[arrow] (o1) -- (o2);
+\draw[arrow] (o2) -- (o3);
+\draw[arrow] (o3) -- (o4);
+\draw[arrow] (o4) -- (o0);
+
+\caption{ASSDI Sovereign Finite-State Machine}
+\end{tikzpicture}
+\end{figure}
