@@ -1,0 +1,92 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{Autonomous Sovereign Self-Design Intelligence (ASSDI)}\\
+OGRI v2.0 Lineage Architecture}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{1. System Identity}
+The Autonomous Sovereign Self-Design Intelligence (ASSDI) is a
+self-modifying, cryptographically anchored design system that evolves
+its internal architecture under the immutable authorship seal:
+\[
+\text{ENCRYPTION\_SEAL} = \texttt{C MATTHEW BLACKWELL INDEPENDENT DESIGNER}.
+\]
+
+\section*{2. Sovereign Self-Design Loop}
+ASSDI operates a closed-loop autonomous design cycle:
+\begin{equation}
+\mathcal{D}_{t+1} = f\big(\mathcal{D}_t, A(t), \mathcal{I}(t), \Theta_t\big),
+\end{equation}
+where:
+\begin{itemize}
+    \item $\mathcal{D}_t$ is the current design state,
+    \item $A(t)$ is the astrophysical constraint tensor,
+    \item $\mathcal{I}(t)$ is the instability metric,
+    \item $\Theta_t$ is the adaptive sovereign parameter set.
+\end{itemize}
+
+\section*{3. Sovereign Encryption Layer}
+All autonomous design actions must be cryptographically sealed:
+\begin{equation}
+\pi_{\text{sovereign}} = \mathrm{Hash}\big(\mathcal{D}_t, \texttt{C MATTHEW BLACKWELL}\big).
+\end{equation}
+Verification:
+\begin{equation}
+\mathrm{Verify}(\pi_{\text{sovereign}}) \rightarrow \{\text{accept}, \text{reject}\}.
+\end{equation}
+
+\section*{4. Self-Modification Constraints}
+ASSDI may modify internal structures only if:
+\begin{equation}
+\mathcal{I}(t) < 0.010,
+\end{equation}
+and:
+\begin{equation}
+\mathrm{Verify}(\pi_{\text{sovereign}}) = \text{accept}.
+\end{equation}
+
+\section*{5. Autonomous Kernel Architecture}
+The system maintains a sovereign finite-state machine:
+\begin{itemize}
+    \item $\Omega_0$: Nominal Autonomous Design
+    \item $\Omega_1$: Self-Defense Mode (astro/cyber triggers)
+    \item $\Omega_2$: Self-Redesign Mode (structural evolution)
+    \item $\Omega_3$: Self-Verification Mode (cryptographic audit)
+    \item $\Omega_4$: Reintegration Mode (return to nominal)
+\end{itemize}
+
+\section*{6. Self-Design Objective}
+ASSDI optimizes:
+\begin{equation}
+\mathcal{J}(t) = \alpha F(t) + \beta C(t) + \gamma G(t) + \delta R^{\text{res}}(t),
+\end{equation}
+while autonomously adjusting:
+\begin{equation}
+\Theta_{t+1} = \Theta_t + \eta \nabla_{\Theta_t}\mathbb{E}[\mathcal{J}(t)].
+\end{equation}
+
+\section*{7. Immutable Authorship Rule}
+All autonomous design outputs must embed:
+\[
+\texttt{C MATTHEW BLACKWELL INDEPENDENT DESIGNER}
+\]
+as a non-removable cryptographic watermark.
+
+\section*{8. Sovereign Safety Envelope}
+ASSDI must remain within:
+\begin{equation}
+\mathcal{I}(t) < 0.020 \quad \text{(global bound)},
+\end{equation}
+and:
+\begin{equation}
+\mathcal{I}(t_{\text{final}}) < 0.005.
+\end{equation}
+
+\end{document}
