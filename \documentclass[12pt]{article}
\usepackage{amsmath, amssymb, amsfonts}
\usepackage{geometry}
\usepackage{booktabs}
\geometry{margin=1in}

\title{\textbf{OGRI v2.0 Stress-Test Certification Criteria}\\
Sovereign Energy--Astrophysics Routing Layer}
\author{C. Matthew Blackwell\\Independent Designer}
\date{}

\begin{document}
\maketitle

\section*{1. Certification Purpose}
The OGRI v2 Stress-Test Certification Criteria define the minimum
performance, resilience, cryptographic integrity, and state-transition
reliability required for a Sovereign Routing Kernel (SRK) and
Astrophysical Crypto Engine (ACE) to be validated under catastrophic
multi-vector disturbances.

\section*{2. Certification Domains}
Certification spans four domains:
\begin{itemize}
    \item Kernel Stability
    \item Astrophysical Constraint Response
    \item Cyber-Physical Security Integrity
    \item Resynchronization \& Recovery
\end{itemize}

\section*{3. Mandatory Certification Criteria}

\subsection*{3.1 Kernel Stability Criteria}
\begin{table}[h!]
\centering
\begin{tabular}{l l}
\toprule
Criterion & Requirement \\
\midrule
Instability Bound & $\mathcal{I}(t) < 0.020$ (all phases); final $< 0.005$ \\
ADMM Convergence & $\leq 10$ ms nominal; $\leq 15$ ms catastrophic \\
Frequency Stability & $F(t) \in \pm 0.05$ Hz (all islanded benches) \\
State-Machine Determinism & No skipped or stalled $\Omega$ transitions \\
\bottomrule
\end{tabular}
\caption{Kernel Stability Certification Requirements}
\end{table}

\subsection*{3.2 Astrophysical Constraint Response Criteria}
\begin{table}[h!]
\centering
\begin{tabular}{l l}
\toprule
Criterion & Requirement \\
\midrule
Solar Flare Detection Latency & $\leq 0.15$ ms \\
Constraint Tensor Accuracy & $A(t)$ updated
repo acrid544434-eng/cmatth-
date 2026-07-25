@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{booktabs}
+\geometry{margin=1in}
+
+\title{\textbf{OGRI v2.0 Stress-Test Certification Criteria}\\
+Sovereign Energy--Astrophysics Routing Layer}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{1. Certification Purpose}
+The OGRI v2 Stress-Test Certification Criteria define the minimum
+performance, resilience, cryptographic integrity, and state-transition
+reliability required for a Sovereign Routing Kernel (SRK) and
+Astrophysical Crypto Engine (ACE) to be validated under catastrophic
+multi-vector disturbances.
+
+\section*{2. Certification Domains}
+Certification spans four domains:
+\begin{itemize}
+    \item Kernel Stability
+    \item Astrophysical Constraint Response
+    \item Cyber-Physical Security Integrity
+    \item Resynchronization \& Recovery
+\end{itemize}
+
+\section*{3. Mandatory Certification Criteria}
+
+\subsection*{3.1 Kernel Stability Criteria}
+\begin{table}[h!]
+\centering
+\begin{tabular}{l l}
+\toprule
+Criterion & Requirement \\
+\midrule
+Instability Bound & $\mathcal{I}(t) < 0.020$ (all phases); final $< 0.005$ \\
+ADMM Convergence & $\leq 10$ ms nominal; $\leq 15$ ms catastrophic \\
+Frequency Stability & $F(t) \in \pm 0.05$ Hz (all islanded benches) \\
+State-Machine Determinism & No skipped or stalled $\Omega$ transitions \\
+\bottomrule
+\end{tabular}
+\caption{Kernel Stability Certification Requirements}
+\end{table}
+
+\subsection*{3.2 Astrophysical Constraint Response Criteria}
+\begin{table}[h!]
+\centering
+\begin{tabular}{l l}
+\toprule
+Criterion & Requirement \\
+\midrule
+Solar Flare Detection Latency & $\leq 0.15$ ms \\
+Constraint Tensor Accuracy & $A(t)$ updated
