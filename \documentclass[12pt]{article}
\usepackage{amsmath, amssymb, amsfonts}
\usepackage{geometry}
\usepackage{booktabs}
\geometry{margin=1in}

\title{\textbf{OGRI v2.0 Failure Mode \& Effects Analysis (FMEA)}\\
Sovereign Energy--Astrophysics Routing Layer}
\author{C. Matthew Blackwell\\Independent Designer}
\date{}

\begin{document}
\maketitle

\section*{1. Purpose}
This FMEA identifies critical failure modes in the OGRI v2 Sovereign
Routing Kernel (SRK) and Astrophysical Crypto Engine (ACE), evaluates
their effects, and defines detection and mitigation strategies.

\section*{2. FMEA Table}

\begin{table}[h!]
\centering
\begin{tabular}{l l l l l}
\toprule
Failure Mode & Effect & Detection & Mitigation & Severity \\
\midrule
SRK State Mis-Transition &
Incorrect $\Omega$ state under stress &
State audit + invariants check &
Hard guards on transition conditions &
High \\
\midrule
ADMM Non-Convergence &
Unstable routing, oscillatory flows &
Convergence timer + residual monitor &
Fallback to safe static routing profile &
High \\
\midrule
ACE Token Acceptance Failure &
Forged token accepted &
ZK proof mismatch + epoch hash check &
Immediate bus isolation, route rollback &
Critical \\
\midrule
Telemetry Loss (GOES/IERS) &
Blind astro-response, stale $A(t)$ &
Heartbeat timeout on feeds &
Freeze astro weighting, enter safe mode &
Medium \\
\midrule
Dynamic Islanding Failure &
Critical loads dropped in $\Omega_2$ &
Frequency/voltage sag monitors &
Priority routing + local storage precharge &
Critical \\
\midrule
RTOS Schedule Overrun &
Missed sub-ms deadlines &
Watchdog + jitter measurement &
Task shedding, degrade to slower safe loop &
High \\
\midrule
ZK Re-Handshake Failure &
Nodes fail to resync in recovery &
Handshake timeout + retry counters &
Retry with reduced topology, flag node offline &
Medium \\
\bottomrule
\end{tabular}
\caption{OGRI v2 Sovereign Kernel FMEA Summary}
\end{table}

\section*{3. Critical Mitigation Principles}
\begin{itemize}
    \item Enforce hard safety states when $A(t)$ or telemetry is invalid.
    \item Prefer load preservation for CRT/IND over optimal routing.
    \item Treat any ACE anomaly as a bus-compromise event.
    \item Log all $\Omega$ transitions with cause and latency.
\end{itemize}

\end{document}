@@ -1,0 +1,82 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{booktabs}
+\geometry{margin=1in}
+
+\title{\textbf{OGRI v2.0 Failure Mode \& Effects Analysis (FMEA)}\\
+Sovereign Energy--Astrophysics Routing Layer}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{1. Purpose}
+This FMEA identifies critical failure modes in the OGRI v2 Sovereign
+Routing Kernel (SRK) and Astrophysical Crypto Engine (ACE), evaluates
+their effects, and defines detection and mitigation strategies.
+
+\section*{2. FMEA Table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{l l l l l}
+\toprule
+Failure Mode & Effect & Detection & Mitigation & Severity \\
+\midrule
+SRK State Mis-Transition &
+Incorrect $\Omega$ state under stress &
+State audit + invariants check &
+Hard guards on transition conditions &
+High \\
+\midrule
+ADMM Non-Convergence &
+Unstable routing, oscillatory flows &
+Convergence timer + residual monitor &
+Fallback to safe static routing profile &
+High \\
+\midrule
+ACE Token Acceptance Failure &
+Forged token accepted &
+ZK proof mismatch + epoch hash check &
+Immediate bus isolation, route rollback &
+Critical \\
+\midrule
+Telemetry Loss (GOES/IERS) &
+Blind astro-response, stale $A(t)$ &
+Heartbeat timeout on feeds &
+Freeze astro weighting, enter safe mode &
+Medium \\
+\midrule
+Dynamic Islanding Failure &
+Critical loads dropped in $\Omega_2$ &
+Frequency/voltage sag monitors &
+Priority routing + local storage precharge &
+Critical \\
+\midrule
+RTOS Schedule Overrun &
+Missed sub-ms deadlines &
+Watchdog + jitter measurement &
+Task shedding, degrade to slower safe loop &
+High \\
+\midrule
+ZK Re-Handshake Failure &
+Nodes fail to resync in recovery &
+Handshake timeout + retry counters &
+Retry with reduced topology, flag node offline &
+Medium \\
+\bottomrule
+\end{tabular}
+\caption{OGRI v2 Sovereign Kernel FMEA Summary}
+\end{table}
+
+\section*{3. Critical Mitigation Principles}
+\begin{itemize}
+    \item Enforce hard safety states when $A(t)$ or telemetry is invalid.
+    \item Prefer load preservation for CRT/IND over optimal routing.
+    \item Treat any ACE anomaly as a bus-compromise event.
+    \item Log all $\Omega$ transitions with cause and latency.
+\end{itemize}
+
+\end{document}
