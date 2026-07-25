@@ -1,0 +1,27 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2cm,
+    box/.style={rectangle, draw, rounded corners,
+                minimum width=4.5cm, minimum height=1.1cm,
+                align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[box] (state) {Current Design State $\mathcal{D}_t$};
+\node[box, right=4cm of state] (eval) {Evaluate $\mathcal{J}(t), \mathcal{I}(t)$};
+\node[box, right=4cm of eval] (update) {Compute Update\\$\mathcal{D}_{t+1} = f(\mathcal{D}_t, A(t), \mathcal{I}(t), \Theta_t)$};
+\node[box, below=2cm of update] (seal) {Sovereign Encryption Seal\\$\pi_{\text{sovereign}}$};
+\node[box, left=4cm of seal] (verify) {Verify $\pi_{\text{sovereign}}$};
+\node[box, left=4cm of verify] (commit) {Commit New Design\\if $\mathrm{Verify} = \text{accept}$};
+
+\draw[arrow] (state) -- (eval);
+\draw[arrow] (eval) -- (update);
+\draw[arrow] (update) -- (seal);
+\draw[arrow] (seal) -- (verify);
+\draw[arrow] (verify) -- (commit);
+\draw[arrow] (commit.west) |- (state.south);
+
+\caption{ASSDI Sovereign Self-Design Loop}
+\end{tikzpicture}
+\end{figure}
