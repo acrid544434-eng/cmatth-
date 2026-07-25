@@ -1,0 +1,114 @@
+% ============================================================
+% SAIE-X LaTeX Class
+% Sovereign Autonomous Intelligence Engine Publication Class
+% Author: C. Matthew Blackwell
+% ============================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{saiex}[2026/07/25 SAIE-X Publication Class]
+
+% ------------------------------------------------------------
+% Base Class
+% ------------------------------------------------------------
+\LoadClass[12pt]{article}
+
+% ------------------------------------------------------------
+% Packages
+% ------------------------------------------------------------
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsthm}
+\RequirePackage{geometry}
+\RequirePackage{hyperref}
+\RequirePackage{graphicx}
+\RequirePackage{titlesec}
+\RequirePackage{setspace}
+
+% ------------------------------------------------------------
+% Geometry and Spacing
+% ------------------------------------------------------------
+\geometry{margin=1in}
+\setstretch{1.15}
+
+% ------------------------------------------------------------
+% Section Formatting
+% ------------------------------------------------------------
+\titleformat{\section}
+  {\large\bfseries}{\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% ------------------------------------------------------------
+% SAIE-X Theorem Environments
+% ------------------------------------------------------------
+\newtheorem{definition}{Definition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+% ------------------------------------------------------------
+% SAIE-X Math Operators
+% ------------------------------------------------------------
+\DeclareMathOperator{\Retr}{Retr}
+\DeclareMathOperator{\HomL}{\mathcal{L}}
+\DeclareMathOperator{\ZK}{\mathcal{Z}}
+\DeclareMathOperator{\QEnt}{\mathcal{Q}}
+
+% ------------------------------------------------------------
+% SAIE-X Title Block
+% ------------------------------------------------------------
+\renewcommand{\maketitle}{
+  \begin{center}
+    {\Large\bfseries \@title \par}
+    \vspace{0.5em}
+    {\normalsize \@author \par}
+    \vspace{0.5em}
+    {\normalsize \@date \par}
+    \vspace{1.2em}
+    \rule{0.85\textwidth}{0.4pt}
+    \vspace{1.2em}
+  \end{center}
+}
+
+% ------------------------------------------------------------
+% Abstract Formatting
+% ------------------------------------------------------------
+\renewenvironment{abstract}{
+  \begin{center}
+    \bfseries Abstract
+  \end{center}
+  \begin{quote}
+}{
+  \end{quote}
+}
+
+% ------------------------------------------------------------
+% SAIE-X Header Block
+% ------------------------------------------------------------
+\newcommand{\saiexheader}{
+  \begin{center}
+    \vspace{1em}
+    {\bfseries SAIE-X Sovereign Autonomous Intelligence Engine}\\
+    {\small Formal Architecture and Resilience Framework}\\
+    \vspace{1em}
+    \rule{0.75\textwidth}{0.4pt}
+    \vspace{1.5em}
+  \end{center}
+}
+
+% ------------------------------------------------------------
+% Bibliography Placeholder
+% ------------------------------------------------------------
+\newcommand{\saiexrefs}{
+  \section*{References}
+  \begin{itemize}
+    \item Placeholder references for astrophysical telemetry pipelines.
+    \item Placeholder references for manifold optimization and TDA.
+    \item Placeholder references for lattice-based cryptography.
+  \end{itemize}
+}
+
+% ------------------------------------------------------------
+% End of Class
+% ------------------------------------------------------------
