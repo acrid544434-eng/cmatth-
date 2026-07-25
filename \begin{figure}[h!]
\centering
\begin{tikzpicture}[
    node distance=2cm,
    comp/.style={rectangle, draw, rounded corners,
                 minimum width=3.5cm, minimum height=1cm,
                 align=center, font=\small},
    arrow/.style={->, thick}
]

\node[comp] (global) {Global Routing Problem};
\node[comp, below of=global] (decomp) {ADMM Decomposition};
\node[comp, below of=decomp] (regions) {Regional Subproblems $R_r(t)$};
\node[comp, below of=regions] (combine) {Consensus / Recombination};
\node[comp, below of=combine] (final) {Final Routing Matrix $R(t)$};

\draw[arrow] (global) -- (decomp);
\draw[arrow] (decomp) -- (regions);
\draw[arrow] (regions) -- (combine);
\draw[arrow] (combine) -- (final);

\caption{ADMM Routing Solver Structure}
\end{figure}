@@ -1,0 +1,23 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2cm,
+    comp/.style={rectangle, draw, rounded corners,
+                 minimum width=3.5cm, minimum height=1cm,
+                 align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[comp] (global) {Global Routing Problem};
+\node[comp, below of=global] (decomp) {ADMM Decomposition};
+\node[comp, below of=decomp] (regions) {Regional Subproblems $R_r(t)$};
+\node[comp, below of=regions] (combine) {Consensus / Recombination};
+\node[comp, below of=combine] (final) {Final Routing Matrix $R(t)$};
+
+\draw[arrow] (global) -- (decomp);
+\draw[arrow] (decomp) -- (regions);
+\draw[arrow] (regions) -- (combine);
+\draw[arrow] (combine) -- (final);
+
+\caption{ADMM Routing Solver Structure}
+\end{figure}
