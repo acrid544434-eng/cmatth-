@@ -1,0 +1,52 @@
+\section{Real-Time Animation Specification}
+
+\subsection{Global Animation Clock}
+\[
+t_{\text{anim}} \in [0, T_{\text{sim}}]
+\]
+
+\subsection{Volumetric Field Rendering}
+Density field:
+\[
+\rho(x,t) \rightarrow \text{RayMarch}(\rho)
+\]
+
+Velocity field:
+\[
+\mathbf{u}(x,t) \rightarrow \text{LIC}(\mathbf{u})
+\]
+
+Magnetic field:
+\[
+\mathbf{B}(x,t) \rightarrow \text{FieldLines}(\mathbf{B})
+\]
+
+\subsection{Residual Visualization}
+\[
+\mathcal{R}(x,t) = O_{\text{obs}} - O_{\text{sim}}
+\]
+
+Rendered as:
+\[
+\text{Heatmap}(\mathcal{R})
+\]
+
+\subsection{Latent Embedding Animation}
+\[
+z = \mathcal{E}_{\text{latent}}(\mathcal{R})
+\]
+
+Rendered as:
+\[
+\text{PointCloud}(z)
+\]
+
+\subsection{Posterior Evolution}
+\[
+p(\theta,t)
+\]
+
+Rendered as:
+\[
+\text{DensitySurface}(p(\theta,t))
+\]
