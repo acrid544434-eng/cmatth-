@@ -1,0 +1,21 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    axis/.style={->, thick},
+    curve/.style={thick, blue}
+]
+
+\begin{tikzpicture}
+    \draw[axis] (0,0) -- (10,0) node[right] {$t$};
+    \draw[axis] (0,0) -- (0,4) node[above] {$R^{\text{res}}_r(t)$};
+
+    \draw[curve] plot[smooth] coordinates {
+        (0,1) (1,1.5) (2,2.2) (3,1.8) (4,2.5)
+        (5,1.2) (6,1.0) (7,0.8) (8,1.1) (9,0.9)
+    };
+
+    \node at (5,3.5) {$\displaystyle \mathcal{R}_{\text{horizon}} = \int_{t}^{t+T} R^{\text{res}}_r(\tau)\, d\tau$};
+\end{tikzpicture}
+
+\caption{Long-Horizon Resilience Integral for OGRI v2}
+\end{figure}
