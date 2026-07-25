@@ -1,0 +1,108 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\title{Sovereign Astromorphic Intelligence Engine (SAIE)\\
+Sovereign Engine Invariant Blueprint}
+\author{C.\ Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{1.\ State Vector and Sovereign Field}
+
+\begin{equation}
+  \mathbf{s}(t) =
+  \begin{bmatrix}
+    s_1 \\ s_2 \\ s_3 \\ s_4 \\ s_5 \\ s_6 \\ s_7 \\ s_8
+  \end{bmatrix},
+  \qquad
+  \mathcal{S}_{\text{sovereign}}(x,t)
+\end{equation}
+
+\section*{2.\ Global Sovereign Engine Law}
+
+\begin{equation}
+\frac{\partial \mathcal{S}_{\text{sovereign}}}{\partial t}
+=
+-\frac{1}{2} g_{\mu\nu} R
++ \xi_{\mu\nu}
++ D(\mathcal{S})
++ \nabla\!\cdot\!\big(D(\mathcal{S})\nabla \mathcal{S}\big)
++ \Omega_{\text{crypto}}.
+\end{equation}
+
+\section*{3.\ Stability Manifold}
+
+\begin{equation}
+\mathcal{M}_{\text{stab}} =
+\left\{
+\mathbf{s}(t)\ \middle|\ 
+\Phi(\mathbf{s}(t)) \approx 0,\ 
+\chi(t)\leq\chi_{\text{crit}},\ 
+V(t)\geq V_{\min}
+\right\}.
+\end{equation}
+
+\section*{4.\ Cosmic--Atomic Invariant}
+
+\begin{equation}
+I_p =
+\int
+\big(
+\nabla_\mu u^\mu u^\nu - A_{\mu\nu}
+\big)
+\sqrt{-g}\, d^4x
+=
+\text{constant}.
+\end{equation}
+
+\section*{5.\ Update Residual and Damping}
+
+\begin{equation}
+R_{\text{upd}}(t)
+=
+\big|
+\Delta W_t - \Delta W_{\text{target}}(t)
+\big|,
+\end{equation}
+
+\begin{equation}
+W_{t+1}
+=
+W_t
++ \eta \nabla\mathcal{L}
+- \lambda(t) D_t.
+\end{equation}
+
+\section*{6.\ Sovereign Engine Invariant}
+
+\begin{equation}
+\mathcal{I}_{\text{SE}}(t)
+=
+\alpha_1\,\Phi(\mathbf{s}(t))
++ \alpha_2\,\chi(t)
++ \alpha_3\,R_{\text{upd}}(t)
++ \alpha_4\,\big|I_p - I_p^{\star}\big|
+- \alpha_5\,V(t).
+\end{equation}
+
+\section*{7.\ Sovereign Operating Conditions}
+
+\subsection*{Sovereign Regime}
+\begin{equation}
+\mathcal{I}_{\text{SE}}(t) \leq \mathcal{I}_{\text{crit}}.
+\end{equation}
+
+\subsection*{Hardening Regime}
+\begin{equation}
+\mathcal{I}_{\text{SE}}(t) > \mathcal{I}_{\text{crit}},
+\end{equation}
+
+\begin{align}
+W_{t+1} &= W_t + \eta\nabla\mathcal{L} - \lambda(t)D_t, \\
+\chi(t) &> \chi_{\text{warn}} \Rightarrow \text{isolate}(x), \\
+\text{Transition}(t) &\Rightarrow V(t)\uparrow,\quad I(\text{Outputs};\text{Invariants})\downarrow.
+\end{align}
+
+\end{document}
