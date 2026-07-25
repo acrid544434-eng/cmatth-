@@ -1,0 +1,106 @@
+\documentclass[12pt]{article}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Aether-Core/200LY LaTeX Documentation README}
+\author{C. Matthew Blackwell \\ Independent Designer}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Overview}
+This README describes the structure, compilation workflow, and file
+organization for the Aether-Core/200LY LaTeX documentation suite.
+The suite includes:
+\begin{itemize}
+    \item Main paper (\texttt{aethercore\_main.tex})
+    \item Methods section (\texttt{methods.tex})
+    \item Stress test appendix (\texttt{appendix\_stress.tex})
+    \item Anomaly detection module (\texttt{anomaly.tex})
+    \item Figures and tables (\texttt{figures/})
+\end{itemize}
+
+\section{Directory Structure}
+\begin{verbatim}
+AetherCore200LY/
+│
+├── aethercore_main.tex
+├── methods.tex
+├── anomaly.tex
+├── appendix_stress.tex
+├── figures/
+│   ├── fig_anomaly.png
+│   ├── fig_architecture.png
+│   └── fig_mhd.png
+└── README.tex
+\end{verbatim}
+
+\section{Compilation Instructions}
+The documentation suite is designed for standard LaTeX engines.
+
+\subsection{Using pdflatex}
+\begin{verbatim}
+pdflatex aethercore_main.tex
+pdflatex aethercore_main.tex
+\end{verbatim}
+Two passes ensure proper reference resolution.
+
+\subsection{Using lualatex}
+\begin{verbatim}
+lualatex aethercore_main.tex
+\end{verbatim}
+
+\section{File Inclusion}
+The main document includes modules using:
+\begin{verbatim}
+\input{methods.tex}
+\input{anomaly.tex}
+\input{appendix_stress.tex}
+\end{verbatim}
+
+Figures are included using:
+\begin{verbatim}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/fig_anomaly.png}
+\caption{3.55 keV anomaly visualization.}
+\end{figure}
+\end{verbatim}
+
+\section{Package Requirements}
+The following packages are required:
+\begin{itemize}
+    \item amsmath, amssymb
+    \item graphicx
+    \item hyperref
+    \item geometry
+\end{itemize}
+
+Optional packages:
+\begin{itemize}
+    \item xcolor
+    \item listings
+    \item float
+\end{itemize}
+
+\section{Versioning}
+Each LaTeX module should include a version tag:
+\begin{verbatim}
+% Version: AC200LY-LaTeX-v1.0
+\end{verbatim}
+
+\section{Authorship Tag}
+All documents must include the signature:
+\begin{center}
+\textbf{C. Matthew Blackwell, Independent Designer}
+\end{center}
+
+\section{Contact}
+For validation, reproduction, or collaboration inquiries, include:
+\begin{verbatim}
+Contact: C. Matthew Blackwell
+\end{verbatim}
+
+\end{document}
