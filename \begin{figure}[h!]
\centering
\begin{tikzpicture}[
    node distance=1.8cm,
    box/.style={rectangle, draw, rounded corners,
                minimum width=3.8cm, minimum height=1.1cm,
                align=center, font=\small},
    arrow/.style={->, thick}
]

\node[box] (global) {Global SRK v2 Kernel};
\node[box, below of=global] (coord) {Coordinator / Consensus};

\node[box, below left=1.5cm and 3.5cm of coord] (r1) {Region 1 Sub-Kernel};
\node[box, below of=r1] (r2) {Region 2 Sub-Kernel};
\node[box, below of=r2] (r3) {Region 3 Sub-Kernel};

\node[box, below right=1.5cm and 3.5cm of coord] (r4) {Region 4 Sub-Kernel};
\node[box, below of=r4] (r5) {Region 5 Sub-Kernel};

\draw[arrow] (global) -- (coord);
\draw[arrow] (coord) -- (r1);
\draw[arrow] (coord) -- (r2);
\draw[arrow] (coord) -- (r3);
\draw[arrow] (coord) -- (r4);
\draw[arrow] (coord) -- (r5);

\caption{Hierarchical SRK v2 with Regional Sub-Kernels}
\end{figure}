@@ -1,0 +1,29 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=1.8cm,
+    box/.style={rectangle, draw, rounded corners,
+                minimum width=3.8cm, minimum height=1.1cm,
+                align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[box] (global) {Global SRK v2 Kernel};
+\node[box, below of=global] (coord) {Coordinator / Consensus};
+
+\node[box, below left=1.5cm and 3.5cm of coord] (r1) {Region 1 Sub-Kernel};
+\node[box, below of=r1] (r2) {Region 2 Sub-Kernel};
+\node[box, below of=r2] (r3) {Region 3 Sub-Kernel};
+
+\node[box, below right=1.5cm and 3.5cm of coord] (r4) {Region 4 Sub-Kernel};
+\node[box, below of=r4] (r5) {Region 5 Sub-Kernel};
+
+\draw[arrow] (global) -- (coord);
+\draw[arrow] (coord) -- (r1);
+\draw[arrow] (coord) -- (r2);
+\draw[arrow] (coord) -- (r3);
+\draw[arrow] (coord) -- (r4);
+\draw[arrow] (coord) -- (r5);
+
+\caption{Hierarchical SRK v2 with Regional Sub-Kernels}
+\end{figure}
