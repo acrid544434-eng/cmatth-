@@ -1,0 +1,26 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=1.8cm,
+    vclass/.style={rectangle, draw, rounded corners,
+                   minimum width=3.2cm, minimum height=1cm,
+                   align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[vclass] (sol) {Solar Arrays (SOL)};
+\node[vclass, below of=sol] (wnd) {Wind Clusters (WND)};
+\node[vclass, below of=wnd] (hyd) {Hydro / PHS (HYD)};
+\node[vclass, below of=hyd] (nuc) {Nuclear Stations (NUC)};
+\node[vclass, below of=nuc] (bat) {Storage Banks (BAT)};
+
+\node[vclass, right of=wnd, xshift=5cm] (kernel) {Sovereign Routing Kernel};
+
+\draw[arrow] (sol) -- (kernel);
+\draw[arrow] (wnd) -- (kernel);
+\draw[arrow] (hyd) -- (kernel);
+\draw[arrow] (nuc) -- (kernel);
+\draw[arrow] (bat) -- (kernel);
+
+\caption{Vessel-Class Inputs to OGRI Kernel}
+\end{figure}
