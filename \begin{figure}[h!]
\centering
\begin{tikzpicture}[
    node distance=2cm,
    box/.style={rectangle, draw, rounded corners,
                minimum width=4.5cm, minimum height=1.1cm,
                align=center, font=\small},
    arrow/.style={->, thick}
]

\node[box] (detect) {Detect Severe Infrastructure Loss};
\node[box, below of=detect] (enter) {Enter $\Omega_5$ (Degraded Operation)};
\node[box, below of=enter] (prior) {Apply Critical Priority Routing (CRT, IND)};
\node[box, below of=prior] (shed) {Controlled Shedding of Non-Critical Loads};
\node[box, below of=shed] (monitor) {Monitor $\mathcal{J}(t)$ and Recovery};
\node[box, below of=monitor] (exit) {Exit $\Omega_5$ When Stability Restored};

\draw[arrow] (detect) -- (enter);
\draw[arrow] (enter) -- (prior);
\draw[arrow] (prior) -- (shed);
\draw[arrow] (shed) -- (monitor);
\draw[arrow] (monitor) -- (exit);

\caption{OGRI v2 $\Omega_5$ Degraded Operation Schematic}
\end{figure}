@@ -1,0 +1,25 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2cm,
+    box/.style={rectangle, draw, rounded corners,
+                minimum width=4.5cm, minimum height=1.1cm,
+                align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[box] (detect) {Detect Severe Infrastructure Loss};
+\node[box, below of=detect] (enter) {Enter $\Omega_5$ (Degraded Operation)};
+\node[box, below of=enter] (prior) {Apply Critical Priority Routing (CRT, IND)};
+\node[box, below of=prior] (shed) {Controlled Shedding of Non-Critical Loads};
+\node[box, below of=shed] (monitor) {Monitor $\mathcal{J}(t)$ and Recovery};
+\node[box, below of=monitor] (exit) {Exit $\Omega_5$ When Stability Restored};
+
+\draw[arrow] (detect) -- (enter);
+\draw[arrow] (enter) -- (prior);
+\draw[arrow] (prior) -- (shed);
+\draw[arrow] (shed) -- (monitor);
+\draw[arrow] (monitor) -- (exit);
+
+\caption{OGRI v2 $\Omega_5$ Degraded Operation Schematic}
+\end{figure}
