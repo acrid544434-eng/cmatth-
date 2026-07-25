@@ -1,0 +1,109 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, geometry, booktabs}
+\geometry{margin=1in}
+
+\title{OMNI-GRID ROUTING INTELLIGENCE (OGRI v2.0)\\
+Minimal Buildable Prototype \& Sovereign Kernel Execution}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{System Classification}
+Sovereign Energy--Astrophysics Routing Layer.
+
+\section{OGRI v2 Hardware Wiring Diagram}
+The physical wiring topology connects telemetry sensors and high-speed
+communications buses to the core processing unit and power electronic
+switches.
+
+\subsection*{Telemetry Bus}
+Optical fiber links feed GOES satellite data and IERS polar motion inputs
+directly into the Astrophysical Crypto Engine (ACE) hardware security
+module (HSM).
+
+\subsection*{Control Interconnects}
+Low-latency SPI and CAN bus networks link the Sovereign Processing Unit
+(SPU) to Silicon Carbide (SiC) bidirectional power routers.
+
+\subsection*{Power Substrate}
+High-voltage sensing taps feed real-time impedance and frequency metrics
+back to micro-kernel interrupt pins.
+
+\section{OGRI v2 Firmware Architecture}
+The firmware stack operates directly on bare-metal microcontroller and
+FPGA substrates, enforcing strict deterministic execution boundaries.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{l}
+\toprule
+FIRMWARE TIER 3: Sovereign State Machine ($\Omega_0, \Omega_1, \Omega_2, \Omega_3$ Control Logic) \\
+\midrule
+FIRMWARE TIER 2: ADMM Decentralized Routing \& Constraint Solver \\
+\midrule
+FIRMWARE TIER 1: ACE Cryptographic Token Validation \& Hardware Interrupt Engine \\
+\midrule
+FIRMWARE TIER 0: Deterministic RTOS Kernel \& Hardware Abstraction Layer (HAL) \\
+\bottomrule
+\end{tabular}
+\caption{OGRI v2 Firmware Tiering}
+\end{table}
+
+\subsection*{Tier 0 (HAL)}
+Direct register access, clock synchronization, and low-level peripheral
+management.
+
+\subsection*{Tier 1 (Crypto \& Interrupts)}
+Hardware-enforced packet inspection checks incoming power-routing tokens
+against the active astrophysical hash.
+
+\subsection*{Tier 2 \& 3 (Solver \& State Machine)}
+Execute decentralized optimization loops and manage automated transitions
+during space-weather anomalies.
+
+\section{OGRI v2 Microgrid Test Protocol}
+The validation protocol governs how the minimal buildable prototype is
+tested under simulated and live operating conditions.
+
+\subsection*{Test Step 1: Baseline Initialization}
+Boot system in nominal state $\Omega_0$. Verify 10\,ms ADMM convergence
+across all four microgrid test benches.
+
+\subsection*{Test Step 2: Astrophysical Stress Injection}
+Inject synthesized GOES X-ray flare telemetry $\Phi_{\text{solar}}$
+surge. Verify that the kernel automatically transitions to state
+$\Omega_1$ within 0.2\,ms and triggers pre-emptive load shedding.
+
+\subsection*{Test Step 3: Adversarial Token Injection}
+Broadcast malformed cryptographic packets into the CAN bus. Confirm
+100\% hardware-level packet drop by the ACE module.
+
+\subsection*{Test Step 4: Transmission Fault Recovery}
+Sever physical connection to a primary test bench node. Verify seamless
+transition to state $\Omega_2$ (Dynamic Islanding) and subsequent
+resynchronization via zero-knowledge proofs.
+
+\section{OGRI v2 Sovereign Kernel RTOS Schedule}
+The real-time operating system (RTOS) executes a hard-deterministic
+cyclic schedule to guarantee sub-millisecond response times for critical
+energy routing tasks.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{l l l}
+\toprule
+Time Slice & Task Identifier       & Execution Purpose \\
+\midrule
+$t = 0.00$\,ms & IRQ\_HANDLER\_ASTRO   & Ingest raw GOES/IERS telemetry buffers into ACE. \\
+$t = 0.15$\,ms & TOKEN\_VALIDATION     & Verify cryptographic hash integrity of active routes. \\
+$t = 0.40$\,ms & STATE\_MACHINE\_EVAL  & Check error integrals and trigger $\Omega$ state transitions. \\
+$t = 0.70$\,ms & ADMM\_SOLVER\_TICK    & Execute decentralized optimization sub-step across nodes. \\
+$t = 0.95$\,ms & PWM\_DISPATCH         & Output switching commands to SiC power routers. \\
+\bottomrule
+\end{tabular}
+\caption{Sovereign Kernel RTOS Cyclic Schedule}
+\end{table}
+
+\end{document}
