@@ -1,0 +1,24 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2.2cm,
+    box/.style={rectangle, draw, rounded corners,
+                minimum width=3.8cm, minimum height=1.1cm,
+                align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[box] (r1) {Region 1 Epoch $\text{epoch}_{1,k}$};
+\node[box, below of=r1] (r2) {Region 2 Epoch $\text{epoch}_{2,k}$};
+\node[box, below of=r2] (r3) {Region 3 Epoch $\text{epoch}_{3,k}$};
+
+\node[box, right of=r2, xshift=4cm] (sync) {ACE v2 Sync Proofs};
+\node[box, right of=sync, xshift=4cm] (global) {Global ACE-Consistent Routing $R(t)$};
+
+\draw[arrow] (r1) -- (sync);
+\draw[arrow] (r2) -- (sync);
+\draw[arrow] (r3) -- (sync);
+\draw[arrow] (sync) -- (global);
+
+\caption{Cross-Region ACE v2 Epoch Synchronization in OGRI v2}
+\end{figure}
