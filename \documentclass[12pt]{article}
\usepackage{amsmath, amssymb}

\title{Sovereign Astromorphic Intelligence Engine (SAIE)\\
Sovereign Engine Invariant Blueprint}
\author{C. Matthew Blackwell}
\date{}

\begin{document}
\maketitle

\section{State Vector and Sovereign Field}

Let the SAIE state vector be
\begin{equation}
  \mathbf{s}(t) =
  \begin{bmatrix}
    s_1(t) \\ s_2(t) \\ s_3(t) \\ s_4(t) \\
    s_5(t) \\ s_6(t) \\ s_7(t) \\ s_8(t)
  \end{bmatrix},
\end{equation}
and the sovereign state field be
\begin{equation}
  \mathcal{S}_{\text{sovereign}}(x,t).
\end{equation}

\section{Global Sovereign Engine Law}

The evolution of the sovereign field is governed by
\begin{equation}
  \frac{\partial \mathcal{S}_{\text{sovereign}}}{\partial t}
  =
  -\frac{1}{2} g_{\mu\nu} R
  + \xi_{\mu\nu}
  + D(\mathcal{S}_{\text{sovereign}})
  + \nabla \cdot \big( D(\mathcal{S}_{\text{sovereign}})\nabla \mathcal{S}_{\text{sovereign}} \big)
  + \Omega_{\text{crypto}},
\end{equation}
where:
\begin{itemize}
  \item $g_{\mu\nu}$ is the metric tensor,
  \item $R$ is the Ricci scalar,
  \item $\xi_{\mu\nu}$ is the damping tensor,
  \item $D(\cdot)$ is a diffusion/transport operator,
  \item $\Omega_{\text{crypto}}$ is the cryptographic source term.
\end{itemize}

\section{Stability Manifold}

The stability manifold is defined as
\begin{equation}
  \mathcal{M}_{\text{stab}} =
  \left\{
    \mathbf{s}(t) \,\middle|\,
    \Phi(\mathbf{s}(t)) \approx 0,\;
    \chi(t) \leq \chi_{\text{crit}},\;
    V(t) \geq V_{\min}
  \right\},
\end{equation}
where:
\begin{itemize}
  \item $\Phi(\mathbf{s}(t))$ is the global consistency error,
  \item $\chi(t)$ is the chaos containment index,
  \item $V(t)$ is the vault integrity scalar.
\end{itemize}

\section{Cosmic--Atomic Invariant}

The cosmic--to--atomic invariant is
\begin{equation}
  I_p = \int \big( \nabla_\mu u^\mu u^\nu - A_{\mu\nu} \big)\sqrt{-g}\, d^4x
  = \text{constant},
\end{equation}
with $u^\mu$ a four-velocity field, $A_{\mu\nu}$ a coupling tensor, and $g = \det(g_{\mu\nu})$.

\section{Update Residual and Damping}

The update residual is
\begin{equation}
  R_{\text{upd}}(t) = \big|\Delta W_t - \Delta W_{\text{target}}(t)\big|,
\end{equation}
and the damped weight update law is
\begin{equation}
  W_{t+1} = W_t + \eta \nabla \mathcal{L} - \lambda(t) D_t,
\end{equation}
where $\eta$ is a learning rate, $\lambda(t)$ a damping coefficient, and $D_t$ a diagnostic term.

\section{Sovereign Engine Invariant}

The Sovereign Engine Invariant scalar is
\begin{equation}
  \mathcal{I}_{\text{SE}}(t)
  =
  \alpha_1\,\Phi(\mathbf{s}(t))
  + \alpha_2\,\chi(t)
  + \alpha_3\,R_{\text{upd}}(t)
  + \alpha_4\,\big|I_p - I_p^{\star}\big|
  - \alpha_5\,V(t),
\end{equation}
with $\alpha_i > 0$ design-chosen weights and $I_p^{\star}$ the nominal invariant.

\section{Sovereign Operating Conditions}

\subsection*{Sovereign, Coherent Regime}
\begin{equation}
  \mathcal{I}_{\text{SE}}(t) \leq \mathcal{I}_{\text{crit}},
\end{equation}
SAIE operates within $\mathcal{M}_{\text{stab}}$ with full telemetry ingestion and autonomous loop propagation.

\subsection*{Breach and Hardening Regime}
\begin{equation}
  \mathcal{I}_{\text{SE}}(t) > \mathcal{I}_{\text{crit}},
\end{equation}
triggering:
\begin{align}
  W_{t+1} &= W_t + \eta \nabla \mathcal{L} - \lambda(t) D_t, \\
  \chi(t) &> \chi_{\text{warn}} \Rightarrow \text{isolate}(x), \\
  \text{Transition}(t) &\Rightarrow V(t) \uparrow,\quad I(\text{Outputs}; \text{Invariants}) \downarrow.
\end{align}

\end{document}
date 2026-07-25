@@ -1,0 +1,121 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+
+\title{Sovereign Astromorphic Intelligence Engine (SAIE)\\
+Sovereign Engine Invariant Blueprint}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{State Vector and Sovereign Field}
+
+Let the SAIE state vector be
+\begin{equation}
+  \mathbf{s}(t) =
+  \begin{bmatrix}
+    s_1(t) \\ s_2(t) \\ s_3(t) \\ s_4(t) \\
+    s_5(t) \\ s_6(t) \\ s_7(t) \\ s_8(t)
+  \end{bmatrix},
+\end{equation}
+and the sovereign state field be
+\begin{equation}
+  \mathcal{S}_{\text{sovereign}}(x,t).
+\end{equation}
+
+\section{Global Sovereign Engine Law}
+
+The evolution of the sovereign field is governed by
+\begin{equation}
+  \frac{\partial \mathcal{S}_{\text{sovereign}}}{\partial t}
+  =
+  -\frac{1}{2} g_{\mu\nu} R
+  + \xi_{\mu\nu}
+  + D(\mathcal{S}_{\text{sovereign}})
+  + \nabla \cdot \big( D(\mathcal{S}_{\text{sovereign}})\nabla \mathcal{S}_{\text{sovereign}} \big)
+  + \Omega_{\text{crypto}},
+\end{equation}
+where:
+\begin{itemize}
+  \item $g_{\mu\nu}$ is the metric tensor,
+  \item $R$ is the Ricci scalar,
+  \item $\xi_{\mu\nu}$ is the damping tensor,
+  \item $D(\cdot)$ is a diffusion/transport operator,
+  \item $\Omega_{\text{crypto}}$ is the cryptographic source term.
+\end{itemize}
+
+\section{Stability Manifold}
+
+The stability manifold is defined as
+\begin{equation}
+  \mathcal{M}_{\text{stab}} =
+  \left\{
+    \mathbf{s}(t) \,\middle|\,
+    \Phi(\mathbf{s}(t)) \approx 0,\;
+    \chi(t) \leq \chi_{\text{crit}},\;
+    V(t) \geq V_{\min}
+  \right\},
+\end{equation}
+where:
+\begin{itemize}
+  \item $\Phi(\mathbf{s}(t))$ is the global consistency error,
+  \item $\chi(t)$ is the chaos containment index,
+  \item $V(t)$ is the vault integrity scalar.
+\end{itemize}
+
+\section{Cosmic--Atomic Invariant}
+
+The cosmic--to--atomic invariant is
+\begin{equation}
+  I_p = \int \big( \nabla_\mu u^\mu u^\nu - A_{\mu\nu} \big)\sqrt{-g}\, d^4x
+  = \text{constant},
+\end{equation}
+with $u^\mu$ a four-velocity field, $A_{\mu\nu}$ a coupling tensor, and $g = \det(g_{\mu\nu})$.
+
+\section{Update Residual and Damping}
+
+The update residual is
+\begin{equation}
+  R_{\text{upd}}(t) = \big|\Delta W_t - \Delta W_{\text{target}}(t)\big|,
+\end{equation}
+and the damped weight update law is
+\begin{equation}
+  W_{t+1} = W_t + \eta \nabla \mathcal{L} - \lambda(t) D_t,
+\end{equation}
+where $\eta$ is a learning rate, $\lambda(t)$ a damping coefficient, and $D_t$ a diagnostic term.
+
+\section{Sovereign Engine Invariant}
+
+The Sovereign Engine Invariant scalar is
+\begin{equation}
+  \mathcal{I}_{\text{SE}}(t)
+  =
+  \alpha_1\,\Phi(\mathbf{s}(t))
+  + \alpha_2\,\chi(t)
+  + \alpha_3\,R_{\text{upd}}(t)
+  + \alpha_4\,\big|I_p - I_p^{\star}\big|
+  - \alpha_5\,V(t),
+\end{equation}
+with $\alpha_i > 0$ design-chosen weights and $I_p^{\star}$ the nominal invariant.
+
+\section{Sovereign Operating Conditions}
+
+\subsection*{Sovereign, Coherent Regime}
+\begin{equation}
+  \mathcal{I}_{\text{SE}}(t) \leq \mathcal{I}_{\text{crit}},
+\end{equation}
+SAIE operates within $\mathcal{M}_{\text{stab}}$ with full telemetry ingestion and autonomous loop propagation.
+
+\subsection*{Breach and Hardening Regime}
+\begin{equation}
+  \mathcal{I}_{\text{SE}}(t) > \mathcal{I}_{\text{crit}},
+\end{equation}
+triggering:
+\begin{align}
+  W_{t+1} &= W_t + \eta \nabla \mathcal{L} - \lambda(t) D_t, \\
+  \chi(t) &> \chi_{\text{warn}} \Rightarrow \text{isolate}(x), \\
+  \text{Transition}(t) &\Rightarrow V(t) \uparrow,\quad I(\text{Outputs}; \text{Invariants}) \downarrow.
+\end{align}
+
+\end{document}
