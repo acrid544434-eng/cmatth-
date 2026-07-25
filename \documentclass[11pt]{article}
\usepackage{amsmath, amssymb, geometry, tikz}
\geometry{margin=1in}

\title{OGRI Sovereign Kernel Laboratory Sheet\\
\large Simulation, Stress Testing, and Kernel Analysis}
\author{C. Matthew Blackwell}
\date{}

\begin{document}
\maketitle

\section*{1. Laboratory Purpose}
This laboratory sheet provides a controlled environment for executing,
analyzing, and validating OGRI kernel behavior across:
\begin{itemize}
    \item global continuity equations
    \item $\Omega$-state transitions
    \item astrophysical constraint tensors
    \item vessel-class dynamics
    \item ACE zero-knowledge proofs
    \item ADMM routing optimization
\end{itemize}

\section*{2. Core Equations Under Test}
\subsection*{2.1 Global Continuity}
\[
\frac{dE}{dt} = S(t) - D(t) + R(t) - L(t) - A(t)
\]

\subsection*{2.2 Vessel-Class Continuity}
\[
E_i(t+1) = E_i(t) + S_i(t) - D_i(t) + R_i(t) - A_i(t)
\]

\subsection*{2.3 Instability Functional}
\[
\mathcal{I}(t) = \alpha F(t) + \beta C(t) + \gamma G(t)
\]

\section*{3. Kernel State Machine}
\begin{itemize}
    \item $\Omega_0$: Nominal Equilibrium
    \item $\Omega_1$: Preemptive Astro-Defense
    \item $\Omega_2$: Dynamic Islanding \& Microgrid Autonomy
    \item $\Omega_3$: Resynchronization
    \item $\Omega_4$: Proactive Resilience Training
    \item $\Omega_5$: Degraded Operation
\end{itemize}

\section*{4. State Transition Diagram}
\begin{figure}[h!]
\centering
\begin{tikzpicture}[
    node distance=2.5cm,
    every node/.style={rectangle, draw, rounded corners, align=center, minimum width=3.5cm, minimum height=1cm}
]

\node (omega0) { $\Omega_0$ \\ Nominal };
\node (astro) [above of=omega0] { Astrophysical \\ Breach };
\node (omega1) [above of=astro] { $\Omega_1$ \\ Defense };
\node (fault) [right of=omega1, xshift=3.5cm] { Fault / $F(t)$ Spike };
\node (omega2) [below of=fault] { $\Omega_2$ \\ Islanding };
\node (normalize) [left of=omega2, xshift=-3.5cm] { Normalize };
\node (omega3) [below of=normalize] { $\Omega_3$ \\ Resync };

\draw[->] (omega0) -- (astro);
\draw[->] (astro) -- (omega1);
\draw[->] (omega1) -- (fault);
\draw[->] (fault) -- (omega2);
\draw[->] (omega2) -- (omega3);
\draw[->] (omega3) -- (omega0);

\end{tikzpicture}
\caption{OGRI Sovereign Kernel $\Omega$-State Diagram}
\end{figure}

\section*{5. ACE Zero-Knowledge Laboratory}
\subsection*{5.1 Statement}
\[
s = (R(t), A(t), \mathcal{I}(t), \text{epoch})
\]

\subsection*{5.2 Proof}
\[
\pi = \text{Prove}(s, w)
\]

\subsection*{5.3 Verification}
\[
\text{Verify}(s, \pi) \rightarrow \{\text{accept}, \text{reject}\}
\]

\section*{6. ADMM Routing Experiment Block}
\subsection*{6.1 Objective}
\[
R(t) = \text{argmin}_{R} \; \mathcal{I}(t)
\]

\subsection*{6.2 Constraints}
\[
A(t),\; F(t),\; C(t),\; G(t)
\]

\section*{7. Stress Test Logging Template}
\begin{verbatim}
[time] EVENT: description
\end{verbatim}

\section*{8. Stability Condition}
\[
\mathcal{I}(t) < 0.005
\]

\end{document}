@@ -1,0 +1,115 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, geometry, tikz}
+\geometry{margin=1in}
+
+\title{OGRI Sovereign Kernel Laboratory Sheet\\
+\large Simulation, Stress Testing, and Kernel Analysis}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{1. Laboratory Purpose}
+This laboratory sheet provides a controlled environment for executing,
+analyzing, and validating OGRI kernel behavior across:
+\begin{itemize}
+    \item global continuity equations
+    \item $\Omega$-state transitions
+    \item astrophysical constraint tensors
+    \item vessel-class dynamics
+    \item ACE zero-knowledge proofs
+    \item ADMM routing optimization
+\end{itemize}
+
+\section*{2. Core Equations Under Test}
+\subsection*{2.1 Global Continuity}
+\[
+\frac{dE}{dt} = S(t) - D(t) + R(t) - L(t) - A(t)
+\]
+
+\subsection*{2.2 Vessel-Class Continuity}
+\[
+E_i(t+1) = E_i(t) + S_i(t) - D_i(t) + R_i(t) - A_i(t)
+\]
+
+\subsection*{2.3 Instability Functional}
+\[
+\mathcal{I}(t) = \alpha F(t) + \beta C(t) + \gamma G(t)
+\]
+
+\section*{3. Kernel State Machine}
+\begin{itemize}
+    \item $\Omega_0$: Nominal Equilibrium
+    \item $\Omega_1$: Preemptive Astro-Defense
+    \item $\Omega_2$: Dynamic Islanding \& Microgrid Autonomy
+    \item $\Omega_3$: Resynchronization
+    \item $\Omega_4$: Proactive Resilience Training
+    \item $\Omega_5$: Degraded Operation
+\end{itemize}
+
+\section*{4. State Transition Diagram}
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2.5cm,
+    every node/.style={rectangle, draw, rounded corners, align=center, minimum width=3.5cm, minimum height=1cm}
+]
+
+\node (omega0) { $\Omega_0$ \\ Nominal };
+\node (astro) [above of=omega0] { Astrophysical \\ Breach };
+\node (omega1) [above of=astro] { $\Omega_1$ \\ Defense };
+\node (fault) [right of=omega1, xshift=3.5cm] { Fault / $F(t)$ Spike };
+\node (omega2) [below of=fault] { $\Omega_2$ \\ Islanding };
+\node (normalize) [left of=omega2, xshift=-3.5cm] { Normalize };
+\node (omega3) [below of=normalize] { $\Omega_3$ \\ Resync };
+
+\draw[->] (omega0) -- (astro);
+\draw[->] (astro) -- (omega1);
+\draw[->] (omega1) -- (fault);
+\draw[->] (fault) -- (omega2);
+\draw[->] (omega2) -- (omega3);
+\draw[->] (omega3) -- (omega0);
+
+\end{tikzpicture}
+\caption{OGRI Sovereign Kernel $\Omega$-State Diagram}
+\end{figure}
+
+\section*{5. ACE Zero-Knowledge Laboratory}
+\subsection*{5.1 Statement}
+\[
+s = (R(t), A(t), \mathcal{I}(t), \text{epoch})
+\]
+
+\subsection*{5.2 Proof}
+\[
+\pi = \text{Prove}(s, w)
+\]
+
+\subsection*{5.3 Verification}
+\[
+\text{Verify}(s, \pi) \rightarrow \{\text{accept}, \text{reject}\}
+\]
+
+\section*{6. ADMM Routing Experiment Block}
+\subsection*{6.1 Objective}
+\[
+R(t) = \text{argmin}_{R} \; \mathcal{I}(t)
+\]
+
+\subsection*{6.2 Constraints}
+\[
+A(t),\; F(t),\; C(t),\; G(t)
+\]
+
+\section*{7. Stress Test Logging Template}
+\begin{verbatim}
+[time] EVENT: description
+\end{verbatim}
+
+\section*{8. Stability Condition}
+\[
+\mathcal{I}(t) < 0.005
+\]
+
+\end{document}
