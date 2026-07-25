@@ -1,0 +1,120 @@
+\section{Methods}
+\label{sec:methods}
+
+This section details the computational, numerical, and architectural
+methods used in the Aether-Core/200LY simulation environment. The
+framework integrates observational data ingestion, multi-physics
+numerical solvers, surrogate PINO inference, distributed GPU execution,
+and anomaly-detection pipelines.
+
+\subsection{Simulation Domain and Discretization}
+The simulation volume spans a radius of 200 light-years centered on the
+solar position. Spatial discretization is performed using a uniform
+Cartesian grid:
+\begin{equation}
+\Omega = [-200, 200]^3 \; \text{LY},
+\end{equation}
+with resolution:
+\begin{equation}
+N_x = N_y = N_z = 1024.
+\end{equation}
+
+Particle-based N-body elements are evolved concurrently with grid-based
+MHD fields using a hybrid particle–mesh scheme.
+
+\subsection{Observational Data Integration}
+Gaia DR3 and TESS datasets are preprocessed into:
+\begin{itemize}
+    \item Stellar position vectors $\mathbf{r}_i$
+    \item Velocity vectors $\mathbf{v}_i$
+    \item Photometric variability indicators
+    \item Derived density fields $\rho(\mathbf{x})$
+\end{itemize}
+
+Data are stored in an HDF5/Zarr lake and accessed through a parallel
+I/O layer optimized for multi-GPU workloads.
+
+\subsection{Numerical Solvers}
+
+\subsubsection{N-Body Gravitation}
+Particle accelerations are computed using a Barnes–Hut octree with
+opening angle $\theta = 0.7$. The softened gravitational force is:
+\begin{equation}
+\mathbf{a}_i =
+G \sum_{j \neq i}
+\frac{m_j (\mathbf{r}_j - \mathbf{r}_i)}
+{\left( \|\mathbf{r}_j - \mathbf{r}_i\|^2 + \epsilon^2 \right)^{3/2}},
+\end{equation}
+with softening length $\epsilon = 0.01$ LY.
+
+\subsubsection{Magnetohydrodynamics}
+Ideal MHD equations are solved using a second-order Godunov scheme with
+HLLD Riemann solvers. Divergence cleaning is performed using:
+\begin{equation}
+\frac{\partial \psi}{\partial t} + c_h^2 \nabla \cdot \mathbf{B} = 0,
+\end{equation}
+where $\psi$ is the cleaning field and $c_h$ is the hyperbolic cleaning
+speed.
+
+\subsection{Surrogate PINO Model}
+Physics-Informed Neural Operators (PINO) are trained on high-resolution
+MHD and N-body snapshots. The surrogate predicts long-horizon field
+evolution:
+\begin{equation}
+\hat{u}(t + \Delta t) = \mathcal{F}_{\text{PINO}}(u(t)),
+\end{equation}
+with training loss:
+\begin{equation}
+\mathcal{L} =
+\lambda_{\text{data}} \|u - \hat{u}\|^2
++ \lambda_{\text{phys}} \|\mathcal{N}(u)\|^2,
+\end{equation}
+where $\mathcal{N}$ encodes PDE residuals.
+
+\subsection{Distributed GPU Execution}
+The simulation is executed across up to 1024 GPUs using:
+\begin{itemize}
+    \item CUDA kernels for N-body and MHD updates
+    \item GPUDirect MPI for halo exchanges
+    \item Unified memory fabric for cross-node tensor operations
+\end{itemize}
+
+Communication overhead is monitored:
+\begin{equation}
+\frac{T_{\text{comm}}}{T_{\text{total}}} < 0.12.
+\end{equation}
+
+\subsection{Chaos Injection and Fault Tolerance}
+Chaos events are introduced at predefined iterations:
+\begin{itemize}
+    \item GPU memory pressure spike at iteration 250
+    \item MPI jitter at iteration 600
+\end{itemize}
+
+Fault tolerance is validated through:
+\begin{equation}
+t_{\text{step}} \le 0.15 \text{ s},
+\end{equation}
+and checkpoint recovery consistency.
+
+\subsection{Spectral Anomaly Detection}
+Spectral intensity fields are computed from simulated plasma emission
+models. The anomaly signal is defined as:
+\begin{equation}
+\Delta I(E) = I_{\text{obs}}(E) - I_{\text{dec}}(E),
+\end{equation}
+and peaks are detected via:
+\begin{equation}
+\frac{d\Delta I}{dE} = 0, \quad
+\frac{d^2\Delta I}{dE^2} < 0.
+\end{equation}
+
+Spatial localization is performed by maximizing:
+\begin{equation}
+\Delta I(\mathbf{x}, E = 3.55 \text{ keV}).
+\end{equation}
+
+Confidence is derived from surrogate error:
+\begin{equation}
+C = 1 - \frac{\text{NRMSE}}{0.05}.
+\end{equation}
