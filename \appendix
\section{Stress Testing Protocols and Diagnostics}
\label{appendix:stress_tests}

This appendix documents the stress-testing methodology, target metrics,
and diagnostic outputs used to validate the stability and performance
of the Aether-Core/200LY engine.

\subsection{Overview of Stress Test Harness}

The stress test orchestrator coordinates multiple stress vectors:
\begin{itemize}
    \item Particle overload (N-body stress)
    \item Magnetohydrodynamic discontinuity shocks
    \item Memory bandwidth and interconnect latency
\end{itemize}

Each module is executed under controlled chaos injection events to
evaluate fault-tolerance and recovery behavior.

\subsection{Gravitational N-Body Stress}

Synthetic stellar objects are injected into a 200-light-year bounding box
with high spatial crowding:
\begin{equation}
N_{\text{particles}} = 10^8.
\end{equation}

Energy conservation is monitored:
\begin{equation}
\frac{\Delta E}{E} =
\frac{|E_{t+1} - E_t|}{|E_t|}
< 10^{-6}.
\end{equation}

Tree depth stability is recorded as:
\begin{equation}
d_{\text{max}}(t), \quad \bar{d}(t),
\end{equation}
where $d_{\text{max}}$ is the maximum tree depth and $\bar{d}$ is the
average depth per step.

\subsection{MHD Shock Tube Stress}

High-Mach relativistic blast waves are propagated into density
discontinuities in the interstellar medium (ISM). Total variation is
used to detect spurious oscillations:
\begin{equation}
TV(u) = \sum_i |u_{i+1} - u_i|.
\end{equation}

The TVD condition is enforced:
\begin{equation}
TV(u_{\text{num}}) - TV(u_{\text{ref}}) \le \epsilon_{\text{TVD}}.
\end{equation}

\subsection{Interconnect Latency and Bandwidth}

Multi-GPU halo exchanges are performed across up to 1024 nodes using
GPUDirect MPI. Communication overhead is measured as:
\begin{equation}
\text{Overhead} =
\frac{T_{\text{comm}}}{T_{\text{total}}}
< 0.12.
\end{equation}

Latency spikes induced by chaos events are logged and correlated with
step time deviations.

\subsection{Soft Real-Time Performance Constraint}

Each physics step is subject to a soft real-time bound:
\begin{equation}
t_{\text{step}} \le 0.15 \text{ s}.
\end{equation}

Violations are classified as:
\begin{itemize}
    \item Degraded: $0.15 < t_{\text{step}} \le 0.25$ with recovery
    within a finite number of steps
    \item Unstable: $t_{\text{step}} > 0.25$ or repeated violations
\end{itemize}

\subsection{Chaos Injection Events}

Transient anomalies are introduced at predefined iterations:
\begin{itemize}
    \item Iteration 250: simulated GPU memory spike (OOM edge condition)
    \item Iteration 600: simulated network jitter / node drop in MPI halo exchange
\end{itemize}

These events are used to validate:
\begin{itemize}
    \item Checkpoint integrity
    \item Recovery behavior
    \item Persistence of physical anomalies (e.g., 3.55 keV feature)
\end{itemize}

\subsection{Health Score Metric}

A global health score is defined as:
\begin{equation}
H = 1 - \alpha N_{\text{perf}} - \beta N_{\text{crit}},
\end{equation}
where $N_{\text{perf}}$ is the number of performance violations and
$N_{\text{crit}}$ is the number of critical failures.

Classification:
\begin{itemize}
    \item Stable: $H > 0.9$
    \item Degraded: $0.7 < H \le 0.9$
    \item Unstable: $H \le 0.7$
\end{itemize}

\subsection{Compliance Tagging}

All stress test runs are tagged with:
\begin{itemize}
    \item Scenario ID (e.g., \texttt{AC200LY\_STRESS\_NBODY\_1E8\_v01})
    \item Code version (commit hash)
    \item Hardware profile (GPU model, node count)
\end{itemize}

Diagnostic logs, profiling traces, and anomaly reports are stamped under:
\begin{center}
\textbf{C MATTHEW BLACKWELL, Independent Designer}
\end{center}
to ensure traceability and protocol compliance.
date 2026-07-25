@@ -1,0 +1,128 @@
+\appendix
+\section{Stress Testing Protocols and Diagnostics}
+\label{appendix:stress_tests}
+
+This appendix documents the stress-testing methodology, target metrics,
+and diagnostic outputs used to validate the stability and performance
+of the Aether-Core/200LY engine.
+
+\subsection{Overview of Stress Test Harness}
+
+The stress test orchestrator coordinates multiple stress vectors:
+\begin{itemize}
+    \item Particle overload (N-body stress)
+    \item Magnetohydrodynamic discontinuity shocks
+    \item Memory bandwidth and interconnect latency
+\end{itemize}
+
+Each module is executed under controlled chaos injection events to
+evaluate fault-tolerance and recovery behavior.
+
+\subsection{Gravitational N-Body Stress}
+
+Synthetic stellar objects are injected into a 200-light-year bounding box
+with high spatial crowding:
+\begin{equation}
+N_{\text{particles}} = 10^8.
+\end{equation}
+
+Energy conservation is monitored:
+\begin{equation}
+\frac{\Delta E}{E} =
+\frac{|E_{t+1} - E_t|}{|E_t|}
+< 10^{-6}.
+\end{equation}
+
+Tree depth stability is recorded as:
+\begin{equation}
+d_{\text{max}}(t), \quad \bar{d}(t),
+\end{equation}
+where $d_{\text{max}}$ is the maximum tree depth and $\bar{d}$ is the
+average depth per step.
+
+\subsection{MHD Shock Tube Stress}
+
+High-Mach relativistic blast waves are propagated into density
+discontinuities in the interstellar medium (ISM). Total variation is
+used to detect spurious oscillations:
+\begin{equation}
+TV(u) = \sum_i |u_{i+1} - u_i|.
+\end{equation}
+
+The TVD condition is enforced:
+\begin{equation}
+TV(u_{\text{num}}) - TV(u_{\text{ref}}) \le \epsilon_{\text{TVD}}.
+\end{equation}
+
+\subsection{Interconnect Latency and Bandwidth}
+
+Multi-GPU halo exchanges are performed across up to 1024 nodes using
+GPUDirect MPI. Communication overhead is measured as:
+\begin{equation}
+\text{Overhead} =
+\frac{T_{\text{comm}}}{T_{\text{total}}}
+< 0.12.
+\end{equation}
+
+Latency spikes induced by chaos events are logged and correlated with
+step time deviations.
+
+\subsection{Soft Real-Time Performance Constraint}
+
+Each physics step is subject to a soft real-time bound:
+\begin{equation}
+t_{\text{step}} \le 0.15 \text{ s}.
+\end{equation}
+
+Violations are classified as:
+\begin{itemize}
+    \item Degraded: $0.15 < t_{\text{step}} \le 0.25$ with recovery
+    within a finite number of steps
+    \item Unstable: $t_{\text{step}} > 0.25$ or repeated violations
+\end{itemize}
+
+\subsection{Chaos Injection Events}
+
+Transient anomalies are introduced at predefined iterations:
+\begin{itemize}
+    \item Iteration 250: simulated GPU memory spike (OOM edge condition)
+    \item Iteration 600: simulated network jitter / node drop in MPI halo exchange
+\end{itemize}
+
+These events are used to validate:
+\begin{itemize}
+    \item Checkpoint integrity
+    \item Recovery behavior
+    \item Persistence of physical anomalies (e.g., 3.55 keV feature)
+\end{itemize}
+
+\subsection{Health Score Metric}
+
+A global health score is defined as:
+\begin{equation}
+H = 1 - \alpha N_{\text{perf}} - \beta N_{\text{crit}},
+\end{equation}
+where $N_{\text{perf}}$ is the number of performance violations and
+$N_{\text{crit}}$ is the number of critical failures.
+
+Classification:
+\begin{itemize}
+    \item Stable: $H > 0.9$
+    \item Degraded: $0.7 < H \le 0.9$
+    \item Unstable: $H \le 0.7$
+\end{itemize}
+
+\subsection{Compliance Tagging}
+
+All stress test runs are tagged with:
+\begin{itemize}
+    \item Scenario ID (e.g., \texttt{AC200LY\_STRESS\_NBODY\_1E8\_v01})
+    \item Code version (commit hash)
+    \item Hardware profile (GPU model, node count)
+\end{itemize}
+
+Diagnostic logs, profiling traces, and anomaly reports are stamped under:
+\begin{center}
+\textbf{C MATTHEW BLACKWELL, Independent Designer}
+\end{center}
+to ensure traceability and protocol compliance.
