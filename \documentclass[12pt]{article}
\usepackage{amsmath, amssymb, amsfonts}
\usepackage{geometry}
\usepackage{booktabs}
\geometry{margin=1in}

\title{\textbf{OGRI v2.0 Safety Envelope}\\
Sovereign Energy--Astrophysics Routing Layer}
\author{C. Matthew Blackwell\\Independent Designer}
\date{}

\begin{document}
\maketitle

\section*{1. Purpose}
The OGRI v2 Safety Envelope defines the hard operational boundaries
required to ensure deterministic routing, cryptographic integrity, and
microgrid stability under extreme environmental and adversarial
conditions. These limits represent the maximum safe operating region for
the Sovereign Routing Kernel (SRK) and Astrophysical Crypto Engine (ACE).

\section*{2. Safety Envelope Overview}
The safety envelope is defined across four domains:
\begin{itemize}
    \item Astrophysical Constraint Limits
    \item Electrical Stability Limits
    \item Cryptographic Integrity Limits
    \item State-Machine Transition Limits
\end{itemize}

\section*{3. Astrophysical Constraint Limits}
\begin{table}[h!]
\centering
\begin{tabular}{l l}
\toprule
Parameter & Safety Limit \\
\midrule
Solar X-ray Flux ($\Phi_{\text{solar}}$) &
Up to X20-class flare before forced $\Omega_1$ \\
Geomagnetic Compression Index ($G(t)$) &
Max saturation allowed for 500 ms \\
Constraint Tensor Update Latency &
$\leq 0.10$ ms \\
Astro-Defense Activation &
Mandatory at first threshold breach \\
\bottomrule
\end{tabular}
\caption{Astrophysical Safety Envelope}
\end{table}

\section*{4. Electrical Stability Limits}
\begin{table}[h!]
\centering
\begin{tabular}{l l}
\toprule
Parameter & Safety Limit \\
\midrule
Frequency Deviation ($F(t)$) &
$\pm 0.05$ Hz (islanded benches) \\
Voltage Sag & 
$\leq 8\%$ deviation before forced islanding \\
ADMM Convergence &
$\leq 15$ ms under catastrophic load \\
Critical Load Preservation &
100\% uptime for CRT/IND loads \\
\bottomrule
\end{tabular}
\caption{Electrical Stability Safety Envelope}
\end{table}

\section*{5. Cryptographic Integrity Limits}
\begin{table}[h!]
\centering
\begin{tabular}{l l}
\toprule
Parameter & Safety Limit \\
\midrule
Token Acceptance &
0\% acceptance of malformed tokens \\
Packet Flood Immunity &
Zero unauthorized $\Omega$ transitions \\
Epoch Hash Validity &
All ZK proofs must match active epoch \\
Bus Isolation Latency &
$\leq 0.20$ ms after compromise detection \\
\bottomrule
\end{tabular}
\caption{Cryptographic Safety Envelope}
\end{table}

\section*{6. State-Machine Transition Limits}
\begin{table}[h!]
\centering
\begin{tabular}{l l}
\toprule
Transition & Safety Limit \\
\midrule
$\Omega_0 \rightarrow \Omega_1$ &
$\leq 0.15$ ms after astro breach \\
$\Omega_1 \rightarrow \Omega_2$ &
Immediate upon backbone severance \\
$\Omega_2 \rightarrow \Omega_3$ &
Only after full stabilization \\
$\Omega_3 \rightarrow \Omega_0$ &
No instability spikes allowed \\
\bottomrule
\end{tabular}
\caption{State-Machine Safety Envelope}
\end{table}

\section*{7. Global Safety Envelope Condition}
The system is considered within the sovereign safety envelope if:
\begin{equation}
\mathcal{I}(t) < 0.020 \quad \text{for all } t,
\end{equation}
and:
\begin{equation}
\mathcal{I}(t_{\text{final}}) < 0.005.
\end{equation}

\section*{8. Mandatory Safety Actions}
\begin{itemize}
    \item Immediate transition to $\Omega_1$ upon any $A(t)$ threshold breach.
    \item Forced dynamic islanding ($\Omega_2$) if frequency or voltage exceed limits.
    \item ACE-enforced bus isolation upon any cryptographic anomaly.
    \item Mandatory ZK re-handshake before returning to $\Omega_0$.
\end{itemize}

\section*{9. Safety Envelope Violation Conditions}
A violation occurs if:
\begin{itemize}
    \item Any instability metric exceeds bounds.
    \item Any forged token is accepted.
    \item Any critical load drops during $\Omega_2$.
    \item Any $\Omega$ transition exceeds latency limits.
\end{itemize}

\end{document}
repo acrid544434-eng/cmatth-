@@ -1,0 +1,138 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{booktabs}
+\geometry{margin=1in}
+
+\title{\textbf{OGRI v2.0 Safety Envelope}\\
+Sovereign Energy--Astrophysics Routing Layer}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{1. Purpose}
+The OGRI v2 Safety Envelope defines the hard operational boundaries
+required to ensure deterministic routing, cryptographic integrity, and
+microgrid stability under extreme environmental and adversarial
+conditions. These limits represent the maximum safe operating region for
+the Sovereign Routing Kernel (SRK) and Astrophysical Crypto Engine (ACE).
+
+\section*{2. Safety Envelope Overview}
+The safety envelope is defined across four domains:
+\begin{itemize}
+    \item Astrophysical Constraint Limits
+    \item Electrical Stability Limits
+    \item Cryptographic Integrity Limits
+    \item State-Machine Transition Limits
+\end{itemize}
+
+\section*{3. Astrophysical Constraint Limits}
+\begin{table}[h!]
+\centering
+\begin{tabular}{l l}
+\toprule
+Parameter & Safety Limit \\
+\midrule
+Solar X-ray Flux ($\Phi_{\text{solar}}$) &
+Up to X20-class flare before forced $\Omega_1$ \\
+Geomagnetic Compression Index ($G(t)$) &
+Max saturation allowed for 500 ms \\
+Constraint Tensor Update Latency &
+$\leq 0.10$ ms \\
+Astro-Defense Activation &
+Mandatory at first threshold breach \\
+\bottomrule
+\end{tabular}
+\caption{Astrophysical Safety Envelope}
+\end{table}
+
+\section*{4. Electrical Stability Limits}
+\begin{table}[h!]
+\centering
+\begin{tabular}{l l}
+\toprule
+Parameter & Safety Limit \\
+\midrule
+Frequency Deviation ($F(t)$) &
+$\pm 0.05$ Hz (islanded benches) \\
+Voltage Sag & 
+$\leq 8\%$ deviation before forced islanding \\
+ADMM Convergence &
+$\leq 15$ ms under catastrophic load \\
+Critical Load Preservation &
+100\% uptime for CRT/IND loads \\
+\bottomrule
+\end{tabular}
+\caption{Electrical Stability Safety Envelope}
+\end{table}
+
+\section*{5. Cryptographic Integrity Limits}
+\begin{table}[h!]
+\centering
+\begin{tabular}{l l}
+\toprule
+Parameter & Safety Limit \\
+\midrule
+Token Acceptance &
+0\% acceptance of malformed tokens \\
+Packet Flood Immunity &
+Zero unauthorized $\Omega$ transitions \\
+Epoch Hash Validity &
+All ZK proofs must match active epoch \\
+Bus Isolation Latency &
+$\leq 0.20$ ms after compromise detection \\
+\bottomrule
+\end{tabular}
+\caption{Cryptographic Safety Envelope}
+\end{table}
+
+\section*{6. State-Machine Transition Limits}
+\begin{table}[h!]
+\centering
+\begin{tabular}{l l}
+\toprule
+Transition & Safety Limit \\
+\midrule
+$\Omega_0 \rightarrow \Omega_1$ &
+$\leq 0.15$ ms after astro breach \\
+$\Omega_1 \rightarrow \Omega_2$ &
+Immediate upon backbone severance \\
+$\Omega_2 \rightarrow \Omega_3$ &
+Only after full stabilization \\
+$\Omega_3 \rightarrow \Omega_0$ &
+No instability spikes allowed \\
+\bottomrule
+\end{tabular}
+\caption{State-Machine Safety Envelope}
+\end{table}
+
+\section*{7. Global Safety Envelope Condition}
+The system is considered within the sovereign safety envelope if:
+\begin{equation}
+\mathcal{I}(t) < 0.020 \quad \text{for all } t,
+\end{equation}
+and:
+\begin{equation}
+\mathcal{I}(t_{\text{final}}) < 0.005.
+\end{equation}
+
+\section*{8. Mandatory Safety Actions}
+\begin{itemize}
+    \item Immediate transition to $\Omega_1$ upon any $A(t)$ threshold breach.
+    \item Forced dynamic islanding ($\Omega_2$) if frequency or voltage exceed limits.
+    \item ACE-enforced bus isolation upon any cryptographic anomaly.
+    \item Mandatory ZK re-handshake before returning to $\Omega_0$.
+\end{itemize}
+
+\section*{9. Safety Envelope Violation Conditions}
+A violation occurs if:
+\begin{itemize}
+    \item Any instability metric exceeds bounds.
+    \item Any forged token is accepted.
+    \item Any critical load drops during $\Omega_2$.
+    \item Any $\Omega$ transition exceeds latency limits.
+\end{itemize}
+
+\end{document}
