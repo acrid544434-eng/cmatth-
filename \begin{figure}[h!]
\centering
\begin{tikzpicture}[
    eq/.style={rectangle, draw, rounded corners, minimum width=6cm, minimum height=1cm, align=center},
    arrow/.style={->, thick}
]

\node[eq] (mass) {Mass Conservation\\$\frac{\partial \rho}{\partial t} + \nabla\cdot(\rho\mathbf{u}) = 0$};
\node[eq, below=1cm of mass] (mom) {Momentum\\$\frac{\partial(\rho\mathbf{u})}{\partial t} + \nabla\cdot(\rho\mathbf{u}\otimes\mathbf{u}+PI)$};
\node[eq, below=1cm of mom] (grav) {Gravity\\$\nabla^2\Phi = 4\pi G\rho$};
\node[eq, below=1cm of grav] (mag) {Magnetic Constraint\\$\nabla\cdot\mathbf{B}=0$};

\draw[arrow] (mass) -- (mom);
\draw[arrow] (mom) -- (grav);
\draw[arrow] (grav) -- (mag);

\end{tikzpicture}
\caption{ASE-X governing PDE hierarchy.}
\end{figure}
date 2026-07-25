@@ -1,0 +1,19 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    eq/.style={rectangle, draw, rounded corners, minimum width=6cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick}
+]
+
+\node[eq] (mass) {Mass Conservation\\$\frac{\partial \rho}{\partial t} + \nabla\cdot(\rho\mathbf{u}) = 0$};
+\node[eq, below=1cm of mass] (mom) {Momentum\\$\frac{\partial(\rho\mathbf{u})}{\partial t} + \nabla\cdot(\rho\mathbf{u}\otimes\mathbf{u}+PI)$};
+\node[eq, below=1cm of mom] (grav) {Gravity\\$\nabla^2\Phi = 4\pi G\rho$};
+\node[eq, below=1cm of grav] (mag) {Magnetic Constraint\\$\nabla\cdot\mathbf{B}=0$};
+
+\draw[arrow] (mass) -- (mom);
+\draw[arrow] (mom) -- (grav);
+\draw[arrow] (grav) -- (mag);
+
+\end{tikzpicture}
+\caption{ASE-X governing PDE hierarchy.}
+\end{figure}
