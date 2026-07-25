@@ -1,0 +1,64 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, geometry}
+\geometry{margin=1in}
+
+\begin{document}
+
+\section*{OGRI v1.0 Vessel-Class Tables}
+
+\subsection*{Table 1: Core Generation Vessel Classes}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Vessel Class} & \textbf{Symbol} & \textbf{Primary Role} & \textbf{$A_i(t)$ Sensitivity} \\
+\hline
+Solar Array Farm      & $\mathrm{SOL}$  & PV generation          & High (X-ray flux, irradiance) \\
+Wind Turbine Cluster  & $\mathrm{WND}$  & Kinetic generation     & Medium (geomag turbulence)    \\
+Geothermal Plant      & $\mathrm{GEO}$  & Baseload thermal       & Low (minor astro impact)      \\
+Hydroelectric / Run-of-River & $\mathrm{HYD}$ & Dispatchable flow & Low–Medium (weather-linked)   \\
+Nuclear Station       & $\mathrm{NUC}$  & Baseload, high inertia & Medium (grid shock sensitivity) \\
+\hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\subsection*{Table 2: Storage Vessel Classes}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Vessel Class} & \textbf{Symbol} & \textbf{Primary Role} & \textbf{$A_i(t)$ Sensitivity} \\
+\hline
+Battery Storage Bank  & $\mathrm{BAT}$  & Fast response storage  & Medium (frequency instability) \\
+Thermal Storage Bank  & $\mathrm{THM}$  & Slow thermal buffering & Low (indirect astro impact)    \\
+Pumped Hydro Storage  & $\mathrm{PHS}$  & Large-scale storage    & Low–Medium (hydro-linked)      \\
+\hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\subsection*{Table 3: Load Vessel Classes}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Vessel Class} & \textbf{Symbol} & \textbf{Primary Role} & \textbf{Routing Priority} \\
+\hline
+Industrial Cluster    & $\mathrm{IND}$  & Manufacturing, data    & High / Critical            \\
+EV Fast-Charge Hub    & $\mathrm{EVH}$  & Transport electrification & Medium–High             \\
+Residential Microgrid & $\mathrm{RES}$  & Homes, local services  & Medium                     \\
+Critical Infrastructure & $\mathrm{CRT}$ & Hospitals, comms, etc & Highest                    \\
+\hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+\subsection*{Table 4: Vessel-Class State Variables}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Variable} & \textbf{Meaning} & \textbf{Domain} \\
+\hline
+$E_i(t)$ & Local energy state of vessel $i$ & $\mathbb{R}$ \\
+$S_i(t)$ & Local supply contribution        & $\mathbb{R}_{\ge 0}$ \\
+$D_i(t)$ & Local demand load                & $\mathbb{R}_{\ge 0}$ \\
+$R_i(t)$ & Local routing adjustment         & $\mathbb{R}$ \\
+$A_i(t)$ & Local astrophysical constraint   & $\mathbb{R}$ \\
+\hline
+\end{tabular}
+
+\end{document}
