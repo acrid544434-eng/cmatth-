@@ -1,0 +1,24 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    box/.style={rectangle, draw, rounded corners,
+                minimum width=3.5cm, minimum height=1cm,
+                align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[box] (supply) {Supply $S(t)$};
+\node[box, below of=supply] (demand) {Demand $D(t)$};
+\node[box, right of=supply, xshift=4cm] (routing) {Routing $R(t)$};
+\node[box, below of=routing] (loss) {Losses $L(t)$};
+\node[box, right of=routing, xshift=4cm] (astro) {Astro Tensor $A(t)$};
+\node[box, below of=astro] (energy) {Global Energy $E(t)$};
+
+\draw[arrow] (supply) -- (routing);
+\draw[arrow] (demand) -- (routing);
+\draw[arrow] (routing) -- (energy);
+\draw[arrow] (loss) -- (energy);
+\draw[arrow] (astro) -- (energy);
+
+\caption{Global Continuity Flow for OGRI Kernel}
+\end{figure}
