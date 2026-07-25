@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{ASSDI Simulation Pseudocode}\\
+Dynamic Learning Rate Decay \& Safety Envelope Gain}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Simulation Pseudocode}
+
+\begin{verbatim}
+Initialize:
+    eta_0          := base learning rate
+    lambda_decay   := decay coefficient
+    T              := total simulation steps (e.g., 100)
+    D              := initial design state D_0
+    Theta          := initial sovereign parameter set Theta_0
+    I              := initial instability metric I_0
+
+Function Instability(D):
+    return compute_instability(D)
+
+Function GradJ(D, Theta):
+    return compute_gradient_of_objective_J(D, Theta)
+
+Function SafetyPenalty(D):
+    return compute_structural_pullback(D)
+
+For t from 1 to T do:
+    # Dynamic learning rate decay
+    eta_t := eta_0 * exp(-lambda_decay * t)
+
+    # Compute current instability
+    I := Instability(D)
+
+    # Sovereign safety constraint:
+    # If instability exceeds 0.010, block redesign and apply pullback
+    If I >= 0.010 then:
+        penalty := SafetyPenalty(D)
+        D := D + penalty
+        continue to next t
+
+    # Normal autonomous redesign step
+    g := GradJ(D, Theta)
+    D := D + eta_t * g
+
+    # Optional sovereign parameter update
+    Theta := update_theta(Theta, g, eta_t)
+
+End For
+
+Output:
+    FinalInstability := Instability(D)
+    Report FinalInstability and compliance with I(t_final) < 0.005
+\end{verbatim}
+
+\end{document}
