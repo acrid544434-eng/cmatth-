@@ -1,0 +1,21 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node/.style={rectangle, draw, rounded corners, minimum width=4cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick}
+]
+
+% Layers
+\node[node] (L1) {Layer 1\\\textbf{Observational Data Ingestion}\\$D_{\text{obs}} \rightarrow D_{\text{lake}}$};
+\node[node, below=1.2cm of L1] (L2) {Layer 2\\\textbf{Differential Physics Engine}\\MHD + N-body + GR};
+\node[node, below=1.2cm of L2] (L3) {Layer 3\\\textbf{Unknowns Mapping}\\Residuals $\mathcal{R}(x)$, FNO/PINN};
+\node[node, below=1.2cm of L3] (L4) {Layer 4\\\textbf{Inference Engine}\\SBI (SNPE-C), MAF flows};
+
+% Arrows
+\draw[arrow] (L1) -- (L2);
+\draw[arrow] (L2) -- (L3);
+\draw[arrow] (L3) -- (L4);
+
+\end{tikzpicture}
+\caption{ASE-X hierarchical architecture.}
+\end{figure}
