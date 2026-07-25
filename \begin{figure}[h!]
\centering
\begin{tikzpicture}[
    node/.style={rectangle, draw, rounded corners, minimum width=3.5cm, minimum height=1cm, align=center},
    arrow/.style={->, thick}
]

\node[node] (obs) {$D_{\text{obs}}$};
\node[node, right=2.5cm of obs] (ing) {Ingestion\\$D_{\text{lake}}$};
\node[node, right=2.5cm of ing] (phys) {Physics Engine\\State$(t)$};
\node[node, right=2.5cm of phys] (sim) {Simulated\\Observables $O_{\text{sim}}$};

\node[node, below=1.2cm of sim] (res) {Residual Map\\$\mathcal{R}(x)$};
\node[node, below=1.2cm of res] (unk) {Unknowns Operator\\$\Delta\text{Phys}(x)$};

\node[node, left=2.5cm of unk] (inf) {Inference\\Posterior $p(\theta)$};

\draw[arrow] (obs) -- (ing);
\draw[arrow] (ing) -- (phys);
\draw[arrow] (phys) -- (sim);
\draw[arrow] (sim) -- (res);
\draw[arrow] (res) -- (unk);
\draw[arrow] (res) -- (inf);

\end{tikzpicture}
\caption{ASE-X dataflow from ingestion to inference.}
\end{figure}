@@ -1,0 +1,27 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node/.style={rectangle, draw, rounded corners, minimum width=3.5cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick}
+]
+
+\node[node] (obs) {$D_{\text{obs}}$};
+\node[node, right=2.5cm of obs] (ing) {Ingestion\\$D_{\text{lake}}$};
+\node[node, right=2.5cm of ing] (phys) {Physics Engine\\State$(t)$};
+\node[node, right=2.5cm of phys] (sim) {Simulated\\Observables $O_{\text{sim}}$};
+
+\node[node, below=1.2cm of sim] (res) {Residual Map\\$\mathcal{R}(x)$};
+\node[node, below=1.2cm of res] (unk) {Unknowns Operator\\$\Delta\text{Phys}(x)$};
+
+\node[node, left=2.5cm of unk] (inf) {Inference\\Posterior $p(\theta)$};
+
+\draw[arrow] (obs) -- (ing);
+\draw[arrow] (ing) -- (phys);
+\draw[arrow] (phys) -- (sim);
+\draw[arrow] (sim) -- (res);
+\draw[arrow] (res) -- (unk);
+\draw[arrow] (res) -- (inf);
+
+\end{tikzpicture}
+\caption{ASE-X dataflow from ingestion to inference.}
+\end{figure}
