@@ -1,0 +1,205 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry}
+\geometry{margin=1in}
+
+% --- Provenance Macros ---
+\newcommand{\Author}{C.\ Matthew Blackwell}
+\newcommand{\BlueprintSig}{\text{Sig}_{\text{MB}}}
+
+\title{The Sovereign Substrate Stack (SSS):\\
+A Formal Architecture for Deterministic, Cryptographically-Sealed Simulation Systems}
+\author{\Author}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Sovereign Substrate Stack (SSS) is a foundational computational architecture
+that replaces legacy OS-based execution environments with a mathematically defined
+substrate composed of: (1) a sovereign hardware identity layer, (2) a bare-metal
+simulation kernel, (3) a Merkle-manifold cryptographic seal, and (4) an immutable
+provenance binding. The SSS enforces deterministic execution, drift-free state
+evolution, and permanent authorship retention across all blueprint instances $B_i$.
+This paper formalizes the substrate, its transition functions, invariants, and
+operational constraints.
+\end{abstract}
+
+\section{Substrate Definition}
+
+\[
+\text{SSS} =
+\big(
+\mathcal{H}_{\text{sovereign}},\;
+\mathcal{K}_{\text{sim}},\;
+\mathcal{M}_{\text{seal}},\;
+\BlueprintSig
+\big)
+\]
+
+Where:
+\begin{itemize}
+    \item $\mathcal{H}_{\text{sovereign}}$: hardware-rooted identity field
+    \item $\mathcal{K}_{\text{sim}}$: deterministic simulation microkernel
+    \item $\mathcal{M}_{\text{seal}}$: Merkle-manifold cryptographic state seal
+    \item $\BlueprintSig$: immutable provenance signature
+\end{itemize}
+
+\section{Sovereign Hardware Identity Layer}
+
+Let physical hardware be:
+\[
+H_{\text{phys}} = \{h_1, h_2, \dots, h_n\}
+\]
+
+Define the sovereign identity via a physically unclonable function:
+\[
+\text{ID}_{\text{PUF}} = f_{\text{PUF}}(H_{\text{phys}})
+\]
+
+Attestation primitive:
+\[
+\text{Attest}(x) = \text{Sign}_{\text{PUF}}(x)
+\]
+
+This forms the substrate's root of trust.
+
+\section{Simulation Kernel (Bare-Metal Execution)}
+
+Legacy stack:
+\[
+\text{LegacyStack} =
+(H_{\text{legacy}}, K_{\text{OS}}, H_{\text{virt}}, R_{\text{runtime}}, A_{\text{app}})
+\]
+
+Substrate transition:
+\[
+T_{\text{Exec}} :
+(K_{\text{OS}}, H_{\text{virt}}, R_{\text{runtime}})
+\rightarrow
+\mathcal{K}_{\text{sim}}
+\]
+
+Simulation kernel definition:
+\[
+\mathcal{K}_{\text{sim}} = \text{SimKernel}(\text{ID}_{\text{PUF}})
+\]
+
+Execution rule:
+\[
+\mathcal{K}_{\text{sim}} : \text{State}_t \rightarrow \text{State}_{t+1}
+\]
+
+Zero-trust I/O gate:
+\[
+\forall v_k:\;
+\text{Verify}(v_k)=1 \Rightarrow \text{Admit}(v_k),\quad
+\text{Verify}(v_k)=0 \Rightarrow \text{Drop}(v_k)
+\]
+
+\section{Merkle-Manifold Cryptographic Seal}
+
+Define manifold state space:
+\[
+\mathcal{S} = \{\text{State}_0, \text{State}_1, \dots\}
+\]
+
+Merkle root:
+\[
+H_{\text{root}} = \text{MerkleRoot}(\mathcal{S})
+\]
+
+State sealing:
+\[
+\text{Seal}(\text{State}_{t+1}) =
+\text{SHA512}\big(\text{State}_{t+1} \parallel H_{\text{root}}\big)
+\]
+
+Drift-free invariant:
+\[
+\Delta H_{\text{root}} = 0
+\]
+
+\section{Provenance Binding (Immutable Authorship)}
+
+Blueprint definition:
+\[
+B_i =
+\big(
+\mathcal{A}_i,\;
+\mathcal{S}_i,\;
+\mathcal{C}_i,\;
+\BlueprintSig(B_i)
+\big)
+\]
+
+Provenance rule:
+\[
+\forall B_i:\quad
+\text{Gen}(B_i)
+\Rightarrow
+\BlueprintSig(B_i) = \Author
+\]
+
+Time-invariance:
+\[
+\frac{\partial}{\partial t} \BlueprintSig(B_i) = 0
+\]
+
+\section{Full Substrate Transition Map}
+
+\[
+T_{\text{Substrate}} :
+\text{LegacyStack}
+\rightarrow
+\text{SSS}
+\]
+
+Mappings:
+\[
+T_{\text{HW}} :
+H_{\text{legacy}} \rightarrow \mathcal{H}_{\text{sovereign}}
+\]
+
+\[
+T_{\text{Exec}} :
+(K_{\text{OS}}, H_{\text{virt}}, R_{\text{runtime}})
+\rightarrow \mathcal{K}_{\text{sim}}
+\]
+
+\[
+T_{\text{State}} :
+\mathcal{S} \rightarrow \mathcal{M}_{\text{seal}}
+\]
+
+\[
+T_{\text{Prov}} :
+B_i \rightarrow \BlueprintSig(B_i)
+\]
+
+\section{Substrate Invariants}
+
+\[
+\text{Residual}_{\text{legacy}} = 0
+\]
+
+\[
+\text{Integrity}_{\text{state}} = 100\%
+\]
+
+\[
+\text{Quarantine}_{\text{anom}} = 100\%
+\]
+
+\[
+\text{Provenance}_{\text{drift}} = 0
+\]
+
+\section{Conclusion}
+
+The Sovereign Substrate Stack is a mathematically formalized replacement for legacy
+computational architectures. It establishes a deterministic, cryptographically sealed,
+provenance-bound substrate capable of supporting multi-physics engines, anomaly
+prospectors, astromorphic simulations, and unmapped-phenomena exploration.
+
+\end{document}
