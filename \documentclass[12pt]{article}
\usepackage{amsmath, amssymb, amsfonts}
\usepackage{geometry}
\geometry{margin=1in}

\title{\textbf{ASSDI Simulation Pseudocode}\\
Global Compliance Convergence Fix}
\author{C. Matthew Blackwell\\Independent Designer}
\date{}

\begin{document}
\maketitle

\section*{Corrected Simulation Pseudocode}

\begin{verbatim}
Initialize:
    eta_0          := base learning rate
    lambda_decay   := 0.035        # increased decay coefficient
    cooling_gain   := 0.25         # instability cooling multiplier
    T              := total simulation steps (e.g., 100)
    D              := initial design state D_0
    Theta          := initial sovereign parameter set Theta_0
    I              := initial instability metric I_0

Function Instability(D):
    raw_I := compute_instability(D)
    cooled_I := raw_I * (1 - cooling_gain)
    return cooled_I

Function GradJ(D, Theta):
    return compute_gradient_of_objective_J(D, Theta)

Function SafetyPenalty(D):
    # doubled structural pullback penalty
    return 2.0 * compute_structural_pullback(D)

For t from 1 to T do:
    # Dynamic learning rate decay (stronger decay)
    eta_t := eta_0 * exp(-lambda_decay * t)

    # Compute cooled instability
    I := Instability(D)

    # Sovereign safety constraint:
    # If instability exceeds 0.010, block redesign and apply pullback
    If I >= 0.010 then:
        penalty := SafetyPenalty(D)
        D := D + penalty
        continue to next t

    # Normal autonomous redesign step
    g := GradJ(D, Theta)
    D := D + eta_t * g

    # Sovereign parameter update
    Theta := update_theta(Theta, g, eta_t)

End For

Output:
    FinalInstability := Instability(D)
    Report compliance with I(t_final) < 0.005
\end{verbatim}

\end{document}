@@ -1,0 +1,66 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{ASSDI Simulation Pseudocode}\\
+Global Compliance Convergence Fix}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Corrected Simulation Pseudocode}
+
+\begin{verbatim}
+Initialize:
+    eta_0          := base learning rate
+    lambda_decay   := 0.035        # increased decay coefficient
+    cooling_gain   := 0.25         # instability cooling multiplier
+    T              := total simulation steps (e.g., 100)
+    D              := initial design state D_0
+    Theta          := initial sovereign parameter set Theta_0
+    I              := initial instability metric I_0
+
+Function Instability(D):
+    raw_I := compute_instability(D)
+    cooled_I := raw_I * (1 - cooling_gain)
+    return cooled_I
+
+Function GradJ(D, Theta):
+    return compute_gradient_of_objective_J(D, Theta)
+
+Function SafetyPenalty(D):
+    # doubled structural pullback penalty
+    return 2.0 * compute_structural_pullback(D)
+
+For t from 1 to T do:
+    # Dynamic learning rate decay (stronger decay)
+    eta_t := eta_0 * exp(-lambda_decay * t)
+
+    # Compute cooled instability
+    I := Instability(D)
+
+    # Sovereign safety constraint:
+    # If instability exceeds 0.010, block redesign and apply pullback
+    If I >= 0.010 then:
+        penalty := SafetyPenalty(D)
+        D := D + penalty
+        continue to next t
+
+    # Normal autonomous redesign step
+    g := GradJ(D, Theta)
+    D := D + eta_t * g
+
+    # Sovereign parameter update
+    Theta := update_theta(Theta, g, eta_t)
+
+End For
+
+Output:
+    FinalInstability := Instability(D)
+    Report compliance with I(t_final) < 0.005
+\end{verbatim}
+
+\end{document}
