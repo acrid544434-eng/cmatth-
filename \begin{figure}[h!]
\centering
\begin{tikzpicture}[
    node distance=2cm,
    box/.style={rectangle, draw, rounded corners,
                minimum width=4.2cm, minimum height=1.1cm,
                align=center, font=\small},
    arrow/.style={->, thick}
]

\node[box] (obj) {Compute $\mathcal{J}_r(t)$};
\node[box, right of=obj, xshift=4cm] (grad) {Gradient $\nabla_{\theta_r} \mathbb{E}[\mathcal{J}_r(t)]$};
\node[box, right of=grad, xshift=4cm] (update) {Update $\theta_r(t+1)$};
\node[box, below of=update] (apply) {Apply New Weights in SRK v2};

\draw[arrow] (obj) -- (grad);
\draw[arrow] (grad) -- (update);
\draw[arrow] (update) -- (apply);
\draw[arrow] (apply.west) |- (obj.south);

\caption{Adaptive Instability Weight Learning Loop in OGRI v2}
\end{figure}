@@ -1,0 +1,22 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2cm,
+    box/.style={rectangle, draw, rounded corners,
+                minimum width=4.2cm, minimum height=1.1cm,
+                align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[box] (obj) {Compute $\mathcal{J}_r(t)$};
+\node[box, right of=obj, xshift=4cm] (grad) {Gradient $\nabla_{\theta_r} \mathbb{E}[\mathcal{J}_r(t)]$};
+\node[box, right of=grad, xshift=4cm] (update) {Update $\theta_r(t+1)$};
+\node[box, below of=update] (apply) {Apply New Weights in SRK v2};
+
+\draw[arrow] (obj) -- (grad);
+\draw[arrow] (grad) -- (update);
+\draw[arrow] (update) -- (apply);
+\draw[arrow] (apply.west) |- (obj.south);
+
+\caption{Adaptive Instability Weight Learning Loop in OGRI v2}
+\end{figure}
