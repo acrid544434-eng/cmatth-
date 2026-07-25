@@ -1,0 +1,128 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{booktabs}
+\geometry{margin=1in}
+
+\title{\textbf{Autonomous Sovereign Self-Design Intelligence (ASSDI)}\\
+Architecture Diagrams}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{1. High-Level Sovereign Architecture}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=1.8cm,
+    box/.style={rectangle, draw, rounded corners,
+                minimum width=4.2cm, minimum height=1.1cm,
+                align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[box] (env) {Astrophysical \& Grid Environment};
+\node[box, right=3.8cm of env] (tele) {Telemetry Ingest\\$A(t), F(t), C(t), G(t)$};
+\node[box, right=3.8cm of tele] (core) {ASSDI Core\\Sovereign Self-Design};
+
+\node[box, below=1.8cm of core] (srk) {Sovereign Routing Kernel (SRK v2)};
+\node[box, below=1.8cm of srk] (ace) {Astrophysical Crypto Engine (ACE)};
+\node[box, below=1.8cm of ace] (out) {Microgrid / System Actuators};
+
+\draw[arrow] (env) -- (tele);
+\draw[arrow] (tele) -- (core);
+\draw[arrow] (core) -- (srk);
+\draw[arrow] (srk) -- (ace);
+\draw[arrow] (ace) -- (out);
+
+\caption{ASSDI High-Level Sovereign Architecture}
+\end{figure}
+
+\section*{2. Sovereign Self-Design Loop}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2cm,
+    box/.style={rectangle, draw, rounded corners,
+                minimum width=4.5cm, minimum height=1.1cm,
+                align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[box] (state) {Current Design State $\mathcal{D}_t$};
+\node[box, right=4cm of state] (eval) {Evaluate $\mathcal{J}(t), \mathcal{I}(t)$};
+\node[box, right=4cm of eval] (update) {Compute Update\\$\mathcal{D}_{t+1} = f(\mathcal{D}_t, A(t), \mathcal{I}(t), \Theta_t)$};
+\node[box, below=2cm of update] (seal) {Sovereign Encryption Seal\\$\pi_{\text{sovereign}}$};
+\node[box, left=4cm of seal] (verify) {Verify $\pi_{\text{sovereign}}$};
+\node[box, left=4cm of verify] (commit) {Commit New Design\\if $\mathrm{Verify} = \text{accept}$};
+
+\draw[arrow] (state) -- (eval);
+\draw[arrow] (eval) -- (update);
+\draw[arrow] (update) -- (seal);
+\draw[arrow] (seal) -- (verify);
+\draw[arrow] (verify) -- (commit);
+\draw[arrow] (commit.west) |- (state.south);
+
+\caption{ASSDI Sovereign Self-Design Loop}
+\end{figure}
+
+\section*{3. Sovereign Finite-State Machine}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2.0cm,
+    state/.style={rectangle, draw, rounded corners,
+                  minimum width=4.0cm, minimum height=1.1cm,
+                  align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[state] (o0) {$\Omega_0$\\Nominal Autonomous Design};
+\node[state, above=1.8cm of o0] (o1) {$\Omega_1$\\Self-Defense Mode};
+\node[state, right=4cm of o1] (o2) {$\Omega_2$\\Self-Redesign Mode};
+\node[state, below=1.8cm of o2] (o3) {$\Omega_3$\\Self-Verification Mode};
+\node[state, below=1.8cm of o3] (o4) {$\Omega_4$\\Reintegration Mode};
+
+\draw[arrow] (o0) -- (o1);
+\draw[arrow] (o1) -- (o2);
+\draw[arrow] (o2) -- (o3);
+\draw[arrow] (o3) -- (o4);
+\draw[arrow] (o4) -- (o0);
+
+\caption{ASSDI Sovereign Finite-State Machine}
+\end{figure}
+
+\section*{4. Sovereign Encryption \& Authorship Layer}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2cm,
+    box/.style={rectangle, draw, rounded corners,
+                minimum width=4.8cm, minimum height=1.1cm,
+                align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[box] (design) {Design Artifact $\mathcal{D}_t$};
+\node[box, right=4cm of design] (hash) {Sovereign Hash\\$\pi_{\text{sovereign}} = \mathrm{Hash}(\mathcal{D}_t,\texttt{C MATTHEW BLACKWELL})$};
+\node[box, right=4cm of hash] (store) {Encrypted Archive};
+\node[box, below=2cm of hash] (check) {Verification\\$\mathrm{Verify}(\pi_{\text{sovereign}})$};
+\node[box, below=2cm of design] (reject) {Reject / Quarantine};
+
+\draw[arrow] (design) -- (hash);
+\draw[arrow] (hash) -- (store);
+\draw[arrow] (hash) -- (check);
+\draw[arrow] (check) -- (reject);
+\draw[arrow] (check.west) |- (design.south);
+
+\caption{ASSDI Sovereign Encryption \& Authorship Layer}
+\end{figure}
+
+\end{document}
