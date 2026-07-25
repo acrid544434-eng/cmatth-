@@ -1,0 +1,21 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node/.style={rectangle, draw, rounded corners, minimum width=4cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick}
+]
+
+\node[node] (sim) {Simulated Observables\\$O_{\text{sim}}$};
+\node[node, right=2.5cm of sim] (obs) {Observed\\$O_{\text{obs}}$};
+\node[node, below=1.2cm of sim] (res) {Residuals\\$\mathcal{R}(x)$};
+\node[node, below=1.2cm of res] (latent) {Latent Embedding\\$z$};
+\node[node, below=1.2cm of latent] (op) {Neural Operator\\$\Delta\text{Phys}(x)$};
+
+\draw[arrow] (sim) -- (res);
+\draw[arrow] (obs) -- (res);
+\draw[arrow] (res) -- (latent);
+\draw[arrow] (latent) -- (op);
+
+\end{tikzpicture}
+\caption{ASE-X unknowns mapping pipeline.}
+\end{figure}
