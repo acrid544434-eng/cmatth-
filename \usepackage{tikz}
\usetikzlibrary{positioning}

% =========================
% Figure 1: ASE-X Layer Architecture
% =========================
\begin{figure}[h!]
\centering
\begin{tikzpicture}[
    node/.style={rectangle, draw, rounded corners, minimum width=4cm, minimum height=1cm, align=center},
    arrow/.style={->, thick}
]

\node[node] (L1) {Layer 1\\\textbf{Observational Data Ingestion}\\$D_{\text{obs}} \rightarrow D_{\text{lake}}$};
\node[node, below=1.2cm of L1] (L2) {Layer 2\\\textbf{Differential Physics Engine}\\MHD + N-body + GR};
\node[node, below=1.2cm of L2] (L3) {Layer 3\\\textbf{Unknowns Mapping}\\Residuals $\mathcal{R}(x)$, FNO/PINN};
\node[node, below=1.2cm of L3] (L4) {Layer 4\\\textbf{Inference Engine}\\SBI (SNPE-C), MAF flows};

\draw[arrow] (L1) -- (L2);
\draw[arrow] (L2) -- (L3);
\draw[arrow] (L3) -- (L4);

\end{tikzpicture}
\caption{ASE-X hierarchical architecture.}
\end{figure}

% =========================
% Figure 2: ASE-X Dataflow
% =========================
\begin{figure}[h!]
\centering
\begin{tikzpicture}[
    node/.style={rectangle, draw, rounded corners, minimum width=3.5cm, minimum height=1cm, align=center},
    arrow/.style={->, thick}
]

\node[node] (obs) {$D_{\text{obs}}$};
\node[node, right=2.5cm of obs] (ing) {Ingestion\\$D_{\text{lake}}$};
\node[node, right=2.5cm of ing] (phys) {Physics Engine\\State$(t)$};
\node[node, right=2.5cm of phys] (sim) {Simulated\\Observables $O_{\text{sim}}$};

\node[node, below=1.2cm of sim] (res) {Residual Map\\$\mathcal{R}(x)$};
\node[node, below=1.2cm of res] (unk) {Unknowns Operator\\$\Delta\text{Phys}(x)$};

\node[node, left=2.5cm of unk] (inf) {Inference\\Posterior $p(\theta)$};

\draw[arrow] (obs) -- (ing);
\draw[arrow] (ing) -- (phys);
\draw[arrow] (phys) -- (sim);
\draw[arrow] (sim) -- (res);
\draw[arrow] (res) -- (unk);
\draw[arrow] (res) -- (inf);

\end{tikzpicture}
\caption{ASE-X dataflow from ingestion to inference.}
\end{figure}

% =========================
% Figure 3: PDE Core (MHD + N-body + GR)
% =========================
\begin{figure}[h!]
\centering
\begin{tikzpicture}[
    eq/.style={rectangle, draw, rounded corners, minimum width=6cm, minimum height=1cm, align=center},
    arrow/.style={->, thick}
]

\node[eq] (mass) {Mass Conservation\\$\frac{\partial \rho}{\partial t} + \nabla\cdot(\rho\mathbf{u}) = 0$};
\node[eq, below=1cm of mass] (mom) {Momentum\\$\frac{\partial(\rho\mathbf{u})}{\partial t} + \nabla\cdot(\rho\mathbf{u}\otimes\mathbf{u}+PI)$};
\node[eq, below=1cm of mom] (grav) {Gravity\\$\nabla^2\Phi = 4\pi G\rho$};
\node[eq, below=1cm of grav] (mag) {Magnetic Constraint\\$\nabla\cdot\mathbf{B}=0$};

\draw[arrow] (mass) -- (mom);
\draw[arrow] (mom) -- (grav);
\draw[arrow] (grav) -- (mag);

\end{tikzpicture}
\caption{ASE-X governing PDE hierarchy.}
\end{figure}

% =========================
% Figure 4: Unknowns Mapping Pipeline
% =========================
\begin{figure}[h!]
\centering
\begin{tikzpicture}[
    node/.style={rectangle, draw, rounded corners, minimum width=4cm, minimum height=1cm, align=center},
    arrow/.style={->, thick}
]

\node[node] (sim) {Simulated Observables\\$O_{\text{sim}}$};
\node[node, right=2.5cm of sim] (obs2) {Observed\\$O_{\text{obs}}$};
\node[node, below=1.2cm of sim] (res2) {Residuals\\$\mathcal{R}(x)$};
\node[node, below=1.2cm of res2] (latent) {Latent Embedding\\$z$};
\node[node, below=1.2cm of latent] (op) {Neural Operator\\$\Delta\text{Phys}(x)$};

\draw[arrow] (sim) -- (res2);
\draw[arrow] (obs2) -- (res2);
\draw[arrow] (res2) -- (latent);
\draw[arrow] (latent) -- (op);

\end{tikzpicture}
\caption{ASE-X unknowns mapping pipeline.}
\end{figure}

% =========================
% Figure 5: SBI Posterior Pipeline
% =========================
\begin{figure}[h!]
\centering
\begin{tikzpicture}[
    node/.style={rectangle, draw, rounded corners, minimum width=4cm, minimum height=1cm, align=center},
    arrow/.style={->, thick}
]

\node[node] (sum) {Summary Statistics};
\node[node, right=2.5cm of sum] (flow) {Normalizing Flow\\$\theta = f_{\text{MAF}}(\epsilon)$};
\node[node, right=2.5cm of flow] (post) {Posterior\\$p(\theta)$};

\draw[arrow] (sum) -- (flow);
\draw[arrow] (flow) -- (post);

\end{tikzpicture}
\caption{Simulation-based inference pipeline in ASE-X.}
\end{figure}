@@ -1,0 +1,125 @@
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+% =========================
+% Figure 1: ASE-X Layer Architecture
+% =========================
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node/.style={rectangle, draw, rounded corners, minimum width=4cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick}
+]
+
+\node[node] (L1) {Layer 1\\\textbf{Observational Data Ingestion}\\$D_{\text{obs}} \rightarrow D_{\text{lake}}$};
+\node[node, below=1.2cm of L1] (L2) {Layer 2\\\textbf{Differential Physics Engine}\\MHD + N-body + GR};
+\node[node, below=1.2cm of L2] (L3) {Layer 3\\\textbf{Unknowns Mapping}\\Residuals $\mathcal{R}(x)$, FNO/PINN};
+\node[node, below=1.2cm of L3] (L4) {Layer 4\\\textbf{Inference Engine}\\SBI (SNPE-C), MAF flows};
+
+\draw[arrow] (L1) -- (L2);
+\draw[arrow] (L2) -- (L3);
+\draw[arrow] (L3) -- (L4);
+
+\end{tikzpicture}
+\caption{ASE-X hierarchical architecture.}
+\end{figure}
+
+% =========================
+% Figure 2: ASE-X Dataflow
+% =========================
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node/.style={rectangle, draw, rounded corners, minimum width=3.5cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick}
+]
+
+\node[node] (obs) {$D_{\text{obs}}$};
+\node[node, right=2.5cm of obs] (ing) {Ingestion\\$D_{\text{lake}}$};
+\node[node, right=2.5cm of ing] (phys) {Physics Engine\\State$(t)$};
+\node[node, right=2.5cm of phys] (sim) {Simulated\\Observables $O_{\text{sim}}$};
+
+\node[node, below=1.2cm of sim] (res) {Residual Map\\$\mathcal{R}(x)$};
+\node[node, below=1.2cm of res] (unk) {Unknowns Operator\\$\Delta\text{Phys}(x)$};
+
+\node[node, left=2.5cm of unk] (inf) {Inference\\Posterior $p(\theta)$};
+
+\draw[arrow] (obs) -- (ing);
+\draw[arrow] (ing) -- (phys);
+\draw[arrow] (phys) -- (sim);
+\draw[arrow] (sim) -- (res);
+\draw[arrow] (res) -- (unk);
+\draw[arrow] (res) -- (inf);
+
+\end{tikzpicture}
+\caption{ASE-X dataflow from ingestion to inference.}
+\end{figure}
+
+% =========================
+% Figure 3: PDE Core (MHD + N-body + GR)
+% =========================
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    eq/.style={rectangle, draw, rounded corners, minimum width=6cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick}
+]
+
+\node[eq] (mass) {Mass Conservation\\$\frac{\partial \rho}{\partial t} + \nabla\cdot(\rho\mathbf{u}) = 0$};
+\node[eq, below=1cm of mass] (mom) {Momentum\\$\frac{\partial(\rho\mathbf{u})}{\partial t} + \nabla\cdot(\rho\mathbf{u}\otimes\mathbf{u}+PI)$};
+\node[eq, below=1cm of mom] (grav) {Gravity\\$\nabla^2\Phi = 4\pi G\rho$};
+\node[eq, below=1cm of grav] (mag) {Magnetic Constraint\\$\nabla\cdot\mathbf{B}=0$};
+
+\draw[arrow] (mass) -- (mom);
+\draw[arrow] (mom) -- (grav);
+\draw[arrow] (grav) -- (mag);
+
+\end{tikzpicture}
+\caption{ASE-X governing PDE hierarchy.}
+\end{figure}
+
+% =========================
+% Figure 4: Unknowns Mapping Pipeline
+% =========================
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node/.style={rectangle, draw, rounded corners, minimum width=4cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick}
+]
+
+\node[node] (sim) {Simulated Observables\\$O_{\text{sim}}$};
+\node[node, right=2.5cm of sim] (obs2) {Observed\\$O_{\text{obs}}$};
+\node[node, below=1.2cm of sim] (res2) {Residuals\\$\mathcal{R}(x)$};
+\node[node, below=1.2cm of res2] (latent) {Latent Embedding\\$z$};
+\node[node, below=1.2cm of latent] (op) {Neural Operator\\$\Delta\text{Phys}(x)$};
+
+\draw[arrow] (sim) -- (res2);
+\draw[arrow] (obs2) -- (res2);
+\draw[arrow] (res2) -- (latent);
+\draw[arrow] (latent) -- (op);
+
+\end{tikzpicture}
+\caption{ASE-X unknowns mapping pipeline.}
+\end{figure}
+
+% =========================
+% Figure 5: SBI Posterior Pipeline
+% =========================
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node/.style={rectangle, draw, rounded corners, minimum width=4cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick}
+]
+
+\node[node] (sum) {Summary Statistics};
+\node[node, right=2.5cm of sum] (flow) {Normalizing Flow\\$\theta = f_{\text{MAF}}(\epsilon)$};
+\node[node, right=2.5cm of flow] (post) {Posterior\\$p(\theta)$};
+
+\draw[arrow] (sum) -- (flow);
+\draw[arrow] (flow) -- (post);
+
+\end{tikzpicture}
+\caption{Simulation-based inference pipeline in ASE-X.}
+\end{figure}
