@@ -1,0 +1,17 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node/.style={rectangle, draw, rounded corners, minimum width=4cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick}
+]
+
+\node[node] (sum) {Summary Statistics};
+\node[node, right=2.5cm of sum] (flow) {Normalizing Flow\\$\theta = f_{\text{MAF}}(\epsilon)$};
+\node[node, right=2.5cm of flow] (post) {Posterior\\$p(\theta)$};
+
+\draw[arrow] (sum) -- (flow);
+\draw[arrow] (flow) -- (post);
+
+\end{tikzpicture}
+\caption{Simulation-based inference pipeline.}
+\end{figure}
