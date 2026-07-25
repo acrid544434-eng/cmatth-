@@ -1,0 +1,27 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=1.8cm,
+    box/.style={rectangle, draw, rounded corners,
+                minimum width=4.2cm, minimum height=1.1cm,
+                align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[box] (env) {Astrophysical \& Grid Environment};
+\node[box, right=3.8cm of env] (tele) {Telemetry Ingest\\$A(t), F(t), C(t), G(t)$};
+\node[box, right=3.8cm of tele] (core) {ASSDI Core\\Sovereign Self-Design};
+
+\node[box, below=1.8cm of core] (srk) {Sovereign Routing Kernel (SRK v2)};
+\node[box, below=1.8cm of srk] (ace) {Astrophysical Crypto Engine (ACE)};
+\node[box, below=1.8cm of ace] (out) {Microgrid / System Actuators};
+
+\draw[arrow] (env) -- (tele);
+\draw[arrow] (tele) -- (core);
+\draw[arrow] (core) -- (srk);
+\draw[arrow] (srk) -- (ace);
+\draw[arrow] (ace) -- (out);
+
+\caption{ASSDI High-Level Sovereign Architecture}
+\end{tikzpicture}
+\end{figure}
