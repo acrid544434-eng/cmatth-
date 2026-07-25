@@ -1,0 +1,25 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=2cm,
+    box/.style={rectangle, draw, rounded corners,
+                minimum width=4.2cm, minimum height=1.1cm,
+                align=center, font=\small},
+    arrow/.style={->, thick}
+]
+
+\node[box] (enter) {Enter $\Omega_4$ (Training Mode)};
+\node[box, below of=enter] (scenario) {Generate Synthetic Adversarial Scenarios};
+\node[box, below of=scenario] (run) {Run SRK v2 Under Stress};
+\node[box, below of=run] (measure) {Measure $\mathcal{R}_{\text{horizon}}$ and Recovery};
+\node[box, below of=measure] (update) {Update Weights / Policies};
+\node[box, below of=update] (exit) {Return to Operational State};
+
+\draw[arrow] (enter) -- (scenario);
+\draw[arrow] (scenario) -- (run);
+\draw[arrow] (run) -- (measure);
+\draw[arrow] (measure) -- (update);
+\draw[arrow] (update) -- (exit);
+
+\caption{OGRI v2 $\Omega_4$ Proactive Resilience Training Flow}
+\end{figure}
