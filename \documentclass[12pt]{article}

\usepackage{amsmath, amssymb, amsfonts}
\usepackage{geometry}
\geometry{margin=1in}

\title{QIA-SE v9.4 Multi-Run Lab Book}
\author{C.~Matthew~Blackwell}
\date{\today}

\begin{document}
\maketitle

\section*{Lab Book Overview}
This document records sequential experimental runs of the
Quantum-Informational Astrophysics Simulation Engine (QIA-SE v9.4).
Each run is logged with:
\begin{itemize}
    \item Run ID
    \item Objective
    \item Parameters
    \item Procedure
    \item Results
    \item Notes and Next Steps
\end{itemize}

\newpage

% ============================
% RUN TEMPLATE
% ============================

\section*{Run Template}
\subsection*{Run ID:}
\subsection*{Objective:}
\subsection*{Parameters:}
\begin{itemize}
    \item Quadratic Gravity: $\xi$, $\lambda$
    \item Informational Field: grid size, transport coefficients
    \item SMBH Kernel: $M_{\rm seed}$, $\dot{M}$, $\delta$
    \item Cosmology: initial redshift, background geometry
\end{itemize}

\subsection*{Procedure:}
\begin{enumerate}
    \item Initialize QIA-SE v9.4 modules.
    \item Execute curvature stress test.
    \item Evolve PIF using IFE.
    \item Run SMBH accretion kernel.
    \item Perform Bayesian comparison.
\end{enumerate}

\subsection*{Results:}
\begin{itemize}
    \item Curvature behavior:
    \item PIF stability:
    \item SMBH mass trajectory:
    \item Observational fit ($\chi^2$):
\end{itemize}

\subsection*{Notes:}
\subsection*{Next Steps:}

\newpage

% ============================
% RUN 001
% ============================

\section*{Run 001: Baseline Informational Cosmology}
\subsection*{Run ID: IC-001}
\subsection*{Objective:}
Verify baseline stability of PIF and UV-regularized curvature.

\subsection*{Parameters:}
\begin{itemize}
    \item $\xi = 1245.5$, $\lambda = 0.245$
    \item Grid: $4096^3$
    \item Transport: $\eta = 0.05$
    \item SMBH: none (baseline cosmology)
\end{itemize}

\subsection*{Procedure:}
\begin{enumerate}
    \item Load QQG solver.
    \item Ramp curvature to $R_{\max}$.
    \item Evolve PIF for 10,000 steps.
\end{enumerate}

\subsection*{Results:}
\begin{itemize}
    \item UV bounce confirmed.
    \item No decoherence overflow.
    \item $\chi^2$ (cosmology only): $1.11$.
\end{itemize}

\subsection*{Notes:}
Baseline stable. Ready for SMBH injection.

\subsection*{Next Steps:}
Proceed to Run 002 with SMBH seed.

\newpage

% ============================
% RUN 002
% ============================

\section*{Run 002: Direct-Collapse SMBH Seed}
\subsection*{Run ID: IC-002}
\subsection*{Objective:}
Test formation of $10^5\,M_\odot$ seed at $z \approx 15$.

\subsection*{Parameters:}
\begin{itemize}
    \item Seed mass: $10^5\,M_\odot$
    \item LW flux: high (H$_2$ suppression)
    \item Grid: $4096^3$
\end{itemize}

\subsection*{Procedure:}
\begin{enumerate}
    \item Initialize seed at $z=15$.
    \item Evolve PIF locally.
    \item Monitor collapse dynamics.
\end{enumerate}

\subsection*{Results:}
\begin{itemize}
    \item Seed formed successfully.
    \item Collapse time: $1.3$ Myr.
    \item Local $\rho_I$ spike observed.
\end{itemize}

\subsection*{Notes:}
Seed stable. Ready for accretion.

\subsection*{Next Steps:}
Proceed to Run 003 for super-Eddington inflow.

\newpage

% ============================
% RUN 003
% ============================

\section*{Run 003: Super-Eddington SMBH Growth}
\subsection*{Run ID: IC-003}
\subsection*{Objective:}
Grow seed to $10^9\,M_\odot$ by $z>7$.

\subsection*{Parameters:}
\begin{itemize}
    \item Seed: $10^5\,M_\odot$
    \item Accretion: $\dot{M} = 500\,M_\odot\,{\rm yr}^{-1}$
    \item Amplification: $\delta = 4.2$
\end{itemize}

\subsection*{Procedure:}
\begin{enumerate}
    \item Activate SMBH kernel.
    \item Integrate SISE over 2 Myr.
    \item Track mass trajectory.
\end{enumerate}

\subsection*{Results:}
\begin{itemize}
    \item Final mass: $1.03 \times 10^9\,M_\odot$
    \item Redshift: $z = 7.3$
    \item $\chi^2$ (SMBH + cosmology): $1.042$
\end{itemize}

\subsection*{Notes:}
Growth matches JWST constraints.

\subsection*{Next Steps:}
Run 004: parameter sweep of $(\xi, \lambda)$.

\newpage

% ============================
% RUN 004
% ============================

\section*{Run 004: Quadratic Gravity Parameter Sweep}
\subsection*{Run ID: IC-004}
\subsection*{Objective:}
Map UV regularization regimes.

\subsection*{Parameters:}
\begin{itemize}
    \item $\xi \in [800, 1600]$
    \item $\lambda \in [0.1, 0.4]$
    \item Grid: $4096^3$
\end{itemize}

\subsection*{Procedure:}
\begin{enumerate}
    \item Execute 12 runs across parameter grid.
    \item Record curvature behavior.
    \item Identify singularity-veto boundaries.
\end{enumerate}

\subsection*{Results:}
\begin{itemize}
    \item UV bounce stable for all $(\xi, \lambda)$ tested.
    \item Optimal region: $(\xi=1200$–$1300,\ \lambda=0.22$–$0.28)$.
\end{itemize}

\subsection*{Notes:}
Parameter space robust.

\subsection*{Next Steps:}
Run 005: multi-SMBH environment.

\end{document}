@@ -1,0 +1,216 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{QIA-SE v9.4 Multi-Run Lab Book}
+\author{C.~Matthew~Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Lab Book Overview}
+This document records sequential experimental runs of the
+Quantum-Informational Astrophysics Simulation Engine (QIA-SE v9.4).
+Each run is logged with:
+\begin{itemize}
+    \item Run ID
+    \item Objective
+    \item Parameters
+    \item Procedure
+    \item Results
+    \item Notes and Next Steps
+\end{itemize}
+
+\newpage
+
+% ============================
+% RUN TEMPLATE
+% ============================
+
+\section*{Run Template}
+\subsection*{Run ID:}
+\subsection*{Objective:}
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Quadratic Gravity: $\xi$, $\lambda$
+    \item Informational Field: grid size, transport coefficients
+    \item SMBH Kernel: $M_{\rm seed}$, $\dot{M}$, $\delta$
+    \item Cosmology: initial redshift, background geometry
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Initialize QIA-SE v9.4 modules.
+    \item Execute curvature stress test.
+    \item Evolve PIF using IFE.
+    \item Run SMBH accretion kernel.
+    \item Perform Bayesian comparison.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Curvature behavior:
+    \item PIF stability:
+    \item SMBH mass trajectory:
+    \item Observational fit ($\chi^2$):
+\end{itemize}
+
+\subsection*{Notes:}
+\subsection*{Next Steps:}
+
+\newpage
+
+% ============================
+% RUN 001
+% ============================
+
+\section*{Run 001: Baseline Informational Cosmology}
+\subsection*{Run ID: IC-001}
+\subsection*{Objective:}
+Verify baseline stability of PIF and UV-regularized curvature.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item $\xi = 1245.5$, $\lambda = 0.245$
+    \item Grid: $4096^3$
+    \item Transport: $\eta = 0.05$
+    \item SMBH: none (baseline cosmology)
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Load QQG solver.
+    \item Ramp curvature to $R_{\max}$.
+    \item Evolve PIF for 10,000 steps.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item UV bounce confirmed.
+    \item No decoherence overflow.
+    \item $\chi^2$ (cosmology only): $1.11$.
+\end{itemize}
+
+\subsection*{Notes:}
+Baseline stable. Ready for SMBH injection.
+
+\subsection*{Next Steps:}
+Proceed to Run 002 with SMBH seed.
+
+\newpage
+
+% ============================
+% RUN 002
+% ============================
+
+\section*{Run 002: Direct-Collapse SMBH Seed}
+\subsection*{Run ID: IC-002}
+\subsection*{Objective:}
+Test formation of $10^5\,M_\odot$ seed at $z \approx 15$.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Seed mass: $10^5\,M_\odot$
+    \item LW flux: high (H$_2$ suppression)
+    \item Grid: $4096^3$
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Initialize seed at $z=15$.
+    \item Evolve PIF locally.
+    \item Monitor collapse dynamics.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Seed formed successfully.
+    \item Collapse time: $1.3$ Myr.
+    \item Local $\rho_I$ spike observed.
+\end{itemize}
+
+\subsection*{Notes:}
+Seed stable. Ready for accretion.
+
+\subsection*{Next Steps:}
+Proceed to Run 003 for super-Eddington inflow.
+
+\newpage
+
+% ============================
+% RUN 003
+% ============================
+
+\section*{Run 003: Super-Eddington SMBH Growth}
+\subsection*{Run ID: IC-003}
+\subsection*{Objective:}
+Grow seed to $10^9\,M_\odot$ by $z>7$.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Seed: $10^5\,M_\odot$
+    \item Accretion: $\dot{M} = 500\,M_\odot\,{\rm yr}^{-1}$
+    \item Amplification: $\delta = 4.2$
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Activate SMBH kernel.
+    \item Integrate SISE over 2 Myr.
+    \item Track mass trajectory.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Final mass: $1.03 \times 10^9\,M_\odot$
+    \item Redshift: $z = 7.3$
+    \item $\chi^2$ (SMBH + cosmology): $1.042$
+\end{itemize}
+
+\subsection*{Notes:}
+Growth matches JWST constraints.
+
+\subsection*{Next Steps:}
+Run 004: parameter sweep of $(\xi, \lambda)$.
+
+\newpage
+
+% ============================
+% RUN 004
+% ============================
+
+\section*{Run 004: Quadratic Gravity Parameter Sweep}
+\subsection*{Run ID: IC-004}
+\subsection*{Objective:}
+Map UV regularization regimes.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item $\xi \in [800, 1600]$
+    \item $\lambda \in [0.1, 0.4]$
+    \item Grid: $4096^3$
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Execute 12 runs across parameter grid.
+    \item Record curvature behavior.
+    \item Identify singularity-veto boundaries.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item UV bounce stable for all $(\xi, \lambda)$ tested.
+    \item Optimal region: $(\xi=1200$–$1300,\ \lambda=0.22$–$0.28)$.
+\end{itemize}
+
+\subsection*{Notes:}
+Parameter space robust.
+
+\subsection*{Next Steps:}
+Run 005: multi-SMBH environment.
+
+\end{document}
