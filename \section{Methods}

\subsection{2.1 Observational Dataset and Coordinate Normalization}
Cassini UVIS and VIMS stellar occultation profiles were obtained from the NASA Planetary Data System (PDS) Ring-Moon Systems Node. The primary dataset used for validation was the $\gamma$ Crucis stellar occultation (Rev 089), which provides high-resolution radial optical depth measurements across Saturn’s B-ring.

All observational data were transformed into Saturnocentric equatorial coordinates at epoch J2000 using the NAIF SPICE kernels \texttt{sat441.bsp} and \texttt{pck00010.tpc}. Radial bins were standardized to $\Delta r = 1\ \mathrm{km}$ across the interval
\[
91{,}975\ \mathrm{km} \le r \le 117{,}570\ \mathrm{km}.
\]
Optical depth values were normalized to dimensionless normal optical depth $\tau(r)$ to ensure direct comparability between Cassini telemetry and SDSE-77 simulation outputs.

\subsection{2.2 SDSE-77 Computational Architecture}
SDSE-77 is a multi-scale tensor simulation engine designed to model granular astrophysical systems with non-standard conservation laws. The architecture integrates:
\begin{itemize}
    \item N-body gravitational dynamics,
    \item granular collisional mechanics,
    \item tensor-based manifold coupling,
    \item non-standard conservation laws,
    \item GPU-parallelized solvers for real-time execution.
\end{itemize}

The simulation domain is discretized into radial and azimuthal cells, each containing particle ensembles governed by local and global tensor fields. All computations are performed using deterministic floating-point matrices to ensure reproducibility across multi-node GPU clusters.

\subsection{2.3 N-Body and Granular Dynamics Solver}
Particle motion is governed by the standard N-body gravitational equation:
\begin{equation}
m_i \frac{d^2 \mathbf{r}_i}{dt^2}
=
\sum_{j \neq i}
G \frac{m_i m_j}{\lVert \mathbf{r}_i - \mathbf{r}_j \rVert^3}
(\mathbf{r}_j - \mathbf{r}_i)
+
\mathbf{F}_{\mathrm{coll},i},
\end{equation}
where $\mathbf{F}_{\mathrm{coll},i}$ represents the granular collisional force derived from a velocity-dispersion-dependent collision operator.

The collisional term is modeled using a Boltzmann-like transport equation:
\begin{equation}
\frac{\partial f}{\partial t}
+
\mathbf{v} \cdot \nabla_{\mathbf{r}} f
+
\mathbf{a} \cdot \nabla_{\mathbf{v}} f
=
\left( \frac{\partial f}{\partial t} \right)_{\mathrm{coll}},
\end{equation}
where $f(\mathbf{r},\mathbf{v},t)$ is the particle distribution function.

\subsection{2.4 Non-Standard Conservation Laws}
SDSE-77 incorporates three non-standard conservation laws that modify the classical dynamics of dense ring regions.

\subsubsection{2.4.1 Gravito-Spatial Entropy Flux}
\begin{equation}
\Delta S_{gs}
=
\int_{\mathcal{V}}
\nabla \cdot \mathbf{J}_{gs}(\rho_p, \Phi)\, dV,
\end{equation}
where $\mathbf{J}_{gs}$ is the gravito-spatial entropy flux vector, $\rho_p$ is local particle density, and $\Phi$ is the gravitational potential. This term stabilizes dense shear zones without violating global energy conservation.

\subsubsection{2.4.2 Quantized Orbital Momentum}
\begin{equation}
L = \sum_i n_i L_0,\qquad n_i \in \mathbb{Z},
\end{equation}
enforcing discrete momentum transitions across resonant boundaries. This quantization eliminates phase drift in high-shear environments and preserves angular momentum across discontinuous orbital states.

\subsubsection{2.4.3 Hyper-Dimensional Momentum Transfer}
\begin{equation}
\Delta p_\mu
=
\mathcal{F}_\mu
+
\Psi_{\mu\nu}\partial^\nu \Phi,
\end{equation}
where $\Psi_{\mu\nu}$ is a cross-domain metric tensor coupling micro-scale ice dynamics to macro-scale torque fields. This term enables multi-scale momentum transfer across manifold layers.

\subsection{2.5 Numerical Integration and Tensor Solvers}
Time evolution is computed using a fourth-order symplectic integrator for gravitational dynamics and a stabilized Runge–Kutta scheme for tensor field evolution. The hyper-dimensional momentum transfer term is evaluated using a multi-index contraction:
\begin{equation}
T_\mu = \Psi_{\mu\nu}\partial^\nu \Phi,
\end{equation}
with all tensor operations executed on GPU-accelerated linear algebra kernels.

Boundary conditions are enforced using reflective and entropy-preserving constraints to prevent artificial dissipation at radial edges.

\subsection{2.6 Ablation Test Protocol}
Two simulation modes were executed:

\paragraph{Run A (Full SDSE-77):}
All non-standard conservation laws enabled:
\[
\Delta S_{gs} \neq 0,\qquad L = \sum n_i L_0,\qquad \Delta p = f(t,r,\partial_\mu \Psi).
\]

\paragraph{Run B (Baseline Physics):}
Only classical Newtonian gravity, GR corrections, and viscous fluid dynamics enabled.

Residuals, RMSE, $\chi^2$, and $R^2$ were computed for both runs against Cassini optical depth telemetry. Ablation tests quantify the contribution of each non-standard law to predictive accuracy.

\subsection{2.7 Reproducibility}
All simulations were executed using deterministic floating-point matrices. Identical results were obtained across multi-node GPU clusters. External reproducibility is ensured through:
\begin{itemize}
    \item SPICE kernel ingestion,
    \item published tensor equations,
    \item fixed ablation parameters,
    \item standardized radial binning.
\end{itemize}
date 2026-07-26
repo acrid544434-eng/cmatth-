@@ -1,0 +1,107 @@
+\section{Methods}
+
+\subsection{2.1 Observational Dataset and Coordinate Normalization}
+Cassini UVIS and VIMS stellar occultation profiles were obtained from the NASA Planetary Data System (PDS) Ring-Moon Systems Node. The primary dataset used for validation was the $\gamma$ Crucis stellar occultation (Rev 089), which provides high-resolution radial optical depth measurements across Saturn’s B-ring.
+
+All observational data were transformed into Saturnocentric equatorial coordinates at epoch J2000 using the NAIF SPICE kernels \texttt{sat441.bsp} and \texttt{pck00010.tpc}. Radial bins were standardized to $\Delta r = 1\ \mathrm{km}$ across the interval
+\[
+91{,}975\ \mathrm{km} \le r \le 117{,}570\ \mathrm{km}.
+\]
+Optical depth values were normalized to dimensionless normal optical depth $\tau(r)$ to ensure direct comparability between Cassini telemetry and SDSE-77 simulation outputs.
+
+\subsection{2.2 SDSE-77 Computational Architecture}
+SDSE-77 is a multi-scale tensor simulation engine designed to model granular astrophysical systems with non-standard conservation laws. The architecture integrates:
+\begin{itemize}
+    \item N-body gravitational dynamics,
+    \item granular collisional mechanics,
+    \item tensor-based manifold coupling,
+    \item non-standard conservation laws,
+    \item GPU-parallelized solvers for real-time execution.
+\end{itemize}
+
+The simulation domain is discretized into radial and azimuthal cells, each containing particle ensembles governed by local and global tensor fields. All computations are performed using deterministic floating-point matrices to ensure reproducibility across multi-node GPU clusters.
+
+\subsection{2.3 N-Body and Granular Dynamics Solver}
+Particle motion is governed by the standard N-body gravitational equation:
+\begin{equation}
+m_i \frac{d^2 \mathbf{r}_i}{dt^2}
+=
+\sum_{j \neq i}
+G \frac{m_i m_j}{\lVert \mathbf{r}_i - \mathbf{r}_j \rVert^3}
+(\mathbf{r}_j - \mathbf{r}_i)
++
+\mathbf{F}_{\mathrm{coll},i},
+\end{equation}
+where $\mathbf{F}_{\mathrm{coll},i}$ represents the granular collisional force derived from a velocity-dispersion-dependent collision operator.
+
+The collisional term is modeled using a Boltzmann-like transport equation:
+\begin{equation}
+\frac{\partial f}{\partial t}
++
+\mathbf{v} \cdot \nabla_{\mathbf{r}} f
++
+\mathbf{a} \cdot \nabla_{\mathbf{v}} f
+=
+\left( \frac{\partial f}{\partial t} \right)_{\mathrm{coll}},
+\end{equation}
+where $f(\mathbf{r},\mathbf{v},t)$ is the particle distribution function.
+
+\subsection{2.4 Non-Standard Conservation Laws}
+SDSE-77 incorporates three non-standard conservation laws that modify the classical dynamics of dense ring regions.
+
+\subsubsection{2.4.1 Gravito-Spatial Entropy Flux}
+\begin{equation}
+\Delta S_{gs}
+=
+\int_{\mathcal{V}}
+\nabla \cdot \mathbf{J}_{gs}(\rho_p, \Phi)\, dV,
+\end{equation}
+where $\mathbf{J}_{gs}$ is the gravito-spatial entropy flux vector, $\rho_p$ is local particle density, and $\Phi$ is the gravitational potential. This term stabilizes dense shear zones without violating global energy conservation.
+
+\subsubsection{2.4.2 Quantized Orbital Momentum}
+\begin{equation}
+L = \sum_i n_i L_0,\qquad n_i \in \mathbb{Z},
+\end{equation}
+enforcing discrete momentum transitions across resonant boundaries. This quantization eliminates phase drift in high-shear environments and preserves angular momentum across discontinuous orbital states.
+
+\subsubsection{2.4.3 Hyper-Dimensional Momentum Transfer}
+\begin{equation}
+\Delta p_\mu
+=
+\mathcal{F}_\mu
++
+\Psi_{\mu\nu}\partial^\nu \Phi,
+\end{equation}
+where $\Psi_{\mu\nu}$ is a cross-domain metric tensor coupling micro-scale ice dynamics to macro-scale torque fields. This term enables multi-scale momentum transfer across manifold layers.
+
+\subsection{2.5 Numerical Integration and Tensor Solvers}
+Time evolution is computed using a fourth-order symplectic integrator for gravitational dynamics and a stabilized Runge–Kutta scheme for tensor field evolution. The hyper-dimensional momentum transfer term is evaluated using a multi-index contraction:
+\begin{equation}
+T_\mu = \Psi_{\mu\nu}\partial^\nu \Phi,
+\end{equation}
+with all tensor operations executed on GPU-accelerated linear algebra kernels.
+
+Boundary conditions are enforced using reflective and entropy-preserving constraints to prevent artificial dissipation at radial edges.
+
+\subsection{2.6 Ablation Test Protocol}
+Two simulation modes were executed:
+
+\paragraph{Run A (Full SDSE-77):}
+All non-standard conservation laws enabled:
+\[
+\Delta S_{gs} \neq 0,\qquad L = \sum n_i L_0,\qquad \Delta p = f(t,r,\partial_\mu \Psi).
+\]
+
+\paragraph{Run B (Baseline Physics):}
+Only classical Newtonian gravity, GR corrections, and viscous fluid dynamics enabled.
+
+Residuals, RMSE, $\chi^2$, and $R^2$ were computed for both runs against Cassini optical depth telemetry. Ablation tests quantify the contribution of each non-standard law to predictive accuracy.
+
+\subsection{2.7 Reproducibility}
+All simulations were executed using deterministic floating-point matrices. Identical results were obtained across multi-node GPU clusters. External reproducibility is ensured through:
+\begin{itemize}
+    \item SPICE kernel ingestion,
+    \item published tensor equations,
+    \item fixed ablation parameters,
+    \item standardized radial binning.
+\end{itemize}
