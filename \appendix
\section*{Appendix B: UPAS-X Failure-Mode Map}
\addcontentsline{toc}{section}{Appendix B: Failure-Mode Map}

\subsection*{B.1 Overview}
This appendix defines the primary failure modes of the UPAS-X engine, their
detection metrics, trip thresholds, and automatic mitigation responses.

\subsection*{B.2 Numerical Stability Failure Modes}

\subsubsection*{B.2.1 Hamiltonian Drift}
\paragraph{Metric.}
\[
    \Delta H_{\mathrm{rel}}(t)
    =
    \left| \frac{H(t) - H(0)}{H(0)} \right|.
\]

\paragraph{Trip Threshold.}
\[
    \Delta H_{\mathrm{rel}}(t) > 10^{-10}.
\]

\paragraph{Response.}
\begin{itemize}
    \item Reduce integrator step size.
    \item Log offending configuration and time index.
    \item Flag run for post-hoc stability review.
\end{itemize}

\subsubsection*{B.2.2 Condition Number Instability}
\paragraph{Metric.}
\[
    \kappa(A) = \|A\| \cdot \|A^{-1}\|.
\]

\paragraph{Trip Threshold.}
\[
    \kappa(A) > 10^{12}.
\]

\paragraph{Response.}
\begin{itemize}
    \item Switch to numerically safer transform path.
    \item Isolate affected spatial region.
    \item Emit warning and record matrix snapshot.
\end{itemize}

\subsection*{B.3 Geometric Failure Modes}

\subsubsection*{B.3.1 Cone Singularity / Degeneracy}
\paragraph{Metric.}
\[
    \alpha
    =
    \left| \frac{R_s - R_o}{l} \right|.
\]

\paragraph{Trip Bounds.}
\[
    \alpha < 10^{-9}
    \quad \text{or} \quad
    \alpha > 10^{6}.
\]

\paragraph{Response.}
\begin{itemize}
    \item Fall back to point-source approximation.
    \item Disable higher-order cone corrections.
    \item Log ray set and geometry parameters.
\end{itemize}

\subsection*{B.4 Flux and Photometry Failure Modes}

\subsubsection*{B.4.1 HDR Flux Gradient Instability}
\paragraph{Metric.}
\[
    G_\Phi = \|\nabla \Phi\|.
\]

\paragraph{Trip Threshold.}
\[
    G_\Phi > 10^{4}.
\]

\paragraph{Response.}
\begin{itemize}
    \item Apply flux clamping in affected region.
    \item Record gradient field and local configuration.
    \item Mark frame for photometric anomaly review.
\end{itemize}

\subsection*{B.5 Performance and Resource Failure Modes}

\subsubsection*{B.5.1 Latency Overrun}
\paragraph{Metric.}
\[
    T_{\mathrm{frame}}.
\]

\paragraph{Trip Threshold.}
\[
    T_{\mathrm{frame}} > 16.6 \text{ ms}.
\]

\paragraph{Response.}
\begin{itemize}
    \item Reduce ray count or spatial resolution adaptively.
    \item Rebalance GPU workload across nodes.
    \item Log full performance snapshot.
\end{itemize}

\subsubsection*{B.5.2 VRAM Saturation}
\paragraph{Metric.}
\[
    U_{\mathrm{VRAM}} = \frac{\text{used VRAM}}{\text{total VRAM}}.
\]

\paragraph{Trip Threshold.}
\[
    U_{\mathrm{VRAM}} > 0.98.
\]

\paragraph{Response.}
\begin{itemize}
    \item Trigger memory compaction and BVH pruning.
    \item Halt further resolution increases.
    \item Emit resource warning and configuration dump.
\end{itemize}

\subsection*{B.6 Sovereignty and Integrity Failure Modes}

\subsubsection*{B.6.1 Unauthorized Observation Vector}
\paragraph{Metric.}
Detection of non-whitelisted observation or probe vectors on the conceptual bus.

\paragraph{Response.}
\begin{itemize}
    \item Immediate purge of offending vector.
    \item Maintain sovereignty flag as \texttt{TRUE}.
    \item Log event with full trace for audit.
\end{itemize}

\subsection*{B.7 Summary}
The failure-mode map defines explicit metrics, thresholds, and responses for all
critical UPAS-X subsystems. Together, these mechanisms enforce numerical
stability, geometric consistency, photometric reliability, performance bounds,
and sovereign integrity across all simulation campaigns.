@@ -1,0 +1,148 @@
+\appendix
+\section*{Appendix B: UPAS-X Failure-Mode Map}
+\addcontentsline{toc}{section}{Appendix B: Failure-Mode Map}
+
+\subsection*{B.1 Overview}
+This appendix defines the primary failure modes of the UPAS-X engine, their
+detection metrics, trip thresholds, and automatic mitigation responses.
+
+\subsection*{B.2 Numerical Stability Failure Modes}
+
+\subsubsection*{B.2.1 Hamiltonian Drift}
+\paragraph{Metric.}
+\[
+    \Delta H_{\mathrm{rel}}(t)
+    =
+    \left| \frac{H(t) - H(0)}{H(0)} \right|.
+\]
+
+\paragraph{Trip Threshold.}
+\[
+    \Delta H_{\mathrm{rel}}(t) > 10^{-10}.
+\]
+
+\paragraph{Response.}
+\begin{itemize}
+    \item Reduce integrator step size.
+    \item Log offending configuration and time index.
+    \item Flag run for post-hoc stability review.
+\end{itemize}
+
+\subsubsection*{B.2.2 Condition Number Instability}
+\paragraph{Metric.}
+\[
+    \kappa(A) = \|A\| \cdot \|A^{-1}\|.
+\]
+
+\paragraph{Trip Threshold.}
+\[
+    \kappa(A) > 10^{12}.
+\]
+
+\paragraph{Response.}
+\begin{itemize}
+    \item Switch to numerically safer transform path.
+    \item Isolate affected spatial region.
+    \item Emit warning and record matrix snapshot.
+\end{itemize}
+
+\subsection*{B.3 Geometric Failure Modes}
+
+\subsubsection*{B.3.1 Cone Singularity / Degeneracy}
+\paragraph{Metric.}
+\[
+    \alpha
+    =
+    \left| \frac{R_s - R_o}{l} \right|.
+\]
+
+\paragraph{Trip Bounds.}
+\[
+    \alpha < 10^{-9}
+    \quad \text{or} \quad
+    \alpha > 10^{6}.
+\]
+
+\paragraph{Response.}
+\begin{itemize}
+    \item Fall back to point-source approximation.
+    \item Disable higher-order cone corrections.
+    \item Log ray set and geometry parameters.
+\end{itemize}
+
+\subsection*{B.4 Flux and Photometry Failure Modes}
+
+\subsubsection*{B.4.1 HDR Flux Gradient Instability}
+\paragraph{Metric.}
+\[
+    G_\Phi = \|\nabla \Phi\|.
+\]
+
+\paragraph{Trip Threshold.}
+\[
+    G_\Phi > 10^{4}.
+\]
+
+\paragraph{Response.}
+\begin{itemize}
+    \item Apply flux clamping in affected region.
+    \item Record gradient field and local configuration.
+    \item Mark frame for photometric anomaly review.
+\end{itemize}
+
+\subsection*{B.5 Performance and Resource Failure Modes}
+
+\subsubsection*{B.5.1 Latency Overrun}
+\paragraph{Metric.}
+\[
+    T_{\mathrm{frame}}.
+\]
+
+\paragraph{Trip Threshold.}
+\[
+    T_{\mathrm{frame}} > 16.6 \text{ ms}.
+\]
+
+\paragraph{Response.}
+\begin{itemize}
+    \item Reduce ray count or spatial resolution adaptively.
+    \item Rebalance GPU workload across nodes.
+    \item Log full performance snapshot.
+\end{itemize}
+
+\subsubsection*{B.5.2 VRAM Saturation}
+\paragraph{Metric.}
+\[
+    U_{\mathrm{VRAM}} = \frac{\text{used VRAM}}{\text{total VRAM}}.
+\]
+
+\paragraph{Trip Threshold.}
+\[
+    U_{\mathrm{VRAM}} > 0.98.
+\]
+
+\paragraph{Response.}
+\begin{itemize}
+    \item Trigger memory compaction and BVH pruning.
+    \item Halt further resolution increases.
+    \item Emit resource warning and configuration dump.
+\end{itemize}
+
+\subsection*{B.6 Sovereignty and Integrity Failure Modes}
+
+\subsubsection*{B.6.1 Unauthorized Observation Vector}
+\paragraph{Metric.}
+Detection of non-whitelisted observation or probe vectors on the conceptual bus.
+
+\paragraph{Response.}
+\begin{itemize}
+    \item Immediate purge of offending vector.
+    \item Maintain sovereignty flag as \texttt{TRUE}.
+    \item Log event with full trace for audit.
+\end{itemize}
+
+\subsection*{B.7 Summary}
+The failure-mode map defines explicit metrics, thresholds, and responses for all
+critical UPAS-X subsystems. Together, these mechanisms enforce numerical
+stability, geometric consistency, photometric reliability, performance bounds,
+and sovereign integrity across all simulation campaigns.
