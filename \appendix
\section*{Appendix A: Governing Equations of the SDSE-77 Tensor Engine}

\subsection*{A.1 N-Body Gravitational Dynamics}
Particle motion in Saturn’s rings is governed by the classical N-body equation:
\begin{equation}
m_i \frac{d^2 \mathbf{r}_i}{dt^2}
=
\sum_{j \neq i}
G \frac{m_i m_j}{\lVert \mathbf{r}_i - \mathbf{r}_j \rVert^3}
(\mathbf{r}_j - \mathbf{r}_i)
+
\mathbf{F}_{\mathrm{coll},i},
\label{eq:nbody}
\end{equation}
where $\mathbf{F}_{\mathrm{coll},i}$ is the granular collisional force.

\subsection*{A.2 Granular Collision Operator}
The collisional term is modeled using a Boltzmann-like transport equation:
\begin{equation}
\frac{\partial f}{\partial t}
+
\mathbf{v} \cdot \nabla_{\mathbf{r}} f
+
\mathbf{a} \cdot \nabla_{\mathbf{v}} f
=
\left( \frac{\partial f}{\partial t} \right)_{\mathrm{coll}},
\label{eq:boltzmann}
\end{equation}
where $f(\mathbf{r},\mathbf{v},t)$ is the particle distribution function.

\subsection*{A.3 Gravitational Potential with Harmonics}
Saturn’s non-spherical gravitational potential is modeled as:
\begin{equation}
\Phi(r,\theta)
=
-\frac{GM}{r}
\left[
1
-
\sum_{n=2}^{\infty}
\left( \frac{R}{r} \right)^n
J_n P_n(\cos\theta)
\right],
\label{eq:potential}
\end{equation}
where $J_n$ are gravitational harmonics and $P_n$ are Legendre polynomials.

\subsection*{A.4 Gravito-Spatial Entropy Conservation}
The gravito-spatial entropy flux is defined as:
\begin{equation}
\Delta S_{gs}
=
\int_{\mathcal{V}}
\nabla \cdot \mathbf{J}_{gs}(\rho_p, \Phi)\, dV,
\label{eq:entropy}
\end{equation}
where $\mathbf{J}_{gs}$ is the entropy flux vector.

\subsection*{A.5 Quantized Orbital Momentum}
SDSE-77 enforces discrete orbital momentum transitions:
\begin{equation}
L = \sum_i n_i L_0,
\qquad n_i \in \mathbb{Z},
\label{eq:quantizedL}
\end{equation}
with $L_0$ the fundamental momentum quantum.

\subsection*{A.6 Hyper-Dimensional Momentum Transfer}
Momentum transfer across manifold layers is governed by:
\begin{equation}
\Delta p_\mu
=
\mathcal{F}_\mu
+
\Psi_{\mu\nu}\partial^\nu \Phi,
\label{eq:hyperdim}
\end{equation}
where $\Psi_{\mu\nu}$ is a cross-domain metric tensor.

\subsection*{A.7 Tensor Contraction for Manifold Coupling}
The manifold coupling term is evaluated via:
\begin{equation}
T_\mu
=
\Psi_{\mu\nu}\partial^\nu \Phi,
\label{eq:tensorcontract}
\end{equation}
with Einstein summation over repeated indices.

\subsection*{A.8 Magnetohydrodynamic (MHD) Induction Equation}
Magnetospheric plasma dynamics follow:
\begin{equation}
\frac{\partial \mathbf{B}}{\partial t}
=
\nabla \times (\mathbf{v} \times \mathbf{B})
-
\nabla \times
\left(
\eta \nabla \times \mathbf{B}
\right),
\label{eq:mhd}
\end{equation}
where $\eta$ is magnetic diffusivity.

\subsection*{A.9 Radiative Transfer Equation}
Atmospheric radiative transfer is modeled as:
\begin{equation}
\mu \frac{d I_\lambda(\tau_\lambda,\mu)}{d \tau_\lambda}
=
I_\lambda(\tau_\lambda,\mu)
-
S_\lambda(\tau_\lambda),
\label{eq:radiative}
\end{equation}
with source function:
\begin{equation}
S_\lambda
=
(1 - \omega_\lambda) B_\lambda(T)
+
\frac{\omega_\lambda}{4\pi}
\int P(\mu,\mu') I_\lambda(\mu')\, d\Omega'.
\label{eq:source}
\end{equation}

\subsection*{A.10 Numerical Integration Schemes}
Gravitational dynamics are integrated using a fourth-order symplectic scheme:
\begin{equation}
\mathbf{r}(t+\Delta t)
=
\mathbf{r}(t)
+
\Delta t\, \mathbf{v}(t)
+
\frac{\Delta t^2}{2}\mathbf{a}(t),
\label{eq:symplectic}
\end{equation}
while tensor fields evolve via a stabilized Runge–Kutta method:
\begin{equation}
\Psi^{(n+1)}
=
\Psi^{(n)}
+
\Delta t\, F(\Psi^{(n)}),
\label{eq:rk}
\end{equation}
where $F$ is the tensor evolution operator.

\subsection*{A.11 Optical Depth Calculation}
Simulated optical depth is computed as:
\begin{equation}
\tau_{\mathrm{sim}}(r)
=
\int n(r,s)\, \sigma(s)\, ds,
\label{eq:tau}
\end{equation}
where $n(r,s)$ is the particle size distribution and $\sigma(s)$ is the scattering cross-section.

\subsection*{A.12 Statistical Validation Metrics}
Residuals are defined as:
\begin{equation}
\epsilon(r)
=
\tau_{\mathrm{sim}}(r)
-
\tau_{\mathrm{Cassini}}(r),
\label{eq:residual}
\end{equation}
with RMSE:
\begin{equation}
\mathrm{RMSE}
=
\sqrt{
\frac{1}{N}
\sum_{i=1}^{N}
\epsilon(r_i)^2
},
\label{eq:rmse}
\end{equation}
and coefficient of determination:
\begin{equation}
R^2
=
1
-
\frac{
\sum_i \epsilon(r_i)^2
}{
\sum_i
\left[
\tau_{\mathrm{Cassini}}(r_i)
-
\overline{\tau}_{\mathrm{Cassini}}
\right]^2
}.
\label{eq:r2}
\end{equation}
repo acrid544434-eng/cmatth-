@@ -1,0 +1,198 @@
+\appendix
+\section*{Appendix A: Governing Equations of the SDSE-77 Tensor Engine}
+
+\subsection*{A.1 N-Body Gravitational Dynamics}
+Particle motion in Saturn’s rings is governed by the classical N-body equation:
+\begin{equation}
+m_i \frac{d^2 \mathbf{r}_i}{dt^2}
+=
+\sum_{j \neq i}
+G \frac{m_i m_j}{\lVert \mathbf{r}_i - \mathbf{r}_j \rVert^3}
+(\mathbf{r}_j - \mathbf{r}_i)
++
+\mathbf{F}_{\mathrm{coll},i},
+\label{eq:nbody}
+\end{equation}
+where $\mathbf{F}_{\mathrm{coll},i}$ is the granular collisional force.
+
+\subsection*{A.2 Granular Collision Operator}
+The collisional term is modeled using a Boltzmann-like transport equation:
+\begin{equation}
+\frac{\partial f}{\partial t}
++
+\mathbf{v} \cdot \nabla_{\mathbf{r}} f
++
+\mathbf{a} \cdot \nabla_{\mathbf{v}} f
+=
+\left( \frac{\partial f}{\partial t} \right)_{\mathrm{coll}},
+\label{eq:boltzmann}
+\end{equation}
+where $f(\mathbf{r},\mathbf{v},t)$ is the particle distribution function.
+
+\subsection*{A.3 Gravitational Potential with Harmonics}
+Saturn’s non-spherical gravitational potential is modeled as:
+\begin{equation}
+\Phi(r,\theta)
+=
+-\frac{GM}{r}
+\left[
+1
+-
+\sum_{n=2}^{\infty}
+\left( \frac{R}{r} \right)^n
+J_n P_n(\cos\theta)
+\right],
+\label{eq:potential}
+\end{equation}
+where $J_n$ are gravitational harmonics and $P_n$ are Legendre polynomials.
+
+\subsection*{A.4 Gravito-Spatial Entropy Conservation}
+The gravito-spatial entropy flux is defined as:
+\begin{equation}
+\Delta S_{gs}
+=
+\int_{\mathcal{V}}
+\nabla \cdot \mathbf{J}_{gs}(\rho_p, \Phi)\, dV,
+\label{eq:entropy}
+\end{equation}
+where $\mathbf{J}_{gs}$ is the entropy flux vector.
+
+\subsection*{A.5 Quantized Orbital Momentum}
+SDSE-77 enforces discrete orbital momentum transitions:
+\begin{equation}
+L = \sum_i n_i L_0,
+\qquad n_i \in \mathbb{Z},
+\label{eq:quantizedL}
+\end{equation}
+with $L_0$ the fundamental momentum quantum.
+
+\subsection*{A.6 Hyper-Dimensional Momentum Transfer}
+Momentum transfer across manifold layers is governed by:
+\begin{equation}
+\Delta p_\mu
+=
+\mathcal{F}_\mu
++
+\Psi_{\mu\nu}\partial^\nu \Phi,
+\label{eq:hyperdim}
+\end{equation}
+where $\Psi_{\mu\nu}$ is a cross-domain metric tensor.
+
+\subsection*{A.7 Tensor Contraction for Manifold Coupling}
+The manifold coupling term is evaluated via:
+\begin{equation}
+T_\mu
+=
+\Psi_{\mu\nu}\partial^\nu \Phi,
+\label{eq:tensorcontract}
+\end{equation}
+with Einstein summation over repeated indices.
+
+\subsection*{A.8 Magnetohydrodynamic (MHD) Induction Equation}
+Magnetospheric plasma dynamics follow:
+\begin{equation}
+\frac{\partial \mathbf{B}}{\partial t}
+=
+\nabla \times (\mathbf{v} \times \mathbf{B})
+-
+\nabla \times
+\left(
+\eta \nabla \times \mathbf{B}
+\right),
+\label{eq:mhd}
+\end{equation}
+where $\eta$ is magnetic diffusivity.
+
+\subsection*{A.9 Radiative Transfer Equation}
+Atmospheric radiative transfer is modeled as:
+\begin{equation}
+\mu \frac{d I_\lambda(\tau_\lambda,\mu)}{d \tau_\lambda}
+=
+I_\lambda(\tau_\lambda,\mu)
+-
+S_\lambda(\tau_\lambda),
+\label{eq:radiative}
+\end{equation}
+with source function:
+\begin{equation}
+S_\lambda
+=
+(1 - \omega_\lambda) B_\lambda(T)
++
+\frac{\omega_\lambda}{4\pi}
+\int P(\mu,\mu') I_\lambda(\mu')\, d\Omega'.
+\label{eq:source}
+\end{equation}
+
+\subsection*{A.10 Numerical Integration Schemes}
+Gravitational dynamics are integrated using a fourth-order symplectic scheme:
+\begin{equation}
+\mathbf{r}(t+\Delta t)
+=
+\mathbf{r}(t)
++
+\Delta t\, \mathbf{v}(t)
++
+\frac{\Delta t^2}{2}\mathbf{a}(t),
+\label{eq:symplectic}
+\end{equation}
+while tensor fields evolve via a stabilized Runge–Kutta method:
+\begin{equation}
+\Psi^{(n+1)}
+=
+\Psi^{(n)}
++
+\Delta t\, F(\Psi^{(n)}),
+\label{eq:rk}
+\end{equation}
+where $F$ is the tensor evolution operator.
+
+\subsection*{A.11 Optical Depth Calculation}
+Simulated optical depth is computed as:
+\begin{equation}
+\tau_{\mathrm{sim}}(r)
+=
+\int n(r,s)\, \sigma(s)\, ds,
+\label{eq:tau}
+\end{equation}
+where $n(r,s)$ is the particle size distribution and $\sigma(s)$ is the scattering cross-section.
+
+\subsection*{A.12 Statistical Validation Metrics}
+Residuals are defined as:
+\begin{equation}
+\epsilon(r)
+=
+\tau_{\mathrm{sim}}(r)
+-
+\tau_{\mathrm{Cassini}}(r),
+\label{eq:residual}
+\end{equation}
+with RMSE:
+\begin{equation}
+\mathrm{RMSE}
+=
+\sqrt{
+\frac{1}{N}
+\sum_{i=1}^{N}
+\epsilon(r_i)^2
+},
+\label{eq:rmse}
+\end{equation}
+and coefficient of determination:
+\begin{equation}
+R^2
+=
+1
+-
+\frac{
+\sum_i \epsilon(r_i)^2
+}{
+\sum_i
+\left[
+\tau_{\mathrm{Cassini}}(r_i)
+-
+\overline{\tau}_{\mathrm{Cassini}}
+\right]^2
+}.
+\label{eq:r2}
+\end{equation}
