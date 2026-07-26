@@ -1,0 +1,14 @@
+\section{Supermassive Black Hole Growth}
+
+Black holes act as informational sinks. The growth law is:
+\begin{equation}
+\dot{M}_{\rm BH} = \gamma\,\rho_I\,A_0(1+\delta),
+\end{equation}
+where $\gamma$ is the conversion coefficient, $A_0$ the baseline capture area,
+and $\delta$ the chaotic inflow amplification factor.
+
+The integrated mass is:
+\begin{equation}
+M_{\rm BH}(t) = M_{\rm seed} 
++ \gamma A_0 (1+\delta) \int_{t_0}^{t} \rho_I(t')\,dt'.
+\end{equation}
