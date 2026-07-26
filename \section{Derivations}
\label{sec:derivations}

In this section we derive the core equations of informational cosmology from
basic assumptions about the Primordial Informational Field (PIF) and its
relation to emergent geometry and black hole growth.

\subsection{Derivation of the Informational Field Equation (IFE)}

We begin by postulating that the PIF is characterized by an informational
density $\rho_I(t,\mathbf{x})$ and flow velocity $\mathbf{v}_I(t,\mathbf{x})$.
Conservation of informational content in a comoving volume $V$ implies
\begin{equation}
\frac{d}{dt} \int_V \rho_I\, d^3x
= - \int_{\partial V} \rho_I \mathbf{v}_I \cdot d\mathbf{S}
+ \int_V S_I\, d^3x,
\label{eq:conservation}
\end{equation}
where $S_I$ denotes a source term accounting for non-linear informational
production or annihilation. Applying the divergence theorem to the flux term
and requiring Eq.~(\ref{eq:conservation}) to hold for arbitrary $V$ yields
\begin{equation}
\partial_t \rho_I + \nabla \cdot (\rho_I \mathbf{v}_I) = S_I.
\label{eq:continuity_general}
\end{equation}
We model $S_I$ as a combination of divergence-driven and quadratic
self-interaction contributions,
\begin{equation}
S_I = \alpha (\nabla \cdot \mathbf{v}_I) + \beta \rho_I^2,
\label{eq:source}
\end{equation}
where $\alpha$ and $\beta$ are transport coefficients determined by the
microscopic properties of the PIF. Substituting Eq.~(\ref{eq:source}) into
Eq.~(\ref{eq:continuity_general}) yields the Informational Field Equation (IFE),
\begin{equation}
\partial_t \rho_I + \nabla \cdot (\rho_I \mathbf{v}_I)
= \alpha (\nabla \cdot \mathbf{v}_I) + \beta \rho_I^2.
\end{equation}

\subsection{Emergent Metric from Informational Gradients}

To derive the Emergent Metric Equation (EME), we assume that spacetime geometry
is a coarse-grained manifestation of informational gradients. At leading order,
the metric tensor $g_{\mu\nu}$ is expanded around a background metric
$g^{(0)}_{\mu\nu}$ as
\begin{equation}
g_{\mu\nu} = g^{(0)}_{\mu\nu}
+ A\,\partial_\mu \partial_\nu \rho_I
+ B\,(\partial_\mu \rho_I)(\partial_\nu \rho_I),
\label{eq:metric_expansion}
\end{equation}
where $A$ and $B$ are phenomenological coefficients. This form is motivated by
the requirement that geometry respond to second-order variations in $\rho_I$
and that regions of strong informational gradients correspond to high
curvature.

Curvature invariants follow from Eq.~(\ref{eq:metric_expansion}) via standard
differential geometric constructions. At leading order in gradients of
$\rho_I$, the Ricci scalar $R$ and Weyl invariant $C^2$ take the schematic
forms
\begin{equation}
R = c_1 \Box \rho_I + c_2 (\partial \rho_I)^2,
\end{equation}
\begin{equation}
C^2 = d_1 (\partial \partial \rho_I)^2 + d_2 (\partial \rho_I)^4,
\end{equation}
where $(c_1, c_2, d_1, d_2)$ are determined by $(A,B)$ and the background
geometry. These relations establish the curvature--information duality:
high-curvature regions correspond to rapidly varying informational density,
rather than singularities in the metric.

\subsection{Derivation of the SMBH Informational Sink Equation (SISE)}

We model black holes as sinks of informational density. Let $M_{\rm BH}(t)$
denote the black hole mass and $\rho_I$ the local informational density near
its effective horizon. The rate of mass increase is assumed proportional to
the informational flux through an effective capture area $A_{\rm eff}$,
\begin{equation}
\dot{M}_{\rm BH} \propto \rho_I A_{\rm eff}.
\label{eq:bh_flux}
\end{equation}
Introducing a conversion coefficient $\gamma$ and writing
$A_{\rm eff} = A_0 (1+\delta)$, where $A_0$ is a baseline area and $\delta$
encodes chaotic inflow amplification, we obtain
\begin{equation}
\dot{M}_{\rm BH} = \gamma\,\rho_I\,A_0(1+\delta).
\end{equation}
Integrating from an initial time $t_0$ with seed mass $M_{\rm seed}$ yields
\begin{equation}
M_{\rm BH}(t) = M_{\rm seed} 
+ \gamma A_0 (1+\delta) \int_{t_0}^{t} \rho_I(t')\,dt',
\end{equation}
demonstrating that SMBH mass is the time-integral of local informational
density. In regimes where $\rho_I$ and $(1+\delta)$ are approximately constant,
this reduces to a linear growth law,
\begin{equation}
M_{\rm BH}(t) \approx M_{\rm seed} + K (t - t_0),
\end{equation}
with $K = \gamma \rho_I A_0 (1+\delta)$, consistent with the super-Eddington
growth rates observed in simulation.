@@ -1,0 +1,100 @@
+\section{Derivations}
+\label{sec:derivations}
+
+In this section we derive the core equations of informational cosmology from
+basic assumptions about the Primordial Informational Field (PIF) and its
+relation to emergent geometry and black hole growth.
+
+\subsection{Derivation of the Informational Field Equation (IFE)}
+
+We begin by postulating that the PIF is characterized by an informational
+density $\rho_I(t,\mathbf{x})$ and flow velocity $\mathbf{v}_I(t,\mathbf{x})$.
+Conservation of informational content in a comoving volume $V$ implies
+\begin{equation}
+\frac{d}{dt} \int_V \rho_I\, d^3x
+= - \int_{\partial V} \rho_I \mathbf{v}_I \cdot d\mathbf{S}
++ \int_V S_I\, d^3x,
+\label{eq:conservation}
+\end{equation}
+where $S_I$ denotes a source term accounting for non-linear informational
+production or annihilation. Applying the divergence theorem to the flux term
+and requiring Eq.~(\ref{eq:conservation}) to hold for arbitrary $V$ yields
+\begin{equation}
+\partial_t \rho_I + \nabla \cdot (\rho_I \mathbf{v}_I) = S_I.
+\label{eq:continuity_general}
+\end{equation}
+We model $S_I$ as a combination of divergence-driven and quadratic
+self-interaction contributions,
+\begin{equation}
+S_I = \alpha (\nabla \cdot \mathbf{v}_I) + \beta \rho_I^2,
+\label{eq:source}
+\end{equation}
+where $\alpha$ and $\beta$ are transport coefficients determined by the
+microscopic properties of the PIF. Substituting Eq.~(\ref{eq:source}) into
+Eq.~(\ref{eq:continuity_general}) yields the Informational Field Equation (IFE),
+\begin{equation}
+\partial_t \rho_I + \nabla \cdot (\rho_I \mathbf{v}_I)
+= \alpha (\nabla \cdot \mathbf{v}_I) + \beta \rho_I^2.
+\end{equation}
+
+\subsection{Emergent Metric from Informational Gradients}
+
+To derive the Emergent Metric Equation (EME), we assume that spacetime geometry
+is a coarse-grained manifestation of informational gradients. At leading order,
+the metric tensor $g_{\mu\nu}$ is expanded around a background metric
+$g^{(0)}_{\mu\nu}$ as
+\begin{equation}
+g_{\mu\nu} = g^{(0)}_{\mu\nu}
++ A\,\partial_\mu \partial_\nu \rho_I
++ B\,(\partial_\mu \rho_I)(\partial_\nu \rho_I),
+\label{eq:metric_expansion}
+\end{equation}
+where $A$ and $B$ are phenomenological coefficients. This form is motivated by
+the requirement that geometry respond to second-order variations in $\rho_I$
+and that regions of strong informational gradients correspond to high
+curvature.
+
+Curvature invariants follow from Eq.~(\ref{eq:metric_expansion}) via standard
+differential geometric constructions. At leading order in gradients of
+$\rho_I$, the Ricci scalar $R$ and Weyl invariant $C^2$ take the schematic
+forms
+\begin{equation}
+R = c_1 \Box \rho_I + c_2 (\partial \rho_I)^2,
+\end{equation}
+\begin{equation}
+C^2 = d_1 (\partial \partial \rho_I)^2 + d_2 (\partial \rho_I)^4,
+\end{equation}
+where $(c_1, c_2, d_1, d_2)$ are determined by $(A,B)$ and the background
+geometry. These relations establish the curvature--information duality:
+high-curvature regions correspond to rapidly varying informational density,
+rather than singularities in the metric.
+
+\subsection{Derivation of the SMBH Informational Sink Equation (SISE)}
+
+We model black holes as sinks of informational density. Let $M_{\rm BH}(t)$
+denote the black hole mass and $\rho_I$ the local informational density near
+its effective horizon. The rate of mass increase is assumed proportional to
+the informational flux through an effective capture area $A_{\rm eff}$,
+\begin{equation}
+\dot{M}_{\rm BH} \propto \rho_I A_{\rm eff}.
+\label{eq:bh_flux}
+\end{equation}
+Introducing a conversion coefficient $\gamma$ and writing
+$A_{\rm eff} = A_0 (1+\delta)$, where $A_0$ is a baseline area and $\delta$
+encodes chaotic inflow amplification, we obtain
+\begin{equation}
+\dot{M}_{\rm BH} = \gamma\,\rho_I\,A_0(1+\delta).
+\end{equation}
+Integrating from an initial time $t_0$ with seed mass $M_{\rm seed}$ yields
+\begin{equation}
+M_{\rm BH}(t) = M_{\rm seed} 
++ \gamma A_0 (1+\delta) \int_{t_0}^{t} \rho_I(t')\,dt',
+\end{equation}
+demonstrating that SMBH mass is the time-integral of local informational
+density. In regimes where $\rho_I$ and $(1+\delta)$ are approximately constant,
+this reduces to a linear growth law,
+\begin{equation}
+M_{\rm BH}(t) \approx M_{\rm seed} + K (t - t_0),
+\end{equation}
+with $K = \gamma \rho_I A_0 (1+\delta)$, consistent with the super-Eddington
+growth rates observed in simulation.
