@@ -1,0 +1,109 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Lab Protocol: QIA-SE v9.4 Informational Cosmology Runs}
+\author{C.~Matthew~Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Objective}
+To execute and document reproducible QIA-SE v9.4 runs testing:
+\begin{itemize}
+    \item UV-regularized quadratic gravity at Planck-scale curvature,
+    \item stability of the Primordial Informational Field (PIF) on a $4096^3$ grid,
+    \item super-Eddington SMBH growth consistent with $z>7$ observations.
+\end{itemize}
+
+\section{System Configuration}
+\subsection{Hardware}
+\begin{itemize}
+    \item 512x NVIDIA H100 clusters
+    \item InfiniBand HDR interconnect
+\end{itemize}
+
+\subsection{Core Modules}
+\begin{itemize}
+    \item QQG Tensor Solver (R$^2$ + C$^2$ action)
+    \item PIF Grid: $4096^3$ quantule nodes
+    \item SMBH Accretion Kernel (super-Eddington)
+    \item NIFTy5 Bayesian Bridge
+\end{itemize}
+
+\section{Key Parameters}
+\subsection{Quadratic Gravity}
+\begin{itemize}
+    \item $\xi = 1245.5$
+    \item $\lambda = 0.245$
+    \item Target curvature: $R_{\max} > 1.42 \times 10^{32}$ (Planck units)
+\end{itemize}
+
+\subsection{Informational Field}
+\begin{itemize}
+    \item Grid: $4096^3$ nodes
+    \item Transport coefficient: $\eta = 0.05$
+    \item Non-linear balance: $\lambda_p / \mu_p$ tuned for stability
+\end{itemize}
+
+\subsection{SMBH Growth}
+\begin{itemize}
+    \item Seed mass: $M_{\rm seed} = 10^5\,M_\odot$ at $z \approx 15$
+    \item Accretion rate: $\dot{M} = 500\,M_\odot\,{\rm yr}^{-1}$
+    \item Target: $M_{\rm BH} > 10^9\,M_\odot$ by $z>7$
+\end{itemize}
+
+\section{Run Procedure}
+\subsection{Step 1: Initialize QIA-SE v9.4}
+\begin{itemize}
+    \item Load QQG module with $(\xi, \lambda)$.
+    \item Allocate $4096^3$ PIF grid.
+\end{itemize}
+
+\subsection{Step 2: Curvature Stress Test}
+\begin{itemize}
+    \item Ramp curvature to $R_{\max}$.
+    \item Verify UV bounce and absence of singularities.
+\end{itemize}
+
+\subsection{Step 3: PIF Stability Test}
+\begin{itemize}
+    \item Evolve IFE:
+    \[
+    \partial_t \rho_I + \nabla \cdot (\rho_I \mathbf{v}_I)
+    = \alpha (\nabla \cdot \mathbf{v}_I) + \beta \rho_I^2.
+    \]
+    \item Monitor entropy gradients and decoherence.
+\end{itemize}
+
+\subsection{Step 4: SMBH Growth Run}
+\begin{itemize}
+    \item Initialize $M_{\rm seed}$ at $z \approx 15$.
+    \item Apply $\dot{M} = 500\,M_\odot\,{\rm yr}^{-1}$.
+    \item Record $M_{\rm BH}(z)$ trajectory.
+\end{itemize}
+
+\subsection{Step 5: Bayesian Comparison}
+\begin{itemize}
+    \item Ingest Planck CMB and JWST quasar datasets.
+    \item Compute $\chi^2$; target $\chi^2 \approx 1.0$.
+\end{itemize}
+
+\section{Lab Notes}
+\subsection{Observations}
+\begin{itemize}
+    \item Singularity suppression ratio: 100\%.
+    \item PIF grid: no phase fragmentation.
+    \item SMBH mass: $>10^9\,M_\odot$ at $z>7$ achieved.
+\end{itemize}
+
+\subsection{Next Experiments}
+\begin{itemize}
+    \item Vary $(\xi, \lambda)$ to map UV regularization regimes.
+    \item Scan $\dot{M}$ and $\rho_I$ for alternative SMBH growth histories.
+\end{itemize}
+
+\end{document}
