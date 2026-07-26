@@ -1,0 +1,142 @@
+\appendix
+\section*{Appendix C: UPAS-X Reproducibility Protocol}
+\addcontentsline{toc}{section}{Appendix C: Reproducibility Protocol}
+
+\subsection*{C.1 Purpose}
+This appendix defines the reproducibility protocol required to ensure that all
+UPAS-X simulation campaigns produce bit-for-bit identical results across
+independent hardware clusters, execution environments, and temporal runs.
+
+\subsection*{C.2 Deterministic Execution Framework}
+
+\subsubsection*{C.2.1 Cryptographic Seed Locking}
+\paragraph{Protocol.}
+All stochastic or pseudo-random components of UPAS-X are seeded using a
+SHA-256-derived entropy pool synchronized across all MPI ranks.
+
+\paragraph{Seed Definition.}
+\[
+    S_{\mathrm{global}}
+    =
+    \mathrm{SHA256}
+    \big(
+        T_{\mathrm{init}}
+        \parallel
+        \mathrm{UUID}_{\mathrm{campaign}}
+        \parallel
+        \mathrm{Config}_{\mathrm{hash}}
+    \big).
+\]
+
+\paragraph{Requirements.}
+\begin{itemize}
+    \item Identical seeds across all nodes.
+    \item No runtime reseeding permitted.
+    \item Seed stored in immutable configuration manifest.
+\end{itemize}
+
+\subsubsection*{C.2.2 Deterministic Kernel Execution}
+\paragraph{Protocol.}
+All CUDA kernels must operate in deterministic mode:
+\begin{itemize}
+    \item No atomic race conditions.
+    \item No non-deterministic warp scheduling.
+    \item No floating-point reduction order variability.
+\end{itemize}
+
+\paragraph{Constraint.}
+\[
+    K_{\mathrm{det}}(x,t) = K_{\mathrm{det}}(x,t') \quad
+    \forall t,t'.
+\]
+
+\subsection*{C.3 Immutable Configuration Manifests}
+
+\subsubsection*{C.3.1 Manifest Structure}
+Each UPAS-X run must include a JSON configuration manifest containing:
+\begin{itemize}
+    \item Ephemeris vectors and reference frames.
+    \item PPN gravity flags and relativistic parameters.
+    \item BVH construction parameters.
+    \item Flux model coefficients.
+    \item Random seed and entropy pool hash.
+    \item Hardware topology snapshot.
+\end{itemize}
+
+\paragraph{Manifest Hash.}
+\[
+    H_{\mathrm{manifest}}
+    =
+    \mathrm{SHA256}
+    \big(
+        \mathrm{Manifest}_{\mathrm{JSON}}
+    \big).
+\]
+
+\subsection*{C.4 Versioning and Protocol Control}
+
+\subsubsection*{C.4.1 Semantic Versioning}
+All UPAS-X campaigns must adhere to strict semantic versioning:
+\[
+    v = (\mathrm{major}, \mathrm{minor}, \mathrm{patch}).
+\]
+
+\paragraph{Rules.}
+\begin{itemize}
+    \item Major version increments for architectural changes.
+    \item Minor version increments for parameter or dataset changes.
+    \item Patch increments for bug fixes or documentation updates.
+\end{itemize}
+
+\subsubsection*{C.4.2 Protocol Sheet Locking}
+Each run must reference a versioned protocol sheet authored by
+C.~Matthew~Blackwell. No deviation from the sheet is permitted once execution
+begins.
+
+\subsection*{C.5 Cross-Cluster Reproducibility}
+
+\subsubsection*{C.5.1 Hardware Independence}
+Reproducibility must hold across:
+\begin{itemize}
+    \item Different GPU batches.
+    \item Different node counts.
+    \item Different interconnect topologies.
+\end{itemize}
+
+\paragraph{Constraint.}
+\[
+    R_{\mathrm{clusterA}} = R_{\mathrm{clusterB}}
+    \quad \text{(bit-for-bit)}.
+\]
+
+\subsubsection*{C.5.2 Temporal Independence}
+Runs executed at different times must produce identical results:
+\[
+    R(t_1) = R(t_2).
+\]
+
+\subsection*{C.6 Logging and Audit Requirements}
+
+\subsubsection*{C.6.1 Execution Log}
+Each run must produce:
+\begin{itemize}
+    \item Kernel execution logs.
+    \item BVH traversal depth logs.
+    \item Flux gradient logs.
+    \item Hamiltonian drift logs.
+\end{itemize}
+
+\subsubsection*{C.6.2 Provenance Record}
+A provenance record must be generated containing:
+\begin{itemize}
+    \item Manifest hash.
+    \item Seed hash.
+    \item Protocol version.
+    \item Hardware snapshot.
+\end{itemize}
+
+\subsection*{C.7 Reproducibility Summary}
+The UPAS-X reproducibility protocol ensures deterministic execution, immutable
+configuration control, strict versioning, and cross-cluster consistency. These
+requirements guarantee that all scientific results derived from UPAS-X are
+verifiable, repeatable, and suitable for peer-reviewed publication.
