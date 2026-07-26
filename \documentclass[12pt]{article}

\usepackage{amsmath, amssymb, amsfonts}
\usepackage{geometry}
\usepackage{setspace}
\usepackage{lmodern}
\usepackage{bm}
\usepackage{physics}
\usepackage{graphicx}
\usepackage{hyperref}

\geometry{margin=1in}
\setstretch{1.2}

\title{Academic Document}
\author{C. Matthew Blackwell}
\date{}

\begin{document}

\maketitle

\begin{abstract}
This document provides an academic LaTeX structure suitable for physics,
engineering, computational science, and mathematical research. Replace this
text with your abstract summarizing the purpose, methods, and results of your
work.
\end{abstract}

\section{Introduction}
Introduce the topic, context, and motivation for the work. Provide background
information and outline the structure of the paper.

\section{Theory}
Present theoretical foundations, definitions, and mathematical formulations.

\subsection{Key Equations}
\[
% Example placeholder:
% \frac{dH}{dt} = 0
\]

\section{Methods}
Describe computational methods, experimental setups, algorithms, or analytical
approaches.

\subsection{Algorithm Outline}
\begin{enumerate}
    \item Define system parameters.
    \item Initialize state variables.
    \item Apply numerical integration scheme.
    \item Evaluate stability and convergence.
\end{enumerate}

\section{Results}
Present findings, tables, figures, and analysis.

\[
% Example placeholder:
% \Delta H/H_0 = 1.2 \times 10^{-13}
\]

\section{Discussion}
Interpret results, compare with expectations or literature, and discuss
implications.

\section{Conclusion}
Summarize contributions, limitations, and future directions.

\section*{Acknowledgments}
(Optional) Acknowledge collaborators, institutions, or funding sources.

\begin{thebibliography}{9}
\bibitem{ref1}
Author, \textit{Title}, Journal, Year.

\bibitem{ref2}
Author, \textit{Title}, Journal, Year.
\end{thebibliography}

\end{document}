@@ -1,0 +1,81 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{lmodern}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+\setstretch{1.2}
+
+\title{Academic Document}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This document provides an academic LaTeX structure suitable for physics,
+engineering, computational science, and mathematical research. Replace this
+text with your abstract summarizing the purpose, methods, and results of your
+work.
+\end{abstract}
+
+\section{Introduction}
+Introduce the topic, context, and motivation for the work. Provide background
+information and outline the structure of the paper.
+
+\section{Theory}
+Present theoretical foundations, definitions, and mathematical formulations.
+
+\subsection{Key Equations}
+\[
+% Example placeholder:
+% \frac{dH}{dt} = 0
+\]
+
+\section{Methods}
+Describe computational methods, experimental setups, algorithms, or analytical
+approaches.
+
+\subsection{Algorithm Outline}
+\begin{enumerate}
+    \item Define system parameters.
+    \item Initialize state variables.
+    \item Apply numerical integration scheme.
+    \item Evaluate stability and convergence.
+\end{enumerate}
+
+\section{Results}
+Present findings, tables, figures, and analysis.
+
+\[
+% Example placeholder:
+% \Delta H/H_0 = 1.2 \times 10^{-13}
+\]
+
+\section{Discussion}
+Interpret results, compare with expectations or literature, and discuss
+implications.
+
+\section{Conclusion}
+Summarize contributions, limitations, and future directions.
+
+\section*{Acknowledgments}
+(Optional) Acknowledge collaborators, institutions, or funding sources.
+
+\begin{thebibliography}{9}
+\bibitem{ref1}
+Author, \textit{Title}, Journal, Year.
+
+\bibitem{ref2}
+Author, \textit{Title}, Journal, Year.
+\end{thebibliography}
+
+\end{document}
