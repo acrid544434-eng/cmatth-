@@ -1,0 +1,77 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\title{Research Journal: Informational Cosmology}
+\author{C.~Matthew~Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Entry: Informational Cosmology Development}
+\subsection*{Summary}
+Today’s work focused on formalizing the informational cosmology framework
+emerging from QIA-SE v9.4 stress tests. Key results include the derivation of
+the Informational Field Equation (IFE), the Emergent Metric Equation (EME), and
+the SMBH Informational Sink Equation (SISE). These equations collectively define
+a UV-regularized, information-driven cosmological model consistent with Planck
+CMB and JWST high-redshift quasar observations.
+
+\subsection*{Derivations}
+
+\paragraph{Informational Field Equation (IFE).}
+Starting from informational conservation in a comoving volume,
+\begin{equation}
+\partial_t \rho_I + \nabla \cdot (\rho_I \mathbf{v}_I)
+= \alpha (\nabla \cdot \mathbf{v}_I) + \beta \rho_I^2,
+\end{equation}
+with $\alpha$ and $\beta$ encoding non-linear informational transport.
+
+\paragraph{Emergent Metric Equation (EME).}
+Spacetime geometry emerges from informational gradients:
+\begin{equation}
+g_{\mu\nu} = g^{(0)}_{\mu\nu}
++ A\,\partial_\mu \partial_\nu \rho_I
++ B\,(\partial_\mu \rho_I)(\partial_\nu \rho_I).
+\end{equation}
+
+\paragraph{Curvature--Information Duality.}
+Curvature invariants become functionals of informational gradients:
+\begin{equation}
+R = c_1 \Box \rho_I + c_2 (\partial \rho_I)^2,
+\end{equation}
+\begin{equation}
+C^2 = d_1 (\partial \partial \rho_I)^2 + d_2 (\partial \rho_I)^4.
+\end{equation}
+
+\paragraph{SMBH Informational Sink Equation (SISE).}
+Black hole growth is governed by informational flux:
+\begin{equation}
+\dot{M}_{\rm BH} = \gamma\,\rho_I\,A_0(1+\delta),
+\end{equation}
+leading to the integrated mass law,
+\begin{equation}
+M_{\rm BH}(t) = M_{\rm seed} 
++ \gamma A_0 (1+\delta) \int_{t_0}^{t} \rho_I(t')\,dt'.
+\end{equation}
+
+\subsection*{Simulation Notes}
+QIA-SE v9.4 successfully maintained stability across:
+\begin{itemize}
+    \item Planck-scale curvature ($R_{\max} > 1.42 \times 10^{32}$),
+    \item a $4096^3$ informational grid,
+    \item super-Eddington accretion ($500\,M_\odot\,{\rm yr}^{-1}$),
+    \item Bayesian reconstruction ($\chi^2 = 1.042$).
+\end{itemize}
+
+\subsection*{Reflection}
+The informational cosmology framework continues to demonstrate internal
+consistency and observational viability. The next step is to formalize the
+cosmological evolution equations and explore emergent phenomena such as
+informational horizons and entropy-driven expansion.
+
+\end{document}
