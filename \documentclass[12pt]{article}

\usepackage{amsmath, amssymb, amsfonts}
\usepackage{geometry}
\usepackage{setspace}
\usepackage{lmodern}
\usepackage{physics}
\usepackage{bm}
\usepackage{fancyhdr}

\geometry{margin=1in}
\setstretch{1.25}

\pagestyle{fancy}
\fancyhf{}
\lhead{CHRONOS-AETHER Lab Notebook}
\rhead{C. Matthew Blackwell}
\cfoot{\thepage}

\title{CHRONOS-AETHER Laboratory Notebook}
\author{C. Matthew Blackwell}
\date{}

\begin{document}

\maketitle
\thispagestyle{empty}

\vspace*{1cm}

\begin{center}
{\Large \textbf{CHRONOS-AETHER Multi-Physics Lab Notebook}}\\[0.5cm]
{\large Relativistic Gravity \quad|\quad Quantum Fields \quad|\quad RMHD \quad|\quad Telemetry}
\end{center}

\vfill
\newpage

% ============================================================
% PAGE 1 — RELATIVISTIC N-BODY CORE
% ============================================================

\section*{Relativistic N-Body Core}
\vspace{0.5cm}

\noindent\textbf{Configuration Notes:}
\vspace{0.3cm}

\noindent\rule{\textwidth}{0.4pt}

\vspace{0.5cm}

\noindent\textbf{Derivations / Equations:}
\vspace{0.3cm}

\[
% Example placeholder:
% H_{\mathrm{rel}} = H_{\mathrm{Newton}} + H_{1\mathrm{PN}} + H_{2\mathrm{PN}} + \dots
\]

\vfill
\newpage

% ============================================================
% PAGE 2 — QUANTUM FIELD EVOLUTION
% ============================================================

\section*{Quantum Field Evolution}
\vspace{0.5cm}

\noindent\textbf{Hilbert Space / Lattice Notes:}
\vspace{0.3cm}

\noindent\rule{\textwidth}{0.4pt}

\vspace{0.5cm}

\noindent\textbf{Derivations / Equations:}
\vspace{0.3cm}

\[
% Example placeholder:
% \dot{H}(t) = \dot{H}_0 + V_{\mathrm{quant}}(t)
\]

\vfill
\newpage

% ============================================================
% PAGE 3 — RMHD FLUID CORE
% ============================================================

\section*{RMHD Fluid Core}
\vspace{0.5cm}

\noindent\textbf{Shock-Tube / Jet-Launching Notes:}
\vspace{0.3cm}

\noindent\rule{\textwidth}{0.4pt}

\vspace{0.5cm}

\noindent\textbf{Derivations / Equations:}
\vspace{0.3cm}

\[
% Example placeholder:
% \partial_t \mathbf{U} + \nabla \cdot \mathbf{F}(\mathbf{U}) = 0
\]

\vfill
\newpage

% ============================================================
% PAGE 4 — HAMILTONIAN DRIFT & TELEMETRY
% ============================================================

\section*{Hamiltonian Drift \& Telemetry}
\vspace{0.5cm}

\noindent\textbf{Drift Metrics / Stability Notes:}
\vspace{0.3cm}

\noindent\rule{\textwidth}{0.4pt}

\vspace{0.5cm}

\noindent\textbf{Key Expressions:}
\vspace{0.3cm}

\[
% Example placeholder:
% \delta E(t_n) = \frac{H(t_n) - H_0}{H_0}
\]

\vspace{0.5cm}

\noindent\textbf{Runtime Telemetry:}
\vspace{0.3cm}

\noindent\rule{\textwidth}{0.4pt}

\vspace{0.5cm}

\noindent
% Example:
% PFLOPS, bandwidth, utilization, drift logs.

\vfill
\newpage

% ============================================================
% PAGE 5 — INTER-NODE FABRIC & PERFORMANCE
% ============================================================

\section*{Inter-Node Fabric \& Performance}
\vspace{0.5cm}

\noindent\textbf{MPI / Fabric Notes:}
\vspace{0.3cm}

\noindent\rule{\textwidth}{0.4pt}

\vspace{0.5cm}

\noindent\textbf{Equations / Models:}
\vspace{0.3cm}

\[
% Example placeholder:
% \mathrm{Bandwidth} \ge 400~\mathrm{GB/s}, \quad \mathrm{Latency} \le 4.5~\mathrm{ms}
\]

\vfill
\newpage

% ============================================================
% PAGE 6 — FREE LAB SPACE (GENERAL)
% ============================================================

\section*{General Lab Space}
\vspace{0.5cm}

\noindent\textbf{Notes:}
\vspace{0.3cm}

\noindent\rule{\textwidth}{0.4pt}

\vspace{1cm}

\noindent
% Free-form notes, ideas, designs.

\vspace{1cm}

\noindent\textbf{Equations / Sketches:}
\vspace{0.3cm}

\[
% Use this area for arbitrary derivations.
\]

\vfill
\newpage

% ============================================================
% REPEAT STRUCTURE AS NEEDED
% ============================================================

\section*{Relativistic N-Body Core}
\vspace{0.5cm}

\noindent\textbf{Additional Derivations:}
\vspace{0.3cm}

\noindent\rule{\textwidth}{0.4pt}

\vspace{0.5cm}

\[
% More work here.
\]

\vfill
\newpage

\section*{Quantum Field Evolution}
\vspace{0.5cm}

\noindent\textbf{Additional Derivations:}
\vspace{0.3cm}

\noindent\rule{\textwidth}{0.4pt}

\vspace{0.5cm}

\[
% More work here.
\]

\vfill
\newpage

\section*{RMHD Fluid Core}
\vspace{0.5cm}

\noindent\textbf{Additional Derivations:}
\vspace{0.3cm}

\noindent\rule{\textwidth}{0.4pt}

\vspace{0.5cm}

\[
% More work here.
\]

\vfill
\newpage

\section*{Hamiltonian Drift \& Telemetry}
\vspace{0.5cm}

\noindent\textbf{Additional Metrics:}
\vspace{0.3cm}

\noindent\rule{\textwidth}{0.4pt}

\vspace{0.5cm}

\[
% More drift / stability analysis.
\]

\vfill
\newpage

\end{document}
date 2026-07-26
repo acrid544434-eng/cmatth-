@@ -1,0 +1,278 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{lmodern}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\setstretch{1.25}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{CHRONOS-AETHER Lab Notebook}
+\rhead{C. Matthew Blackwell}
+\cfoot{\thepage}
+
+\title{CHRONOS-AETHER Laboratory Notebook}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\vspace*{1cm}
+
+\begin{center}
+{\Large \textbf{CHRONOS-AETHER Multi-Physics Lab Notebook}}\\[0.5cm]
+{\large Relativistic Gravity \quad|\quad Quantum Fields \quad|\quad RMHD \quad|\quad Telemetry}
+\end{center}
+
+\vfill
+\newpage
+
+% ============================================================
+% PAGE 1 — RELATIVISTIC N-BODY CORE
+% ============================================================
+
+\section*{Relativistic N-Body Core}
+\vspace{0.5cm}
+
+\noindent\textbf{Configuration Notes:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Derivations / Equations:}
+\vspace{0.3cm}
+
+\[
+% Example placeholder:
+% H_{\mathrm{rel}} = H_{\mathrm{Newton}} + H_{1\mathrm{PN}} + H_{2\mathrm{PN}} + \dots
+\]
+
+\vfill
+\newpage
+
+% ============================================================
+% PAGE 2 — QUANTUM FIELD EVOLUTION
+% ============================================================
+
+\section*{Quantum Field Evolution}
+\vspace{0.5cm}
+
+\noindent\textbf{Hilbert Space / Lattice Notes:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Derivations / Equations:}
+\vspace{0.3cm}
+
+\[
+% Example placeholder:
+% \dot{H}(t) = \dot{H}_0 + V_{\mathrm{quant}}(t)
+\]
+
+\vfill
+\newpage
+
+% ============================================================
+% PAGE 3 — RMHD FLUID CORE
+% ============================================================
+
+\section*{RMHD Fluid Core}
+\vspace{0.5cm}
+
+\noindent\textbf{Shock-Tube / Jet-Launching Notes:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Derivations / Equations:}
+\vspace{0.3cm}
+
+\[
+% Example placeholder:
+% \partial_t \mathbf{U} + \nabla \cdot \mathbf{F}(\mathbf{U}) = 0
+\]
+
+\vfill
+\newpage
+
+% ============================================================
+% PAGE 4 — HAMILTONIAN DRIFT & TELEMETRY
+% ============================================================
+
+\section*{Hamiltonian Drift \& Telemetry}
+\vspace{0.5cm}
+
+\noindent\textbf{Drift Metrics / Stability Notes:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Key Expressions:}
+\vspace{0.3cm}
+
+\[
+% Example placeholder:
+% \delta E(t_n) = \frac{H(t_n) - H_0}{H_0}
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{Runtime Telemetry:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\noindent
+% Example:
+% PFLOPS, bandwidth, utilization, drift logs.
+
+\vfill
+\newpage
+
+% ============================================================
+% PAGE 5 — INTER-NODE FABRIC & PERFORMANCE
+% ============================================================
+
+\section*{Inter-Node Fabric \& Performance}
+\vspace{0.5cm}
+
+\noindent\textbf{MPI / Fabric Notes:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Equations / Models:}
+\vspace{0.3cm}
+
+\[
+% Example placeholder:
+% \mathrm{Bandwidth} \ge 400~\mathrm{GB/s}, \quad \mathrm{Latency} \le 4.5~\mathrm{ms}
+\]
+
+\vfill
+\newpage
+
+% ============================================================
+% PAGE 6 — FREE LAB SPACE (GENERAL)
+% ============================================================
+
+\section*{General Lab Space}
+\vspace{0.5cm}
+
+\noindent\textbf{Notes:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{1cm}
+
+\noindent
+% Free-form notes, ideas, designs.
+
+\vspace{1cm}
+
+\noindent\textbf{Equations / Sketches:}
+\vspace{0.3cm}
+
+\[
+% Use this area for arbitrary derivations.
+\]
+
+\vfill
+\newpage
+
+% ============================================================
+% REPEAT STRUCTURE AS NEEDED
+% ============================================================
+
+\section*{Relativistic N-Body Core}
+\vspace{0.5cm}
+
+\noindent\textbf{Additional Derivations:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\[
+% More work here.
+\]
+
+\vfill
+\newpage
+
+\section*{Quantum Field Evolution}
+\vspace{0.5cm}
+
+\noindent\textbf{Additional Derivations:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\[
+% More work here.
+\]
+
+\vfill
+\newpage
+
+\section*{RMHD Fluid Core}
+\vspace{0.5cm}
+
+\noindent\textbf{Additional Derivations:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\[
+% More work here.
+\]
+
+\vfill
+\newpage
+
+\section*{Hamiltonian Drift \& Telemetry}
+\vspace{0.5cm}
+
+\noindent\textbf{Additional Metrics:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\[
+% More drift / stability analysis.
+\]
+
+\vfill
+\newpage
+
+\end{document}
