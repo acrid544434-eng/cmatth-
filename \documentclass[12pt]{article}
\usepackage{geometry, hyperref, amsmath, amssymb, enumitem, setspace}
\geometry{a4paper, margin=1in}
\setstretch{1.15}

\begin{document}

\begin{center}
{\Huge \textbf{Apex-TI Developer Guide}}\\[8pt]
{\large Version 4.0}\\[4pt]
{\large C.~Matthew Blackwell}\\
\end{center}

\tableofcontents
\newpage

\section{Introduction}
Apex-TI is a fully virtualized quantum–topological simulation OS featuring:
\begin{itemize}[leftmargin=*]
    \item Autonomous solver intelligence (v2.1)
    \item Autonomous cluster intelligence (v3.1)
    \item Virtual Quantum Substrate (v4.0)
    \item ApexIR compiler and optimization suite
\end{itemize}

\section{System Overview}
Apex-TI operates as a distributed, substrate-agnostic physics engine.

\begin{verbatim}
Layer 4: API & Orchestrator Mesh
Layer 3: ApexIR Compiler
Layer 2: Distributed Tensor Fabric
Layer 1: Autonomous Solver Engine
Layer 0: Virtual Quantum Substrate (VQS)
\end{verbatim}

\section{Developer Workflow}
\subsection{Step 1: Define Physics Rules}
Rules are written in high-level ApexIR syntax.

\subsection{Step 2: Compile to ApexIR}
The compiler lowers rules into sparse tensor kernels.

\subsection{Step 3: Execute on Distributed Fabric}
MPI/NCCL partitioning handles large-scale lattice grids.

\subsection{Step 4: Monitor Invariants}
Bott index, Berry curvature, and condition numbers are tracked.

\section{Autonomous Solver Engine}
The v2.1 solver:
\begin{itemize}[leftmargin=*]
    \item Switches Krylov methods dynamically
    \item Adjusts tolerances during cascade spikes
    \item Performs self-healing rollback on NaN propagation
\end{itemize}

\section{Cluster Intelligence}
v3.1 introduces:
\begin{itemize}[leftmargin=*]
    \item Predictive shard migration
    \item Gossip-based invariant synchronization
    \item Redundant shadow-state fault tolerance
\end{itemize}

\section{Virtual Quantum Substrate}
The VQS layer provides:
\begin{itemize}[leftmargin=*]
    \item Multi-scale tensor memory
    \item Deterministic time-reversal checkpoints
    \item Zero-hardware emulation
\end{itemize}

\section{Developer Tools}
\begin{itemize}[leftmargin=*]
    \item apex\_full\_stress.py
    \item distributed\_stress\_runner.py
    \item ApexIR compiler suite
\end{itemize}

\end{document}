@@ -1,0 +1,81 @@
+\documentclass[12pt]{article}
+\usepackage{geometry, hyperref, amsmath, amssymb, enumitem, setspace}
+\geometry{a4paper, margin=1in}
+\setstretch{1.15}
+
+\begin{document}
+
+\begin{center}
+{\Huge \textbf{Apex-TI Developer Guide}}\\[8pt]
+{\large Version 4.0}\\[4pt]
+{\large C.~Matthew Blackwell}\\
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+Apex-TI is a fully virtualized quantum–topological simulation OS featuring:
+\begin{itemize}[leftmargin=*]
+    \item Autonomous solver intelligence (v2.1)
+    \item Autonomous cluster intelligence (v3.1)
+    \item Virtual Quantum Substrate (v4.0)
+    \item ApexIR compiler and optimization suite
+\end{itemize}
+
+\section{System Overview}
+Apex-TI operates as a distributed, substrate-agnostic physics engine.
+
+\begin{verbatim}
+Layer 4: API & Orchestrator Mesh
+Layer 3: ApexIR Compiler
+Layer 2: Distributed Tensor Fabric
+Layer 1: Autonomous Solver Engine
+Layer 0: Virtual Quantum Substrate (VQS)
+\end{verbatim}
+
+\section{Developer Workflow}
+\subsection{Step 1: Define Physics Rules}
+Rules are written in high-level ApexIR syntax.
+
+\subsection{Step 2: Compile to ApexIR}
+The compiler lowers rules into sparse tensor kernels.
+
+\subsection{Step 3: Execute on Distributed Fabric}
+MPI/NCCL partitioning handles large-scale lattice grids.
+
+\subsection{Step 4: Monitor Invariants}
+Bott index, Berry curvature, and condition numbers are tracked.
+
+\section{Autonomous Solver Engine}
+The v2.1 solver:
+\begin{itemize}[leftmargin=*]
+    \item Switches Krylov methods dynamically
+    \item Adjusts tolerances during cascade spikes
+    \item Performs self-healing rollback on NaN propagation
+\end{itemize}
+
+\section{Cluster Intelligence}
+v3.1 introduces:
+\begin{itemize}[leftmargin=*]
+    \item Predictive shard migration
+    \item Gossip-based invariant synchronization
+    \item Redundant shadow-state fault tolerance
+\end{itemize}
+
+\section{Virtual Quantum Substrate}
+The VQS layer provides:
+\begin{itemize}[leftmargin=*]
+    \item Multi-scale tensor memory
+    \item Deterministic time-reversal checkpoints
+    \item Zero-hardware emulation
+\end{itemize}
+
+\section{Developer Tools}
+\begin{itemize}[leftmargin=*]
+    \item apex\_full\_stress.py
+    \item distributed\_stress\_runner.py
+    \item ApexIR compiler suite
+\end{itemize}
+
+\end{document}
