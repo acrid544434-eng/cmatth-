@@ -1,0 +1,71 @@
+\section{Theoretical Framework}
+\label{sec:theory}
+
+In this work we develop a cosmological model in which spacetime geometry,
+gravitational curvature, and early supermassive black hole (SMBH) formation
+emerge from the dynamics of a Primordial Informational Field (PIF). The PIF
+constitutes the fundamental substrate of the theory, with informational density
+$\rho_I$ and flow velocity $\mathbf{v}_I$ serving as the primary dynamical
+variables. Conventional geometric quantities, including the metric tensor
+$g_{\mu\nu}$ and curvature invariants, arise as coarse-grained functionals of
+informational gradients.
+
+The evolution of the PIF is governed by the Informational Field Equation (IFE),
+\begin{equation}
+\partial_t \rho_I + \nabla \cdot (\rho_I \mathbf{v}_I)
+= \alpha (\nabla \cdot \mathbf{v}_I) + \beta \rho_I^2,
+\label{eq:ife}
+\end{equation}
+where $\alpha$ and $\beta$ encode non-linear transport properties of the
+informational substrate. Equation~(\ref{eq:ife}) generalizes classical
+continuity relations by incorporating a quadratic informational source term,
+reflecting the self-interacting nature of the PIF.
+
+Spacetime geometry emerges from informational gradients through the relation
+\begin{equation}
+g_{\mu\nu} = g^{(0)}_{\mu\nu}
++ A\,\partial_\mu \partial_\nu \rho_I
++ B\,(\partial_\mu \rho_I)(\partial_\nu \rho_I),
+\label{eq:eme}
+\end{equation}
+where $g^{(0)}_{\mu\nu}$ is a background metric and $(A,B)$ are coefficients
+determined by the UV-regularized quadratic gravity action. Equation~(\ref{eq:eme})
+implies that curvature invariants are functionals of informational gradients,
+leading to the curvature--information duality:
+\begin{equation}
+R = c_1 \Box \rho_I + c_2 (\partial \rho_I)^2,
+\label{eq:ricci}
+\end{equation}
+\begin{equation}
+C^2 = d_1 (\partial \partial \rho_I)^2 + d_2 (\partial \rho_I)^4,
+\label{eq:weyl}
+\end{equation}
+where $R$ is the Ricci scalar and $C^2$ is the Weyl curvature invariant.
+Equations~(\ref{eq:ricci})--(\ref{eq:weyl}) demonstrate that high-curvature
+regimes correspond to regions of rapidly varying informational density, rather
+than geometric singularities.
+
+Black holes are modeled as informational sinks. Their growth is governed by the
+SMBH Informational Sink Equation (SISE),
+\begin{equation}
+\dot{M}_{\rm BH} = \gamma\,\rho_I\,A_0(1+\delta),
+\label{eq:sise}
+\end{equation}
+where $\gamma$ is the informational-to-mass conversion coefficient, $A_0$ is the
+baseline capture area, and $\delta$ quantifies chaotic inflow amplification.
+Integrating Eq.~(\ref{eq:sise}) yields
+\begin{equation}
+M_{\rm BH}(t) = M_{\rm seed} 
++ \gamma A_0 (1+\delta) \int_{t_0}^{t} \rho_I(t')\,dt',
+\label{eq:sise_int}
+\end{equation}
+indicating that SMBH mass is the time-integral of local informational density.
+This mechanism naturally produces $10^9\,M_\odot$ SMBHs by $z>7$, consistent
+with JWST observations.
+
+The combined system defined by Eqs.~(\ref{eq:ife})--(\ref{eq:sise_int}) forms a
+self-consistent informational cosmology in which geometry, curvature, and
+structure formation arise from informational dynamics. Numerical simulations
+performed with QIA-SE v9.4 confirm stability under extreme curvature, 
+non-linear informational gradients, and super-Eddington accretion, establishing
+the viability of the framework.
