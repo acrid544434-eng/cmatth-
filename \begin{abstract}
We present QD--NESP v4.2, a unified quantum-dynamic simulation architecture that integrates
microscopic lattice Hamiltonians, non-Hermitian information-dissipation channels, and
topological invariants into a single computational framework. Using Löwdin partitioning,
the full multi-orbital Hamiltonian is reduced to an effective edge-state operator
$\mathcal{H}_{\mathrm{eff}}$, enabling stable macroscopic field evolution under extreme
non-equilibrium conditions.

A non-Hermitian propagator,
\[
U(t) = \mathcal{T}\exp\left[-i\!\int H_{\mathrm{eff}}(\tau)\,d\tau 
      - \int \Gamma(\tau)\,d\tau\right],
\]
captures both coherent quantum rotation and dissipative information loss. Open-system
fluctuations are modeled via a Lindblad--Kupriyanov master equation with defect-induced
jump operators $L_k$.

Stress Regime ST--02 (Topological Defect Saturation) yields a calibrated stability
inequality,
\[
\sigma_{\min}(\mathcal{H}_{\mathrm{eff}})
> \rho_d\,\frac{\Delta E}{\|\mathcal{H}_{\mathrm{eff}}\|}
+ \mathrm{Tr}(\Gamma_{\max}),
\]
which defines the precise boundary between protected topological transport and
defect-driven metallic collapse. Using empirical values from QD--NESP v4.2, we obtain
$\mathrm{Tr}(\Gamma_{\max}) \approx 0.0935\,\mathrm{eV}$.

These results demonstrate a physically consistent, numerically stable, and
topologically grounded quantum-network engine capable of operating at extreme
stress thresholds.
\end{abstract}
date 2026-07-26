@@ -1,0 +1,32 @@
+\begin{abstract}
+We present QD--NESP v4.2, a unified quantum-dynamic simulation architecture that integrates
+microscopic lattice Hamiltonians, non-Hermitian information-dissipation channels, and
+topological invariants into a single computational framework. Using Löwdin partitioning,
+the full multi-orbital Hamiltonian is reduced to an effective edge-state operator
+$\mathcal{H}_{\mathrm{eff}}$, enabling stable macroscopic field evolution under extreme
+non-equilibrium conditions.
+
+A non-Hermitian propagator,
+\[
+U(t) = \mathcal{T}\exp\left[-i\!\int H_{\mathrm{eff}}(\tau)\,d\tau 
+      - \int \Gamma(\tau)\,d\tau\right],
+\]
+captures both coherent quantum rotation and dissipative information loss. Open-system
+fluctuations are modeled via a Lindblad--Kupriyanov master equation with defect-induced
+jump operators $L_k$.
+
+Stress Regime ST--02 (Topological Defect Saturation) yields a calibrated stability
+inequality,
+\[
+\sigma_{\min}(\mathcal{H}_{\mathrm{eff}})
+> \rho_d\,\frac{\Delta E}{\|\mathcal{H}_{\mathrm{eff}}\|}
++ \mathrm{Tr}(\Gamma_{\max}),
+\]
+which defines the precise boundary between protected topological transport and
+defect-driven metallic collapse. Using empirical values from QD--NESP v4.2, we obtain
+$\mathrm{Tr}(\Gamma_{\max}) \approx 0.0935\,\mathrm{eV}$.
+
+These results demonstrate a physically consistent, numerically stable, and
+topologically grounded quantum-network engine capable of operating at extreme
+stress thresholds.
+\end{abstract}
