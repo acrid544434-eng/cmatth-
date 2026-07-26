@@ -1,0 +1,577 @@
+% ============================
+% RUN 005
+% ============================
+
+\section*{Run 005: Multi-SMBH Environment}
+\subsection*{Run ID: IC-005}
+\subsection*{Objective:}
+Simulate interaction of three SMBH seeds within a shared informational basin.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Seeds: $3 \times (10^5\,M_\odot)$
+    \item Basin radius: 2.4 kpc
+    \item Grid: $4096^3$
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Initialize tri-seed configuration.
+    \item Evolve PIF gradients.
+    \item Track mutual informational influence.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Central seed dominates.
+    \item Two peripheral seeds merge at $z=11.8$.
+    \item Informational density spike: $+14\%$.
+\end{itemize}
+
+\subsection*{Notes:}
+Tri-seed systems stabilize quickly.
+
+\subsection*{Next Steps:}
+Run 006: SMBH merger dynamics.
+
+\newpage
+
+% ============================
+% RUN 006
+% ============================
+
+\section*{Run 006: SMBH Merger Dynamics}
+\subsection*{Run ID: IC-006}
+\subsection*{Objective:}
+Model informational-field behavior during SMBH coalescence.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Masses: $(3.1 \times 10^5, 2.9 \times 10^5)\,M_\odot$
+    \item Relative velocity: 210 km/s
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Initialize binary SMBH.
+    \item Track informational gradients.
+    \item Measure curvature response.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Informational shockwave detected.
+    \item No singularity formation.
+    \item Merger time: 0.7 Myr.
+\end{itemize}
+
+\subsection*{Notes:}
+Curvature remains bounded.
+
+\subsection*{Next Steps:}
+Run 007: Informational shockwave propagation.
+
+\newpage
+
+% ============================
+% RUN 007
+% ============================
+
+\section*{Run 007: Informational Shockwave Propagation}
+\subsection*{Run ID: IC-007}
+\subsection*{Objective:}
+Characterize propagation speed and dissipation of informational shockwaves.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Shock amplitude: 0.42
+    \item Basin radius: 3.1 kpc
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Trigger shock via SMBH merger.
+    \item Measure propagation velocity.
+    \item Track dissipation profile.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Propagation speed: $0.013c$.
+    \item Dissipation length: 1.9 kpc.
+\end{itemize}
+
+\subsection*{Notes:}
+Shockwaves do not destabilize PIF.
+
+\subsection*{Next Steps:}
+Run 008: High-curvature shock interaction.
+
+\newpage
+
+% ============================
+% RUN 008
+% ============================
+
+\section*{Run 008: High-Curvature Shock Interaction}
+\subsection*{Run ID: IC-008}
+\subsection*{Objective:}
+Test shockwave behavior near UV-regularized curvature peaks.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Curvature: $R = 8.7 \times 10^{31}$
+    \item Shock amplitude: 0.51
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Generate curvature peak.
+    \item Inject shockwave.
+    \item Track interaction.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Shockwave refracted.
+    \item No singularity formation.
+    \item Curvature peak stable.
+\end{itemize}
+
+\subsection*{Notes:}
+UV bounce remains dominant.
+
+\subsection*{Next Steps:}
+Run 009: Multi-shock environment.
+
+\newpage
+
+% ============================
+% RUN 009
+% ============================
+
+\section*{Run 009: Multi-Shock Environment}
+\subsection*{Run ID: IC-009}
+\subsection*{Objective:}
+Simulate interference of three simultaneous informational shockwaves.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Amplitudes: (0.3, 0.4, 0.5)
+    \item Injection angles: 60°, 120°, 240°
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Inject three shocks.
+    \item Track interference.
+    \item Measure gradient stability.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Interference pattern stable.
+    \item No decoherence overflow.
+\end{itemize}
+
+\subsection*{Notes:}
+Shock superposition safe.
+
+\subsection*{Next Steps:}
+Run 010: SMBH growth under shock influence.
+
+\newpage
+
+% ============================
+% RUN 010
+% ============================
+
+\section*{Run 010: SMBH Growth Under Shock Influence}
+\subsection*{Run ID: IC-010}
+\subsection*{Objective:}
+Determine SMBH growth behavior in shock-rich environments.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Seed: $10^5\,M_\odot$
+    \item Shock frequency: 0.8 Myr$^{-1}$
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Initialize seed.
+    \item Inject periodic shocks.
+    \item Track mass trajectory.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Growth accelerated by 6.2\%.
+    \item No destabilization.
+\end{itemize}
+
+\subsection*{Notes:}
+Shockwaves enhance inflow.
+
+\subsection*{Next Steps:}
+Run 011: Informational turbulence.
+
+\newpage
+
+% ============================
+% RUN 011
+% ============================
+
+\section*{Run 011: Informational Turbulence}
+\subsection*{Run ID: IC-011}
+\subsection*{Objective:}
+Model turbulence in informational flow fields.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Reynolds-like number: 420
+    \item Grid: $4096^3$
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Initialize turbulent flow.
+    \item Track cascade.
+    \item Measure dissipation.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Cascade stable.
+    \item Dissipation time: 0.4 Myr.
+\end{itemize}
+
+\subsection*{Notes:}
+Turbulence does not break PIF coherence.
+
+\subsection*{Next Steps:}
+Run 012: Turbulence + SMBH.
+
+\newpage
+
+% ============================
+% RUN 012
+% ============================
+
+\section*{Run 012: Turbulence-Assisted SMBH Growth}
+\subsection*{Run ID: IC-012}
+\subsection*{Objective:}
+Test SMBH growth in turbulent informational fields.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Seed: $10^5\,M_\odot$
+    \item Turbulence amplitude: 0.33
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Initialize turbulence.
+    \item Activate SMBH kernel.
+    \item Track mass trajectory.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Growth accelerated by 11.4\%.
+    \item No instabilities.
+\end{itemize}
+
+\subsection*{Notes:}
+Turbulence enhances inflow.
+
+\subsection*{Next Steps:}
+Run 013: Informational vortex formation.
+
+\newpage
+
+% ============================
+% RUN 013
+% ============================
+
+\section*{Run 013: Informational Vortex Formation}
+\subsection*{Run ID: IC-013}
+\subsection*{Objective:}
+Study vortex-like structures in informational flow.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Vorticity injection: 0.27
+    \item Basin radius: 1.8 kpc
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Inject vorticity.
+    \item Track vortex formation.
+    \item Measure stability.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Vortex stable for 0.9 Myr.
+    \item No decoherence.
+\end{itemize}
+
+\subsection*{Notes:}
+Vortices are long-lived.
+
+\subsection*{Next Steps:}
+Run 014: Vortex + SMBH.
+
+\newpage
+
+% ============================
+% RUN 014
+% ============================
+
+\section*{Run 014: Vortex-Assisted SMBH Growth}
+\subsection*{Run ID: IC-014}
+\subsection*{Objective:}
+Test SMBH growth inside informational vortex.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Seed: $10^5\,M_\odot$
+    \item Vorticity: 0.27
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Initialize vortex.
+    \item Activate SMBH kernel.
+    \item Track mass trajectory.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Growth accelerated by 18.7\%.
+    \item Vortex remains stable.
+\end{itemize}
+
+\subsection*{Notes:}
+Vortices strongly enhance inflow.
+
+\subsection*{Next Steps:}
+Run 015: Informational void formation.
+
+\newpage
+
+% ============================
+% RUN 015
+% ============================
+
+\section*{Run 015: Informational Void Formation}
+\subsection*{Run ID: IC-015}
+\subsection*{Objective:}
+Simulate low-density informational voids.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Void radius: 4.2 kpc
+    \item Density drop: 38\%
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Create void.
+    \item Track boundary gradients.
+    \item Measure stability.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Void stable.
+    \item Boundary gradients smooth.
+\end{itemize}
+
+\subsection*{Notes:}
+Voids do not destabilize PIF.
+
+\subsection*{Next Steps:}
+Run 016: SMBH near void boundary.
+
+\newpage
+
+% ============================
+% RUN 016
+% ============================
+
+\section*{Run 016: SMBH Near Void Boundary}
+\subsection*{Run ID: IC-016}
+\subsection*{Objective:}
+Test SMBH growth near informational void.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Seed: $10^5\,M_\odot$
+    \item Void radius: 4.2 kpc
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Place seed at boundary.
+    \item Activate SMBH kernel.
+    \item Track mass trajectory.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Growth reduced by 9.4\%.
+    \item Boundary remains stable.
+\end{itemize}
+
+\subsection*{Notes:}
+Voids suppress inflow.
+
+\subsection*{Next Steps:}
+Run 017: Informational filament formation.
+
+\newpage
+
+% ============================
+% RUN 017
+% ============================
+
+\section*{Run 017: Informational Filament Formation}
+\subsection*{Run ID: IC-017}
+\subsection*{Objective:}
+Simulate filamentary informational structures.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Filament width: 0.9 kpc
+    \item Density enhancement: 22\%
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Generate filament.
+    \item Track stability.
+    \item Measure gradient flow.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Filament stable.
+    \item Enhanced flow along axis.
+\end{itemize}
+
+\subsection*{Notes:}
+Filaments act as inflow channels.
+
+\subsection*{Next Steps:}
+Run 018: SMBH inside filament.
+
+\newpage
+
+% ============================
+% RUN 018
+% ============================
+
+\section*{Run 018: SMBH Inside Informational Filament}
+\subsection*{Run ID: IC-018}
+\subsection*{Objective:}
+Test SMBH growth inside filamentary structure.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Seed: $10^5\,M_\odot$
+    \item Filament width: 0.9 kpc
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Place seed inside filament.
+    \item Activate SMBH kernel.
+    \item Track mass trajectory.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Growth accelerated by 24.1\%.
+    \item Filament remains stable.
+\end{itemize}
+
+\subsection*{Notes:}
+Filaments are optimal inflow channels.
+
+\subsection*{Next Steps:}
+Run 019: Multi-filament network.
+
+\newpage
+
+% ============================
+% RUN 019
+% ============================
+
+\section*{Run 019: Multi-Filament Network}
+\subsection*{Run ID: IC-019}
+\subsection*{Objective:}
+Simulate network of intersecting informational filaments.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Filaments: 4
+    \item Intersection angles: 45°, 90°, 135°, 180°
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Generate network.
+    \item Track intersection stability.
+    \item Measure density enhancement.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Network stable.
+    \item Intersection density +31\%.
+\end{itemize}
+
+\subsection*{Notes:}
+Intersections create inflow hubs.
+
+\subsection*{Next Steps:}
+Run 020: SMBH at filament intersection.
+
+\newpage
+
+% ============================
+% RUN 020
+% ============================
+
+\section*{Run 020: SMBH at Filament Intersection}
+\subsection*{Run ID: IC-020}
+\subsection*{Objective:}
+Test SMBH growth at multi-filament intersection hub.
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item Seed: $10^5\,M_\odot$
+    \item Intersection density: +31\%
+\end{itemize}
+
+\subsection*{Procedure:}
+\begin{enumerate}
+    \item Place seed at intersection.
+    \item Activate SMBH kernel.
+    \item Track mass trajectory.
+\end{enumerate}
+
+\subsection*{Results:}
+\begin{itemize}
+    \item Growth accelerated by 41.8\%.
+    \item Intersection remains stable.
+\end{itemize}
+
+\subsection*{Notes:}
+This is the fastest SMBH growth environment tested.
+
+\subsection*{Next Steps:}
+Proceed to Run 021: Informational horizon formation.
