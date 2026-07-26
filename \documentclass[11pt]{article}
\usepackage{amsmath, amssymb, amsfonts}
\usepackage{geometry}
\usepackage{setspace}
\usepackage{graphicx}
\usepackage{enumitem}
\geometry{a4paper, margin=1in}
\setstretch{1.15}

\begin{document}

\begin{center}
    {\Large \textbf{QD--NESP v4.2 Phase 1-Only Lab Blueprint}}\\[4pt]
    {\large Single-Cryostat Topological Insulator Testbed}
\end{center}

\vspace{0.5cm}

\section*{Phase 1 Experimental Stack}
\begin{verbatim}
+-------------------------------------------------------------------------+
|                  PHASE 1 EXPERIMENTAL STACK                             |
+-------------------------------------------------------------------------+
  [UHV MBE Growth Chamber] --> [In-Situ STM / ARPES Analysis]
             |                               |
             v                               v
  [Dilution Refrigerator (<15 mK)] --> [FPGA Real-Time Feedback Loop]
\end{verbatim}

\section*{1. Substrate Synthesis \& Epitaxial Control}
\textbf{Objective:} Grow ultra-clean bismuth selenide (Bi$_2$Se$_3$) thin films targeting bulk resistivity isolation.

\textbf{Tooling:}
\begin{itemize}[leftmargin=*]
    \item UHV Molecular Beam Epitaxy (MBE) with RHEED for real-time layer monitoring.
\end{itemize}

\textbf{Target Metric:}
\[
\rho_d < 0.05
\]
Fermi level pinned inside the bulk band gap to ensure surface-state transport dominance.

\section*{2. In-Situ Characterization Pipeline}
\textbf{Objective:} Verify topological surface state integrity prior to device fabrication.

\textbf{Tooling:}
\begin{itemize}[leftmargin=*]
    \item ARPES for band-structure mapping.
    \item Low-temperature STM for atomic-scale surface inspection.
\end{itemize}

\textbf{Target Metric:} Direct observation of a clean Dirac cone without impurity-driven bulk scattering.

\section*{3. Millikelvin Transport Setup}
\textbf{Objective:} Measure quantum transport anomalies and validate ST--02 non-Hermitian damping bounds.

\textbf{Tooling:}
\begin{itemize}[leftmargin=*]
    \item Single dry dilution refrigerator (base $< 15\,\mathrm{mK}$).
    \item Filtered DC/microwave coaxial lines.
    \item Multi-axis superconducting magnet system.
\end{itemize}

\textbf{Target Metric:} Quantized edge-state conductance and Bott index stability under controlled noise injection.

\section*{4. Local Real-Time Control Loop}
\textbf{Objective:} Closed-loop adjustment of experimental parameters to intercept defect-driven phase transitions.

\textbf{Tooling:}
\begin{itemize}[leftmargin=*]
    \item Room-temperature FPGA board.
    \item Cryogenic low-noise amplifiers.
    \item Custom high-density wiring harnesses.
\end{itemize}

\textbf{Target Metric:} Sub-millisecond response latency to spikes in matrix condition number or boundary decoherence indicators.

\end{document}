@@ -1,0 +1,79 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\geometry{a4paper, margin=1in}
+\setstretch{1.15}
+
+\begin{document}
+
+\begin{center}
+    {\Large \textbf{QD--NESP v4.2 Phase 1-Only Lab Blueprint}}\\[4pt]
+    {\large Single-Cryostat Topological Insulator Testbed}
+\end{center}
+
+\vspace{0.5cm}
+
+\section*{Phase 1 Experimental Stack}
+\begin{verbatim}
++-------------------------------------------------------------------------+
+|                  PHASE 1 EXPERIMENTAL STACK                             |
++-------------------------------------------------------------------------+
+  [UHV MBE Growth Chamber] --> [In-Situ STM / ARPES Analysis]
+             |                               |
+             v                               v
+  [Dilution Refrigerator (<15 mK)] --> [FPGA Real-Time Feedback Loop]
+\end{verbatim}
+
+\section*{1. Substrate Synthesis \& Epitaxial Control}
+\textbf{Objective:} Grow ultra-clean bismuth selenide (Bi$_2$Se$_3$) thin films targeting bulk resistivity isolation.
+
+\textbf{Tooling:}
+\begin{itemize}[leftmargin=*]
+    \item UHV Molecular Beam Epitaxy (MBE) with RHEED for real-time layer monitoring.
+\end{itemize}
+
+\textbf{Target Metric:}
+\[
+\rho_d < 0.05
+\]
+Fermi level pinned inside the bulk band gap to ensure surface-state transport dominance.
+
+\section*{2. In-Situ Characterization Pipeline}
+\textbf{Objective:} Verify topological surface state integrity prior to device fabrication.
+
+\textbf{Tooling:}
+\begin{itemize}[leftmargin=*]
+    \item ARPES for band-structure mapping.
+    \item Low-temperature STM for atomic-scale surface inspection.
+\end{itemize}
+
+\textbf{Target Metric:} Direct observation of a clean Dirac cone without impurity-driven bulk scattering.
+
+\section*{3. Millikelvin Transport Setup}
+\textbf{Objective:} Measure quantum transport anomalies and validate ST--02 non-Hermitian damping bounds.
+
+\textbf{Tooling:}
+\begin{itemize}[leftmargin=*]
+    \item Single dry dilution refrigerator (base $< 15\,\mathrm{mK}$).
+    \item Filtered DC/microwave coaxial lines.
+    \item Multi-axis superconducting magnet system.
+\end{itemize}
+
+\textbf{Target Metric:} Quantized edge-state conductance and Bott index stability under controlled noise injection.
+
+\section*{4. Local Real-Time Control Loop}
+\textbf{Objective:} Closed-loop adjustment of experimental parameters to intercept defect-driven phase transitions.
+
+\textbf{Tooling:}
+\begin{itemize}[leftmargin=*]
+    \item Room-temperature FPGA board.
+    \item Cryogenic low-noise amplifiers.
+    \item Custom high-density wiring harnesses.
+\end{itemize}
+
+\textbf{Target Metric:} Sub-millisecond response latency to spikes in matrix condition number or boundary decoherence indicators.
+
+\end{document}
