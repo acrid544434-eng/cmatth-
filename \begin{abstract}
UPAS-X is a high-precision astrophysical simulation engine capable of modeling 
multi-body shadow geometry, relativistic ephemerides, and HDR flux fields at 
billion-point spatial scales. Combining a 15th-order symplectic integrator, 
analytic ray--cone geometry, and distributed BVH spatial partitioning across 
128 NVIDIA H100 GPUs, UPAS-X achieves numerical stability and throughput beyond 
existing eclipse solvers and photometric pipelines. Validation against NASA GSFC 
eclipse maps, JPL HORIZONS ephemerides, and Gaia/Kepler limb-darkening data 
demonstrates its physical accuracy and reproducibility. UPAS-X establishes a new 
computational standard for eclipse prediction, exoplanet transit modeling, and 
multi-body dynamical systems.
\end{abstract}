@@ -1,0 +1,12 @@
+\begin{abstract}
+UPAS-X is a high-precision astrophysical simulation engine capable of modeling 
+multi-body shadow geometry, relativistic ephemerides, and HDR flux fields at 
+billion-point spatial scales. Combining a 15th-order symplectic integrator, 
+analytic ray--cone geometry, and distributed BVH spatial partitioning across 
+128 NVIDIA H100 GPUs, UPAS-X achieves numerical stability and throughput beyond 
+existing eclipse solvers and photometric pipelines. Validation against NASA GSFC 
+eclipse maps, JPL HORIZONS ephemerides, and Gaia/Kepler limb-darkening data 
+demonstrates its physical accuracy and reproducibility. UPAS-X establishes a new 
+computational standard for eclipse prediction, exoplanet transit modeling, and 
+multi-body dynamical systems.
+\end{abstract}
