@@ -1,0 +1,105 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+\geometry{a4paper, margin=1in}
+\setstretch{1.15}
+
+\begin{document}
+
+% ---------------------------------------------------------
+% SCIENTIFIC WHITE SHEET — QD-NESP v4.2
+% ---------------------------------------------------------
+
+\begin{center}
+    {\Large \textbf{QD--NESP v4.2 Scientific White Sheet}}\\[4pt]
+    {\large Quantum-Dynamic Network Simulation and Topological Stability}\\[6pt]
+    C.~Matthew Blackwell
+\end{center}
+
+\vspace{0.5cm}
+
+\section*{System Overview}
+QD--NESP v4.2 is a quantum-dynamic network simulation architecture that couples
+microscopic lattice Hamiltonians, topological invariants, and non-Hermitian
+information-dissipation channels into a unified computational framework. It is
+designed to operate under extreme stress conditions, including high defect
+densities, thermal quenches, and information cascade overload.
+
+\section*{Core Architecture}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Hamiltonian Reduction:} Löwdin partitioning into edge subspace
+    $\mathcal{P}$ and bulk subspace $\mathcal{Q}$:
+    \[
+    H_{\mathrm{eff}}(E)
+    = H_{\mathcal{P}\mathcal{P}}
+    + H_{\mathcal{P}\mathcal{Q}}
+    \left(E - H_{\mathcal{Q}\mathcal{Q}}\right)^{-1}
+    H_{\mathcal{Q}\mathcal{P}}.
+    \]
+    \item \textbf{Non-Hermitian Propagator:}
+    \[
+    U(t) = \mathcal{T}\exp\left[
+        -i\!\int H_{\mathrm{eff}}(\tau)\,d\tau
+        - \int \Gamma(\tau)\,d\tau
+    \right],
+    \]
+    where $\Gamma(\tau)$ encodes dissipative information loss.
+    \item \textbf{Open-System Dynamics (Lindblad--Kupriyanov):}
+    \[
+    \frac{d\rho}{dt}
+    = -i[H_{\mathrm{eff}},\rho]
+    + \sum_k\left(
+    L_k\rho L_k^\dagger
+    - \frac{1}{2}\{L_k^\dagger L_k,\rho\}
+    \right).
+    \]
+\end{itemize}
+
+\section*{Topology-to-Dynamics Mapping}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Group Velocity:}
+    \[
+    \mathbf{v}_n(\mathbf{k}) = \nabla_{\mathbf{k}}E_n(\mathbf{k}).
+    \]
+    \item \textbf{Berry Curvature Weighted by Information Density:}
+    \[
+    \Omega_{xy}^{\mathrm{eff}}(\mathbf{r},t)
+    = \Omega_{xy}(\mathbf{r},t)\,I(\mathbf{r},t).
+    \]
+\end{itemize}
+
+\section*{Stress Regime ST--02 (Topological Defect Saturation)}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Critical Defect Threshold:} $\rho_d^* = 0.72$.
+    \item \textbf{Spectral Gap:} $\Delta E = 1.24\,\mathrm{eV}$.
+    \item \textbf{Hamiltonian Norm:} $\|\mathcal{H}_{\mathrm{eff}}\| = 4.15\,\mathrm{eV}$.
+    \item \textbf{Minimum Singular Value:} $\sigma_{\min} = 0.31\,\mathrm{eV}$.
+\end{itemize}
+
+\noindent The calibrated stability boundary is
+\[
+\sigma_{\min}(\mathcal{H}_{\mathrm{eff}})
+= \rho_d^*\,\frac{\Delta E}{\|\mathcal{H}_{\mathrm{eff}}\|}
++ \mathrm{Tr}(\Gamma_{\max}),
+\]
+yielding
+\[
+\mathrm{Tr}(\Gamma_{\max})
+\approx 0.0935\,\mathrm{eV}.
+\]
+
+\section*{Key Physical Insight}
+\begin{itemize}[leftmargin=*]
+    \item Below $\mathrm{Tr}(\Gamma_{\max})$, topological edge modes remain protected,
+    preserving Bott index quantization.
+    \item Above this dissipation ceiling, edge states leak into the bulk and the
+    system transitions into a diffusive metallic phase.
+\end{itemize}
+
+\end{document}
