@@ -1,0 +1,80 @@
+\appendix
+\section*{Appendix C: Formal Mathematical Derivations}
+
+\subsection*{C.1 Relativistic Gravity Kernel (EIH + 3.5PN)}
+
+\subsubsection*{C.1.1 Post-Newtonian Expansion of the Metric}
+We consider the relaxed Einstein equations in harmonic gauge, with the metric
+expanded in powers of $v/c$:
+\[
+g_{\mu\nu} = \eta_{\mu\nu} + h_{\mu\nu},\qquad
+h_{\mu\nu} = \sum_{n=1}^{\infty} h_{\mu\nu}^{(n\mathrm{PN})},
+\]
+where $h_{\mu\nu}^{(n\mathrm{PN})} \sim \mathcal{O}\left(\left(\frac{v}{c}\right)^{2n}\right)$.
+
+The EIH equations of motion for $N$ point masses $m_a$ at positions
+$\mathbf{x}_a$ with velocities $\mathbf{v}_a$ can be written schematically as
+\[
+m_a \frac{d^2 \mathbf{x}_a}{dt^2}
+= \mathbf{F}_a^{\mathrm{Newton}}
++ \mathbf{F}_a^{(1\mathrm{PN})}
++ \mathbf{F}_a^{(2\mathrm{PN})}
++ \mathbf{F}_a^{(3\mathrm{PN})}
++ \mathbf{F}_a^{(3.5\mathrm{PN})},
+\]
+where $\mathbf{F}_a^{(3.5\mathrm{PN})}$ includes radiation-reaction terms.
+
+\subsubsection*{C.1.2 Hamiltonian Structure}
+The corresponding Hamiltonian can be written as
+\[
+H = H_{\mathrm{Newton}}(\mathbf{q},\mathbf{p})
++ H_{1\mathrm{PN}}(\mathbf{q},\mathbf{p})
++ H_{2\mathrm{PN}}(\mathbf{q},\mathbf{p})
++ H_{3\mathrm{PN}}(\mathbf{q},\mathbf{p})
++ H_{3.5\mathrm{PN}}(\mathbf{q},\mathbf{p}),
+\]
+with canonical coordinates $\mathbf{q}_a$ and momenta $\mathbf{p}_a$.
+
+We split
+\[
+H = A(\mathbf{p}) + B(\mathbf{q}),
+\]
+and construct a symplectic integrator via Lie operators $L_A$ and $L_B$:
+\[
+\mathcal{T}(\Delta t)
+= \prod_{i=1}^{m}
+\exp\!\left(c_i \Delta t\, L_A\right)
+\exp\!\left(d_i \Delta t\, L_B\right),
+\]
+which preserves a shadow Hamiltonian
+\[
+\tilde{H} = H + \mathcal{O}(\Delta t^k),
+\]
+leading to bounded Hamiltonian drift
+\[
+\left|\frac{\Delta H}{H_0}\right| \le \epsilon_H,\qquad \epsilon_H \sim 10^{-13}.
+\]
+
+\subsection*{C.2 Quantum Field Engine (Covariant TDSE / Dirac Evolution)}
+
+\subsubsection*{C.2.1 Covariant Dirac Equation}
+On a curved spacetime with metric $g_{\mu\nu}$, the Dirac equation reads
+\[
+\left(i\gamma^\mu \nabla_\mu - m\right)\psi = 0,
+\]
+where $\gamma^\mu$ are curved-space gamma matrices and $\nabla_\mu$ is the
+spinor covariant derivative.
+
+For time evolution, we write
+\[
+i\frac{\partial}{\partial t}\psi(t,\mathbf{x})
+= \hat{H}_{\mathrm{Dirac}}(t)\,\psi(t,\mathbf{x}),
+\]
+with $\hat{H}_{\mathrm{Dirac}}$ including metric-dependent terms.
+
+\subsubsection*{C.2.2 Split-Operator Spectral Propagation}
+We decompose
+\[
+\hat{H}_{\mathrm{Dirac}} = \hat{T} + \hat{V},
+\]
+where $\hat{T}$ is
