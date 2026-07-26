@@ -1,0 +1,42 @@
+\section*{Cover Letter}
+
+\noindent
+Dear Editors,
+
+\medskip
+
+\noindent
+I am pleased to submit our manuscript, entitled \textit{“UPAS-X: A High-Precision Engine for Multi-Body Shadow Geometry and Relativistic Ephemerides”}, for consideration in your journal. This work presents a next-generation astrophysical simulation architecture capable of modeling multi-body shadow geometry, relativistic orbital motion, and high-dynamic-range flux fields at spatial and temporal scales that exceed the limits of existing computational frameworks.
+
+\medskip
+
+\noindent
+UPAS-X integrates a 15th-order symplectic ephemeris solver, analytic ray--cone geometry, and distributed BVH spatial partitioning across 128 NVIDIA H100 GPUs. This unified architecture enables billion-node spatial simulations, real-time ray--cone intersection throughput exceeding $1.42 \times 10^{9}$ rays per second, and stable execution under dense extended-source fields and relativistic velocities approaching $0.8c$. The engine’s diagnostic telemetry---including Hamiltonian drift, matrix condition number $\kappa$, and flux attenuation matrices (U/P/A)---ensures numerical stability and physical fidelity throughout all simulation campaigns.
+
+\medskip
+
+\noindent
+The manuscript includes extensive validation against NASA GSFC eclipse maps, JPL HORIZONS ephemerides (DE440/DE441), and Gaia/Kepler photometric datasets. These comparisons demonstrate sub-kilometer eclipse path accuracy, Hamiltonian drift below $10^{-10}$, and flux attenuation profiles consistent with empirical stellar limb-darkening coefficients. Full-scale stress testing confirms deterministic reproducibility, memory coherence, and thermal stability under peak cluster loads of 14.2 kW.
+
+\medskip
+
+\noindent
+We believe this work represents a significant advance in computational astrophysics. UPAS-X functions not merely as a simulation tool but as a computational instrument capable of enabling high-precision eclipse prediction, exoplanet transit modeling, stellar photometry, and multi-body dynamical analysis at scales previously inaccessible.
+
+\medskip
+
+\noindent
+We confirm that this manuscript is original, has not been published elsewhere, and is not under consideration by any other journal. All authors have approved the manuscript and its submission.
+
+\medskip
+
+\noindent
+Thank you for your consideration. We would be pleased to respond to any questions the reviewers may have.
+
+\medskip
+
+\noindent
+Sincerely,\\
+C.~Matthew~Blackwell\\
+Independent Designer\\
+Lafayette, Louisiana, USA
