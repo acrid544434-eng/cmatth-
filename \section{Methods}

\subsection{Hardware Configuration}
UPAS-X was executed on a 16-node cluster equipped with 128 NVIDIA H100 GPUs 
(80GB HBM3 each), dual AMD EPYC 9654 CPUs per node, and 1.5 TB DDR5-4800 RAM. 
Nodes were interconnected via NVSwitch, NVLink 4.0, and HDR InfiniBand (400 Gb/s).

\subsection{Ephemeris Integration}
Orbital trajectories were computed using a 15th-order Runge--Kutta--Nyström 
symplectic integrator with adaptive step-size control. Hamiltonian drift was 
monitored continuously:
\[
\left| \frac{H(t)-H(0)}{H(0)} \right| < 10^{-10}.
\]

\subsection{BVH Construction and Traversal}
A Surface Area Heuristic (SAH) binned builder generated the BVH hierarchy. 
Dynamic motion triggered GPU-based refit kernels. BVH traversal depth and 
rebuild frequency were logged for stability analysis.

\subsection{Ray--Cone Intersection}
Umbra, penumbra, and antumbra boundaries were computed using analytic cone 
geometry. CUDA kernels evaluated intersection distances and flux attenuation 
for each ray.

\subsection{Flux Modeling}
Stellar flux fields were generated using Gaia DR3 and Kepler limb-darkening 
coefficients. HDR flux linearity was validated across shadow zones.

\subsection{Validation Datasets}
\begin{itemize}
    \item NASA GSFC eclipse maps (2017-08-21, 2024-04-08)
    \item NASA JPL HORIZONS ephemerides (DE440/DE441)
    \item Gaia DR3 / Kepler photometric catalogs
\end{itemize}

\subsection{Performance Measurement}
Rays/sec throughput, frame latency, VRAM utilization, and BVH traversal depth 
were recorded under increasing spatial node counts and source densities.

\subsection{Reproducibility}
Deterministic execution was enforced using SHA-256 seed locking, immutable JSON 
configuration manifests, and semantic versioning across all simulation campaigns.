@@ -1,0 +1,43 @@
+\section{Methods}
+
+\subsection{Hardware Configuration}
+UPAS-X was executed on a 16-node cluster equipped with 128 NVIDIA H100 GPUs 
+(80GB HBM3 each), dual AMD EPYC 9654 CPUs per node, and 1.5 TB DDR5-4800 RAM. 
+Nodes were interconnected via NVSwitch, NVLink 4.0, and HDR InfiniBand (400 Gb/s).
+
+\subsection{Ephemeris Integration}
+Orbital trajectories were computed using a 15th-order Runge--Kutta--Nyström 
+symplectic integrator with adaptive step-size control. Hamiltonian drift was 
+monitored continuously:
+\[
+\left| \frac{H(t)-H(0)}{H(0)} \right| < 10^{-10}.
+\]
+
+\subsection{BVH Construction and Traversal}
+A Surface Area Heuristic (SAH) binned builder generated the BVH hierarchy. 
+Dynamic motion triggered GPU-based refit kernels. BVH traversal depth and 
+rebuild frequency were logged for stability analysis.
+
+\subsection{Ray--Cone Intersection}
+Umbra, penumbra, and antumbra boundaries were computed using analytic cone 
+geometry. CUDA kernels evaluated intersection distances and flux attenuation 
+for each ray.
+
+\subsection{Flux Modeling}
+Stellar flux fields were generated using Gaia DR3 and Kepler limb-darkening 
+coefficients. HDR flux linearity was validated across shadow zones.
+
+\subsection{Validation Datasets}
+\begin{itemize}
+    \item NASA GSFC eclipse maps (2017-08-21, 2024-04-08)
+    \item NASA JPL HORIZONS ephemerides (DE440/DE441)
+    \item Gaia DR3 / Kepler photometric catalogs
+\end{itemize}
+
+\subsection{Performance Measurement}
+Rays/sec throughput, frame latency, VRAM utilization, and BVH traversal depth 
+were recorded under increasing spatial node counts and source densities.
+
+\subsection{Reproducibility}
+Deterministic execution was enforced using SHA-256 seed locking, immutable JSON 
+configuration manifests, and semantic versioning across all simulation campaigns.
