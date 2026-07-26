@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage{geometry, hyperref, amsmath, amssymb, enumitem, setspace}
+\geometry{a4paper, margin=1in}
+\setstretch{1.15}
+
+\begin{document}
+
+\begin{center}
+{\Huge \textbf{ApexIR Language Manual}}\\[8pt]
+{\large Version 3.0-RC1}\\[4pt]
+{\large C.~Matthew Blackwell}\\
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+ApexIR is the intermediate representation used by Apex-TI to translate high-level
+physics rules into optimized sparse tensor kernels.
+
+\section{Core Concepts}
+\begin{itemize}[leftmargin=*]
+    \item Tensor types
+    \item Complex scalar types
+    \item Affine maps
+    \item Linalg generic kernels
+\end{itemize}
+
+\section{Syntax Overview}
+ApexIR follows an MLIR/LLVM-inspired structure.
+
+\subsection{Example Module}
+\begin{verbatim}
+module @ApexTopologicalNetwork {
+  %sites = constant 5000 : i32
+  func @build_virtual_hamiltonian(...) -> tensor { ... }
+}
+\end{verbatim}
+
+\section{Operations}
+\subsection{Tensor Creation}
+\begin{verbatim}
+%zero = tensor.zeros(%n, %n)
+\end{verbatim}
+
+\subsection{Complex Construction}
+\begin{verbatim}
+%z = complex.create(%real, %imag)
+\end{verbatim}
+
+\subsection{Linalg Generic}
+\begin{verbatim}
+linalg.generic { ... } ins(...) outs(...) { ... }
+\end{verbatim}
+
+\section{Optimization Pass Suite}
+\begin{itemize}[leftmargin=*]
+    \item DeadNodeElimination
+    \item LoopUnrollVectorize
+    \item TopologicalInvariantFolding
+\end{itemize}
+
+\section{Lowering Pipeline}
+\begin{enumerate}[leftmargin=*]
+    \item Frontend parsing
+    \item IR optimization
+    \item Backend lowering to AVX-512 or CUDA PTX
+\end{enumerate}
+
+\end{document}
