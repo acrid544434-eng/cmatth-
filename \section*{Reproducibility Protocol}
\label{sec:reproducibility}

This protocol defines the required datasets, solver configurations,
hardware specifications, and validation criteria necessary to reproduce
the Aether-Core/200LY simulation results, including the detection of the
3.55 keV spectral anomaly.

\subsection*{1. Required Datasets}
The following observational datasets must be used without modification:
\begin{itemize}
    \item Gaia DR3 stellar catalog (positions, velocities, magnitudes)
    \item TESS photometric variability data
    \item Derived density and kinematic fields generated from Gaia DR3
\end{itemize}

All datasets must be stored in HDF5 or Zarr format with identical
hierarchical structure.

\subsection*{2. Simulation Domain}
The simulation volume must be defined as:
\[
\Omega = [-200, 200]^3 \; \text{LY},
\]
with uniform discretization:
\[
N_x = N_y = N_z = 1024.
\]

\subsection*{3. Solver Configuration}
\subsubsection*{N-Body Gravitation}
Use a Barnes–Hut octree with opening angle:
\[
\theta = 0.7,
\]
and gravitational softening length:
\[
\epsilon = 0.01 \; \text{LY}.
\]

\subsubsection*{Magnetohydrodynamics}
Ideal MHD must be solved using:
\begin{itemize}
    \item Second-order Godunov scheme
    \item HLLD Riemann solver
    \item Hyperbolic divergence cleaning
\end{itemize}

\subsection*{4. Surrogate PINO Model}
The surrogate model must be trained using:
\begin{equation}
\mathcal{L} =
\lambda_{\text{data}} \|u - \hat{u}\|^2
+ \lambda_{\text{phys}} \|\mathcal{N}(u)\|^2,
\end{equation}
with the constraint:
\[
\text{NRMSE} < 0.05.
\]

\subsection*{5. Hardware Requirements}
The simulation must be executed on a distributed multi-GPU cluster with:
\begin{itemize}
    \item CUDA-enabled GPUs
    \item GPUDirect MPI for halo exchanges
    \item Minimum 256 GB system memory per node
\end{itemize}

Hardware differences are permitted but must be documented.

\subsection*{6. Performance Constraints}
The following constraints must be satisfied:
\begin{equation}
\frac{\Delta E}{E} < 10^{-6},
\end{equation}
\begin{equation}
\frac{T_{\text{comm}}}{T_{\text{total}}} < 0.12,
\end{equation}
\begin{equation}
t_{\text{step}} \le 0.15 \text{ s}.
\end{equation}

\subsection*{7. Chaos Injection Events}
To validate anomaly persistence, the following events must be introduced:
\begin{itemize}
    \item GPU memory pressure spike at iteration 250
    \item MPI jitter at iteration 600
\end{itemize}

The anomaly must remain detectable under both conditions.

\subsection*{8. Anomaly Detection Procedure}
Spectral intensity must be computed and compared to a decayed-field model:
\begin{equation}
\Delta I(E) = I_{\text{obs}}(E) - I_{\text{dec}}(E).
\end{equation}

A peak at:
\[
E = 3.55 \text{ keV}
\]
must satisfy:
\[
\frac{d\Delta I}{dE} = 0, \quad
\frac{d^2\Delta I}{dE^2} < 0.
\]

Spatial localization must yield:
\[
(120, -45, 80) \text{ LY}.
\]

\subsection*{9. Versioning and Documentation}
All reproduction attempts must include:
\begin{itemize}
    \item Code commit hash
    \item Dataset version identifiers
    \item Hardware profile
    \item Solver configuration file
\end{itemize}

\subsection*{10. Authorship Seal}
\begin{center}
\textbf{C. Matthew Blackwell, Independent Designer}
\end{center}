@@ -1,0 +1,125 @@
+\section*{Reproducibility Protocol}
+\label{sec:reproducibility}
+
+This protocol defines the required datasets, solver configurations,
+hardware specifications, and validation criteria necessary to reproduce
+the Aether-Core/200LY simulation results, including the detection of the
+3.55 keV spectral anomaly.
+
+\subsection*{1. Required Datasets}
+The following observational datasets must be used without modification:
+\begin{itemize}
+    \item Gaia DR3 stellar catalog (positions, velocities, magnitudes)
+    \item TESS photometric variability data
+    \item Derived density and kinematic fields generated from Gaia DR3
+\end{itemize}
+
+All datasets must be stored in HDF5 or Zarr format with identical
+hierarchical structure.
+
+\subsection*{2. Simulation Domain}
+The simulation volume must be defined as:
+\[
+\Omega = [-200, 200]^3 \; \text{LY},
+\]
+with uniform discretization:
+\[
+N_x = N_y = N_z = 1024.
+\]
+
+\subsection*{3. Solver Configuration}
+\subsubsection*{N-Body Gravitation}
+Use a Barnes–Hut octree with opening angle:
+\[
+\theta = 0.7,
+\]
+and gravitational softening length:
+\[
+\epsilon = 0.01 \; \text{LY}.
+\]
+
+\subsubsection*{Magnetohydrodynamics}
+Ideal MHD must be solved using:
+\begin{itemize}
+    \item Second-order Godunov scheme
+    \item HLLD Riemann solver
+    \item Hyperbolic divergence cleaning
+\end{itemize}
+
+\subsection*{4. Surrogate PINO Model}
+The surrogate model must be trained using:
+\begin{equation}
+\mathcal{L} =
+\lambda_{\text{data}} \|u - \hat{u}\|^2
++ \lambda_{\text{phys}} \|\mathcal{N}(u)\|^2,
+\end{equation}
+with the constraint:
+\[
+\text{NRMSE} < 0.05.
+\]
+
+\subsection*{5. Hardware Requirements}
+The simulation must be executed on a distributed multi-GPU cluster with:
+\begin{itemize}
+    \item CUDA-enabled GPUs
+    \item GPUDirect MPI for halo exchanges
+    \item Minimum 256 GB system memory per node
+\end{itemize}
+
+Hardware differences are permitted but must be documented.
+
+\subsection*{6. Performance Constraints}
+The following constraints must be satisfied:
+\begin{equation}
+\frac{\Delta E}{E} < 10^{-6},
+\end{equation}
+\begin{equation}
+\frac{T_{\text{comm}}}{T_{\text{total}}} < 0.12,
+\end{equation}
+\begin{equation}
+t_{\text{step}} \le 0.15 \text{ s}.
+\end{equation}
+
+\subsection*{7. Chaos Injection Events}
+To validate anomaly persistence, the following events must be introduced:
+\begin{itemize}
+    \item GPU memory pressure spike at iteration 250
+    \item MPI jitter at iteration 600
+\end{itemize}
+
+The anomaly must remain detectable under both conditions.
+
+\subsection*{8. Anomaly Detection Procedure}
+Spectral intensity must be computed and compared to a decayed-field model:
+\begin{equation}
+\Delta I(E) = I_{\text{obs}}(E) - I_{\text{dec}}(E).
+\end{equation}
+
+A peak at:
+\[
+E = 3.55 \text{ keV}
+\]
+must satisfy:
+\[
+\frac{d\Delta I}{dE} = 0, \quad
+\frac{d^2\Delta I}{dE^2} < 0.
+\]
+
+Spatial localization must yield:
+\[
+(120, -45, 80) \text{ LY}.
+\]
+
+\subsection*{9. Versioning and Documentation}
+All reproduction attempts must include:
+\begin{itemize}
+    \item Code commit hash
+    \item Dataset version identifiers
+    \item Hardware profile
+    \item Solver configuration file
+\end{itemize}
+
+\subsection*{10. Authorship Seal}
+\begin{center}
+\textbf{C. Matthew Blackwell, Independent Designer}
+\end{center}
