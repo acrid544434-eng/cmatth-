@@ -1,0 +1,66 @@
+\documentclass[11pt]{article}
+\usepackage{tikz}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\begin{center}
+    {\Large \textbf{QD--NESP v4.2 Node Architecture Diagram}}
+\end{center}
+
+\vspace{0.5cm}
+
+\begin{tikzpicture}[
+    box/.style={draw, rounded corners, thick, align=center, minimum width=3cm, minimum height=1cm},
+    arrow/.style={->, thick},
+    bus/.style={draw, thick}
+]
+
+% CPU
+\node[box] (cpu) at (0,0) {CPU Cluster Node\\(Control \& Orchestration)};
+
+% GPU
+\node[box] (gpu) at (6,0) {GPU Accelerator\\(CUDA/ROCm Cores)};
+
+% Memory
+\node[box] (mem) at (3,-2) {HBM / VRAM\\High-Bandwidth Memory};
+
+% Storage
+\node[box] (storage) at (3,-4) {NVMe / Parallel FS\\Result Datastore};
+
+% Interconnect
+\node[bus] (interconnect) at (3,2) {NVLink / PCIe / InfiniBand};
+
+% Arrows CPU <-> GPU
+\draw[arrow] (cpu) -- node[above]{Phase II, IV Kernels} (gpu);
+\draw[arrow] (gpu) -- node[below]{Metrics, Status} (cpu);
+
+% CPU <-> Interconnect
+\draw[arrow] (cpu) -- node[left]{MPI / Control} (interconnect);
+\draw[arrow] (interconnect) -- node[right]{Distributed Sync} (gpu);
+
+% GPU <-> Memory
+\draw[arrow] (gpu) -- node[right]{Hamiltonian, $\rho(t)$, Fields} (mem);
+\draw[arrow] (mem) -- node[left]{Read/Write} (gpu);
+
+% CPU <-> Memory
+\draw[arrow] (cpu) -- node[left]{Geometry, Defect Tensors} (mem);
+
+% Memory <-> Storage
+\draw[arrow] (mem) -- node[right]{Checkpoint, Logs} (storage);
+\draw[arrow] (storage) -- node[left]{Reload, Analysis} (mem);
+
+\end{tikzpicture}
+
+\vspace{0.5cm}
+
+\noindent \textbf{Phase Mapping:}
+\begin{itemize}
+    \item \textbf{Phase I (Ingest \& Geometry):} CPU + system RAM, writes lattice and defect tensors into HBM/VRAM.
+    \item \textbf{Phase II (Quantum Solver Engine):} GPU kernels on Hamiltonian, eigenvalues, and topological invariants.
+    \item \textbf{Phase III (Information Dynamics):} GPU/CPU hybrid, operating on large information fields in HBM.
+    \item \textbf{Phase IV (Lindblad \& Visualization):} GPU for $\rho(t)$ evolution, CPU for aggregation and output to storage.
+\end{itemize}
+
+\end{document}
