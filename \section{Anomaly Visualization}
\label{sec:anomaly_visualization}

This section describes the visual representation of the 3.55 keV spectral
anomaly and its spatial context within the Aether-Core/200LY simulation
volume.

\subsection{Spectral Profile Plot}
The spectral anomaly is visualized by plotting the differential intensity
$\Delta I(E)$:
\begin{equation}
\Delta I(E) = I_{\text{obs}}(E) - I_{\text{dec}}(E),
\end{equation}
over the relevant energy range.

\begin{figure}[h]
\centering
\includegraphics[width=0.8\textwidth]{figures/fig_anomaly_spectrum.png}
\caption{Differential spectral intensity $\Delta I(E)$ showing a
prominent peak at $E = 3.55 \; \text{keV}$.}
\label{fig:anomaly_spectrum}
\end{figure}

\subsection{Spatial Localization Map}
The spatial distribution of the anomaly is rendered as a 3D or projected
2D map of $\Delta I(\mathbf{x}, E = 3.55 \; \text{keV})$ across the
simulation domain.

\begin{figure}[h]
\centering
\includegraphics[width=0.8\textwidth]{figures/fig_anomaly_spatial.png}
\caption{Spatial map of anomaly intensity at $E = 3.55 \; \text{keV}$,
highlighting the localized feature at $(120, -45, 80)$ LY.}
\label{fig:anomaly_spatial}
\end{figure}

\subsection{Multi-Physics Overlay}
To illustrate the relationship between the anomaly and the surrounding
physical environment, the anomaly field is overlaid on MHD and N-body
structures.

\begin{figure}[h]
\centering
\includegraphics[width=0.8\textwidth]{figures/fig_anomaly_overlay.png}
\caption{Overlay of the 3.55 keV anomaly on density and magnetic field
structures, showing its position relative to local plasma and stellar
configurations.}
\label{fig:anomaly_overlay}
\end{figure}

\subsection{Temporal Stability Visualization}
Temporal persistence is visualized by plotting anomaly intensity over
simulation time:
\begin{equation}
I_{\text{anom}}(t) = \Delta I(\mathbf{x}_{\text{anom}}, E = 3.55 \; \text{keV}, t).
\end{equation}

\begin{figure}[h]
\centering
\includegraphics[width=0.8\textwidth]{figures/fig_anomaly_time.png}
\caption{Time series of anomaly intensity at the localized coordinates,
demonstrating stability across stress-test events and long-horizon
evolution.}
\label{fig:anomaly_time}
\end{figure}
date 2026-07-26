@@ -1,0 +1,65 @@
+\section{Anomaly Visualization}
+\label{sec:anomaly_visualization}
+
+This section describes the visual representation of the 3.55 keV spectral
+anomaly and its spatial context within the Aether-Core/200LY simulation
+volume.
+
+\subsection{Spectral Profile Plot}
+The spectral anomaly is visualized by plotting the differential intensity
+$\Delta I(E)$:
+\begin{equation}
+\Delta I(E) = I_{\text{obs}}(E) - I_{\text{dec}}(E),
+\end{equation}
+over the relevant energy range.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/fig_anomaly_spectrum.png}
+\caption{Differential spectral intensity $\Delta I(E)$ showing a
+prominent peak at $E = 3.55 \; \text{keV}$.}
+\label{fig:anomaly_spectrum}
+\end{figure}
+
+\subsection{Spatial Localization Map}
+The spatial distribution of the anomaly is rendered as a 3D or projected
+2D map of $\Delta I(\mathbf{x}, E = 3.55 \; \text{keV})$ across the
+simulation domain.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/fig_anomaly_spatial.png}
+\caption{Spatial map of anomaly intensity at $E = 3.55 \; \text{keV}$,
+highlighting the localized feature at $(120, -45, 80)$ LY.}
+\label{fig:anomaly_spatial}
+\end{figure}
+
+\subsection{Multi-Physics Overlay}
+To illustrate the relationship between the anomaly and the surrounding
+physical environment, the anomaly field is overlaid on MHD and N-body
+structures.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/fig_anomaly_overlay.png}
+\caption{Overlay of the 3.55 keV anomaly on density and magnetic field
+structures, showing its position relative to local plasma and stellar
+configurations.}
+\label{fig:anomaly_overlay}
+\end{figure}
+
+\subsection{Temporal Stability Visualization}
+Temporal persistence is visualized by plotting anomaly intensity over
+simulation time:
+\begin{equation}
+I_{\text{anom}}(t) = \Delta I(\mathbf{x}_{\text{anom}}, E = 3.55 \; \text{keV}, t).
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/fig_anomaly_time.png}
+\caption{Time series of anomaly intensity at the localized coordinates,
+demonstrating stability across stress-test events and long-horizon
+evolution.}
+\label{fig:anomaly_time}
+\end{figure}
