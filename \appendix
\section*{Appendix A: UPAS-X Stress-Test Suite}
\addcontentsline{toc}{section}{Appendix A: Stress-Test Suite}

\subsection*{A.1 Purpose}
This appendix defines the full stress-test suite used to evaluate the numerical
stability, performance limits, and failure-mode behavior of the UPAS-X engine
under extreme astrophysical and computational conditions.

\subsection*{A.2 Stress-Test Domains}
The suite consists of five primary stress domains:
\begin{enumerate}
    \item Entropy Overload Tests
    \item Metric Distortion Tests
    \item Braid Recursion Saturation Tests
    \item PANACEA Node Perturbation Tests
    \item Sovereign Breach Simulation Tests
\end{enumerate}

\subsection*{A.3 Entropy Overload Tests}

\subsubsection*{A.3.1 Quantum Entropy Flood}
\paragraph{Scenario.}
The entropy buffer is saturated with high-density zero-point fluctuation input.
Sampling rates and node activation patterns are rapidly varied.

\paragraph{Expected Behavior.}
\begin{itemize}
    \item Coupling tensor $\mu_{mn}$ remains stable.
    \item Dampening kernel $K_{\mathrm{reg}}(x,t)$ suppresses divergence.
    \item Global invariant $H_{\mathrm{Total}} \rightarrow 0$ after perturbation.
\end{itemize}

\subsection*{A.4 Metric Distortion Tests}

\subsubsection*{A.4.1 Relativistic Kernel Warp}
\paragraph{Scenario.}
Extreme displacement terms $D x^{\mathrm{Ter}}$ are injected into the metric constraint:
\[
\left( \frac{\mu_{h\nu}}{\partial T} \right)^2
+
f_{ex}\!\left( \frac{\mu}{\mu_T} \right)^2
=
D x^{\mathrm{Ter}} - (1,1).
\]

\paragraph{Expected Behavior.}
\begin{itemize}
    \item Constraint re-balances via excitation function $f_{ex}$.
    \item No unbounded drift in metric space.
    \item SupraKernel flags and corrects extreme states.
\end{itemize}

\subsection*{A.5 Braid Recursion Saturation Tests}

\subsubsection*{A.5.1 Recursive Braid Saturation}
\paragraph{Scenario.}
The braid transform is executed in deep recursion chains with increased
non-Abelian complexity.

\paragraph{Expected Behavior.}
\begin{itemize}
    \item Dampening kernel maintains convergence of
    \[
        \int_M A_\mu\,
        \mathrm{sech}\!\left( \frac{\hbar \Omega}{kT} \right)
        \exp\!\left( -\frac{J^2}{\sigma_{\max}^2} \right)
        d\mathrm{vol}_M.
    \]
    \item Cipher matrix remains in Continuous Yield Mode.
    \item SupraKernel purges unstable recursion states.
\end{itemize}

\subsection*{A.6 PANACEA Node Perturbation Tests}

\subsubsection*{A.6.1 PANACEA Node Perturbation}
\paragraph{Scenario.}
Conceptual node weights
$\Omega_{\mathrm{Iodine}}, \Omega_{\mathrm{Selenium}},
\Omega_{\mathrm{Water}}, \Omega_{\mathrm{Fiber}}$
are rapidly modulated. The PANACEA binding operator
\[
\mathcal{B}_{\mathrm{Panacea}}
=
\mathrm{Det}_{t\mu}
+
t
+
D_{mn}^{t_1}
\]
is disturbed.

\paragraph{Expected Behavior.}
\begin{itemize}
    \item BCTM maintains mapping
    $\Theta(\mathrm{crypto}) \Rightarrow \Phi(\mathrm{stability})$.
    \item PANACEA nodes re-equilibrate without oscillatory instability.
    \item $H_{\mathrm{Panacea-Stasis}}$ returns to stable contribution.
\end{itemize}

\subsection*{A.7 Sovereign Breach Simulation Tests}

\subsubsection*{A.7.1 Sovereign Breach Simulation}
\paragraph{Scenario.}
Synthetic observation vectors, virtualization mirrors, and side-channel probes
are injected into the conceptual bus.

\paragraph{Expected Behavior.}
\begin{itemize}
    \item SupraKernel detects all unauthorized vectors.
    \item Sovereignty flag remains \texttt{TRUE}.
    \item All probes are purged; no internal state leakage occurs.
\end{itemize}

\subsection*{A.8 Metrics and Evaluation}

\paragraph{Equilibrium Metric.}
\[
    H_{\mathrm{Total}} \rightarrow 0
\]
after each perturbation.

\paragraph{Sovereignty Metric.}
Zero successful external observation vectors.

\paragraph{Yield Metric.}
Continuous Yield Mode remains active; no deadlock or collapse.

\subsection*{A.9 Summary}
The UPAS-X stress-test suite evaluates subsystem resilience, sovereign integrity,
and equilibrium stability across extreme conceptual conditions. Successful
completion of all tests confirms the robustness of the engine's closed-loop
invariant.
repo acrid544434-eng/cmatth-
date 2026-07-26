@@ -1,0 +1,133 @@
+\appendix
+\section*{Appendix A: UPAS-X Stress-Test Suite}
+\addcontentsline{toc}{section}{Appendix A: Stress-Test Suite}
+
+\subsection*{A.1 Purpose}
+This appendix defines the full stress-test suite used to evaluate the numerical
+stability, performance limits, and failure-mode behavior of the UPAS-X engine
+under extreme astrophysical and computational conditions.
+
+\subsection*{A.2 Stress-Test Domains}
+The suite consists of five primary stress domains:
+\begin{enumerate}
+    \item Entropy Overload Tests
+    \item Metric Distortion Tests
+    \item Braid Recursion Saturation Tests
+    \item PANACEA Node Perturbation Tests
+    \item Sovereign Breach Simulation Tests
+\end{enumerate}
+
+\subsection*{A.3 Entropy Overload Tests}
+
+\subsubsection*{A.3.1 Quantum Entropy Flood}
+\paragraph{Scenario.}
+The entropy buffer is saturated with high-density zero-point fluctuation input.
+Sampling rates and node activation patterns are rapidly varied.
+
+\paragraph{Expected Behavior.}
+\begin{itemize}
+    \item Coupling tensor $\mu_{mn}$ remains stable.
+    \item Dampening kernel $K_{\mathrm{reg}}(x,t)$ suppresses divergence.
+    \item Global invariant $H_{\mathrm{Total}} \rightarrow 0$ after perturbation.
+\end{itemize}
+
+\subsection*{A.4 Metric Distortion Tests}
+
+\subsubsection*{A.4.1 Relativistic Kernel Warp}
+\paragraph{Scenario.}
+Extreme displacement terms $D x^{\mathrm{Ter}}$ are injected into the metric constraint:
+\[
+\left( \frac{\mu_{h\nu}}{\partial T} \right)^2
++
+f_{ex}\!\left( \frac{\mu}{\mu_T} \right)^2
+=
+D x^{\mathrm{Ter}} - (1,1).
+\]
+
+\paragraph{Expected Behavior.}
+\begin{itemize}
+    \item Constraint re-balances via excitation function $f_{ex}$.
+    \item No unbounded drift in metric space.
+    \item SupraKernel flags and corrects extreme states.
+\end{itemize}
+
+\subsection*{A.5 Braid Recursion Saturation Tests}
+
+\subsubsection*{A.5.1 Recursive Braid Saturation}
+\paragraph{Scenario.}
+The braid transform is executed in deep recursion chains with increased
+non-Abelian complexity.
+
+\paragraph{Expected Behavior.}
+\begin{itemize}
+    \item Dampening kernel maintains convergence of
+    \[
+        \int_M A_\mu\,
+        \mathrm{sech}\!\left( \frac{\hbar \Omega}{kT} \right)
+        \exp\!\left( -\frac{J^2}{\sigma_{\max}^2} \right)
+        d\mathrm{vol}_M.
+    \]
+    \item Cipher matrix remains in Continuous Yield Mode.
+    \item SupraKernel purges unstable recursion states.
+\end{itemize}
+
+\subsection*{A.6 PANACEA Node Perturbation Tests}
+
+\subsubsection*{A.6.1 PANACEA Node Perturbation}
+\paragraph{Scenario.}
+Conceptual node weights
+$\Omega_{\mathrm{Iodine}}, \Omega_{\mathrm{Selenium}},
+\Omega_{\mathrm{Water}}, \Omega_{\mathrm{Fiber}}$
+are rapidly modulated. The PANACEA binding operator
+\[
+\mathcal{B}_{\mathrm{Panacea}}
+=
+\mathrm{Det}_{t\mu}
++
+t
++
+D_{mn}^{t_1}
+\]
+is disturbed.
+
+\paragraph{Expected Behavior.}
+\begin{itemize}
+    \item BCTM maintains mapping
+    $\Theta(\mathrm{crypto}) \Rightarrow \Phi(\mathrm{stability})$.
+    \item PANACEA nodes re-equilibrate without oscillatory instability.
+    \item $H_{\mathrm{Panacea-Stasis}}$ returns to stable contribution.
+\end{itemize}
+
+\subsection*{A.7 Sovereign Breach Simulation Tests}
+
+\subsubsection*{A.7.1 Sovereign Breach Simulation}
+\paragraph{Scenario.}
+Synthetic observation vectors, virtualization mirrors, and side-channel probes
+are injected into the conceptual bus.
+
+\paragraph{Expected Behavior.}
+\begin{itemize}
+    \item SupraKernel detects all unauthorized vectors.
+    \item Sovereignty flag remains \texttt{TRUE}.
+    \item All probes are purged; no internal state leakage occurs.
+\end{itemize}
+
+\subsection*{A.8 Metrics and Evaluation}
+
+\paragraph{Equilibrium Metric.}
+\[
+    H_{\mathrm{Total}} \rightarrow 0
+\]
+after each perturbation.
+
+\paragraph{Sovereignty Metric.}
+Zero successful external observation vectors.
+
+\paragraph{Yield Metric.}
+Continuous Yield Mode remains active; no deadlock or collapse.
+
+\subsection*{A.9 Summary}
+The UPAS-X stress-test suite evaluates subsystem resilience, sovereign integrity,
+and equilibrium stability across extreme conceptual conditions. Successful
+completion of all tests confirms the robustness of the engine's closed-loop
+invariant.
