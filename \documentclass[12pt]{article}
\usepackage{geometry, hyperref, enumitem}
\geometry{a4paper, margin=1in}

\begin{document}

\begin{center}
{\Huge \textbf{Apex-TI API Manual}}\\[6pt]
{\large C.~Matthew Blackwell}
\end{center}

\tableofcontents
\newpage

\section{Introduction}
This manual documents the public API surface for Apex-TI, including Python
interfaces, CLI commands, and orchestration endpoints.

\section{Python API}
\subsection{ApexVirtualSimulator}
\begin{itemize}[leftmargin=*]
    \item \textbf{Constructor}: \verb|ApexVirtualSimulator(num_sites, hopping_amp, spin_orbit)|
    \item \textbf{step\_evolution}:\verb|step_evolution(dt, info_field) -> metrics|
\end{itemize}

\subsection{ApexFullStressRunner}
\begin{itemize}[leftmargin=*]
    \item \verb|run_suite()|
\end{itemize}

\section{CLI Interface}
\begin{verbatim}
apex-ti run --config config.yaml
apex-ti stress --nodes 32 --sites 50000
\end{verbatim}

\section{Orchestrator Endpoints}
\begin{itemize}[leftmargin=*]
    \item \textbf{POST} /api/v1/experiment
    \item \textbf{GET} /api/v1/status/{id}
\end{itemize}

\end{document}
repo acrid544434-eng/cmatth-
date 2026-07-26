@@ -1,0 +1,43 @@
+\documentclass[12pt]{article}
+\usepackage{geometry, hyperref, enumitem}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\begin{center}
+{\Huge \textbf{Apex-TI API Manual}}\\[6pt]
+{\large C.~Matthew Blackwell}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+This manual documents the public API surface for Apex-TI, including Python
+interfaces, CLI commands, and orchestration endpoints.
+
+\section{Python API}
+\subsection{ApexVirtualSimulator}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Constructor}: \verb|ApexVirtualSimulator(num_sites, hopping_amp, spin_orbit)|
+    \item \textbf{step\_evolution}:\verb|step_evolution(dt, info_field) -> metrics|
+\end{itemize}
+
+\subsection{ApexFullStressRunner}
+\begin{itemize}[leftmargin=*]
+    \item \verb|run_suite()|
+\end{itemize}
+
+\section{CLI Interface}
+\begin{verbatim}
+apex-ti run --config config.yaml
+apex-ti stress --nodes 32 --sites 50000
+\end{verbatim}
+
+\section{Orchestrator Endpoints}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{POST} /api/v1/experiment
+    \item \textbf{GET} /api/v1/status/{id}
+\end{itemize}
+
+\end{document}
