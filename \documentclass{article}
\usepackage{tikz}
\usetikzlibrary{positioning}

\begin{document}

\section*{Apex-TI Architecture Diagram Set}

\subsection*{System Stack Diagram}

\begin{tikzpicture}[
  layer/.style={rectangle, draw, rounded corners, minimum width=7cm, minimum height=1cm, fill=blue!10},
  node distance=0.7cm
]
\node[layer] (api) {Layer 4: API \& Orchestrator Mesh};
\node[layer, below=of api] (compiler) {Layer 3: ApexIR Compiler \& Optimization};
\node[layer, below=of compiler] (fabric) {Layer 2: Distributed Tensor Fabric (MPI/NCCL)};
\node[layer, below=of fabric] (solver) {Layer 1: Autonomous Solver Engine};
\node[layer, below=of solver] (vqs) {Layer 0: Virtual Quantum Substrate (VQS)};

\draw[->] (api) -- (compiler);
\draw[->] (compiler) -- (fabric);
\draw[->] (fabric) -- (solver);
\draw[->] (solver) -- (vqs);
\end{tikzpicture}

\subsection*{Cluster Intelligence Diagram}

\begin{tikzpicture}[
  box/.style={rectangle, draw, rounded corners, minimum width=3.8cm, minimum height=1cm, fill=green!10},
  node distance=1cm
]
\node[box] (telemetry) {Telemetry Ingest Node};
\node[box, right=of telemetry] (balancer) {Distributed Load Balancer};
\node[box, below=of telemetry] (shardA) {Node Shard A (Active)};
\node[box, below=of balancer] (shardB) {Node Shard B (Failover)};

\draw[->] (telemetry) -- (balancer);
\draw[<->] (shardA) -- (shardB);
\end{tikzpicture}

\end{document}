@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+\section*{Apex-TI Architecture Diagram Set}
+
+\subsection*{System Stack Diagram}
+
+\begin{tikzpicture}[
+  layer/.style={rectangle, draw, rounded corners, minimum width=7cm, minimum height=1cm, fill=blue!10},
+  node distance=0.7cm
+]
+\node[layer] (api) {Layer 4: API \& Orchestrator Mesh};
+\node[layer, below=of api] (compiler) {Layer 3: ApexIR Compiler \& Optimization};
+\node[layer, below=of compiler] (fabric) {Layer 2: Distributed Tensor Fabric (MPI/NCCL)};
+\node[layer, below=of fabric] (solver) {Layer 1: Autonomous Solver Engine};
+\node[layer, below=of solver] (vqs) {Layer 0: Virtual Quantum Substrate (VQS)};
+
+\draw[->] (api) -- (compiler);
+\draw[->] (compiler) -- (fabric);
+\draw[->] (fabric) -- (solver);
+\draw[->] (solver) -- (vqs);
+\end{tikzpicture}
+
+\subsection*{Cluster Intelligence Diagram}
+
+\begin{tikzpicture}[
+  box/.style={rectangle, draw, rounded corners, minimum width=3.8cm, minimum height=1cm, fill=green!10},
+  node distance=1cm
+]
+\node[box] (telemetry) {Telemetry Ingest Node};
+\node[box, right=of telemetry] (balancer) {Distributed Load Balancer};
+\node[box, below=of telemetry] (shardA) {Node Shard A (Active)};
+\node[box, below=of balancer] (shardB) {Node Shard B (Failover)};
+
+\draw[->] (telemetry) -- (balancer);
+\draw[<->] (shardA) -- (shardB);
+\end{tikzpicture}
+
+\end{document}
