@@ -1,0 +1,90 @@
+\section*{UPAS-X Scientific Evidence Acquisition Plan}
+
+\subsection*{1. Validation Objectives}
+\begin{itemize}
+    \item Numerical correctness of integrators, BVH traversal, and ray–cone solvers.
+    \item Physical realism of multi-body shadow geometry and flux attenuation.
+    \item Performance scaling under extreme astrophysical workloads.
+    \item Full reproducibility across independent hardware clusters.
+\end{itemize}
+
+\subsection*{2. Numerical Validation Campaign}
+
+\subsubsection*{2.1 Integrator and Ephemeris Validation}
+\begin{itemize}
+    \item Run controlled two-body and three-body analytic benchmarks.
+    \item Measure Hamiltonian drift:
+    \[
+        \Delta H = \left| \frac{H(t) - H(0)}{H(0)} \right|.
+    \]
+    \item Compare orbital trajectories against high-precision references.
+\end{itemize}
+
+\subsubsection*{2.2 BVH and Ray–Cone Geometry Validation}
+\begin{itemize}
+    \item Validate BVH traversal against brute-force intersection datasets.
+    \item Compare ray–cone intersection distances with analytic cone geometry.
+    \item Sample condition numbers:
+    \[
+        \kappa = \|A\| \cdot \|A^{-1}\|.
+    \]
+\end{itemize}
+
+\subsection*{3. Physical Realism and Ephemeris Cross-Checks}
+
+\subsubsection*{3.1 Eclipse Reconstruction}
+\begin{itemize}
+    \item Simulate historical eclipses (2017-08-21, 2024-04-08).
+    \item Compare shadow paths with NASA GSFC eclipse maps.
+    \item Compute timing residuals:
+    \[
+        \Delta t = t_{\text{UPAS-X}} - t_{\text{GSFC}}.
+    \]
+\end{itemize}
+
+\subsubsection*{3.2 Ephemeris Ground Truth}
+\begin{itemize}
+    \item Validate trajectories against JPL HORIZONS (DE440/DE441).
+    \item Measure position residuals:
+    \[
+        \Delta r = \| r_{\text{UPAS-X}} - r_{\text{HORIZONS}} \|.
+    \]
+\end{itemize}
+
+\subsubsection*{3.3 Flux and Limb-Darkening Validation}
+\begin{itemize}
+    \item Compare stellar flux profiles with Gaia/Kepler limb-darkening coefficients.
+    \item Validate HDR flux linearity across umbra, penumbra, and antumbra.
+\end{itemize}
+
+\subsection*{4. Performance and Scaling Benchmarks}
+
+\subsubsection*{4.1 Rays/sec and Latency Curves}
+\begin{itemize}
+    \item Sweep source count: \(1 \rightarrow 5 \times 10^{4}\).
+    \item Sweep spatial nodes: \(10^{6} \rightarrow 1.5 \times 10^{9}\).
+    \item Record frame latency:
+    \[
+        T_{\text{frame}} \leq 16.6 \text{ ms}.
+    \]
+\end{itemize}
+
+\subsubsection*{4.2 Memory and BVH Behavior}
+\begin{itemize}
+    \item Measure VRAM utilization per GPU.
+    \item Track BVH rebuild/refit timing under dynamic motion.
+\end{itemize}
+
+\subsubsection*{4.3 Cluster-Level Scaling}
+\begin{itemize}
+    \item Execute identical workloads on 1, 2, 4, 8, and 16 nodes.
+    \item Record MPI communication overhead.
+\end{itemize}
+
+\subsection*{5. Reproducibility and Determinism}
+
+\begin{itemize}
+    \item Lock cryptographic seeds (SHA-256 entropy pools).
+    \item Archive full configuration manifests (JSON).
+    \item Enforce semantic versioning for all UPAS-X campaigns.
+\end{itemize}
