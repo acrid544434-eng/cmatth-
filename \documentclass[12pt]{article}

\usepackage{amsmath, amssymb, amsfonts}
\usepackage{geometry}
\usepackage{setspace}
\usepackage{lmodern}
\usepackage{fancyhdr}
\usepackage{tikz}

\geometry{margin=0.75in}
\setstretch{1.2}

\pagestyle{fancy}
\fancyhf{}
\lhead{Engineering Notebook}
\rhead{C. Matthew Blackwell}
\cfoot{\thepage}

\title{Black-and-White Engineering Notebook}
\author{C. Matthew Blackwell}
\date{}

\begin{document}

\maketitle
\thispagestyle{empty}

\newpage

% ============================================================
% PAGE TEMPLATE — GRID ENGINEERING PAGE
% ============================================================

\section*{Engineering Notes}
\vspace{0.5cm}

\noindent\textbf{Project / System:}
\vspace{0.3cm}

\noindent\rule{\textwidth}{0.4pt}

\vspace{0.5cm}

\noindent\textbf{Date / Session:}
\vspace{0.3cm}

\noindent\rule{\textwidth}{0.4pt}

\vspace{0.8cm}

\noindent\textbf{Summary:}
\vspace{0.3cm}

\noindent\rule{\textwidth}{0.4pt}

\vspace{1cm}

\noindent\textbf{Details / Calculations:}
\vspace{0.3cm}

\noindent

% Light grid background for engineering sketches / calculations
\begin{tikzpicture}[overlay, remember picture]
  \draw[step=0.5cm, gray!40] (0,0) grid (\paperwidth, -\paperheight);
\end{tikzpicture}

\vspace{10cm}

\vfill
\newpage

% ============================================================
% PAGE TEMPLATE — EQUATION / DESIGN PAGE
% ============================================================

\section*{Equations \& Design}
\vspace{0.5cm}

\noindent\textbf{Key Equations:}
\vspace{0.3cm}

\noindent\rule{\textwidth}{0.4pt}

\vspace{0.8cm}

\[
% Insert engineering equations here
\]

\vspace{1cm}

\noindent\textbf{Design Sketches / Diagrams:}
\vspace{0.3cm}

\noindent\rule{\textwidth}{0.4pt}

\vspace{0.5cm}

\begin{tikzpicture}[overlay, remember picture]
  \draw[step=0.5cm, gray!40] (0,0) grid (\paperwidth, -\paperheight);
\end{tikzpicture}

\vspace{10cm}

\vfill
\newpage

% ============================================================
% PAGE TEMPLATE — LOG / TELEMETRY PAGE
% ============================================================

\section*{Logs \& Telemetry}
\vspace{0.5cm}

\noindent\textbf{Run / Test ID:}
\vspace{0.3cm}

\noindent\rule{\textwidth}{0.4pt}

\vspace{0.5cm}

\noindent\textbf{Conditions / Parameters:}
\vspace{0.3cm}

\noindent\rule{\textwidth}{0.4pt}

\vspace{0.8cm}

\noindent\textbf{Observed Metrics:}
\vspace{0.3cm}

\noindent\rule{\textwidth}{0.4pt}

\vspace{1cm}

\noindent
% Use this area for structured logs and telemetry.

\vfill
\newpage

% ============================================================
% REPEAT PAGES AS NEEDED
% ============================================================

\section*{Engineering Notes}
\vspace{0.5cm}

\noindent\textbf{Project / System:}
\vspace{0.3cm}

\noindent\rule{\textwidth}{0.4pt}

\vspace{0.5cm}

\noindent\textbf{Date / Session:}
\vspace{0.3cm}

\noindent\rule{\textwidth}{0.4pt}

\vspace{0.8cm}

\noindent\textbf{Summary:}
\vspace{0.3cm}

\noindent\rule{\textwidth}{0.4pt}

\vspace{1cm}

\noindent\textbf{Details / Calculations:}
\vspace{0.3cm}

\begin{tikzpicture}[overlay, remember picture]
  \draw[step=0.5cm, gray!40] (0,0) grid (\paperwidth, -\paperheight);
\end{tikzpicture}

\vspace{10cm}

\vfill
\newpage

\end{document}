@@ -1,0 +1,183 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{lmodern}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+
+\geometry{margin=0.75in}
+\setstretch{1.2}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Engineering Notebook}
+\rhead{C. Matthew Blackwell}
+\cfoot{\thepage}
+
+\title{Black-and-White Engineering Notebook}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+
+% ============================================================
+% PAGE TEMPLATE — GRID ENGINEERING PAGE
+% ============================================================
+
+\section*{Engineering Notes}
+\vspace{0.5cm}
+
+\noindent\textbf{Project / System:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Date / Session:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.8cm}
+
+\noindent\textbf{Summary:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{1cm}
+
+\noindent\textbf{Details / Calculations:}
+\vspace{0.3cm}
+
+\noindent
+
+% Light grid background for engineering sketches / calculations
+\begin{tikzpicture}[overlay, remember picture]
+  \draw[step=0.5cm, gray!40] (0,0) grid (\paperwidth, -\paperheight);
+\end{tikzpicture}
+
+\vspace{10cm}
+
+\vfill
+\newpage
+
+% ============================================================
+% PAGE TEMPLATE — EQUATION / DESIGN PAGE
+% ============================================================
+
+\section*{Equations \& Design}
+\vspace{0.5cm}
+
+\noindent\textbf{Key Equations:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.8cm}
+
+\[
+% Insert engineering equations here
+\]
+
+\vspace{1cm}
+
+\noindent\textbf{Design Sketches / Diagrams:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\begin{tikzpicture}[overlay, remember picture]
+  \draw[step=0.5cm, gray!40] (0,0) grid (\paperwidth, -\paperheight);
+\end{tikzpicture}
+
+\vspace{10cm}
+
+\vfill
+\newpage
+
+% ============================================================
+% PAGE TEMPLATE — LOG / TELEMETRY PAGE
+% ============================================================
+
+\section*{Logs \& Telemetry}
+\vspace{0.5cm}
+
+\noindent\textbf{Run / Test ID:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Conditions / Parameters:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.8cm}
+
+\noindent\textbf{Observed Metrics:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{1cm}
+
+\noindent
+% Use this area for structured logs and telemetry.
+
+\vfill
+\newpage
+
+% ============================================================
+% REPEAT PAGES AS NEEDED
+% ============================================================
+
+\section*{Engineering Notes}
+\vspace{0.5cm}
+
+\noindent\textbf{Project / System:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Date / Session:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.8cm}
+
+\noindent\textbf{Summary:}
+\vspace{0.3cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{1cm}
+
+\noindent\textbf{Details / Calculations:}
+\vspace{0.3cm}
+
+\begin{tikzpicture}[overlay, remember picture]
+  \draw[step=0.5cm, gray!40] (0,0) grid (\paperwidth, -\paperheight);
+\end{tikzpicture}
+
+\vspace{10cm}
+
+\vfill
+\newpage
+
+\end{document}
