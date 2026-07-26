@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{authblk}
+
+\geometry{margin=1in}
+
+\title{Informational Cosmology:\\
+A Unified Framework for Emergent Geometry,\\
+UV-Regularized Gravity, and Early SMBH Formation}
+
+\author[1]{C.~Matthew~Blackwell}
+\affil[1]{Independent Designer and Theorist}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present a unified cosmological framework in which spacetime geometry,
+gravitational curvature, and early supermassive black hole formation emerge
+from the dynamics of a Primordial Informational Field (PIF). Using the
+Quantum-Informational Astrophysics Simulation Engine (QIA-SE v9.4), we derive
+the Informational Field Equation (IFE), the Emergent Metric Equation (EME),
+and the SMBH Informational Sink Equation (SISE). Stress testing across
+Planck-scale curvature, non-linear informational gradients, and super-Eddington
+accretion demonstrates numerical stability, UV regularization, and observational
+compatibility with Planck CMB and JWST high-redshift quasar data.
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}
+\label{sec:intro}
+
+\subsection{Motivation}
+\subsection{Limitations of Classical Cosmology}
+\subsection{Informational Paradigm Overview}
+\subsection{Summary of Contributions}
+
+\section{Primordial Informational Field (PIF)}
+\label{sec:pif}
+
+\subsection{Definition of Informational Density and Flow}
+\subsection{Derivation of the Informational Field Equation}
+\begin{equation}
+\partial_t \rho_I + \nabla \cdot (\rho_I \mathbf{v}_I)
+= \alpha (\nabla \cdot \mathbf{v}_I) + \beta \rho_I^2.
+\end{equation}
+
+\subsection{Non-linear Transport Coefficients}
+\subsection{Stability Under High-Resolution Simulation}
+
+\section{Emergent Geometry}
+\label{sec:geometry}
+
+\subsection{Metric as an Informational Functional}
+\begin{equation}
+g_{\mu\nu} = g^{(0)}_{\mu\nu}
++ A\,\partial_\mu \partial_\nu \rho_I
++ B\,(\partial_\mu \rho_I)(\partial_\nu \rho_I).
+\end{equation}
+
+\subsection{Curvature--Information Duality}
+\begin{equation}
+R = c_1 \Box \rho_I + c_2 (\partial \rho_I)^2,
+\end{equation}
+\begin{equation}
+C^2 = d_1 (\partial \partial \rho_I)^2 + d_2 (\partial \rho_I)^4.
+\end{equation}
+
+\subsection{UV Regularization and Singularity Suppression}
+\subsection{Comparison with Classical GR}
+
+\section{Cosmological Evolution}
+\label{sec:cosmo}
+
+\subsection{Informational Friedmann Equations}
+\begin{equation}
+\dot{\rho}_I + 3H_I \rho_I = 3\alpha H_I + \beta \rho_I^2.
+\end{equation}
+
+\subsection{Emergent Hubble Parameter}
+\begin{equation}
+H(t) = \mathcal{G}(\rho_I, \dot{\rho}_I).
+\end{equation}
+
+\subsection{Large-Scale Dynamics}
+\subsection{Predictions for High-Redshift Structure}
+
+\section{Supermassive Black Hole Growth}
+\label{sec:smbh}
+
+\subsection{Informational Sink Dynamics}
+\begin{equation}
+\dot{M}_{\rm BH} = \gamma\,\rho_I\,A_0(1+\delta).
+\end{equation}
+
+\subsection{Integrated Growth Law}
+\begin{equation}
+M_{\rm BH}(t) = M_{\rm seed} 
++ \gamma A_0 (1+\delta) \int_{t_0}^{t} \rho_I(t')\,dt'.
+\end{equation}
+
+\subsection{Direct Collapse Seeds}
+\subsection{Super-Eddington Accretion Regime}
+\subsection{Comparison with JWST Observations}
+
+\section{Simulation Architecture (QIA-SE v9.4)}
+\label{sec:simulation}
+
+\subsection{Tensor Solver (QQG)}
+\subsection{Informational Grid (4096$^3$)}
+\subsection{Accretion Kernel}
+\subsection{Bayesian Bridge (NIFTy5)}
+\subsection{Stress Test Results}
+
+\section{Observational Compatibility}
+\label{sec:obs}
+
+\subsection{Planck CMB Constraints}
+\subsection{JWST High-Redshift Quasars}
+\subsection{Chi-Squared Analysis}
+\subsection{Predictions for Future Surveys}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Implications for Fundamental Physics}
+\subsection{Comparison with Quantum Gravity Approaches}
+\subsection{Informational Interpretation of Spacetime}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+\subsection{Summary of Findings}
+\subsection{Future Work}
+\subsection{Open Questions}
+
+\appendix
+
+\section{Appendix A: Full Derivations}
+\section{Appendix B: Numerical Methods}
+\section{Appendix C: Additional Figures}
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}
