@@ -1,0 +1,35 @@
+\documentclass[10pt]{article}
+\usepackage{geometry, verbatim}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\section*{ApexIR Quick Reference}
+
+\subsection*{Module}
+\begin{verbatim}
+module @Name { ... }
+\end{verbatim}
+
+\subsection*{Constants}
+\begin{verbatim}
+%sites = constant 5000 : i32
+\end{verbatim}
+
+\subsection*{Function}
+\begin{verbatim}
+func @build_virtual_hamiltonian(%info: tensor<?xf64>)
+    -> tensor<?x?xcomplex<f64>> { ... }
+\end{verbatim}
+
+\subsection*{Key Ops}
+\begin{verbatim}
+tensor.zeros(...)
+complex.create(%r, %i)
+linalg.generic { ... } ins(...) outs(...) { ... }
+\end{verbatim}
+
+\subsection*{Optimization Passes}
+DeadNodeElimination, LoopUnrollVectorize, TopologicalInvariantFolding.
+
+\end{document}
