@@ -1,0 +1,100 @@
+\section{Discussion}
+\label{sec:discussion}
+
+The results presented in Section~\ref{sec:results} demonstrate that the
+3.55 keV spectral anomaly detected within the Aether-Core/200LY
+simulation environment is both statistically significant and robust
+under a wide range of numerical and physical stress conditions. This
+section discusses the implications of the anomaly, evaluates potential
+sources of error, and outlines directions for further investigation.
+
+\subsection{Physical Interpretation of the Anomaly}
+The persistence of the 3.55 keV feature across multiple solver
+configurations suggests that the anomaly is unlikely to originate from
+numerical artifacts such as discretization error, floating-point drift,
+or solver instability. Its spatial localization at
+\[
+(120, -45, 80) \; \text{LY}
+\]
+indicates that the anomaly is associated with a specific region of the
+simulation domain rather than a global or boundary-driven effect.
+
+The anomaly’s spectral shape is consistent with a narrow emission
+feature, which may indicate:
+\begin{itemize}
+    \item localized plasma excitation,
+    \item high-energy particle interactions,
+    \item or an unresolved astrophysical structure.
+\end{itemize}
+
+Further physical modeling is required to determine whether the anomaly
+corresponds to a known emission mechanism or represents a previously
+uncharacterized phenomenon.
+
+\subsection{Numerical Stability and Solver Reliability}
+The anomaly remained stable under all stress-test conditions, including:
+\begin{itemize}
+    \item GPU memory pressure spikes,
+    \item MPI jitter and node desynchronization,
+    \item high-density N-body crowding,
+    \item and floating-point perturbation sweeps.
+\end{itemize}
+
+These results indicate that the anomaly is not sensitive to transient
+hardware conditions or solver perturbations. The strict satisfaction of
+energy conservation,
+\[
+\frac{\Delta E}{E} < 10^{-6},
+\]
+and communication overhead constraints,
+\[
+\frac{T_{\text{comm}}}{T_{\text{total}}} < 0.12,
+\]
+further supports the reliability of the numerical environment.
+
+\subsection{Surrogate Model Consistency}
+The PINO surrogate model reproduced the anomaly with high confidence:
+\[
+C = 95.8\%.
+\]
+This suggests that the anomaly is encoded in the underlying physical
+fields rather than arising from stochastic fluctuations or isolated
+solver steps. The surrogate’s ability to predict the anomaly across
+long-horizon rollouts reinforces the hypothesis that the feature is
+physically meaningful.
+
+\subsection{Potential Sources of Error}
+Although the anomaly appears robust, several potential sources of error
+must be considered:
+\begin{itemize}
+    \item inaccuracies in observational data preprocessing,
+    \item systematic biases in density or magnetic field reconstruction,
+    \item limitations in the ideal MHD model,
+    \item or unmodeled physical processes.
+\end{itemize}
+
+Each of these factors warrants targeted investigation to rule out
+non-physical origins.
+
+\subsection{Implications for Future Work}
+The detection of a stable, localized 3.55 keV anomaly raises several
+avenues for future research:
+\begin{itemize}
+    \item independent reproduction using alternative multi-physics
+          solvers,
+    \item higher-resolution simulations of the anomaly region,
+    \item incorporation of additional observational datasets,
+    \item and exploration of non-ideal plasma effects.
+\end{itemize}
+
+If the anomaly persists under expanded modeling conditions, it may
+represent a physically significant feature worthy of dedicated
+astrophysical study.
+
+\subsection{Summary}
+The anomaly’s stability, reproducibility, and spatial coherence suggest
+that it is not a numerical artifact. While further investigation is
+required to determine its physical origin, the results indicate that the
+Aether-Core/200LY engine provides a reliable platform for detecting and
+characterizing emergent spectral features within complex astrophysical
+environments.
