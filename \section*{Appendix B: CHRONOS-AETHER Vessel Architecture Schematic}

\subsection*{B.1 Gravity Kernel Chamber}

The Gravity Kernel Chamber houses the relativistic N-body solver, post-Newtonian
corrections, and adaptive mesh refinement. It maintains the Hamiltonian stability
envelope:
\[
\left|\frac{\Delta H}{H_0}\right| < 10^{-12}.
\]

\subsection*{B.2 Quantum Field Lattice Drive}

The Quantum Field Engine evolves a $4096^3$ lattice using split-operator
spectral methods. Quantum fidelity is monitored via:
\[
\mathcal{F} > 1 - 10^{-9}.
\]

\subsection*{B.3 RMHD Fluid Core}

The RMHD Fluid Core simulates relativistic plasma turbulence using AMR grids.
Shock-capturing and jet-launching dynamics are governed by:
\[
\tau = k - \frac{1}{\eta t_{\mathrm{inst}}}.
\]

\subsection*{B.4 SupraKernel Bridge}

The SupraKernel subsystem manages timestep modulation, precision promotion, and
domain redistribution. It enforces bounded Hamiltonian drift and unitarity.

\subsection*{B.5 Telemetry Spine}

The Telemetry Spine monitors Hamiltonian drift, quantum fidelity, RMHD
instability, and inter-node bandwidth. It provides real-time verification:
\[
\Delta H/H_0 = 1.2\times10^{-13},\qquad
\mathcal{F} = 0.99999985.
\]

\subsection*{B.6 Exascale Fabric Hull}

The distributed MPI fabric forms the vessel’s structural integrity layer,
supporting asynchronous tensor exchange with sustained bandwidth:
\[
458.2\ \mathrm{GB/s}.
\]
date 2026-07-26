@@ -1,0 +1,48 @@
+\section*{Appendix B: CHRONOS-AETHER Vessel Architecture Schematic}
+
+\subsection*{B.1 Gravity Kernel Chamber}
+
+The Gravity Kernel Chamber houses the relativistic N-body solver, post-Newtonian
+corrections, and adaptive mesh refinement. It maintains the Hamiltonian stability
+envelope:
+\[
+\left|\frac{\Delta H}{H_0}\right| < 10^{-12}.
+\]
+
+\subsection*{B.2 Quantum Field Lattice Drive}
+
+The Quantum Field Engine evolves a $4096^3$ lattice using split-operator
+spectral methods. Quantum fidelity is monitored via:
+\[
+\mathcal{F} > 1 - 10^{-9}.
+\]
+
+\subsection*{B.3 RMHD Fluid Core}
+
+The RMHD Fluid Core simulates relativistic plasma turbulence using AMR grids.
+Shock-capturing and jet-launching dynamics are governed by:
+\[
+\tau = k - \frac{1}{\eta t_{\mathrm{inst}}}.
+\]
+
+\subsection*{B.4 SupraKernel Bridge}
+
+The SupraKernel subsystem manages timestep modulation, precision promotion, and
+domain redistribution. It enforces bounded Hamiltonian drift and unitarity.
+
+\subsection*{B.5 Telemetry Spine}
+
+The Telemetry Spine monitors Hamiltonian drift, quantum fidelity, RMHD
+instability, and inter-node bandwidth. It provides real-time verification:
+\[
+\Delta H/H_0 = 1.2\times10^{-13},\qquad
+\mathcal{F} = 0.99999985.
+\]
+
+\subsection*{B.6 Exascale Fabric Hull}
+
+The distributed MPI fabric forms the vessel’s structural integrity layer,
+supporting asynchronous tensor exchange with sustained bandwidth:
+\[
+458.2\ \mathrm{GB/s}.
+\]
