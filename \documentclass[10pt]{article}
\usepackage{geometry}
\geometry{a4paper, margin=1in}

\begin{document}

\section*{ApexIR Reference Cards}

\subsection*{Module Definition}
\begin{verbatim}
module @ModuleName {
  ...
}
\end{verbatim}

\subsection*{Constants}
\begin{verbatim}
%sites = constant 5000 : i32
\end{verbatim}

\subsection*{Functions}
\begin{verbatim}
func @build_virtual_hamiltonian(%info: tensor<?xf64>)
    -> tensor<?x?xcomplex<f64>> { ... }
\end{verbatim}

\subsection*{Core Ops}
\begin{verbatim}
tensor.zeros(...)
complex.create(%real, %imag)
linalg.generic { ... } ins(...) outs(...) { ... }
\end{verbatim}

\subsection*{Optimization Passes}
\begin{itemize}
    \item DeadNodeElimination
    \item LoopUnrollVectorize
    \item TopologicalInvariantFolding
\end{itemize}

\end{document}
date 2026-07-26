@@ -1,0 +1,41 @@
+\documentclass[10pt]{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\section*{ApexIR Reference Cards}
+
+\subsection*{Module Definition}
+\begin{verbatim}
+module @ModuleName {
+  ...
+}
+\end{verbatim}
+
+\subsection*{Constants}
+\begin{verbatim}
+%sites = constant 5000 : i32
+\end{verbatim}
+
+\subsection*{Functions}
+\begin{verbatim}
+func @build_virtual_hamiltonian(%info: tensor<?xf64>)
+    -> tensor<?x?xcomplex<f64>> { ... }
+\end{verbatim}
+
+\subsection*{Core Ops}
+\begin{verbatim}
+tensor.zeros(...)
+complex.create(%real, %imag)
+linalg.generic { ... } ins(...) outs(...) { ... }
+\end{verbatim}
+
+\subsection*{Optimization Passes}
+\begin{itemize}
+    \item DeadNodeElimination
+    \item LoopUnrollVectorize
+    \item TopologicalInvariantFolding
+\end{itemize}
+
+\end{document}
