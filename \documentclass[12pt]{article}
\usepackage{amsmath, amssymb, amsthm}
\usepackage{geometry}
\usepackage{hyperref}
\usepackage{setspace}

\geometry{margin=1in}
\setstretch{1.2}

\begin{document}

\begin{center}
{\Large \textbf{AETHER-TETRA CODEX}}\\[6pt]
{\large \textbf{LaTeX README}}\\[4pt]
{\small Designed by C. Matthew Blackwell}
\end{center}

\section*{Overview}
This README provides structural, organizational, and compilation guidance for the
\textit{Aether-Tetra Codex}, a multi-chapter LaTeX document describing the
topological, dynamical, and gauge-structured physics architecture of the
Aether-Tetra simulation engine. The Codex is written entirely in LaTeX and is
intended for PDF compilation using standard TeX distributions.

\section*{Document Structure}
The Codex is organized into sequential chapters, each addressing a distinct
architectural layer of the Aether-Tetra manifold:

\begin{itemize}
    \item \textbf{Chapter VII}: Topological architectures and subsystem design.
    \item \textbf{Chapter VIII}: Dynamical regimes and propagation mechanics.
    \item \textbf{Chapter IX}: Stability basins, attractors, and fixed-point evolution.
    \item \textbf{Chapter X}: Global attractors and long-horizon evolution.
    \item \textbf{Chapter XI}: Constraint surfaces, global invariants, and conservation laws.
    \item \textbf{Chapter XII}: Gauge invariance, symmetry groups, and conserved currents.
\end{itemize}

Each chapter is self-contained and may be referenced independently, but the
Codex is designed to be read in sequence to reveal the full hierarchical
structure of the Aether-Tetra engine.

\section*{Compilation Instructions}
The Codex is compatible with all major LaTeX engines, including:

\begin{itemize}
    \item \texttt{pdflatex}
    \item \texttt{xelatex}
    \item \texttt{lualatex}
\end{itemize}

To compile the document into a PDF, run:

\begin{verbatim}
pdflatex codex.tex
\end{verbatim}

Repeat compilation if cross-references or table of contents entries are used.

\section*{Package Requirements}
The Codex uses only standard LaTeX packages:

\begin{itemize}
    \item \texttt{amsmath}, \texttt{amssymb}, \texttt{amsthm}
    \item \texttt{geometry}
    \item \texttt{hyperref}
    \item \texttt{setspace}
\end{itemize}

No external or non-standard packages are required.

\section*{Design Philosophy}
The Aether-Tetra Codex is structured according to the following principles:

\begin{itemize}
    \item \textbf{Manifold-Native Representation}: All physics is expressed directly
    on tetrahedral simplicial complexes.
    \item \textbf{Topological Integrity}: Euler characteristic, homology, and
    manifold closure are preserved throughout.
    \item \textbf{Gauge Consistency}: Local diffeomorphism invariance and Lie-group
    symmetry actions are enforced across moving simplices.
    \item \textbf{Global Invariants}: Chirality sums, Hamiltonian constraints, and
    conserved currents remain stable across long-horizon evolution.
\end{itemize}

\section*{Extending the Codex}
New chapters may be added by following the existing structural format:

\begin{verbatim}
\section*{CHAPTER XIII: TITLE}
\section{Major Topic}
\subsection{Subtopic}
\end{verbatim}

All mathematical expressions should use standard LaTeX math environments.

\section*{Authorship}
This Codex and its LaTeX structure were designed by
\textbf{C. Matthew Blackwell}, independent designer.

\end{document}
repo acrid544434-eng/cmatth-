@@ -1,0 +1,100 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{setspace}
+
+\geometry{margin=1in}
+\setstretch{1.2}
+
+\begin{document}
+
+\begin{center}
+{\Large \textbf{AETHER-TETRA CODEX}}\\[6pt]
+{\large \textbf{LaTeX README}}\\[4pt]
+{\small Designed by C. Matthew Blackwell}
+\end{center}
+
+\section*{Overview}
+This README provides structural, organizational, and compilation guidance for the
+\textit{Aether-Tetra Codex}, a multi-chapter LaTeX document describing the
+topological, dynamical, and gauge-structured physics architecture of the
+Aether-Tetra simulation engine. The Codex is written entirely in LaTeX and is
+intended for PDF compilation using standard TeX distributions.
+
+\section*{Document Structure}
+The Codex is organized into sequential chapters, each addressing a distinct
+architectural layer of the Aether-Tetra manifold:
+
+\begin{itemize}
+    \item \textbf{Chapter VII}: Topological architectures and subsystem design.
+    \item \textbf{Chapter VIII}: Dynamical regimes and propagation mechanics.
+    \item \textbf{Chapter IX}: Stability basins, attractors, and fixed-point evolution.
+    \item \textbf{Chapter X}: Global attractors and long-horizon evolution.
+    \item \textbf{Chapter XI}: Constraint surfaces, global invariants, and conservation laws.
+    \item \textbf{Chapter XII}: Gauge invariance, symmetry groups, and conserved currents.
+\end{itemize}
+
+Each chapter is self-contained and may be referenced independently, but the
+Codex is designed to be read in sequence to reveal the full hierarchical
+structure of the Aether-Tetra engine.
+
+\section*{Compilation Instructions}
+The Codex is compatible with all major LaTeX engines, including:
+
+\begin{itemize}
+    \item \texttt{pdflatex}
+    \item \texttt{xelatex}
+    \item \texttt{lualatex}
+\end{itemize}
+
+To compile the document into a PDF, run:
+
+\begin{verbatim}
+pdflatex codex.tex
+\end{verbatim}
+
+Repeat compilation if cross-references or table of contents entries are used.
+
+\section*{Package Requirements}
+The Codex uses only standard LaTeX packages:
+
+\begin{itemize}
+    \item \texttt{amsmath}, \texttt{amssymb}, \texttt{amsthm}
+    \item \texttt{geometry}
+    \item \texttt{hyperref}
+    \item \texttt{setspace}
+\end{itemize}
+
+No external or non-standard packages are required.
+
+\section*{Design Philosophy}
+The Aether-Tetra Codex is structured according to the following principles:
+
+\begin{itemize}
+    \item \textbf{Manifold-Native Representation}: All physics is expressed directly
+    on tetrahedral simplicial complexes.
+    \item \textbf{Topological Integrity}: Euler characteristic, homology, and
+    manifold closure are preserved throughout.
+    \item \textbf{Gauge Consistency}: Local diffeomorphism invariance and Lie-group
+    symmetry actions are enforced across moving simplices.
+    \item \textbf{Global Invariants}: Chirality sums, Hamiltonian constraints, and
+    conserved currents remain stable across long-horizon evolution.
+\end{itemize}
+
+\section*{Extending the Codex}
+New chapters may be added by following the existing structural format:
+
+\begin{verbatim}
+\section*{CHAPTER XIII: TITLE}
+\section{Major Topic}
+\subsection{Subtopic}
+\end{verbatim}
+
+All mathematical expressions should use standard LaTeX math environments.
+
+\section*{Authorship}
+This Codex and its LaTeX structure were designed by
+\textbf{C. Matthew Blackwell}, independent designer.
+
+\end{document}
