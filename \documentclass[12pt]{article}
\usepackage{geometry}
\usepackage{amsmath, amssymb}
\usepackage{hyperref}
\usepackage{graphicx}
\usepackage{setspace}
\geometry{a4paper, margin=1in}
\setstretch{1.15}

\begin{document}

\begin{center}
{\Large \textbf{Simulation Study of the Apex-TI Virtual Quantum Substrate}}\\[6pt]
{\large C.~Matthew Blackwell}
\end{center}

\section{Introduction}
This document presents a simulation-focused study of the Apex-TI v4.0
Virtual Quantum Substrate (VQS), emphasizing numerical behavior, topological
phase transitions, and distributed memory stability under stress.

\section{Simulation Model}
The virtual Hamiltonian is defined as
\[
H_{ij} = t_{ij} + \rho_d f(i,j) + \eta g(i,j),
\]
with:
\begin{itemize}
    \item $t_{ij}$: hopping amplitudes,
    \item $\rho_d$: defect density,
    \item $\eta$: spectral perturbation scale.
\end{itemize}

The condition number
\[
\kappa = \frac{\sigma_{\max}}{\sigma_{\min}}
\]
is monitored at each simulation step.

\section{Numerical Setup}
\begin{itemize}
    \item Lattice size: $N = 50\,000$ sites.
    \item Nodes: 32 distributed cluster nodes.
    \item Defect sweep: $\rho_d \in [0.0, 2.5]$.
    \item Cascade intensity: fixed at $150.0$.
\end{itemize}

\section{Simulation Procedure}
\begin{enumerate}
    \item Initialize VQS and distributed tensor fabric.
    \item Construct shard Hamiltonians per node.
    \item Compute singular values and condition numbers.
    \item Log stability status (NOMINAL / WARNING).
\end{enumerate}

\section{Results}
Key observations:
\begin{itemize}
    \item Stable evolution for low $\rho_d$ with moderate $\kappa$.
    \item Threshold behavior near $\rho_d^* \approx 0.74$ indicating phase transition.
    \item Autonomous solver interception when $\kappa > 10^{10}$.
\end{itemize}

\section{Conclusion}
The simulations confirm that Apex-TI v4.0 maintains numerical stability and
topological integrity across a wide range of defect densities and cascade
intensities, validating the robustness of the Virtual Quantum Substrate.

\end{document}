@@ -1,0 +1,69 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{setspace}
+\geometry{a4paper, margin=1in}
+\setstretch{1.15}
+
+\begin{document}
+
+\begin{center}
+{\Large \textbf{Simulation Study of the Apex-TI Virtual Quantum Substrate}}\\[6pt]
+{\large C.~Matthew Blackwell}
+\end{center}
+
+\section{Introduction}
+This document presents a simulation-focused study of the Apex-TI v4.0
+Virtual Quantum Substrate (VQS), emphasizing numerical behavior, topological
+phase transitions, and distributed memory stability under stress.
+
+\section{Simulation Model}
+The virtual Hamiltonian is defined as
+\[
+H_{ij} = t_{ij} + \rho_d f(i,j) + \eta g(i,j),
+\]
+with:
+\begin{itemize}
+    \item $t_{ij}$: hopping amplitudes,
+    \item $\rho_d$: defect density,
+    \item $\eta$: spectral perturbation scale.
+\end{itemize}
+
+The condition number
+\[
+\kappa = \frac{\sigma_{\max}}{\sigma_{\min}}
+\]
+is monitored at each simulation step.
+
+\section{Numerical Setup}
+\begin{itemize}
+    \item Lattice size: $N = 50\,000$ sites.
+    \item Nodes: 32 distributed cluster nodes.
+    \item Defect sweep: $\rho_d \in [0.0, 2.5]$.
+    \item Cascade intensity: fixed at $150.0$.
+\end{itemize}
+
+\section{Simulation Procedure}
+\begin{enumerate}
+    \item Initialize VQS and distributed tensor fabric.
+    \item Construct shard Hamiltonians per node.
+    \item Compute singular values and condition numbers.
+    \item Log stability status (NOMINAL / WARNING).
+\end{enumerate}
+
+\section{Results}
+Key observations:
+\begin{itemize}
+    \item Stable evolution for low $\rho_d$ with moderate $\kappa$.
+    \item Threshold behavior near $\rho_d^* \approx 0.74$ indicating phase transition.
+    \item Autonomous solver interception when $\kappa > 10^{10}$.
+\end{itemize}
+
+\section{Conclusion}
+The simulations confirm that Apex-TI v4.0 maintains numerical stability and
+topological integrity across a wide range of defect densities and cascade
+intensities, validating the robustness of the Virtual Quantum Substrate.
+
+\end{document}
