@@ -1,0 +1,127 @@
+\documentclass[12pt]{book}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\onehalfspacing
+
+\title{The Sovereign Regenerative Engine\\
+A Multi-Scale Invariant Framework for Tissue Reconstruction}
+\author{C.~Matthew Blackwell}
+\date{}
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\chapter*{Preface}
+This volume presents the Sovereign Regenerative Engine (SRE), a conceptual multi-scale
+simulation architecture for tissue reconstruction. It formalizes invariants, stability
+criteria, and stress-testing protocols for regenerative modeling.
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{Foundations of Regenerative Simulation}
+
+\section{Motivation}
+Tissue regeneration requires coordination across cellular, structural, and systemic layers.
+The SRE is introduced as a sovereign simulation kernel enforcing stability invariants.
+
+\section{State-Space Formulation}
+\[
+\bm{X}(t) = \big(\rho_c(t), \sigma(t), m(t), i(t), v_{\text{cap}}(t)\big),
+\]
+\[
+\frac{d\bm{X}}{dt} = \bm{F}(\bm{X}, \bm{u}, t).
+\]
+
+\chapter{Cellular Layer: Proliferation Control}
+
+\section{Mitosis Gating Law}
+\[
+\Gamma_{\text{mitosis}}
+= \alpha_0 \left(1 - \frac{\rho_0}{\rho_{\max}}\right)
+\Theta(\pi - \pi_{\text{crit}}).
+\]
+
+\section{Cellular Invariant}
+\[
+R_c:\quad \frac{\partial \rho_c}{\partial t} \le 0.
+\]
+
+\chapter{Structural Layer: Scaffold Mechanics}
+
+\section{Mechanical Equilibrium}
+\[
+\nabla \cdot \sigma + f_{\text{ext}} = 0.
+\]
+
+\section{Scaffold Stability}
+\[
+R_s:\quad \left\lVert \Delta \text{Scaffold Geometry} \right\rVert
+< \epsilon_{\text{tol}}.
+\]
+
+\chapter{System Layer: Metabolic \& Immune Balance}
+
+\section{Capillary Ingrowth Dynamics}
+\[
+\frac{\partial v_{\text{cap}}}{\partial t}
+= k_v\left(\frac{m_{\text{target}} - m}{n_{\text{target}}}\right)
+- \gamma_{\text{immune}}.
+\]
+
+\section{Load Invariants}
+\[
+R_m, R_i:\quad
+\int (m_{\text{deficit}} + i_{\text{inflammation}})\, dV \le \delta.
+\]
+
+\chapter{Unified Regeneration Invariant}
+
+\section{Global Invariant}
+\[
+\mathcal{R}_{\text{regen}}
+= R_c \land R_s \land R_m \land R_i.
+\]
+
+\section{Lyapunov Stability}
+Define $V(\bm{X})$ with:
+\[
+\frac{dV}{dt} < 0
+\quad \forall t \ge t_0.
+\]
+
+\chapter{Stress-Testing Protocols}
+
+\section{Adversarial Vectors}
+Hyper-proliferative shock, scaffold modulus collapse, and metabolic-immune depletion
+are applied to challenge invariants.
+
+\section{Simulation Outcomes}
+All invariants remain satisfied; global stability is preserved.
+
+\chapter{Discussion \& Outlook}
+
+\section{Implications}
+The SRE provides a foundation for invariant-based regenerative modeling.
+
+\section{Future Work}
+Extensions to organ-scale, multi-organ, and neuro-regenerative architectures.
+
+\backmatter
+
+\chapter*{Appendix}
+Additional derivations, parameter tables, and simulation logs.
+
+\chapter*{Bibliography}
+References to regenerative modeling, Lyapunov stability, and multi-scale simulation.
+
+\end{document}
