@@ -1,0 +1,267 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{hyperref}
+
+\title{Project Mnemosyne:\\
+Neuro-Sovereign Invariant Framework for Eradication of Alzheimer's \& Dementia}
+\author{C.~Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We construct a multi-scale invariant framework for neuro-sovereign stability in the context of
+Alzheimer's and dementia. The system couples (i) molecular proteostatic dynamics of amyloid-beta
+and tau, (ii) cellular bioenergetic and metabolic stability, and (iii) network-level synaptic fidelity.
+We derive a triad of invariants whose joint satisfaction implies non-propagation of neurodegenerative
+pathology in the modeled substrate.
+\end{abstract}
+
+\section{Multi-Scale State Space}
+
+We define the global state of the neuro-sovereign engine as
+\[
+\bm{X}(t) = \big( \bm{A}(t), \bm{T}(t), \bm{M}(t), \bm{E}(t), \bm{N}(t) \big),
+\]
+where:
+\begin{itemize}
+  \item $\bm{A}(t)$: amyloid-beta aggregate state (monomers, oligomers, fibrils).
+  \item $\bm{T}(t)$: tau conformational/aggregation state.
+  \item $\bm{M}(t)$: microglial activation and inflammatory markers.
+  \item $\bm{E}(t)$: cellular metabolic/bioenergetic variables (ATP flux, glucose utilization, insulin signaling).
+  \item $\bm{N}(t)$: network-level synaptic and cerebrovascular variables (fidelity, plasticity, fluid dynamics).
+\end{itemize}
+
+We treat $\bm{X}(t)$ as evolving under a coupled dynamical system
+\[
+\frac{d\bm{X}}{dt} = \bm{F}(\bm{X}, \bm{u}, t),
+\]
+where $\bm{u}(t)$ encodes pharmacological, proteostatic, and neuromodulatory interventions.
+
+\section{Molecular Proteostatic Invariant}
+
+\subsection{Aggregation–Clearance Dynamics}
+
+Let $A(t)$ denote a coarse-grained measure of amyloid-beta aggregate burden
+(monomer-equivalent concentration or aggregate mass density). A generic aggregation–clearance
+model can be written as
+\begin{equation}
+\frac{dA}{dt} = k_{\text{agg}} A^n - k_{\text{clear}} A,
+\label{eq:agg_clear}
+\end{equation}
+where:
+\begin{itemize}
+  \item $k_{\text{agg}} > 0$ is an effective aggregation rate constant.
+  \item $k_{\text{clear}} > 0$ is an effective clearance rate constant (proteostasis, microglial phagocytosis, etc.).
+  \item $n \geq 1$ encodes nucleation/oligomerization order.
+\end{itemize}
+
+\subsection{Proteostatic Decay Condition}
+
+We define the \emph{proteostatic decay invariant} as
+\begin{equation}
+\frac{dA}{dt} < 0
+\quad \forall t \geq t_0,
+\label{eq:proteostatic_invariant}
+\end{equation}
+for some onset time $t_0$ after intervention.
+
+From \eqref{eq:agg_clear}, the condition \eqref{eq:proteostatic_invariant} is equivalent to
+\begin{equation}
+k_{\text{clear}} > k_{\text{agg}} A^{n-1}(t)
+\quad \forall t \geq t_0.
+\label{eq:proteostatic_inequality}
+\end{equation}
+Thus, the clearance velocity strictly dominates the aggregation velocity across the relevant
+state manifold. Under \eqref{eq:proteostatic_inequality}, $A(t)$ is monotonically decreasing and
+converges to a low-burden regime.
+
+\section{Cellular Bioenergetic Invariant}
+
+\subsection{ATP Flux and Demand}
+
+Let $\Phi_{\text{ATP}}(t)$ denote total ATP production flux:
+\[
+\Phi_{\text{ATP}}(t) = \Phi_{\text{glycolysis}}(t) + \Phi_{\text{OXPHOS}}(t),
+\]
+and let $\Phi_{\text{syn}}(t)$ denote synaptic energy demand (including maintenance, firing,
+plasticity, and housekeeping).
+
+We define the net cellular energy margin
+\begin{equation}
+\Delta E_{\text{cell}}(t) = \Phi_{\text{ATP}}(t) - \Phi_{\text{syn}}(t).
+\label{eq:deltaE}
+\end{equation}
+
+\subsection{Bioenergetic Stability Condition}
+
+The \emph{bioenergetic stability invariant} is
+\begin{equation}
+\Delta E_{\text{cell}}(t) \geq 0
+\quad \forall t \geq t_0.
+\label{eq:bioenergetic_invariant}
+\end{equation}
+This ensures that ATP production meets or exceeds synaptic demand, preventing chronic
+energy deficit cascades that drive neurodegeneration.
+
+Coupling to molecular dynamics is implicit: aggregation burden $A(t)$ and inflammatory state
+$\bm{M}(t)$ modulate $\Phi_{\text{OXPHOS}}$ and $\Phi_{\text{glycolysis}}$, while interventions
+$\bm{u}(t)$ are designed to enforce \eqref{eq:bioenergetic_invariant} even in the presence of
+pathological load.
+
+\section{Network Synaptic Fidelity Invariant}
+
+\subsection{Synaptic Fidelity Metric}
+
+Let $F_{\text{synapse}}(t)$ be a normalized synaptic fidelity metric, with
+\[
+F_{\text{synapse}}(t) \in [0,1],
+\]
+where $F_{\text{synapse}} = 1$ corresponds to ideal local neuro-communication fidelity
+(no pathological signal corruption, dropout, or misrouting).
+
+We define an error parameter
+\[
+\epsilon(t) = 1 - F_{\text{synapse}}(t),
+\]
+so that $\epsilon(t)$ measures the fraction of communication degraded.
+
+\subsection{High-Fidelity Condition}
+
+The \emph{network fidelity invariant} is
+\begin{equation}
+F_{\text{synapse}}(t) > 1 - 10^{-8}
+\quad \forall t \geq t_0,
+\label{eq:fidelity_invariant}
+\end{equation}
+equivalently
+\begin{equation}
+\epsilon(t) < 10^{-8}
+\quad \forall t \geq t_0.
+\label{eq:error_bound}
+\end{equation}
+
+This imposes an aerospace-grade reliability constraint on neural communication: the
+probability of pathological miscommunication is bounded below $10^{-8}$, effectively
+eliminating large-scale network failure modes driven by synaptic degradation.
+
+\section{Triad of Neuro-Sovereign Invariants}
+
+We now assemble the three invariants into a unified logical structure. Define:
+\begin{align}
+\mathcal{I}_1 &: \quad \frac{dA}{dt} < 0, \label{I1}\\
+\mathcal{I}_2 &: \quad \Delta E_{\text{cell}} \geq 0, \label{I2}\\
+\mathcal{I}_3 &: \quad F_{\text{synapse}} > 1 - 10^{-8}. \label{I3}
+\end{align}
+
+We define the \emph{Neuro-Sovereign Stability} condition as
+\begin{equation}
+\mathcal{S}_{\text{NS}} =
+\mathcal{I}_1 \land \mathcal{I}_2 \land \mathcal{I}_3.
+\label{eq:ns_stability}
+\end{equation}
+
+\subsection{Eradication Criterion}
+
+Within the modeled substrate, we say that \emph{Alzheimer's pathology is eradicated} if
+\begin{equation}
+\mathcal{S}_{\text{NS}} \quad \text{holds for all } t \geq t_0
+\quad \text{and} \quad
+A(t) \to A_{\text{baseline}}, \quad
+\bm{T}(t) \to \bm{T}_{\text{baseline}},
+\label{eq:eradication}
+\end{equation}
+where $A_{\text{baseline}}$ and $\bm{T}_{\text{baseline}}$ are non-pathological aggregate
+levels consistent with healthy proteostatic equilibrium.
+
+Informally: if proteostatic decay, bioenergetic stability, and high synaptic fidelity are
+jointly enforced, the modeled system cannot sustain or propagate neurodegenerative
+cascades.
+
+\section{Invariant Coupling and Causality}
+
+\subsection{From Molecular to Network}
+
+The causal chain encoded in the Mnemosyne framework can be summarized as:
+\begin{equation}
+\frac{dA}{dt} < 0
+\quad \Longrightarrow \quad
+\Delta E_{\text{cell}} \geq 0
+\quad \Longrightarrow \quad
+F_{\text{synapse}} > 1 - 10^{-8}.
+\label{eq:causal_chain}
+\end{equation}
+
+\begin{itemize}
+  \item Molecular decay ($\mathcal{I}_1$) reduces toxic burden, alleviating mitochondrial and
+        metabolic stress.
+  \item Reduced stress supports ATP production and maintains $\Delta E_{\text{cell}} \geq 0$
+        ($\mathcal{I}_2$).
+  \item Adequate energy and reduced toxicity preserve synaptic structure and function,
+        enforcing $F_{\text{synapse}}$ above the high-fidelity threshold ($\mathcal{I}_3$).
+\end{itemize}
+
+\subsection{Causality-Stable Metabolic Loop}
+
+Let $\mathcal{C}_{\text{meta}}$ denote the causality-stable metabolic loop, defined as the
+regime in which:
+\begin{equation}
+\Delta E_{\text{cell}} \geq 0
+\quad \text{and} \quad
+\bm{M}(t) \text{ remains in a non-escalatory inflammatory manifold}.
+\label{eq:causality_meta}
+\end{equation}
+
+Under $\mathcal{S}_{\text{NS}}$, neuroinflammation is suppressed without triggering
+compensatory metabolic cascades that would destabilize $\Phi_{\text{ATP}}$ or
+$\Phi_{\text{syn}}$.
+
+\section{Simulation-Oriented Formulation}
+
+For implementation in a neuro-sovereign simulation engine, we can encode the invariants
+as constraints in the optimization or control layer.
+
+\subsection{Control Objective}
+
+Let $\bm{u}(t)$ be the control vector (pharmacological, proteostatic, neuromodulatory inputs).
+We define a control objective:
+\begin{equation}
+\min_{\bm{u}} \; J(\bm{X}, \bm{u})
+\quad \text{subject to} \quad
+\mathcal{S}_{\text{NS}} \text{ holds},
+\label{eq:control_objective}
+\end{equation}
+where $J$ penalizes deviation from healthy baselines and excessive intervention cost.
+
+\subsection{Constraint Encoding}
+
+The invariants become explicit constraints:
+\begin{align}
+\frac{dA}{dt} &\leq -\delta_A < 0, \label{eq:constraint_A}\\
+\Delta E_{\text{cell}} &\geq 0, \label{eq:constraint_E}\\
+F_{\text{synapse}} &\geq 1 - 10^{-8}, \label{eq:constraint_F}
+\end{align}
+for some $\delta_A > 0$ specifying a minimum decay rate.
+
+These constraints can be enforced via feedback control, model predictive control, or
+invariant-preserving numerical schemes designed to maintain $\mathcal{S}_{\text{NS}}$
+throughout the simulated trajectory.
+
+\section{Conclusion}
+
+We have formalized the Mnemosyne neuro-sovereign framework as a triad of invariants
+spanning molecular, cellular, and network scales. The joint satisfaction of the proteostatic
+decay, bioenergetic stability, and synaptic fidelity invariants defines a regime in which
+Alzheimer's and dementia pathology cannot propagate within the modeled substrate.
+
+This document provides a LaTeX-ready mathematical backbone for further extension into
+rigorous proofs, numerical schemes, and simulation harnesses for sovereign neuro-protective
+architectures.
+
+\end{document}
