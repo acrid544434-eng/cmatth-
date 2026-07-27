@@ -1,0 +1,24 @@
+\section{Unstructured Dynamic Tetrahedral Complex (UDTC)}
+
+Let \(\mathcal{T}\) be a tetrahedral complex
+\[
+\mathcal{T} = \{ T_i \mid i \in \mathbb{N} \},
+\]
+where each tetrahedron \(T_i\) has vertices
+\[
+T_i = (V_{i0}, V_{i1}, V_{i2}, V_{i3}), \quad V_{ij} \in \mathbb{R}^3.
+\]
+
+We attach physical fields to each tetrahedron:
+\[
+\rho_i = \rho(T_i), \quad
+\chi_i = \chi(T_i), \quad
+g_{\mu\nu}^{(i)} = g_{\mu\nu}(T_i).
+\]
+
+The memory layout is Structure-of-Arrays (SoA):
+\[
+\{\rho_i\}_{i=1}^N, \quad
+\{\chi_i\}_{i=1}^N, \quad
+\{g_{\mu\nu}^{(i)}\}_{i=1}^N.
+\]
