@@ -1,0 +1,15 @@
+\section{Mesh Deformation and Jacobian Stress Test}
+
+For each tetrahedron \(T_i\), define the Jacobian determinant
+\[
+J(T_i) = \det[\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3].
+\]
+
+Stress testing requires:
+\[
+J(T_i) \to 0^+ \quad \Rightarrow \quad \text{Delaunay recovery or remeshing},
+\]
+while preserving
+\[
+\det(g_{\mu\nu}^{(i)}) > 0, \quad \chi(\mathcal{T}) = \text{const}.
+\]
