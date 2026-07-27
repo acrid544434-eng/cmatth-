@@ -1,0 +1,66 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{setspace}
+
+\geometry{margin=1in}
+\setstretch{1.2}
+
+\begin{document}
+
+% ----------------------------------------
+%   AETHER-TETRA WHITE SHEET (Math)
+% ----------------------------------------
+
+\begin{center}
+{\Large \textbf{AETHER-TETRA WHITE SHEET}}\\[6pt]
+{\small Math Environment Template}
+\end{center}
+
+\vspace{1cm}
+
+% Inline math example:
+Inline math: $a^2 + b^2 = c^2$
+
+% Display math:
+\[
+\int_{\mathcal{M}} \chi_T \, dV
+\]
+
+% Equation environment:
+\begin{equation}
+\nabla_\mu J^\mu = 0
+\end{equation}
+
+% Aligned equations:
+\begin{align}
+g_{\mu\nu} &= g_{\mu\nu}(x) \\
+\det(g_{ij}) &> 0
+\end{align}
+
+% Theorem environment:
+\newtheorem{theorem}{Theorem}
+\begin{theorem}
+For any closed simplicial complex $\mathcal{T}$, the Euler characteristic
+$\chi(\mathcal{T})$ remains invariant under validated topological operations.
+\end{theorem}
+
+% Proof environment:
+\begin{proof}
+Write proof here.
+\end{proof}
+
+% Matrix example:
+\[
+G =
+\begin{pmatrix}
+g_{00} & g_{01} & g_{02} \\
+g_{10} & g_{11} & g_{12} \\
+g_{20} & g_{21} & g_{22}
+\end{pmatrix}
+\]
+
+% Add more math environments freely.
+
+\end{document}
