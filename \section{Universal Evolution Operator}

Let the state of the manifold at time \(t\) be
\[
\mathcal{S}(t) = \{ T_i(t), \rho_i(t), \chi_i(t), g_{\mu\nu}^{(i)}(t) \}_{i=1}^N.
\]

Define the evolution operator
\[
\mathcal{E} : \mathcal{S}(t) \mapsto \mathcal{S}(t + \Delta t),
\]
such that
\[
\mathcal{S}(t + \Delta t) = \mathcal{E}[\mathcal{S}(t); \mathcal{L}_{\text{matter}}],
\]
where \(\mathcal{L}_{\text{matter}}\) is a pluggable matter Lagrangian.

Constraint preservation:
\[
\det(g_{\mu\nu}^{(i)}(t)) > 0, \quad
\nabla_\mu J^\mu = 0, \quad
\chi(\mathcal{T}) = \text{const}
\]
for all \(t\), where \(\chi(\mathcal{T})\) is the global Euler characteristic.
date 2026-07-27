@@ -1,0 +1,24 @@
+\section{Universal Evolution Operator}
+
+Let the state of the manifold at time \(t\) be
+\[
+\mathcal{S}(t) = \{ T_i(t), \rho_i(t), \chi_i(t), g_{\mu\nu}^{(i)}(t) \}_{i=1}^N.
+\]
+
+Define the evolution operator
+\[
+\mathcal{E} : \mathcal{S}(t) \mapsto \mathcal{S}(t + \Delta t),
+\]
+such that
+\[
+\mathcal{S}(t + \Delta t) = \mathcal{E}[\mathcal{S}(t); \mathcal{L}_{\text{matter}}],
+\]
+where \(\mathcal{L}_{\text{matter}}\) is a pluggable matter Lagrangian.
+
+Constraint preservation:
+\[
+\det(g_{\mu\nu}^{(i)}(t)) > 0, \quad
+\nabla_\mu J^\mu = 0, \quad
+\chi(\mathcal{T}) = \text{const}
+\]
+for all \(t\), where \(\chi(\mathcal{T})\) is the global Euler characteristic.
