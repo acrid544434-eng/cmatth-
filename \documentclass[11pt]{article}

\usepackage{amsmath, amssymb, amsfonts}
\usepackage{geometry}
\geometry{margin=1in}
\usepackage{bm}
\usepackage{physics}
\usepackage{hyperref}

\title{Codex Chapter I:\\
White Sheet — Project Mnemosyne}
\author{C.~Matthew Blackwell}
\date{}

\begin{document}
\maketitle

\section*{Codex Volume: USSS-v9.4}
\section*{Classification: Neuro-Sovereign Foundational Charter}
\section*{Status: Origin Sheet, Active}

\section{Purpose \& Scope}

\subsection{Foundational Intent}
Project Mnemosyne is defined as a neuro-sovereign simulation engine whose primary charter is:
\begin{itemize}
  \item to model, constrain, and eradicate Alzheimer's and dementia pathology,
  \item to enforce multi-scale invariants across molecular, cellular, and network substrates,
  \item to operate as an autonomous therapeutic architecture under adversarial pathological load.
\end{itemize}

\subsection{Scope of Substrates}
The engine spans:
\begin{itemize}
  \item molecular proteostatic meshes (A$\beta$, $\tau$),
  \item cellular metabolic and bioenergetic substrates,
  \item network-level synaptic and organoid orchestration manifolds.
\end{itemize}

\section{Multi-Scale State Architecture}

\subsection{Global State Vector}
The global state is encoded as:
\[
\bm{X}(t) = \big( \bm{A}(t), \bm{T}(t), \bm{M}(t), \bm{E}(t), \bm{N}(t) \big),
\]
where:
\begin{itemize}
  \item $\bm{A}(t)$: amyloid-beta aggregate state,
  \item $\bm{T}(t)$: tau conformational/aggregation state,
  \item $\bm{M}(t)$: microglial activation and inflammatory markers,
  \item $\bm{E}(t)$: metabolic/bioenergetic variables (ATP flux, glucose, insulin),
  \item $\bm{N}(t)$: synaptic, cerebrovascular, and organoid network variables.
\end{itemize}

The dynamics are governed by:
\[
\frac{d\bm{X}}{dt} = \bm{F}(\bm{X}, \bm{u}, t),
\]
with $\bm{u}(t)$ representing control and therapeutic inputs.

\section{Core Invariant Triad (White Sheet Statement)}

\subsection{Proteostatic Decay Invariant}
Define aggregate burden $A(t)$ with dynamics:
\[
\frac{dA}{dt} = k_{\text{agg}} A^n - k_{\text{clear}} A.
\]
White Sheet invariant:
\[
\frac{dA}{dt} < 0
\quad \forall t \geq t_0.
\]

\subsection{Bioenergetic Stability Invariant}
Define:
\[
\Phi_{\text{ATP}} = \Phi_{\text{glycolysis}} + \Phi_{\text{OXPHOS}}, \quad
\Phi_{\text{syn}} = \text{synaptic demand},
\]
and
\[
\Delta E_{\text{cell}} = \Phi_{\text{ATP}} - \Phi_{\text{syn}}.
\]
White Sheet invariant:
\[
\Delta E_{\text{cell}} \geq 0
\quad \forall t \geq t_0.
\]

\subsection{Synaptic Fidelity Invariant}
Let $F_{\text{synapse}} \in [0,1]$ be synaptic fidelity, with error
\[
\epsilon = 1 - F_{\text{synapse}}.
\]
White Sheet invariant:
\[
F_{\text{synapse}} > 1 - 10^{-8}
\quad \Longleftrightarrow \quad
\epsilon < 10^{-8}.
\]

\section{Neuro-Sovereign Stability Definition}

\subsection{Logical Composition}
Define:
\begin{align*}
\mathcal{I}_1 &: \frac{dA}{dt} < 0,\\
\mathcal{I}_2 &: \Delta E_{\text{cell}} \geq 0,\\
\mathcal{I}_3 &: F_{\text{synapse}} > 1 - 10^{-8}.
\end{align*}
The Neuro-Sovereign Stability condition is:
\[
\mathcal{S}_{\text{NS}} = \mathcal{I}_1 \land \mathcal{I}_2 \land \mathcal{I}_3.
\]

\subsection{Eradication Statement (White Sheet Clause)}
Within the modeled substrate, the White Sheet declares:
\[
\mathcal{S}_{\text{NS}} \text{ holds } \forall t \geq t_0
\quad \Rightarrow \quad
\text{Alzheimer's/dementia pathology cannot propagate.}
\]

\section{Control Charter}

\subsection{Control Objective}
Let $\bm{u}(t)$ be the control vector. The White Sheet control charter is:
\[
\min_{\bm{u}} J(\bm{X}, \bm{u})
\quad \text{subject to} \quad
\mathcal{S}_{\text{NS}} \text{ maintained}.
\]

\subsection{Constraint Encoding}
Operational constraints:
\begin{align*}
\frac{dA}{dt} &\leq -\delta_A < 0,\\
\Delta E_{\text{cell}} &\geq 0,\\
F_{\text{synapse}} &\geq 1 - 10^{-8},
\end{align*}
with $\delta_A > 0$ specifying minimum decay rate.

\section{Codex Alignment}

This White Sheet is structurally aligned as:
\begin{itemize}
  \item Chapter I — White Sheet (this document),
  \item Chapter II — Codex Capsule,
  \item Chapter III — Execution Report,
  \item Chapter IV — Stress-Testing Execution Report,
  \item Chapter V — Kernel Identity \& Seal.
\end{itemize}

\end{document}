@@ -1,0 +1,155 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{hyperref}
+
+\title{Codex Chapter I:\\
+White Sheet — Project Mnemosyne}
+\author{C.~Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Codex Volume: USSS-v9.4}
+\section*{Classification: Neuro-Sovereign Foundational Charter}
+\section*{Status: Origin Sheet, Active}
+
+\section{Purpose \& Scope}
+
+\subsection{Foundational Intent}
+Project Mnemosyne is defined as a neuro-sovereign simulation engine whose primary charter is:
+\begin{itemize}
+  \item to model, constrain, and eradicate Alzheimer's and dementia pathology,
+  \item to enforce multi-scale invariants across molecular, cellular, and network substrates,
+  \item to operate as an autonomous therapeutic architecture under adversarial pathological load.
+\end{itemize}
+
+\subsection{Scope of Substrates}
+The engine spans:
+\begin{itemize}
+  \item molecular proteostatic meshes (A$\beta$, $\tau$),
+  \item cellular metabolic and bioenergetic substrates,
+  \item network-level synaptic and organoid orchestration manifolds.
+\end{itemize}
+
+\section{Multi-Scale State Architecture}
+
+\subsection{Global State Vector}
+The global state is encoded as:
+\[
+\bm{X}(t) = \big( \bm{A}(t), \bm{T}(t), \bm{M}(t), \bm{E}(t), \bm{N}(t) \big),
+\]
+where:
+\begin{itemize}
+  \item $\bm{A}(t)$: amyloid-beta aggregate state,
+  \item $\bm{T}(t)$: tau conformational/aggregation state,
+  \item $\bm{M}(t)$: microglial activation and inflammatory markers,
+  \item $\bm{E}(t)$: metabolic/bioenergetic variables (ATP flux, glucose, insulin),
+  \item $\bm{N}(t)$: synaptic, cerebrovascular, and organoid network variables.
+\end{itemize}
+
+The dynamics are governed by:
+\[
+\frac{d\bm{X}}{dt} = \bm{F}(\bm{X}, \bm{u}, t),
+\]
+with $\bm{u}(t)$ representing control and therapeutic inputs.
+
+\section{Core Invariant Triad (White Sheet Statement)}
+
+\subsection{Proteostatic Decay Invariant}
+Define aggregate burden $A(t)$ with dynamics:
+\[
+\frac{dA}{dt} = k_{\text{agg}} A^n - k_{\text{clear}} A.
+\]
+White Sheet invariant:
+\[
+\frac{dA}{dt} < 0
+\quad \forall t \geq t_0.
+\]
+
+\subsection{Bioenergetic Stability Invariant}
+Define:
+\[
+\Phi_{\text{ATP}} = \Phi_{\text{glycolysis}} + \Phi_{\text{OXPHOS}}, \quad
+\Phi_{\text{syn}} = \text{synaptic demand},
+\]
+and
+\[
+\Delta E_{\text{cell}} = \Phi_{\text{ATP}} - \Phi_{\text{syn}}.
+\]
+White Sheet invariant:
+\[
+\Delta E_{\text{cell}} \geq 0
+\quad \forall t \geq t_0.
+\]
+
+\subsection{Synaptic Fidelity Invariant}
+Let $F_{\text{synapse}} \in [0,1]$ be synaptic fidelity, with error
+\[
+\epsilon = 1 - F_{\text{synapse}}.
+\]
+White Sheet invariant:
+\[
+F_{\text{synapse}} > 1 - 10^{-8}
+\quad \Longleftrightarrow \quad
+\epsilon < 10^{-8}.
+\]
+
+\section{Neuro-Sovereign Stability Definition}
+
+\subsection{Logical Composition}
+Define:
+\begin{align*}
+\mathcal{I}_1 &: \frac{dA}{dt} < 0,\\
+\mathcal{I}_2 &: \Delta E_{\text{cell}} \geq 0,\\
+\mathcal{I}_3 &: F_{\text{synapse}} > 1 - 10^{-8}.
+\end{align*}
+The Neuro-Sovereign Stability condition is:
+\[
+\mathcal{S}_{\text{NS}} = \mathcal{I}_1 \land \mathcal{I}_2 \land \mathcal{I}_3.
+\]
+
+\subsection{Eradication Statement (White Sheet Clause)}
+Within the modeled substrate, the White Sheet declares:
+\[
+\mathcal{S}_{\text{NS}} \text{ holds } \forall t \geq t_0
+\quad \Rightarrow \quad
+\text{Alzheimer's/dementia pathology cannot propagate.}
+\]
+
+\section{Control Charter}
+
+\subsection{Control Objective}
+Let $\bm{u}(t)$ be the control vector. The White Sheet control charter is:
+\[
+\min_{\bm{u}} J(\bm{X}, \bm{u})
+\quad \text{subject to} \quad
+\mathcal{S}_{\text{NS}} \text{ maintained}.
+\]
+
+\subsection{Constraint Encoding}
+Operational constraints:
+\begin{align*}
+\frac{dA}{dt} &\leq -\delta_A < 0,\\
+\Delta E_{\text{cell}} &\geq 0,\\
+F_{\text{synapse}} &\geq 1 - 10^{-8},
+\end{align*}
+with $\delta_A > 0$ specifying minimum decay rate.
+
+\section{Codex Alignment}
+
+This White Sheet is structurally aligned as:
+\begin{itemize}
+  \item Chapter I — White Sheet (this document),
+  \item Chapter II — Codex Capsule,
+  \item Chapter III — Execution Report,
+  \item Chapter IV — Stress-Testing Execution Report,
+  \item Chapter V — Kernel Identity \& Seal.
+\end{itemize}
+
+\end{document}
