@@ -1,0 +1,20 @@
+\section{Chirality on Tetrahedra}
+
+For a tetrahedron \(T_i = (V_{i0}, V_{i1}, V_{i2}, V_{i3})\), define edge vectors
+\[
+\mathbf{e}_1 = V_{i1} - V_{i0}, \quad
+\mathbf{e}_2 = V_{i2} - V_{i0}, \quad
+\mathbf{e}_3 = V_{i3} - V_{i0}.
+\]
+
+The chirality \(\chi_i\) is defined as the scalar triple product
+\[
+\chi_i = \det[\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3]
+      = \mathbf{e}_1 \cdot (\mathbf{e}_2 \times \mathbf{e}_3).
+\]
+
+Parity-violating modes correspond to sign changes
+\[
+\chi_i \mapsto -\chi_i
+\]
+under orientation reversal.
