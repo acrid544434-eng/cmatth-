@@ -1,0 +1,76 @@
+% SOVEREIGN SIMULATION LaTeX LAB
+% DESIGNED BY: C. Matthew Blackwell — Independent Designer
+
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, bm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\title{Sovereign Simulation Lab:\\
+Multi-Engine Invariant Architecture Workspace}
+\author{C.~Matthew Blackwell\\Independent Designer, Lafayette, Louisiana, USA}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section{Lab Overview}
+
+This document serves as the central LaTeX lab workspace for sovereign
+simulation engines, including:
+\begin{itemize}
+  \item Blood Regeneration Engine (BRE),
+  \item Astro-Physical Sovereign Simulation Engine (APEX-SSE),
+  \item Additional regenerative or cosmological engines.
+\end{itemize}
+
+Each engine is represented as a capsule section or external file
+included via \verb|\input{}|.
+
+\section{Blood Regeneration Engine (BRE)}
+
+% Option 1: Inline capsule
+\input{bre_capsule.tex}
+% Or paste your BRE capsule directly here.
+
+\section{Astro-Physical Sovereign Simulation Engine (APEX-SSE)}
+
+% Option 2: Inline capsule
+\input{apex_sse_capsule.tex}
+% Or paste your APEX-SSE capsule directly here.
+
+\section{Stress-Testing Reports}
+
+\subsection{BRE 50,000-Cycle Stress Test}
+\input{bre_stress_test.tex}
+
+\subsection{APEX-SSE 50,000-Cycle Stress Test}
+\input{apex_sse_stress_test.tex}
+
+\section{Unified Invariant Framework}
+
+Here you can define cross-engine invariants, e.g.:
+\begin{equation}
+  \mathcal{R}_{\text{sovereign}}
+  =
+  \mathcal{R}_{\text{hemo}}
+  \land
+  \mathcal{R}_{\text{astro}}
+  \land
+  \mathcal{R}_{\text{regen,other}}.
+\end{equation}
+
+\section{Future Engine Capsules}
+
+Placeholder for:
+\begin{itemize}
+  \item New regenerative engines,
+  \item Vessel-class architectures,
+  \item Kernel-level sovereign substrates.
+\end{itemize}
+
+\end{document}
