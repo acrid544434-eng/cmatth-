@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{setspace}
+\usepackage{hyperref}
+\onehalfspacing
+
+\title{World White Sheet:\\
+The Sovereign Regenerative Engine (SRE)}
+\author{C.~Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Codex Classification}
+\textbf{Document Type:} World White Sheet\\
+\textbf{System:} Sovereign Regenerative Engine (SRE)\\
+\textbf{Status:} Foundational, Active
+
+\section{World-Level Purpose}
+
+The Sovereign Regenerative Engine defines a world-scale simulation substrate for controlled
+tissue reconstruction. This White Sheet establishes the governing invariants, multi-layer
+architecture, and stability conditions that regulate regenerative behavior across the entire
+simulation world.
+
+\section{Global State Architecture}
+
+The world state is represented as:
+\[
+\bm{X}(t) =
+\big(
+\rho_c(t),\,
+\sigma(t),\,
+m(t),\,
+i(t),\,
+v_{\text{cap}}(t)
+\big),
+\]
+with evolution:
+\[
+\frac{d\bm{X}}{dt}
+= \bm{F}(\bm{X}, \bm{u}, t),
+\]
+where $\bm{u}(t)$ encodes world-level boundary conditions.
+
+\section{Layer I: Cellular Regrowth Logic}
+
+Proliferation law:
+\[
+\Gamma_{\text{mitosis}}
+= \alpha_0
+\left(1 - \frac{\rho_0}{\rho_{\max}}\right)
+\Theta(\pi - \pi_{\text{crit}}).
+\]
+
+Cellular invariant:
+\[
+R_c:\quad
+\frac{\partial \rho_c}{\partial t} \le 0.
+\]
+
+\section{Layer II: Structural Scaffold Blueprint}
+
+Mechanical equilibrium:
+\[
+\nabla \cdot \sigma + f_{\text{ext}} = 0.
+\]
+
+Scaffold stability:
+\[
+R_s:\quad
+\left\lVert
+\Delta \text{Scaffold Geometry}
+\right\rVert
+< \epsilon_{\text{tol}}.
+\]
+
+\section{Layer III: System Stability}
+
+Capillary ingrowth:
+\[
+\frac{\partial v_{\text{cap}}}{\partial t}
+= k_v
+\left(
+\frac{m_{\text{target}} - m}{n_{\text{target}}}
+\right)
+- \gamma_{\text{immune}}.
+\]
+
+Metabolic + immune invariant:
+\[
+R_m, R_i:\quad
+\int
+\big(
+m_{\text{deficit}}
++ i_{\text{inflammation}}
+\big)
+\, dV
+\le \delta.
+\]
+
+\section{Unified World Invariant}
+
+The world-level regeneration invariant is:
+\[
+\mathcal{R}_{\text{world}}
+=
+R_c
+\land
+R_s
+\land
+R_m
+\land
+R_i.
+\]
+
+When $\mathcal{R}_{\text{world}}$ holds, the simulation world guarantees:
+\begin{itemize}
+  \item controlled cellular proliferation,
+  \item scaffold geometric stability,
+  \item metabolic equilibrium,
+  \item immune suppression of pathological cascades.
+\end{itemize}
+
+\section{World Stability}
+
+Define Lyapunov functional $V(\bm{X})$.
+
+World stability requires:
+\[
+\frac{dV}{dt} < 0
+\quad
+\forall t \ge t_0.
+\]
+
+This ensures monotonic convergence toward a globally stable regenerative world state.
+
+\section{Codex Alignment}
+
+This World White Sheet anchors:
+\begin{itemize}
+  \item Volume I — Foundations,
+  \item Volume II — Regeneration Capsule,
+  \item Volume III — Stress Testing,
+  \item Volume IV — Kernel Identity \& Seal.
+\end{itemize}
+
+\end{document}
