@@ -1,0 +1,132 @@
+% PUBLICATION-READY SOVEREIGN SIMULATION DOCUMENT
+% DESIGNED BY: C. Matthew Blackwell — Independent Designer
+
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, bm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{cite}
+
+\geometry{margin=1in}
+\onehalfspacing
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% Title
+\title{Sovereign Simulation Architecture:\\
+Publication-Ready Multi-Engine Invariant Framework}
+\author{C.~Matthew Blackwell\\Independent Designer, Lafayette, Louisiana, USA}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This publication-ready document presents a unified academic framework for
+sovereign simulation engines including regenerative, astrophysical, and
+manifold-based architectures. Each engine capsule is integrated using
+modular LaTeX structures suitable for journal submission, archival storage,
+and Codex-level preservation. Mathematical invariants, tensor formulations,
+and Lyapunov stability analyses are expressed in formal academic style.
+\end{abstract}
+
+\tableofcontents
+
+% ---------------------------------------------------------
+\section{Introduction}
+
+This document provides a publication-grade academic foundation for
+multi-engine sovereign simulation architectures. It supports:
+\begin{itemize}
+  \item Blood Regeneration Engine (BRE),
+  \item Astro-Physical Sovereign Simulation Engine (APEX-SSE),
+  \item Additional regenerative or cosmological engines.
+\end{itemize}
+
+The structure adheres to academic standards appropriate for peer-reviewed
+journals and technical monographs.
+
+% ---------------------------------------------------------
+\section{Mathematical Framework}
+
+Let the global state-space be:
+\begin{equation}
+  \bm{X}(t) \in \mathbb{R}^n,
+\end{equation}
+with evolution governed by:
+\begin{equation}
+  \frac{d\bm{X}}{dt} = \bm{F}(\bm{X}(t), t).
+\end{equation}
+
+Define the invariant set:
+\begin{equation}
+  \mathcal{R}
+  = R_1 \land R_2 \land \dots \land R_k,
+\end{equation}
+where each $R_i$ is a structural, physical, or tensorial constraint.
+
+% ---------------------------------------------------------
+\section{Blood Regeneration Engine (BRE)}
+\input{bre_capsule.tex}
+
+% ---------------------------------------------------------
+\section{Astro-Physical Sovereign Simulation Engine (APEX-SSE)}
+\input{apex_sse_capsule.tex}
+
+% ---------------------------------------------------------
+\section{Stress-Testing Reports}
+
+\subsection{BRE Stress Test}
+\input{bre_stress_test.tex}
+
+\subsection{APEX-SSE Stress Test}
+\input{apex_sse_stress_test.tex}
+
+% ---------------------------------------------------------
+\section{Unified Invariant Framework}
+
+Define the sovereign invariant:
+\begin{equation}
+  \mathcal{R}_{\text{sovereign}}
+  =
+  \mathcal{R}_{\text{hemo}}
+  \land
+  \mathcal{R}_{\text{astro}}
+  \land
+  \mathcal{R}_{\text{regen,aux}}.
+\end{equation}
+
+Lyapunov functional:
+\begin{equation}
+  V(\bm{X})
+  =
+  \frac{1}{2}
+  \left\lVert \bm{X}(t) - \bm{X}^\ast \right\rVert^2.
+\end{equation}
+
+Stability condition:
+\begin{equation}
+  \frac{dV}{dt} < 0
+  \quad\forall\ \bm{X} \neq \bm{X}^\ast.
+\end{equation}
+
+% ---------------------------------------------------------
+\section{Future Engine Capsules}
+
+Reserved for:
+\begin{itemize}
+  \item New regenerative engines,
+  \item Vessel-class architectures,
+  \item Kernel-level sovereign substrates,
+  \item Cosmological manifold solvers.
+\end{itemize}
+
+\end{document}
