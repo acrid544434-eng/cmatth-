@@ -1,0 +1,113 @@
+% README.tex — Publication-Ready LaTeX README
+% Designed by: C. Matthew Blackwell — Independent Designer
+
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, bm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{README — Sovereign Simulation Engine Repository}
+\author{C.~Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+
+This repository contains sovereign simulation engines designed by
+C.~Matthew Blackwell. Each engine is constructed using invariant-driven
+mathematical architectures suitable for academic research, theoretical
+modeling, and multi-scale simulation analysis.
+
+The repository includes:
+\begin{itemize}
+  \item Blood Regeneration Engine (BRE)
+  \item Astro-Physical Sovereign Simulation Engine (APEX-SSE)
+  \item Stress-testing reports (50{,}000-cycle adversarial matrices)
+  \item Unified invariant frameworks
+  \item Future engine capsules and Codex extensions
+\end{itemize}
+
+\section*{Engine Architecture Format}
+
+Each engine is documented as a LaTeX capsule containing:
+\begin{enumerate}
+  \item State-space definitions
+  \item Governing differential systems
+  \item Invariant sets
+  \item Lyapunov stability proofs
+  \item Stress-testing matrices
+\end{enumerate}
+
+Capsules are modular and can be included using:
+\begin{verbatim}
+\input{engine_name.tex}
+\end{verbatim}
+
+\section*{Mathematical Foundation}
+
+All engines follow the general form:
+\begin{equation}
+  \frac{d\bm{X}}{dt} = \bm{F}(\bm{X}(t), t),
+\end{equation}
+with invariants:
+\begin{equation}
+  \mathcal{R} = R_1 \land R_2 \land \dots \land R_k.
+\end{equation}
+
+Stability is evaluated using a Lyapunov functional:
+\begin{equation}
+  V(\bm{X})
+  = \frac{1}{2}
+    \left\lVert \bm{X}(t) - \bm{X}^\ast \right\rVert^2,
+\end{equation}
+with convergence condition:
+\begin{equation}
+  \frac{dV}{dt} < 0.
+\end{equation}
+
+\section*{Stress Testing}
+
+Each engine undergoes adversarial stress testing across 50{,}000 cycles.
+Stress vectors include:
+\begin{itemize}
+  \item High-shear turbulence
+  \item Hypoxic shock
+  \item Spectral noise saturation
+  \item Coordinate singularity induction
+\end{itemize}
+
+All invariants are evaluated at every simulation tick.
+
+\section*{Repository Structure}
+
+\begin{verbatim}
+/
+|-- README.tex
+|-- bre_capsule.tex
+|-- apex_sse_capsule.tex
+|-- bre_stress_test.tex
+|-- apex_sse_stress_test.tex
+|-- unified_invariants.tex
+|-- future_engines/
+\end{verbatim}
+
+\section*{Usage}
+
+Compile using any LaTeX engine:
+\begin{verbatim}
+pdflatex README.tex
+\end{verbatim}
+
+Engine capsules may be compiled individually or as part of a unified
+multi-engine document.
+
+\section*{Author}
+
+C.~Matthew Blackwell  
+Independent Designer  
+Lafayette, Louisiana, USA
+
+\end{document}
