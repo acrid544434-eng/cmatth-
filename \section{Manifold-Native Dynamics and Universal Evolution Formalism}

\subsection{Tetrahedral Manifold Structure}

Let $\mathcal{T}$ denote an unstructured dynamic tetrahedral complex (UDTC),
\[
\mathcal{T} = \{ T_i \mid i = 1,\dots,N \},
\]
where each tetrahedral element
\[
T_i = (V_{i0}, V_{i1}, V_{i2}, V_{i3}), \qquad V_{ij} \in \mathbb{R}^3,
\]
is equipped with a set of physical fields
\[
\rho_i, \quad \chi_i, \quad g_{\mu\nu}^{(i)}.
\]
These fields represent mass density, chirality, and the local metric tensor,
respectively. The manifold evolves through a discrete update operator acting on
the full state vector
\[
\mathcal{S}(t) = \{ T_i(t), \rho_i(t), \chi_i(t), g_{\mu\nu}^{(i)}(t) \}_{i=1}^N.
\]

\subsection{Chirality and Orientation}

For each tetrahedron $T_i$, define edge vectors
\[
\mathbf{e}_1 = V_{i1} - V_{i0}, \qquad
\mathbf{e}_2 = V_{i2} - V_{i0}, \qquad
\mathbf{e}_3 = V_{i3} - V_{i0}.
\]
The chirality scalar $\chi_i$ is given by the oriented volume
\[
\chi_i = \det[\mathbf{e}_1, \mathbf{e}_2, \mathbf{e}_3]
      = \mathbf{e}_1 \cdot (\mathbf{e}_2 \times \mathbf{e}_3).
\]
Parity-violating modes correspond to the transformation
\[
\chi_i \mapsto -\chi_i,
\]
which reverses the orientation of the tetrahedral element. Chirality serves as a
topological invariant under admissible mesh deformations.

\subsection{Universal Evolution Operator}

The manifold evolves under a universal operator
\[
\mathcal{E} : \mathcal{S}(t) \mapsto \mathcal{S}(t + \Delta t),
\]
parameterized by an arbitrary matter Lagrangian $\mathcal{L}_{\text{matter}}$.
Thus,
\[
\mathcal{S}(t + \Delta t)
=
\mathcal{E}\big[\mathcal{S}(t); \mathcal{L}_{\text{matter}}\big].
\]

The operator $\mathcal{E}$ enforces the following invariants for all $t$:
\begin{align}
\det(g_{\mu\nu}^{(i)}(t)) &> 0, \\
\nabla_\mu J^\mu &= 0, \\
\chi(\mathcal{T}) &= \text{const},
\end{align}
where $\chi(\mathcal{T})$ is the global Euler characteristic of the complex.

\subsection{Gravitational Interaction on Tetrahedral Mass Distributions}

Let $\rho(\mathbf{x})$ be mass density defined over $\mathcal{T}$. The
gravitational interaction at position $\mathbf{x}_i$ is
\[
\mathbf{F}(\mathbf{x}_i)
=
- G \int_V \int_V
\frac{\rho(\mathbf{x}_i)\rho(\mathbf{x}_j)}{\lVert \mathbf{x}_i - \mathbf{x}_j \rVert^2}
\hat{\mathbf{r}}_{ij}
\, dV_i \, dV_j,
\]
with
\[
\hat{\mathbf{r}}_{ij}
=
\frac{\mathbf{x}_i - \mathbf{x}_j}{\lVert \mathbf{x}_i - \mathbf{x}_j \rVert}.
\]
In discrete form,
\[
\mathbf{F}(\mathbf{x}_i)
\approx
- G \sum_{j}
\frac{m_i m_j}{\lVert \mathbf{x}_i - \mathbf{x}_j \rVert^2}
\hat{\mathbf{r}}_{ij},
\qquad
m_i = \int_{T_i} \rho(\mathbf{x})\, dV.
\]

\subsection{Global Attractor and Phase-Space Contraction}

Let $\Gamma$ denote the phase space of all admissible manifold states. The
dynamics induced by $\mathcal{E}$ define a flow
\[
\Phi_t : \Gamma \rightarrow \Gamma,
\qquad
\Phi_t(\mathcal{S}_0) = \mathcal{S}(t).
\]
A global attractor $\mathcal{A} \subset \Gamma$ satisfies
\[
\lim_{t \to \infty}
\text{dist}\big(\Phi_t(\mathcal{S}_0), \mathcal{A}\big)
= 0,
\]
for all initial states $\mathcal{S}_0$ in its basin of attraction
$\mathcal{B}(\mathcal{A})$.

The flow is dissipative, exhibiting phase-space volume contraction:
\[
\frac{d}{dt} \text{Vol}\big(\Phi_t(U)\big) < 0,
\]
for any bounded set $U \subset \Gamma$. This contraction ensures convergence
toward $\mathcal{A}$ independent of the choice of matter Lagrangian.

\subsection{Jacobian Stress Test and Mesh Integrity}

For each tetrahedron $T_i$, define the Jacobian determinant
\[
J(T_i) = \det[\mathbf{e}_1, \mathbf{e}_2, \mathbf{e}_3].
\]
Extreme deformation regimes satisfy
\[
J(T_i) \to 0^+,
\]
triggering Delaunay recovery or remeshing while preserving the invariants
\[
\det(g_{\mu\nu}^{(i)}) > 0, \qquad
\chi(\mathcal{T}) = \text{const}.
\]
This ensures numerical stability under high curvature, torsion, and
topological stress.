@@ -1,0 +1,136 @@
+\section{Manifold-Native Dynamics and Universal Evolution Formalism}
+
+\subsection{Tetrahedral Manifold Structure}
+
+Let $\mathcal{T}$ denote an unstructured dynamic tetrahedral complex (UDTC),
+\[
+\mathcal{T} = \{ T_i \mid i = 1,\dots,N \},
+\]
+where each tetrahedral element
+\[
+T_i = (V_{i0}, V_{i1}, V_{i2}, V_{i3}), \qquad V_{ij} \in \mathbb{R}^3,
+\]
+is equipped with a set of physical fields
+\[
+\rho_i, \quad \chi_i, \quad g_{\mu\nu}^{(i)}.
+\]
+These fields represent mass density, chirality, and the local metric tensor,
+respectively. The manifold evolves through a discrete update operator acting on
+the full state vector
+\[
+\mathcal{S}(t) = \{ T_i(t), \rho_i(t), \chi_i(t), g_{\mu\nu}^{(i)}(t) \}_{i=1}^N.
+\]
+
+\subsection{Chirality and Orientation}
+
+For each tetrahedron $T_i$, define edge vectors
+\[
+\mathbf{e}_1 = V_{i1} - V_{i0}, \qquad
+\mathbf{e}_2 = V_{i2} - V_{i0}, \qquad
+\mathbf{e}_3 = V_{i3} - V_{i0}.
+\]
+The chirality scalar $\chi_i$ is given by the oriented volume
+\[
+\chi_i = \det[\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3]
+      = \mathbf{e}_1 \cdot (\mathbf{e}_2 \times \mathbf{e}_3).
+\]
+Parity-violating modes correspond to the transformation
+\[
+\chi_i \mapsto -\chi_i,
+\]
+which reverses the orientation of the tetrahedral element. Chirality serves as a
+topological invariant under admissible mesh deformations.
+
+\subsection{Universal Evolution Operator}
+
+The manifold evolves under a universal operator
+\[
+\mathcal{E} : \mathcal{S}(t) \mapsto \mathcal{S}(t + \Delta t),
+\]
+parameterized by an arbitrary matter Lagrangian $\mathcal{L}_{\text{matter}}$.
+Thus,
+\[
+\mathcal{S}(t + \Delta t)
+=
+\mathcal{E}\big[\mathcal{S}(t); \mathcal{L}_{\text{matter}}\big].
+\]
+
+The operator $\mathcal{E}$ enforces the following invariants for all $t$:
+\begin{align}
+\det(g_{\mu\nu}^{(i)}(t)) &> 0, \\
+\nabla_\mu J^\mu &= 0, \\
+\chi(\mathcal{T}) &= \text{const},
+\end{align}
+where $\chi(\mathcal{T})$ is the global Euler characteristic of the complex.
+
+\subsection{Gravitational Interaction on Tetrahedral Mass Distributions}
+
+Let $\rho(\mathbf{x})$ be mass density defined over $\mathcal{T}$. The
+gravitational interaction at position $\mathbf{x}_i$ is
+\[
+\mathbf{F}(\mathbf{x}_i)
+=
+- G \int_V \int_V
+\frac{\rho(\mathbf{x}_i)\rho(\mathbf{x}_j)}{\lVert \mathbf{x}_i - \mathbf{x}_j \rVert^2}
+\hat{\mathbf{r}}_{ij}
+\, dV_i \, dV_j,
+\]
+with
+\[
+\hat{\mathbf{r}}_{ij}
+=
+\frac{\mathbf{x}_i - \mathbf{x}_j}{\lVert \mathbf{x}_i - \mathbf{x}_j \rVert}.
+\]
+In discrete form,
+\[
+\mathbf{F}(\mathbf{x}_i)
+\approx
+- G \sum_{j}
+\frac{m_i m_j}{\lVert \mathbf{x}_i - \mathbf{x}_j \rVert^2}
+\hat{\mathbf{r}}_{ij},
+\qquad
+m_i = \int_{T_i} \rho(\mathbf{x})\, dV.
+\]
+
+\subsection{Global Attractor and Phase-Space Contraction}
+
+Let $\Gamma$ denote the phase space of all admissible manifold states. The
+dynamics induced by $\mathcal{E}$ define a flow
+\[
+\Phi_t : \Gamma \rightarrow \Gamma,
+\qquad
+\Phi_t(\mathcal{S}_0) = \mathcal{S}(t).
+\]
+A global attractor $\mathcal{A} \subset \Gamma$ satisfies
+\[
+\lim_{t \to \infty}
+\text{dist}\big(\Phi_t(\mathcal{S}_0), \mathcal{A}\big)
+= 0,
+\]
+for all initial states $\mathcal{S}_0$ in its basin of attraction
+$\mathcal{B}(\mathcal{A})$.
+
+The flow is dissipative, exhibiting phase-space volume contraction:
+\[
+\frac{d}{dt} \text{Vol}\big(\Phi_t(U)\big) < 0,
+\]
+for any bounded set $U \subset \Gamma$. This contraction ensures convergence
+toward $\mathcal{A}$ independent of the choice of matter Lagrangian.
+
+\subsection{Jacobian Stress Test and Mesh Integrity}
+
+For each tetrahedron $T_i$, define the Jacobian determinant
+\[
+J(T_i) = \det[\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3].
+\]
+Extreme deformation regimes satisfy
+\[
+J(T_i) \to 0^+,
+\]
+triggering Delaunay recovery or remeshing while preserving the invariants
+\[
+\det(g_{\mu\nu}^{(i)}) > 0, \qquad
+\chi(\mathcal{T}) = \text{const}.
+\]
+This ensures numerical stability under high curvature, torsion, and
+topological stress.
