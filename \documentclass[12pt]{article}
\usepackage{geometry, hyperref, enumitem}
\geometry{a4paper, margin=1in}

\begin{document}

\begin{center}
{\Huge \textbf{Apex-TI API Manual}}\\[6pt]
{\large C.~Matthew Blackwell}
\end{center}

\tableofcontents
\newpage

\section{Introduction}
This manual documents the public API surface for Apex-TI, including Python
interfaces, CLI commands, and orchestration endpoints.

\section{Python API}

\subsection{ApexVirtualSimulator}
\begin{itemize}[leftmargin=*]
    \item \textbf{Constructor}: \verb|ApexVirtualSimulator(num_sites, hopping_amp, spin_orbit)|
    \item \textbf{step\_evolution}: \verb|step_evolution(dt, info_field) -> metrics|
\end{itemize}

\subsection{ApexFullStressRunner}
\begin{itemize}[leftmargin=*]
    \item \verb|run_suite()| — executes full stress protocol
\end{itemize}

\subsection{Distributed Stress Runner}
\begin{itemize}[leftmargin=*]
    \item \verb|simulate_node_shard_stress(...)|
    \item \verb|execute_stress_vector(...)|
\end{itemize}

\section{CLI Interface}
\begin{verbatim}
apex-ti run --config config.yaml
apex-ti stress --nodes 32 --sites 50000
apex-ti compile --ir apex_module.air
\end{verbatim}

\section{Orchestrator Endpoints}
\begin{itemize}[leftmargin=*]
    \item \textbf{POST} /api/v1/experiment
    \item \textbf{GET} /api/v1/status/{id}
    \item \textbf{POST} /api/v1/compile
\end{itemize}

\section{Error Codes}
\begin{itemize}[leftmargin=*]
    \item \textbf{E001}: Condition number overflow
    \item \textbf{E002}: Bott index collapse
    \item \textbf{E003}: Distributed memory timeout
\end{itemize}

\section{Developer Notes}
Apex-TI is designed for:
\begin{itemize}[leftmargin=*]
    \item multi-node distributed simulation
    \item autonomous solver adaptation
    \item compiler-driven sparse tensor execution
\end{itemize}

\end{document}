@@ -1,0 +1,67 @@
+\documentclass[12pt]{article}
+\usepackage{geometry, hyperref, enumitem}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\begin{center}
+{\Huge \textbf{Apex-TI API Manual}}\\[6pt]
+{\large C.~Matthew Blackwell}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+This manual documents the public API surface for Apex-TI, including Python
+interfaces, CLI commands, and orchestration endpoints.
+
+\section{Python API}
+
+\subsection{ApexVirtualSimulator}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Constructor}: \verb|ApexVirtualSimulator(num_sites, hopping_amp, spin_orbit)|
+    \item \textbf{step\_evolution}: \verb|step_evolution(dt, info_field) -> metrics|
+\end{itemize}
+
+\subsection{ApexFullStressRunner}
+\begin{itemize}[leftmargin=*]
+    \item \verb|run_suite()| — executes full stress protocol
+\end{itemize}
+
+\subsection{Distributed Stress Runner}
+\begin{itemize}[leftmargin=*]
+    \item \verb|simulate_node_shard_stress(...)|
+    \item \verb|execute_stress_vector(...)|
+\end{itemize}
+
+\section{CLI Interface}
+\begin{verbatim}
+apex-ti run --config config.yaml
+apex-ti stress --nodes 32 --sites 50000
+apex-ti compile --ir apex_module.air
+\end{verbatim}
+
+\section{Orchestrator Endpoints}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{POST} /api/v1/experiment
+    \item \textbf{GET} /api/v1/status/{id}
+    \item \textbf{POST} /api/v1/compile
+\end{itemize}
+
+\section{Error Codes}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{E001}: Condition number overflow
+    \item \textbf{E002}: Bott index collapse
+    \item \textbf{E003}: Distributed memory timeout
+\end{itemize}
+
+\section{Developer Notes}
+Apex-TI is designed for:
+\begin{itemize}[leftmargin=*]
+    \item multi-node distributed simulation
+    \item autonomous solver adaptation
+    \item compiler-driven sparse tensor execution
+\end{itemize}
+
+\end{document}
