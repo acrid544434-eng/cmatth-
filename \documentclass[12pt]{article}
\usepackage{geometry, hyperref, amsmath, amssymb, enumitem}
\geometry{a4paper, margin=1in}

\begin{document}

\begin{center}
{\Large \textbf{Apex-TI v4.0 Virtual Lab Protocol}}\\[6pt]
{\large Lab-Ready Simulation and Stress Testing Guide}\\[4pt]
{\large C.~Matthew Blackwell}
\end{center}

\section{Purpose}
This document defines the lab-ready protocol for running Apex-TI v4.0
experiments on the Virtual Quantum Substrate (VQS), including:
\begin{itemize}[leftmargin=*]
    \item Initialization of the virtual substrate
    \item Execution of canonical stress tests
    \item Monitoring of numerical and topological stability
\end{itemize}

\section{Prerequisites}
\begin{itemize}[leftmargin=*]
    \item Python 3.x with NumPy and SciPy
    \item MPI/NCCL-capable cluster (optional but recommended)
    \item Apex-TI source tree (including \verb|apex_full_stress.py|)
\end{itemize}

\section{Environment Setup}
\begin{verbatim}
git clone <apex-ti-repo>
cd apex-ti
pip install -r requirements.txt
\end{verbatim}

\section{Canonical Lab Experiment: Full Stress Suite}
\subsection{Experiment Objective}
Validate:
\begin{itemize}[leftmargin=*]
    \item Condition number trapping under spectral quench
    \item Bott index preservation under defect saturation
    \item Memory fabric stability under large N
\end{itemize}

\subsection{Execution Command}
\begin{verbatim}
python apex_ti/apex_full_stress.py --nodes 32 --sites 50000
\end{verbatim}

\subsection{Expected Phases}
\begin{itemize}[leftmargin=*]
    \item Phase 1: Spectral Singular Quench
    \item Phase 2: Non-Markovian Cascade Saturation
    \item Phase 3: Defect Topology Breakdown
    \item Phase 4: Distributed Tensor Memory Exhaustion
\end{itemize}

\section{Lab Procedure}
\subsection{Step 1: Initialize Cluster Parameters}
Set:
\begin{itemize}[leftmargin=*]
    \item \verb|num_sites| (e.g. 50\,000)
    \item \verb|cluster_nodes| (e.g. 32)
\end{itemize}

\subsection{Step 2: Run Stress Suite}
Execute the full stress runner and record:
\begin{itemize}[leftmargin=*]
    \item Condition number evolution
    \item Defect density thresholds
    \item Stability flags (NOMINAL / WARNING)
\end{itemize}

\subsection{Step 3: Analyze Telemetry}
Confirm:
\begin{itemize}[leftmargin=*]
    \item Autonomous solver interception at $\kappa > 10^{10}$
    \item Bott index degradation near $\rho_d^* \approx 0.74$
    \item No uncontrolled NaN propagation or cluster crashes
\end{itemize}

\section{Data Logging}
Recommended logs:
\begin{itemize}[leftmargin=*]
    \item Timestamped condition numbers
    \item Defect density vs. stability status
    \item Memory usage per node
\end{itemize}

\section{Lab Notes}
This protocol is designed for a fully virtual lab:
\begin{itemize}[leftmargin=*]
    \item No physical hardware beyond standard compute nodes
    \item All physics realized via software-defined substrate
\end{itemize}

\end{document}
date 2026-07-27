@@ -1,0 +1,97 @@
+\documentclass[12pt]{article}
+\usepackage{geometry, hyperref, amsmath, amssymb, enumitem}
+\geometry{a4paper, margin=1in}
+
+\begin{document}
+
+\begin{center}
+{\Large \textbf{Apex-TI v4.0 Virtual Lab Protocol}}\\[6pt]
+{\large Lab-Ready Simulation and Stress Testing Guide}\\[4pt]
+{\large C.~Matthew Blackwell}
+\end{center}
+
+\section{Purpose}
+This document defines the lab-ready protocol for running Apex-TI v4.0
+experiments on the Virtual Quantum Substrate (VQS), including:
+\begin{itemize}[leftmargin=*]
+    \item Initialization of the virtual substrate
+    \item Execution of canonical stress tests
+    \item Monitoring of numerical and topological stability
+\end{itemize}
+
+\section{Prerequisites}
+\begin{itemize}[leftmargin=*]
+    \item Python 3.x with NumPy and SciPy
+    \item MPI/NCCL-capable cluster (optional but recommended)
+    \item Apex-TI source tree (including \verb|apex_full_stress.py|)
+\end{itemize}
+
+\section{Environment Setup}
+\begin{verbatim}
+git clone <apex-ti-repo>
+cd apex-ti
+pip install -r requirements.txt
+\end{verbatim}
+
+\section{Canonical Lab Experiment: Full Stress Suite}
+\subsection{Experiment Objective}
+Validate:
+\begin{itemize}[leftmargin=*]
+    \item Condition number trapping under spectral quench
+    \item Bott index preservation under defect saturation
+    \item Memory fabric stability under large N
+\end{itemize}
+
+\subsection{Execution Command}
+\begin{verbatim}
+python apex_ti/apex_full_stress.py --nodes 32 --sites 50000
+\end{verbatim}
+
+\subsection{Expected Phases}
+\begin{itemize}[leftmargin=*]
+    \item Phase 1: Spectral Singular Quench
+    \item Phase 2: Non-Markovian Cascade Saturation
+    \item Phase 3: Defect Topology Breakdown
+    \item Phase 4: Distributed Tensor Memory Exhaustion
+\end{itemize}
+
+\section{Lab Procedure}
+\subsection{Step 1: Initialize Cluster Parameters}
+Set:
+\begin{itemize}[leftmargin=*]
+    \item \verb|num_sites| (e.g. 50\,000)
+    \item \verb|cluster_nodes| (e.g. 32)
+\end{itemize}
+
+\subsection{Step 2: Run Stress Suite}
+Execute the full stress runner and record:
+\begin{itemize}[leftmargin=*]
+    \item Condition number evolution
+    \item Defect density thresholds
+    \item Stability flags (NOMINAL / WARNING)
+\end{itemize}
+
+\subsection{Step 3: Analyze Telemetry}
+Confirm:
+\begin{itemize}[leftmargin=*]
+    \item Autonomous solver interception at $\kappa > 10^{10}$
+    \item Bott index degradation near $\rho_d^* \approx 0.74$
+    \item No uncontrolled NaN propagation or cluster crashes
+\end{itemize}
+
+\section{Data Logging}
+Recommended logs:
+\begin{itemize}[leftmargin=*]
+    \item Timestamped condition numbers
+    \item Defect density vs. stability status
+    \item Memory usage per node
+\end{itemize}
+
+\section{Lab Notes}
+This protocol is designed for a fully virtual lab:
+\begin{itemize}[leftmargin=*]
+    \item No physical hardware beyond standard compute nodes
+    \item All physics realized via software-defined substrate
+\end{itemize}
+
+\end{document}
