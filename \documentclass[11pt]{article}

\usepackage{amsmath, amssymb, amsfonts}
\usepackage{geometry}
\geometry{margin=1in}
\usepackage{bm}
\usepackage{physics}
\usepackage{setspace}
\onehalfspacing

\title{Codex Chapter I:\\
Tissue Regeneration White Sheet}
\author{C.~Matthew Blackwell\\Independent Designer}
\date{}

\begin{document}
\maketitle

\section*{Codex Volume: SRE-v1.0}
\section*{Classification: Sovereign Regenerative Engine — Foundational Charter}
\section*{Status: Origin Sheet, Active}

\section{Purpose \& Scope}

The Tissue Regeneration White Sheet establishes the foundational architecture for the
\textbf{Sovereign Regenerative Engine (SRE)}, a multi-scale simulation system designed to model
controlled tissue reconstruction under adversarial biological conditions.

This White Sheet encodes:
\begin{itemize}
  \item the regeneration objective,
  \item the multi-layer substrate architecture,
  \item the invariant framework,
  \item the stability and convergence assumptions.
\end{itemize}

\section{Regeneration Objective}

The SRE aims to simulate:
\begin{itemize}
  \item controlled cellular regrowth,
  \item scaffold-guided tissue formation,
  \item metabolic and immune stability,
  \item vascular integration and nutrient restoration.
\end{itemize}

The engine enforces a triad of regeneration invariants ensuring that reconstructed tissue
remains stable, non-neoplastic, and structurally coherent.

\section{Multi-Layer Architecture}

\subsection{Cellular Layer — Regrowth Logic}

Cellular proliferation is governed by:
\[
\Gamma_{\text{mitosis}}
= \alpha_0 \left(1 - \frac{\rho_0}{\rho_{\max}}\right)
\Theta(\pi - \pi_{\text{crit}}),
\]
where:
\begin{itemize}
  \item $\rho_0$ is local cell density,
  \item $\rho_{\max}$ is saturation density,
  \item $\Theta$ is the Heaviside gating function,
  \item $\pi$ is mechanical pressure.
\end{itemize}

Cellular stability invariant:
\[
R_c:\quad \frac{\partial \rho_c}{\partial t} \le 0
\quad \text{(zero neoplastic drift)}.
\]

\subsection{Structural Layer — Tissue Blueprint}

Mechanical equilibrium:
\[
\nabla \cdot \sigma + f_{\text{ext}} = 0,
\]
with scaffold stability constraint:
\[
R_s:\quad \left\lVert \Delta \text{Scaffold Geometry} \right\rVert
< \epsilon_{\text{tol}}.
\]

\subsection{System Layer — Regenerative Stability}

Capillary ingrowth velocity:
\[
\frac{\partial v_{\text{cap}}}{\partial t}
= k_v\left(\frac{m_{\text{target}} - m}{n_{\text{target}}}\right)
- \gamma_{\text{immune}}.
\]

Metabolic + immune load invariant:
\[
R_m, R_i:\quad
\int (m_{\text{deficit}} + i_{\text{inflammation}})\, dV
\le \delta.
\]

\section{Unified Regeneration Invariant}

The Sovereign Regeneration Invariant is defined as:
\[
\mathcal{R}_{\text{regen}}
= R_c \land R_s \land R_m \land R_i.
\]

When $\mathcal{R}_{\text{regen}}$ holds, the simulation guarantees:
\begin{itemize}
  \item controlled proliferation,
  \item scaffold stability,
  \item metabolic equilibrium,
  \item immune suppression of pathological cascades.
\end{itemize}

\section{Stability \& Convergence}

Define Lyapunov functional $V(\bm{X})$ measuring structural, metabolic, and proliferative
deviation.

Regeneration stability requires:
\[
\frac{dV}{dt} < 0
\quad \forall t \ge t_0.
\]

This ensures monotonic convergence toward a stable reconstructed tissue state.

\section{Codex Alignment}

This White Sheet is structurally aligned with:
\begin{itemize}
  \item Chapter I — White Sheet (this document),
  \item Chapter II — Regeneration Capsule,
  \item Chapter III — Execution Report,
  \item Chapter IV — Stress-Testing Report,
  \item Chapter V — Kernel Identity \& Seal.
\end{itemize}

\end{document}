@@ -1,0 +1,142 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{setspace}
+\onehalfspacing
+
+\title{Codex Chapter I:\\
+Tissue Regeneration White Sheet}
+\author{C.~Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Codex Volume: SRE-v1.0}
+\section*{Classification: Sovereign Regenerative Engine — Foundational Charter}
+\section*{Status: Origin Sheet, Active}
+
+\section{Purpose \& Scope}
+
+The Tissue Regeneration White Sheet establishes the foundational architecture for the
+\textbf{Sovereign Regenerative Engine (SRE)}, a multi-scale simulation system designed to model
+controlled tissue reconstruction under adversarial biological conditions.
+
+This White Sheet encodes:
+\begin{itemize}
+  \item the regeneration objective,
+  \item the multi-layer substrate architecture,
+  \item the invariant framework,
+  \item the stability and convergence assumptions.
+\end{itemize}
+
+\section{Regeneration Objective}
+
+The SRE aims to simulate:
+\begin{itemize}
+  \item controlled cellular regrowth,
+  \item scaffold-guided tissue formation,
+  \item metabolic and immune stability,
+  \item vascular integration and nutrient restoration.
+\end{itemize}
+
+The engine enforces a triad of regeneration invariants ensuring that reconstructed tissue
+remains stable, non-neoplastic, and structurally coherent.
+
+\section{Multi-Layer Architecture}
+
+\subsection{Cellular Layer — Regrowth Logic}
+
+Cellular proliferation is governed by:
+\[
+\Gamma_{\text{mitosis}}
+= \alpha_0 \left(1 - \frac{\rho_0}{\rho_{\max}}\right)
+\Theta(\pi - \pi_{\text{crit}}),
+\]
+where:
+\begin{itemize}
+  \item $\rho_0$ is local cell density,
+  \item $\rho_{\max}$ is saturation density,
+  \item $\Theta$ is the Heaviside gating function,
+  \item $\pi$ is mechanical pressure.
+\end{itemize}
+
+Cellular stability invariant:
+\[
+R_c:\quad \frac{\partial \rho_c}{\partial t} \le 0
+\quad \text{(zero neoplastic drift)}.
+\]
+
+\subsection{Structural Layer — Tissue Blueprint}
+
+Mechanical equilibrium:
+\[
+\nabla \cdot \sigma + f_{\text{ext}} = 0,
+\]
+with scaffold stability constraint:
+\[
+R_s:\quad \left\lVert \Delta \text{Scaffold Geometry} \right\rVert
+< \epsilon_{\text{tol}}.
+\]
+
+\subsection{System Layer — Regenerative Stability}
+
+Capillary ingrowth velocity:
+\[
+\frac{\partial v_{\text{cap}}}{\partial t}
+= k_v\left(\frac{m_{\text{target}} - m}{n_{\text{target}}}\right)
+- \gamma_{\text{immune}}.
+\]
+
+Metabolic + immune load invariant:
+\[
+R_m, R_i:\quad
+\int (m_{\text{deficit}} + i_{\text{inflammation}})\, dV
+\le \delta.
+\]
+
+\section{Unified Regeneration Invariant}
+
+The Sovereign Regeneration Invariant is defined as:
+\[
+\mathcal{R}_{\text{regen}}
+= R_c \land R_s \land R_m \land R_i.
+\]
+
+When $\mathcal{R}_{\text{regen}}$ holds, the simulation guarantees:
+\begin{itemize}
+  \item controlled proliferation,
+  \item scaffold stability,
+  \item metabolic equilibrium,
+  \item immune suppression of pathological cascades.
+\end{itemize}
+
+\section{Stability \& Convergence}
+
+Define Lyapunov functional $V(\bm{X})$ measuring structural, metabolic, and proliferative
+deviation.
+
+Regeneration stability requires:
+\[
+\frac{dV}{dt} < 0
+\quad \forall t \ge t_0.
+\]
+
+This ensures monotonic convergence toward a stable reconstructed tissue state.
+
+\section{Codex Alignment}
+
+This White Sheet is structurally aligned with:
+\begin{itemize}
+  \item Chapter I — White Sheet (this document),
+  \item Chapter II — Regeneration Capsule,
+  \item Chapter III — Execution Report,
+  \item Chapter IV — Stress-Testing Report,
+  \item Chapter V — Kernel Identity \& Seal.
+\end{itemize}
+
+\end{document}
