@@ -1,0 +1,129 @@
+% SOVEREIGN SIMULATION ACADEMIC LAB
+% DESIGNED BY: C. Matthew Blackwell — Independent Designer
+
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, bm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{titlesec}
+
+\geometry{margin=1in}
+\onehalfspacing
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{Sovereign Simulation Academic Lab:\\
+A Multi-Engine Invariant Architecture Framework}
+\author{C.~Matthew Blackwell\\Independent Designer, Lafayette, Louisiana, USA}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This academic lab document provides a unified LaTeX framework for
+multi-engine sovereign simulation architectures. It supports the
+integration of regenerative engines, astrophysical tensor solvers,
+and invariant-governed simulation capsules. Each engine is represented
+as a modular section or external file, enabling scalable academic
+documentation and cross-invariant analysis.
+\end{abstract}
+
+\tableofcontents
+
+% ---------------------------------------------------------
+\section{Introduction}
+
+This lab serves as the academic foundation for sovereign simulation
+engines including:
+\begin{itemize}
+  \item Blood Regeneration Engine (BRE),
+  \item Astro-Physical Sovereign Simulation Engine (APEX-SSE),
+  \item Additional regenerative, cosmological, or manifold-based engines.
+\end{itemize}
+
+The structure follows academic conventions suitable for publication,
+peer review, or archival Codex integration.
+
+% ---------------------------------------------------------
+\section{Mathematical Preliminaries}
+
+Let the global state-space be:
+\begin{equation}
+  \bm{X}(t) \in \mathbb{R}^n,
+\end{equation}
+with evolution governed by:
+\begin{equation}
+  \frac{d\bm{X}}{dt} = \bm{F}(\bm{X}(t), t).
+\end{equation}
+
+We define a general invariant set:
+\begin{equation}
+  \mathcal{R}
+  = R_1 \land R_2 \land \dots \land R_k,
+\end{equation}
+where each $R_i$ is a structural, physical, or tensorial constraint.
+
+% ---------------------------------------------------------
+\section{Engine Capsule: BRE}
+\input{bre_capsule.tex}
+
+% ---------------------------------------------------------
+\section{Engine Capsule: APEX-SSE}
+\input{apex_sse_capsule.tex}
+
+% ---------------------------------------------------------
+\section{Stress-Testing Reports}
+
+\subsection{BRE Stress Test}
+\input{bre_stress_test.tex}
+
+\subsection{APEX-SSE Stress Test}
+\input{apex_sse_stress_test.tex}
+
+% ---------------------------------------------------------
+\section{Unified Invariant Framework}
+
+We define the sovereign invariant:
+\begin{equation}
+  \mathcal{R}_{\text{sovereign}}
+  =
+  \mathcal{R}_{\text{hemo}}
+  \land
+  \mathcal{R}_{\text{astro}}
+  \land
+  \mathcal{R}_{\text{regen,aux}}.
+\end{equation}
+
+A Lyapunov functional for cross-engine stability:
+\begin{equation}
+  V(\bm{X})
+  =
+  \frac{1}{2}
+  \left\lVert \bm{X}(t) - \bm{X}^\ast \right\rVert^2.
+\end{equation}
+
+Stability condition:
+\begin{equation}
+  \frac{dV}{dt} < 0
+  \quad\forall\ \bm{X} \neq \bm{X}^\ast.
+\end{equation}
+
+% ---------------------------------------------------------
+\section{Future Engine Capsules}
+
+This section is reserved for:
+\begin{itemize}
+  \item New regenerative engines,
+  \item Vessel-class architectures,
+  \item Kernel-level sovereign substrates,
+  \item Cosmological manifold solvers.
+\end{itemize}
+
+\end{document}
