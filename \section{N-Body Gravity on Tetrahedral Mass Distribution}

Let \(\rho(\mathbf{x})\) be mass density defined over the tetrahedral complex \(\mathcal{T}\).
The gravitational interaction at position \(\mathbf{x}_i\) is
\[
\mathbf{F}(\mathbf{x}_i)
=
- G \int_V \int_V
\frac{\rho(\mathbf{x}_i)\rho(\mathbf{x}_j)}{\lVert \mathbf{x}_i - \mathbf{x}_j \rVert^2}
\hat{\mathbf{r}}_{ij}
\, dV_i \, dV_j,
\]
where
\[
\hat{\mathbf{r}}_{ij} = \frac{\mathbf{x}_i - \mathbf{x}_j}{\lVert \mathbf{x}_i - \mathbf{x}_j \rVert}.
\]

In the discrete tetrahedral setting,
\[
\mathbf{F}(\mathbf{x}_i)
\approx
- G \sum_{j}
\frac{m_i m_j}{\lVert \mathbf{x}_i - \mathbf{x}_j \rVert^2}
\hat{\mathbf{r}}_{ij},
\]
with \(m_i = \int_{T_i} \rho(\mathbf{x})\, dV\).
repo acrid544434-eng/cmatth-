@@ -1,0 +1,26 @@
+\section{N-Body Gravity on Tetrahedral Mass Distribution}
+
+Let \(\rho(\mathbf{x})\) be mass density defined over the tetrahedral complex \(\mathcal{T}\).
+The gravitational interaction at position \(\mathbf{x}_i\) is
+\[
+\mathbf{F}(\mathbf{x}_i)
+=
+- G \int_V \int_V
+\frac{\rho(\mathbf{x}_i)\rho(\mathbf{x}_j)}{\lVert \mathbf{x}_i - \mathbf{x}_j \rVert^2}
+\hat{\mathbf{r}}_{ij}
+\, dV_i \, dV_j,
+\]
+where
+\[
+\hat{\mathbf{r}}_{ij} = \frac{\mathbf{x}_i - \mathbf{x}_j}{\lVert \mathbf{x}_i - \mathbf{x}_j \rVert}.
+\]
+
+In the discrete tetrahedral setting,
+\[
+\mathbf{F}(\mathbf{x}_i)
+\approx
+- G \sum_{j}
+\frac{m_i m_j}{\lVert \mathbf{x}_i - \mathbf{x}_j \rVert^2}
+\hat{\mathbf{r}}_{ij},
+\]
+with \(m_i = \int_{T_i} \rho(\mathbf{x})\, dV\).
