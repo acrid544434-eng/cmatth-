@@ -1,0 +1,19 @@
+\section{Global Attractor and Stability Basins}
+
+Let \(\Gamma\) denote the phase space of all admissible manifold states \(\mathcal{S}\).
+The dynamics under \(\mathcal{E}\) define a flow
+\[
+\Phi_t : \Gamma \rightarrow \Gamma, \quad \Phi_t(\mathcal{S}_0) = \mathcal{S}(t).
+\]
+
+A global attractor \(\mathcal{A} \subset \Gamma\) satisfies:
+\[
+\lim_{t \to \infty} \text{dist}(\Phi_t(\mathcal{S}_0), \mathcal{A}) = 0
+\]
+for all initial states \(\mathcal{S}_0\) in a basin of attraction \(\mathcal{B}(\mathcal{A})\).
+
+Phase-space volume contraction:
+\[
+\frac{d}{dt} \text{Vol}(\Phi_t(U)) < 0
+\]
+for any bounded set \(U \subset \Gamma\), indicating dissipative convergence toward \(\mathcal{A}\).
