@@ -1,0 +1,72 @@
+% ------------------------------------------------------------
+% VII. FIGURES
+% ------------------------------------------------------------
+\section{Figures}
+\label{sec:figures}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{aetherius9_manifold_geometry.png}
+    \caption{
+    Hyper-toroidal visualization of the Tetra-Chiral Conformal Manifold
+    (TCCM). The extended metric
+    $ds^2 = g_{\mu\nu} dx^\mu dx^\nu + \Psi^2 d\xi^2$
+    is represented by curvature lines and chiral twist density contours.
+    Regions of high $\Psi$ correspond to enhanced chiral deformation and
+    topological stress.
+    }
+    \label{fig:tccm_geometry}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{aetherius9_architecture_block.png}
+    \caption{
+    Block diagram of the Aetherius-9 computational architecture.
+    Core orchestration (C++20), CUDA/MPI HPC substrate, metric tensor
+    kernel, stress-energy engine, and topology monitor are shown as
+    interacting modules. Data flow proceeds from raw astrophysical
+    telemetry through the TCCM solver to visualization and diagnostics.
+    }
+    \label{fig:a9_architecture}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{aetherius9_stress_convergence.png}
+    \caption{
+    Convergence monitor for the ST-01 and ST-03 stress tests.
+    Top panel: covariant divergence residuals during neutron flux spike
+    (ST-01), remaining below $10^{-13}$ throughout the run.
+    Bottom panel: metric determinant evolution during manifold pinch
+    (ST-03), showing collapse to $\det(g) \approx 3.2 \times 10^{-17}$
+    followed by recovery under singularity guard clamping.
+    }
+    \label{fig:a9_convergence}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{aetherius9_memory_numa_heatmap.png}
+    \caption{
+    NUMA memory allocation heatmap during ST-04 (maximum bandwidth
+    saturation). All nodes operate at 100\% allocation with MPI
+    ghost-cell exchange sustained at $1.8\,\mathrm{TB/s}$. Latency
+    remains below $1.2\,\mathrm{ms}$ per stencil pass, indicating stable
+    synchronization under full-load conditions.
+    }
+    \label{fig:a9_numa}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{aetherius9_topology_betti_evolution.png}
+    \caption{
+    Evolution of Betti numbers $(\beta_0, \beta_1, \beta_2)$ during
+    manifold deformation cycles. Despite extreme geometric stress,
+    topological invariants remain locked within TCCM bounds, confirming
+    resilience of the manifold against coordinate singularities and
+    boundary leakage.
+    }
+    \label{fig:a9_betti}
+\end{figure}
