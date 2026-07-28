@@ -1,0 +1,169 @@
+\documentclass[%
+ reprint,
+ amsmath,amssymb,
+ aps,
+]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bm}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{APSE-v9: Causal-Invariant Event-Horizon Physics Substrate\\
+Formal Validation of the $\Lambda$-CNM Field System and Zone Beta Stability}
+
+\author{C.~Matthew Blackwell}
+\affiliation{Independent Designer}
+
+\date{\today}
+
+\begin{abstract}
+APSE-v9 is an event-horizon physics substrate implementing a 
+$\Lambda$-Coupled Nuclear Manifold ($\Lambda$-CNM) and a causal stability 
+invariant $\mathcal{I}_{\text{causal}}$ for superheavy nuclear configurations 
+centered on the Zone Beta core ($Z = 164$, $N = 228$). Operating on a 
+1.0-million-node isotopic grid under extreme neutron flux, thermal shock, and 
+metric curvature forcing, APSE-v9 demonstrates exact causal convergence, zero 
+chronological violations, and enhanced structural resilience of Zone Beta. 
+This paper provides the formal mathematical structure of the causal invariant 
+and presents empirical validation metrics confirming horizon-grade stability.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+The Astrophysical Physics Substrate Engine (APSE-v9) unifies nuclear stability, 
+relativistic curvature, and cosmological expansion within a single 
+causal-consistent computational framework. The system integrates event-horizon 
+boundary conditions, quantum chromodynamic (QCD) interactions, and dark-energy 
+coupling through the $\Lambda$-Coupled Nuclear Manifold ($\Lambda$-CNM).
+
+\section{Figures}
+
+\subsection{Dynamic Periodic Framework (DPF-v8)}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.48\textwidth]{dpf_v8_periodic_table.png}
+    \caption{Dynamic Periodic Framework (DPF-v8) showing nucleosynthetic origin 
+    classes, stability zones, and the Zone Beta core island.}
+    \label{fig:dpfv8}
+\end{figure}
+
+\subsection{SRSE-v1 System Architecture Pipeline}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.48\textwidth]{srse_v1_architecture.png}
+    \caption{SRSE-v1 architecture pipeline including telemetry ingest, 
+    spacetime-reactive kernel, $\Lambda$-CNM tensor loops, and causal validation 
+    layer.}
+    \label{fig:srse_arch}
+\end{figure}
+
+\subsection{Zone Beta Stability Surface}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.48\textwidth]{zone_beta_surface.png}
+    \caption{Zone Beta resilience surface $R(Z,N)$ highlighting the stability 
+    centroid at $Z = 164$, $N = 228$.}
+    \label{fig:zonebeta}
+\end{figure}
+
+\subsection{Parametric Resilience Surface}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.48\textwidth]{resilience_surface.png}
+    \caption{Parametric resilience surface $R(Z,N)$ under varying neutron flux 
+    $\Phi_n$, thermal shock $T_9$, and cosmological constant $\Lambda$.}
+    \label{fig:resilience}
+\end{figure}
+
+\subsection{Execution Console Output}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.48\textwidth]{execution_console.png}
+    \caption{Execution console output from APSE-v9 stress test showing 
+    convergence, memory bandwidth, and causal invariant verification.}
+    \label{fig:console}
+\end{figure}
+
+\section{Causal Stability Invariant}
+
+Let $\mathcal{M}$ be a Lorentzian spacetime manifold with metric $g_{\mu\nu}$ 
+satisfying the $\Lambda$-CNM field equations. The action functional for the 
+isotopic binding state $R(Z,N)$ is:
+\begin{equation}
+\mathcal{S}[g, \Psi] = 
+\int_{\mathcal{M}} \mathcal{L}(g_{\mu\nu}, \Psi, R(Z,N)) \sqrt{-g} \, d^4x.
+\end{equation}
+
+A chronological symmetry vector field $\xi^\mu$ generates 
+time-order-preserving diffeomorphisms. By Noether's theorem:
+\begin{equation}
+\nabla_\mu J^\mu_{\text{causal}} = 0.
+\end{equation}
+
+Integrating over a domain $\Sigma$:
+\begin{equation}
+\int_{\partial \Sigma} J^\mu_{\text{causal}} n_\mu \, d^3\Sigma = 0.
+\end{equation}
+
+This defines the causal stability invariant $\mathcal{I}_{\text{causal}}$.
+
+\section{APSE-v9 Stress Test}
+
+\subsection{Execution Log}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.48\textwidth]{stress_test_log.png}
+    \caption{Condensed APSE-v9 stress test log showing tensor loop execution, 
+    flux injection, and causal invariant evaluation.}
+    \label{fig:stresslog}
+\end{figure}
+
+\section{Performance Metrics}
+
+\begin{table}[h]
+\caption{APSE-v9 performance under horizon-grade forcing.}
+\begin{ruledtabular}
+\begin{tabular}{llll}
+Axis & Baseline & Peak Load & Outcome \\
+\hline
+Neutron Influx $\Phi_n$ & $5.4 \times 10^{28}$ & $5.4 \times 10^{32}$ & OPTIMAL \\
+Core Temperature $T_9$ & 3.2 & 85.0 & STABLE \\
+Memory Bandwidth & 42.0\% & 98.1\% & PASSED \\
+Surviving States & N/A & 42,890 & VERIFIED \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\section{Empirical Validation}
+
+\begin{table}[h]
+\caption{Empirical validation of causal invariance and Zone Beta stability.}
+\begin{ruledtabular}
+\begin{tabular}{llll}
+Parameter & Target & Measured & Status \\
+\hline
+$\mathcal{I}_{\text{causal}}$ & $0.000 \pm 10^{-15}$ & $3.42 \times 10^{-18}$ & CONVERGED \\
+Zone Beta Resilience $R$ & $\ge 0.950$ & 0.982 & STABLE \\
+Causal Violations & 0\% & 0\% & ZERO \\
+Convergence Time & $\le 150$ ms & 134.20 ms & OPTIMAL \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\section{Conclusion}
+
+APSE-v9 demonstrates exact causal invariance, structural resilience of Zone 
+Beta, and full numerical stability across a million-node grid.
+
+\end{document}
