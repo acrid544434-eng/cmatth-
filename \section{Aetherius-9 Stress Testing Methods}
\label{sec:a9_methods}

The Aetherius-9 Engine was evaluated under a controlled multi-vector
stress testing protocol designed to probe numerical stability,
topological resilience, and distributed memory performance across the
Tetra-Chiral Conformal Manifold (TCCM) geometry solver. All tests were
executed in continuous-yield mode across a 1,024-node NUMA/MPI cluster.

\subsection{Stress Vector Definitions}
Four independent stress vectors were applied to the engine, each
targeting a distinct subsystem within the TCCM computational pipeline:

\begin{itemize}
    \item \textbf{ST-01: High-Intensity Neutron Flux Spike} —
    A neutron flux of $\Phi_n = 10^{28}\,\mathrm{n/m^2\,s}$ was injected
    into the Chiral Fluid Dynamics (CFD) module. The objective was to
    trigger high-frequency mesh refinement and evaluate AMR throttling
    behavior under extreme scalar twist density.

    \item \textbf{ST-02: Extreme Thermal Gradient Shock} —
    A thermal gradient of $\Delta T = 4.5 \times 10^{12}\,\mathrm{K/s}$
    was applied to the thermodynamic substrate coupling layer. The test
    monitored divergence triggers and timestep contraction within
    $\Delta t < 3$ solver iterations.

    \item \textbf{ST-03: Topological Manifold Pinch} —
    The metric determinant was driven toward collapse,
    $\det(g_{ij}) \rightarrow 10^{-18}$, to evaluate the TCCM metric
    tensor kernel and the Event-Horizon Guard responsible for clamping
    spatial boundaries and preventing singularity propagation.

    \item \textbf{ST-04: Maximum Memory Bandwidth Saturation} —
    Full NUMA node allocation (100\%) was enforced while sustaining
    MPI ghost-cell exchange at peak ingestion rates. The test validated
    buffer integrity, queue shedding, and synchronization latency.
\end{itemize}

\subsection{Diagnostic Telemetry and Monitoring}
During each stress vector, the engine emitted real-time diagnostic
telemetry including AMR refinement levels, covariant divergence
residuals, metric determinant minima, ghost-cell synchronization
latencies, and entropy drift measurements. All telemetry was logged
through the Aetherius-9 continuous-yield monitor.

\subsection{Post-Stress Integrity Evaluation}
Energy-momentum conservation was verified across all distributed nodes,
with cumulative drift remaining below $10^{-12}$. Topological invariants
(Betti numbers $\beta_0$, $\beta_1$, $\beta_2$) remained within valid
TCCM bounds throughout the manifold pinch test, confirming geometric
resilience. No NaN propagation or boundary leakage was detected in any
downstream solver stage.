@@ -1,0 +1,52 @@
+\section{Aetherius-9 Stress Testing Methods}
+\label{sec:a9_methods}
+
+The Aetherius-9 Engine was evaluated under a controlled multi-vector
+stress testing protocol designed to probe numerical stability,
+topological resilience, and distributed memory performance across the
+Tetra-Chiral Conformal Manifold (TCCM) geometry solver. All tests were
+executed in continuous-yield mode across a 1,024-node NUMA/MPI cluster.
+
+\subsection{Stress Vector Definitions}
+Four independent stress vectors were applied to the engine, each
+targeting a distinct subsystem within the TCCM computational pipeline:
+
+\begin{itemize}
+    \item \textbf{ST-01: High-Intensity Neutron Flux Spike} —
+    A neutron flux of $\Phi_n = 10^{28}\,\mathrm{n/m^2\,s}$ was injected
+    into the Chiral Fluid Dynamics (CFD) module. The objective was to
+    trigger high-frequency mesh refinement and evaluate AMR throttling
+    behavior under extreme scalar twist density.
+
+    \item \textbf{ST-02: Extreme Thermal Gradient Shock} —
+    A thermal gradient of $\Delta T = 4.5 \times 10^{12}\,\mathrm{K/s}$
+    was applied to the thermodynamic substrate coupling layer. The test
+    monitored divergence triggers and timestep contraction within
+    $\Delta t < 3$ solver iterations.
+
+    \item \textbf{ST-03: Topological Manifold Pinch} —
+    The metric determinant was driven toward collapse,
+    $\det(g_{ij}) \rightarrow 10^{-18}$, to evaluate the TCCM metric
+    tensor kernel and the Event-Horizon Guard responsible for clamping
+    spatial boundaries and preventing singularity propagation.
+
+    \item \textbf{ST-04: Maximum Memory Bandwidth Saturation} —
+    Full NUMA node allocation (100\%) was enforced while sustaining
+    MPI ghost-cell exchange at peak ingestion rates. The test validated
+    buffer integrity, queue shedding, and synchronization latency.
+\end{itemize}
+
+\subsection{Diagnostic Telemetry and Monitoring}
+During each stress vector, the engine emitted real-time diagnostic
+telemetry including AMR refinement levels, covariant divergence
+residuals, metric determinant minima, ghost-cell synchronization
+latencies, and entropy drift measurements. All telemetry was logged
+through the Aetherius-9 continuous-yield monitor.
+
+\subsection{Post-Stress Integrity Evaluation}
+Energy-momentum conservation was verified across all distributed nodes,
+with cumulative drift remaining below $10^{-12}$. Topological invariants
+(Betti numbers $\beta_0$, $\beta_1$, $\beta_2$) remained within valid
+TCCM bounds throughout the manifold pinch test, confirming geometric
+resilience. No NaN propagation or boundary leakage was detected in any
+downstream solver stage.
