@@ -1,0 +1,161 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{Spacecraft Integration Chapter}\\
+\large Continuous Yield Propulsion Core (CYPC-1)}
+\author{C.~Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{1. Introduction}
+The Continuous Yield Propulsion Core (CYPC-1) is a high-stability propulsion
+module derived from the ACE-9K conservation engine. This chapter defines the
+integration of CYPC-1 into a full spacecraft architecture, including structural
+mounting, thermal routing, thrust-vector control, manifold stability coupling,
+and conservation-layer synchronization.
+
+\section*{2. Spacecraft-Level Architecture Overview}
+CYPC-1 integrates into the spacecraft through five primary interfaces:
+
+\begin{enumerate}
+    \item Structural Interface Frame (SIF)
+    \item Thermal Regulation Network (TRN)
+    \item Thrust Vector Control Grid (TVCG)
+    \item Stability Manifold Coupling Layer (SMCL)
+    \item Conservation Synchronization Bus (CSB)
+\end{enumerate}
+
+These interfaces ensure CYPC-1 operates within global spacecraft constraints
+while maintaining continuous-yield thrust stability.
+
+\section*{3. Structural Interface Frame (SIF)}
+\subsection*{3.1 Structural Coupling}
+CYPC-1 mounts to the spacecraft via a composite frame designed to maintain:
+\[
+f_{\text{yield}} = \sqrt{\sigma_{ij}\sigma^{ij}} - \sigma_{\text{crit}} < 0.
+\]
+
+\subsection*{3.2 Requirements}
+\begin{itemize}
+    \item Multi-axis load distribution
+    \item Strain-sensor lattice for real-time deformation mapping
+    \item Nozzle alignment tolerance $< 0.002^\circ$
+\end{itemize}
+
+\subsection*{3.3 Integration Notes}
+The SIF must ensure that thrust-induced deformation does not propagate into
+critical spacecraft subsystems.
+
+\section*{4. Thermal Regulation Network (TRN)}
+\subsection*{4.1 Thermal Model}
+Thermal flux from CYPC-1 is governed by:
+\[
+Q = \int P(x)\, dV,
+\]
+where $P(x)$ is the information-density pressure field.
+
+\subsection*{4.2 Requirements}
+\begin{itemize}
+    \item High-capacity thermal routing channels
+    \item Plasma exhaust heat dissipation manifold
+    \item Temperature stability envelope $< 0.5^\circ$ variation
+\end{itemize}
+
+\subsection*{4.3 Integration Notes}
+TRN must prevent thermal feedback into QP-Core gradient coils.
+
+\section*{5. Thrust Vector Control Grid (TVCG)}
+\subsection*{5.1 Governing Dynamics}
+Thrust vectoring is defined by:
+\[
+M\ddot{x}^\mu + D\dot{x}^\mu + Kx^\mu = F^\mu.
+\]
+
+\subsection*{5.2 Requirements}
+\begin{itemize}
+    \item Magnetic-plasma nozzle field coils
+    \item Dynamic stiffness modulation ($K$-matrix control)
+    \item Damping matrix $D$ maintained positive definite
+\end{itemize}
+
+\subsection*{5.3 Integration Notes}
+TVCG interfaces with spacecraft attitude control systems for coordinated
+maneuvering.
+
+\section*{6. Stability Manifold Coupling Layer (SMCL)}
+\subsection*{6.1 Governing Stability Condition}
+Global stability requires:
+\[
+\lambda_{\max}(K - \Gamma_P) < 0.
+\]
+
+\subsection*{6.2 Requirements}
+\begin{itemize}
+    \item Real-time eigenvalue spectrum evaluation
+    \item Geometry modulation actuators
+    \item Nozzle deformation sensors
+\end{itemize}
+
+\subsection*{6.3 Integration Notes}
+SMCL ensures spacecraft-level structural modes do not destabilize CYPC-1’s
+manifold.
+
+\section*{7. Conservation Synchronization Bus (CSB)}
+\subsection*{7.1 Governing Conservation Laws}
+CYPC-1 synchronizes with spacecraft systems to maintain:
+\[
+\nabla_\mu T^{\mu\nu} = 0, \qquad
+\nabla_\mu J^\mu = 0,
+\]
+and preserves:
+\[
+\frac{dH_{\text{metric}}}{dt} \approx 0.
+\]
+
+\subsection*{7.2 Requirements}
+\begin{itemize}
+    \item High-bandwidth conservation telemetry bus
+    \item Cross-subsystem divergence monitoring
+    \item Invariant preservation feedback loop
+\end{itemize}
+
+\subsection*{7.3 Integration Notes}
+CSB ensures spacecraft-wide conservation integrity during thrust cycles.
+
+\section*{8. Full Spacecraft Integration Pipeline}
+\begin{enumerate}
+    \item Mount CYPC-1 to SIF and validate structural yield envelope.
+    \item Connect TRN and verify thermal routing under plasma compression.
+    \item Integrate TVCG for thrust vector modulation.
+    \item Synchronize SMCL for global manifold stability.
+    \item Activate CSB for conservation and invariant monitoring.
+\end{enumerate}
+
+\section*{9. Stability Envelope}
+Spacecraft-level stability requires:
+\[
+\lambda_{\max}(K - \Gamma_P) < 0,
+\]
+with propulsion-cycle value:
+\[
+\lambda_{\max} = -0.387.
+\]
+
+\section*{10. Integration Notes}
+\begin{itemize}
+    \item Spacecraft structural modes must not interfere with CYPC-1 eigenvalue spectrum.
+    \item Thermal routing must prevent feedback into QP-Core gradient coils.
+    \item Conservation synchronization must remain continuous during thrust vectoring.
+\end{itemize}
+
+\section*{11. Conclusion}
+CYPC-1 integrates into spacecraft architecture through structural, thermal,
+dynamic, stability, and conservation interfaces. The resulting propulsion system
+maintains continuous-yield thrust generation with global manifold stability and
+zero conservation drift.
+
+\end{document}
