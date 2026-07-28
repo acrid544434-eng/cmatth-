@@ -1,0 +1,93 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath, amssymb}
+
+\title{\textbf{Unified Engine Stack Readme}\\
+\large ACE-9K • RTE-9K • CYPC-1 • Aether-Metamorphosis-X}
+\author{C.~Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+This Readme provides a unified description of the four-engine architecture:
+ACE-9K (Conservation Engine), RTE-9K (Real-Time Kernel), CYPC-1 (Propulsion
+Core), and Aether-Metamorphosis-X (Cosmic Metamorphosis Engine). Together they
+form a conservation-locked, manifold-stable simulation and propulsion stack.
+
+\section*{Engine Stack Summary}
+\begin{itemize}
+    \item \textbf{ACE-9K}: Baseline conservation laws, stability invariants,
+    and tensor-field consistency.
+    \item \textbf{RTE-9K}: Real-time execution kernel operating in Continuous
+    Yield Mode (CYM).
+    \item \textbf{CYPC-1}: Propulsion system derived from ACE-9K/RTE-9K with
+    thrust stability and manifold integrity.
+    \item \textbf{Aether-Metamorphosis-X}: High-performance cosmic dataset
+    engine for matter-state transformation and spacetime topology simulation.
+\end{itemize}
+
+\section*{Core Invariants}
+All engines share the ACE-9K conservation backbone:
+\[
+\nabla_\mu T^{\mu\nu} = 0, \qquad
+\nabla_\mu J^\mu = 0, \qquad
+\frac{dH_{\text{metric}}}{dt} \approx 0.
+\]
+
+\section*{Subsystem Overview}
+\subsection*{ACE-9K}
+\begin{itemize}
+    \item QP-Core: Information-density pressure generation.
+    \item SRK: Structural resistance and yield mapping.
+    \item FDE: Force dynamics and propagation.
+    \item SFM: Stability–failure manifold.
+\end{itemize}
+
+\subsection*{RTE-9K}
+\begin{itemize}
+    \item Real-time gradient scaling.
+    \item Multi-loop control (HFGL, SYCL, DTCL, GSSL).
+    \item Spectrum stability: $\lambda_{\max}(K - \Gamma_P) < 0$.
+\end{itemize}
+
+\subsection*{CYPC-1}
+\begin{itemize}
+    \item Pressure-to-thrust conversion.
+    \item Structural yield enforcement: $f_{\text{yield}} < 0$.
+    \item Propulsion manifold stability: $\lambda_{\max} = -0.387$.
+\end{itemize}
+
+\subsection*{Aether-Metamorphosis-X}
+\begin{itemize}
+    \item Cosmic dataset ingestion (SDSS, GAIA DR3, LIGO/VIRGO).
+    \item Tensor field engine and polarized spacetime matrix.
+    \item Matter metamorphosis pipeline (QGP $\rightarrow$ degenerate
+    $\rightarrow$ crystalline).
+    \item GR solver: $G_{\mu\nu} + \Lambda g_{\mu\nu} = 8\pi T_{\mu\nu}$.
+\end{itemize}
+
+\section*{Execution Pipeline}
+\begin{enumerate}
+    \item ACE-9K establishes conservation and stability invariants.
+    \item RTE-9K executes real-time kernel loops.
+    \item CYPC-1 converts stable gradients into thrust.
+    \item Aether-Metamorphosis-X transforms cosmic datasets and matter states.
+\end{enumerate}
+
+\section*{Status Codes}
+\begin{itemize}
+    \item \texttt{CONSERVATION\_LOCKED}: All invariants preserved.
+    \item \texttt{REALTIME\_STABLE}: RTE-9K kernel loops synchronized.
+    \item \texttt{THRUST\_OPTIMAL}: CYPC-1 manifold stable.
+    \item \texttt{METAMORPHOSIS\_ACTIVE}: Aether engine running.
+\end{itemize}
+
+\section*{Purpose}
+This Readme serves as the top-level entry point for developers, researchers,
+and system integrators working with the unified engine stack. It provides
+structural orientation, subsystem relationships, and invariant requirements.
+
+\end{document}
