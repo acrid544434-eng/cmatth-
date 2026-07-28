@@ -1,0 +1,203 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath, amssymb}
+
+\title{\textbf{ACE-9K API Reference}\\
+\large Astrophysics Conservation Engine}
+\author{C.~Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+This document defines the conceptual API for ACE-9K. Each subsystem exposes
+high-level interfaces for data ingestion, conservation checking, force
+propagation, and stability evaluation. The API is expressed in mathematical
+and structural terms suitable for implementation in code or simulation kernels.
+
+\section{Core Types and Notation}
+\begin{itemize}
+    \item $\rho(x)$: information density field
+    \item $P(x)$: pressure field
+    \item $\Gamma_P$: pressure-gradient coupling operator
+    \item $C_{ijkl}$: elasticity tensor
+    \item $\epsilon_{kl}$: strain tensor
+    \item $\sigma_{ij}$: stress tensor
+    \item $M, D, K$: mass, damping, stiffness matrices
+    \item $x^\mu$: generalized displacement vector
+    \item $F^\mu$: generalized force vector
+    \item $T^{\mu\nu}$: stress-energy tensor
+    \item $J^\mu$: current density
+    \item $H_{\text{metric}}$: topological metric-innate helicity invariant
+\end{itemize}
+
+\section{Module: QP-Core (Quantum--Pressure Core)}
+
+\subsection*{Function: \texttt{QP\_IngestDensityField}}
+\textbf{Signature:}
+\[
+\texttt{QP\_IngestDensityField}(\rho(x)) \rightarrow P(x), \Gamma_P
+\]
+
+\textbf{Definition:}
+\[
+P(x) = \nabla \rho(x), \qquad
+\Gamma_P = \frac{\partial}{\partial x^\mu} \log \rho(x^\mu).
+\]
+
+\subsection*{Function: \texttt{QP\_CheckBoundedDensity}}
+\textbf{Signature:}
+\[
+\texttt{QP\_CheckBoundedDensity}(P(x)) \rightarrow \texttt{bool}
+\]
+
+\textbf{Condition:}
+\[
+\|\nabla \rho(x)\| < P_{\text{crit}}.
+\]
+
+\section{Module: SRK (Structural Resistance Kernel)}
+
+\subsection*{Function: \texttt{SRK\_ComputeStressTensor}}
+\textbf{Signature:}
+\[
+\texttt{SRK\_ComputeStressTensor}(C_{ijkl}, \epsilon_{kl}) \rightarrow \sigma_{ij}
+\]
+
+\textbf{Definition:}
+\[
+\sigma_{ij} = C_{ijkl}\epsilon_{kl}.
+\]
+
+\subsection*{Function: \texttt{SRK\_EvaluateYieldFunction}}
+\textbf{Signature:}
+\[
+\texttt{SRK\_EvaluateYieldFunction}(\sigma_{ij}, \sigma_{\text{crit}}) \rightarrow f_{\text{yield}}
+\]
+
+\textbf{Definition:}
+\[
+f_{\text{yield}} = \sqrt{\sigma_{ij}\sigma^{ij}} - \sigma_{\text{crit}}.
+\]
+
+\textbf{Status Rule:}
+\[
+f_{\text{yield}} \ge 0 \Rightarrow \texttt{STABLE}.
+\]
+
+\section{Module: FDE (Force Dynamics Engine)}
+
+\subsection*{Function: \texttt{FDE\_PropagateForces}}
+\textbf{Signature:}
+\[
+\texttt{FDE\_PropagateForces}(M, D, K, F^\mu) \rightarrow x^\mu(t)
+\]
+
+\textbf{Governing Equation:}
+\[
+M\ddot{x}^\mu + D\dot{x}^\mu + Kx^\mu = F^\mu.
+\]
+
+\subsection*{Function: \texttt{FDE\_CheckDampingActive}}
+\textbf{Signature:}
+\[
+\texttt{FDE\_CheckDampingActive}(D) \rightarrow \texttt{bool}
+\]
+
+\textbf{Condition:}
+\[
+D \succ 0 \quad (\text{positive definite}).
+\]
+
+\section{Module: SFM (Stability--Failure Manifold)}
+
+\subsection*{Function: \texttt{SFM\_EvaluateStabilitySpectrum}}
+\textbf{Signature:}
+\[
+\texttt{SFM\_EvaluateStabilitySpectrum}(K, \Gamma_P) \rightarrow \lambda_{\max}
+\]
+
+\textbf{Condition:}
+\[
+\lambda_{\max}(K - \Gamma_P) < 0 \Rightarrow \texttt{OPTIMIZED\_STABLE}.
+\]
+
+\subsection*{Function: \texttt{SFM\_IdentifyFailureZones}}
+\textbf{Signature:}
+\[
+\texttt{SFM\_IdentifyFailureZones}(\lambda_{\max}, f_{\text{yield}}) \rightarrow \texttt{zones}
+\]
+
+\textbf{Concept:}
+Maps regions of configuration space into:
+\begin{itemize}
+    \item stable manifold
+    \item yield boundary
+    \item catastrophic failure zone
+\end{itemize}
+
+\section{Module: Conservation Engine}
+
+\subsection*{Function: \texttt{CE\_CheckEnergyMomentumConservation}}
+\textbf{Signature:}
+\[
+\texttt{CE\_CheckEnergyMomentumConservation}(T^{\mu\nu}) \rightarrow \texttt{residual}
+\]
+
+\textbf{Condition:}
+\[
+\nabla_\mu T^{\mu\nu} = 0 \Rightarrow \texttt{residual} \approx 0.
+\]
+
+\subsection*{Function: \texttt{CE\_CheckChargeConservation}}
+\textbf{Signature:}
+\[
+\texttt{CE\_CheckChargeConservation}(J^\mu) \rightarrow \texttt{residual}
+\]
+
+\textbf{Condition:}
+\[
+\nabla_\mu J^\mu = 0 \Rightarrow \texttt{residual} \approx 0.
+\]
+
+\subsection*{Function: \texttt{CE\_MonitorMetricHelicity}}
+\textbf{Signature:}
+\[
+\texttt{CE\_MonitorMetricHelicity}(H_{\text{metric}}(t)) \rightarrow \texttt{bool}
+\]
+
+\textbf{Condition:}
+\[
+\frac{dH_{\text{metric}}}{dt} \approx 0 \Rightarrow \texttt{INVARIANT\_PRESERVED}.
+\]
+
+\section{Pipeline: Continuous Yield Mode}
+
+\subsection*{Function: \texttt{ACE9K\_RunContinuousYield}}
+\textbf{Signature:}
+\[
+\texttt{ACE9K\_RunContinuousYield}(\texttt{data\_streams}) \rightarrow \texttt{telemetry}
+\]
+
+\textbf{Pipeline Steps:}
+\begin{enumerate}
+    \item Ingest $\rho(x)$, $T^{\mu\nu}$, $J^\mu$ from Gaia, JWST, OMNIWeb.
+    \item Compute $P(x)$ and $\Gamma_P$ via QP-Core.
+    \item Compute $\sigma_{ij}$ and $f_{\text{yield}}$ via SRK.
+    \item Propagate $F^\mu$ and $x^\mu(t)$ via FDE.
+    \item Evaluate $\lambda_{\max}(K - \Gamma_P)$ via SFM.
+    \item Check $\nabla_\mu T^{\mu\nu}$, $\nabla_\mu J^\mu$, and $H_{\text{metric}}$ via Conservation Engine.
+\end{enumerate}
+
+\section*{Status Codes}
+\begin{itemize}
+    \item \texttt{PASSED}: Information density bounded.
+    \item \texttt{STABLE}: Elastic limits maintained.
+    \item \texttt{VERIFIED}: Damping and force propagation consistent.
+    \item \texttt{OPTIMIZED\_STABLE}: Manifold integrity confirmed.
+    \item \texttt{INVARIANT\_PRESERVED}: $H_{\text{metric}}$ stable.
+\end{itemize}
+
+\end{document}
