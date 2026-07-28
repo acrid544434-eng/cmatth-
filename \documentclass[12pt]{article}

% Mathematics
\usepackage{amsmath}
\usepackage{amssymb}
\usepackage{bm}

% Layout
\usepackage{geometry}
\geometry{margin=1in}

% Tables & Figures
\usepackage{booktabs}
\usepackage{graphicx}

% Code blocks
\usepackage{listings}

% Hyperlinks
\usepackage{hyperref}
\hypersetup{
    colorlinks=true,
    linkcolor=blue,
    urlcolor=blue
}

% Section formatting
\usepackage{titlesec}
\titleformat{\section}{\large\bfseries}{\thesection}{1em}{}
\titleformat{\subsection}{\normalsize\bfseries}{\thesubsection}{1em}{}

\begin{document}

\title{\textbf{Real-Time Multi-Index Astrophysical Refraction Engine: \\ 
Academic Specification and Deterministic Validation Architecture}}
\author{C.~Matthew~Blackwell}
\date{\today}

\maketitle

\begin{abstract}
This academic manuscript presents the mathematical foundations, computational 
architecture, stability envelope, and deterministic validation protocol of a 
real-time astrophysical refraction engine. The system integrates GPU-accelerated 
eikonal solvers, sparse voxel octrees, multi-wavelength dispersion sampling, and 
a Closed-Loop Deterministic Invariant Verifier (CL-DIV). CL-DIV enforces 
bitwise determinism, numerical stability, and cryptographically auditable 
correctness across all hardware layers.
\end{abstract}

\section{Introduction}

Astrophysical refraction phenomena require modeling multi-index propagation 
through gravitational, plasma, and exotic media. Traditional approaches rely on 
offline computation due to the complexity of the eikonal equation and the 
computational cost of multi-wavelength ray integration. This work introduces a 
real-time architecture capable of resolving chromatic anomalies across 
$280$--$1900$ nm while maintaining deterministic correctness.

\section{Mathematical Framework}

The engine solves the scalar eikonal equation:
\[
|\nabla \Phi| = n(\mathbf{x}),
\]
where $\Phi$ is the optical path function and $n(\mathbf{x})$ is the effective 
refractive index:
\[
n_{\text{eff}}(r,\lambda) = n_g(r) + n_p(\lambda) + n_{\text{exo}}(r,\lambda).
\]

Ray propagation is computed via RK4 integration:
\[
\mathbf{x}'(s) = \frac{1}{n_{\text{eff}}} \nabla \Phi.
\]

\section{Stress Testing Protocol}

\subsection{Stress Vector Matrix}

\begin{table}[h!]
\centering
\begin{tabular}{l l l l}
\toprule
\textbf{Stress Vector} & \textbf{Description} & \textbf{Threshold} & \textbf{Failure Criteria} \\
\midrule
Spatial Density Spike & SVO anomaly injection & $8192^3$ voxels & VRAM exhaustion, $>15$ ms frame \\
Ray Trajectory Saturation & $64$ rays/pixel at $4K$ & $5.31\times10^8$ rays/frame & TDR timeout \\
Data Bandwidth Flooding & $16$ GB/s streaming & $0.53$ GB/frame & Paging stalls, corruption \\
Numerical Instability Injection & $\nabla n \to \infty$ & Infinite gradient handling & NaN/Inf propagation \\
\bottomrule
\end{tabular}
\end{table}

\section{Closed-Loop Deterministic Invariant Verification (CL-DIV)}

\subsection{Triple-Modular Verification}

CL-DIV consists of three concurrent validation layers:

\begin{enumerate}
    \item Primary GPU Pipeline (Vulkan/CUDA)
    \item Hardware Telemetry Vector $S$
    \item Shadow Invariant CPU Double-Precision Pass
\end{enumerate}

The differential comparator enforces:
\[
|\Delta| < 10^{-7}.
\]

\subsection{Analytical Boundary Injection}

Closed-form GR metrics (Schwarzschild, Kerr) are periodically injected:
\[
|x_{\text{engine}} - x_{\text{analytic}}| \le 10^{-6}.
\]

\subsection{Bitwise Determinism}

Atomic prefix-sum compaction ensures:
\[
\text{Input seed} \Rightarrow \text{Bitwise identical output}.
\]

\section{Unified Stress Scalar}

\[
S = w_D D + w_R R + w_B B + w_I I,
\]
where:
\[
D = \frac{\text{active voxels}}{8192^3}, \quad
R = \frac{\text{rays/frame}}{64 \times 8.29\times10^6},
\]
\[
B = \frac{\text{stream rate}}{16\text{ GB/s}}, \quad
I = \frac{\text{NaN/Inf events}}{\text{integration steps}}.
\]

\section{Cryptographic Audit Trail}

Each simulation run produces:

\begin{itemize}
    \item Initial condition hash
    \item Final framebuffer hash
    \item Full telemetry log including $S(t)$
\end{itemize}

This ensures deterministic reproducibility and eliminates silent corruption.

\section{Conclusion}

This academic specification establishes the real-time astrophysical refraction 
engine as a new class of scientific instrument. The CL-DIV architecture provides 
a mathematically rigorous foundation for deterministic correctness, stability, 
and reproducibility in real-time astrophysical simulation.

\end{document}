@@ -1,0 +1,160 @@
+\documentclass[12pt]{article}
+
+% Mathematics
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+
+% Layout
+\usepackage{geometry}
+\geometry{margin=1in}
+
+% Tables & Figures
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+% Code blocks
+\usepackage{listings}
+
+% Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+% Section formatting
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\begin{document}
+
+\title{\textbf{Real-Time Multi-Index Astrophysical Refraction Engine: \\ 
+Academic Specification and Deterministic Validation Architecture}}
+\author{C.~Matthew~Blackwell}
+\date{\today}
+
+\maketitle
+
+\begin{abstract}
+This academic manuscript presents the mathematical foundations, computational 
+architecture, stability envelope, and deterministic validation protocol of a 
+real-time astrophysical refraction engine. The system integrates GPU-accelerated 
+eikonal solvers, sparse voxel octrees, multi-wavelength dispersion sampling, and 
+a Closed-Loop Deterministic Invariant Verifier (CL-DIV). CL-DIV enforces 
+bitwise determinism, numerical stability, and cryptographically auditable 
+correctness across all hardware layers.
+\end{abstract}
+
+\section{Introduction}
+
+Astrophysical refraction phenomena require modeling multi-index propagation 
+through gravitational, plasma, and exotic media. Traditional approaches rely on 
+offline computation due to the complexity of the eikonal equation and the 
+computational cost of multi-wavelength ray integration. This work introduces a 
+real-time architecture capable of resolving chromatic anomalies across 
+$280$--$1900$ nm while maintaining deterministic correctness.
+
+\section{Mathematical Framework}
+
+The engine solves the scalar eikonal equation:
+\[
+|\nabla \Phi| = n(\mathbf{x}),
+\]
+where $\Phi$ is the optical path function and $n(\mathbf{x})$ is the effective 
+refractive index:
+\[
+n_{\text{eff}}(r,\lambda) = n_g(r) + n_p(\lambda) + n_{\text{exo}}(r,\lambda).
+\]
+
+Ray propagation is computed via RK4 integration:
+\[
+\mathbf{x}'(s) = \frac{1}{n_{\text{eff}}} \nabla \Phi.
+\]
+
+\section{Stress Testing Protocol}
+
+\subsection{Stress Vector Matrix}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{l l l l}
+\toprule
+\textbf{Stress Vector} & \textbf{Description} & \textbf{Threshold} & \textbf{Failure Criteria} \\
+\midrule
+Spatial Density Spike & SVO anomaly injection & $8192^3$ voxels & VRAM exhaustion, $>15$ ms frame \\
+Ray Trajectory Saturation & $64$ rays/pixel at $4K$ & $5.31\times10^8$ rays/frame & TDR timeout \\
+Data Bandwidth Flooding & $16$ GB/s streaming & $0.53$ GB/frame & Paging stalls, corruption \\
+Numerical Instability Injection & $\nabla n \to \infty$ & Infinite gradient handling & NaN/Inf propagation \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Closed-Loop Deterministic Invariant Verification (CL-DIV)}
+
+\subsection{Triple-Modular Verification}
+
+CL-DIV consists of three concurrent validation layers:
+
+\begin{enumerate}
+    \item Primary GPU Pipeline (Vulkan/CUDA)
+    \item Hardware Telemetry Vector $S$
+    \item Shadow Invariant CPU Double-Precision Pass
+\end{enumerate}
+
+The differential comparator enforces:
+\[
+|\Delta| < 10^{-7}.
+\]
+
+\subsection{Analytical Boundary Injection}
+
+Closed-form GR metrics (Schwarzschild, Kerr) are periodically injected:
+\[
+|x_{\text{engine}} - x_{\text{analytic}}| \le 10^{-6}.
+\]
+
+\subsection{Bitwise Determinism}
+
+Atomic prefix-sum compaction ensures:
+\[
+\text{Input seed} \Rightarrow \text{Bitwise identical output}.
+\]
+
+\section{Unified Stress Scalar}
+
+\[
+S = w_D D + w_R R + w_B B + w_I I,
+\]
+where:
+\[
+D = \frac{\text{active voxels}}{8192^3}, \quad
+R = \frac{\text{rays/frame}}{64 \times 8.29\times10^6},
+\]
+\[
+B = \frac{\text{stream rate}}{16\text{ GB/s}}, \quad
+I = \frac{\text{NaN/Inf events}}{\text{integration steps}}.
+\]
+
+\section{Cryptographic Audit Trail}
+
+Each simulation run produces:
+
+\begin{itemize}
+    \item Initial condition hash
+    \item Final framebuffer hash
+    \item Full telemetry log including $S(t)$
+\end{itemize}
+
+This ensures deterministic reproducibility and eliminates silent corruption.
+
+\section{Conclusion}
+
+This academic specification establishes the real-time astrophysical refraction 
+engine as a new class of scientific instrument. The CL-DIV architecture provides 
+a mathematically rigorous foundation for deterministic correctness, stability, 
+and reproducibility in real-time astrophysical simulation.
+
+\end{document}
