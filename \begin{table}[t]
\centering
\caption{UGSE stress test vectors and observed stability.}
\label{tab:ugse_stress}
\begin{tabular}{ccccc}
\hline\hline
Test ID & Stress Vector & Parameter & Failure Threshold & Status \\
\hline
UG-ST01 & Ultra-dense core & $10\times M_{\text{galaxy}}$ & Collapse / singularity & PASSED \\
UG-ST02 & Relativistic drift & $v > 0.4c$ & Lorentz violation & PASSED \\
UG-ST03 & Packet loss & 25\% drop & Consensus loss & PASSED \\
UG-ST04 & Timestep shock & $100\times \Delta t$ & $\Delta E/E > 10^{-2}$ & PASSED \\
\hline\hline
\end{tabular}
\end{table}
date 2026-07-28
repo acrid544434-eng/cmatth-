@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering
+\caption{UGSE stress test vectors and observed stability.}
+\label{tab:ugse_stress}
+\begin{tabular}{ccccc}
+\hline\hline
+Test ID & Stress Vector & Parameter & Failure Threshold & Status \\
+\hline
+UG-ST01 & Ultra-dense core & $10\times M_{\text{galaxy}}$ & Collapse / singularity & PASSED \\
+UG-ST02 & Relativistic drift & $v > 0.4c$ & Lorentz violation & PASSED \\
+UG-ST03 & Packet loss & 25\% drop & Consensus loss & PASSED \\
+UG-ST04 & Timestep shock & $100\times \Delta t$ & $\Delta E/E > 10^{-2}$ & PASSED \\
+\hline\hline
+\end{tabular}
+\end{table}
