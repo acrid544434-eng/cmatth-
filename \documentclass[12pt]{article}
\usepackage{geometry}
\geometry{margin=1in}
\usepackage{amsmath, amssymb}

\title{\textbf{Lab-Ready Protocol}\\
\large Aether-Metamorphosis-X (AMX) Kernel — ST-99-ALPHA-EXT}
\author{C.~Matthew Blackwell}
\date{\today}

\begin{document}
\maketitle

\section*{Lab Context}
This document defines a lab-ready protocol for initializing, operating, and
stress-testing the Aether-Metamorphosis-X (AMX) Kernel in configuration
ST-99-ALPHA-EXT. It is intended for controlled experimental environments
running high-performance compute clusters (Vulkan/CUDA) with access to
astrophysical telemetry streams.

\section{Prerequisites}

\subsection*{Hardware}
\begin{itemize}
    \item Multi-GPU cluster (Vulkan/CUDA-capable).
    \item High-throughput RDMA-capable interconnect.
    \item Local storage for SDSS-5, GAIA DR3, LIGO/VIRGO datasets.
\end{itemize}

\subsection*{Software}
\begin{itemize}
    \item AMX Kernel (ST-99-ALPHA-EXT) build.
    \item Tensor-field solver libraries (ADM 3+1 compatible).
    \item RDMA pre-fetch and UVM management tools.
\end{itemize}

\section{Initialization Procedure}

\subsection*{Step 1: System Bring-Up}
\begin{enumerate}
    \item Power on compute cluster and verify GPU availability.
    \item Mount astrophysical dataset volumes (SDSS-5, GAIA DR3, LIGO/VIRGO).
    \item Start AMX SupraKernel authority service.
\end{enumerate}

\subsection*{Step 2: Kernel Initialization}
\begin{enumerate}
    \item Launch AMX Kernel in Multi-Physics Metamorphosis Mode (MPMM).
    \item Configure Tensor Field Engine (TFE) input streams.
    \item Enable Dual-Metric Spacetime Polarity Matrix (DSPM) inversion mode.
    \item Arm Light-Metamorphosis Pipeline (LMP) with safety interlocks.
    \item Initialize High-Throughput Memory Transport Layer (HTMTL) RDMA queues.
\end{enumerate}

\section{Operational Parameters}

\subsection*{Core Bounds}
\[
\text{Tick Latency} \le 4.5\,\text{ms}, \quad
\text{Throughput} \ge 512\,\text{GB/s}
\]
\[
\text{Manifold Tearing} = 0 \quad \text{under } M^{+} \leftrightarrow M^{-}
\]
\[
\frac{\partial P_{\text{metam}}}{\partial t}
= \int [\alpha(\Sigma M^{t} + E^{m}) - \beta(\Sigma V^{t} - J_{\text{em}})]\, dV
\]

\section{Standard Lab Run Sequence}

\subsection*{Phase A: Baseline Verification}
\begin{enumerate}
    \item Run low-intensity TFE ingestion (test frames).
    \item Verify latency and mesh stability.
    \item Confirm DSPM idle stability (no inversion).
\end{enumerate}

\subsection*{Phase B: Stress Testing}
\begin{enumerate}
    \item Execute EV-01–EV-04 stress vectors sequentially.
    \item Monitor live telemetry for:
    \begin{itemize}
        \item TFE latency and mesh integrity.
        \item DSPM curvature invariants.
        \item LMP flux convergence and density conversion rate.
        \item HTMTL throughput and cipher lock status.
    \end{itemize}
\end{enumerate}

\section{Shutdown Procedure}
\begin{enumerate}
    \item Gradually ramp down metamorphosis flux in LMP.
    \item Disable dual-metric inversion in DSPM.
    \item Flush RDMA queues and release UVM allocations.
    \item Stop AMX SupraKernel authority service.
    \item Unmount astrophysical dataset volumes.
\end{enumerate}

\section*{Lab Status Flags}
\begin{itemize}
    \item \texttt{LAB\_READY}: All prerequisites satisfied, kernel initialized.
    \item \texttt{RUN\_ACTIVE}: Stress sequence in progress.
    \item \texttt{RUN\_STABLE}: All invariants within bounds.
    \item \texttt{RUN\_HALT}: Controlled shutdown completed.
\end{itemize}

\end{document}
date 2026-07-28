@@ -1,0 +1,108 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath, amssymb}
+
+\title{\textbf{Lab-Ready Protocol}\\
+\large Aether-Metamorphosis-X (AMX) Kernel — ST-99-ALPHA-EXT}
+\author{C.~Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Lab Context}
+This document defines a lab-ready protocol for initializing, operating, and
+stress-testing the Aether-Metamorphosis-X (AMX) Kernel in configuration
+ST-99-ALPHA-EXT. It is intended for controlled experimental environments
+running high-performance compute clusters (Vulkan/CUDA) with access to
+astrophysical telemetry streams.
+
+\section{Prerequisites}
+
+\subsection*{Hardware}
+\begin{itemize}
+    \item Multi-GPU cluster (Vulkan/CUDA-capable).
+    \item High-throughput RDMA-capable interconnect.
+    \item Local storage for SDSS-5, GAIA DR3, LIGO/VIRGO datasets.
+\end{itemize}
+
+\subsection*{Software}
+\begin{itemize}
+    \item AMX Kernel (ST-99-ALPHA-EXT) build.
+    \item Tensor-field solver libraries (ADM 3+1 compatible).
+    \item RDMA pre-fetch and UVM management tools.
+\end{itemize}
+
+\section{Initialization Procedure}
+
+\subsection*{Step 1: System Bring-Up}
+\begin{enumerate}
+    \item Power on compute cluster and verify GPU availability.
+    \item Mount astrophysical dataset volumes (SDSS-5, GAIA DR3, LIGO/VIRGO).
+    \item Start AMX SupraKernel authority service.
+\end{enumerate}
+
+\subsection*{Step 2: Kernel Initialization}
+\begin{enumerate}
+    \item Launch AMX Kernel in Multi-Physics Metamorphosis Mode (MPMM).
+    \item Configure Tensor Field Engine (TFE) input streams.
+    \item Enable Dual-Metric Spacetime Polarity Matrix (DSPM) inversion mode.
+    \item Arm Light-Metamorphosis Pipeline (LMP) with safety interlocks.
+    \item Initialize High-Throughput Memory Transport Layer (HTMTL) RDMA queues.
+\end{enumerate}
+
+\section{Operational Parameters}
+
+\subsection*{Core Bounds}
+\[
+\text{Tick Latency} \le 4.5\,\text{ms}, \quad
+\text{Throughput} \ge 512\,\text{GB/s}
+\]
+\[
+\text{Manifold Tearing} = 0 \quad \text{under } M^{+} \leftrightarrow M^{-}
+\]
+\[
+\frac{\partial P_{\text{metam}}}{\partial t}
+= \int [\alpha(\Sigma M^{t} + E^{m}) - \beta(\Sigma V^{t} - J_{\text{em}})]\, dV
+\]
+
+\section{Standard Lab Run Sequence}
+
+\subsection*{Phase A: Baseline Verification}
+\begin{enumerate}
+    \item Run low-intensity TFE ingestion (test frames).
+    \item Verify latency and mesh stability.
+    \item Confirm DSPM idle stability (no inversion).
+\end{enumerate}
+
+\subsection*{Phase B: Stress Testing}
+\begin{enumerate}
+    \item Execute EV-01–EV-04 stress vectors sequentially.
+    \item Monitor live telemetry for:
+    \begin{itemize}
+        \item TFE latency and mesh integrity.
+        \item DSPM curvature invariants.
+        \item LMP flux convergence and density conversion rate.
+        \item HTMTL throughput and cipher lock status.
+    \end{itemize}
+\end{enumerate}
+
+\section{Shutdown Procedure}
+\begin{enumerate}
+    \item Gradually ramp down metamorphosis flux in LMP.
+    \item Disable dual-metric inversion in DSPM.
+    \item Flush RDMA queues and release UVM allocations.
+    \item Stop AMX SupraKernel authority service.
+    \item Unmount astrophysical dataset volumes.
+\end{enumerate}
+
+\section*{Lab Status Flags}
+\begin{itemize}
+    \item \texttt{LAB\_READY}: All prerequisites satisfied, kernel initialized.
+    \item \texttt{RUN\_ACTIVE}: Stress sequence in progress.
+    \item \texttt{RUN\_STABLE}: All invariants within bounds.
+    \item \texttt{RUN\_HALT}: Controlled shutdown completed.
+\end{itemize}
+
+\end{document}
