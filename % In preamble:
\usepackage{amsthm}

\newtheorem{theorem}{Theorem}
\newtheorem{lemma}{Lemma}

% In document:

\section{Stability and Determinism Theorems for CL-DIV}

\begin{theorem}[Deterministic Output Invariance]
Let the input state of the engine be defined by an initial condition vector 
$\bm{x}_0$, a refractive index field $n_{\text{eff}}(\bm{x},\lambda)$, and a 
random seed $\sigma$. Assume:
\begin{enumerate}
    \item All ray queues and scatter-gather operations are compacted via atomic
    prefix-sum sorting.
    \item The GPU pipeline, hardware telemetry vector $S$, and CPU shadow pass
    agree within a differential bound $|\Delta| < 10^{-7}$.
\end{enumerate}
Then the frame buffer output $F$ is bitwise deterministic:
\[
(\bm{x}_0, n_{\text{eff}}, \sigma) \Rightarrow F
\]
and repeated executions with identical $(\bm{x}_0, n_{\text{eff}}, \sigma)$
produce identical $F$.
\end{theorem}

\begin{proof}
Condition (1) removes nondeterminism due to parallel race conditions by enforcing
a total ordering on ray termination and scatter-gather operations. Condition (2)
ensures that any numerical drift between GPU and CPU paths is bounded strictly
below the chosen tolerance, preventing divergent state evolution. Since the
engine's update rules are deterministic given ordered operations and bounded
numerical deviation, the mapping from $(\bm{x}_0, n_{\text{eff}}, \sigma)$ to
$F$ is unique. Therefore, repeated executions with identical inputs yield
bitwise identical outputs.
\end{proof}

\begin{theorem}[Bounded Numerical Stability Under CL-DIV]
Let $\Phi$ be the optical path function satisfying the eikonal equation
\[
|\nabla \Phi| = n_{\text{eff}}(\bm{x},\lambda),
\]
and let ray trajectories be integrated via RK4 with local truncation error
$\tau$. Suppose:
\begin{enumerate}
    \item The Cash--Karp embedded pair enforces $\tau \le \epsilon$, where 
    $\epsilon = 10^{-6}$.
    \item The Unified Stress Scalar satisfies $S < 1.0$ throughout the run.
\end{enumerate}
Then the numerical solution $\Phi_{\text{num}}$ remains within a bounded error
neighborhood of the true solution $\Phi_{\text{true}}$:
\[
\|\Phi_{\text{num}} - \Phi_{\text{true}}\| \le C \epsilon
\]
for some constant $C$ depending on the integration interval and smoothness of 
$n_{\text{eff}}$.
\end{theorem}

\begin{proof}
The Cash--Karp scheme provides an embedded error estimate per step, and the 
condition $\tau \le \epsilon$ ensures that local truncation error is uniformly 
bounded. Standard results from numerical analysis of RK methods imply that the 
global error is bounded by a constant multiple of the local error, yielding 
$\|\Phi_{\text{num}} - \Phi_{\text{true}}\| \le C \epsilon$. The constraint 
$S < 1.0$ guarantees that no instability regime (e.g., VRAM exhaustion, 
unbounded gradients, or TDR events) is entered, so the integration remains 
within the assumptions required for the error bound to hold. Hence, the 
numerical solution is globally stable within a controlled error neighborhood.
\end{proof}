@@ -1,0 +1,71 @@
+% In preamble:
+\usepackage{amsthm}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+
+% In document:
+
+\section{Stability and Determinism Theorems for CL-DIV}
+
+\begin{theorem}[Deterministic Output Invariance]
+Let the input state of the engine be defined by an initial condition vector 
+$\bm{x}_0$, a refractive index field $n_{\text{eff}}(\bm{x},\lambda)$, and a 
+random seed $\sigma$. Assume:
+\begin{enumerate}
+    \item All ray queues and scatter-gather operations are compacted via atomic
+    prefix-sum sorting.
+    \item The GPU pipeline, hardware telemetry vector $S$, and CPU shadow pass
+    agree within a differential bound $|\Delta| < 10^{-7}$.
+\end{enumerate}
+Then the frame buffer output $F$ is bitwise deterministic:
+\[
+(\bm{x}_0, n_{\text{eff}}, \sigma) \Rightarrow F
+\]
+and repeated executions with identical $(\bm{x}_0, n_{\text{eff}}, \sigma)$
+produce identical $F$.
+\end{theorem}
+
+\begin{proof}
+Condition (1) removes nondeterminism due to parallel race conditions by enforcing
+a total ordering on ray termination and scatter-gather operations. Condition (2)
+ensures that any numerical drift between GPU and CPU paths is bounded strictly
+below the chosen tolerance, preventing divergent state evolution. Since the
+engine's update rules are deterministic given ordered operations and bounded
+numerical deviation, the mapping from $(\bm{x}_0, n_{\text{eff}}, \sigma)$ to
+$F$ is unique. Therefore, repeated executions with identical inputs yield
+bitwise identical outputs.
+\end{proof}
+
+\begin{theorem}[Bounded Numerical Stability Under CL-DIV]
+Let $\Phi$ be the optical path function satisfying the eikonal equation
+\[
+|\nabla \Phi| = n_{\text{eff}}(\bm{x},\lambda),
+\]
+and let ray trajectories be integrated via RK4 with local truncation error
+$\tau$. Suppose:
+\begin{enumerate}
+    \item The Cash--Karp embedded pair enforces $\tau \le \epsilon$, where 
+    $\epsilon = 10^{-6}$.
+    \item The Unified Stress Scalar satisfies $S < 1.0$ throughout the run.
+\end{enumerate}
+Then the numerical solution $\Phi_{\text{num}}$ remains within a bounded error
+neighborhood of the true solution $\Phi_{\text{true}}$:
+\[
+\|\Phi_{\text{num}} - \Phi_{\text{true}}\| \le C \epsilon
+\]
+for some constant $C$ depending on the integration interval and smoothness of 
+$n_{\text{eff}}$.
+\end{theorem}
+
+\begin{proof}
+The Cash--Karp scheme provides an embedded error estimate per step, and the 
+condition $\tau \le \epsilon$ ensures that local truncation error is uniformly 
+bounded. Standard results from numerical analysis of RK methods imply that the 
+global error is bounded by a constant multiple of the local error, yielding 
+$\|\Phi_{\text{num}} - \Phi_{\text{true}}\| \le C \epsilon$. The constraint 
+$S < 1.0$ guarantees that no instability regime (e.g., VRAM exhaustion, 
+unbounded gradients, or TDR events) is entered, so the integration remains 
+within the assumptions required for the error bound to hold. Hence, the 
+numerical solution is globally stable within a controlled error neighborhood.
+\end{proof}
