@@ -1,0 +1,114 @@
+\section{Cross-Layer Methods: Causal, Tensor, and Verification Coupling}
+
+The unified substrate operates through a multi-layer coupling framework linking
+APSE-v9 (causal-invariant physics), APOLLO-CM (centimeter-scale cosmology), and
+AETHER-X (exascale verification). This section details the methods governing
+information flow, tensor exchange, causal constraint propagation, and
+verification feedback across the three layers.
+
+\subsection{Causal Constraint Propagation from APSE-v9}
+
+APSE-v9 provides the foundational causal-invariant structure for the unified
+substrate. The causal stability invariant
+\begin{equation}
+\nabla_\mu J^\mu_{\text{causal}} = 0,
+\end{equation}
+is computed at horizon-grade resolution and transmitted to APOLLO-CM as a
+boundary condition on all tensor evolution. The invariant constrains:
+
+\begin{itemize}
+    \item permissible curvature evolution,
+    \item allowed nuclear-to-relativistic transitions,
+    \item chronological ordering of metric updates,
+    \item tensor field admissibility under extreme forcing.
+\end{itemize}
+
+These constraints ensure that APOLLO-CM evolves only within the causal domain
+defined by APSE-v9.
+
+\subsection{Tensor Exchange and Centimeter-Scale Embedding}
+
+APOLLO-CM receives causal constraints from APSE-v9 and embeds them into its
+centimeter-resolution manifold. The embedding procedure consists of:
+
+\begin{enumerate}
+    \item constructing a CMO lattice with centimeter-scale spatial resolution,
+    \item mapping APSE-v9 tensor fields $T_{\mu\nu}$ onto the CMO lattice,
+    \item applying causal admissibility filters to reject non-physical updates,
+    \item evolving the manifold using relativistic and quantum-CM kernels.
+\end{enumerate}
+
+The tensor update rule is:
+\begin{equation}
+T_{\mu\nu}^{(n+1)} = 
+\mathcal{F}_{\text{CMO}}
+\left[
+T_{\mu\nu}^{(n)},\,
+G_{\mu\nu},\,
+\mathcal{I}_{\text{causal}}
+\right],
+\end{equation}
+where $\mathcal{F}_{\text{CMO}}$ enforces centimeter-scale consistency.
+
+\subsection{Verification Feedback from AETHER-X}
+
+AETHER-X evaluates the manifold produced by APOLLO-CM under extreme load
+conditions. Verification consists of:
+
+\begin{itemize}
+    \item Hamiltonian drift measurement,
+    \item energy conservation evaluation,
+    \item particle trajectory integrity checks,
+    \item ontological compliance validation.
+\end{itemize}
+
+The verification operator is:
+\begin{equation}
+\mathcal{V} =
+\left(
+\Delta H/H_0,\,
+\Delta E/E,\,
+\mathcal{F}_{\text{traj}},\,
+\mathcal{O}_{\text{comp}}
+\right),
+\end{equation}
+where $\mathcal{F}_{\text{traj}}$ measures trajectory fidelity and
+$\mathcal{O}_{\text{comp}}$ measures ontological coherence.
+
+If any metric exceeds tolerance, AETHER-X issues a correction signal:
+\begin{equation}
+\delta T_{\mu\nu} =
+\mathcal{C}\left(\mathcal{V}\right),
+\end{equation}
+which is transmitted back to APOLLO-CM and APSE-v9.
+
+\subsection{Closed-Loop Cross-Layer Coupling}
+
+The unified substrate operates as a closed-loop system:
+
+\begin{enumerate}
+    \item APSE-v9 generates causal invariants and horizon-grade tensor fields.
+    \item APOLLO-CM embeds these tensors into a centimeter-scale manifold.
+    \item AETHER-X stress-tests the manifold under exascale loads.
+    \item Verification signals propagate back to APOLLO-CM and APSE-v9.
+    \item The manifold is updated and re-evaluated until all metrics converge.
+\end{enumerate}
+
+This loop ensures cross-scale causal consistency from nuclear microphysics to
+cosmological macrophysics.
+
+\subsection{Unified Substrate Stability}
+
+The combined system converges when:
+\begin{equation}
+\mathcal{V} \rightarrow 0,
+\qquad
+\mathcal{I}_{\text{causal}} = \text{constant},
+\qquad
+\Delta T_{\mu\nu} \rightarrow 0,
+\end{equation}
+indicating that the manifold satisfies all causal, relativistic, quantum, and
+cosmological constraints simultaneously.
+
+This convergence defines the unified substrate as a candidate physical law
+framework rather than a numerical approximation.
