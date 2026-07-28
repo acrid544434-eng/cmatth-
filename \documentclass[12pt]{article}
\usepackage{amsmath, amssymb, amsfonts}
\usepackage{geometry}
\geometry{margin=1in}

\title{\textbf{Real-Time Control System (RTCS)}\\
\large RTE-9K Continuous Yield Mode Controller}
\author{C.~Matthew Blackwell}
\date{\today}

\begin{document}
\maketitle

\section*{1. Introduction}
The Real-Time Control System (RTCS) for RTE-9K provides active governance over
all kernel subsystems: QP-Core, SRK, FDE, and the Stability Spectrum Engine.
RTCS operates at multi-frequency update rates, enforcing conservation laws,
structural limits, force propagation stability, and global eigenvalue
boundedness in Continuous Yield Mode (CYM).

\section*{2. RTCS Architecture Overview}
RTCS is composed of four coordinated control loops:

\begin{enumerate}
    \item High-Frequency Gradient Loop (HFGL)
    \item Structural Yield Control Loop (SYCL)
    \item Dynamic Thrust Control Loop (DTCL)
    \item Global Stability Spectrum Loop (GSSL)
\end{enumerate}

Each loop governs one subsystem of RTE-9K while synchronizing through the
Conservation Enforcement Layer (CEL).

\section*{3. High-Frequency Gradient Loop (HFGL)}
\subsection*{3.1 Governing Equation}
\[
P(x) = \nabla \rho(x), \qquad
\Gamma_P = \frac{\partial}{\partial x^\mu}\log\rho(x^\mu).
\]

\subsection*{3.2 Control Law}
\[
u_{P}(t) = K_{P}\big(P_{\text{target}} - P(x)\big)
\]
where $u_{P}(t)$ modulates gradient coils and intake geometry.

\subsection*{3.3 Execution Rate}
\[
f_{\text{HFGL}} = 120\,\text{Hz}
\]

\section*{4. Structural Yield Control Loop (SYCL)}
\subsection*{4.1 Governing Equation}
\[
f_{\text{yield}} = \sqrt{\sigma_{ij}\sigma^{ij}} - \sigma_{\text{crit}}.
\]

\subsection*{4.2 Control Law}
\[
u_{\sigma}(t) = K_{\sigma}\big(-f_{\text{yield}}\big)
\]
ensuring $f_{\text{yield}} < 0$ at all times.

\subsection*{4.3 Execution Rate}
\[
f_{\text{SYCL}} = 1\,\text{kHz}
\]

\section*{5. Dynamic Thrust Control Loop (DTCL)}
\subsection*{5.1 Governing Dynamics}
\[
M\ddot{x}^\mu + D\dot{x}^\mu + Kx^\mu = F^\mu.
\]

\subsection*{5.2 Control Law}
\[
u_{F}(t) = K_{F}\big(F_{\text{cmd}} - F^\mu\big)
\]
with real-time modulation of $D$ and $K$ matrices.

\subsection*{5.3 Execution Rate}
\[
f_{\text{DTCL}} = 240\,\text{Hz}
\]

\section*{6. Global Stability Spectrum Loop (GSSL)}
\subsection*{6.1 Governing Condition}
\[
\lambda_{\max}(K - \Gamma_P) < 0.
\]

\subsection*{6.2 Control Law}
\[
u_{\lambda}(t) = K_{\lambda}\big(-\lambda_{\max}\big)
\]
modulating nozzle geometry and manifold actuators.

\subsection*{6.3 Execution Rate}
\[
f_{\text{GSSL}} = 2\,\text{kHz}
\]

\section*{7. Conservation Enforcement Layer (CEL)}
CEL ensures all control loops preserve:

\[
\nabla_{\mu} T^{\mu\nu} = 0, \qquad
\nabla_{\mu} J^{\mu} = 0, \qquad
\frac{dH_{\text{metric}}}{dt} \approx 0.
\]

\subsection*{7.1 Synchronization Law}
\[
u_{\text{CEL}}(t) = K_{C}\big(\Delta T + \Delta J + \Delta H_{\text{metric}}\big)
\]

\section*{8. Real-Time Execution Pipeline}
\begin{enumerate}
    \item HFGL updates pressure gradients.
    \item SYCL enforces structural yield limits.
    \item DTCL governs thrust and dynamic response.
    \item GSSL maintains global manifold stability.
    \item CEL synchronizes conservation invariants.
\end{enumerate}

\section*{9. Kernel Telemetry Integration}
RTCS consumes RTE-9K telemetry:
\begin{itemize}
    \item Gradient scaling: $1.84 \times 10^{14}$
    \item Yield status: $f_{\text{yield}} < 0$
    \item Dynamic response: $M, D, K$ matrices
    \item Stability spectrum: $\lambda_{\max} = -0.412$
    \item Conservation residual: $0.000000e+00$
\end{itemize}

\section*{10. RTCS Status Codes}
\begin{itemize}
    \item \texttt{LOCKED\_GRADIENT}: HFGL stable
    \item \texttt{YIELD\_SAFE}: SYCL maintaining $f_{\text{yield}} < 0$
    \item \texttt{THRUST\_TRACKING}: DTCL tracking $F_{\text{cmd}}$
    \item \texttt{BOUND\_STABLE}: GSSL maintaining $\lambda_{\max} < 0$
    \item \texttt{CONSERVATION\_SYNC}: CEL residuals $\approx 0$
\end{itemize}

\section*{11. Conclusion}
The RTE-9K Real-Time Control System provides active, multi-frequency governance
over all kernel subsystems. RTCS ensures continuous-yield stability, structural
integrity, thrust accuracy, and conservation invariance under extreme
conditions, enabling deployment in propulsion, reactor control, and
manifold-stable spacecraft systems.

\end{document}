@@ -1,0 +1,152 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{Real-Time Control System (RTCS)}\\
+\large RTE-9K Continuous Yield Mode Controller}
+\author{C.~Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{1. Introduction}
+The Real-Time Control System (RTCS) for RTE-9K provides active governance over
+all kernel subsystems: QP-Core, SRK, FDE, and the Stability Spectrum Engine.
+RTCS operates at multi-frequency update rates, enforcing conservation laws,
+structural limits, force propagation stability, and global eigenvalue
+boundedness in Continuous Yield Mode (CYM).
+
+\section*{2. RTCS Architecture Overview}
+RTCS is composed of four coordinated control loops:
+
+\begin{enumerate}
+    \item High-Frequency Gradient Loop (HFGL)
+    \item Structural Yield Control Loop (SYCL)
+    \item Dynamic Thrust Control Loop (DTCL)
+    \item Global Stability Spectrum Loop (GSSL)
+\end{enumerate}
+
+Each loop governs one subsystem of RTE-9K while synchronizing through the
+Conservation Enforcement Layer (CEL).
+
+\section*{3. High-Frequency Gradient Loop (HFGL)}
+\subsection*{3.1 Governing Equation}
+\[
+P(x) = \nabla \rho(x), \qquad
+\Gamma_P = \frac{\partial}{\partial x^\mu}\log\rho(x^\mu).
+\]
+
+\subsection*{3.2 Control Law}
+\[
+u_{P}(t) = K_{P}\big(P_{\text{target}} - P(x)\big)
+\]
+where $u_{P}(t)$ modulates gradient coils and intake geometry.
+
+\subsection*{3.3 Execution Rate}
+\[
+f_{\text{HFGL}} = 120\,\text{Hz}
+\]
+
+\section*{4. Structural Yield Control Loop (SYCL)}
+\subsection*{4.1 Governing Equation}
+\[
+f_{\text{yield}} = \sqrt{\sigma_{ij}\sigma^{ij}} - \sigma_{\text{crit}}.
+\]
+
+\subsection*{4.2 Control Law}
+\[
+u_{\sigma}(t) = K_{\sigma}\big(-f_{\text{yield}}\big)
+\]
+ensuring $f_{\text{yield}} < 0$ at all times.
+
+\subsection*{4.3 Execution Rate}
+\[
+f_{\text{SYCL}} = 1\,\text{kHz}
+\]
+
+\section*{5. Dynamic Thrust Control Loop (DTCL)}
+\subsection*{5.1 Governing Dynamics}
+\[
+M\ddot{x}^\mu + D\dot{x}^\mu + Kx^\mu = F^\mu.
+\]
+
+\subsection*{5.2 Control Law}
+\[
+u_{F}(t) = K_{F}\big(F_{\text{cmd}} - F^\mu\big)
+\]
+with real-time modulation of $D$ and $K$ matrices.
+
+\subsection*{5.3 Execution Rate}
+\[
+f_{\text{DTCL}} = 240\,\text{Hz}
+\]
+
+\section*{6. Global Stability Spectrum Loop (GSSL)}
+\subsection*{6.1 Governing Condition}
+\[
+\lambda_{\max}(K - \Gamma_P) < 0.
+\]
+
+\subsection*{6.2 Control Law}
+\[
+u_{\lambda}(t) = K_{\lambda}\big(-\lambda_{\max}\big)
+\]
+modulating nozzle geometry and manifold actuators.
+
+\subsection*{6.3 Execution Rate}
+\[
+f_{\text{GSSL}} = 2\,\text{kHz}
+\]
+
+\section*{7. Conservation Enforcement Layer (CEL)}
+CEL ensures all control loops preserve:
+
+\[
+\nabla_{\mu} T^{\mu\nu} = 0, \qquad
+\nabla_{\mu} J^{\mu} = 0, \qquad
+\frac{dH_{\text{metric}}}{dt} \approx 0.
+\]
+
+\subsection*{7.1 Synchronization Law}
+\[
+u_{\text{CEL}}(t) = K_{C}\big(\Delta T + \Delta J + \Delta H_{\text{metric}}\big)
+\]
+
+\section*{8. Real-Time Execution Pipeline}
+\begin{enumerate}
+    \item HFGL updates pressure gradients.
+    \item SYCL enforces structural yield limits.
+    \item DTCL governs thrust and dynamic response.
+    \item GSSL maintains global manifold stability.
+    \item CEL synchronizes conservation invariants.
+\end{enumerate}
+
+\section*{9. Kernel Telemetry Integration}
+RTCS consumes RTE-9K telemetry:
+\begin{itemize}
+    \item Gradient scaling: $1.84 \times 10^{14}$
+    \item Yield status: $f_{\text{yield}} < 0$
+    \item Dynamic response: $M, D, K$ matrices
+    \item Stability spectrum: $\lambda_{\max} = -0.412$
+    \item Conservation residual: $0.000000e+00$
+\end{itemize}
+
+\section*{10. RTCS Status Codes}
+\begin{itemize}
+    \item \texttt{LOCKED\_GRADIENT}: HFGL stable
+    \item \texttt{YIELD\_SAFE}: SYCL maintaining $f_{\text{yield}} < 0$
+    \item \texttt{THRUST\_TRACKING}: DTCL tracking $F_{\text{cmd}}$
+    \item \texttt{BOUND\_STABLE}: GSSL maintaining $\lambda_{\max} < 0$
+    \item \texttt{CONSERVATION\_SYNC}: CEL residuals $\approx 0$
+\end{itemize}
+
+\section*{11. Conclusion}
+The RTE-9K Real-Time Control System provides active, multi-frequency governance
+over all kernel subsystems. RTCS ensures continuous-yield stability, structural
+integrity, thrust accuracy, and conservation invariance under extreme
+conditions, enabling deployment in propulsion, reactor control, and
+manifold-stable spacecraft systems.
+
+\end{document}
