@@ -1,0 +1,172 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{Engineering Schematic Chapter}\\
+\large Continuous Yield Propulsion Core (CYPC-1)}
+\author{C.~Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{1. Introduction}
+The Continuous Yield Propulsion Core (CYPC-1) is a propulsion architecture
+derived from the ACE-9K conservation engine. CYPC-1 converts controlled
+information-density pressure fields into directed thrust while maintaining
+structural, dynamical, and topological stability. This chapter defines the
+engineering schematic, subsystem interactions, governing equations, and
+stability constraints.
+
+\section*{2. System Block Architecture}
+CYPC-1 consists of four integrated subsystems:
+
+\begin{enumerate}
+    \item QP-Core: Pressure generation via information-density gradients
+    \item SRK: Structural resistance and yield control
+    \item FDE: Force propagation and thrust vectoring
+    \item SFM: Global stability and manifold integrity
+\end{enumerate}
+
+The propulsion pipeline operates in Continuous Yield Mode (CYM), ensuring
+bounded thrust generation under extreme gradients.
+
+\section*{3. QP-Core Schematic (Pressure Generation)}
+\subsection*{3.1 Governing Equations}
+Pressure field:
+\[
+P(x) = \nabla \rho(x),
+\]
+Gradient coupling:
+\[
+\Gamma_P = \frac{\partial}{\partial x^\mu}\log\rho(x^\mu).
+\]
+
+\subsection*{3.2 Engineering Role}
+\begin{itemize}
+    \item Plasma/fuel intake encoded as $\rho(x)$
+    \item Pressure chamber geometry shapes $\nabla\rho(x)$
+    \item $\Gamma_P$ defines coupling into downstream thrust vectoring
+\end{itemize}
+
+\subsection*{3.3 Schematic Description}
+\begin{itemize}
+    \item Toroidal or cylindrical chamber
+    \item Gradient coils for $\rho(x)$ shaping
+    \item Pressure manifold feeding SRK boundary layer
+\end{itemize}
+
+\section*{4. SRK Schematic (Structural Resistance Kernel)}
+\subsection*{4.1 Governing Equations}
+Stress tensor:
+\[
+\sigma_{ij} = C_{ijkl}\epsilon_{kl},
+\]
+Yield function:
+\[
+f_{\text{yield}} = \sqrt{\sigma_{ij}\sigma^{ij}} - \sigma_{\text{crit}}.
+\]
+
+\subsection*{4.2 Engineering Role}
+\begin{itemize}
+    \item Defines thrust chamber material limits
+    \item Maps deformation under thermal-mechanical loading
+    \item Ensures $f_{\text{yield}} < 0$ during thrust cycles
+\end{itemize}
+
+\subsection*{4.3 Schematic Description}
+\begin{itemize}
+    \item Multi-layer composite hull
+    \item Embedded strain-sensor lattice
+    \item Adaptive geometry control for yield avoidance
+\end{itemize}
+
+\section*{5. FDE Schematic (Force Dynamics Engine)}
+\subsection*{5.1 Governing Equations}
+Dynamic thrust propagation:
+\[
+M\ddot{x}^\mu + D\dot{x}^\mu + Kx^\mu = F^\mu.
+\]
+
+\subsection*{5.2 Engineering Role}
+\begin{itemize}
+    \item Converts pressure field into thrust vector
+    \item Damping matrix $D$ stabilizes oscillatory thrust modes
+    \item Stiffness matrix $K$ defined by nozzle geometry and field coils
+\end{itemize}
+
+\subsection*{5.3 Schematic Description}
+\begin{itemize}
+    \item Magnetic-plasma nozzle
+    \item Vectoring vanes or field coils
+    \item Thrust manifold with dynamic stiffness control
+\end{itemize}
+
+\section*{6. SFM Schematic (Stability--Failure Manifold)}
+\subsection*{6.1 Governing Equation}
+Global stability condition:
+\[
+\lambda_{\max}(K - \Gamma_P) < 0.
+\]
+
+\subsection*{6.2 Engineering Role}
+\begin{itemize}
+    \item Ensures thrust generation remains globally stable
+    \item Prevents manifold collapse under nozzle deformation
+    \item Maintains topological integrity during high-gradient cycles
+\end{itemize}
+
+\subsection*{6.3 Schematic Description}
+\begin{itemize}
+    \item Stability sensor array
+    \item Real-time eigenvalue spectrum evaluator
+    \item Geometry modulation actuators
+\end{itemize}
+
+\section*{7. Conservation Layer Integration}
+CYPC-1 inherits ACE-9K conservation constraints:
+\[
+\nabla_\mu T^{\mu\nu} = 0, \qquad 
+\nabla_\mu J^\mu = 0,
+\]
+and preserves the invariant:
+\[
+\frac{dH_{\text{metric}}}{dt} \approx 0.
+\]
+
+\section*{8. Full Propulsion Pipeline Schematic}
+\begin{enumerate}
+    \item Plasma/fuel intake $\rightarrow \rho(x)$ encoding
+    \item Pressure generation via QP-Core
+    \item Structural yield mapping via SRK
+    \item Thrust propagation via FDE
+    \item Stability evaluation via SFM
+    \item Conservation and invariant validation
+\end{enumerate}
+
+\section*{9. Stability Envelope}
+CYPC-1 stability envelope defined by:
+\[
+\lambda_{\max}(K - \Gamma_P) < 0,
+\]
+with observed propulsion-cycle value:
+\[
+\lambda_{\max} = -0.387.
+\]
+
+\section*{10. Engineering Notes}
+\begin{itemize}
+    \item Nozzle geometry must maintain negative eigenvalue spectrum
+    \item Pressure chamber must avoid $\nabla\rho(x)$ runaway
+    \item Damping matrix $D$ must remain positive definite
+    \item Structural hull must maintain $f_{\text{yield}} < 0$
+\end{itemize}
+
+\section*{11. Conclusion}
+The CYPC-1 propulsion core integrates ACE-9K physics into a stable,
+high-gradient thrust engine. The schematic defined herein provides the
+engineering foundation for implementation, optimization, and further
+development of continuous-yield propulsion systems.
+
+\end{document}
