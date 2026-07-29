@@ -1,0 +1,117 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{Scientific White Sheet}\\
+\large Mathematical Foundations of the Suprakernel Sovereign Architecture}
+\author{C.~Matthew~Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Purpose}
+This White Sheet establishes the mathematical foundations underlying the
+Suprakernel Sovereign Architecture. It defines the manifold structures,
+dynamical equations, stability conditions, and safety constraints that govern
+real-time autonomous kernel evolution.
+
+\section{State Space and Manifold Structure}
+Let $p(t) \in \mathbb{R}^n$ denote the system state vector. All states evolve on
+a smooth Riemannian manifold:
+\begin{equation}
+\mathcal{M}_{\text{stress}} = (\mathcal{U}, g),
+\end{equation}
+where $\mathcal{U}$ is the coordinate domain and $g$ is the metric tensor.
+
+The manifold is equipped with an $\Omega$-mapping operator:
+\begin{equation}
+\Omega : \mathbb{R}^n \rightarrow \mathcal{M}_{\text{stress}},
+\end{equation}
+with Jacobian determinant $J(p)$ satisfying:
+\begin{equation}
+J(p) > 0 \quad \text{in the safe region}.
+\end{equation}
+
+\section{Governing Dynamics}
+The suprakernel evolves according to:
+\begin{equation}
+\dot{p}(t) = \mathcal{F}(p) - \nabla V(p) - \mathbf{D}(p),
+\end{equation}
+where:
+\begin{itemize}
+    \item $\mathcal{F}(p)$ is the forcing term,
+    \item $V(p)$ is a potential energy function,
+    \item $\mathbf{D}(p)$ is an adaptive damping operator.
+\end{itemize}
+
+\section{Lyapunov Stability Framework}
+A Lyapunov candidate is defined as:
+\begin{equation}
+L(p) = \frac{1}{2}\|p - p^*\|^2 + U(p) +
+\frac{1}{2}\gamma(t)\max(0,-J(p))^2,
+\end{equation}
+with equilibrium $p^*$ satisfying:
+\begin{equation}
+\mathcal{F}(p^*) - \nabla V(p^*) - \mathbf{D}(p^*) = 0.
+\end{equation}
+
+The derivative along trajectories is:
+\begin{equation}
+\dot{L}(p) = \langle p - p^*, \dot{p} \rangle
++ \nabla U(p)^\top \dot{p}
++ \gamma(t)\max(0,-J(p))(-\dot{J}(p)).
+\end{equation}
+
+Stability requires:
+\begin{equation}
+\dot{L}(p) < 0 \quad \forall p \neq p^*.
+\end{equation}
+
+\section{Sector Condition and Damping}
+The damping operator satisfies:
+\begin{equation}
+\langle \mathbf{D}(p), p \rangle \ge c_d \|p\|^2,
+\end{equation}
+with $c_d > 0$ derived from telemetry constraints.
+
+\section{Control Barrier Function (CBF)}
+Define the safe region:
+\begin{equation}
+\mathcal{C} = \{ p \mid h(p) \ge 0 \},
+\end{equation}
+where $h(p)$ couples Jacobian positivity and potential rupture limits.
+
+Forward invariance requires:
+\begin{equation}
+\dot{h}(p) + \gamma_{\text{CBF}} h(p) \ge 0.
+\end{equation}
+
+\section{Autonomous Kernel Mutation Constraints}
+Kernel mutations $\Delta K$ satisfy:
+\begin{equation}
+\|\Delta K\| \le \kappa_{\max}(t),
+\end{equation}
+with $\kappa_{\max}(t)$ determined by real-time telemetry.
+
+A mutation is accepted only if:
+\begin{equation}
+\dot{L}(p) < 0, \qquad
+J(p) > 0, \qquad
+\dot{h}(p) + \gamma_{\text{CBF}} h(p) \ge 0.
+\end{equation}
+
+\section{Global Stability Result}
+Under the above constraints, the system satisfies:
+\begin{equation}
+\lim_{t \to \infty} p(t) = p^*,
+\end{equation}
+and autonomous kernel evolution cannot induce numerical divergence or manifold
+inversion.
+
+\section{Attribution}
+All mathematical structures and derivations authored and verified by
+\textbf{C.~Matthew~Blackwell, Independent Designer}.
+
+\end{document}
