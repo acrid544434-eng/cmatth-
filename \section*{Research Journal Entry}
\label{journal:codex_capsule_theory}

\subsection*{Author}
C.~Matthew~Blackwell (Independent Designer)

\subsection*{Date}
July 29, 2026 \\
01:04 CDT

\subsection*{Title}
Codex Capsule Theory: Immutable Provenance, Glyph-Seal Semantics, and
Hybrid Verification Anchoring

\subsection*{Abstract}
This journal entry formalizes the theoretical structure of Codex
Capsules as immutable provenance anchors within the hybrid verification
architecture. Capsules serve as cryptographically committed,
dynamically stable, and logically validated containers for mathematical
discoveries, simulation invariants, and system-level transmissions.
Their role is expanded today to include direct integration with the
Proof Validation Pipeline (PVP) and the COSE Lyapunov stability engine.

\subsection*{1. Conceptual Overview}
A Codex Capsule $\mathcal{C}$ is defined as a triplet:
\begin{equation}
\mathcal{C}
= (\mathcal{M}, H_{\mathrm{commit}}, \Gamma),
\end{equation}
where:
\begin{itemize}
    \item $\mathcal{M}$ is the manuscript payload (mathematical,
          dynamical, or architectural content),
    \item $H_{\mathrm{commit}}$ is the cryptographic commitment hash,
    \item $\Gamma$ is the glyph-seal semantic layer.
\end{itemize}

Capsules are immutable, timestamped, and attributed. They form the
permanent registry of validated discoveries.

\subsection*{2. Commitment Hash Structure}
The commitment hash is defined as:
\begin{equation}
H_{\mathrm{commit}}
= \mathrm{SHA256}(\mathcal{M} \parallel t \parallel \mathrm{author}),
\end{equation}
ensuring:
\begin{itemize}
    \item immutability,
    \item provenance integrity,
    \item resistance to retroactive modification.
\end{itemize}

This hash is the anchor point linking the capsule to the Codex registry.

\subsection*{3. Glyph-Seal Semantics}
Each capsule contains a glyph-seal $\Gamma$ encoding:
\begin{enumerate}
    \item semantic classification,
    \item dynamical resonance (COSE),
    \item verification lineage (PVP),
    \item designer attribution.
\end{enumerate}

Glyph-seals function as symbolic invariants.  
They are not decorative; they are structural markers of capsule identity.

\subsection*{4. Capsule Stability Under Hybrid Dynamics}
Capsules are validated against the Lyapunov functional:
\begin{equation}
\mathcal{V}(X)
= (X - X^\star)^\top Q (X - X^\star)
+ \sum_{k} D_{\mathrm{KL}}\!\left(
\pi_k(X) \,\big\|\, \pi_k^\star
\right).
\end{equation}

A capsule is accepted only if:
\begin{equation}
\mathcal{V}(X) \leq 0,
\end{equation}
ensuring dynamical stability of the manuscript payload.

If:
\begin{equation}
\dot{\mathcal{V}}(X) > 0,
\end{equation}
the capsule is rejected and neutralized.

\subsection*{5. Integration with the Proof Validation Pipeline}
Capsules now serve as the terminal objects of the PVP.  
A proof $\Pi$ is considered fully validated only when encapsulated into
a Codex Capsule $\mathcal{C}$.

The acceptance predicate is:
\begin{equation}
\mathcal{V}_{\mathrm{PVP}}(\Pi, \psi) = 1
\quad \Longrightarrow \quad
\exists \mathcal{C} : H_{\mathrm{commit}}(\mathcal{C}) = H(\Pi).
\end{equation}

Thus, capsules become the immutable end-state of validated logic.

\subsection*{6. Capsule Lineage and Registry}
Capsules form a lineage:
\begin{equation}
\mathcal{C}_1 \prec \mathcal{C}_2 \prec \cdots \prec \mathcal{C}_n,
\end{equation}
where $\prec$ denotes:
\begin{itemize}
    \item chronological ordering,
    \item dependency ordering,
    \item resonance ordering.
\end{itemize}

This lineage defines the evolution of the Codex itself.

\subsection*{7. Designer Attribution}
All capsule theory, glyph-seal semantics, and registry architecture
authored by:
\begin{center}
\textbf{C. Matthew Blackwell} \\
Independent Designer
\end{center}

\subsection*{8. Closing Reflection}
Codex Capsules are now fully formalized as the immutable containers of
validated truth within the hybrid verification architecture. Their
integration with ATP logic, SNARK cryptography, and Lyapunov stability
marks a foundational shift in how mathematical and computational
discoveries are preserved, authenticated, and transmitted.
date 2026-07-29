@@ -1,0 +1,131 @@
+\section*{Research Journal Entry}
+\label{journal:codex_capsule_theory}
+
+\subsection*{Author}
+C.~Matthew~Blackwell (Independent Designer)
+
+\subsection*{Date}
+July 29, 2026 \\
+01:04 CDT
+
+\subsection*{Title}
+Codex Capsule Theory: Immutable Provenance, Glyph-Seal Semantics, and
+Hybrid Verification Anchoring
+
+\subsection*{Abstract}
+This journal entry formalizes the theoretical structure of Codex
+Capsules as immutable provenance anchors within the hybrid verification
+architecture. Capsules serve as cryptographically committed,
+dynamically stable, and logically validated containers for mathematical
+discoveries, simulation invariants, and system-level transmissions.
+Their role is expanded today to include direct integration with the
+Proof Validation Pipeline (PVP) and the COSE Lyapunov stability engine.
+
+\subsection*{1. Conceptual Overview}
+A Codex Capsule $\mathcal{C}$ is defined as a triplet:
+\begin{equation}
+\mathcal{C}
+= (\mathcal{M}, H_{\mathrm{commit}}, \Gamma),
+\end{equation}
+where:
+\begin{itemize}
+    \item $\mathcal{M}$ is the manuscript payload (mathematical,
+          dynamical, or architectural content),
+    \item $H_{\mathrm{commit}}$ is the cryptographic commitment hash,
+    \item $\Gamma$ is the glyph-seal semantic layer.
+\end{itemize}
+
+Capsules are immutable, timestamped, and attributed. They form the
+permanent registry of validated discoveries.
+
+\subsection*{2. Commitment Hash Structure}
+The commitment hash is defined as:
+\begin{equation}
+H_{\mathrm{commit}}
+= \mathrm{SHA256}(\mathcal{M} \parallel t \parallel \mathrm{author}),
+\end{equation}
+ensuring:
+\begin{itemize}
+    \item immutability,
+    \item provenance integrity,
+    \item resistance to retroactive modification.
+\end{itemize}
+
+This hash is the anchor point linking the capsule to the Codex registry.
+
+\subsection*{3. Glyph-Seal Semantics}
+Each capsule contains a glyph-seal $\Gamma$ encoding:
+\begin{enumerate}
+    \item semantic classification,
+    \item dynamical resonance (COSE),
+    \item verification lineage (PVP),
+    \item designer attribution.
+\end{enumerate}
+
+Glyph-seals function as symbolic invariants.  
+They are not decorative; they are structural markers of capsule identity.
+
+\subsection*{4. Capsule Stability Under Hybrid Dynamics}
+Capsules are validated against the Lyapunov functional:
+\begin{equation}
+\mathcal{V}(X)
+= (X - X^\star)^\top Q (X - X^\star)
++ \sum_{k} D_{\mathrm{KL}}\!\left(
+\pi_k(X) \,\big\|\, \pi_k^\star
+\right).
+\end{equation}
+
+A capsule is accepted only if:
+\begin{equation}
+\mathcal{V}(X) \leq 0,
+\end{equation}
+ensuring dynamical stability of the manuscript payload.
+
+If:
+\begin{equation}
+\dot{\mathcal{V}}(X) > 0,
+\end{equation}
+the capsule is rejected and neutralized.
+
+\subsection*{5. Integration with the Proof Validation Pipeline}
+Capsules now serve as the terminal objects of the PVP.  
+A proof $\Pi$ is considered fully validated only when encapsulated into
+a Codex Capsule $\mathcal{C}$.
+
+The acceptance predicate is:
+\begin{equation}
+\mathcal{V}_{\mathrm{PVP}}(\Pi, \psi) = 1
+\quad \Longrightarrow \quad
+\exists \mathcal{C} : H_{\mathrm{commit}}(\mathcal{C}) = H(\Pi).
+\end{equation}
+
+Thus, capsules become the immutable end-state of validated logic.
+
+\subsection*{6. Capsule Lineage and Registry}
+Capsules form a lineage:
+\begin{equation}
+\mathcal{C}_1 \prec \mathcal{C}_2 \prec \cdots \prec \mathcal{C}_n,
+\end{equation}
+where $\prec$ denotes:
+\begin{itemize}
+    \item chronological ordering,
+    \item dependency ordering,
+    \item resonance ordering.
+\end{itemize}
+
+This lineage defines the evolution of the Codex itself.
+
+\subsection*{7. Designer Attribution}
+All capsule theory, glyph-seal semantics, and registry architecture
+authored by:
+\begin{center}
+\textbf{C. Matthew Blackwell} \\
+Independent Designer
+\end{center}
+
+\subsection*{8. Closing Reflection}
+Codex Capsules are now fully formalized as the immutable containers of
+validated truth within the hybrid verification architecture. Their
+integration with ATP logic, SNARK cryptography, and Lyapunov stability
+marks a foundational shift in how mathematical and computational
+discoveries are preserved, authenticated, and transmitted.
