@@ -1,0 +1,195 @@
+\section{Appendix C: Solver Specifications}
+
+This appendix provides the full technical specifications for all numerical
+solvers used within the Unified Invariant Simulation Architecture. Each
+solver is designed to maintain bounded stability, deterministic execution,
+and invariant preservation under maximum-load perturbation. The solvers
+operate across five scientific domains: astrophysical curvature fields,
+quantum-granular transitions, proteostatic molecular dynamics,
+neural-spatiotemporal dilation, and planetary atmospheric thermodynamics.
+
+\subsection{C.1 PDE Solvers}
+
+Partial Differential Equation (PDE) solvers are used in Axon-FP,
+Chronos-V, and Stratos-Core. All PDE solvers satisfy the following
+requirements:
+
+\begin{itemize}
+    \item Total Variation Diminishing (TVD),
+    \item deterministic time-stepping,
+    \item bounded spatial discretization,
+    \item strict IEEE 754 floating-point compliance,
+    \item reproducible multi-threading (Rayon),
+    \item reproducible GPU execution (OpenCL/CUDA).
+\end{itemize}
+
+\subsubsection{C.1.1 Navier–Stokes Solver}
+
+Used in Stratos-Core for atmospheric flux fields.
+
+\[
+\frac{\partial \mathbf{u}}{\partial t}
++ (\mathbf{u} \cdot \nabla)\mathbf{u}
+= -\frac{1}{\rho}\nabla p + \nu \nabla^2 \mathbf{u}.
+\]
+
+Specifications:
+
+\begin{itemize}
+    \item Spatial discretization: 4th-order finite volume,
+    \item Time-stepping: deterministic Runge–Kutta (RK4),
+    \item Stability: CFL-controlled,
+    \item Boundary conditions: radiative, convective, reflective.
+\end{itemize}
+
+\subsubsection{C.1.2 Neural-Spatiotemporal Solver}
+
+Used in Chronos-V for cortical mass-field dynamics.
+
+\[
+\frac{\partial \Psi}{\partial t}
+= D \nabla^2 \Psi - S_{\mathrm{int}} \Psi.
+\]
+
+Specifications:
+
+\begin{itemize}
+    \item Spatial discretization: 3rd-order finite difference,
+    \item Time-stepping: implicit Euler (deterministic),
+    \item Stability: unconditional,
+    \item Noise model: bounded Gaussian perturbation.
+\end{itemize}
+
+\subsubsection{C.1.3 Curvature Field Solver}
+
+Used in Axon-FP for astrophysical curvature fields.
+
+\[
+\nabla^2 \Phi_{\mathrm{MW}} = 4\pi G \rho.
+\]
+
+Specifications:
+
+\begin{itemize}
+    \item Spatial discretization: HEALPix spherical grid,
+    \item Time-stepping: deterministic RK2,
+    \item Stability: TVD under velocity saturation.
+\end{itemize}
+
+\subsection{C.2 ODE Solvers}
+
+Ordinary Differential Equation (ODE) solvers are used in Mnemosyne for
+proteostatic aggregation and clearance dynamics.
+
+\[
+\frac{d[\mathrm{Aggregates}]}{dt}
+= k_{\mathrm{agg}} - k_{\mathrm{clear}}.
+\]
+
+Specifications:
+
+\begin{itemize}
+    \item Solver: deterministic RK4,
+    \item Stability: bounded under stochastic perturbation,
+    \item Noise model: multiplicative Gaussian,
+    \item Constraint: $\frac{d[\mathrm{Aggregates}]}{dt} < 0$.
+\end{itemize}
+
+\subsection{C.3 Tensor Solvers}
+
+Tensor solvers are used in Janus-GRQFT for GR-QFT dual-substrate transitions.
+
+\[
+G_{\mu\nu}(g) + \Lambda g_{\mu\nu}
+= \frac{8\pi G}{c^4}\langle \hat{T}_{\mu\nu} \rangle.
+\]
+
+Specifications:
+
+\begin{itemize}
+    \item Tensor discretization: 2nd-order finite element,
+    \item Time-stepping: implicit midpoint rule,
+    \item Stability: bounded under granular-smooth oscillation,
+    \item Noise model: quantum stochastic injection.
+\end{itemize}
+
+\subsection{C.4 Radiative Forcing Solvers}
+
+Radiative forcing solvers are used in Stratos-Core for planetary atmospheric
+balance.
+
+\[
+F_{\mathrm{net}} = F_{\mathrm{in}} - F_{\mathrm{out}}.
+\]
+
+Specifications:
+
+\begin{itemize}
+    \item Solver: deterministic flux-balance iteration,
+    \item Stability: bounded under forcing inversion,
+    \item Constraint: $\sum F_{\mathrm{net}} \to 0.0\ \mathrm{W/m^2}$,
+    \item Thermal tolerance: $\Vert \Delta T_{\mathrm{surface}} \Vert \le \varepsilon_{\mathrm{thermal}}$.
+\end{itemize}
+
+\subsection{C.5 Deterministic Execution Requirements}
+
+All solvers must satisfy:
+
+\begin{itemize}
+    \item identical outputs across hardware substrates,
+    \item strict IEEE 754 compliance,
+    \item deterministic PRNG seeding,
+    \item reproducible multi-threading,
+    \item reproducible GPU compute shaders,
+    \item zero nondeterministic branching.
+\end{itemize}
+
+Let $\mathcal{H}$ denote the hardware set. Determinism requires:
+
+\[
+\forall h_i, h_j \in \mathcal{H},\quad
+\mathrm{Sim}(h_i) = \mathrm{Sim}(h_j).
+\]
+
+\subsection{C.6 Solver Coupling}
+
+All solvers are coupled through the unified invariant set:
+
+\[
+\mathcal{I} =
+\{\Phi_{\mathrm{MW}},\ 
+\Xi_{\mathrm{dual}},\ 
+\frac{d[\mathrm{Aggregates}]}{dt},\ 
+\Delta \tau,\ 
+S_{\mathrm{int}},\ 
+\sum F_{\mathrm{net}},\ 
+\Vert \Delta T_{\mathrm{surface}} \Vert\}.
+\]
+
+Coupling requires:
+
+\[
+I_{\mathrm{Axon-FP}} =
+I_{\mathrm{Janus-GRQFT}} =
+I_{\mathrm{Mnemosyne}} =
+I_{\mathrm{Chronos-V}} =
+I_{\mathrm{Stratos-Core}}.
+\]
+
+This ensures cross-domain convergence and closed-loop epistemological
+certainty.
+
+\subsection{C.7 Solver Stress Response}
+
+Under maximum-load stress:
+
+\[
+\forall I \in \mathcal{I},\quad
+I_{\mathrm{drift}} = 0,\qquad
+I_{\mathrm{collapse}} = 0.
+\]
+
+All solvers must maintain bounded stability and deterministic convergence.
+
+This completes the full solver specifications used throughout the unified
+architecture.
