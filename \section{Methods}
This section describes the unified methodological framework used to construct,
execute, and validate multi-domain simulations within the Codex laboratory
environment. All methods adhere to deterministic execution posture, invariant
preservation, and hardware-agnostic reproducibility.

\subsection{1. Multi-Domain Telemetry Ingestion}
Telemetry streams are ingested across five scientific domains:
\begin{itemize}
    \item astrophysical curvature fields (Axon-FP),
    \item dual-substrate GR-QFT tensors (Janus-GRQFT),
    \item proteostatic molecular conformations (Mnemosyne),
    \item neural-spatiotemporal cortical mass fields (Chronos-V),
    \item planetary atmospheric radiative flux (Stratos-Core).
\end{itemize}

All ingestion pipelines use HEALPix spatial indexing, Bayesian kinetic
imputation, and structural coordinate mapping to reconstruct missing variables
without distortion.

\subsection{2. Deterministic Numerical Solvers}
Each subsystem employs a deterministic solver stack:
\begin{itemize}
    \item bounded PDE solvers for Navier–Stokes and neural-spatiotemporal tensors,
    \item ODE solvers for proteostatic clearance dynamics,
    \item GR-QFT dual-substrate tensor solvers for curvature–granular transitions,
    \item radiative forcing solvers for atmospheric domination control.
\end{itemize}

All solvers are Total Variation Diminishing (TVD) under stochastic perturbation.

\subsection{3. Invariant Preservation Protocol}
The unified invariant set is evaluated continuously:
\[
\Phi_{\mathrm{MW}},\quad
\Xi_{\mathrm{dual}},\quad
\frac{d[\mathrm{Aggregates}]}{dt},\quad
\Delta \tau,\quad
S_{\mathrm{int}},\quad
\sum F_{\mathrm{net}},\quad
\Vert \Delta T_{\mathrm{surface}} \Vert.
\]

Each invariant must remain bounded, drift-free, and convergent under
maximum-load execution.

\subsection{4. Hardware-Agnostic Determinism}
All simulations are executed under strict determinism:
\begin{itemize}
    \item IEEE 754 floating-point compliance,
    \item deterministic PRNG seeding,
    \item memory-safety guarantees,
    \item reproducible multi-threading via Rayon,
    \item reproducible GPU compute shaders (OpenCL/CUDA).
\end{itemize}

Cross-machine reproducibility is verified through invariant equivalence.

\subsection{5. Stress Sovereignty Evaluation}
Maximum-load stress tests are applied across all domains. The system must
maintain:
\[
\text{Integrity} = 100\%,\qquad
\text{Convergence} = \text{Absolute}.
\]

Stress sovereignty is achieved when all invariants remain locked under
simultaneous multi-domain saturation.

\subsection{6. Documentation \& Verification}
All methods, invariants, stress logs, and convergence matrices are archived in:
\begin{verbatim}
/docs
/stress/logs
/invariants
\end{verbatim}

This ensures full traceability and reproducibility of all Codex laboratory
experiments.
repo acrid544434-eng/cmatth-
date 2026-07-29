@@ -1,0 +1,79 @@
+\section{Methods}
+This section describes the unified methodological framework used to construct,
+execute, and validate multi-domain simulations within the Codex laboratory
+environment. All methods adhere to deterministic execution posture, invariant
+preservation, and hardware-agnostic reproducibility.
+
+\subsection{1. Multi-Domain Telemetry Ingestion}
+Telemetry streams are ingested across five scientific domains:
+\begin{itemize}
+    \item astrophysical curvature fields (Axon-FP),
+    \item dual-substrate GR-QFT tensors (Janus-GRQFT),
+    \item proteostatic molecular conformations (Mnemosyne),
+    \item neural-spatiotemporal cortical mass fields (Chronos-V),
+    \item planetary atmospheric radiative flux (Stratos-Core).
+\end{itemize}
+
+All ingestion pipelines use HEALPix spatial indexing, Bayesian kinetic
+imputation, and structural coordinate mapping to reconstruct missing variables
+without distortion.
+
+\subsection{2. Deterministic Numerical Solvers}
+Each subsystem employs a deterministic solver stack:
+\begin{itemize}
+    \item bounded PDE solvers for Navier–Stokes and neural-spatiotemporal tensors,
+    \item ODE solvers for proteostatic clearance dynamics,
+    \item GR-QFT dual-substrate tensor solvers for curvature–granular transitions,
+    \item radiative forcing solvers for atmospheric domination control.
+\end{itemize}
+
+All solvers are Total Variation Diminishing (TVD) under stochastic perturbation.
+
+\subsection{3. Invariant Preservation Protocol}
+The unified invariant set is evaluated continuously:
+\[
+\Phi_{\mathrm{MW}},\quad
+\Xi_{\mathrm{dual}},\quad
+\frac{d[\mathrm{Aggregates}]}{dt},\quad
+\Delta \tau,\quad
+S_{\mathrm{int}},\quad
+\sum F_{\mathrm{net}},\quad
+\Vert \Delta T_{\mathrm{surface}} \Vert.
+\]
+
+Each invariant must remain bounded, drift-free, and convergent under
+maximum-load execution.
+
+\subsection{4. Hardware-Agnostic Determinism}
+All simulations are executed under strict determinism:
+\begin{itemize}
+    \item IEEE 754 floating-point compliance,
+    \item deterministic PRNG seeding,
+    \item memory-safety guarantees,
+    \item reproducible multi-threading via Rayon,
+    \item reproducible GPU compute shaders (OpenCL/CUDA).
+\end{itemize}
+
+Cross-machine reproducibility is verified through invariant equivalence.
+
+\subsection{5. Stress Sovereignty Evaluation}
+Maximum-load stress tests are applied across all domains. The system must
+maintain:
+\[
+\text{Integrity} = 100\%,\qquad
+\text{Convergence} = \text{Absolute}.
+\]
+
+Stress sovereignty is achieved when all invariants remain locked under
+simultaneous multi-domain saturation.
+
+\subsection{6. Documentation \& Verification}
+All methods, invariants, stress logs, and convergence matrices are archived in:
+\begin{verbatim}
+/docs
+/stress/logs
+/invariants
+\end{verbatim}
+
+This ensures full traceability and reproducibility of all Codex laboratory
+experiments.
