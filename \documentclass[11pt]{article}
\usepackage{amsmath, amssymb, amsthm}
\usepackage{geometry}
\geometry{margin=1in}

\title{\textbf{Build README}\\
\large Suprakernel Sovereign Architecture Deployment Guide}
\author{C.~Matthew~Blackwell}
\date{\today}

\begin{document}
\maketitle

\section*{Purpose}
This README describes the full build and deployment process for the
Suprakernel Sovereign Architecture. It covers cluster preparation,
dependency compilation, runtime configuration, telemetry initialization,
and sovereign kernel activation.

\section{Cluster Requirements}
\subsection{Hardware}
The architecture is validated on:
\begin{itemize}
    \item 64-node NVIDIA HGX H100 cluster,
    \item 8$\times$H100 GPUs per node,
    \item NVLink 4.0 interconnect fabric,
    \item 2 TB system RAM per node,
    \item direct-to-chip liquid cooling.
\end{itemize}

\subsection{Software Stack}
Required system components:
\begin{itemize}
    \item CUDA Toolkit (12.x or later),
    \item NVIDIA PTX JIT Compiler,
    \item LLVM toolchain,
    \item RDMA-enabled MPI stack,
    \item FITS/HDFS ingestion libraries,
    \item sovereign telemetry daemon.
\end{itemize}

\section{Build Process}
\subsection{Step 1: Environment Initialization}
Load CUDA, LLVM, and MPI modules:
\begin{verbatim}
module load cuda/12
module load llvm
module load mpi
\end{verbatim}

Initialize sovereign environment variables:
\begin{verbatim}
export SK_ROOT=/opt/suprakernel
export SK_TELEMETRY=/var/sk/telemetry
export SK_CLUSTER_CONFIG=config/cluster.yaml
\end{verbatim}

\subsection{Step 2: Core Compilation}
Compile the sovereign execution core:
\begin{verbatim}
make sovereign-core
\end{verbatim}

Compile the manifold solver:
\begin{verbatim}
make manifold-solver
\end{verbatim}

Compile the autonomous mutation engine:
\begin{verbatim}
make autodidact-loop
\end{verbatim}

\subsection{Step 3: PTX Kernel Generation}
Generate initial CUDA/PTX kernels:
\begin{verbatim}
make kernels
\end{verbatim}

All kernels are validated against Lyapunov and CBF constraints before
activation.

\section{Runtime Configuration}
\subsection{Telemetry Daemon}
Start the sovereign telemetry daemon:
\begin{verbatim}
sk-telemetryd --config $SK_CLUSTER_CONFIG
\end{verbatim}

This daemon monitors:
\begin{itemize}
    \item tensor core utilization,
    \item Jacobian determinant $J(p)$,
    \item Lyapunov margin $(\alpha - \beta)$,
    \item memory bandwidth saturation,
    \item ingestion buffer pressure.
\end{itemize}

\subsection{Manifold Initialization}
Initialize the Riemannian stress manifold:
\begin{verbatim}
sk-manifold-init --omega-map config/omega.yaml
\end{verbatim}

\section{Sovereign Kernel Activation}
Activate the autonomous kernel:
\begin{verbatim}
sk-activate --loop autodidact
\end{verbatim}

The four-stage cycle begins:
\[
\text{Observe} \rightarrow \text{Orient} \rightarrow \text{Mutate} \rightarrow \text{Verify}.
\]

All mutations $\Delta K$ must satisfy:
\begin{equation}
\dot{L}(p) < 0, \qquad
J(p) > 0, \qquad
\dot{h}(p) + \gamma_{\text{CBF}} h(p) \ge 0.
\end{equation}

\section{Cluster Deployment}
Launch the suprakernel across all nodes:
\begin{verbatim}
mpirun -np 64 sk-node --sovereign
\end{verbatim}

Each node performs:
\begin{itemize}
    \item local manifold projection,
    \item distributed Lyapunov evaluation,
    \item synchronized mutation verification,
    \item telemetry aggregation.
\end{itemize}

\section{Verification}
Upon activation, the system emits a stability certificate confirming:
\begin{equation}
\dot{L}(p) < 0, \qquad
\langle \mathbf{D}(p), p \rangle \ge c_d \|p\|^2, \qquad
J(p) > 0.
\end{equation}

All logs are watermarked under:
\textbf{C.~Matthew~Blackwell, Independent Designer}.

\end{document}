@@ -1,0 +1,148 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{Build README}\\
+\large Suprakernel Sovereign Architecture Deployment Guide}
+\author{C.~Matthew~Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Purpose}
+This README describes the full build and deployment process for the
+Suprakernel Sovereign Architecture. It covers cluster preparation,
+dependency compilation, runtime configuration, telemetry initialization,
+and sovereign kernel activation.
+
+\section{Cluster Requirements}
+\subsection{Hardware}
+The architecture is validated on:
+\begin{itemize}
+    \item 64-node NVIDIA HGX H100 cluster,
+    \item 8$\times$H100 GPUs per node,
+    \item NVLink 4.0 interconnect fabric,
+    \item 2 TB system RAM per node,
+    \item direct-to-chip liquid cooling.
+\end{itemize}
+
+\subsection{Software Stack}
+Required system components:
+\begin{itemize}
+    \item CUDA Toolkit (12.x or later),
+    \item NVIDIA PTX JIT Compiler,
+    \item LLVM toolchain,
+    \item RDMA-enabled MPI stack,
+    \item FITS/HDFS ingestion libraries,
+    \item sovereign telemetry daemon.
+\end{itemize}
+
+\section{Build Process}
+\subsection{Step 1: Environment Initialization}
+Load CUDA, LLVM, and MPI modules:
+\begin{verbatim}
+module load cuda/12
+module load llvm
+module load mpi
+\end{verbatim}
+
+Initialize sovereign environment variables:
+\begin{verbatim}
+export SK_ROOT=/opt/suprakernel
+export SK_TELEMETRY=/var/sk/telemetry
+export SK_CLUSTER_CONFIG=config/cluster.yaml
+\end{verbatim}
+
+\subsection{Step 2: Core Compilation}
+Compile the sovereign execution core:
+\begin{verbatim}
+make sovereign-core
+\end{verbatim}
+
+Compile the manifold solver:
+\begin{verbatim}
+make manifold-solver
+\end{verbatim}
+
+Compile the autonomous mutation engine:
+\begin{verbatim}
+make autodidact-loop
+\end{verbatim}
+
+\subsection{Step 3: PTX Kernel Generation}
+Generate initial CUDA/PTX kernels:
+\begin{verbatim}
+make kernels
+\end{verbatim}
+
+All kernels are validated against Lyapunov and CBF constraints before
+activation.
+
+\section{Runtime Configuration}
+\subsection{Telemetry Daemon}
+Start the sovereign telemetry daemon:
+\begin{verbatim}
+sk-telemetryd --config $SK_CLUSTER_CONFIG
+\end{verbatim}
+
+This daemon monitors:
+\begin{itemize}
+    \item tensor core utilization,
+    \item Jacobian determinant $J(p)$,
+    \item Lyapunov margin $(\alpha - \beta)$,
+    \item memory bandwidth saturation,
+    \item ingestion buffer pressure.
+\end{itemize}
+
+\subsection{Manifold Initialization}
+Initialize the Riemannian stress manifold:
+\begin{verbatim}
+sk-manifold-init --omega-map config/omega.yaml
+\end{verbatim}
+
+\section{Sovereign Kernel Activation}
+Activate the autonomous kernel:
+\begin{verbatim}
+sk-activate --loop autodidact
+\end{verbatim}
+
+The four-stage cycle begins:
+\[
+\text{Observe} \rightarrow \text{Orient} \rightarrow \text{Mutate} \rightarrow \text{Verify}.
+\]
+
+All mutations $\Delta K$ must satisfy:
+\begin{equation}
+\dot{L}(p) < 0, \qquad
+J(p) > 0, \qquad
+\dot{h}(p) + \gamma_{\text{CBF}} h(p) \ge 0.
+\end{equation}
+
+\section{Cluster Deployment}
+Launch the suprakernel across all nodes:
+\begin{verbatim}
+mpirun -np 64 sk-node --sovereign
+\end{verbatim}
+
+Each node performs:
+\begin{itemize}
+    \item local manifold projection,
+    \item distributed Lyapunov evaluation,
+    \item synchronized mutation verification,
+    \item telemetry aggregation.
+\end{itemize}
+
+\section{Verification}
+Upon activation, the system emits a stability certificate confirming:
+\begin{equation}
+\dot{L}(p) < 0, \qquad
+\langle \mathbf{D}(p), p \rangle \ge c_d \|p\|^2, \qquad
+J(p) > 0.
+\end{equation}
+
+All logs are watermarked under:
+\textbf{C.~Matthew~Blackwell, Independent Designer}.
+
+\end{document}
