@@ -1,0 +1,116 @@
+\section{Methods}
+This section describes the methodological framework used to analyze, implement,
+and experimentally evaluate the Suprakernel Sovereign Architecture. The methods
+combine manifold-based mathematical modeling, autonomous kernel mutation,
+telemetry-driven stability enforcement, and distributed GPU execution across a
+64-node HGX H100 cluster.
+
+\subsection{System Modeling and State Representation}
+The system state is represented as a vector $p(t) \in \mathbb{R}^n$ evolving on
+the Riemannian stress manifold $\mathcal{M}_{\text{stress}} = (\mathcal{U}, g)$.
+The $\Omega$-mapping operator projects raw state vectors into the manifold:
+\begin{equation}
+\Omega : \mathbb{R}^n \rightarrow \mathcal{M}_{\text{stress}},
+\end{equation}
+with Jacobian determinant $J(p)$ used to monitor geometric stability.
+
+The governing dynamics are:
+\begin{equation}
+\dot{p}(t) = \mathcal{F}(p) - \nabla V(p) - \mathbf{D}(p),
+\end{equation}
+where $\mathcal{F}(p)$ is the forcing term, $V(p)$ is the potential function,
+and $\mathbf{D}(p)$ is an adaptive damping operator satisfying:
+\begin{equation}
+\langle \mathbf{D}(p), p \rangle \ge c_d \|p\|^2.
+\end{equation}
+
+\subsection{Lyapunov and Barrier Function Construction}
+To ensure stability, we define the Lyapunov candidate:
+\begin{equation}
+L(p) = \frac{1}{2}\|p - p^*\|^2 + U(p) +
+\frac{1}{2}\gamma(t)\max(0,-J(p))^2,
+\end{equation}
+where $U(p)$ is the stress potential and $p^*$ is the equilibrium state.
+
+The safe region is defined by the barrier function:
+\begin{equation}
+\mathcal{C} = \{ p \mid h(p) \ge 0 \},
+\end{equation}
+with forward invariance enforced by:
+\begin{equation}
+\dot{h}(p) + \gamma_{\text{CBF}} h(p) \ge 0.
+\end{equation}
+
+\subsection{Autonomous Kernel Mutation Procedure}
+Kernel evolution is governed by the four-stage mutation loop:
+\[
+\text{Observe} \rightarrow \text{Orient} \rightarrow \text{Mutate} \rightarrow \text{Verify}.
+\]
+
+\paragraph{Observe.}
+The system ingests state vectors and telemetry:
+\begin{equation}
+\mathcal{T}(t) = \{ J(p), \alpha(t), \beta(t), U(p),
+B_{\text{mem}}, U_{\text{tensor}} \}.
+\end{equation}
+
+\paragraph{Orient.}
+The state is projected onto $\mathcal{M}_{\text{stress}}$, and the system
+computes:
+\begin{equation}
+J(p), \qquad \nabla U(p), \qquad (\alpha - \beta),
+\end{equation}
+to assess geometric and dynamical stability.
+
+\paragraph{Mutate.}
+The JIT compiler proposes kernel updates $\Delta K$ subject to:
+\begin{equation}
+\|\Delta K\| \le \kappa_{\max}(t),
+\end{equation}
+where $\kappa_{\max}(t)$ is derived from real-time telemetry.
+
+\paragraph{Verify.}
+A mutation is accepted only if:
+\begin{equation}
+\dot{L}(p) < 0, \qquad
+J(p) > 0, \qquad
+\dot{h}(p) + \gamma_{\text{CBF}} h(p) \ge 0.
+\end{equation}
+
+\subsection{Cluster Execution Environment}
+All experiments were conducted on a 64-node NVIDIA HGX H100 cluster with:
+\begin{itemize}
+    \item synchronized CUDA streams,
+    \item NVLink 4.0 interconnect,
+    \item RDMA-enabled MPI channels,
+    \item sovereign telemetry daemon.
+\end{itemize}
+
+Each node executes CUDA/PTX kernels under manifold-aware scheduling and
+stability constraints. Distributed synchronization ensures that Jacobian values,
+Lyapunov margins, and mutation decisions remain globally consistent.
+
+\subsection{Stress Testing Protocol}
+Stress tests were performed by varying:
+\begin{itemize}
+    \item ingestion bandwidth (1.5--60 GB/s),
+    \item tensor core utilization (50--99.2\%),
+    \item Jacobian floor values (1.0--0.005),
+    \item rendering latency (8.5--10.9 ms).
+\end{itemize}
+
+Telemetry-driven stability enforcement was monitored continuously to verify:
+\begin{equation}
+\dot{L}(p) < 0, \qquad J(p) > 0,
+\end{equation}
+under all stress conditions.
+
+\subsection{Data Collection and Analysis}
+All telemetry logs, mutation histories, Jacobian trajectories, and Lyapunov
+derivatives were recorded at 1 kHz sampling frequency. Data were analyzed using
+cluster-wide aggregation and manifold-aware smoothing filters.
+
+\subsection{Reproducibility}
+All experiments were repeated across multiple cluster configurations to ensure
+reproducibility. Mutation acceptance criteria, stability thresholds, and
+telemetry limits were held constant across trials.
