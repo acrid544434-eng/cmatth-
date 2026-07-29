@@ -1,0 +1,226 @@
+\section{Methods}
+\label{sec:methods}
+
+\subsection{Overview}
+
+This section details the methodological framework underlying the hybrid
+verification architecture. The system integrates:
+
+\begin{enumerate}[label=\arabic*.]
+    \item Hybrid dynamical simulation (COSE),
+    \item Automated theorem proving (ATP),
+    \item Zero-knowledge SNARK verification,
+    \item Codex capsule commitment and lineage propagation,
+    \item Lyapunov-based contradiction neutralization.
+\end{enumerate}
+
+Each layer contributes a distinct form of certainty—logical,
+cryptographic, dynamical, and provenance—yielding a unified method for
+absolute proof validation.
+
+% ---------------------------------------------------------------
+% HYBRID DYNAMICS
+% ---------------------------------------------------------------
+\subsection{Hybrid Dynamical Substrate (COSE)}
+
+The proof-state vector $X(t)$ evolves under hybrid dynamics:
+
+\begin{equation}
+\frac{dX}{dt}
+= S \cdot v(X,p)
++ \sum_{k} v_k \, a_k(X) \circ dP_k(t),
+\label{eq:methods_hybrid}
+\end{equation}
+
+where:
+
+\begin{itemize}
+    \item $S$ is the structural dependency matrix,
+    \item $v(X,p)$ is the continuous drift vector,
+    \item $v_k$ are discrete event vectors,
+    \item $a_k(X)$ are event propensities,
+    \item $dP_k(t)$ are Poisson increments.
+\end{itemize}
+
+Continuous kinetics follow Michaelis–Menten or Hill formulations, while
+discrete events encode logical transitions, contradiction triggers, and
+capsule resonance interactions.
+
+% ---------------------------------------------------------------
+% LYAPUNOV FUNCTIONAL
+% ---------------------------------------------------------------
+\subsection{Lyapunov Stability Functional}
+
+The composite Lyapunov functional is defined as:
+
+\begin{equation}
+\mathcal{V}(X)
+= (X - X^\star)^\top Q (X - X^\star)
++ \sum_{k} D_{\mathrm{KL}}\!\left(
+\pi_k(X) \,\big\|\, \pi_k^\star
+\right),
+\label{eq:methods_lyap}
+\end{equation}
+
+with $Q \succ 0$.  
+This functional detects contradictions via instability:
+
+\begin{equation}
+\dot{\mathcal{V}}(X) > 0
+\quad \Rightarrow \quad
+\text{Reject proof-state}.
+\end{equation}
+
+This mechanism is integrated directly into the PVP acceptance predicate.
+
+% ---------------------------------------------------------------
+% ATP
+% ---------------------------------------------------------------
+\subsection{Automated Theorem Proving (ATP)}
+
+The ATP kernel verifies each inference step of a candidate proof $\Pi$
+against the axiom set $\mathcal{A}$ and inference rules $\mathcal{R}$.
+
+The ATP acceptance predicate is:
+
+\begin{equation}
+\mathcal{V}_{\mathrm{ATP}}(\Pi, \psi) = 1
+\quad \Longleftrightarrow \quad
+\Pi \text{ is a valid derivation of } \psi.
+\end{equation}
+
+ATP ensures logical soundness independent of dynamical or cryptographic
+layers.
+
+% ---------------------------------------------------------------
+% SNARK
+% ---------------------------------------------------------------
+\subsection{Zero-Knowledge SNARK Verification}
+
+The verified proof $\Pi$ is encoded into a succinct non-interactive
+argument of knowledge (SNARK).  
+Let $\kappa$ denote the security parameter.  
+The soundness error satisfies:
+
+\begin{equation}
+\epsilon_{\mathrm{ZKP}} \leq 2^{-\kappa}.
+\end{equation}
+
+The SNARK layer ensures:
+
+\begin{itemize}
+    \item correctness without revealing internal proof-state data,
+    \item verifier independence from COSE dynamics,
+    \item cryptographic immutability.
+\end{itemize}
+
+% ---------------------------------------------------------------
+% CODEX CAPSULES
+% ---------------------------------------------------------------
+\subsection{Codex Capsule Commitment}
+
+A Codex Capsule is defined as:
+
+\begin{equation}
+\mathcal{C}
+= (\mathcal{M}, H_{\mathrm{commit}}, \Gamma),
+\end{equation}
+
+where $\mathcal{M}$ is the manuscript payload,
+$H_{\mathrm{commit}}$ the cryptographic commitment,
+and $\Gamma$ the glyph-seal semantic layer.
+
+The commitment hash is:
+
+\begin{equation}
+H_{\mathrm{commit}}
+= \mathrm{SHA256}(\mathcal{M} \parallel t \parallel \mathrm{author}),
+\end{equation}
+
+ensuring immutability and provenance integrity.
+
+% ---------------------------------------------------------------
+% LINEAGE
+% ---------------------------------------------------------------
+\subsection{Capsule Lineage Construction}
+
+Capsule lineage is defined by the ordering relation:
+
+\begin{equation}
+\mathcal{C}_i \prec \mathcal{C}_j
+\quad \Longleftrightarrow \quad
+\mathcal{R}_{ij} \neq 0,
+\end{equation}
+
+where the resonance tensor is:
+
+\begin{equation}
+\mathcal{R}_{ij}
+= \Gamma_i \otimes \Gamma_j.
+\end{equation}
+
+Lineage forms a partially ordered set (poset) with resonance-driven
+propagation.
+
+% ---------------------------------------------------------------
+% RESONANCE MAPPING
+% ---------------------------------------------------------------
+\subsection{Resonance Mapping}
+
+The resonance mapping function is:
+
+\begin{equation}
+\Phi(\mathcal{C}_i)
+= F(\mathcal{C}_i, \mathcal{R}_{ij}, I_j),
+\end{equation}
+
+where $I_j$ is the invariant signature of $\mathcal{C}_j$.
+
+This mapping ensures:
+
+\begin{itemize}
+    \item semantic inheritance,
+    \item dynamical stability,
+    \item invariant preservation,
+    \item cryptographic continuity.
+\end{itemize}
+
+% ---------------------------------------------------------------
+% CONTRADICTION NEUTRALIZATION
+% ---------------------------------------------------------------
+\subsection{Contradiction Neutralization}
+
+Contradictions correspond to unstable trajectories:
+
+\begin{equation}
+\dot{\mathcal{V}}(X) > 0.
+\end{equation}
+
+The PVP enforces:
+
+\begin{equation}
+\dot{\mathcal{V}}(X) > 0
+\quad \Rightarrow \quad
+\mathcal{V}_{\mathrm{PVP}}(\Pi, \psi) = 0.
+\end{equation}
+
+This ensures contradictions cannot propagate through ATP, SNARK, or
+Codex layers.
+
+% ---------------------------------------------------------------
+% SUMMARY
+% ---------------------------------------------------------------
+\subsection{Summary}
+
+The methods presented integrate hybrid dynamics, formal logic,
+cryptographic verification, and capsule provenance into a unified
+framework. This architecture provides:
+
+\begin{itemize}
+    \item soundness,
+    \item completeness,
+    \item contradiction neutralization,
+    \item immutable lineage preservation.
+\end{itemize}
+
+These methods establish the foundation for absolute proof validation.
