@@ -1,0 +1,24 @@
+\begin{theorem}[UMAS Global Stability Under Extreme Regimes]
+Let the UMAS simulator be initialized with physically admissible
+cosmological and microphysical parameters, and let the stress test
+matrix $\{\text{ST-01}, \text{ST-02}, \text{ST-03}, \text{ST-04}\}$
+be executed as specified.
+
+Assume:
+\begin{itemize}
+  \item Quantum geometry kernels implement an effective Hamiltonian
+        constraint with bounded energy density
+        $\rho \le \rho_{\text{Pl}}$.
+  \item Hydrodynamic solvers satisfy discrete conservation laws for
+        mass, momentum, and energy across all AMR levels.
+  \item Fuzzy dark matter solvers preserve norm and energy to within
+        tolerances $(\varepsilon_N, \varepsilon_E)$.
+  \item Holographic boundary conditions enforce
+        $S_{\text{bulk}} \le A(\partial \mathcal{M})/(4 G \hbar)$
+        for all monitored volumes.
+\end{itemize}
+
+Then the UMAS evolution operator $\hat{U}(t, t_0)$ remains stable and
+unitary over the full stress-test duration, and no physical or
+numerical singularities occur in any subsystem.
+\end{theorem}
