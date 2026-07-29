@@ -1,0 +1,154 @@
+\section*{Research Journal Entry}
+\label{journal:capsule_lineage_mathematics}
+
+\subsection*{Author}
+C.~Matthew~Blackwell (Independent Designer)
+
+\subsection*{Date}
+July 29, 2026 \\
+01:05 CDT
+
+\subsection*{Title}
+Mathematical Structure of Codex Capsule Lineage: Ordering, Resonance,
+and Invariant Preservation
+
+\subsection*{Abstract}
+This journal entry formalizes the mathematical structure underlying
+Codex Capsule lineage. Capsules form a partially ordered, resonance-
+coupled sequence of immutable mathematical objects. Their lineage
+encodes dependency, temporal ordering, semantic inheritance, and
+dynamical stability. Today’s work establishes the ordering relation,
+defines lineage invariants, and introduces the resonance operator that
+governs capsule-to-capsule propagation.
+
+\subsection*{1. Capsule Lineage Ordering Relation}
+
+A Codex Capsule is defined as:
+\begin{equation}
+\mathcal{C}
+= (\mathcal{M}, H_{\mathrm{commit}}, \Gamma),
+\end{equation}
+where $\mathcal{M}$ is the manuscript payload,
+$H_{\mathrm{commit}}$ the cryptographic commitment,
+and $\Gamma$ the glyph-seal semantic layer.
+
+We define a lineage ordering relation $\prec$ such that:
+\begin{equation}
+\mathcal{C}_i \prec \mathcal{C}_j
+\quad \Longleftrightarrow \quad
+\text{$\mathcal{C}_j$ depends on, extends, or resonates with $\mathcal{C}_i$}.
+\end{equation}
+
+This relation is:
+\begin{itemize}
+    \item \textbf{transitive}:  
+    $\mathcal{C}_i \prec \mathcal{C}_j$ and 
+    $\mathcal{C}_j \prec \mathcal{C}_k$
+    imply $\mathcal{C}_i \prec \mathcal{C}_k$,
+    \item \textbf{antisymmetric}:  
+    $\mathcal{C}_i \prec \mathcal{C}_j$ and 
+    $\mathcal{C}_j \prec \mathcal{C}_i$
+    imply $\mathcal{C}_i = \mathcal{C}_j$,
+    \item \textbf{non-total}:  
+    some capsules are incomparable.
+\end{itemize}
+
+Thus, capsule lineage forms a \emph{partially ordered set (poset)}.
+
+\subsection*{2. Lineage Invariants}
+
+Each capsule $\mathcal{C}_i$ carries an invariant signature:
+\begin{equation}
+I(\mathcal{C}_i)
+= \mathrm{SHA256}(\mathcal{M}_i \parallel \Gamma_i),
+\end{equation}
+which must satisfy:
+\begin{equation}
+I(\mathcal{C}_i) \neq I(\mathcal{C}_j)
+\quad \text{for all } i \neq j.
+\end{equation}
+
+Lineage invariants ensure:
+\begin{itemize}
+    \item uniqueness,
+    \item non-collision,
+    \item semantic isolation,
+    \item resonance consistency.
+\end{itemize}
+
+\subsection*{3. Resonance Operator}
+
+We define the capsule resonance operator $\mathcal{R}$:
+\begin{equation}
+\mathcal{R}(\mathcal{C}_i, \mathcal{C}_j)
+= \Gamma_i \otimes \Gamma_j,
+\end{equation}
+where $\otimes$ is the glyph-seal tensor product.
+
+Resonance exists if:
+\begin{equation}
+\mathcal{R}(\mathcal{C}_i, \mathcal{C}_j) \neq 0.
+\end{equation}
+
+Capsule lineage is resonance-driven:
+\begin{equation}
+\mathcal{C}_i \prec \mathcal{C}_j
+\quad \Longleftrightarrow \quad
+\mathcal{R}(\mathcal{C}_i, \mathcal{C}_j) \neq 0.
+\end{equation}
+
+\subsection*{4. Dynamical Stability of Lineage}
+
+Capsules inherit stability from the COSE Lyapunov functional:
+\begin{equation}
+\mathcal{V}(X)
+= (X - X^\star)^\top Q (X - X^\star)
++ \sum_{k} D_{\mathrm{KL}}\!\left(
+\pi_k(X) \,\big\|\, \pi_k^\star
+\right).
+\end{equation}
+
+A lineage is dynamically valid if:
+\begin{equation}
+\mathcal{V}(X_i) \leq 0
+\quad \text{for all capsules } \mathcal{C}_i.
+\end{equation}
+
+If any capsule violates stability:
+\begin{equation}
+\dot{\mathcal{V}}(X_i) > 0,
+\end{equation}
+the lineage is broken and the capsule is rejected.
+
+\subsection*{5. Lineage Evolution Equation}
+
+We define lineage evolution as:
+\begin{equation}
+\mathcal{C}_{n+1}
+= F(\mathcal{C}_n, \mathcal{R}, I),
+\end{equation}
+where $F$ is the lineage propagation function.
+
+This function ensures:
+\begin{itemize}
+    \item resonance continuity,
+    \item invariant preservation,
+    \item dynamical stability,
+    \item cryptographic immutability.
+\end{itemize}
+
+\subsection*{6. Designer Attribution}
+
+All capsule lineage mathematics, resonance operators, and invariant
+structures authored by:
+\begin{center}
+\textbf{C. Matthew Blackwell} \\
+Independent Designer
+\end{center}
+
+\subsection*{7. Closing Reflection}
+
+Capsule lineage is now formalized as a mathematical object: a poset with
+resonance-driven ordering, invariant signatures, and dynamical stability
+constraints. This entry marks the moment the Codex registry gained a
+rigorous algebraic and dynamical foundation for capsule evolution.
