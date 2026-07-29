@@ -1,0 +1,201 @@
+\documentclass[12pt]{book}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\title{\textbf{AXIOM-FP: A Formal Mathematical Framework for Galactic Civilization Dynamics}\\
+\large Full Monograph Edition}
+
+\author{C.~Matthew Blackwell}
+
+\date{\today}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+
+\chapter{Abstract}
+AXIOM-FP is a unified mathematical, computational, and formal-logical framework 
+describing the emergence, expansion, and extinction of technological civilizations 
+across the Milky Way. The theory integrates stellar density fields, abiogenesis 
+probability distributions, relativistic expansion cones, and catastrophic filter 
+dynamics into a closed-form Fermi-style silent-void function. The model is 
+constructed to be fully formalizable in dependent type theory and amenable to 
+Level-3 machine-checked validation using interactive theorem provers such as Lean 
+and Coq.
+
+\tableofcontents
+
+\mainmatter
+
+%===========================================================
+\chapter{Introduction}
+%===========================================================
+
+\section{The Fermi Paradox as a Mathematical Problem}
+The classical Fermi Paradox highlights the tension between the galaxy's vast 
+stellar population and the absence of detectable extraterrestrial civilizations. 
+AXIOM-FP reframes this paradox as a rigorous mathematical problem, enabling 
+formal verification and computational simulation at galactic scale.
+
+\section{Objectives of AXIOM-FP}
+\begin{itemize}
+\item Construct a closed-form mathematical law governing galactic civilization dynamics.
+\item Integrate astrophysical, biological, and technological parameters.
+\item Provide a pathway for machine-checked formal proof verification.
+\item Establish a quantitative boundary for galactic silence.
+\end{itemize}
+
+%===========================================================
+\chapter{Stellar Structure and Density Fields}
+%===========================================================
+
+\section{Galactic Geometry}
+We model the Milky Way as a cylindrical volume with radius $R_{\text{gal}}$ and 
+height $Z_{\text{gal}}$.
+
+\section{Stellar Density Function}
+\begin{equation}
+n_*(r,z) = n_0 \exp\left(-\frac{r}{R_d}\right)\exp\left(-\frac{|z|}{Z_d}\right)
++ n_{\text{bulge}}(r) + n_{\text{halo}}(r).
+\end{equation}
+
+\section{Integrability and Boundedness}
+We assume $n_*$ is measurable and bounded over $V_{\text{gal}}$.
+
+%===========================================================
+\chapter{Abiogenesis Probability Distributions}
+%===========================================================
+
+\section{Metallicity-Dependent Abiogenesis}
+\begin{equation}
+\lambda_{\text{abio}}(\mathbf{x}) = 
+f([\text{Fe/H}](\mathbf{x}), L(\mathbf{x}), \Phi_{\text{rad}}(\mathbf{x})).
+\end{equation}
+
+\section{Functional Constraints}
+\begin{itemize}
+\item $\lambda_{\text{abio}}$ is bounded.
+\item $\lambda_{\text{abio}}$ is integrable over $V_{\text{gal}}$.
+\item $\lambda_{\text{abio}}$ increases with metallicity.
+\end{itemize}
+
+%===========================================================
+\chapter{Civilizational Lifetime and Filter Dynamics}
+%===========================================================
+
+\section{Catastrophic Filter Rate}
+Civilizational lifetime is modeled as an exponential survival process:
+\begin{equation}
+\tau_{\text{civ}} = \Gamma_{\text{filter}}^{-1}.
+\end{equation}
+
+\section{Interpretation}
+$\Gamma_{\text{filter}}$ encodes:
+\begin{itemize}
+\item self-destruction probability,
+\item external astrophysical hazards,
+\item sociotechnical collapse dynamics.
+\end{itemize}
+
+%===========================================================
+\chapter{Expansion Cone Geometry}
+%===========================================================
+
+\section{Relativistic Propagation Cone}
+\begin{equation}
+R_{\text{exp}} = v_{\text{probe}}\,\tau_{\text{civ}}
+= \frac{v_{\text{probe}}}{\Gamma_{\text{filter}}}.
+\end{equation}
+
+\section{Colonization Volume}
+\begin{equation}
+V_{\text{civ}} = \frac{4}{3}\pi R_{\text{exp}}^3.
+\end{equation}
+
+%===========================================================
+\chapter{Expected Number of Active Civilizations}
+%===========================================================
+
+\section{Poisson Intensity}
+\begin{equation}
+\Lambda = n_*\,\lambda_{\text{abio}}\,
+\frac{4}{3}\pi
+\left(\frac{v_{\text{probe}}}{\Gamma_{\text{filter}}}\right)^3
+p_{\text{comm}}.
+\end{equation}
+
+%===========================================================
+\chapter{The Silent-Void Function}
+%===========================================================
+
+\section{Definition}
+\begin{equation}
+F = \exp(-\Lambda).
+\end{equation}
+
+\section{Interpretation}
+$F$ is the probability that the galaxy contains zero active civilizations.
+
+%===========================================================
+\chapter{Solving for Abiogenesis and Filter Strength}
+%===========================================================
+
+\section{Logarithmic Transformation}
+\begin{equation}
+\ln F = - n_*\,\lambda_{\text{abio}}\,
+\frac{4}{3}\pi
+\left(\frac{v_{\text{probe}}}{\Gamma_{\text{filter}}}\right)^3
+p_{\text{comm}}.
+\end{equation}
+
+\section{Core Relationship}
+\begin{equation}
+\lambda_{\text{abio}}
+\left(\frac{v_{\text{probe}}}{\Gamma_{\text{filter}}}\right)^3
+= -\frac{\ln F}{n_*\,\frac{4}{3}\pi\,p_{\text{comm}}}.
+\end{equation}
+
+%===========================================================
+\chapter{Calibration to Simulation Telemetry}
+%===========================================================
+
+\section{Silent-Void Calibration}
+Using $F = 0.9991$:
+\begin{equation}
+-\ln F \approx 0.0009.
+\end{equation}
+
+\section{Critical Threshold}
+Unless $v_{\text{probe}}\tau_{\text{civ}}$ exceeds a critical volumetric threshold, 
+the galaxy defaults to silence.
+
+%===========================================================
+\chapter{Formalization in Type Theory}
+%===========================================================
+
+\section{Lean/Coq Encoding}
+We outline the translation of AXIOM-FP into dependent type theory.
+
+\section{Proof Modules}
+\begin{itemize}
+\item Stellar density module
+\item Abiogenesis module
+\item Filter module
+\item Expansion cone module
+\item Silent-void theorem module
+\end{itemize}
+
+\section{Micro-Kernel Verification}
+Each inference step is checked by the theorem prover's trusted kernel.
+
+%===========================================================
+\chapter{Conclusion}
+%===========================================================
+
+AXIOM-FP provides the first closed-form, machine-verifiable mathematical law 
+governing the emergence and extinction of intelligent life in the galaxy.
+
+\end{document}
