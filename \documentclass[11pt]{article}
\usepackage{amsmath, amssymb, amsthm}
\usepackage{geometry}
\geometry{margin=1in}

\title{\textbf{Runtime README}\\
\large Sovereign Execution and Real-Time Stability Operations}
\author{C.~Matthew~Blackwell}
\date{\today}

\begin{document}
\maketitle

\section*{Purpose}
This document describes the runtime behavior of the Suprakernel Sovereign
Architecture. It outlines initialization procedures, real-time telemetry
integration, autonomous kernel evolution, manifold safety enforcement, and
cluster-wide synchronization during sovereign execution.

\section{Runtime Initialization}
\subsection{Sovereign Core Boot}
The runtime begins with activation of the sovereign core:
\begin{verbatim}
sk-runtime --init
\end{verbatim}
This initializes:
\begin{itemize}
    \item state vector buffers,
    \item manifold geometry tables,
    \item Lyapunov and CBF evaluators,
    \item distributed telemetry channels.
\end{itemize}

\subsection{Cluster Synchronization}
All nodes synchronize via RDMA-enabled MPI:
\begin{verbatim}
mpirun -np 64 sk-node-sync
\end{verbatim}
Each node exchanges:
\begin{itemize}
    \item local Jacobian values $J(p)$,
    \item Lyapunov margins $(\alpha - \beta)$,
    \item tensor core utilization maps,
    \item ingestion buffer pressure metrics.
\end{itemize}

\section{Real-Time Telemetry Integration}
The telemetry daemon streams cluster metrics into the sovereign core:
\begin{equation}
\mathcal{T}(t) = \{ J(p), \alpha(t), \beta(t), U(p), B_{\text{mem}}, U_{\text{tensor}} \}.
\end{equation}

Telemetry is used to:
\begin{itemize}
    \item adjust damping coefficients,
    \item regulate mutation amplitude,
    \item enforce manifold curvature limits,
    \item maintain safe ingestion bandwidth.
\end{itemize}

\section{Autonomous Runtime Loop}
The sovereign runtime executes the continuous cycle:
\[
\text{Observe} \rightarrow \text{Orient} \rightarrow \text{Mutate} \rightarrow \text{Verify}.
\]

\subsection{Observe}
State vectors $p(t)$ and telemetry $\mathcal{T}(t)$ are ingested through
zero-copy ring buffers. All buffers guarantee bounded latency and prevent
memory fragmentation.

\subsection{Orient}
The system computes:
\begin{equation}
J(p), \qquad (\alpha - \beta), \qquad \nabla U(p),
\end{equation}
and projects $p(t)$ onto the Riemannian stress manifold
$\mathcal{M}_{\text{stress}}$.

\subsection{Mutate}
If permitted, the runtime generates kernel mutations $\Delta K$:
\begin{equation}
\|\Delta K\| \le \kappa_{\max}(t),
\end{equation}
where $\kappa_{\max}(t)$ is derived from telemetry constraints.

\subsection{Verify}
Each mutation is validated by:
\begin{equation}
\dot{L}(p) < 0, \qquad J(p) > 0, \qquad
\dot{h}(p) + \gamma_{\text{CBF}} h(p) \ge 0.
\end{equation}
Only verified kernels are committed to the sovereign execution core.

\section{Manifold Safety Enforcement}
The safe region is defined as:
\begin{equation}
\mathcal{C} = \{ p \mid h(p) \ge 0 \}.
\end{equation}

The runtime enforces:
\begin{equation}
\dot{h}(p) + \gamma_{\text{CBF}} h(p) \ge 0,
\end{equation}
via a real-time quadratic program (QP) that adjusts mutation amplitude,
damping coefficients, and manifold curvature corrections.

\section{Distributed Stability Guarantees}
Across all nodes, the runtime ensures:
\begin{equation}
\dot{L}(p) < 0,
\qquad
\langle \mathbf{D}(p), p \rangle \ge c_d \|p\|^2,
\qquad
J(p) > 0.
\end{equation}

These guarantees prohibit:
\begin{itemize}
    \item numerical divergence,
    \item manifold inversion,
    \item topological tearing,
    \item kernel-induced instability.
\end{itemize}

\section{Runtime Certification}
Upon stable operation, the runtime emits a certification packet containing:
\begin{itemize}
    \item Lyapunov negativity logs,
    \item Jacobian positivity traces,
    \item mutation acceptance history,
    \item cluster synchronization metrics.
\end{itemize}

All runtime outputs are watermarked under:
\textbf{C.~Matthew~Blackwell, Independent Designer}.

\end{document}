@@ -1,0 +1,138 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{Runtime README}\\
+\large Sovereign Execution and Real-Time Stability Operations}
+\author{C.~Matthew~Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Purpose}
+This document describes the runtime behavior of the Suprakernel Sovereign
+Architecture. It outlines initialization procedures, real-time telemetry
+integration, autonomous kernel evolution, manifold safety enforcement, and
+cluster-wide synchronization during sovereign execution.
+
+\section{Runtime Initialization}
+\subsection{Sovereign Core Boot}
+The runtime begins with activation of the sovereign core:
+\begin{verbatim}
+sk-runtime --init
+\end{verbatim}
+This initializes:
+\begin{itemize}
+    \item state vector buffers,
+    \item manifold geometry tables,
+    \item Lyapunov and CBF evaluators,
+    \item distributed telemetry channels.
+\end{itemize}
+
+\subsection{Cluster Synchronization}
+All nodes synchronize via RDMA-enabled MPI:
+\begin{verbatim}
+mpirun -np 64 sk-node-sync
+\end{verbatim}
+Each node exchanges:
+\begin{itemize}
+    \item local Jacobian values $J(p)$,
+    \item Lyapunov margins $(\alpha - \beta)$,
+    \item tensor core utilization maps,
+    \item ingestion buffer pressure metrics.
+\end{itemize}
+
+\section{Real-Time Telemetry Integration}
+The telemetry daemon streams cluster metrics into the sovereign core:
+\begin{equation}
+\mathcal{T}(t) = \{ J(p), \alpha(t), \beta(t), U(p), B_{\text{mem}}, U_{\text{tensor}} \}.
+\end{equation}
+
+Telemetry is used to:
+\begin{itemize}
+    \item adjust damping coefficients,
+    \item regulate mutation amplitude,
+    \item enforce manifold curvature limits,
+    \item maintain safe ingestion bandwidth.
+\end{itemize}
+
+\section{Autonomous Runtime Loop}
+The sovereign runtime executes the continuous cycle:
+\[
+\text{Observe} \rightarrow \text{Orient} \rightarrow \text{Mutate} \rightarrow \text{Verify}.
+\]
+
+\subsection{Observe}
+State vectors $p(t)$ and telemetry $\mathcal{T}(t)$ are ingested through
+zero-copy ring buffers. All buffers guarantee bounded latency and prevent
+memory fragmentation.
+
+\subsection{Orient}
+The system computes:
+\begin{equation}
+J(p), \qquad (\alpha - \beta), \qquad \nabla U(p),
+\end{equation}
+and projects $p(t)$ onto the Riemannian stress manifold
+$\mathcal{M}_{\text{stress}}$.
+
+\subsection{Mutate}
+If permitted, the runtime generates kernel mutations $\Delta K$:
+\begin{equation}
+\|\Delta K\| \le \kappa_{\max}(t),
+\end{equation}
+where $\kappa_{\max}(t)$ is derived from telemetry constraints.
+
+\subsection{Verify}
+Each mutation is validated by:
+\begin{equation}
+\dot{L}(p) < 0, \qquad J(p) > 0, \qquad
+\dot{h}(p) + \gamma_{\text{CBF}} h(p) \ge 0.
+\end{equation}
+Only verified kernels are committed to the sovereign execution core.
+
+\section{Manifold Safety Enforcement}
+The safe region is defined as:
+\begin{equation}
+\mathcal{C} = \{ p \mid h(p) \ge 0 \}.
+\end{equation}
+
+The runtime enforces:
+\begin{equation}
+\dot{h}(p) + \gamma_{\text{CBF}} h(p) \ge 0,
+\end{equation}
+via a real-time quadratic program (QP) that adjusts mutation amplitude,
+damping coefficients, and manifold curvature corrections.
+
+\section{Distributed Stability Guarantees}
+Across all nodes, the runtime ensures:
+\begin{equation}
+\dot{L}(p) < 0,
+\qquad
+\langle \mathbf{D}(p), p \rangle \ge c_d \|p\|^2,
+\qquad
+J(p) > 0.
+\end{equation}
+
+These guarantees prohibit:
+\begin{itemize}
+    \item numerical divergence,
+    \item manifold inversion,
+    \item topological tearing,
+    \item kernel-induced instability.
+\end{itemize}
+
+\section{Runtime Certification}
+Upon stable operation, the runtime emits a certification packet containing:
+\begin{itemize}
+    \item Lyapunov negativity logs,
+    \item Jacobian positivity traces,
+    \item mutation acceptance history,
+    \item cluster synchronization metrics.
+\end{itemize}
+
+All runtime outputs are watermarked under:
+\textbf{C.~Matthew~Blackwell, Independent Designer}.
+
+\end{document}
