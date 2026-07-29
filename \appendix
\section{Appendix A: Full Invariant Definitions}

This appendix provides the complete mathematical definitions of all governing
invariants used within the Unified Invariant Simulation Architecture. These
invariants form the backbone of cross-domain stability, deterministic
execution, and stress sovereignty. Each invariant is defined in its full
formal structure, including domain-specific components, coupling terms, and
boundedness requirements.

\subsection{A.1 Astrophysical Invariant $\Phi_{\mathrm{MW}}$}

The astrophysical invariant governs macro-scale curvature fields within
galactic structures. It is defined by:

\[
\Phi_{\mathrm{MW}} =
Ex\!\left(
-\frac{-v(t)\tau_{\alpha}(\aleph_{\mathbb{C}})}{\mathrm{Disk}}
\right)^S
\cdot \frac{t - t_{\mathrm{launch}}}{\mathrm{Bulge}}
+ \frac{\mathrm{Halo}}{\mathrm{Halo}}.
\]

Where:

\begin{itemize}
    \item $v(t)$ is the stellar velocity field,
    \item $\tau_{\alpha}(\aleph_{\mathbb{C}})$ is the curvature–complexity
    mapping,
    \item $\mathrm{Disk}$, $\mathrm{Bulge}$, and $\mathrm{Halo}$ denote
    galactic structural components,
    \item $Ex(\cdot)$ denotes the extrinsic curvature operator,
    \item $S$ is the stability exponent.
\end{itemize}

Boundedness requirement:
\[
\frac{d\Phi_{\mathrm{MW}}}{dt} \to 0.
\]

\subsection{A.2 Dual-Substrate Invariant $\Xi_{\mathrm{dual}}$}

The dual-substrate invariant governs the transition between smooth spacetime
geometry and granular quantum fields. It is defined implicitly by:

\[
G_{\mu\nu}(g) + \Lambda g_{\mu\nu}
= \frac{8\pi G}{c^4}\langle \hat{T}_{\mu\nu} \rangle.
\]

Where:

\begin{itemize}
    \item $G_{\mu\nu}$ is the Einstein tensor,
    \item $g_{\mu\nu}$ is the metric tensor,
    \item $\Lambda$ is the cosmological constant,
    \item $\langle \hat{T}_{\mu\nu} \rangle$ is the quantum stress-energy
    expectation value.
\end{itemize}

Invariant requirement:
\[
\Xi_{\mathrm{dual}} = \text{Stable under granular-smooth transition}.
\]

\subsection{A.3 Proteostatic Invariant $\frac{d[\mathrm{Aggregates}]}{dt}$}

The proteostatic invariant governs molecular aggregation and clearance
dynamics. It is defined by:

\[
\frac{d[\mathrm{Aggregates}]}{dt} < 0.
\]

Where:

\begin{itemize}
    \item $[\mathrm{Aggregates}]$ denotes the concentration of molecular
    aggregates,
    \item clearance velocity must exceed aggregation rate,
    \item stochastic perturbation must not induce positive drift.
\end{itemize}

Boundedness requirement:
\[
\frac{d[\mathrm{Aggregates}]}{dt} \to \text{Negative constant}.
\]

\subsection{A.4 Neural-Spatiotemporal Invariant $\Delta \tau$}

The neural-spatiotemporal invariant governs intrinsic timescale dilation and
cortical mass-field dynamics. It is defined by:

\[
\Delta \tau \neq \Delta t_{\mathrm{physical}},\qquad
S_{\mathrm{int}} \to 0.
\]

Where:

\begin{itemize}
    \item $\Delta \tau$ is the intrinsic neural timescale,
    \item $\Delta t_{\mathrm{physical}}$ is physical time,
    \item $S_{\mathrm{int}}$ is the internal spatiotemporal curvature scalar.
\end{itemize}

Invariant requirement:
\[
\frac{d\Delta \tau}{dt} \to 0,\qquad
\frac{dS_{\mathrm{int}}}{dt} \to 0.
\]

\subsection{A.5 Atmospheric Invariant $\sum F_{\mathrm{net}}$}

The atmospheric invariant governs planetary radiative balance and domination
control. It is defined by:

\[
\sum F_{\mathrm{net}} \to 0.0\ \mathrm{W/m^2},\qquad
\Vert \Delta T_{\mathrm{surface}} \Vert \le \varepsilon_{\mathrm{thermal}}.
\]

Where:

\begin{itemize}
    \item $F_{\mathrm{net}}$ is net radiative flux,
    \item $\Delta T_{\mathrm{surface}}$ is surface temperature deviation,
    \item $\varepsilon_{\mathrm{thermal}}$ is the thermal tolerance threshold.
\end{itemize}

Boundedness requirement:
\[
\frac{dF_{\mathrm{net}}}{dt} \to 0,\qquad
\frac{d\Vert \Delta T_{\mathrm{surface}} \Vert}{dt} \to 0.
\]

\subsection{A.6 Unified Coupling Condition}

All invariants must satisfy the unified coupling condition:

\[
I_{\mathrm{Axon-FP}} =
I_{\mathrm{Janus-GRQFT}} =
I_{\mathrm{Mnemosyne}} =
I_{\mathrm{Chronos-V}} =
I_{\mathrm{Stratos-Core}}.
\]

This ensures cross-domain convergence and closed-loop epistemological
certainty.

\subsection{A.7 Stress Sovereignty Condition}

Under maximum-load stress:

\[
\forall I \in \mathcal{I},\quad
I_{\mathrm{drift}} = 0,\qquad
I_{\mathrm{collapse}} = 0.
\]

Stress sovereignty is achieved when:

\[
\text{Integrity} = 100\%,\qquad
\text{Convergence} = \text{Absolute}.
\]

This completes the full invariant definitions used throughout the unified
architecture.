@@ -1,0 +1,171 @@
+\appendix
+\section{Appendix A: Full Invariant Definitions}
+
+This appendix provides the complete mathematical definitions of all governing
+invariants used within the Unified Invariant Simulation Architecture. These
+invariants form the backbone of cross-domain stability, deterministic
+execution, and stress sovereignty. Each invariant is defined in its full
+formal structure, including domain-specific components, coupling terms, and
+boundedness requirements.
+
+\subsection{A.1 Astrophysical Invariant $\Phi_{\mathrm{MW}}$}
+
+The astrophysical invariant governs macro-scale curvature fields within
+galactic structures. It is defined by:
+
+\[
+\Phi_{\mathrm{MW}} =
+Ex\!\left(
+-\frac{-v(t)\tau_{\alpha}(\aleph_{\mathbb{C}})}{\mathrm{Disk}}
+\right)^S
+\cdot \frac{t - t_{\mathrm{launch}}}{\mathrm{Bulge}}
++ \frac{\mathrm{Halo}}{\mathrm{Halo}}.
+\]
+
+Where:
+
+\begin{itemize}
+    \item $v(t)$ is the stellar velocity field,
+    \item $\tau_{\alpha}(\aleph_{\mathbb{C}})$ is the curvature–complexity
+    mapping,
+    \item $\mathrm{Disk}$, $\mathrm{Bulge}$, and $\mathrm{Halo}$ denote
+    galactic structural components,
+    \item $Ex(\cdot)$ denotes the extrinsic curvature operator,
+    \item $S$ is the stability exponent.
+\end{itemize}
+
+Boundedness requirement:
+\[
+\frac{d\Phi_{\mathrm{MW}}}{dt} \to 0.
+\]
+
+\subsection{A.2 Dual-Substrate Invariant $\Xi_{\mathrm{dual}}$}
+
+The dual-substrate invariant governs the transition between smooth spacetime
+geometry and granular quantum fields. It is defined implicitly by:
+
+\[
+G_{\mu\nu}(g) + \Lambda g_{\mu\nu}
+= \frac{8\pi G}{c^4}\langle \hat{T}_{\mu\nu} \rangle.
+\]
+
+Where:
+
+\begin{itemize}
+    \item $G_{\mu\nu}$ is the Einstein tensor,
+    \item $g_{\mu\nu}$ is the metric tensor,
+    \item $\Lambda$ is the cosmological constant,
+    \item $\langle \hat{T}_{\mu\nu} \rangle$ is the quantum stress-energy
+    expectation value.
+\end{itemize}
+
+Invariant requirement:
+\[
+\Xi_{\mathrm{dual}} = \text{Stable under granular-smooth transition}.
+\]
+
+\subsection{A.3 Proteostatic Invariant $\frac{d[\mathrm{Aggregates}]}{dt}$}
+
+The proteostatic invariant governs molecular aggregation and clearance
+dynamics. It is defined by:
+
+\[
+\frac{d[\mathrm{Aggregates}]}{dt} < 0.
+\]
+
+Where:
+
+\begin{itemize}
+    \item $[\mathrm{Aggregates}]$ denotes the concentration of molecular
+    aggregates,
+    \item clearance velocity must exceed aggregation rate,
+    \item stochastic perturbation must not induce positive drift.
+\end{itemize}
+
+Boundedness requirement:
+\[
+\frac{d[\mathrm{Aggregates}]}{dt} \to \text{Negative constant}.
+\]
+
+\subsection{A.4 Neural-Spatiotemporal Invariant $\Delta \tau$}
+
+The neural-spatiotemporal invariant governs intrinsic timescale dilation and
+cortical mass-field dynamics. It is defined by:
+
+\[
+\Delta \tau \neq \Delta t_{\mathrm{physical}},\qquad
+S_{\mathrm{int}} \to 0.
+\]
+
+Where:
+
+\begin{itemize}
+    \item $\Delta \tau$ is the intrinsic neural timescale,
+    \item $\Delta t_{\mathrm{physical}}$ is physical time,
+    \item $S_{\mathrm{int}}$ is the internal spatiotemporal curvature scalar.
+\end{itemize}
+
+Invariant requirement:
+\[
+\frac{d\Delta \tau}{dt} \to 0,\qquad
+\frac{dS_{\mathrm{int}}}{dt} \to 0.
+\]
+
+\subsection{A.5 Atmospheric Invariant $\sum F_{\mathrm{net}}$}
+
+The atmospheric invariant governs planetary radiative balance and domination
+control. It is defined by:
+
+\[
+\sum F_{\mathrm{net}} \to 0.0\ \mathrm{W/m^2},\qquad
+\Vert \Delta T_{\mathrm{surface}} \Vert \le \varepsilon_{\mathrm{thermal}}.
+\]
+
+Where:
+
+\begin{itemize}
+    \item $F_{\mathrm{net}}$ is net radiative flux,
+    \item $\Delta T_{\mathrm{surface}}$ is surface temperature deviation,
+    \item $\varepsilon_{\mathrm{thermal}}$ is the thermal tolerance threshold.
+\end{itemize}
+
+Boundedness requirement:
+\[
+\frac{dF_{\mathrm{net}}}{dt} \to 0,\qquad
+\frac{d\Vert \Delta T_{\mathrm{surface}} \Vert}{dt} \to 0.
+\]
+
+\subsection{A.6 Unified Coupling Condition}
+
+All invariants must satisfy the unified coupling condition:
+
+\[
+I_{\mathrm{Axon-FP}} =
+I_{\mathrm{Janus-GRQFT}} =
+I_{\mathrm{Mnemosyne}} =
+I_{\mathrm{Chronos-V}} =
+I_{\mathrm{Stratos-Core}}.
+\]
+
+This ensures cross-domain convergence and closed-loop epistemological
+certainty.
+
+\subsection{A.7 Stress Sovereignty Condition}
+
+Under maximum-load stress:
+
+\[
+\forall I \in \mathcal{I},\quad
+I_{\mathrm{drift}} = 0,\qquad
+I_{\mathrm{collapse}} = 0.
+\]
+
+Stress sovereignty is achieved when:
+
+\[
+\text{Integrity} = 100\%,\qquad
+\text{Convergence} = \text{Absolute}.
+\]
+
+This completes the full invariant definitions used throughout the unified
+architecture.
