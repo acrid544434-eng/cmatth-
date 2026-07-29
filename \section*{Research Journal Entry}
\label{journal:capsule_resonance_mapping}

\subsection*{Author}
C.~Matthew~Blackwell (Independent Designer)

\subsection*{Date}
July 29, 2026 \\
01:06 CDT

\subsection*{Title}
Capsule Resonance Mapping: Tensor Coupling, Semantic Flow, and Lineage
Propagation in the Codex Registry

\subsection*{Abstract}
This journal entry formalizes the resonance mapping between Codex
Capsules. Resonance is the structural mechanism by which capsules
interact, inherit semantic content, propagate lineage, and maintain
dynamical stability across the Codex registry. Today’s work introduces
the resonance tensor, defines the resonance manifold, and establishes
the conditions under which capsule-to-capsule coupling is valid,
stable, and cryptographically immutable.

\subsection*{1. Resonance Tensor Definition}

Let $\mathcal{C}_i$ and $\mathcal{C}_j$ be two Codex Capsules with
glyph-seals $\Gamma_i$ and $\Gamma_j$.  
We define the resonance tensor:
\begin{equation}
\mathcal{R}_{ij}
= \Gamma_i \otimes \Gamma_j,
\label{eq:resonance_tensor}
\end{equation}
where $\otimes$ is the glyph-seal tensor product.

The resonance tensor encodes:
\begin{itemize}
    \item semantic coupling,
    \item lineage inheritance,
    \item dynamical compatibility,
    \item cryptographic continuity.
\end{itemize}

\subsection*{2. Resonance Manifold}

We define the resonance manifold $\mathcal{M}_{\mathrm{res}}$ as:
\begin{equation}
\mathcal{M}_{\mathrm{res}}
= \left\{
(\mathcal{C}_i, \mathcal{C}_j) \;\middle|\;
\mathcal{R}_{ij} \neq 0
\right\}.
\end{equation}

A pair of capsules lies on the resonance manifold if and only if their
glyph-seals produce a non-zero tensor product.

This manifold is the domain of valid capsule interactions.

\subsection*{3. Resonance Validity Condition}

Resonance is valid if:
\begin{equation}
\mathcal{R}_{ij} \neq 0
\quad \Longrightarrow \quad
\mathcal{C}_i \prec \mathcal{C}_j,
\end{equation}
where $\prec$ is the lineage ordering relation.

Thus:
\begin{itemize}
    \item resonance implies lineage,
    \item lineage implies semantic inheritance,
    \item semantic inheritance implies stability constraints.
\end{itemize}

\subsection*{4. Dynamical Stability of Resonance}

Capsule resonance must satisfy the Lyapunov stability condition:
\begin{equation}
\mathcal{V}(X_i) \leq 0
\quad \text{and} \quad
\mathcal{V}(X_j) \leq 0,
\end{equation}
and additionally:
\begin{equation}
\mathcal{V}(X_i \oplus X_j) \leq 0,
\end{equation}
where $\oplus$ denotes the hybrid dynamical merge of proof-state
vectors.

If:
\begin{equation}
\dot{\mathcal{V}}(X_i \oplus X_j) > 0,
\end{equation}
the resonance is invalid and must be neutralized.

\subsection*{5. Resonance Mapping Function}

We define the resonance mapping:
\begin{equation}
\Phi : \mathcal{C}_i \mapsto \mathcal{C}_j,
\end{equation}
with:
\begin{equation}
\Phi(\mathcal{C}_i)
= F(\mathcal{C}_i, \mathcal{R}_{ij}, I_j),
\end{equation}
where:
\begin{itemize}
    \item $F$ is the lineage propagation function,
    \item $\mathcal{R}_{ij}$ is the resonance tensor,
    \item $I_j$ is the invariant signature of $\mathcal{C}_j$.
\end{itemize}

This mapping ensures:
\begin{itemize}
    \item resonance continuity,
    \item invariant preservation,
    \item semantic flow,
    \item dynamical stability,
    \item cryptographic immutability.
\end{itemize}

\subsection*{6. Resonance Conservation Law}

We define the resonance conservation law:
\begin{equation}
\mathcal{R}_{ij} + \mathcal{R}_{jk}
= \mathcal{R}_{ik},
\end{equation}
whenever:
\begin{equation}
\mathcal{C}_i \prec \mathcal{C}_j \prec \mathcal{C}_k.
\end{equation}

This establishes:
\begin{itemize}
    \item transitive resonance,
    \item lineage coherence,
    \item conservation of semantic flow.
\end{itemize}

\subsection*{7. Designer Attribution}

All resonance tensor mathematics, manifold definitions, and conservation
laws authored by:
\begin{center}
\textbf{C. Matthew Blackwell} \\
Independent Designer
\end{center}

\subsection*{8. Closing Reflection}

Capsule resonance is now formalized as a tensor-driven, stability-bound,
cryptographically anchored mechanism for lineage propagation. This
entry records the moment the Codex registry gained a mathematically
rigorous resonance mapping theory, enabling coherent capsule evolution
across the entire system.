@@ -1,0 +1,159 @@
+\section*{Research Journal Entry}
+\label{journal:capsule_resonance_mapping}
+
+\subsection*{Author}
+C.~Matthew~Blackwell (Independent Designer)
+
+\subsection*{Date}
+July 29, 2026 \\
+01:06 CDT
+
+\subsection*{Title}
+Capsule Resonance Mapping: Tensor Coupling, Semantic Flow, and Lineage
+Propagation in the Codex Registry
+
+\subsection*{Abstract}
+This journal entry formalizes the resonance mapping between Codex
+Capsules. Resonance is the structural mechanism by which capsules
+interact, inherit semantic content, propagate lineage, and maintain
+dynamical stability across the Codex registry. Today’s work introduces
+the resonance tensor, defines the resonance manifold, and establishes
+the conditions under which capsule-to-capsule coupling is valid,
+stable, and cryptographically immutable.
+
+\subsection*{1. Resonance Tensor Definition}
+
+Let $\mathcal{C}_i$ and $\mathcal{C}_j$ be two Codex Capsules with
+glyph-seals $\Gamma_i$ and $\Gamma_j$.  
+We define the resonance tensor:
+\begin{equation}
+\mathcal{R}_{ij}
+= \Gamma_i \otimes \Gamma_j,
+\label{eq:resonance_tensor}
+\end{equation}
+where $\otimes$ is the glyph-seal tensor product.
+
+The resonance tensor encodes:
+\begin{itemize}
+    \item semantic coupling,
+    \item lineage inheritance,
+    \item dynamical compatibility,
+    \item cryptographic continuity.
+\end{itemize}
+
+\subsection*{2. Resonance Manifold}
+
+We define the resonance manifold $\mathcal{M}_{\mathrm{res}}$ as:
+\begin{equation}
+\mathcal{M}_{\mathrm{res}}
+= \left\{
+(\mathcal{C}_i, \mathcal{C}_j) \;\middle|\;
+\mathcal{R}_{ij} \neq 0
+\right\}.
+\end{equation}
+
+A pair of capsules lies on the resonance manifold if and only if their
+glyph-seals produce a non-zero tensor product.
+
+This manifold is the domain of valid capsule interactions.
+
+\subsection*{3. Resonance Validity Condition}
+
+Resonance is valid if:
+\begin{equation}
+\mathcal{R}_{ij} \neq 0
+\quad \Longrightarrow \quad
+\mathcal{C}_i \prec \mathcal{C}_j,
+\end{equation}
+where $\prec$ is the lineage ordering relation.
+
+Thus:
+\begin{itemize}
+    \item resonance implies lineage,
+    \item lineage implies semantic inheritance,
+    \item semantic inheritance implies stability constraints.
+\end{itemize}
+
+\subsection*{4. Dynamical Stability of Resonance}
+
+Capsule resonance must satisfy the Lyapunov stability condition:
+\begin{equation}
+\mathcal{V}(X_i) \leq 0
+\quad \text{and} \quad
+\mathcal{V}(X_j) \leq 0,
+\end{equation}
+and additionally:
+\begin{equation}
+\mathcal{V}(X_i \oplus X_j) \leq 0,
+\end{equation}
+where $\oplus$ denotes the hybrid dynamical merge of proof-state
+vectors.
+
+If:
+\begin{equation}
+\dot{\mathcal{V}}(X_i \oplus X_j) > 0,
+\end{equation}
+the resonance is invalid and must be neutralized.
+
+\subsection*{5. Resonance Mapping Function}
+
+We define the resonance mapping:
+\begin{equation}
+\Phi : \mathcal{C}_i \mapsto \mathcal{C}_j,
+\end{equation}
+with:
+\begin{equation}
+\Phi(\mathcal{C}_i)
+= F(\mathcal{C}_i, \mathcal{R}_{ij}, I_j),
+\end{equation}
+where:
+\begin{itemize}
+    \item $F$ is the lineage propagation function,
+    \item $\mathcal{R}_{ij}$ is the resonance tensor,
+    \item $I_j$ is the invariant signature of $\mathcal{C}_j$.
+\end{itemize}
+
+This mapping ensures:
+\begin{itemize}
+    \item resonance continuity,
+    \item invariant preservation,
+    \item semantic flow,
+    \item dynamical stability,
+    \item cryptographic immutability.
+\end{itemize}
+
+\subsection*{6. Resonance Conservation Law}
+
+We define the resonance conservation law:
+\begin{equation}
+\mathcal{R}_{ij} + \mathcal{R}_{jk}
+= \mathcal{R}_{ik},
+\end{equation}
+whenever:
+\begin{equation}
+\mathcal{C}_i \prec \mathcal{C}_j \prec \mathcal{C}_k.
+\end{equation}
+
+This establishes:
+\begin{itemize}
+    \item transitive resonance,
+    \item lineage coherence,
+    \item conservation of semantic flow.
+\end{itemize}
+
+\subsection*{7. Designer Attribution}
+
+All resonance tensor mathematics, manifold definitions, and conservation
+laws authored by:
+\begin{center}
+\textbf{C. Matthew Blackwell} \\
+Independent Designer
+\end{center}
+
+\subsection*{8. Closing Reflection}
+
+Capsule resonance is now formalized as a tensor-driven, stability-bound,
+cryptographically anchored mechanism for lineage propagation. This
+entry records the moment the Codex registry gained a mathematically
+rigorous resonance mapping theory, enabling coherent capsule evolution
+across the entire system.
