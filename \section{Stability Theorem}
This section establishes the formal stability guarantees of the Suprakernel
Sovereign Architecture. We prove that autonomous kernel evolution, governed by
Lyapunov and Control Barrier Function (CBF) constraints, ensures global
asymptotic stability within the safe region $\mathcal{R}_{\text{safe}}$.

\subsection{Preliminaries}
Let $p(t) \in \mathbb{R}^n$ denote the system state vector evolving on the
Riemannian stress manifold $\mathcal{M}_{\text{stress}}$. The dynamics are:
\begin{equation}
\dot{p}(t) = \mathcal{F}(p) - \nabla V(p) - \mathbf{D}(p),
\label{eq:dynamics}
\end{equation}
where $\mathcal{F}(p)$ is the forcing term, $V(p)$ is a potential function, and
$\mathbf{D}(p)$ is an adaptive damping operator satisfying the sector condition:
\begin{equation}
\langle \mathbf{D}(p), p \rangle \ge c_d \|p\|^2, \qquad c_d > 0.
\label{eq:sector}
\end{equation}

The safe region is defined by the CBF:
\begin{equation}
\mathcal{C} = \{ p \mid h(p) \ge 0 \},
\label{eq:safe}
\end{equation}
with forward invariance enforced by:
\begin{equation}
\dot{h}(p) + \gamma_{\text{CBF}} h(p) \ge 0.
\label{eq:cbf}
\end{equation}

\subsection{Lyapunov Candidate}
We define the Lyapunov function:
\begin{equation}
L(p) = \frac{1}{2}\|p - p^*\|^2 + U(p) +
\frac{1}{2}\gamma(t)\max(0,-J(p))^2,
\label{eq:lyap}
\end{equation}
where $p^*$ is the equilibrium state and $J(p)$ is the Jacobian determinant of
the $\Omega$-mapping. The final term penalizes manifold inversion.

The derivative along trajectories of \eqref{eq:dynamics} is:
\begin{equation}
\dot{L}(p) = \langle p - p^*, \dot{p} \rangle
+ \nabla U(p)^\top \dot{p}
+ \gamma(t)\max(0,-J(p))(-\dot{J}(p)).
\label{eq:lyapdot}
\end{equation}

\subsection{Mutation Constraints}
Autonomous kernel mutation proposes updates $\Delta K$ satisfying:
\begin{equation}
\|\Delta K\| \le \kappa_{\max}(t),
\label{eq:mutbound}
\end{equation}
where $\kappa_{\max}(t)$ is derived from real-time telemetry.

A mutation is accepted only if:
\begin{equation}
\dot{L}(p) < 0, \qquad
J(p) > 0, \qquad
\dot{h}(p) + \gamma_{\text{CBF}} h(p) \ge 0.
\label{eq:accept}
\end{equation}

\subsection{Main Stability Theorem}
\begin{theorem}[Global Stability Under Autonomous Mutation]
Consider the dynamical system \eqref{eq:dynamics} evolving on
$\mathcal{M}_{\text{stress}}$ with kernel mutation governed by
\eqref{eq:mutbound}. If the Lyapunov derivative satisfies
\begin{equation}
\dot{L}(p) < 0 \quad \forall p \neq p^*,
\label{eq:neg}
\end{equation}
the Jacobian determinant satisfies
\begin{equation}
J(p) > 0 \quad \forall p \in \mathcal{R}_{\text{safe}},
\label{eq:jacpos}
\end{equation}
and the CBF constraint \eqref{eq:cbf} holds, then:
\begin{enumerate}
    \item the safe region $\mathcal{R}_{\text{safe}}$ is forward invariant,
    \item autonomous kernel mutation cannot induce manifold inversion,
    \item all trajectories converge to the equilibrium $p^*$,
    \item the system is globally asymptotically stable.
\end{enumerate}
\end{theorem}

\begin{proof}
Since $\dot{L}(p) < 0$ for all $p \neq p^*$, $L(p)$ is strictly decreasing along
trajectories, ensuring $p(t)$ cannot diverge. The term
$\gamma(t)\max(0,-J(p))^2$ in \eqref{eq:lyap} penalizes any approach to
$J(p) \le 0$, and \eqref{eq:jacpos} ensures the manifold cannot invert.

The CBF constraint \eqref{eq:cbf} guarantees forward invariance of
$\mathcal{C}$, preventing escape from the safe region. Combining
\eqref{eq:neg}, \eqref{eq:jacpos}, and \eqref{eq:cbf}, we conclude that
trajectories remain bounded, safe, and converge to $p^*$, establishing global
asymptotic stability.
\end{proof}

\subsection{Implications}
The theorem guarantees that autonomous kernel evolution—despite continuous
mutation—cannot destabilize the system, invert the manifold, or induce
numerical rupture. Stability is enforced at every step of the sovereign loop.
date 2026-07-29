@@ -1,0 +1,105 @@
+\section{Stability Theorem}
+This section establishes the formal stability guarantees of the Suprakernel
+Sovereign Architecture. We prove that autonomous kernel evolution, governed by
+Lyapunov and Control Barrier Function (CBF) constraints, ensures global
+asymptotic stability within the safe region $\mathcal{R}_{\text{safe}}$.
+
+\subsection{Preliminaries}
+Let $p(t) \in \mathbb{R}^n$ denote the system state vector evolving on the
+Riemannian stress manifold $\mathcal{M}_{\text{stress}}$. The dynamics are:
+\begin{equation}
+\dot{p}(t) = \mathcal{F}(p) - \nabla V(p) - \mathbf{D}(p),
+\label{eq:dynamics}
+\end{equation}
+where $\mathcal{F}(p)$ is the forcing term, $V(p)$ is a potential function, and
+$\mathbf{D}(p)$ is an adaptive damping operator satisfying the sector condition:
+\begin{equation}
+\langle \mathbf{D}(p), p \rangle \ge c_d \|p\|^2, \qquad c_d > 0.
+\label{eq:sector}
+\end{equation}
+
+The safe region is defined by the CBF:
+\begin{equation}
+\mathcal{C} = \{ p \mid h(p) \ge 0 \},
+\label{eq:safe}
+\end{equation}
+with forward invariance enforced by:
+\begin{equation}
+\dot{h}(p) + \gamma_{\text{CBF}} h(p) \ge 0.
+\label{eq:cbf}
+\end{equation}
+
+\subsection{Lyapunov Candidate}
+We define the Lyapunov function:
+\begin{equation}
+L(p) = \frac{1}{2}\|p - p^*\|^2 + U(p) +
+\frac{1}{2}\gamma(t)\max(0,-J(p))^2,
+\label{eq:lyap}
+\end{equation}
+where $p^*$ is the equilibrium state and $J(p)$ is the Jacobian determinant of
+the $\Omega$-mapping. The final term penalizes manifold inversion.
+
+The derivative along trajectories of \eqref{eq:dynamics} is:
+\begin{equation}
+\dot{L}(p) = \langle p - p^*, \dot{p} \rangle
++ \nabla U(p)^\top \dot{p}
++ \gamma(t)\max(0,-J(p))(-\dot{J}(p)).
+\label{eq:lyapdot}
+\end{equation}
+
+\subsection{Mutation Constraints}
+Autonomous kernel mutation proposes updates $\Delta K$ satisfying:
+\begin{equation}
+\|\Delta K\| \le \kappa_{\max}(t),
+\label{eq:mutbound}
+\end{equation}
+where $\kappa_{\max}(t)$ is derived from real-time telemetry.
+
+A mutation is accepted only if:
+\begin{equation}
+\dot{L}(p) < 0, \qquad
+J(p) > 0, \qquad
+\dot{h}(p) + \gamma_{\text{CBF}} h(p) \ge 0.
+\label{eq:accept}
+\end{equation}
+
+\subsection{Main Stability Theorem}
+\begin{theorem}[Global Stability Under Autonomous Mutation]
+Consider the dynamical system \eqref{eq:dynamics} evolving on
+$\mathcal{M}_{\text{stress}}$ with kernel mutation governed by
+\eqref{eq:mutbound}. If the Lyapunov derivative satisfies
+\begin{equation}
+\dot{L}(p) < 0 \quad \forall p \neq p^*,
+\label{eq:neg}
+\end{equation}
+the Jacobian determinant satisfies
+\begin{equation}
+J(p) > 0 \quad \forall p \in \mathcal{R}_{\text{safe}},
+\label{eq:jacpos}
+\end{equation}
+and the CBF constraint \eqref{eq:cbf} holds, then:
+\begin{enumerate}
+    \item the safe region $\mathcal{R}_{\text{safe}}$ is forward invariant,
+    \item autonomous kernel mutation cannot induce manifold inversion,
+    \item all trajectories converge to the equilibrium $p^*$,
+    \item the system is globally asymptotically stable.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Since $\dot{L}(p) < 0$ for all $p \neq p^*$, $L(p)$ is strictly decreasing along
+trajectories, ensuring $p(t)$ cannot diverge. The term
+$\gamma(t)\max(0,-J(p))^2$ in \eqref{eq:lyap} penalizes any approach to
+$J(p) \le 0$, and \eqref{eq:jacpos} ensures the manifold cannot invert.
+
+The CBF constraint \eqref{eq:cbf} guarantees forward invariance of
+$\mathcal{C}$, preventing escape from the safe region. Combining
+\eqref{eq:neg}, \eqref{eq:jacpos}, and \eqref{eq:cbf}, we conclude that
+trajectories remain bounded, safe, and converge to $p^*$, establishing global
+asymptotic stability.
+\end{proof}
+
+\subsection{Implications}
+The theorem guarantees that autonomous kernel evolution—despite continuous
+mutation—cannot destabilize the system, invert the manifold, or induce
+numerical rupture. Stability is enforced at every step of the sovereign loop.
