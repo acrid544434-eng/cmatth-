@@ -1,0 +1,95 @@
+\section{Simulation Execution \& Orchestration Pipeline}
+
+\subsection{Master Execution Cycle}
+
+The simulation runner coordinates the multi-scale PDE substrate, immune CTSHA engine, and Hamiltonian stability controller. Let $t$ denote the global simulation clock and $\Delta t$ the discrete timestep satisfying all CFL bounds.
+
+\begin{enumerate}
+    \item \textbf{Initialization:} Load virtual patient profile, GI geometry, mucosal receptor density $\rho_{\mathrm{muc}}(x)$, and physiological field $P_H(x,0)$.
+    \item \textbf{Distributed Allocation:} Initialize MPI domains, assign PDE partitions, and allocate GPU buffers for surrogate neural modules.
+    \item \textbf{Main Simulation Loop:}
+    \begin{enumerate}
+        \item Solve GI fluid dynamics and peristaltic velocity field $v(x,t)$.
+        \item Update pH gradients and enzymatic kinetics $\mu(x,t)$.
+        \item Integrate pill dissolution PDE for $C_p(x,t)$.
+        \item Integrate antigen transport PDE for $C_a(x,t)$.
+        \item Evaluate immune CTSHA transition equation
+        \[
+        \frac{d\mathbf{P}}{dt} = \mathbf{Q}(\mathbf{X}(t))\,\mathbf{P}(t).
+        \]
+        \item Evaluate Lyapunov stability condition
+        \[
+        \frac{d}{dt} V_{\mathrm{Lyap}} \le -\gamma \|\delta\mathbf{q}\|^2.
+        \]
+    \end{enumerate}
+    \item \textbf{Stability Branch:}
+    \begin{itemize}
+        \item If unstable: apply damping correction to $\dot{\mathbf{q}}$ and $\dot{\mathbf{p}}$.
+        \item If stable: stream telemetry to visualization HUD.
+    \end{itemize}
+    \item \textbf{Clock Advancement:} Update $t \leftarrow t + \Delta t$.
+\end{enumerate}
+
+\section{Multi-Scale Test Matrix \& Parameter Initialization}
+
+\subsection{Physiological Regimes}
+
+The simulation is validated under three canonical GI regimes. Each regime defines pH ranges, motility velocities, epithelial response targets, and Lyapunov damping thresholds.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcccc}
+\hline
+\textbf{Test Regime} & \textbf{GI pH Range} & $v_{\max}$ (cm/s) &
+\textbf{Target Response} & $\gamma_{\min}$ \\
+\hline
+Regime A (Gastric Phase) & $1.5 \to 3.5$ & $0.2$ &
+Enteric polymer integrity & $1.42$ \\
+Regime B (Intestinal Phase) & $6.0 \to 7.4$ & $0.8$ &
+Controlled burst, M-cell uptake & $0.98$ \\
+Regime C (Inflammatory Stress) & $5.0 \to 8.0$ & $1.5$ &
+High DC activation, cytokine feedback & $2.10$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Real-Time Telemetry \& Validation Metrics}
+
+\subsection{Mass Balance Verification}
+
+At each timestep $t$, the total mass is validated:
+
+\[
+M_{\mathrm{total}}(t)
+=
+\int_0^L C_p(x,t)\,dx
++
+\int_0^L C_a(x,t)\,dx
++
+M_{\mathrm{absorbed}}(t),
+\]
+
+with numerical leakage constrained by
+
+\[
+\left| M_{\mathrm{total}}(t+\Delta t) - M_{\mathrm{total}}(t) \right|
+< 10^{-6}.
+\]
+
+\subsection{Compute Pipeline Performance}
+
+The PDE solver (C++ core) and surrogate neural network (LibTorch) exchange data via asynchronous buffers. Real-time constraints require:
+
+\[
+\mathrm{FPS} \ge 60,
+\qquad
+\mathrm{Load}_{\mathrm{GPU}} + \mathrm{Load}_{\mathrm{CPU}} \le \mathrm{Budget}_{\mathrm{RT}}.
+\]
+
+Telemetry includes:
+\begin{itemize}
+    \item PDE convergence residuals,
+    \item CTSHA transition entropy,
+    \item Hamiltonian drift $\Delta\mathcal{H}$,
+    \item CFL compliance indicators.
+\end{itemize}
