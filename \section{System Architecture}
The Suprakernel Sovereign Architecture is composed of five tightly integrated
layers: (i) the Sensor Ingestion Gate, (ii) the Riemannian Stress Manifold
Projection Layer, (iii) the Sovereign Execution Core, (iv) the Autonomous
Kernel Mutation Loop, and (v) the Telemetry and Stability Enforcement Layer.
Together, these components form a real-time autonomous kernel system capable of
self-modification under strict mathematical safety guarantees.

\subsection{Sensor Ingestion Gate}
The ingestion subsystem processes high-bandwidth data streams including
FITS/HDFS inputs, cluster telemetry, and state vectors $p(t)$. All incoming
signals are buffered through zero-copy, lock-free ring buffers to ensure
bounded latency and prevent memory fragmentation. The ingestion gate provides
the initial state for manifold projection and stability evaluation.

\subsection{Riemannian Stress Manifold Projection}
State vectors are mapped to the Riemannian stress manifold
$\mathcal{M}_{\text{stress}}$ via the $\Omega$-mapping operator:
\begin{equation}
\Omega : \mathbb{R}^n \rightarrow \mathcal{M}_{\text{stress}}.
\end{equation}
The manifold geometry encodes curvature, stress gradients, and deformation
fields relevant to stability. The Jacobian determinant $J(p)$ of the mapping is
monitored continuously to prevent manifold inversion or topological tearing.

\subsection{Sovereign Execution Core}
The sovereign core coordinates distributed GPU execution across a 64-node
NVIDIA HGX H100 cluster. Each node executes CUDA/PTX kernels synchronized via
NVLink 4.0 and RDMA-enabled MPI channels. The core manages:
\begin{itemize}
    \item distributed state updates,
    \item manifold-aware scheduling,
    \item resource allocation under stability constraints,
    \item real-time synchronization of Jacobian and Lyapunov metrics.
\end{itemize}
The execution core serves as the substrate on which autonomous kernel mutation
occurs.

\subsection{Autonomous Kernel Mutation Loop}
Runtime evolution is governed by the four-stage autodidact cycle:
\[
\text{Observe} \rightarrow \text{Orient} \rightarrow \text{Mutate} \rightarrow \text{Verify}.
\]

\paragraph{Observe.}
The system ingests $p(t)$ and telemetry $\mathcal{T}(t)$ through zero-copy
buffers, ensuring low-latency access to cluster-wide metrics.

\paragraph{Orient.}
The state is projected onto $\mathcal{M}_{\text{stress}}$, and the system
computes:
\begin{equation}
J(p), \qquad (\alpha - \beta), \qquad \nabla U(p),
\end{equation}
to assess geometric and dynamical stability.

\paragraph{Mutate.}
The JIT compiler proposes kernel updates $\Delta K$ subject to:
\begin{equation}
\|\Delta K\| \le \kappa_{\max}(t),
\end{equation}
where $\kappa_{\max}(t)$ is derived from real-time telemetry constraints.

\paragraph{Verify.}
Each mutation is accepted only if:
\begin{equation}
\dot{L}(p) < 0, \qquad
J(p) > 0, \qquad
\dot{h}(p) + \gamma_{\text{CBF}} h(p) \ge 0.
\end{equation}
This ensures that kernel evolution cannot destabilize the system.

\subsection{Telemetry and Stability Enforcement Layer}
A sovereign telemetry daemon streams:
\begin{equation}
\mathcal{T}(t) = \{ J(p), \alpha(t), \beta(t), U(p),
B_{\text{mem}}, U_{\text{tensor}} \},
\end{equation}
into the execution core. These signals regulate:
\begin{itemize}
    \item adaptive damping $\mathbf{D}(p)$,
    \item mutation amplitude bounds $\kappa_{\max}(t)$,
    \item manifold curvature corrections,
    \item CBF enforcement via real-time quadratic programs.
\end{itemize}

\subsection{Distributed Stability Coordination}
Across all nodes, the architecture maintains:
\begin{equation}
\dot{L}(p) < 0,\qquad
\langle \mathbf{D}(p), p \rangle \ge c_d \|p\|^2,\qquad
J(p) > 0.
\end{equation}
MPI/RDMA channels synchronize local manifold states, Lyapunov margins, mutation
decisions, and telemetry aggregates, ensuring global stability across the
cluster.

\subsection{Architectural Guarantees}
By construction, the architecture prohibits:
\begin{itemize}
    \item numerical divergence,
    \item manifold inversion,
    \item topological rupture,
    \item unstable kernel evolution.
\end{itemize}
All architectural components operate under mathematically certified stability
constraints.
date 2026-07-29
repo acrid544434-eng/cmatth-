@@ -1,0 +1,107 @@
+\section{System Architecture}
+The Suprakernel Sovereign Architecture is composed of five tightly integrated
+layers: (i) the Sensor Ingestion Gate, (ii) the Riemannian Stress Manifold
+Projection Layer, (iii) the Sovereign Execution Core, (iv) the Autonomous
+Kernel Mutation Loop, and (v) the Telemetry and Stability Enforcement Layer.
+Together, these components form a real-time autonomous kernel system capable of
+self-modification under strict mathematical safety guarantees.
+
+\subsection{Sensor Ingestion Gate}
+The ingestion subsystem processes high-bandwidth data streams including
+FITS/HDFS inputs, cluster telemetry, and state vectors $p(t)$. All incoming
+signals are buffered through zero-copy, lock-free ring buffers to ensure
+bounded latency and prevent memory fragmentation. The ingestion gate provides
+the initial state for manifold projection and stability evaluation.
+
+\subsection{Riemannian Stress Manifold Projection}
+State vectors are mapped to the Riemannian stress manifold
+$\mathcal{M}_{\text{stress}}$ via the $\Omega$-mapping operator:
+\begin{equation}
+\Omega : \mathbb{R}^n \rightarrow \mathcal{M}_{\text{stress}}.
+\end{equation}
+The manifold geometry encodes curvature, stress gradients, and deformation
+fields relevant to stability. The Jacobian determinant $J(p)$ of the mapping is
+monitored continuously to prevent manifold inversion or topological tearing.
+
+\subsection{Sovereign Execution Core}
+The sovereign core coordinates distributed GPU execution across a 64-node
+NVIDIA HGX H100 cluster. Each node executes CUDA/PTX kernels synchronized via
+NVLink 4.0 and RDMA-enabled MPI channels. The core manages:
+\begin{itemize}
+    \item distributed state updates,
+    \item manifold-aware scheduling,
+    \item resource allocation under stability constraints,
+    \item real-time synchronization of Jacobian and Lyapunov metrics.
+\end{itemize}
+The execution core serves as the substrate on which autonomous kernel mutation
+occurs.
+
+\subsection{Autonomous Kernel Mutation Loop}
+Runtime evolution is governed by the four-stage autodidact cycle:
+\[
+\text{Observe} \rightarrow \text{Orient} \rightarrow \text{Mutate} \rightarrow \text{Verify}.
+\]
+
+\paragraph{Observe.}
+The system ingests $p(t)$ and telemetry $\mathcal{T}(t)$ through zero-copy
+buffers, ensuring low-latency access to cluster-wide metrics.
+
+\paragraph{Orient.}
+The state is projected onto $\mathcal{M}_{\text{stress}}$, and the system
+computes:
+\begin{equation}
+J(p), \qquad (\alpha - \beta), \qquad \nabla U(p),
+\end{equation}
+to assess geometric and dynamical stability.
+
+\paragraph{Mutate.}
+The JIT compiler proposes kernel updates $\Delta K$ subject to:
+\begin{equation}
+\|\Delta K\| \le \kappa_{\max}(t),
+\end{equation}
+where $\kappa_{\max}(t)$ is derived from real-time telemetry constraints.
+
+\paragraph{Verify.}
+Each mutation is accepted only if:
+\begin{equation}
+\dot{L}(p) < 0, \qquad
+J(p) > 0, \qquad
+\dot{h}(p) + \gamma_{\text{CBF}} h(p) \ge 0.
+\end{equation}
+This ensures that kernel evolution cannot destabilize the system.
+
+\subsection{Telemetry and Stability Enforcement Layer}
+A sovereign telemetry daemon streams:
+\begin{equation}
+\mathcal{T}(t) = \{ J(p), \alpha(t), \beta(t), U(p),
+B_{\text{mem}}, U_{\text{tensor}} \},
+\end{equation}
+into the execution core. These signals regulate:
+\begin{itemize}
+    \item adaptive damping $\mathbf{D}(p)$,
+    \item mutation amplitude bounds $\kappa_{\max}(t)$,
+    \item manifold curvature corrections,
+    \item CBF enforcement via real-time quadratic programs.
+\end{itemize}
+
+\subsection{Distributed Stability Coordination}
+Across all nodes, the architecture maintains:
+\begin{equation}
+\dot{L}(p) < 0,\qquad
+\langle \mathbf{D}(p), p \rangle \ge c_d \|p\|^2,\qquad
+J(p) > 0.
+\end{equation}
+MPI/RDMA channels synchronize local manifold states, Lyapunov margins, mutation
+decisions, and telemetry aggregates, ensuring global stability across the
+cluster.
+
+\subsection{Architectural Guarantees}
+By construction, the architecture prohibits:
+\begin{itemize}
+    \item numerical divergence,
+    \item manifold inversion,
+    \item topological rupture,
+    \item unstable kernel evolution.
+\end{itemize}
+All architectural components operate under mathematically certified stability
+constraints.
