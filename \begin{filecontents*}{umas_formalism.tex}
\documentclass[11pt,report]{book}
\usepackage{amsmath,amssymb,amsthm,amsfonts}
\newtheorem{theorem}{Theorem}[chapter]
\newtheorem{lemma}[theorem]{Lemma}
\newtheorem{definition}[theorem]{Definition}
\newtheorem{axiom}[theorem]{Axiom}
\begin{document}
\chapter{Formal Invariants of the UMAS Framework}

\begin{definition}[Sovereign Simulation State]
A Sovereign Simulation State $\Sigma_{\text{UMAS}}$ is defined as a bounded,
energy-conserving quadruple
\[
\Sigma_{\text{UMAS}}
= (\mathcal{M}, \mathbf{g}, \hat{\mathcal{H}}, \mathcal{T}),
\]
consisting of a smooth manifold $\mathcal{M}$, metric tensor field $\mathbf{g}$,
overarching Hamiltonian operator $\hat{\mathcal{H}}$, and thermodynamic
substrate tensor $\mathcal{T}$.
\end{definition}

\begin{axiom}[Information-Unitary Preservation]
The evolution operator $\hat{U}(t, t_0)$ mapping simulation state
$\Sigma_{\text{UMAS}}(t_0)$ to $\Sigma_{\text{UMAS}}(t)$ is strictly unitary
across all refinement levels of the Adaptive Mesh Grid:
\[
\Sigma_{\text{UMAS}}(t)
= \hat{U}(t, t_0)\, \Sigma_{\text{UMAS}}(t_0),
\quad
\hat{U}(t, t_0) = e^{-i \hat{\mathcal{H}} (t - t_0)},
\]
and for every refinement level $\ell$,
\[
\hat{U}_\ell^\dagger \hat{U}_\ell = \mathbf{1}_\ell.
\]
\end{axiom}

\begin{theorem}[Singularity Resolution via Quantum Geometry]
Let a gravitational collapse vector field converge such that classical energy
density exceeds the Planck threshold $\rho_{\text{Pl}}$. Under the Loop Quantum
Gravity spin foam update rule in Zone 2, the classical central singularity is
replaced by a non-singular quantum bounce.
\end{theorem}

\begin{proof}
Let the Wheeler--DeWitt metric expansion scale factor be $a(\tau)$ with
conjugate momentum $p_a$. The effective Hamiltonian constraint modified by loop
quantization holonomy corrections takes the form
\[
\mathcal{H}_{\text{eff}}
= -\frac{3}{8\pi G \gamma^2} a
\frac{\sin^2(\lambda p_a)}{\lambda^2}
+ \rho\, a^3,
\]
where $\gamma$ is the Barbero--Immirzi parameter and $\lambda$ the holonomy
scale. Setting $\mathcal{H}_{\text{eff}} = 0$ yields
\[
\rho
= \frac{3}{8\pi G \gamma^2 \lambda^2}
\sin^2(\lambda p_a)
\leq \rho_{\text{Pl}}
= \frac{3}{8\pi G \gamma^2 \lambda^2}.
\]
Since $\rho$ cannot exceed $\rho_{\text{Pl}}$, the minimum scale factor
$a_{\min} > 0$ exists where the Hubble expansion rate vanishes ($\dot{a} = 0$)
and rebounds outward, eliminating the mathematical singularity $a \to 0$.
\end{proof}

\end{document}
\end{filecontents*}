@@ -1,0 +1,141 @@
+\begin{filecontents*}{umas_formalism.tex}
+\documentclass[11pt,report]{book}
+\usepackage{amsmath,amssymb,amsthm,amsfonts}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{axiom}[theorem]{Axiom}
+\begin{document}
+\chapter{Formal Invariants of the UMAS Framework}
+
+\begin{definition}[Sovereign Simulation State]
+A Sovereign Simulation State $\Sigma_{\text{UMAS}}$ is defined as a bounded,
+energy-conserving quadruple
+\[
+\Sigma_{\text{UMAS}}
+= (\mathcal{M}, \mathbf{g}, \hat{\mathcal{H}}, \mathcal{T}),
+\]
+consisting of a smooth manifold $\mathcal{M}$, metric tensor field $\mathbf{g}$,
+overarching Hamiltonian operator $\hat{\mathcal{H}}$, and thermodynamic
+substrate tensor $\mathcal{T}$.
+\end{definition}
+
+\begin{axiom}[Information-Unitary Preservation]
+The evolution operator $\hat{U}(t, t_0)$ mapping simulation state
+$\Sigma_{\text{UMAS}}(t_0)$ to $\Sigma_{\text{UMAS}}(t)$ is strictly unitary
+across all refinement levels of the Adaptive Mesh Grid:
+\[
+\Sigma_{\text{UMAS}}(t)
+= \hat{U}(t, t_0)\, \Sigma_{\text{UMAS}}(t_0),
+\quad
+\hat{U}(t, t_0) = e^{-i \hat{\mathcal{H}} (t - t_0)},
+\]
+and for every refinement level $\ell$,
+\[
+\hat{U}_\ell^\dagger \hat{U}_\ell = \mathbf{1}_\ell.
+\]
+\end{axiom}
+
+\begin{theorem}[Singularity Resolution via Quantum Geometry]
+Let a gravitational collapse vector field converge such that classical energy
+density exceeds the Planck threshold $\rho_{\text{Pl}}$. Under the Loop Quantum
+Gravity spin foam update rule in Zone 2, the classical central singularity is
+replaced by a non-singular quantum bounce.
+\end{theorem}
+
+\begin{proof}
+Let the Wheeler--DeWitt metric expansion scale factor be $a(\tau)$ with
+conjugate momentum $p_a$. The effective Hamiltonian constraint modified by loop
+quantization holonomy corrections takes the form
+\[
+\mathcal{H}_{\text{eff}}
+= -\frac{3}{8\pi G \gamma^2} a
+\frac{\sin^2(\lambda p_a)}{\lambda^2}
++ \rho\, a^3,
+\]
+where $\gamma$ is the Barbero--Immirzi parameter and $\lambda$ the holonomy
+scale. Setting $\mathcal{H}_{\text{eff}} = 0$ yields
+\[
+\rho
+= \frac{3}{8\pi G \gamma^2 \lambda^2}
+\sin^2(\lambda p_a)
+\leq \rho_{\text{Pl}}
+= \frac{3}{8\pi G \gamma^2 \lambda^2}.
+\]
+Since $\rho$ cannot exceed $\rho_{\text{Pl}}$, the minimum scale factor
+$a_{\min} > 0$ exists where the Hubble expansion rate vanishes ($\dot{a} = 0$)
+and rebounds outward, eliminating the mathematical singularity $a \to 0$.
+\end{proof}
+
+\end{document}
+\end{filecontents*}\begin{filecontents*}{umas_formalism.tex}
+\documentclass[11pt,report]{book}
+\usepackage{amsmath,amssymb,amsthm,amsfonts}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{axiom}[theorem]{Axiom}
+\begin{document}
+\chapter{Formal Invariants of the UMAS Framework}
+
+\begin{definition}[Sovereign Simulation State]
+A Sovereign Simulation State $\Sigma_{\text{UMAS}}$ is defined as a bounded,
+energy-conserving quadruple
+\[
+\Sigma_{\text{UMAS}}
+= (\mathcal{M}, \mathbf{g}, \hat{\mathcal{H}}, \mathcal{T}),
+\]
+consisting of a smooth manifold $\mathcal{M}$, metric tensor field $\mathbf{g}$,
+overarching Hamiltonian operator $\hat{\mathcal{H}}$, and thermodynamic
+substrate tensor $\mathcal{T}$.
+\end{definition}
+
+\begin{axiom}[Information-Unitary Preservation]
+The evolution operator $\hat{U}(t, t_0)$ mapping simulation state
+$\Sigma_{\text{UMAS}}(t_0)$ to $\Sigma_{\text{UMAS}}(t)$ is strictly unitary
+across all refinement levels of the Adaptive Mesh Grid:
+\[
+\Sigma_{\text{UMAS}}(t)
+= \hat{U}(t, t_0)\, \Sigma_{\text{UMAS}}(t_0),
+\quad
+\hat{U}(t, t_0) = e^{-i \hat{\mathcal{H}} (t - t_0)},
+\]
+and for every refinement level $\ell$,
+\[
+\hat{U}_\ell^\dagger \hat{U}_\ell = \mathbf{1}_\ell.
+\]
+\end{axiom}
+
+\begin{theorem}[Singularity Resolution via Quantum Geometry]
+Let a gravitational collapse vector field converge such that classical energy
+density exceeds the Planck threshold $\rho_{\text{Pl}}$. Under the Loop Quantum
+Gravity spin foam update rule in Zone 2, the classical central singularity is
+replaced by a non-singular quantum bounce.
+\end{theorem}
+
+\begin{proof}
+Let the Wheeler--DeWitt metric expansion scale factor be $a(\tau)$ with
+conjugate momentum $p_a$. The effective Hamiltonian constraint modified by loop
+quantization holonomy corrections takes the form
+\[
+\mathcal{H}_{\text{eff}}
+= -\frac{3}{8\pi G \gamma^2} a
+\frac{\sin^2(\lambda p_a)}{\lambda^2}
++ \rho\, a^3,
+\]
+where $\gamma$ is the Barbero--Immirzi parameter and $\lambda$ the holonomy
+scale. Setting $\mathcal{H}_{\text{eff}} = 0$ yields
+\[
+\rho
+= \frac{3}{8\pi G \gamma^2 \lambda^2}
+\sin^2(\lambda p_a)
+\leq \rho_{\text{Pl}}
+= \frac{3}{8\pi G \gamma^2 \lambda^2}.
+\]
+Since $\rho$ cannot exceed $\rho_{\text{Pl}}$, the minimum scale factor
+$a_{\min} > 0$ exists where the Hubble expansion rate vanishes ($\dot{a} = 0$)
+and rebounds outward, eliminating the mathematical singularity $a \to 0$.
+\end{proof}
+
+\end{document}
+\end{filecontents*}
