@@ -1,0 +1,229 @@
+\section{Gastrointestinal Transport Model}
+
+\subsection{Convection--Diffusion--Reaction PDE System}
+
+Let $x \in [0,L]$ parametrize the GI lumen and $t \ge 0$ denote time.  
+Define the fields:
+\[
+C_p(x,t) \quad \text{(intact pill/core matrix)}, \qquad
+C_a(x,t) \quad \text{(released antigen)}, \qquad
+P_H(x,t) \quad \text{(local physiological field)}.
+\]
+
+Convection velocity $v(x)$ and diffusion coefficients $D_p(x), D_a(x)$ are spatially varying.
+
+\subsubsection{Pill/Core Matrix Dynamics}
+
+\begin{equation}
+\frac{\partial C_p}{\partial t}
++ \frac{\partial}{\partial x}\big(v(x) C_p\big)
+=
+\frac{\partial}{\partial x}\!\left(D_p(x)\frac{\partial C_p}{\partial x}\right)
+-
+k_{\mathrm{diss}}\!\left(x,P_H(x,t)\right)\, C_p^\alpha(x,t).
+\end{equation}
+
+\subsubsection{Released Antigen Dynamics}
+
+\begin{equation}
+\frac{\partial C_a}{\partial t}
++ \frac{\partial}{\partial x}\big(v(x) C_a\big)
+=
+\frac{\partial}{\partial x}\!\left(D_a(x)\frac{\partial C_a}{\partial x}\right)
++
+k_{\mathrm{diss}}\!\left(x,P_H(x,t)\right)\, C_p^\alpha(x,t)
+-
+k_{\mathrm{uptake}}(x)\, C_a(x,t)
+-
+\mu(x)\, C_a(x,t).
+\end{equation}
+
+\subsubsection{Boundary Conditions}
+
+\[
+\left.\frac{\partial C_p}{\partial x}\right|_{x=0,L}
+=
+\left.\frac{\partial C_a}{\partial x}\right|_{x=0,L}
+= 0.
+\]
+
+---
+
+\section{Immune State Machine (CTSHA)}
+
+\subsection{State Space}
+
+\[
+\mathcal{S} = \{S_0, S_1, S_2, S_3\}
+\]
+with:
+\[
+S_0 = \text{Na\"ive},\quad
+S_1 = \text{Capture/Processing},\quad
+S_2 = \text{Maturation/Migration},\quad
+S_3 = \text{Effector/Regulatory}.
+\]
+
+\subsection{Biochemical Driver Vector}
+
+\[
+\mathbf{X}(t) =
+\begin{bmatrix}
+C_a^{\mathrm{loc}}(t) \\
+\mathrm{DC}_{\mathrm{active}}(t) \\
+\mathrm{IL}\!-\!10(t) \\
+\mathrm{TGF}\!-\!\beta(t) \\
+\mathrm{TNF}\!-\!\alpha(t)
+\end{bmatrix}.
+\]
+
+\subsection{Generator Matrix}
+
+Let $\mathbf{P}(t)$ be the state probability vector.  
+The CTSHA dynamics follow:
+
+\begin{equation}
+\frac{d\mathbf{P}}{dt}
+=
+\mathbf{Q}(\mathbf{X}(t))\, \mathbf{P}(t),
+\end{equation}
+
+where $\mathbf{Q}$ satisfies:
+
+\[
+q_{ii}(\mathbf{X}) = -\sum_{j\neq i} q_{ij}(\mathbf{X}).
+\]
+
+Example transitions:
+
+\[
+q_{01} = k_{01} C_a^{\mathrm{loc}}(t), \qquad
+q_{12} = k_{12} \mathrm{DC}_{\mathrm{active}}(t),
+\]
+\[
+q_{23} = k_{23}\, g\!\left(\mathrm{IL}\!-\!10, \mathrm{TGF}\!-\!\beta, \mathrm{TNF}\!-\!\alpha\right).
+\]
+
+---
+
+\section{Lagrangian and Hamiltonian Formulation}
+
+\subsection{Generalized Coordinates}
+
+\[
+\mathbf{q}(t) =
+\begin{bmatrix}
+x_{\mathrm{pill}}(t) \\
+C_p(\cdot,t) \\
+C_a(\cdot,t) \\
+\rho_{\mathrm{muc}}(\cdot,t) \\
+\mathbf{S}_{\mathrm{immune}}(t)
+\end{bmatrix},
+\qquad
+\dot{\mathbf{q}}(t) = \frac{d\mathbf{q}}{dt}.
+\]
+
+\subsection{Kinetic Energy}
+
+\begin{align}
+T &=
+\frac{1}{2} m_{\mathrm{pill}} \dot{x}_{\mathrm{pill}}^2
++
+\frac{1}{2} \int_0^L \rho_{\mathrm{fluid}}(x)\, u^2(x,t)\, dx \\
+&\quad+
+\frac{1}{2} \int_0^L
+\left[
+\eta_p(x)\, \dot{C}_p^2(x,t)
++
+\eta_a(x)\, \dot{C}_a^2(x,t)
+\right] dx.
+\end{align}
+
+\subsection{Potential Energy}
+
+\begin{align}
+V &=
+\int_0^L
+\Big(
+\Phi_{\mathrm{chem}}(C_p,C_a,P_H)
++
+\Phi_{\mathrm{osm}}(C_a)
+\Big)\, dx
++
+\Phi_{\mathrm{immune}}\!\left(\mathbf{S}_{\mathrm{immune}},\mathbf{X}\right).
+\end{align}
+
+\subsection{Lagrangian}
+
+\[
+\mathcal{L}(\mathbf{q},\dot{\mathbf{q}},t) = T - V.
+\]
+
+\subsection{Canonical Momenta}
+
+\[
+p_{x_{\mathrm{pill}}} = m_{\mathrm{pill}} \dot{x}_{\mathrm{pill}},
+\qquad
+p_{C_p}(x,t) = \eta_p(x)\dot{C}_p(x,t),
+\qquad
+p_{C_a}(x,t) = \eta_a(x)\dot{C}_a(x,t).
+\]
+
+\subsection{Hamiltonian}
+
+\begin{align}
+\mathcal{H}(\mathbf{q},\mathbf{p},t)
+&=
+\frac{p_{x_{\mathrm{pill}}}^2}{2 m_{\mathrm{pill}}}
++
+\int_0^L
+\left(
+\frac{p_{C_p}^2}{2\eta_p(x)}
++
+\frac{p_{C_a}^2}{2\eta_a(x)}
+\right) dx
++
+V(\mathbf{q},t).
+\end{align}
+
+---
+
+\section{Stability Analysis}
+
+\subsection{Lyapunov Functional}
+
+Let $(\mathbf{q}^*,\mathbf{p}^*)$ be equilibrium.  
+Define perturbations:
+
+\[
+\delta\mathbf{q} = \mathbf{q} - \mathbf{q}^*, \qquad
+\delta\mathbf{p} = \mathbf{p} - \mathbf{p}^*.
+\]
+
+Lyapunov candidate:
+
+\[
+V_{\mathrm{Lyap}} = \mathcal{H}(\mathbf{q},\mathbf{p}) - \mathcal{H}(\mathbf{q}^*,\mathbf{p}^*).
+\]
+
+\subsection{Asymptotic Stability Condition}
+
+\begin{equation}
+\frac{d}{dt} V_{\mathrm{Lyap}}
+\le
+-\gamma \|\delta\mathbf{q}\|^2,
+\qquad
+\gamma > 0.
+\end{equation}
+
+\subsection{CFL Condition}
+
+\[
+\frac{|v(x)|\, \Delta t}{\Delta x} \le 1,
+\qquad
+\frac{D_{\max}(x)\, \Delta t}{\Delta x^2} \le \frac{1}{2},
+\]
+\[
+\Delta t \le
+\frac{1}{\max_x\left(k_{\mathrm{diss}} + k_{\mathrm{uptake}} + \mu\right)}.
+\]
