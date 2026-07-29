@@ -1,0 +1,31 @@
+\begin{theorem}[Silent-Void Theorem]
+Let $n_*$, $\lambda_{\text{abio}}$, $v_{\text{probe}}$, 
+$\Gamma_{\text{filter}}$, and $p_{\text{comm}}$ be as defined above. The galaxy 
+is silent (contains zero active communicating civilizations) with probability 
+$F$ given by
+\[
+F = \exp\left(
+- n_*\,\lambda_{\text{abio}}\,
+\frac{4}{3}\pi
+\left(\frac{v_{\text{probe}}}{\Gamma_{\text{filter}}}\right)^3
+p_{\text{comm}}
+\right).
+\]
+Moreover, the galaxy is \emph{almost surely silent} (i.e., $F \to 1$) if and only 
+if
+\[
+\lambda_{\text{abio}}
+\left(\frac{v_{\text{probe}}}{\Gamma_{\text{filter}}}\right)^3
+\to 0.
+\]
+\end{theorem}
+
+\begin{proof}
+The first statement follows directly from the Poisson silence condition and the 
+definition of $\Lambda$. For the second statement, observe that 
+$F = \exp(-\Lambda)$ and $\Lambda$ is proportional to 
+$\lambda_{\text{abio}} (v_{\text{probe}}/\Gamma_{\text{filter}})^3$. Thus 
+$\Lambda \to 0$ if and only if 
+$\lambda_{\text{abio}} (v_{\text{probe}}/\Gamma_{\text{filter}})^3 \to 0$, 
+which implies $F \to 1$.
+\end{proof}
