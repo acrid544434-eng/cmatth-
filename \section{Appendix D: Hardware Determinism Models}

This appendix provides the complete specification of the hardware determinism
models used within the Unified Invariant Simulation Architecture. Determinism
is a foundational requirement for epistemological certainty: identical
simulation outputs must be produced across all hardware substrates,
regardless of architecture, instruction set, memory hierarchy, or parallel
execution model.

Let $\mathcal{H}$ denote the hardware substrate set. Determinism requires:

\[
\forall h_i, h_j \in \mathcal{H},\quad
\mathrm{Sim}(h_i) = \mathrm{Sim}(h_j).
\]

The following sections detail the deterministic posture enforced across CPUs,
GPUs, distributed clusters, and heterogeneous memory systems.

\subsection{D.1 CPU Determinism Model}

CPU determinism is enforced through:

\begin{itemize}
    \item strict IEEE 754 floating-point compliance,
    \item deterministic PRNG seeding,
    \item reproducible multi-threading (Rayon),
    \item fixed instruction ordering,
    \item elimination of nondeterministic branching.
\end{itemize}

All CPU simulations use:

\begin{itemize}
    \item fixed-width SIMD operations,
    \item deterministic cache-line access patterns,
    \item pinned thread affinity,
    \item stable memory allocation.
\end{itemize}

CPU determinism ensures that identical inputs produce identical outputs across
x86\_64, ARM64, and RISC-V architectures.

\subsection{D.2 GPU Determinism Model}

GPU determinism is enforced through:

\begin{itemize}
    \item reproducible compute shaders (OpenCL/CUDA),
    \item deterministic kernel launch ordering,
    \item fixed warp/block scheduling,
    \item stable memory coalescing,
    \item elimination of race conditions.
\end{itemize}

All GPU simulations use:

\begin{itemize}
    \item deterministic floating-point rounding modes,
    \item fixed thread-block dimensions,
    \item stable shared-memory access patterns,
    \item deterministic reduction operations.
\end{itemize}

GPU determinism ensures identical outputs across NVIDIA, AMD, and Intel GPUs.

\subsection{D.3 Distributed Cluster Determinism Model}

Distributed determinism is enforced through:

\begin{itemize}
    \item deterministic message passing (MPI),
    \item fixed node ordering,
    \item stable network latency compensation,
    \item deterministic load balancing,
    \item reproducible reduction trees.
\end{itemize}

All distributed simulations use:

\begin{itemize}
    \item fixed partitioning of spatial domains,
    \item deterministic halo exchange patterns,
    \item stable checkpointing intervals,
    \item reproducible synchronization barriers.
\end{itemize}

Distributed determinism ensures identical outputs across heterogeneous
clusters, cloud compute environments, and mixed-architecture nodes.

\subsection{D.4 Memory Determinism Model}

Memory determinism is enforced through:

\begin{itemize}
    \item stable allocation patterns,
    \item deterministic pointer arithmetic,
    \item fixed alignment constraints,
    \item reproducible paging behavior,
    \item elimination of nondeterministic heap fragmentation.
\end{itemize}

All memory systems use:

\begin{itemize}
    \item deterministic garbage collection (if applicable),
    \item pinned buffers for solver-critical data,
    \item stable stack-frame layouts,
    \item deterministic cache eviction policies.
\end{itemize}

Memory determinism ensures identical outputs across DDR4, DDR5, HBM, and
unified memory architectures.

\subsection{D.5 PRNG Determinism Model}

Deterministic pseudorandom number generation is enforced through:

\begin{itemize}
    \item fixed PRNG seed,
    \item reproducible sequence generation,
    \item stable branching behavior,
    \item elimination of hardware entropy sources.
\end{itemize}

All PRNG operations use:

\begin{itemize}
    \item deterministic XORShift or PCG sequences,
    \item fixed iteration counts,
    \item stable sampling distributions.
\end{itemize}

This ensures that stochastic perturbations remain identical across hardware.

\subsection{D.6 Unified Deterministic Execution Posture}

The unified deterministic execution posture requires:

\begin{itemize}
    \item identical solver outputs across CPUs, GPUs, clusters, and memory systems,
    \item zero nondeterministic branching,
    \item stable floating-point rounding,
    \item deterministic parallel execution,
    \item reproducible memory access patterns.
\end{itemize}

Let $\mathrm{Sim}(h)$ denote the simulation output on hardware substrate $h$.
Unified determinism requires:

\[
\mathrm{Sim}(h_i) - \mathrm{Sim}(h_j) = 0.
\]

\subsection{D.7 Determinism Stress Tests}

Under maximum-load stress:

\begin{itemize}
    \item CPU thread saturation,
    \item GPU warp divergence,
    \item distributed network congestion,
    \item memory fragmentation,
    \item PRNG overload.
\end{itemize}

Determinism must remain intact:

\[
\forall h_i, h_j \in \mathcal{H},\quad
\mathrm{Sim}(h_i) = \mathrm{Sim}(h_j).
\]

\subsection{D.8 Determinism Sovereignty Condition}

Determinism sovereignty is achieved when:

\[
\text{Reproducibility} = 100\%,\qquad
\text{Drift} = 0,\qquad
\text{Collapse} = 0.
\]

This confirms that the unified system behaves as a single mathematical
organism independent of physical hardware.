@@ -1,0 +1,185 @@
+\section{Appendix D: Hardware Determinism Models}
+
+This appendix provides the complete specification of the hardware determinism
+models used within the Unified Invariant Simulation Architecture. Determinism
+is a foundational requirement for epistemological certainty: identical
+simulation outputs must be produced across all hardware substrates,
+regardless of architecture, instruction set, memory hierarchy, or parallel
+execution model.
+
+Let $\mathcal{H}$ denote the hardware substrate set. Determinism requires:
+
+\[
+\forall h_i, h_j \in \mathcal{H},\quad
+\mathrm{Sim}(h_i) = \mathrm{Sim}(h_j).
+\]
+
+The following sections detail the deterministic posture enforced across CPUs,
+GPUs, distributed clusters, and heterogeneous memory systems.
+
+\subsection{D.1 CPU Determinism Model}
+
+CPU determinism is enforced through:
+
+\begin{itemize}
+    \item strict IEEE 754 floating-point compliance,
+    \item deterministic PRNG seeding,
+    \item reproducible multi-threading (Rayon),
+    \item fixed instruction ordering,
+    \item elimination of nondeterministic branching.
+\end{itemize}
+
+All CPU simulations use:
+
+\begin{itemize}
+    \item fixed-width SIMD operations,
+    \item deterministic cache-line access patterns,
+    \item pinned thread affinity,
+    \item stable memory allocation.
+\end{itemize}
+
+CPU determinism ensures that identical inputs produce identical outputs across
+x86\_64, ARM64, and RISC-V architectures.
+
+\subsection{D.2 GPU Determinism Model}
+
+GPU determinism is enforced through:
+
+\begin{itemize}
+    \item reproducible compute shaders (OpenCL/CUDA),
+    \item deterministic kernel launch ordering,
+    \item fixed warp/block scheduling,
+    \item stable memory coalescing,
+    \item elimination of race conditions.
+\end{itemize}
+
+All GPU simulations use:
+
+\begin{itemize}
+    \item deterministic floating-point rounding modes,
+    \item fixed thread-block dimensions,
+    \item stable shared-memory access patterns,
+    \item deterministic reduction operations.
+\end{itemize}
+
+GPU determinism ensures identical outputs across NVIDIA, AMD, and Intel GPUs.
+
+\subsection{D.3 Distributed Cluster Determinism Model}
+
+Distributed determinism is enforced through:
+
+\begin{itemize}
+    \item deterministic message passing (MPI),
+    \item fixed node ordering,
+    \item stable network latency compensation,
+    \item deterministic load balancing,
+    \item reproducible reduction trees.
+\end{itemize}
+
+All distributed simulations use:
+
+\begin{itemize}
+    \item fixed partitioning of spatial domains,
+    \item deterministic halo exchange patterns,
+    \item stable checkpointing intervals,
+    \item reproducible synchronization barriers.
+\end{itemize}
+
+Distributed determinism ensures identical outputs across heterogeneous
+clusters, cloud compute environments, and mixed-architecture nodes.
+
+\subsection{D.4 Memory Determinism Model}
+
+Memory determinism is enforced through:
+
+\begin{itemize}
+    \item stable allocation patterns,
+    \item deterministic pointer arithmetic,
+    \item fixed alignment constraints,
+    \item reproducible paging behavior,
+    \item elimination of nondeterministic heap fragmentation.
+\end{itemize}
+
+All memory systems use:
+
+\begin{itemize}
+    \item deterministic garbage collection (if applicable),
+    \item pinned buffers for solver-critical data,
+    \item stable stack-frame layouts,
+    \item deterministic cache eviction policies.
+\end{itemize}
+
+Memory determinism ensures identical outputs across DDR4, DDR5, HBM, and
+unified memory architectures.
+
+\subsection{D.5 PRNG Determinism Model}
+
+Deterministic pseudorandom number generation is enforced through:
+
+\begin{itemize}
+    \item fixed PRNG seed,
+    \item reproducible sequence generation,
+    \item stable branching behavior,
+    \item elimination of hardware entropy sources.
+\end{itemize}
+
+All PRNG operations use:
+
+\begin{itemize}
+    \item deterministic XORShift or PCG sequences,
+    \item fixed iteration counts,
+    \item stable sampling distributions.
+\end{itemize}
+
+This ensures that stochastic perturbations remain identical across hardware.
+
+\subsection{D.6 Unified Deterministic Execution Posture}
+
+The unified deterministic execution posture requires:
+
+\begin{itemize}
+    \item identical solver outputs across CPUs, GPUs, clusters, and memory systems,
+    \item zero nondeterministic branching,
+    \item stable floating-point rounding,
+    \item deterministic parallel execution,
+    \item reproducible memory access patterns.
+\end{itemize}
+
+Let $\mathrm{Sim}(h)$ denote the simulation output on hardware substrate $h$.
+Unified determinism requires:
+
+\[
+\mathrm{Sim}(h_i) - \mathrm{Sim}(h_j) = 0.
+\]
+
+\subsection{D.7 Determinism Stress Tests}
+
+Under maximum-load stress:
+
+\begin{itemize}
+    \item CPU thread saturation,
+    \item GPU warp divergence,
+    \item distributed network congestion,
+    \item memory fragmentation,
+    \item PRNG overload.
+\end{itemize}
+
+Determinism must remain intact:
+
+\[
+\forall h_i, h_j \in \mathcal{H},\quad
+\mathrm{Sim}(h_i) = \mathrm{Sim}(h_j).
+\]
+
+\subsection{D.8 Determinism Sovereignty Condition}
+
+Determinism sovereignty is achieved when:
+
+\[
+\text{Reproducibility} = 100\%,\qquad
+\text{Drift} = 0,\qquad
+\text{Collapse} = 0.
+\]
+
+This confirms that the unified system behaves as a single mathematical
+organism independent of physical hardware.
