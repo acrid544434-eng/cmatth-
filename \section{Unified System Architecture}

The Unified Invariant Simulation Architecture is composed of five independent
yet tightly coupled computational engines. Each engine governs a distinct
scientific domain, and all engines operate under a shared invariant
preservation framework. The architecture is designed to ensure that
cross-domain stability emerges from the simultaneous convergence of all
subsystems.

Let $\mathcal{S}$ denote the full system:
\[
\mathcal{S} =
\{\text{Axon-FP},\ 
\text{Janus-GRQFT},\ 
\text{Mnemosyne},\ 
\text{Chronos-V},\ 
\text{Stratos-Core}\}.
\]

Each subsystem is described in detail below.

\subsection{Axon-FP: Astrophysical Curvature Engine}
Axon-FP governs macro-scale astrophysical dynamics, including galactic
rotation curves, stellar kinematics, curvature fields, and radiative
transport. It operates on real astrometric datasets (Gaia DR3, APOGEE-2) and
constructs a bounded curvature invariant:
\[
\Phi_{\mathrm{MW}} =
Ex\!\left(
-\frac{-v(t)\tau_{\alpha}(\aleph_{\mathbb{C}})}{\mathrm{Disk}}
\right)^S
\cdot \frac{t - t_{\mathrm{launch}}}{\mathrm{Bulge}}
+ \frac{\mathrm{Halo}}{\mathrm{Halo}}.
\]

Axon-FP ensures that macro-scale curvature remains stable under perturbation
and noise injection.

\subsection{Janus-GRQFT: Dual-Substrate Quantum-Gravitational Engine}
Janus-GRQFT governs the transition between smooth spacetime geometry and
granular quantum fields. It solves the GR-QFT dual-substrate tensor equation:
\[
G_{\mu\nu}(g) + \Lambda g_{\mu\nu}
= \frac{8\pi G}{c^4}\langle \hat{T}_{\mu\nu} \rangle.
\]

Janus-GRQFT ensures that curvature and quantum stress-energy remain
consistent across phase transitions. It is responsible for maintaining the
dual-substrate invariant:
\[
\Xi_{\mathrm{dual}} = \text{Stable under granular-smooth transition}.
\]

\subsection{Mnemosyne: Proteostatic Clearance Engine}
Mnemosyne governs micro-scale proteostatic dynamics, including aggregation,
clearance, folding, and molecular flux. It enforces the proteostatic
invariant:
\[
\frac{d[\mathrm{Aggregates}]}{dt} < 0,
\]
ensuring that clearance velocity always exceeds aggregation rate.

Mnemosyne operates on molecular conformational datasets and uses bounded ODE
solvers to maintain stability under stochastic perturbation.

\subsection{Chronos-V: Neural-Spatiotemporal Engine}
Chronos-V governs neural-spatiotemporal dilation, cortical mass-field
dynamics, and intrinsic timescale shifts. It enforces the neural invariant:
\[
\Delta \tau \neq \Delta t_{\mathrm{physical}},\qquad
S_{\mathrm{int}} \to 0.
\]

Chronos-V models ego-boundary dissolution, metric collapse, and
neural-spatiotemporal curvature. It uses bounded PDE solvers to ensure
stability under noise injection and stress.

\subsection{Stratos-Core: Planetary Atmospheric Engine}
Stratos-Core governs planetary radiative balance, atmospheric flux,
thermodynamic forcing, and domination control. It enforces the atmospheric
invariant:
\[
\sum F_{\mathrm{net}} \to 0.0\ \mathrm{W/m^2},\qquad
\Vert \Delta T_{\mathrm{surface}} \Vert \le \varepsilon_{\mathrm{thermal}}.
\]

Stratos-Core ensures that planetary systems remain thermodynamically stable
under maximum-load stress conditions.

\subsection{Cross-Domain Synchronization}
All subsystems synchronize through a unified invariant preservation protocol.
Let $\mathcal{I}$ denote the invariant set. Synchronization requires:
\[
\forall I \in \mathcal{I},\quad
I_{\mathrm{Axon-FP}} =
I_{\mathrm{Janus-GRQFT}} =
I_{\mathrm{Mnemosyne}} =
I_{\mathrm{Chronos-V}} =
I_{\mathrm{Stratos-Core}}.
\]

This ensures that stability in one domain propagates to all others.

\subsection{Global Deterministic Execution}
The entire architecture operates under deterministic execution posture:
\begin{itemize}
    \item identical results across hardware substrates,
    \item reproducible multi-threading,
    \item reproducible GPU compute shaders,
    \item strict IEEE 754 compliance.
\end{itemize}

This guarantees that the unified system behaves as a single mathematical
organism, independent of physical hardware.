@@ -1,0 +1,114 @@
+\section{Unified System Architecture}
+
+The Unified Invariant Simulation Architecture is composed of five independent
+yet tightly coupled computational engines. Each engine governs a distinct
+scientific domain, and all engines operate under a shared invariant
+preservation framework. The architecture is designed to ensure that
+cross-domain stability emerges from the simultaneous convergence of all
+subsystems.
+
+Let $\mathcal{S}$ denote the full system:
+\[
+\mathcal{S} =
+\{\text{Axon-FP},\ 
+\text{Janus-GRQFT},\ 
+\text{Mnemosyne},\ 
+\text{Chronos-V},\ 
+\text{Stratos-Core}\}.
+\]
+
+Each subsystem is described in detail below.
+
+\subsection{Axon-FP: Astrophysical Curvature Engine}
+Axon-FP governs macro-scale astrophysical dynamics, including galactic
+rotation curves, stellar kinematics, curvature fields, and radiative
+transport. It operates on real astrometric datasets (Gaia DR3, APOGEE-2) and
+constructs a bounded curvature invariant:
+\[
+\Phi_{\mathrm{MW}} =
+Ex\!\left(
+-\frac{-v(t)\tau_{\alpha}(\aleph_{\mathbb{C}})}{\mathrm{Disk}}
+\right)^S
+\cdot \frac{t - t_{\mathrm{launch}}}{\mathrm{Bulge}}
++ \frac{\mathrm{Halo}}{\mathrm{Halo}}.
+\]
+
+Axon-FP ensures that macro-scale curvature remains stable under perturbation
+and noise injection.
+
+\subsection{Janus-GRQFT: Dual-Substrate Quantum-Gravitational Engine}
+Janus-GRQFT governs the transition between smooth spacetime geometry and
+granular quantum fields. It solves the GR-QFT dual-substrate tensor equation:
+\[
+G_{\mu\nu}(g) + \Lambda g_{\mu\nu}
+= \frac{8\pi G}{c^4}\langle \hat{T}_{\mu\nu} \rangle.
+\]
+
+Janus-GRQFT ensures that curvature and quantum stress-energy remain
+consistent across phase transitions. It is responsible for maintaining the
+dual-substrate invariant:
+\[
+\Xi_{\mathrm{dual}} = \text{Stable under granular-smooth transition}.
+\]
+
+\subsection{Mnemosyne: Proteostatic Clearance Engine}
+Mnemosyne governs micro-scale proteostatic dynamics, including aggregation,
+clearance, folding, and molecular flux. It enforces the proteostatic
+invariant:
+\[
+\frac{d[\mathrm{Aggregates}]}{dt} < 0,
+\]
+ensuring that clearance velocity always exceeds aggregation rate.
+
+Mnemosyne operates on molecular conformational datasets and uses bounded ODE
+solvers to maintain stability under stochastic perturbation.
+
+\subsection{Chronos-V: Neural-Spatiotemporal Engine}
+Chronos-V governs neural-spatiotemporal dilation, cortical mass-field
+dynamics, and intrinsic timescale shifts. It enforces the neural invariant:
+\[
+\Delta \tau \neq \Delta t_{\mathrm{physical}},\qquad
+S_{\mathrm{int}} \to 0.
+\]
+
+Chronos-V models ego-boundary dissolution, metric collapse, and
+neural-spatiotemporal curvature. It uses bounded PDE solvers to ensure
+stability under noise injection and stress.
+
+\subsection{Stratos-Core: Planetary Atmospheric Engine}
+Stratos-Core governs planetary radiative balance, atmospheric flux,
+thermodynamic forcing, and domination control. It enforces the atmospheric
+invariant:
+\[
+\sum F_{\mathrm{net}} \to 0.0\ \mathrm{W/m^2},\qquad
+\Vert \Delta T_{\mathrm{surface}} \Vert \le \varepsilon_{\mathrm{thermal}}.
+\]
+
+Stratos-Core ensures that planetary systems remain thermodynamically stable
+under maximum-load stress conditions.
+
+\subsection{Cross-Domain Synchronization}
+All subsystems synchronize through a unified invariant preservation protocol.
+Let $\mathcal{I}$ denote the invariant set. Synchronization requires:
+\[
+\forall I \in \mathcal{I},\quad
+I_{\mathrm{Axon-FP}} =
+I_{\mathrm{Janus-GRQFT}} =
+I_{\mathrm{Mnemosyne}} =
+I_{\mathrm{Chronos-V}} =
+I_{\mathrm{Stratos-Core}}.
+\]
+
+This ensures that stability in one domain propagates to all others.
+
+\subsection{Global Deterministic Execution}
+The entire architecture operates under deterministic execution posture:
+\begin{itemize}
+    \item identical results across hardware substrates,
+    \item reproducible multi-threading,
+    \item reproducible GPU compute shaders,
+    \item strict IEEE 754 compliance.
+\end{itemize}
+
+This guarantees that the unified system behaves as a single mathematical
+organism, independent of physical hardware.
