@@ -1,0 +1,156 @@
+% ================================================================
+% COSE / PVP / CODEX ARCHITECTURE — LaTeX README
+% Author: C. Matthew Blackwell
+% ================================================================
+
+\section*{README: COSE + PVP + Codex Verification Architecture}
+\label{readme}
+
+\subsection*{1. Overview}
+
+This repository contains the full LaTeX source for the hybrid
+Computational Organism Simulation Engine (COSE), the Proof Validation
+Pipeline (PVP), and the Codex cryptographic provenance system.
+
+The manuscript is organized into modular chapters, each of which can be
+compiled independently or as part of the unified white paper.
+
+\begin{itemize}
+    \item COSE: Hybrid biochemical--neural--spatial dynamical engine.
+    \item PVP: Automated theorem proving + SNARK verification pipeline.
+    \item Codex: Immutable provenance and capsule registry.
+\end{itemize}
+
+All chapters are written in standard \LaTeX{} using \texttt{amsmath},
+\texttt{amssymb}, and \texttt{amsthm}.
+
+\subsection*{2. Directory Structure}
+
+\begin{verbatim}
+project/
+│
+├── main.tex                 % Root manuscript
+├── chapters/
+│   ├── intro.tex            % System introduction
+│   ├── hybrid_dynamics.tex  % COSE governing equations
+│   ├── stability.tex        % Lyapunov stability envelope
+│   ├── pvp.tex              % Proof Validation Pipeline
+│   ├── soundness.tex        % Soundness & completeness theorems
+│   ├── contradiction.tex    % Contradiction neutralization theorem
+│   └── codex.tex            % Codex capsule integration
+│
+├── appendix/
+│   ├── cose_appendix.tex    % Stress test metrics & tables
+│   └── proofs.tex           % Extended formal proofs
+│
+└── README.tex               % This file
+\end{verbatim}
+
+\subsection*{3. Compilation Instructions}
+
+Compile using \texttt{pdflatex} or \texttt{lualatex}:
+
+\begin{verbatim}
+pdflatex main.tex
+pdflatex main.tex
+\end{verbatim}
+
+Two passes are recommended for cross-references and theorem numbering.
+
+\subsection*{4. Package Requirements}
+
+The manuscript requires the following packages:
+
+\begin{itemize}
+    \item \texttt{amsmath}, \texttt{amssymb}, \texttt{amsthm}
+    \item \texttt{geometry}
+    \item \texttt{hyperref}
+\end{itemize}
+
+Optional packages (not required):
+
+\begin{itemize}
+    \item \texttt{mathtools}
+    \item \texttt{enumitem}
+\end{itemize}
+
+\subsection*{5. Theorem Dependencies}
+
+The following chapters depend on earlier definitions:
+
+\begin{itemize}
+    \item \textbf{soundness.tex} requires:
+    \begin{itemize}
+        \item ATP kernel definitions (pvp.tex)
+        \item SNARK soundness bound $\epsilon_{\mathrm{ZKP}}$
+        \item Lyapunov functional $\mathcal{V}(X)$ (stability.tex)
+    \end{itemize}
+
+    \item \textbf{contradiction.tex} requires:
+    \begin{itemize}
+        \item Hybrid dynamics equation (hybrid\_dynamics.tex)
+        \item Composite Lyapunov functional (stability.tex)
+        \item Soundness theorem (soundness.tex)
+    \end{itemize}
+
+    \item \textbf{codex.tex} requires:
+    \begin{itemize}
+        \item SNARK commitment hash definition
+        \item PVP acceptance predicate $\mathcal{V}_{\mathrm{PVP}}$
+    \end{itemize}
+\end{itemize}
+
+\subsection*{6. Cross-Module Linkage}
+
+The manuscript uses the following cross-references:
+
+\begin{itemize}
+    \item Hybrid dynamics: Eq.~\ref{eq:hybrid_dynamics}
+    \item Lyapunov functional: Eq.~\ref{eq:lyap_composite}
+    \item Soundness theorem: Thm.~\ref{thm:pvp_soundness}
+    \item Completeness theorem: Thm.~\ref{thm:pvp_completeness}
+    \item Contradiction neutralization: Thm.~\ref{thm:contradiction_neutralization}
+\end{itemize}
+
+Ensure all labels match the chapter files.
+
+\subsection*{7. Extending the Manuscript}
+
+To add new chapters, include them in \texttt{main.tex}:
+
+\begin{verbatim}
+\include{chapters/new_chapter}
+\end{verbatim}
+
+All new chapters should follow the existing theorem and equation
+numbering conventions.
+
+\subsection*{8. Attribution}
+
+All design, architecture, and mathematical formulation authored by:
+
+\begin{center}
+\textbf{C. Matthew Blackwell} \\
+Independent Designer
+\end{center}
+
+\subsection*{9. Versioning}
+
+Use semantic versioning:
+
+\begin{verbatim}
+v1.0.0  Initial release
+v1.1.0  Added soundness & completeness theorems
+v1.2.0  Added contradiction neutralization chapter
+v1.3.0  Added Codex integration
+\end{verbatim}
+
+\subsection*{10. License}
+
+This manuscript is released under a permissive academic license.  
+All mathematical formulations and architectures are original work by the
+designer.
+
+% ================================================================
+% END README
+% ================================================================
