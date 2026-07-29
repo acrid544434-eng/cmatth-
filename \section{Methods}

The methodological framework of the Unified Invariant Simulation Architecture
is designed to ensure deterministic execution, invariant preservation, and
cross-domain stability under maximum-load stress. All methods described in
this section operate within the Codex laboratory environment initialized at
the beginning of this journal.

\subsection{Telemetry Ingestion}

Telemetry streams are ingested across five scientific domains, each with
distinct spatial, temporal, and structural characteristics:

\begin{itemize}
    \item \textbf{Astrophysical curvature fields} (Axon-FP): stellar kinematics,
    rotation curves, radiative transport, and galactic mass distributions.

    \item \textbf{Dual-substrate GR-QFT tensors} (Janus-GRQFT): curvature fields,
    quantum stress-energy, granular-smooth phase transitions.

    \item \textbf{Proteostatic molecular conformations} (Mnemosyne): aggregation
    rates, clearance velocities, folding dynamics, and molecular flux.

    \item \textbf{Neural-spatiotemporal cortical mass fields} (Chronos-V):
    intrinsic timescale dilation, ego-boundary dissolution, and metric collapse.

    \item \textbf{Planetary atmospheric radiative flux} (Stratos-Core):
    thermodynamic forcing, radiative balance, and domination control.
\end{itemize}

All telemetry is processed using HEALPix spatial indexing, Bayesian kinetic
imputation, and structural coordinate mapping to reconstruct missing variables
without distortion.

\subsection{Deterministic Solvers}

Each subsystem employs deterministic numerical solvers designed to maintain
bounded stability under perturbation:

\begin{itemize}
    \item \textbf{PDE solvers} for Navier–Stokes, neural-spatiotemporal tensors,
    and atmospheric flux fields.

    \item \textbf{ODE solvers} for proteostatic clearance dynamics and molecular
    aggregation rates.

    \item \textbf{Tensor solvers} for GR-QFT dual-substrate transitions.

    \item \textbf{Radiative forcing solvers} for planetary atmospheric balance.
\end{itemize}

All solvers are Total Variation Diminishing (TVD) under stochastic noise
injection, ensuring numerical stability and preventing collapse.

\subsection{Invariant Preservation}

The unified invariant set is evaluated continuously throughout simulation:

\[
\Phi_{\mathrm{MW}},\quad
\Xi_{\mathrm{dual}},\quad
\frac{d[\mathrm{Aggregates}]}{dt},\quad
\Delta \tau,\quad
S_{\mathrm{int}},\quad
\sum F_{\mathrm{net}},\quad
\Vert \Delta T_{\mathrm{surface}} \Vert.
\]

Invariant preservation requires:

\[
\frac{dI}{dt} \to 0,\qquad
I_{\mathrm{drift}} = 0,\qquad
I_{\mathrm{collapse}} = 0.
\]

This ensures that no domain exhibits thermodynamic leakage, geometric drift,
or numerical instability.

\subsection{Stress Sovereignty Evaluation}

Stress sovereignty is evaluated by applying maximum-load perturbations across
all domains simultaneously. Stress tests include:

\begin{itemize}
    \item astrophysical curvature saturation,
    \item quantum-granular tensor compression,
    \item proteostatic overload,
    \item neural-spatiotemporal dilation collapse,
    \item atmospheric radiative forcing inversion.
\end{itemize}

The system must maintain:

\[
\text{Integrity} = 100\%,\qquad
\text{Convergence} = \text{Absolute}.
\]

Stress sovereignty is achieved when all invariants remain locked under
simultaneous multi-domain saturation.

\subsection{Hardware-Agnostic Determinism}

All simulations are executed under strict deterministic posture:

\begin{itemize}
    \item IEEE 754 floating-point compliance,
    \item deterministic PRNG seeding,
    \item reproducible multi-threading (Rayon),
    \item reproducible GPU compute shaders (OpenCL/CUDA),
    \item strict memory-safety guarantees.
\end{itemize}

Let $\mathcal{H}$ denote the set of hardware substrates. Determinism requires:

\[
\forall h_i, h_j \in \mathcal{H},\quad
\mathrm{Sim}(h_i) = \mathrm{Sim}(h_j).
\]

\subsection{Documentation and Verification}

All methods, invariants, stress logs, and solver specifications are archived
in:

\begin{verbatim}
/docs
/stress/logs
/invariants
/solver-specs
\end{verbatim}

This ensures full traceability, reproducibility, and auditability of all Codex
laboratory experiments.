@@ -1,0 +1,135 @@
+\section{Methods}
+
+The methodological framework of the Unified Invariant Simulation Architecture
+is designed to ensure deterministic execution, invariant preservation, and
+cross-domain stability under maximum-load stress. All methods described in
+this section operate within the Codex laboratory environment initialized at
+the beginning of this journal.
+
+\subsection{Telemetry Ingestion}
+
+Telemetry streams are ingested across five scientific domains, each with
+distinct spatial, temporal, and structural characteristics:
+
+\begin{itemize}
+    \item \textbf{Astrophysical curvature fields} (Axon-FP): stellar kinematics,
+    rotation curves, radiative transport, and galactic mass distributions.
+
+    \item \textbf{Dual-substrate GR-QFT tensors} (Janus-GRQFT): curvature fields,
+    quantum stress-energy, granular-smooth phase transitions.
+
+    \item \textbf{Proteostatic molecular conformations} (Mnemosyne): aggregation
+    rates, clearance velocities, folding dynamics, and molecular flux.
+
+    \item \textbf{Neural-spatiotemporal cortical mass fields} (Chronos-V):
+    intrinsic timescale dilation, ego-boundary dissolution, and metric collapse.
+
+    \item \textbf{Planetary atmospheric radiative flux} (Stratos-Core):
+    thermodynamic forcing, radiative balance, and domination control.
+\end{itemize}
+
+All telemetry is processed using HEALPix spatial indexing, Bayesian kinetic
+imputation, and structural coordinate mapping to reconstruct missing variables
+without distortion.
+
+\subsection{Deterministic Solvers}
+
+Each subsystem employs deterministic numerical solvers designed to maintain
+bounded stability under perturbation:
+
+\begin{itemize}
+    \item \textbf{PDE solvers} for Navier–Stokes, neural-spatiotemporal tensors,
+    and atmospheric flux fields.
+
+    \item \textbf{ODE solvers} for proteostatic clearance dynamics and molecular
+    aggregation rates.
+
+    \item \textbf{Tensor solvers} for GR-QFT dual-substrate transitions.
+
+    \item \textbf{Radiative forcing solvers} for planetary atmospheric balance.
+\end{itemize}
+
+All solvers are Total Variation Diminishing (TVD) under stochastic noise
+injection, ensuring numerical stability and preventing collapse.
+
+\subsection{Invariant Preservation}
+
+The unified invariant set is evaluated continuously throughout simulation:
+
+\[
+\Phi_{\mathrm{MW}},\quad
+\Xi_{\mathrm{dual}},\quad
+\frac{d[\mathrm{Aggregates}]}{dt},\quad
+\Delta \tau,\quad
+S_{\mathrm{int}},\quad
+\sum F_{\mathrm{net}},\quad
+\Vert \Delta T_{\mathrm{surface}} \Vert.
+\]
+
+Invariant preservation requires:
+
+\[
+\frac{dI}{dt} \to 0,\qquad
+I_{\mathrm{drift}} = 0,\qquad
+I_{\mathrm{collapse}} = 0.
+\]
+
+This ensures that no domain exhibits thermodynamic leakage, geometric drift,
+or numerical instability.
+
+\subsection{Stress Sovereignty Evaluation}
+
+Stress sovereignty is evaluated by applying maximum-load perturbations across
+all domains simultaneously. Stress tests include:
+
+\begin{itemize}
+    \item astrophysical curvature saturation,
+    \item quantum-granular tensor compression,
+    \item proteostatic overload,
+    \item neural-spatiotemporal dilation collapse,
+    \item atmospheric radiative forcing inversion.
+\end{itemize}
+
+The system must maintain:
+
+\[
+\text{Integrity} = 100\%,\qquad
+\text{Convergence} = \text{Absolute}.
+\]
+
+Stress sovereignty is achieved when all invariants remain locked under
+simultaneous multi-domain saturation.
+
+\subsection{Hardware-Agnostic Determinism}
+
+All simulations are executed under strict deterministic posture:
+
+\begin{itemize}
+    \item IEEE 754 floating-point compliance,
+    \item deterministic PRNG seeding,
+    \item reproducible multi-threading (Rayon),
+    \item reproducible GPU compute shaders (OpenCL/CUDA),
+    \item strict memory-safety guarantees.
+\end{itemize}
+
+Let $\mathcal{H}$ denote the set of hardware substrates. Determinism requires:
+
+\[
+\forall h_i, h_j \in \mathcal{H},\quad
+\mathrm{Sim}(h_i) = \mathrm{Sim}(h_j).
+\]
+
+\subsection{Documentation and Verification}
+
+All methods, invariants, stress logs, and solver specifications are archived
+in:
+
+\begin{verbatim}
+/docs
+/stress/logs
+/invariants
+/solver-specs
+\end{verbatim}
+
+This ensures full traceability, reproducibility, and auditability of all Codex
+laboratory experiments.
