@@ -1,0 +1,121 @@
+%===========================================================
+\chapter{Implementation Plan}
+%===========================================================
+
+\section{Overview}
+This chapter formalizes the concrete engineering roadmap required to deploy
+the AST-TSDME sovereign-kernel architecture on contemporary high-performance
+computing infrastructure. Each tier is mapped to specific hardware platforms,
+software stacks, and milestone deliverables, ensuring reproducibility and
+production-readiness.
+
+%===========================================================
+\section{Phase 1: Tier I \& Tier II — Ingestion, Memory Fabric, Normalization}
+%===========================================================
+
+\subsection{Cluster Specifications}
+\begin{itemize}
+    \item Ingestion Edge Nodes: 4$\times$ Dell PowerEdge R7650xa (AMD EPYC 9654, 3TB RAM, dual 100GbE NICs).
+    \item Compute Fabric: NVIDIA DGX~GB200 system with 36 Grace CPUs and 72 Blackwell GPUs interconnected via fifth-generation NVLink (1.8~TB/s GPU--GPU bandwidth).
+\end{itemize}
+
+\subsection{Software Stack}
+\begin{itemize}
+    \item Streaming: gRPC-C++, Apache Kafka, Libcurl for USGS/IRIS REST endpoints.
+    \item Memory: CUDA Unified Memory, GPUDirect Storage, cuDF for zero-copy ingestion.
+\end{itemize}
+
+\subsection{Milestones}
+\begin{itemize}
+    \item \textbf{M1.1:} Establish ingestion pipelines sustaining $\ge 15\,$GB/s aggregate throughput.
+    \item \textbf{M1.2:} Deploy zero-copy UVA synchronization buffers eliminating CPU staging overhead.
+\end{itemize}
+
+%===========================================================
+\section{Phase 2: Tier III — Temporal Symplectic Core}
+%===========================================================
+
+\subsection{Cluster Specifications}
+1{,}000$\times$ NVIDIA H100/GB200 GPUs orchestrated via NVIDIA Quantum-2 InfiniBand.
+
+\subsection{Software Stack}
+\begin{itemize}
+    \item CUDA-X math suite: cuBLAS, cuSOLVER, cuSPARSE, cuFFT.
+    \item Distributed communication: NCCL for all-reduce operations.
+    \item Custom kernels: OpenAI Triton and CUDA C++20.
+\end{itemize}
+
+\subsection{Milestones}
+\begin{itemize}
+    \item \textbf{M2.1:} Implement reversible symplectic integrators bounding Hamiltonian drift:
+    \[
+    \frac{|H(q,p)-H_0|}{H_0} < 10^{-7}.
+    \]
+    \item \textbf{M2.2:} Achieve $\ge 88\%$ weak-scaling efficiency across 1{,}000 GPUs.
+\end{itemize}
+
+%===========================================================
+\section{Phase 3: Tier IV — Lithospheric Multi-Physics Kernels}
+%===========================================================
+
+\subsection{Cluster Specifications}
+13.5~TB HBM3e memory per rack cluster partition.
+
+\subsection{Software Stack}
+\begin{itemize}
+    \item Spatial hierarchies: ExaFMM GPU-accelerated octrees.
+    \item Linear algebra: PETSc/SLEPc with AMG preconditioners via cuSPARSE.
+    \item Rheology: Custom CUDA/Triton kernels for Maxwell--Burgers and Biot coupling.
+\end{itemize}
+
+\subsection{Milestones}
+\begin{itemize}
+    \item \textbf{M3.1:} Adaptive octree updates for $10^8$ grid cells in $<4.5\,$ms per iteration.
+    \item \textbf{M3.2:} Validate poroelastic coupling against benchmark deformation datasets.
+\end{itemize}
+
+%===========================================================
+\section{Phase 4: Tier V — Rupture Mitigation \& Actuation Matrix}
+%===========================================================
+
+\subsection{Cluster Specifications}
+Real-time x86 control nodes interfacing with FPGAs via PCIe Gen5.
+
+\subsection{Software Stack}
+\begin{itemize}
+    \item Control optimization: NVIDIA Warp.
+    \item Signal processing: TensorRT-compiled phase-inversion kernels.
+\end{itemize}
+
+\subsection{Milestones}
+\begin{itemize}
+    \item \textbf{M4.1:} Closed-loop control pipelines computing $Q(t)$ and $A_{\text{cancel}}$ within $1.2\,$ms.
+    \item \textbf{M4.2:} Demonstrate $\ge 98.6\%$ strain-energy dissipation in simulation.
+\end{itemize}
+
+%===========================================================
+\section{Phase 5: Tier VI — Supervisory Safety \& Invariant Loop}
+%===========================================================
+
+\subsection{Cluster Specifications}
+WORM NVMe arrays with isolated cryptographic coprocessors.
+
+\subsection{Software Stack}
+\begin{itemize}
+    \item Watchdog routines: Rust/C++ invariant daemons.
+    \item Cryptography: OpenSSL/Libsodium for SHA-256 audit trails.
+\end{itemize}
+
+\subsection{Milestones}
+\begin{itemize}
+    \item \textbf{M5.1:} Real-time invariant monitoring enforcing $p(t)\le P_{\text{crit}}$ with interrupt latency $<250\,\mu$s.
+    \item \textbf{M5.2:} End-to-end cryptographic logging ensuring tamper-evident state transitions.
+\end{itemize}
+
+%===========================================================
+\section{Summary}
+%===========================================================
+This implementation plan demonstrates that AST-TSDME is fully realizable on
+contemporary HPC infrastructure. Each tier is mapped to concrete hardware,
+software, and milestone metrics, enabling reproducible deployment of the
+sovereign-kernel architecture.
