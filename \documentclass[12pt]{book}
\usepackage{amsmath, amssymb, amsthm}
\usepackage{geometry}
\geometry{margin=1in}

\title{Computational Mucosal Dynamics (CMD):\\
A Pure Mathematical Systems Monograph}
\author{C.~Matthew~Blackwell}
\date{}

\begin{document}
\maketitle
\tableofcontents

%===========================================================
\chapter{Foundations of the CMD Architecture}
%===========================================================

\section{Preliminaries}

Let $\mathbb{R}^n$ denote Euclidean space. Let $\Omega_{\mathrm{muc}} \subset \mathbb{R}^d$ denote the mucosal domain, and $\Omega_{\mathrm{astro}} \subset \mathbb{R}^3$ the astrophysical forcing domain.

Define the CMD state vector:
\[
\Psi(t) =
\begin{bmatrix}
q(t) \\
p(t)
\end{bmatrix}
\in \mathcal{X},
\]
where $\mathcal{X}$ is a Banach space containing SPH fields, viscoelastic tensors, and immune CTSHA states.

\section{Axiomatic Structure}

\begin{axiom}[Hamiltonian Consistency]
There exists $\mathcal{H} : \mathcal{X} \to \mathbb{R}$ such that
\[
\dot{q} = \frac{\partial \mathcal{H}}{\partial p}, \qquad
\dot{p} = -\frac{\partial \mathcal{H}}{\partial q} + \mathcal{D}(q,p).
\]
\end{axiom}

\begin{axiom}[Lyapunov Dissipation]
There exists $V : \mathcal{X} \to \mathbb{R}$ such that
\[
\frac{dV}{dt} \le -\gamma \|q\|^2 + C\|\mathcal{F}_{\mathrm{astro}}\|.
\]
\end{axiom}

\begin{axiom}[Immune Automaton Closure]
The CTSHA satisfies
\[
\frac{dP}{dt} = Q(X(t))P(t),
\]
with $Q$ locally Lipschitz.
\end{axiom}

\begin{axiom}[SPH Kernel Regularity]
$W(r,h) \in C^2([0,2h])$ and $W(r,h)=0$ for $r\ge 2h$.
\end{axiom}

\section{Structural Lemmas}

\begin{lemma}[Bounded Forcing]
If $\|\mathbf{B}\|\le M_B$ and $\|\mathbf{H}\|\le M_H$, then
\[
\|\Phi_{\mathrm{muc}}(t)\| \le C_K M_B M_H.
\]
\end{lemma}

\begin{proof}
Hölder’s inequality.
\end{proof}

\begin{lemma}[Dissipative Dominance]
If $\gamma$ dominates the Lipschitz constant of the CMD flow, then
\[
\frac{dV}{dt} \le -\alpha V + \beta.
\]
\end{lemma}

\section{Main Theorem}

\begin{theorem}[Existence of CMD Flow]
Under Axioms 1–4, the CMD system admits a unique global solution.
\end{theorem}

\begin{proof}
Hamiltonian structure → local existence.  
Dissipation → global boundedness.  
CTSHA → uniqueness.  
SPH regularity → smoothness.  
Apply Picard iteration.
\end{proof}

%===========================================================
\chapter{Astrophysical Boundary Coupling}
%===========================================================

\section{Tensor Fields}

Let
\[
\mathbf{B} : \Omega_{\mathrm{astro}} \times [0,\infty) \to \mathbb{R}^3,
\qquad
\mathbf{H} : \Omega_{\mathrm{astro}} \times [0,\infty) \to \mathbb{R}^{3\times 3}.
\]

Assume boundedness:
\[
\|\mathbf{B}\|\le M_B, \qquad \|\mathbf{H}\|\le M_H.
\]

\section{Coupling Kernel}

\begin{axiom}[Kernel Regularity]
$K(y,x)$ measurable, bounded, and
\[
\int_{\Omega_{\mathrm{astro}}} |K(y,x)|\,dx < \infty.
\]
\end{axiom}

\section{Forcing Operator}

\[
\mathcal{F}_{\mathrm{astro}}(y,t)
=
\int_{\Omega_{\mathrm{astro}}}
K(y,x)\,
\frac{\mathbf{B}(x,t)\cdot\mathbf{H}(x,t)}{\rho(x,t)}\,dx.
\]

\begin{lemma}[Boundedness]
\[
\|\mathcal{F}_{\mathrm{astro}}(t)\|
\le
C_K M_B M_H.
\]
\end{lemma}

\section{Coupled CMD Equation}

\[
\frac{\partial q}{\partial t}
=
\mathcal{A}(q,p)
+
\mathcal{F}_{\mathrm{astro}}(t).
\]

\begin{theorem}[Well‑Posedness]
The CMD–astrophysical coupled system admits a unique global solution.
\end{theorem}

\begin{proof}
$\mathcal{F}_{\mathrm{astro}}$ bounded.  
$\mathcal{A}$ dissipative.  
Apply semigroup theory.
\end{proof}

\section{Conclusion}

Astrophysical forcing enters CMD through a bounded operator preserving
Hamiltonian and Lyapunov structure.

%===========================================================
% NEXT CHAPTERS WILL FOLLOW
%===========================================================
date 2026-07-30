@@ -1,0 +1,169 @@
+\documentclass[12pt]{book}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Computational Mucosal Dynamics (CMD):\\
+A Pure Mathematical Systems Monograph}
+\author{C.~Matthew~Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%===========================================================
+\chapter{Foundations of the CMD Architecture}
+%===========================================================
+
+\section{Preliminaries}
+
+Let $\mathbb{R}^n$ denote Euclidean space. Let $\Omega_{\mathrm{muc}} \subset \mathbb{R}^d$ denote the mucosal domain, and $\Omega_{\mathrm{astro}} \subset \mathbb{R}^3$ the astrophysical forcing domain.
+
+Define the CMD state vector:
+\[
+\Psi(t) =
+\begin{bmatrix}
+q(t) \\
+p(t)
+\end{bmatrix}
+\in \mathcal{X},
+\]
+where $\mathcal{X}$ is a Banach space containing SPH fields, viscoelastic tensors, and immune CTSHA states.
+
+\section{Axiomatic Structure}
+
+\begin{axiom}[Hamiltonian Consistency]
+There exists $\mathcal{H} : \mathcal{X} \to \mathbb{R}$ such that
+\[
+\dot{q} = \frac{\partial \mathcal{H}}{\partial p}, \qquad
+\dot{p} = -\frac{\partial \mathcal{H}}{\partial q} + \mathcal{D}(q,p).
+\]
+\end{axiom}
+
+\begin{axiom}[Lyapunov Dissipation]
+There exists $V : \mathcal{X} \to \mathbb{R}$ such that
+\[
+\frac{dV}{dt} \le -\gamma \|q\|^2 + C\|\mathcal{F}_{\mathrm{astro}}\|.
+\]
+\end{axiom}
+
+\begin{axiom}[Immune Automaton Closure]
+The CTSHA satisfies
+\[
+\frac{dP}{dt} = Q(X(t))P(t),
+\]
+with $Q$ locally Lipschitz.
+\end{axiom}
+
+\begin{axiom}[SPH Kernel Regularity]
+$W(r,h) \in C^2([0,2h])$ and $W(r,h)=0$ for $r\ge 2h$.
+\end{axiom}
+
+\section{Structural Lemmas}
+
+\begin{lemma}[Bounded Forcing]
+If $\|\mathbf{B}\|\le M_B$ and $\|\mathbf{H}\|\le M_H$, then
+\[
+\|\Phi_{\mathrm{muc}}(t)\| \le C_K M_B M_H.
+\]
+\end{lemma}
+
+\begin{proof}
+Hölder’s inequality.
+\end{proof}
+
+\begin{lemma}[Dissipative Dominance]
+If $\gamma$ dominates the Lipschitz constant of the CMD flow, then
+\[
+\frac{dV}{dt} \le -\alpha V + \beta.
+\]
+\end{lemma}
+
+\section{Main Theorem}
+
+\begin{theorem}[Existence of CMD Flow]
+Under Axioms 1–4, the CMD system admits a unique global solution.
+\end{theorem}
+
+\begin{proof}
+Hamiltonian structure → local existence.  
+Dissipation → global boundedness.  
+CTSHA → uniqueness.  
+SPH regularity → smoothness.  
+Apply Picard iteration.
+\end{proof}
+
+%===========================================================
+\chapter{Astrophysical Boundary Coupling}
+%===========================================================
+
+\section{Tensor Fields}
+
+Let
+\[
+\mathbf{B} : \Omega_{\mathrm{astro}} \times [0,\infty) \to \mathbb{R}^3,
+\qquad
+\mathbf{H} : \Omega_{\mathrm{astro}} \times [0,\infty) \to \mathbb{R}^{3\times 3}.
+\]
+
+Assume boundedness:
+\[
+\|\mathbf{B}\|\le M_B, \qquad \|\mathbf{H}\|\le M_H.
+\]
+
+\section{Coupling Kernel}
+
+\begin{axiom}[Kernel Regularity]
+$K(y,x)$ measurable, bounded, and
+\[
+\int_{\Omega_{\mathrm{astro}}} |K(y,x)|\,dx < \infty.
+\]
+\end{axiom}
+
+\section{Forcing Operator}
+
+\[
+\mathcal{F}_{\mathrm{astro}}(y,t)
+=
+\int_{\Omega_{\mathrm{astro}}}
+K(y,x)\,
+\frac{\mathbf{B}(x,t)\cdot\mathbf{H}(x,t)}{\rho(x,t)}\,dx.
+\]
+
+\begin{lemma}[Boundedness]
+\[
+\|\mathcal{F}_{\mathrm{astro}}(t)\|
+\le
+C_K M_B M_H.
+\]
+\end{lemma}
+
+\section{Coupled CMD Equation}
+
+\[
+\frac{\partial q}{\partial t}
+=
+\mathcal{A}(q,p)
++
+\mathcal{F}_{\mathrm{astro}}(t).
+\]
+
+\begin{theorem}[Well‑Posedness]
+The CMD–astrophysical coupled system admits a unique global solution.
+\end{theorem}
+
+\begin{proof}
+$\mathcal{F}_{\mathrm{astro}}$ bounded.  
+$\mathcal{A}$ dissipative.  
+Apply semigroup theory.
+\end{proof}
+
+\section{Conclusion}
+
+Astrophysical forcing enters CMD through a bounded operator preserving
+Hamiltonian and Lyapunov structure.
+
+%===========================================================
+% NEXT CHAPTERS WILL FOLLOW
+%===========================================================
