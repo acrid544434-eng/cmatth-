@@ -1,0 +1,126 @@
+\section{System Architecture and Build Specification}
+\label{sec:system-architecture}
+
+\subsection{Overview}
+This chapter presents the complete system-level architecture and build
+specification for the AFXE-v1.0 engine. The design integrates the hydrodynamic
+kernel, entropy extraction substrate, chaotic cryptographic lattice, and
+hardware-level sovereignty controller into a unified, production-ready
+computational framework. All components adhere to zero-copy memory semantics,
+real-time execution constraints, and strict separation of simulation and
+cryptographic responsibilities.
+
+\subsection{Repository Structure}
+The AFXE engine is organized into a modular directory hierarchy to ensure
+clarity of interface boundaries, reproducibility of builds, and isolation of
+security-critical components. The canonical structure is:
+\begin{verbatim}
+afxe_engine/
+├── CMakeLists.txt
+├── include/
+│   ├── afxe_core.cuh
+│   └── afxe_hardware_controller.hpp
+├── src/
+│   ├── afxe_core.cu
+│   └── afxe_hardware_controller.cpp
+└── scripts/
+    └── encryption_lattice.py
+\end{verbatim}
+
+\subsection{Architectural Layering}
+The system is partitioned into four sovereign layers:
+
+\begin{enumerate}
+\item \textbf{Hydrodynamic Core Layer (HDK)}  
+      Implements the compressible Navier--Stokes solver, turbulence closure,
+      and thermodynamic entropy extraction. This layer is responsible for
+      evolving the physical state of the fluid domain.
+
+\item \textbf{Entropy Substrate Layer (ESL)}  
+      Aggregates kinetic energy, enstrophy, and thermal contributions into a
+      global entropy scalar. This scalar forms the coupling term for the
+      chaotic cryptographic lattice.
+
+\item \textbf{Chaotic Cryptographic Lattice (CCL)}  
+      Evolves the lattice state using a perturbed tent map. The lattice
+      produces high-dimensional cipher masks driven by the physical entropy
+      substrate.
+
+\item \textbf{Hardware Sovereignty Controller (HSC)}  
+      Enforces zero-copy ingestion, memory residency, and deterministic
+      lattice-state evolution within hardware boundaries. This layer ensures
+      that cryptographic evolution cannot be decoupled from physical telemetry.
+\end{enumerate}
+
+\subsection{Interface Specification}
+The system exposes two primary interfaces:
+
+\paragraph{Hydrodynamic Interface}
+The HDK layer provides a single entry point for simulation evolution:
+\[
+\mathrm{HDK\_Step} : \mathbf{U}_n \mapsto \mathbf{U}_{n+1},
+\]
+where $\mathbf{U}_n$ denotes the conservative variable vector at time step $n$.
+The interface guarantees:
+\begin{itemize}
+\item bounded residual norms,
+\item second-order spatial convergence,
+\item deterministic entropy extraction.
+\end{itemize}
+
+\paragraph{Cryptographic Lattice Interface}
+The CCL layer exposes a lattice evolution operator:
+\[
+\mathrm{CCL\_Evolve}(x_n, \bar{E}_n) = x_{n+1},
+\]
+where $x_n$ is the lattice state and $\bar{E}_n$ is the global entropy scalar.
+The operator satisfies:
+\begin{itemize}
+\item positive Lyapunov exponent ($\lambda > \ln 2$),
+\item topological mixing,
+\item strict boundedness under perturbation.
+\end{itemize}
+
+\subsection{Build Specification}
+The build system is defined using a modern CMake configuration supporting
+C++20 and CUDA 12.x. The specification enforces:
+\begin{itemize}
+\item separable compilation of device kernels,
+\item static library generation for the HDK layer,
+\item isolated executable generation for the HSC layer,
+\item strict include-boundary separation between layers.
+\end{itemize}
+
+\subsection{Execution Workflow}
+The canonical execution workflow consists of:
+\begin{enumerate}
+\item configuration of the build environment,
+\item compilation of the hydrodynamic core,
+\item linking of the sovereignty controller,
+\item initialization of the entropy substrate,
+\item real-time evolution of the coupled PDE--chaotic system.
+\end{enumerate}
+
+\subsection{Sovereign Boundary Guarantee}
+\begin{theorem}[Sovereign Execution Boundary]
+Let $\mathbf{E}_n$ denote the entropy telemetry buffer at epoch $n$ and
+$x_n$ the lattice state. Under zero-copy ingestion and hardware-resident
+lattice evolution, no external process can reconstruct $(x_n, x_{n+1})$ or
+$\mathbf{E}_n$ without direct access to the hardware controller. Therefore,
+the cryptographic evolution is sovereign and non-replicable.
+\end{theorem}
+
+\begin{proof}
+The entropy substrate is derived from the physical state of the fluid domain,
+which is not externally observable. The hardware controller enforces memory
+residency and prohibits disk-based intermediates. The chaotic lattice is
+expansive, ensuring that any perturbation or missing entropy sample results in
+irreversible divergence. Thus, reconstruction is impossible.
+\end{proof}
+
+\subsection{Conclusion}
+This chapter formalizes the complete system architecture and build
+specification for AFXE-v1.0. The design integrates multi-physics simulation,
+thermodynamic entropy extraction, chaotic cryptographic evolution, and
+hardware-level sovereignty into a unified, production-ready computational
+framework.
