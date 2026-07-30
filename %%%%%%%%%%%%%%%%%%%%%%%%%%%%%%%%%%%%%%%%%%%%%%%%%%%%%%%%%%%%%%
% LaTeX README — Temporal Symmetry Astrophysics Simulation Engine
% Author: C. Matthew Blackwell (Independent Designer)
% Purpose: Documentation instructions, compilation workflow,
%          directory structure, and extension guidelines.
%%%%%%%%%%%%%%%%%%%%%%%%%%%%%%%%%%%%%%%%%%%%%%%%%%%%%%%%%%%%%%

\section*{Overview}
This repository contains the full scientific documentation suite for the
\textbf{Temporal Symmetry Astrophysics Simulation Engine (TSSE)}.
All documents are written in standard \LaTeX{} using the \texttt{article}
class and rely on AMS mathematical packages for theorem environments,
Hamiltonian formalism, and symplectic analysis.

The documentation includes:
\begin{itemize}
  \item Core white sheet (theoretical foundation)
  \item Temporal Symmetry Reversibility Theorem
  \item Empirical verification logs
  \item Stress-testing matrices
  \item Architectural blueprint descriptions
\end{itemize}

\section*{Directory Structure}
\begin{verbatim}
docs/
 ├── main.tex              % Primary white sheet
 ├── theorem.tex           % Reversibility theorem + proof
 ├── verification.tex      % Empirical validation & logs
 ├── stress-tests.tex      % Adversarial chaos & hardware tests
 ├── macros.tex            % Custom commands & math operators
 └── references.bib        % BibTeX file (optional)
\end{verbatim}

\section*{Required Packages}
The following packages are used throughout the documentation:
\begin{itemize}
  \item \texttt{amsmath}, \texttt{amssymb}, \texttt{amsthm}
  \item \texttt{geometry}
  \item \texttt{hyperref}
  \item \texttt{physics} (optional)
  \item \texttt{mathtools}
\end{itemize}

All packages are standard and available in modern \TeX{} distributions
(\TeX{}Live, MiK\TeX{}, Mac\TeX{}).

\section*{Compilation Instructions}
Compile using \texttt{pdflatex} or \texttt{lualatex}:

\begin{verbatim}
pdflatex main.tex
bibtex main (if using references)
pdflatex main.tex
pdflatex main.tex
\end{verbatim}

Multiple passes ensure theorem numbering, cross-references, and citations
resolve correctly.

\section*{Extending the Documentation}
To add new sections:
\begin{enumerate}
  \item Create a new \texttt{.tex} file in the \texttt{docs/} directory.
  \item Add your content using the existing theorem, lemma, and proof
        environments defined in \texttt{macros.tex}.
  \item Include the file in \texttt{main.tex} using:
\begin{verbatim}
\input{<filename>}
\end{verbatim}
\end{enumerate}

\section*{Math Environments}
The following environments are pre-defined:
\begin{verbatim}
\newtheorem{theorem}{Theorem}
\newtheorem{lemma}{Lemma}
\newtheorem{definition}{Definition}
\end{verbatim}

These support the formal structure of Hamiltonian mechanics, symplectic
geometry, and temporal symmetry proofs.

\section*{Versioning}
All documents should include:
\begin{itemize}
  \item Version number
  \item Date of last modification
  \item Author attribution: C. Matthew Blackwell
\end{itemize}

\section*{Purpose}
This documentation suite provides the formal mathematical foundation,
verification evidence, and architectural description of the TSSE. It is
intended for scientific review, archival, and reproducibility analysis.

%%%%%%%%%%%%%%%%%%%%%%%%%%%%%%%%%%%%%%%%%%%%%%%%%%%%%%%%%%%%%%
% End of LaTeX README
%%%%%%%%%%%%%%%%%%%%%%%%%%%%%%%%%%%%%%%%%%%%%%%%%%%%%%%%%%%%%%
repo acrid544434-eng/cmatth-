@@ -1,0 +1,99 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LaTeX README — Temporal Symmetry Astrophysics Simulation Engine
+% Author: C. Matthew Blackwell (Independent Designer)
+% Purpose: Documentation instructions, compilation workflow,
+%          directory structure, and extension guidelines.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Overview}
+This repository contains the full scientific documentation suite for the
+\textbf{Temporal Symmetry Astrophysics Simulation Engine (TSSE)}.
+All documents are written in standard \LaTeX{} using the \texttt{article}
+class and rely on AMS mathematical packages for theorem environments,
+Hamiltonian formalism, and symplectic analysis.
+
+The documentation includes:
+\begin{itemize}
+  \item Core white sheet (theoretical foundation)
+  \item Temporal Symmetry Reversibility Theorem
+  \item Empirical verification logs
+  \item Stress-testing matrices
+  \item Architectural blueprint descriptions
+\end{itemize}
+
+\section*{Directory Structure}
+\begin{verbatim}
+docs/
+ ├── main.tex              % Primary white sheet
+ ├── theorem.tex           % Reversibility theorem + proof
+ ├── verification.tex      % Empirical validation & logs
+ ├── stress-tests.tex      % Adversarial chaos & hardware tests
+ ├── macros.tex            % Custom commands & math operators
+ └── references.bib        % BibTeX file (optional)
+\end{verbatim}
+
+\section*{Required Packages}
+The following packages are used throughout the documentation:
+\begin{itemize}
+  \item \texttt{amsmath}, \texttt{amssymb}, \texttt{amsthm}
+  \item \texttt{geometry}
+  \item \texttt{hyperref}
+  \item \texttt{physics} (optional)
+  \item \texttt{mathtools}
+\end{itemize}
+
+All packages are standard and available in modern \TeX{} distributions
+(\TeX{}Live, MiK\TeX{}, Mac\TeX{}).
+
+\section*{Compilation Instructions}
+Compile using \texttt{pdflatex} or \texttt{lualatex}:
+
+\begin{verbatim}
+pdflatex main.tex
+bibtex main (if using references)
+pdflatex main.tex
+pdflatex main.tex
+\end{verbatim}
+
+Multiple passes ensure theorem numbering, cross-references, and citations
+resolve correctly.
+
+\section*{Extending the Documentation}
+To add new sections:
+\begin{enumerate}
+  \item Create a new \texttt{.tex} file in the \texttt{docs/} directory.
+  \item Add your content using the existing theorem, lemma, and proof
+        environments defined in \texttt{macros.tex}.
+  \item Include the file in \texttt{main.tex} using:
+\begin{verbatim}
+\input{<filename>}
+\end{verbatim}
+\end{enumerate}
+
+\section*{Math Environments}
+The following environments are pre-defined:
+\begin{verbatim}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\end{verbatim}
+
+These support the formal structure of Hamiltonian mechanics, symplectic
+geometry, and temporal symmetry proofs.
+
+\section*{Versioning}
+All documents should include:
+\begin{itemize}
+  \item Version number
+  \item Date of last modification
+  \item Author attribution: C. Matthew Blackwell
+\end{itemize}
+
+\section*{Purpose}
+This documentation suite provides the formal mathematical foundation,
+verification evidence, and architectural description of the TSSE. It is
+intended for scientific review, archival, and reproducibility analysis.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% End of LaTeX README
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
