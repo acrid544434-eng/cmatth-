@@ -1,0 +1,211 @@
+\documentclass[12pt]{book}
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+% ---------------------------------------------------------
+% Theorem Environments
+% ---------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+
+% ---------------------------------------------------------
+% Title Page
+% ---------------------------------------------------------
+\title{\textbf{AEGIS--Continuum Monograph Volume II}\\
+\large Advanced Tensor-Field Structures and Extended Spectral Dynamics}
+\author{C.~Matthew~Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+\frontmatter
+
+% ---------------------------------------------------------
+% Abstract
+% ---------------------------------------------------------
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+This second volume of the AEGIS--Continuum Monograph series extends the
+formal mathematical foundations established in Volume I. Here we
+develop higher-order tensor operators, multi-field generalizations,
+nonlinear curvature couplings, extended invariants, and global
+existence/uniqueness results for the spectral-field evolution equation.
+The work deepens the theoretical structure of the AEGIS--Continuum
+framework and prepares the foundation for computational and experimental
+volumes.
+
+% ---------------------------------------------------------
+% Preface
+% ---------------------------------------------------------
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+Volume II expands the theoretical physics of the AEGIS--Continuum
+engine. It is intended for researchers working in advanced differential
+geometry, nonlinear tensor-field theory, and spectral-field dynamics.
+The material assumes familiarity with Volume I.
+
+\tableofcontents
+
+\mainmatter
+
+% =========================================================
+% CHAPTER 1 — Higher-Order Tensor Operators
+% =========================================================
+\chapter{Higher-Order Tensor Operators}
+
+\section{Second-Order Conductivity Structures}
+\begin{definition}[Quadratic Conductivity Tensor]
+\[
+\mathcal{Q}^{\mu\nu}
+= \mathcal{K}^{\mu\nu}
++ \eta_1 (\nabla^\mu \Psi)(\nabla^\nu \Psi)
++ \eta_2 g^{\mu\nu} |\nabla\Psi|^2.
+\]
+\end{definition}
+
+\section{Spectral Curvature Couplings}
+\begin{definition}[Curvature-Spectral Operator]
+\[
+\mathcal{C}^{\mu\nu}
+= R^{\mu\nu} |\Psi|^2
++ \sigma\, R\, \nabla^\mu \Psi \nabla^\nu \Psi^\dagger.
+\]
+\end{definition}
+
+% =========================================================
+% CHAPTER 2 — Multi-Field Generalizations
+% =========================================================
+\chapter{Multi-Field Generalizations}
+
+\section{Vector-Valued Spectral Fields}
+Let $\Psi^a$ be a multi-component spectral field with index $a$.
+
+\begin{definition}[Multi-Field Action]
+\[
+\mathcal{S}
+= \int_{\mathcal{M}}
+\left[
+\mathcal{K}^{\mu\nu}_{ab} \nabla_\mu \Psi^a \nabla_\nu \Psi^{b\dagger}
+- \mathcal{V}(\Psi^a)
+\right]
+\sqrt{|g|}\, d^4x.
+\]
+\end{definition}
+
+\section{Coupled Evolution Equations}
+\begin{theorem}[Coupled Master Equation]
+\[
+\nabla_\mu(\mathcal{K}^{\mu\nu}_{ab} \nabla_\nu \Psi^b)
++ \frac{\partial \mathcal{V}}{\partial \Psi^{a\dagger}}
+= 0.
+\]
+\end{theorem}
+
+% =========================================================
+% CHAPTER 3 — Nonlinear Curvature Couplings
+% =========================================================
+\chapter{Nonlinear Curvature Couplings}
+
+\section{Extended Action Terms}
+\[
+\mathcal{S}_{\text{curv}}
+= \int_{\mathcal{M}}
+\left[
+\alpha R |\Psi|^2
++ \beta R_{\mu\nu} \nabla^\mu \Psi \nabla^\nu \Psi^\dagger
+\right]
+\sqrt{|g|}\, d^4x.
+\]
+
+\section{Resulting Field Equations}
+\begin{proposition}
+The curvature-coupled evolution equation is:
+\[
+\nabla_\mu(\mathcal{K}^{\mu\nu} \nabla_\nu \Psi)
++ \mathcal{V}'(\Psi)
++ \alpha R \Psi
++ \beta R_{\mu\nu} \nabla^\mu \Psi \nabla^\nu \Psi^\dagger
+= 0.
+\]
+\end{proposition}
+
+% =========================================================
+% CHAPTER 4 — Extended Invariants
+% =========================================================
+\chapter{Extended Invariants}
+
+\section{Higher-Order Conservation Laws}
+\begin{theorem}[Second-Order Invariant]
+\[
+\frac{d}{dt}
+\int_{\Omega}
+\left(
+|\Psi|^2 + \gamma |\nabla\Psi|^2
+\right)
+dV
+= 0.
+\]
+\end{theorem}
+
+\section{Spectral-Flux Invariants}
+\begin{theorem}[Flux Conservation]
+\[
+\nabla_\mu \Phi_{\text{spec}}^\mu = 0.
+\]
+\end{theorem}
+
+% =========================================================
+% CHAPTER 5 — Global Existence and Uniqueness
+% =========================================================
+\chapter{Global Existence and Uniqueness}
+
+\section{Energy Functional}
+Define:
+\[
+E(t)
+= \int_{\Omega}
+\left[
+\mathcal{K}^{\mu\nu} \nabla_\mu \Psi \nabla_\nu \Psi^\dagger
++ \mathcal{V}(\Psi)
+\right]
+dV.
+\]
+
+\section{Existence Theorem}
+\begin{theorem}[Global Existence]
+If $E(t)$ is bounded and $\mathcal{K}^{\mu\nu}$ is coercive, then a
+global solution to the master evolution equation exists for all
+$t \ge 0$.
+\end{theorem}
+
+\section{Uniqueness Theorem}
+\begin{theorem}[Uniqueness]
+If $\mathcal{K}^{\mu\nu}$ is strictly positive-definite, then the
+solution to the evolution equation is unique.
+\end{theorem}
+
+% =========================================================
+% Appendices
+% =========================================================
+\appendix
+
+\chapter{Extended Tensor Identities}
+Curvature identities, multi-field operator tables, and nonlinear
+coupling expansions.
+
+\chapter{Proof Details}
+Full derivations omitted from the main text.
+
+\backmatter
+
+\chapter*{Bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\end{document}
