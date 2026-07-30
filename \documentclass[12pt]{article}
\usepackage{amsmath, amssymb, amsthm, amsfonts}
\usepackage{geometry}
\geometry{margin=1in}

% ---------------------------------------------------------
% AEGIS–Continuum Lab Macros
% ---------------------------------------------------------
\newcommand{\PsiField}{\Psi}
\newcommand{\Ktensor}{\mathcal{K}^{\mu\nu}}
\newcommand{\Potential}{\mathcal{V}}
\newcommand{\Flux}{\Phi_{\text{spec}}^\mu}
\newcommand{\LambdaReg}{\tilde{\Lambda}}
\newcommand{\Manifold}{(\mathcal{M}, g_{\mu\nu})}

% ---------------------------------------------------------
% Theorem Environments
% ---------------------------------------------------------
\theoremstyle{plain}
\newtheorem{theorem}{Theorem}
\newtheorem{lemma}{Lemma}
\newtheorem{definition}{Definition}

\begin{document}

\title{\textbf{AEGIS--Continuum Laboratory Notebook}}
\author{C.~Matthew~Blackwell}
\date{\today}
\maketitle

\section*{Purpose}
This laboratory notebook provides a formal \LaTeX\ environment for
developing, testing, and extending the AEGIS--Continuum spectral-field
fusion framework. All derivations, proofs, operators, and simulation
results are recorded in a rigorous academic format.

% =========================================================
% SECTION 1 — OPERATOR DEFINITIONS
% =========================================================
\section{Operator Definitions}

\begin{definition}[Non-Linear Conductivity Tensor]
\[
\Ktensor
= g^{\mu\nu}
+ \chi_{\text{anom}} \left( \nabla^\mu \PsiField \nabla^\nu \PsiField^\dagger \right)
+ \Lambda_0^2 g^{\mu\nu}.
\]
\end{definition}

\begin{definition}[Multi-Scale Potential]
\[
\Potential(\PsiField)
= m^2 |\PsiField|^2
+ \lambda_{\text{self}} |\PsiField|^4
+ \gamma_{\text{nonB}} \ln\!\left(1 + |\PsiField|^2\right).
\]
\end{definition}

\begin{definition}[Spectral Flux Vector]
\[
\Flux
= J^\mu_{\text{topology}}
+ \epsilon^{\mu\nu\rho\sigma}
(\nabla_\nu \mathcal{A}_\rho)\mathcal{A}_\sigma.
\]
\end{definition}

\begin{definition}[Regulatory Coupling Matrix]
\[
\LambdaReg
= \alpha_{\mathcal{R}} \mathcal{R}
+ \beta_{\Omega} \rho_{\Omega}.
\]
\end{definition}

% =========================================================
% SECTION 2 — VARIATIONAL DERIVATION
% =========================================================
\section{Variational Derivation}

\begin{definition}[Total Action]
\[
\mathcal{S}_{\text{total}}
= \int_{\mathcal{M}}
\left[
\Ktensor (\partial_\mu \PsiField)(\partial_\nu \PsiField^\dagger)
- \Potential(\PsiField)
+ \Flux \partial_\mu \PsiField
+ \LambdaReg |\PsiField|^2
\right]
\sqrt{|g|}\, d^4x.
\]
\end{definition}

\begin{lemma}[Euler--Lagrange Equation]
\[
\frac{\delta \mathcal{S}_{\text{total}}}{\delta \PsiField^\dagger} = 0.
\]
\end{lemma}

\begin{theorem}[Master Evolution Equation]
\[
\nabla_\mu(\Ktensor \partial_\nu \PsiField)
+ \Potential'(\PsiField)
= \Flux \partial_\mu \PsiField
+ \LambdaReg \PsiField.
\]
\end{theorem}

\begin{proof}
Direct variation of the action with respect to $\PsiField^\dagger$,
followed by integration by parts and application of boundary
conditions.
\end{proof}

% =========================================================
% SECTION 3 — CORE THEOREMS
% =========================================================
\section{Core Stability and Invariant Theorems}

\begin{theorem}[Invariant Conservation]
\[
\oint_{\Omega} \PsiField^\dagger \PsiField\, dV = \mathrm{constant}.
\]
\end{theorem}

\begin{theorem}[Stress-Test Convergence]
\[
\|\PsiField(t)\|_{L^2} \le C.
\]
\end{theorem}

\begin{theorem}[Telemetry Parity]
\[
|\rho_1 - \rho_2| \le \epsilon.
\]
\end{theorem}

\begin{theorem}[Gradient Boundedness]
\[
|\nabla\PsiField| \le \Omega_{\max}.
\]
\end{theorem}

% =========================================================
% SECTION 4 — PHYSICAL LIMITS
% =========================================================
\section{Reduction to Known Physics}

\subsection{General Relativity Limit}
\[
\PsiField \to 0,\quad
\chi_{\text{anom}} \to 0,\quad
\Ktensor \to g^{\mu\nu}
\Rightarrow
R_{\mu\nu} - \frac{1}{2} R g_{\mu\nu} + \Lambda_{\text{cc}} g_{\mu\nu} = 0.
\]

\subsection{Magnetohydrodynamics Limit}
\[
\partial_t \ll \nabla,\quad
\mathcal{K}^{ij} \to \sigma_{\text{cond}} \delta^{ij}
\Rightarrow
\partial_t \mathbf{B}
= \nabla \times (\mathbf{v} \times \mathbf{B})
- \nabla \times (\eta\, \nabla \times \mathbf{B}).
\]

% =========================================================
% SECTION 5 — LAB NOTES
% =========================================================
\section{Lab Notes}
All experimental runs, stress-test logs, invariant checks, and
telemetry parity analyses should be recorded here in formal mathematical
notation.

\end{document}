@@ -1,0 +1,178 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+% ---------------------------------------------------------
+% AEGIS–Continuum Lab Macros
+% ---------------------------------------------------------
+\newcommand{\PsiField}{\Psi}
+\newcommand{\Ktensor}{\mathcal{K}^{\mu\nu}}
+\newcommand{\Potential}{\mathcal{V}}
+\newcommand{\Flux}{\Phi_{\text{spec}}^\mu}
+\newcommand{\LambdaReg}{\tilde{\Lambda}}
+\newcommand{\Manifold}{(\mathcal{M}, g_{\mu\nu})}
+
+% ---------------------------------------------------------
+% Theorem Environments
+% ---------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+
+\begin{document}
+
+\title{\textbf{AEGIS--Continuum Laboratory Notebook}}
+\author{C.~Matthew~Blackwell}
+\date{\today}
+\maketitle
+
+\section*{Purpose}
+This laboratory notebook provides a formal \LaTeX\ environment for
+developing, testing, and extending the AEGIS--Continuum spectral-field
+fusion framework. All derivations, proofs, operators, and simulation
+results are recorded in a rigorous academic format.
+
+% =========================================================
+% SECTION 1 — OPERATOR DEFINITIONS
+% =========================================================
+\section{Operator Definitions}
+
+\begin{definition}[Non-Linear Conductivity Tensor]
+\[
+\Ktensor
+= g^{\mu\nu}
++ \chi_{\text{anom}} \left( \nabla^\mu \PsiField \nabla^\nu \PsiField^\dagger \right)
++ \Lambda_0^2 g^{\mu\nu}.
+\]
+\end{definition}
+
+\begin{definition}[Multi-Scale Potential]
+\[
+\Potential(\PsiField)
+= m^2 |\PsiField|^2
++ \lambda_{\text{self}} |\PsiField|^4
++ \gamma_{\text{nonB}} \ln\!\left(1 + |\PsiField|^2\right).
+\]
+\end{definition}
+
+\begin{definition}[Spectral Flux Vector]
+\[
+\Flux
+= J^\mu_{\text{topology}}
++ \epsilon^{\mu\nu\rho\sigma}
+(\nabla_\nu \mathcal{A}_\rho)\mathcal{A}_\sigma.
+\]
+\end{definition}
+
+\begin{definition}[Regulatory Coupling Matrix]
+\[
+\LambdaReg
+= \alpha_{\mathcal{R}} \mathcal{R}
++ \beta_{\Omega} \rho_{\Omega}.
+\]
+\end{definition}
+
+% =========================================================
+% SECTION 2 — VARIATIONAL DERIVATION
+% =========================================================
+\section{Variational Derivation}
+
+\begin{definition}[Total Action]
+\[
+\mathcal{S}_{\text{total}}
+= \int_{\mathcal{M}}
+\left[
+\Ktensor (\partial_\mu \PsiField)(\partial_\nu \PsiField^\dagger)
+- \Potential(\PsiField)
++ \Flux \partial_\mu \PsiField
++ \LambdaReg |\PsiField|^2
+\right]
+\sqrt{|g|}\, d^4x.
+\]
+\end{definition}
+
+\begin{lemma}[Euler--Lagrange Equation]
+\[
+\frac{\delta \mathcal{S}_{\text{total}}}{\delta \PsiField^\dagger} = 0.
+\]
+\end{lemma}
+
+\begin{theorem}[Master Evolution Equation]
+\[
+\nabla_\mu(\Ktensor \partial_\nu \PsiField)
++ \Potential'(\PsiField)
+= \Flux \partial_\mu \PsiField
++ \LambdaReg \PsiField.
+\]
+\end{theorem}
+
+\begin{proof}
+Direct variation of the action with respect to $\PsiField^\dagger$,
+followed by integration by parts and application of boundary
+conditions.
+\end{proof}
+
+% =========================================================
+% SECTION 3 — CORE THEOREMS
+% =========================================================
+\section{Core Stability and Invariant Theorems}
+
+\begin{theorem}[Invariant Conservation]
+\[
+\oint_{\Omega} \PsiField^\dagger \PsiField\, dV = \mathrm{constant}.
+\]
+\end{theorem}
+
+\begin{theorem}[Stress-Test Convergence]
+\[
+\|\PsiField(t)\|_{L^2} \le C.
+\]
+\end{theorem}
+
+\begin{theorem}[Telemetry Parity]
+\[
+|\rho_1 - \rho_2| \le \epsilon.
+\]
+\end{theorem}
+
+\begin{theorem}[Gradient Boundedness]
+\[
+|\nabla\PsiField| \le \Omega_{\max}.
+\]
+\end{theorem}
+
+% =========================================================
+% SECTION 4 — PHYSICAL LIMITS
+% =========================================================
+\section{Reduction to Known Physics}
+
+\subsection{General Relativity Limit}
+\[
+\PsiField \to 0,\quad
+\chi_{\text{anom}} \to 0,\quad
+\Ktensor \to g^{\mu\nu}
+\Rightarrow
+R_{\mu\nu} - \frac{1}{2} R g_{\mu\nu} + \Lambda_{\text{cc}} g_{\mu\nu} = 0.
+\]
+
+\subsection{Magnetohydrodynamics Limit}
+\[
+\partial_t \ll \nabla,\quad
+\mathcal{K}^{ij} \to \sigma_{\text{cond}} \delta^{ij}
+\Rightarrow
+\partial_t \mathbf{B}
+= \nabla \times (\mathbf{v} \times \mathbf{B})
+- \nabla \times (\eta\, \nabla \times \mathbf{B}).
+\]
+
+% =========================================================
+% SECTION 5 — LAB NOTES
+% =========================================================
+\section{Lab Notes}
+All experimental runs, stress-test logs, invariant checks, and
+telemetry parity analyses should be recorded here in formal mathematical
+notation.
+
+\end{document}
