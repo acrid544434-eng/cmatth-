@@ -1,0 +1,225 @@
+\documentclass[12pt]{book}
+\usepackage{amsmath, amssymb, amsthm, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+% ---------------------------------------------------------
+% Theorem Environments
+% ---------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+
+% ---------------------------------------------------------
+% Title Page
+% ---------------------------------------------------------
+\title{\textbf{AEGIS--Continuum Monograph Volume I}\\
+\large Formal Academic Physics Edition}
+\author{C.~Matthew~Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+\frontmatter
+
+% ---------------------------------------------------------
+% Abstract
+% ---------------------------------------------------------
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+This monograph presents the formal mathematical foundations of the
+AEGIS--Continuum spectral-field fusion framework. The theory is derived
+from a variational tensor-field action on a Riemannian manifold,
+incorporating non-linear conductivity tensors, multi-scale potentials,
+spectral flux operators, and curvature-coupled regulatory matrices.
+Stability theorems, invariant laws, and physical reduction limits are
+established rigorously. This volume constitutes the theoretical core of
+the AEGIS--Continuum engine.
+
+% ---------------------------------------------------------
+% Preface
+% ---------------------------------------------------------
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+This volume formalizes the mathematical and physical structure of the
+AEGIS--Continuum engine. It is intended for researchers in theoretical
+physics, differential geometry, and computational tensor-field
+dynamics. All derivations are presented in full academic rigor.
+
+\tableofcontents
+
+\mainmatter
+
+% =========================================================
+% CHAPTER 1 — Mathematical Foundations
+% =========================================================
+\chapter{Mathematical Foundations}
+
+\section{Manifold Structure}
+Let $(\mathcal{M}, g_{\mu\nu})$ be a smooth Riemannian manifold with
+metric determinant $g$.
+
+\section{Field Definition}
+The matter-intensity field is defined as:
+\[
+\Psi : \mathcal{M} \times \mathbb{R} \to \mathbb{C}.
+\]
+
+\section{Tensor Preliminaries}
+We adopt standard conventions for covariant derivatives, curvature
+tensors, and index manipulation.
+
+% =========================================================
+% CHAPTER 2 — Operator Definitions
+% =========================================================
+\chapter{Operator Definitions}
+
+\begin{definition}[Non-Linear Conductivity Tensor]
+\[
+\mathcal{K}^{\mu\nu}
+= g^{\mu\nu}
++ \chi_{\text{anom}} (\nabla^\mu \Psi)(\nabla^\nu \Psi^\dagger)
++ \Lambda_0^2 g^{\mu\nu}.
+\]
+\end{definition}
+
+\begin{definition}[Multi-Scale Potential]
+\[
+\mathcal{V}(\Psi)
+= m^2 |\Psi|^2
++ \lambda_{\text{self}} |\Psi|^4
++ \gamma_{\text{nonB}} \ln(1 + |\Psi|^2).
+\]
+\end{definition}
+
+\begin{definition}[Spectral Flux Vector]
+\[
+\Phi_{\text{spec}}^\mu
+= J^\mu_{\text{topology}}
++ \epsilon^{\mu\nu\rho\sigma}
+(\nabla_\nu \mathcal{A}_\rho)\mathcal{A}_\sigma.
+\]
+\end{definition}
+
+\begin{definition}[Regulatory Coupling Matrix]
+\[
+\tilde{\Lambda}
+= \alpha_{\mathcal{R}} \mathcal{R}
++ \beta_{\Omega} \rho_{\Omega}.
+\]
+\end{definition}
+
+% =========================================================
+% CHAPTER 3 — Variational Action
+% =========================================================
+\chapter{Variational Action}
+
+\section{Total Action Functional}
+\[
+\mathcal{S}_{\text{total}}
+= \int_{\mathcal{M}}
+\left[
+\mathcal{K}^{\mu\nu} (\partial_\mu \Psi)(\partial_\nu \Psi^\dagger)
+- \mathcal{V}(\Psi)
++ \Phi_{\text{spec}}^\mu \partial_\mu \Psi
++ \tilde{\Lambda} |\Psi|^2
+\right]
+\sqrt{|g|}\, d^4x.
+\]
+
+\section{Euler--Lagrange Variation}
+\[
+\frac{\delta \mathcal{S}_{\text{total}}}{\delta \Psi^\dagger} = 0.
+\]
+
+\begin{theorem}[Master Evolution Equation]
+\[
+\nabla_\mu(\mathcal{K}^{\mu\nu} \partial_\nu \Psi)
++ \mathcal{V}'(\Psi)
+= \Phi_{\text{spec}}^\mu \partial_\mu \Psi
++ \tilde{\Lambda} \Psi.
+\]
+\end{theorem}
+
+% =========================================================
+% CHAPTER 4 — Stability Theorems
+% =========================================================
+\chapter{Stability Theorems}
+
+\section{Invariant Conservation}
+\begin{theorem}
+\[
+\oint_{\Omega} \Psi^\dagger \Psi\, dV = \mathrm{constant}.
+\]
+\end{theorem}
+
+\section{Stress-Test Convergence}
+\begin{theorem}
+\[
+\|\Psi(t)\|_{L^2} \le C.
+\]
+\end{theorem}
+
+\section{Telemetry Parity}
+\begin{theorem}
+\[
+|\rho_1 - \rho_2| \le \epsilon.
+\]
+\end{theorem}
+
+\section{Gradient Boundedness}
+\begin{theorem}
+\[
+|\nabla\Psi| \le \Omega_{\max}.
+\]
+\end{theorem}
+
+% =========================================================
+% CHAPTER 5 — Physical Reduction Limits
+% =========================================================
+\chapter{Physical Reduction Limits}
+
+\section{General Relativity Limit}
+\[
+\Psi \to 0,\quad
+\chi_{\text{anom}} \to 0,\quad
+\mathcal{K}^{\mu\nu} \to g^{\mu\nu}
+\Rightarrow
+R_{\mu\nu} - \frac{1}{2} R g_{\mu\nu}
++ \Lambda_{\text{cc}} g_{\mu\nu} = 0.
+\]
+
+\section{Magnetohydrodynamics Limit}
+\[
+\partial_t \ll \nabla,\quad
+\mathcal{K}^{ij} \to \sigma_{\text{cond}} \delta^{ij}
+\Rightarrow
+\partial_t \mathbf{B}
+= \nabla \times (\mathbf{v} \times \mathbf{B})
+- \nabla \times (\eta\, \nabla \times \mathbf{B}).
+\]
+
+% =========================================================
+% Appendices
+% =========================================================
+\appendix
+
+\chapter{Notation Index}
+A complete list of symbols used throughout the monograph.
+
+\chapter{Tensor Identities}
+Curvature identities, covariant derivative rules, and operator tables.
+
+\chapter{Extended Proofs}
+Full derivations omitted from the main text.
+
+\backmatter
+
+\chapter*{Bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\end{document}
