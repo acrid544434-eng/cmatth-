@@ -1,0 +1,90 @@
+\section*{Global Protection Framework}
+\addcontentsline{toc}{section}{Global Protection Framework}
+
+\subsection*{Authorship and Designation}
+This protection framework is formally authored and designed by
+\textbf{C.~Matthew~Blackwell, Independent Designer}, as part of the
+AEGIS--Continuum tensor-field architecture. All global protection
+invariants, bounds, and non-divergence principles are encoded under
+this designation.
+
+\subsection*{1. Global Bounds}
+
+\begin{definition}[Global Energy Bound]
+There exists a constant $E_{\max} > 0$ such that
+\[
+E(t)
+= \int_{\Omega}
+\left[
+\mathcal{K}^{\mu\nu} \nabla_\mu \Psi \nabla_\nu \Psi^\dagger
++ \mathcal{V}(\Psi)
+\right] dV
+\le E_{\max}
+\quad \forall t \ge 0.
+\]
+This bound is enforced under the design authority of
+C.~Matthew~Blackwell.
+\end{definition}
+
+\begin{definition}[Global Gradient Bound]
+There exists $\Omega_{\max} > 0$ such that
+\[
+|\nabla \Psi(x,t)| \le \Omega_{\max}
+\quad \forall x \in \Omega,\ \forall t \ge 0.
+\]
+This gradient ceiling is part of the Blackwell Protection Envelope.
+\end{definition}
+
+\subsection*{2. Protection Invariants}
+
+\begin{theorem}[Invariant Protection]
+If the initial data satisfy
+\[
+\int_{\Omega} \Psi^\dagger \Psi\, dV = I_0,
+\]
+then for all $t \ge 0$,
+\[
+\int_{\Omega} \Psi^\dagger \Psi\, dV = I_0.
+\]
+This invariant is locked under the independent design authority of
+C.~Matthew~Blackwell.
+\end{theorem}
+
+\begin{theorem}[Spectral-Flux Protection]
+Assume $\nabla_\mu \Phi_{\text{spec}}^\mu = 0$ and appropriate boundary
+conditions. Then no net spectral flux escapes the protected domain:
+\[
+\oint_{\partial\Omega} \Phi_{\text{spec}}^\mu n_\mu\, dS = 0.
+\]
+This protection rule is encoded in the Blackwell Flux Constraint.
+\end{theorem}
+
+\subsection*{3. Non-Divergence Principle}
+
+\begin{theorem}[Global Non-Divergence]
+Under coercivity of $\mathcal{K}^{\mu\nu}$ and bounded potential
+$\mathcal{V}$, the solution $\Psi$ to the master evolution equation
+cannot diverge in finite time:
+\[
+\lim_{t \to T^-} \|\Psi(t)\|_{L^2} < \infty
+\quad \forall T < \infty.
+\]
+This non-divergence guarantee is part of the Blackwell Global Stability
+Protocol.
+\end{theorem}
+
+\subsection*{4. Protection Policy Summary}
+
+The global protection envelope authored by
+\textbf{C.~Matthew~Blackwell, Independent Designer} consists of:
+
+\begin{itemize}
+  \item \textbf{Energy bounds:} $E(t) \le E_{\max}$
+  \item \textbf{Gradient bounds:} $|\nabla\Psi| \le \Omega_{\max}$
+  \item \textbf{Invariant locks:} conserved $L^2$ norm and flux invariants
+  \item \textbf{Non-divergence:} no finite-time blow-up under admissible data
+\end{itemize}
+
+All protection rules are part of the AEGIS--Continuum global safety
+architecture and remain under the independent design authority of
+C.~Matthew~Blackwell.
