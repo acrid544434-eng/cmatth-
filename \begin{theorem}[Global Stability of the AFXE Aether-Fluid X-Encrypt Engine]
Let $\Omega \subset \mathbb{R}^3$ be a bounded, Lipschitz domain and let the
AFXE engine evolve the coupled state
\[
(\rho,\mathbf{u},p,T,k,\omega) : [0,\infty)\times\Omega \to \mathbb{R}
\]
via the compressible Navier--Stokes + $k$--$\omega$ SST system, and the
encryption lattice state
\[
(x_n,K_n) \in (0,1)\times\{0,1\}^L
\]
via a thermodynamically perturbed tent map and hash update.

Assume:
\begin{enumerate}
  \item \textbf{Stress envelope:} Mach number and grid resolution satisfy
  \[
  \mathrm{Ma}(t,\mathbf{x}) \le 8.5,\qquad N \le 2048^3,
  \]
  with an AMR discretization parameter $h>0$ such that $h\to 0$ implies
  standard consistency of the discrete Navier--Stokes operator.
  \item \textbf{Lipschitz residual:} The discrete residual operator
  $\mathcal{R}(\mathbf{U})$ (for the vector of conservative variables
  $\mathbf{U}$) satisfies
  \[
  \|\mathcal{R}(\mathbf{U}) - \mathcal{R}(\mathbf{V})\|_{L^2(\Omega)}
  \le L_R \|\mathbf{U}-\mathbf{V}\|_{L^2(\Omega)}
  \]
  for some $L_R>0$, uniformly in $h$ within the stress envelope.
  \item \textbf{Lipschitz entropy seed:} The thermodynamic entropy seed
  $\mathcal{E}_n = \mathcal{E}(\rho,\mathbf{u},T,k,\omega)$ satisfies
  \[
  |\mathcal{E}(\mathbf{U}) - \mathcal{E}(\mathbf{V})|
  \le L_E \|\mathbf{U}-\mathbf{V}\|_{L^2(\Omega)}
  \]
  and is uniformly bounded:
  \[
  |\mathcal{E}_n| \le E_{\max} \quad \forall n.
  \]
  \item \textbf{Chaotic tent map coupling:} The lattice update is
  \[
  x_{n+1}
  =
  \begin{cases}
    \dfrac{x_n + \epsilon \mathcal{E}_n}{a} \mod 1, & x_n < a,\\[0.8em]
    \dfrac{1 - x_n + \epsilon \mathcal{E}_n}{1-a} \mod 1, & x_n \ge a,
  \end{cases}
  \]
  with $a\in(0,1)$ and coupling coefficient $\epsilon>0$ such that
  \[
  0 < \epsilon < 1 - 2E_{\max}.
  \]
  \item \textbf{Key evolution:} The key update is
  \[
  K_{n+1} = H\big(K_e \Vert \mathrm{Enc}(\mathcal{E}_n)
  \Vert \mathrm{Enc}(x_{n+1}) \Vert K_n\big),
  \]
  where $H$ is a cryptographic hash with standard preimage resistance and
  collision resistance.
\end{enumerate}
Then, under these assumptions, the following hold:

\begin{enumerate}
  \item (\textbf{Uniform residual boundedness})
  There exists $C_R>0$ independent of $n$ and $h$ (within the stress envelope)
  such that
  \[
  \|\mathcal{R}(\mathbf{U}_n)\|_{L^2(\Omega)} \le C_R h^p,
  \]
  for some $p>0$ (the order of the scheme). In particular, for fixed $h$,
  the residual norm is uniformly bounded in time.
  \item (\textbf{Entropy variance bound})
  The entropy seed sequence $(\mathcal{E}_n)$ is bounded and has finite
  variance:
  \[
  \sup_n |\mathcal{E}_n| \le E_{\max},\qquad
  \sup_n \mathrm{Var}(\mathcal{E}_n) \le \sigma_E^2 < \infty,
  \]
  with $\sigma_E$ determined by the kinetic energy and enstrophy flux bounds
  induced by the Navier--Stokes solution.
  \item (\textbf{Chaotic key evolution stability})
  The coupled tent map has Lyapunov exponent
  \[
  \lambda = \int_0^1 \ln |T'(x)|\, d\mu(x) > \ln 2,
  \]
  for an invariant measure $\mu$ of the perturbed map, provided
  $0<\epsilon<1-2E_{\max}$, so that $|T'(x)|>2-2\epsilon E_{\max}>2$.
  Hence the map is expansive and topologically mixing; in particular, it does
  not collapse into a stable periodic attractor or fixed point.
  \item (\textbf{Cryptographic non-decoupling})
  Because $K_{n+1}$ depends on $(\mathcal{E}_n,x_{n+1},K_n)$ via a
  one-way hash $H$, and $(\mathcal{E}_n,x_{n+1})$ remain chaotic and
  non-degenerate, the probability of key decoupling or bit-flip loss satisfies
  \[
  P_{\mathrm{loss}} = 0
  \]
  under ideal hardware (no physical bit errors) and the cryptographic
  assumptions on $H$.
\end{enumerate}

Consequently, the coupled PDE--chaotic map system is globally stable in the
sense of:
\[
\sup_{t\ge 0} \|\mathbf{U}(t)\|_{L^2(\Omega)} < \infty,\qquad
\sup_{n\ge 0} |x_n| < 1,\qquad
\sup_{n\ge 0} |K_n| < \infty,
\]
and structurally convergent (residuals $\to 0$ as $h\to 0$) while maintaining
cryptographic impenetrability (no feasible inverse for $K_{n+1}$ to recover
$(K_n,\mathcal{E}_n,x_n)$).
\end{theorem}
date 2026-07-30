@@ -1,0 +1,111 @@
+\begin{theorem}[Global Stability of the AFXE Aether-Fluid X-Encrypt Engine]
+Let $\Omega \subset \mathbb{R}^3$ be a bounded, Lipschitz domain and let the
+AFXE engine evolve the coupled state
+\[
+(\rho,\mathbf{u},p,T,k,\omega) : [0,\infty)\times\Omega \to \mathbb{R}
+\]
+via the compressible Navier--Stokes + $k$--$\omega$ SST system, and the
+encryption lattice state
+\[
+(x_n,K_n) \in (0,1)\times\{0,1\}^L
+\]
+via a thermodynamically perturbed tent map and hash update.
+
+Assume:
+\begin{enumerate}
+  \item \textbf{Stress envelope:} Mach number and grid resolution satisfy
+  \[
+  \mathrm{Ma}(t,\mathbf{x}) \le 8.5,\qquad N \le 2048^3,
+  \]
+  with an AMR discretization parameter $h>0$ such that $h\to 0$ implies
+  standard consistency of the discrete Navier--Stokes operator.
+  \item \textbf{Lipschitz residual:} The discrete residual operator
+  $\mathcal{R}(\mathbf{U})$ (for the vector of conservative variables
+  $\mathbf{U}$) satisfies
+  \[
+  \|\mathcal{R}(\mathbf{U}) - \mathcal{R}(\mathbf{V})\|_{L^2(\Omega)}
+  \le L_R \|\mathbf{U}-\mathbf{V}\|_{L^2(\Omega)}
+  \]
+  for some $L_R>0$, uniformly in $h$ within the stress envelope.
+  \item \textbf{Lipschitz entropy seed:} The thermodynamic entropy seed
+  $\mathcal{E}_n = \mathcal{E}(\rho,\mathbf{u},T,k,\omega)$ satisfies
+  \[
+  |\mathcal{E}(\mathbf{U}) - \mathcal{E}(\mathbf{V})|
+  \le L_E \|\mathbf{U}-\mathbf{V}\|_{L^2(\Omega)}
+  \]
+  and is uniformly bounded:
+  \[
+  |\mathcal{E}_n| \le E_{\max} \quad \forall n.
+  \]
+  \item \textbf{Chaotic tent map coupling:} The lattice update is
+  \[
+  x_{n+1}
+  =
+  \begin{cases}
+    \dfrac{x_n + \epsilon \mathcal{E}_n}{a} \mod 1, & x_n < a,\\[0.8em]
+    \dfrac{1 - x_n + \epsilon \mathcal{E}_n}{1-a} \mod 1, & x_n \ge a,
+  \end{cases}
+  \]
+  with $a\in(0,1)$ and coupling coefficient $\epsilon>0$ such that
+  \[
+  0 < \epsilon < 1 - 2E_{\max}.
+  \]
+  \item \textbf{Key evolution:} The key update is
+  \[
+  K_{n+1} = H\big(K_e \Vert \mathrm{Enc}(\mathcal{E}_n)
+  \Vert \mathrm{Enc}(x_{n+1}) \Vert K_n\big),
+  \]
+  where $H$ is a cryptographic hash with standard preimage resistance and
+  collision resistance.
+\end{enumerate}
+Then, under these assumptions, the following hold:
+
+\begin{enumerate}
+  \item (\textbf{Uniform residual boundedness})
+  There exists $C_R>0$ independent of $n$ and $h$ (within the stress envelope)
+  such that
+  \[
+  \|\mathcal{R}(\mathbf{U}_n)\|_{L^2(\Omega)} \le C_R h^p,
+  \]
+  for some $p>0$ (the order of the scheme). In particular, for fixed $h$,
+  the residual norm is uniformly bounded in time.
+  \item (\textbf{Entropy variance bound})
+  The entropy seed sequence $(\mathcal{E}_n)$ is bounded and has finite
+  variance:
+  \[
+  \sup_n |\mathcal{E}_n| \le E_{\max},\qquad
+  \sup_n \mathrm{Var}(\mathcal{E}_n) \le \sigma_E^2 < \infty,
+  \]
+  with $\sigma_E$ determined by the kinetic energy and enstrophy flux bounds
+  induced by the Navier--Stokes solution.
+  \item (\textbf{Chaotic key evolution stability})
+  The coupled tent map has Lyapunov exponent
+  \[
+  \lambda = \int_0^1 \ln |T'(x)|\, d\mu(x) > \ln 2,
+  \]
+  for an invariant measure $\mu$ of the perturbed map, provided
+  $0<\epsilon<1-2E_{\max}$, so that $|T'(x)|>2-2\epsilon E_{\max}>2$.
+  Hence the map is expansive and topologically mixing; in particular, it does
+  not collapse into a stable periodic attractor or fixed point.
+  \item (\textbf{Cryptographic non-decoupling})
+  Because $K_{n+1}$ depends on $(\mathcal{E}_n,x_{n+1},K_n)$ via a
+  one-way hash $H$, and $(\mathcal{E}_n,x_{n+1})$ remain chaotic and
+  non-degenerate, the probability of key decoupling or bit-flip loss satisfies
+  \[
+  P_{\mathrm{loss}} = 0
+  \]
+  under ideal hardware (no physical bit errors) and the cryptographic
+  assumptions on $H$.
+\end{enumerate}
+
+Consequently, the coupled PDE--chaotic map system is globally stable in the
+sense of:
+\[
+\sup_{t\ge 0} \|\mathbf{U}(t)\|_{L^2(\Omega)} < \infty,\qquad
+\sup_{n\ge 0} |x_n| < 1,\qquad
+\sup_{n\ge 0} |K_n| < \infty,
+\]
+and structurally convergent (residuals $\to 0$ as $h\to 0$) while maintaining
+cryptographic impenetrability (no feasible inverse for $K_{n+1}$ to recover
+$(K_n,\mathcal{E}_n,x_n)$).
+\end{theorem}
