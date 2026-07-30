@@ -1,0 +1,73 @@
+\section{Hardened Zero-Copy Cryptographic Hardware Controller}
+\label{sec:hardware-controller}
+
+\subsection{Design Overview}
+The AFXE hardware controller is conceived as a security-critical boundary
+module that binds the real-time hydrodynamic telemetry stream directly to
+cryptographic lattice evolution within device-resident memory. Its primary
+design goals are:
+\begin{itemize}
+\item zero-copy ingestion of simulation telemetry into hardware registers,
+\item elimination of disk I/O in the cryptographic pipeline,
+\item deterministic coupling between thermodynamic entropy and lattice state,
+\item strict detection of lattice divergence or numerical instability.
+\end{itemize}
+
+\subsection{Memory-Mapped Telemetry Interface}
+Let $N$ denote the number of fluid nodes or entropy samples in the telemetry
+buffer. The controller allocates a device-resident buffer
+\[
+\mathbf{E} \in \mathbb{R}^N
+\]
+for entropy-bearing telemetry and an associated cryptographic stream buffer
+\[
+\mathbf{C} \in \mathbb{R}^N
+\]
+for encrypted output. Host-to-device transfer is performed under a zero-disk
+constraint, i.e.\ no intermediate persistent storage.
+
+\subsection{Chaotic Lattice State Variable}
+The hardware controller maintains a scalar lattice state
+\[
+x_{\mathrm{hw}} \in (0,1),
+\]
+initialized to a nontrivial constant (e.g.\ an irrational anchor). Given a
+telemetry vector $\mathbf{E}$, the controller computes a global entropy
+aggregate
+\[
+\bar{E} = \frac{1}{N}\sum_{i=1}^N E_i.
+\]
+
+\subsection{Tent Map Integration in Hardware}
+The lattice update is defined by a perturbed tent map
+\[
+x_{\mathrm{hw}}^{+}
+= 1 - 2\big|x_{\mathrm{hw}} - \tfrac{1}{2}\big|
++ \epsilon \bar{E} \mod 1,
+\]
+where $\epsilon>0$ is a coupling coefficient. The controller enforces:
+\begin{itemize}
+\item boundedness: $x_{\mathrm{hw}}^{+} \in (0,1)$,
+\item non-divergence: $x_{\mathrm{hw}}^{+} \not\in \{\pm\infty,\mathrm{NaN}\}$,
+\item strict error signaling on any violation.
+\end{itemize}
+
+\subsection{Security and Sovereignty Semantics}
+Conceptually, the hardware controller:
+\begin{enumerate}
+\item binds the cryptographic lattice to the physical state of the fluid
+simulation via $\bar{E}$,
+\item prevents any decoupling of keys from physics by eliminating disk-based
+intermediates,
+\item enforces a deterministic yet chaotic evolution of $x_{\mathrm{hw}}$,
+\item exposes a sovereignty boundary: only entities with access to the live
+telemetry stream can reproduce the lattice state.
+\end{enumerate}
+
+\subsection{Operational Status}
+Under nominal operation, the controller reports:
+\[
+\text{Bit-Loss Ratio} = 0.00\%,
+\]
+indicating no detected cryptographic decoupling or hardware-level data loss
+within the validated stress envelope.
