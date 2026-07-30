@@ -1,0 +1,167 @@
+\section*{Unified Governing Equations for AFXE}
+
+\subsection*{State Variables}
+
+Let
+\[
+\rho = \rho(t,\mathbf{x}),\quad
+\mathbf{u} = \mathbf{u}(t,\mathbf{x}),\quad
+p = p(t,\mathbf{x}),\quad
+T = T(t,\mathbf{x}),
+\]
+\[
+k = k(t,\mathbf{x}),\quad
+\omega = \omega(t,\mathbf{x}),
+\]
+denote density, velocity, pressure, temperature, turbulent kinetic energy, and specific dissipation, respectively, on a spatial domain
+\(\mathbf{x} \in \Omega \subset \mathbb{R}^3\), \(t \ge 0\).
+
+The **encryption lattice** state is
+\[
+x_n \in (0,1),\quad K_n \in \{0,1\}^L,
+\]
+where \(x_n\) is the chaotic state and \(K_n\) the cryptographic key at discrete time index \(n \in \mathbb{N}\).
+
+\subsection*{Hydrodynamic Core (Navier--Stokes + SST)}
+
+\paragraph{Mass conservation.}
+\[
+\frac{\partial \rho}{\partial t} + \nabla\cdot(\rho \mathbf{u}) = 0.
+\]
+
+\paragraph{Momentum conservation.}
+\[
+\frac{\partial (\rho \mathbf{u})}{\partial t}
++ \nabla\cdot(\rho \mathbf{u}\otimes\mathbf{u})
+= -\nabla p + \nabla\cdot\boldsymbol{\tau} + \mathbf{f},
+\]
+with viscous stress
+\[
+\boldsymbol{\tau}
+= \mu\left(\nabla\mathbf{u} + (\nabla\mathbf{u})^{T}\right)
+- \frac{2}{3}\mu(\nabla\cdot\mathbf{u})\mathbf{I},
+\]
+and \(\mu = \mu(\rho,T,k,\omega)\) the effective (molecular + turbulent) viscosity.
+
+\paragraph{Energy / temperature.}
+\[
+\frac{\partial (\rho e)}{\partial t}
++ \nabla\cdot\big[(\rho e + p)\mathbf{u}\big]
+= \nabla\cdot(\kappa \nabla T) + \Phi,
+\]
+where \(e = e(\rho,T)\) is specific internal energy, \(\kappa\) thermal conductivity, and \(\Phi\) viscous dissipation.
+
+\paragraph{Turbulence model (k--\omega SST).}
+\[
+\frac{\partial k}{\partial t} + \mathbf{u}\cdot\nabla k
+= P_k - \beta^* k \omega
++ \nabla\cdot\big[(\nu + \sigma_k \nu_t)\nabla k\big],
+\]
+\[
+\frac{\partial \omega}{\partial t} + \mathbf{u}\cdot\nabla \omega
+= \alpha\frac{\omega}{k}P_k - \beta\omega^2
++ \nabla\cdot\big[(\nu + \sigma_\omega \nu_t)\nabla \omega\big],
+\]
+with standard SST closures for \(P_k,\nu_t,\alpha,\beta,\beta^*,\sigma_k,\sigma_\omega\).
+
+\subsection*{Thermodynamic Entropy Substrate}
+
+Define the **macroscopic entropy/energy functional** feeding the lattice:
+\[
+\Omega_n
+= \int_{\Omega}
+\Big(
+\rho |\mathbf{u}|^2
++ c_v \rho T
++ c_k k
+\Big)\, d\mathbf{x},
+\]
+for constants \(c_v,c_k > 0\).  
+Optionally, a normalized version:
+\[
+\tilde{\Omega}_n
+= \frac{\Omega_n - \Omega_{\min}}{\Omega_{\max} - \Omega_{\min}}
+\in (0,1),
+\]
+used as a thermodynamic seed.
+
+\subsection*{Chaotic Encryption Lattice (UEL)}
+
+\paragraph{Chaotic tent map.}
+Let \(a \in (0,1)\) be the tent parameter. The lattice state evolves as
+\[
+x_{n+1} =
+\begin{cases}
+\dfrac{x_n + \tilde{\Omega}_n}{a} \mod 1, & x_n < a,\\[1em]
+\dfrac{1 - x_n + \tilde{\Omega}_n}{1 - a} \mod 1, & x_n \ge a.
+\end{cases}
+\]
+
+\paragraph{Dynamic key evolution.}
+Let \(H : \{0,1\}^* \to \{0,1\}^L\) be a cryptographic hash and
+\(K_e \in \{0,1\}^L\) a static seed. Then
+\[
+K_{n+1}
+= H\Big(
+K_e \,\Vert\, \mathrm{Enc}(\tilde{\Omega}_n)
+\,\Vert\, \mathrm{Enc}(x_{n+1})
+\,\Vert\, K_n
+\Big),
+\]
+where \(\mathrm{Enc}(\cdot)\) encodes real scalars into bitstrings and \(\Vert\) denotes concatenation.
+
+This map is **one-way** by design:
+\[
+(K_{n+1},x_{n+1}) \not\Rightarrow (K_n,x_n,\tilde{\Omega}_n)
+\quad\text{(computationally infeasible)}.
+\]
+
+\subsection*{Coupled AFXE System}
+
+The full AFXE engine is the coupled system:
+\[
+\boxed{
+\begin{aligned}
+&\frac{\partial \rho}{\partial t} + \nabla\cdot(\rho \mathbf{u}) = 0,\\
+&\frac{\partial (\rho \mathbf{u})}{\partial t}
++ \nabla\cdot(\rho \mathbf{u}\otimes\mathbf{u})
+= -\nabla p + \nabla\cdot\boldsymbol{\tau} + \mathbf{f},\\
+&\frac{\partial (\rho e)}{\partial t}
++ \nabla\cdot\big[(\rho e + p)\mathbf{u}\big]
+= \nabla\cdot(\kappa \nabla T) + \Phi,\\
+&\frac{\partial k}{\partial t} + \mathbf{u}\cdot\nabla k
+= P_k - \beta^* k \omega
++ \nabla\cdot\big[(\nu + \sigma_k \nu_t)\nabla k\big],\\
+&\frac{\partial \omega}{\partial t} + \mathbf{u}\cdot\nabla \omega
+= \alpha\frac{\omega}{k}P_k - \beta\omega^2
++ \nabla\cdot\big[(\nu + \sigma_\omega \nu_t)\nabla \omega\big],\\[0.5em]
+&\Omega_n
+= \displaystyle\int_{\Omega}
+\Big(
+\rho |\mathbf{u}|^2
++ c_v \rho T
++ c_k k
+\Big)\, d\mathbf{x},\\
+&\tilde{\Omega}_n
+= \dfrac{\Omega_n - \Omega_{\min}}{\Omega_{\max} - \Omega_{\min}},\\[0.5em]
+&x_{n+1} =
+\begin{cases}
+\dfrac{x_n + \tilde{\Omega}_n}{a} \mod 1, & x_n < a,\\[1em]
+\dfrac{1 - x_n + \tilde{\Omega}_n}{1 - a} \mod 1, & x_n \ge a,
+\end{cases}\\[0.5em]
+&K_{n+1}
+= H\Big(
+K_e \,\Vert\, \mathrm{Enc}(\tilde{\Omega}_n)
+\,\Vert\, \mathrm{Enc}(x_{n+1})
+\,\Vert\, K_n
+\Big).
+\end{aligned}
+}
+\]
+
+\subsection*{Design Credit}
+
+\begin{center}
+\textbf{AFXE -- Aether-Fluid Real-Time Simulation Engine with Thermodynamic Encryption Lattice}\\
+Design Credit: C.\ Matthew Blackwell, Independent Designer
+\end{center}
