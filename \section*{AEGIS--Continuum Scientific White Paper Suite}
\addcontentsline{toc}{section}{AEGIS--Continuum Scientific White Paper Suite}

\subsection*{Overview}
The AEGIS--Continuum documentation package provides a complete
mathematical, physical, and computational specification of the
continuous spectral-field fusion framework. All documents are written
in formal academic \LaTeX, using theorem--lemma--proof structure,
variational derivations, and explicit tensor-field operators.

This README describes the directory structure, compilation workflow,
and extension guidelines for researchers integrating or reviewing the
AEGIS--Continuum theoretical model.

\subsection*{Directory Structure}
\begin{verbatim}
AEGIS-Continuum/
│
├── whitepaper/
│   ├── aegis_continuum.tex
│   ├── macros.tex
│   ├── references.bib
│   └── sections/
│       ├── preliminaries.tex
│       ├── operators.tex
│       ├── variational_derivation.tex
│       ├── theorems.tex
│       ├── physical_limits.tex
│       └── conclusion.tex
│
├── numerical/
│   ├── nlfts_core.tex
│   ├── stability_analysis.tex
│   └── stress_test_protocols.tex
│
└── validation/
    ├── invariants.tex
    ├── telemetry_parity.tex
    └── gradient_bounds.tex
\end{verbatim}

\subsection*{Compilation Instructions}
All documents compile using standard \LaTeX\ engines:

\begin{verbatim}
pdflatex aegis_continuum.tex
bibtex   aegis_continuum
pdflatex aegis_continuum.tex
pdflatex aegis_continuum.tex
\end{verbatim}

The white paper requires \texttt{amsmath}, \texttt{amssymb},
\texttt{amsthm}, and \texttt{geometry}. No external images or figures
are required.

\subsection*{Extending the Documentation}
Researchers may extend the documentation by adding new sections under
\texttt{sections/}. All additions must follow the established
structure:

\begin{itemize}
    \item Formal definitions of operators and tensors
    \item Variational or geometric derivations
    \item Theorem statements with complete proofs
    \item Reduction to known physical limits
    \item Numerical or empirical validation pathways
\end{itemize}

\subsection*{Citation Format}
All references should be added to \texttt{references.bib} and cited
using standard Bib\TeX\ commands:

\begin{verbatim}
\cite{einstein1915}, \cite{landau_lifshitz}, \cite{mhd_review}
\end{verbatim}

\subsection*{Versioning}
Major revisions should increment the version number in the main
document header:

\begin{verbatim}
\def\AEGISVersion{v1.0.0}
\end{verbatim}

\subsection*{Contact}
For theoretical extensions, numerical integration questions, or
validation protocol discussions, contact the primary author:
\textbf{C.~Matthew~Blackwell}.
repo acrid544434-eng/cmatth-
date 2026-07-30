@@ -1,0 +1,88 @@
+\section*{AEGIS--Continuum Scientific White Paper Suite}
+\addcontentsline{toc}{section}{AEGIS--Continuum Scientific White Paper Suite}
+
+\subsection*{Overview}
+The AEGIS--Continuum documentation package provides a complete
+mathematical, physical, and computational specification of the
+continuous spectral-field fusion framework. All documents are written
+in formal academic \LaTeX, using theorem--lemma--proof structure,
+variational derivations, and explicit tensor-field operators.
+
+This README describes the directory structure, compilation workflow,
+and extension guidelines for researchers integrating or reviewing the
+AEGIS--Continuum theoretical model.
+
+\subsection*{Directory Structure}
+\begin{verbatim}
+AEGIS-Continuum/
+│
+├── whitepaper/
+│   ├── aegis_continuum.tex
+│   ├── macros.tex
+│   ├── references.bib
+│   └── sections/
+│       ├── preliminaries.tex
+│       ├── operators.tex
+│       ├── variational_derivation.tex
+│       ├── theorems.tex
+│       ├── physical_limits.tex
+│       └── conclusion.tex
+│
+├── numerical/
+│   ├── nlfts_core.tex
+│   ├── stability_analysis.tex
+│   └── stress_test_protocols.tex
+│
+└── validation/
+    ├── invariants.tex
+    ├── telemetry_parity.tex
+    └── gradient_bounds.tex
+\end{verbatim}
+
+\subsection*{Compilation Instructions}
+All documents compile using standard \LaTeX\ engines:
+
+\begin{verbatim}
+pdflatex aegis_continuum.tex
+bibtex   aegis_continuum
+pdflatex aegis_continuum.tex
+pdflatex aegis_continuum.tex
+\end{verbatim}
+
+The white paper requires \texttt{amsmath}, \texttt{amssymb},
+\texttt{amsthm}, and \texttt{geometry}. No external images or figures
+are required.
+
+\subsection*{Extending the Documentation}
+Researchers may extend the documentation by adding new sections under
+\texttt{sections/}. All additions must follow the established
+structure:
+
+\begin{itemize}
+    \item Formal definitions of operators and tensors
+    \item Variational or geometric derivations
+    \item Theorem statements with complete proofs
+    \item Reduction to known physical limits
+    \item Numerical or empirical validation pathways
+\end{itemize}
+
+\subsection*{Citation Format}
+All references should be added to \texttt{references.bib} and cited
+using standard Bib\TeX\ commands:
+
+\begin{verbatim}
+\cite{einstein1915}, \cite{landau_lifshitz}, \cite{mhd_review}
+\end{verbatim}
+
+\subsection*{Versioning}
+Major revisions should increment the version number in the main
+document header:
+
+\begin{verbatim}
+\def\AEGISVersion{v1.0.0}
+\end{verbatim}
+
+\subsection*{Contact}
+For theoretical extensions, numerical integration questions, or
+validation protocol discussions, contact the primary author:
+\textbf{C.~Matthew~Blackwell}.
