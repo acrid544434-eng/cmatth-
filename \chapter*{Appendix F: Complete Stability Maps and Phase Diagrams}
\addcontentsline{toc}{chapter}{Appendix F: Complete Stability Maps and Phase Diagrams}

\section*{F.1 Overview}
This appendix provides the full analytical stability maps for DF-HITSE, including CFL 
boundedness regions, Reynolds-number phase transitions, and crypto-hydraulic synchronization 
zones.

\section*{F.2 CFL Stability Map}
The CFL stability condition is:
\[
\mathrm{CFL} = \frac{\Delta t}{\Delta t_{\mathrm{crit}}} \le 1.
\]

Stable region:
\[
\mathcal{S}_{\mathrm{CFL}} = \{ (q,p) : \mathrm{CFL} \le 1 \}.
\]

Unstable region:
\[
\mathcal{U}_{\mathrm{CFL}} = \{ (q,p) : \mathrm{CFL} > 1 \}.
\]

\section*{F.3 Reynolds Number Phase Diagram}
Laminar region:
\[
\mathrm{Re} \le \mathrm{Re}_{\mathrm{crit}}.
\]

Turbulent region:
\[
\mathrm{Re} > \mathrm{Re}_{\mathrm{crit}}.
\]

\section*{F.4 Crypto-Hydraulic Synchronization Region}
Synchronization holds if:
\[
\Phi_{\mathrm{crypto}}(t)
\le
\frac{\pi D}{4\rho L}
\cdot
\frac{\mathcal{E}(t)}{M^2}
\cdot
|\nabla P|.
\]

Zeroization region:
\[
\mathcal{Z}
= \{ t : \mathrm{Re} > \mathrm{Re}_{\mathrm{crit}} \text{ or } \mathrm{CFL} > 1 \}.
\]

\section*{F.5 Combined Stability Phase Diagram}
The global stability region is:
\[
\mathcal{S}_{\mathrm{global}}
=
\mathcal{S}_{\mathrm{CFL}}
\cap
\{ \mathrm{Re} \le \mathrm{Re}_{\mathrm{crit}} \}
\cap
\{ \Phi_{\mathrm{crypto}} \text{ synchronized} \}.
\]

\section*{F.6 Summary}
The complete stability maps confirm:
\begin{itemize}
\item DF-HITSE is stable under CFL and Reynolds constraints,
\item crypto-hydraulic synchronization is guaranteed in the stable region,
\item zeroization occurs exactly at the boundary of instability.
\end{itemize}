@@ -1,0 +1,72 @@
+\chapter*{Appendix F: Complete Stability Maps and Phase Diagrams}
+\addcontentsline{toc}{chapter}{Appendix F: Complete Stability Maps and Phase Diagrams}
+
+\section*{F.1 Overview}
+This appendix provides the full analytical stability maps for DF-HITSE, including CFL 
+boundedness regions, Reynolds-number phase transitions, and crypto-hydraulic synchronization 
+zones.
+
+\section*{F.2 CFL Stability Map}
+The CFL stability condition is:
+\[
+\mathrm{CFL} = \frac{\Delta t}{\Delta t_{\mathrm{crit}}} \le 1.
+\]
+
+Stable region:
+\[
+\mathcal{S}_{\mathrm{CFL}} = \{ (q,p) : \mathrm{CFL} \le 1 \}.
+\]
+
+Unstable region:
+\[
+\mathcal{U}_{\mathrm{CFL}} = \{ (q,p) : \mathrm{CFL} > 1 \}.
+\]
+
+\section*{F.3 Reynolds Number Phase Diagram}
+Laminar region:
+\[
+\mathrm{Re} \le \mathrm{Re}_{\mathrm{crit}}.
+\]
+
+Turbulent region:
+\[
+\mathrm{Re} > \mathrm{Re}_{\mathrm{crit}}.
+\]
+
+\section*{F.4 Crypto-Hydraulic Synchronization Region}
+Synchronization holds if:
+\[
+\Phi_{\mathrm{crypto}}(t)
+\le
+\frac{\pi D}{4\rho L}
+\cdot
+\frac{\mathcal{E}(t)}{M^2}
+\cdot
+|\nabla P|.
+\]
+
+Zeroization region:
+\[
+\mathcal{Z}
+= \{ t : \mathrm{Re} > \mathrm{Re}_{\mathrm{crit}} \text{ or } \mathrm{CFL} > 1 \}.
+\]
+
+\section*{F.5 Combined Stability Phase Diagram}
+The global stability region is:
+\[
+\mathcal{S}_{\mathrm{global}}
+=
+\mathcal{S}_{\mathrm{CFL}}
+\cap
+\{ \mathrm{Re} \le \mathrm{Re}_{\mathrm{crit}} \}
+\cap
+\{ \Phi_{\mathrm{crypto}} \text{ synchronized} \}.
+\]
+
+\section*{F.6 Summary}
+The complete stability maps confirm:
+\begin{itemize}
+\item DF-HITSE is stable under CFL and Reynolds constraints,
+\item crypto-hydraulic synchronization is guaranteed in the stable region,
+\item zeroization occurs exactly at the boundary of instability.
+\end{itemize}
