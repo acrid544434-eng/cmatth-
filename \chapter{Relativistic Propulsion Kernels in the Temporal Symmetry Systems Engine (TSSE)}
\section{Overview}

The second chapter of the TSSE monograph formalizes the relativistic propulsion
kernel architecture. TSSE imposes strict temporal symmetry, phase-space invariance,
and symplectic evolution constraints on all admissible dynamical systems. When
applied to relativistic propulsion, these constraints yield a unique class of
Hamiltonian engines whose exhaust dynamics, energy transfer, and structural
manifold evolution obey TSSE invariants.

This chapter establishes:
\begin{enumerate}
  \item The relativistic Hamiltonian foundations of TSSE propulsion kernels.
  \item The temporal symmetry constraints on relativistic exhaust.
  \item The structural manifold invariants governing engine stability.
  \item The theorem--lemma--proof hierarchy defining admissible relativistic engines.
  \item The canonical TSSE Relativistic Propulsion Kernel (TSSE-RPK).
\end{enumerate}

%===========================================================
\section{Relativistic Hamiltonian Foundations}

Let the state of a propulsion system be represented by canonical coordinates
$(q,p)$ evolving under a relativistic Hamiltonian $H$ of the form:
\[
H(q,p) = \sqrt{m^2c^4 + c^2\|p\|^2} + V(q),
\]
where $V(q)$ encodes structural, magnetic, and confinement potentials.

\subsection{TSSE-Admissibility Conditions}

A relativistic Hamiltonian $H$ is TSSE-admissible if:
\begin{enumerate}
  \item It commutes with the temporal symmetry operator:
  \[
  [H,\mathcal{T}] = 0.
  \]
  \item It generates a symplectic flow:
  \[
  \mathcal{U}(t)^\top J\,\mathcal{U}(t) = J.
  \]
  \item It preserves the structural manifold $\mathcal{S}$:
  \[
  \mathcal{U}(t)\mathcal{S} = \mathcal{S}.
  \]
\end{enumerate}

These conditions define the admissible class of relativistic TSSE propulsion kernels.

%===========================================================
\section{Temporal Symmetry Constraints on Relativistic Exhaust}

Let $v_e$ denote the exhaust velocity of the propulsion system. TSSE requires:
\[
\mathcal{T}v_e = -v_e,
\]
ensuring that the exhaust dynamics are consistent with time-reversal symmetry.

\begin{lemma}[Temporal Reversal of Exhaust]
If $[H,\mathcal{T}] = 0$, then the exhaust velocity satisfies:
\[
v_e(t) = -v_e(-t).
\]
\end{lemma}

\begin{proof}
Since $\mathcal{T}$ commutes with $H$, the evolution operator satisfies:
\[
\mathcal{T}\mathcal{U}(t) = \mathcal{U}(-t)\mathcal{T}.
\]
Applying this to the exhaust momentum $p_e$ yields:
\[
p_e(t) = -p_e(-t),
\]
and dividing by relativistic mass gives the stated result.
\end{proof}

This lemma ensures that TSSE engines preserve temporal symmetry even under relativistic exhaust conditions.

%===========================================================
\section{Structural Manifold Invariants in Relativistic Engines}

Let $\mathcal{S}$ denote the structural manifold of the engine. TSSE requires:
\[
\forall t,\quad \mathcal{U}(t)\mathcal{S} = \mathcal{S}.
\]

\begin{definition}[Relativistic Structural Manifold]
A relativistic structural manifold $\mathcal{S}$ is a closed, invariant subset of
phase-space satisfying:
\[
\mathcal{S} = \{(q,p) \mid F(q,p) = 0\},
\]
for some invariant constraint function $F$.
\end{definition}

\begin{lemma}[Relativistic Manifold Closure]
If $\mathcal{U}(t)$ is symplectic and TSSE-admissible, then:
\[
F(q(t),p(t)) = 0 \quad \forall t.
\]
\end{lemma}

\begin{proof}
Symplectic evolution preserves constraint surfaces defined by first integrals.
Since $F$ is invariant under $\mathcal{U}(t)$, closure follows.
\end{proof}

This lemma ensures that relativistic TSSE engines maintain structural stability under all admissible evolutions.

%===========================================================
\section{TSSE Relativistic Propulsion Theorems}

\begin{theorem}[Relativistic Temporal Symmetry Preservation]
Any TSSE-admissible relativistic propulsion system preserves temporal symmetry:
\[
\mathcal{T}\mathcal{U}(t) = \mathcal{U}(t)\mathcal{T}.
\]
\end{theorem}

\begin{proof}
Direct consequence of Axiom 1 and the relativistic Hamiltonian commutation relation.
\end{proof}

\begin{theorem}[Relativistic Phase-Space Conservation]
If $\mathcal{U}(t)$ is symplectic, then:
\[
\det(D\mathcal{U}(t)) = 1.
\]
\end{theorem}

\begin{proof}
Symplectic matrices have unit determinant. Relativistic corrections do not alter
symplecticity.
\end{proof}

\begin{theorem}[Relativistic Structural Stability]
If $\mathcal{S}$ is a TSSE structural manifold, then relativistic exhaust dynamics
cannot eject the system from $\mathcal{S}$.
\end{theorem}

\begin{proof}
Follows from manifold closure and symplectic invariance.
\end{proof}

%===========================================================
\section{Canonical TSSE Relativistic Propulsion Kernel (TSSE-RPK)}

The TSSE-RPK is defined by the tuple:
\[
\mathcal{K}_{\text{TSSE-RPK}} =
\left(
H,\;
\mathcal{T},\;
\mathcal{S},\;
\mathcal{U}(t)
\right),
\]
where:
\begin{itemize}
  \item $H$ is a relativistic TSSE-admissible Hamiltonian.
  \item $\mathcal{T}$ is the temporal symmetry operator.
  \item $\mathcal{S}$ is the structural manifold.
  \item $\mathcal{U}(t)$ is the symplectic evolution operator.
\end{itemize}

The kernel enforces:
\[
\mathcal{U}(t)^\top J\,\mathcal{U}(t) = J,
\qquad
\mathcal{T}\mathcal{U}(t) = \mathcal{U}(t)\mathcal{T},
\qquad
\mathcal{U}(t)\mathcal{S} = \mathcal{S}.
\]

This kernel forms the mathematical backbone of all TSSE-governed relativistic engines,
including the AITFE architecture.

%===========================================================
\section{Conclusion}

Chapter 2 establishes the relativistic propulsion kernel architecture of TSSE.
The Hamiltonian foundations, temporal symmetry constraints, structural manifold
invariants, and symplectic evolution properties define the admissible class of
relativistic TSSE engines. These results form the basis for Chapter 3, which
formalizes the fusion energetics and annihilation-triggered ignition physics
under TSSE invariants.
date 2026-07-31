@@ -1,0 +1,187 @@
+\chapter{Relativistic Propulsion Kernels in the Temporal Symmetry Systems Engine (TSSE)}
+\section{Overview}
+
+The second chapter of the TSSE monograph formalizes the relativistic propulsion
+kernel architecture. TSSE imposes strict temporal symmetry, phase-space invariance,
+and symplectic evolution constraints on all admissible dynamical systems. When
+applied to relativistic propulsion, these constraints yield a unique class of
+Hamiltonian engines whose exhaust dynamics, energy transfer, and structural
+manifold evolution obey TSSE invariants.
+
+This chapter establishes:
+\begin{enumerate}
+  \item The relativistic Hamiltonian foundations of TSSE propulsion kernels.
+  \item The temporal symmetry constraints on relativistic exhaust.
+  \item The structural manifold invariants governing engine stability.
+  \item The theorem--lemma--proof hierarchy defining admissible relativistic engines.
+  \item The canonical TSSE Relativistic Propulsion Kernel (TSSE-RPK).
+\end{enumerate}
+
+%===========================================================
+\section{Relativistic Hamiltonian Foundations}
+
+Let the state of a propulsion system be represented by canonical coordinates
+$(q,p)$ evolving under a relativistic Hamiltonian $H$ of the form:
+\[
+H(q,p) = \sqrt{m^2c^4 + c^2\|p\|^2} + V(q),
+\]
+where $V(q)$ encodes structural, magnetic, and confinement potentials.
+
+\subsection{TSSE-Admissibility Conditions}
+
+A relativistic Hamiltonian $H$ is TSSE-admissible if:
+\begin{enumerate}
+  \item It commutes with the temporal symmetry operator:
+  \[
+  [H,\mathcal{T}] = 0.
+  \]
+  \item It generates a symplectic flow:
+  \[
+  \mathcal{U}(t)^\top J\,\mathcal{U}(t) = J.
+  \]
+  \item It preserves the structural manifold $\mathcal{S}$:
+  \[
+  \mathcal{U}(t)\mathcal{S} = \mathcal{S}.
+  \]
+\end{enumerate}
+
+These conditions define the admissible class of relativistic TSSE propulsion kernels.
+
+%===========================================================
+\section{Temporal Symmetry Constraints on Relativistic Exhaust}
+
+Let $v_e$ denote the exhaust velocity of the propulsion system. TSSE requires:
+\[
+\mathcal{T}v_e = -v_e,
+\]
+ensuring that the exhaust dynamics are consistent with time-reversal symmetry.
+
+\begin{lemma}[Temporal Reversal of Exhaust]
+If $[H,\mathcal{T}] = 0$, then the exhaust velocity satisfies:
+\[
+v_e(t) = -v_e(-t).
+\]
+\end{lemma}
+
+\begin{proof}
+Since $\mathcal{T}$ commutes with $H$, the evolution operator satisfies:
+\[
+\mathcal{T}\mathcal{U}(t) = \mathcal{U}(-t)\mathcal{T}.
+\]
+Applying this to the exhaust momentum $p_e$ yields:
+\[
+p_e(t) = -p_e(-t),
+\]
+and dividing by relativistic mass gives the stated result.
+\end{proof}
+
+This lemma ensures that TSSE engines preserve temporal symmetry even under relativistic exhaust conditions.
+
+%===========================================================
+\section{Structural Manifold Invariants in Relativistic Engines}
+
+Let $\mathcal{S}$ denote the structural manifold of the engine. TSSE requires:
+\[
+\forall t,\quad \mathcal{U}(t)\mathcal{S} = \mathcal{S}.
+\]
+
+\begin{definition}[Relativistic Structural Manifold]
+A relativistic structural manifold $\mathcal{S}$ is a closed, invariant subset of
+phase-space satisfying:
+\[
+\mathcal{S} = \{(q,p) \mid F(q,p) = 0\},
+\]
+for some invariant constraint function $F$.
+\end{definition}
+
+\begin{lemma}[Relativistic Manifold Closure]
+If $\mathcal{U}(t)$ is symplectic and TSSE-admissible, then:
+\[
+F(q(t),p(t)) = 0 \quad \forall t.
+\]
+\end{lemma}
+
+\begin{proof}
+Symplectic evolution preserves constraint surfaces defined by first integrals.
+Since $F$ is invariant under $\mathcal{U}(t)$, closure follows.
+\end{proof}
+
+This lemma ensures that relativistic TSSE engines maintain structural stability under all admissible evolutions.
+
+%===========================================================
+\section{TSSE Relativistic Propulsion Theorems}
+
+\begin{theorem}[Relativistic Temporal Symmetry Preservation]
+Any TSSE-admissible relativistic propulsion system preserves temporal symmetry:
+\[
+\mathcal{T}\mathcal{U}(t) = \mathcal{U}(t)\mathcal{T}.
+\]
+\end{theorem}
+
+\begin{proof}
+Direct consequence of Axiom 1 and the relativistic Hamiltonian commutation relation.
+\end{proof}
+
+\begin{theorem}[Relativistic Phase-Space Conservation]
+If $\mathcal{U}(t)$ is symplectic, then:
+\[
+\det(D\mathcal{U}(t)) = 1.
+\]
+\end{theorem}
+
+\begin{proof}
+Symplectic matrices have unit determinant. Relativistic corrections do not alter
+symplecticity.
+\end{proof}
+
+\begin{theorem}[Relativistic Structural Stability]
+If $\mathcal{S}$ is a TSSE structural manifold, then relativistic exhaust dynamics
+cannot eject the system from $\mathcal{S}$.
+\end{theorem}
+
+\begin{proof}
+Follows from manifold closure and symplectic invariance.
+\end{proof}
+
+%===========================================================
+\section{Canonical TSSE Relativistic Propulsion Kernel (TSSE-RPK)}
+
+The TSSE-RPK is defined by the tuple:
+\[
+\mathcal{K}_{\text{TSSE-RPK}} =
+\left(
+H,\;
+\mathcal{T},\;
+\mathcal{S},\;
+\mathcal{U}(t)
+\right),
+\]
+where:
+\begin{itemize}
+  \item $H$ is a relativistic TSSE-admissible Hamiltonian.
+  \item $\mathcal{T}$ is the temporal symmetry operator.
+  \item $\mathcal{S}$ is the structural manifold.
+  \item $\mathcal{U}(t)$ is the symplectic evolution operator.
+\end{itemize}
+
+The kernel enforces:
+\[
+\mathcal{U}(t)^\top J\,\mathcal{U}(t) = J,
+\qquad
+\mathcal{T}\mathcal{U}(t) = \mathcal{U}(t)\mathcal{T},
+\qquad
+\mathcal{U}(t)\mathcal{S} = \mathcal{S}.
+\]
+
+This kernel forms the mathematical backbone of all TSSE-governed relativistic engines,
+including the AITFE architecture.
+
+%===========================================================
+\section{Conclusion}
+
+Chapter 2 establishes the relativistic propulsion kernel architecture of TSSE.
+The Hamiltonian foundations, temporal symmetry constraints, structural manifold
+invariants, and symplectic evolution properties define the admissible class of
+relativistic TSSE engines. These results form the basis for Chapter 3, which
+formalizes the fusion energetics and annihilation-triggered ignition physics
+under TSSE invariants.
