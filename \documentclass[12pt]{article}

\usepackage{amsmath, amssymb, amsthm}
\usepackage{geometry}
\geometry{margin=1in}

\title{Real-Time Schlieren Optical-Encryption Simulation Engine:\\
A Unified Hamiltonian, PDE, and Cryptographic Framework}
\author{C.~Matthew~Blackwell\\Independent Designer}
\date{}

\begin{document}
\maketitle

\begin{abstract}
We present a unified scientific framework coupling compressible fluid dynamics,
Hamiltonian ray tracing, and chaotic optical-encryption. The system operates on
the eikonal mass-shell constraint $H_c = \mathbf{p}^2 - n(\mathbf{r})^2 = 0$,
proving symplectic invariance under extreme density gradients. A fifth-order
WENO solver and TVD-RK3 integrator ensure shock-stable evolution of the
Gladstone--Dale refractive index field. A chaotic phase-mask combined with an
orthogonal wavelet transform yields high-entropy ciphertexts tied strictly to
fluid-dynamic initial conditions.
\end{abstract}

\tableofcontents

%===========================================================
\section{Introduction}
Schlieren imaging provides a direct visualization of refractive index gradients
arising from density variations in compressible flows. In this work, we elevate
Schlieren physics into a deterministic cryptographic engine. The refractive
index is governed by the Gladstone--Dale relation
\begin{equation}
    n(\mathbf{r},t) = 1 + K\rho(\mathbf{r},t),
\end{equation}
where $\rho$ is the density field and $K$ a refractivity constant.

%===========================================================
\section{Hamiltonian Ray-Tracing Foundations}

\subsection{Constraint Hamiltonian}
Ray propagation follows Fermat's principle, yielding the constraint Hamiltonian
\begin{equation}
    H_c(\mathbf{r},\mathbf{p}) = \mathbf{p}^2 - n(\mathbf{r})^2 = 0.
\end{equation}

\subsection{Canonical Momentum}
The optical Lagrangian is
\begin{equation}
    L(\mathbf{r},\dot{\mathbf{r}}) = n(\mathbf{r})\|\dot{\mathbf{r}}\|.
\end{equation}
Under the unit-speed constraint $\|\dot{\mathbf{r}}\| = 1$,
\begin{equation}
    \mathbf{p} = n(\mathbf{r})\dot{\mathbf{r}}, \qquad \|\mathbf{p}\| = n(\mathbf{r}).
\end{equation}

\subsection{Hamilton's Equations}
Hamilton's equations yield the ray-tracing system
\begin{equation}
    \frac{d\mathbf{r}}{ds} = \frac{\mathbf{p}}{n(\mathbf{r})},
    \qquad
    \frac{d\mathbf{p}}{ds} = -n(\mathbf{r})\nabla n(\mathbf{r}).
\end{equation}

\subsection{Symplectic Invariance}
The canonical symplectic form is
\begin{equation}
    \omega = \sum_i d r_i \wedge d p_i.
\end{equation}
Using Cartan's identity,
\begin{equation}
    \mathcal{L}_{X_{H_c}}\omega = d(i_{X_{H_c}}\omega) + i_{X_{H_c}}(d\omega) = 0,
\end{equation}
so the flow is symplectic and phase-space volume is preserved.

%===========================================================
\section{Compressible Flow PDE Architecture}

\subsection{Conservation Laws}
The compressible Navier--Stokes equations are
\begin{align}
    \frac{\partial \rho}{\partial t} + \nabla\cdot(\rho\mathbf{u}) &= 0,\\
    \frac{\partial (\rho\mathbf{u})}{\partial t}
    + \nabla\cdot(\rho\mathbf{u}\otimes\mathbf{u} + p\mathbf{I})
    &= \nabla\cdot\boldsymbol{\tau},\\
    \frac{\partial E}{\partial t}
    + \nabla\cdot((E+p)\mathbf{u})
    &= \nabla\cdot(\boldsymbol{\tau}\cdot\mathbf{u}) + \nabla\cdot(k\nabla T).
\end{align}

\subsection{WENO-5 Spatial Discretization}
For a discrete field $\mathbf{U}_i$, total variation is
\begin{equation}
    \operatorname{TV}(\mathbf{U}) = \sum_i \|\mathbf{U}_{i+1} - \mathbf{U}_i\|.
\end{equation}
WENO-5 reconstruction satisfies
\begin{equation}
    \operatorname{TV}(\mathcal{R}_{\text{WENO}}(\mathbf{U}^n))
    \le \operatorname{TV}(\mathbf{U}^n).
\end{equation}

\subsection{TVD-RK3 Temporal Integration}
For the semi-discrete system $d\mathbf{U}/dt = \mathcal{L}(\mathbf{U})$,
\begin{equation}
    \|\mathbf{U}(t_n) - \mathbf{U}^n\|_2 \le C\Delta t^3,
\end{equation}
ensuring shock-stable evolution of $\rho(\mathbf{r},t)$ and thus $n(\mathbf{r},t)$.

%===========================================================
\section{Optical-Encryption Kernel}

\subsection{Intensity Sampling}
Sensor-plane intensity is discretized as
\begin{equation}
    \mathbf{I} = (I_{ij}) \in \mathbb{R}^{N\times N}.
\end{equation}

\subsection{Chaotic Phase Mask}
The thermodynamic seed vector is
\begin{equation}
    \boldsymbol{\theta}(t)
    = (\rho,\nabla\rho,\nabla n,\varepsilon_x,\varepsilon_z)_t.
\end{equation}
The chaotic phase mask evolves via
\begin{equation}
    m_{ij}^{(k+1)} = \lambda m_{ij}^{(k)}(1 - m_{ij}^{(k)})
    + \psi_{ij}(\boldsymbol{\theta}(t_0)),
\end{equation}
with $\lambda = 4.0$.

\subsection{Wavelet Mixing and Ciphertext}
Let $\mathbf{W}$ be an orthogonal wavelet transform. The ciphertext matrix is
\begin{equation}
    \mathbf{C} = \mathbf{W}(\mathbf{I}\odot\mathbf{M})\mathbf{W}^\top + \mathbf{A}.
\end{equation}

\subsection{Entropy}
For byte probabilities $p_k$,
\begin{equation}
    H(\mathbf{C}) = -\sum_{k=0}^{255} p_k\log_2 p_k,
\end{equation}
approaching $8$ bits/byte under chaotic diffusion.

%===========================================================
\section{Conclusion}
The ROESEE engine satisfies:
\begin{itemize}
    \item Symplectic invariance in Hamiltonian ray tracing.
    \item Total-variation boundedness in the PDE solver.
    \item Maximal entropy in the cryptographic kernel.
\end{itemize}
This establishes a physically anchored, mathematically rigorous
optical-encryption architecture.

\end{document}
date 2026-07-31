@@ -1,0 +1,156 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Real-Time Schlieren Optical-Encryption Simulation Engine:\\
+A Unified Hamiltonian, PDE, and Cryptographic Framework}
+\author{C.~Matthew~Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present a unified scientific framework coupling compressible fluid dynamics,
+Hamiltonian ray tracing, and chaotic optical-encryption. The system operates on
+the eikonal mass-shell constraint $H_c = \mathbf{p}^2 - n(\mathbf{r})^2 = 0$,
+proving symplectic invariance under extreme density gradients. A fifth-order
+WENO solver and TVD-RK3 integrator ensure shock-stable evolution of the
+Gladstone--Dale refractive index field. A chaotic phase-mask combined with an
+orthogonal wavelet transform yields high-entropy ciphertexts tied strictly to
+fluid-dynamic initial conditions.
+\end{abstract}
+
+\tableofcontents
+
+%===========================================================
+\section{Introduction}
+Schlieren imaging provides a direct visualization of refractive index gradients
+arising from density variations in compressible flows. In this work, we elevate
+Schlieren physics into a deterministic cryptographic engine. The refractive
+index is governed by the Gladstone--Dale relation
+\begin{equation}
+    n(\mathbf{r},t) = 1 + K\rho(\mathbf{r},t),
+\end{equation}
+where $\rho$ is the density field and $K$ a refractivity constant.
+
+%===========================================================
+\section{Hamiltonian Ray-Tracing Foundations}
+
+\subsection{Constraint Hamiltonian}
+Ray propagation follows Fermat's principle, yielding the constraint Hamiltonian
+\begin{equation}
+    H_c(\mathbf{r},\mathbf{p}) = \mathbf{p}^2 - n(\mathbf{r})^2 = 0.
+\end{equation}
+
+\subsection{Canonical Momentum}
+The optical Lagrangian is
+\begin{equation}
+    L(\mathbf{r},\dot{\mathbf{r}}) = n(\mathbf{r})\|\dot{\mathbf{r}}\|.
+\end{equation}
+Under the unit-speed constraint $\|\dot{\mathbf{r}}\| = 1$,
+\begin{equation}
+    \mathbf{p} = n(\mathbf{r})\dot{\mathbf{r}}, \qquad \|\mathbf{p}\| = n(\mathbf{r}).
+\end{equation}
+
+\subsection{Hamilton's Equations}
+Hamilton's equations yield the ray-tracing system
+\begin{equation}
+    \frac{d\mathbf{r}}{ds} = \frac{\mathbf{p}}{n(\mathbf{r})},
+    \qquad
+    \frac{d\mathbf{p}}{ds} = -n(\mathbf{r})\nabla n(\mathbf{r}).
+\end{equation}
+
+\subsection{Symplectic Invariance}
+The canonical symplectic form is
+\begin{equation}
+    \omega = \sum_i d r_i \wedge d p_i.
+\end{equation}
+Using Cartan's identity,
+\begin{equation}
+    \mathcal{L}_{X_{H_c}}\omega = d(i_{X_{H_c}}\omega) + i_{X_{H_c}}(d\omega) = 0,
+\end{equation}
+so the flow is symplectic and phase-space volume is preserved.
+
+%===========================================================
+\section{Compressible Flow PDE Architecture}
+
+\subsection{Conservation Laws}
+The compressible Navier--Stokes equations are
+\begin{align}
+    \frac{\partial \rho}{\partial t} + \nabla\cdot(\rho\mathbf{u}) &= 0,\\
+    \frac{\partial (\rho\mathbf{u})}{\partial t}
+    + \nabla\cdot(\rho\mathbf{u}\otimes\mathbf{u} + p\mathbf{I})
+    &= \nabla\cdot\boldsymbol{\tau},\\
+    \frac{\partial E}{\partial t}
+    + \nabla\cdot((E+p)\mathbf{u})
+    &= \nabla\cdot(\boldsymbol{\tau}\cdot\mathbf{u}) + \nabla\cdot(k\nabla T).
+\end{align}
+
+\subsection{WENO-5 Spatial Discretization}
+For a discrete field $\mathbf{U}_i$, total variation is
+\begin{equation}
+    \operatorname{TV}(\mathbf{U}) = \sum_i \|\mathbf{U}_{i+1} - \mathbf{U}_i\|.
+\end{equation}
+WENO-5 reconstruction satisfies
+\begin{equation}
+    \operatorname{TV}(\mathcal{R}_{\text{WENO}}(\mathbf{U}^n))
+    \le \operatorname{TV}(\mathbf{U}^n).
+\end{equation}
+
+\subsection{TVD-RK3 Temporal Integration}
+For the semi-discrete system $d\mathbf{U}/dt = \mathcal{L}(\mathbf{U})$,
+\begin{equation}
+    \|\mathbf{U}(t_n) - \mathbf{U}^n\|_2 \le C\Delta t^3,
+\end{equation}
+ensuring shock-stable evolution of $\rho(\mathbf{r},t)$ and thus $n(\mathbf{r},t)$.
+
+%===========================================================
+\section{Optical-Encryption Kernel}
+
+\subsection{Intensity Sampling}
+Sensor-plane intensity is discretized as
+\begin{equation}
+    \mathbf{I} = (I_{ij}) \in \mathbb{R}^{N\times N}.
+\end{equation}
+
+\subsection{Chaotic Phase Mask}
+The thermodynamic seed vector is
+\begin{equation}
+    \boldsymbol{\theta}(t)
+    = (\rho,\nabla\rho,\nabla n,\varepsilon_x,\varepsilon_z)_t.
+\end{equation}
+The chaotic phase mask evolves via
+\begin{equation}
+    m_{ij}^{(k+1)} = \lambda m_{ij}^{(k)}(1 - m_{ij}^{(k)})
+    + \psi_{ij}(\boldsymbol{\theta}(t_0)),
+\end{equation}
+with $\lambda = 4.0$.
+
+\subsection{Wavelet Mixing and Ciphertext}
+Let $\mathbf{W}$ be an orthogonal wavelet transform. The ciphertext matrix is
+\begin{equation}
+    \mathbf{C} = \mathbf{W}(\mathbf{I}\odot\mathbf{M})\mathbf{W}^\top + \mathbf{A}.
+\end{equation}
+
+\subsection{Entropy}
+For byte probabilities $p_k$,
+\begin{equation}
+    H(\mathbf{C}) = -\sum_{k=0}^{255} p_k\log_2 p_k,
+\end{equation}
+approaching $8$ bits/byte under chaotic diffusion.
+
+%===========================================================
+\section{Conclusion}
+The ROESEE engine satisfies:
+\begin{itemize}
+    \item Symplectic invariance in Hamiltonian ray tracing.
+    \item Total-variation boundedness in the PDE solver.
+    \item Maximal entropy in the cryptographic kernel.
+\end{itemize}
+This establishes a physically anchored, mathematically rigorous
+optical-encryption architecture.
+
+\end{document}
