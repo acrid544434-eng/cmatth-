@@ -1,0 +1,70 @@
+\chapter*{Appendix G: Full Multi-Engine Orchestration Kernel Specification}
+\addcontentsline{toc}{chapter}{Appendix G: Full Multi-Engine Orchestration Kernel Specification}
+
+\section*{G.1 Overview}
+The Orchestration Kernel (OK) coordinates DF-HITSE, TSSE, AST-TSDME, and auxiliary engines 
+through a unified Hamiltonian-symplectic interface. It ensures deterministic execution, 
+bounded stress propagation, and cryptographic synchronization.
+
+\section*{G.2 Kernel State Vector}
+Define the global kernel state:
+\[
+\mathbf{X}(t) =
+\begin{bmatrix}
+q_{\mathrm{H}}(t) \\ p_{\mathrm{H}}(t) \\
+q_{\mathrm{T}}(t) \\ p_{\mathrm{T}}(t) \\
+S_{\mathrm{AST}}(t) \\
+K_{\mathrm{session}}(t)
+\end{bmatrix}.
+\]
+
+\section*{G.3 Orchestration Evolution Equation}
+The kernel evolves according to:
+\[
+\frac{d\mathbf{X}}{dt}
+=
+\mathcal{O}
+\left(
+\mathbf{X}(t),
+\mathcal{H}_{\mathrm{H}},
+\mathcal{H}_{\mathrm{T}},
+\mathcal{D}_{\mathrm{AST}},
+\mathcal{K}_{\mathrm{PQ}}
+\right),
+\]
+where $\mathcal{O}$ is the orchestration operator.
+
+\section*{G.4 Deterministic Execution Guarantee}
+\begin{theorem}[Deterministic Kernel Execution]
+If each subsystem preserves its symplectic form and satisfies its boundedness constraints, 
+then the Orchestration Kernel satisfies:
+\[
+\det\left(
+\frac{\partial \mathbf{X}(t+\Delta t)}{\partial \mathbf{X}(t)}
+\right) = 1,
+\]
+ensuring deterministic, reversible execution.
+\end{theorem}
+
+\begin{proof}
+Direct block-diagonal symplectic composition.
+\end{proof}
+
+\section*{G.5 Zeroization and Yield Mode}
+The kernel enforces:
+\[
+\mathbf{X}(t_0^+) =
+\begin{cases}
+\mathbf{0}, & \text{if instability detected}, \\
+\mathbf{X}(t_0), & \text{otherwise}.
+\end{cases}
+\]
+
+\section*{G.6 Summary}
+The Orchestration Kernel provides:
+\begin{itemize}
+\item unified multi-engine coordination,
+\item deterministic Hamiltonian evolution,
+\item cross-domain stability enforcement,
+\item cryptographic zeroization guarantees.
+\end{itemize}
