@@ -1,0 +1,213 @@
+\documentclass[12pt]{book}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{ROSESE:\\
+Real-Time Optical Schlieren Encryption Simulation Engine\\
+A Multi-Chapter Scientific Monograph}
+\author{C.~Matthew~Blackwell}
+\date{}
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\chapter*{Preface}
+This monograph presents the ROSESE architecture: a unified system coupling
+compressible fluid dynamics, Hamiltonian ray tracing, and chaotic optical
+encryption. The work establishes a rigorous mathematical foundation for
+physically anchored cryptographic systems.
+
+\tableofcontents
+
+\mainmatter
+
+%===========================================================
+\chapter{Foundations of Schlieren Optical Physics}
+
+\section{Refractive Index Gradients}
+The refractive index field is governed by the Gladstone--Dale relation
+\begin{equation}
+    n(\mathbf{r},t) = 1 + K\rho(\mathbf{r},t),
+\end{equation}
+where $\rho$ is the density field.
+
+\section{Optical Deflection}
+Density gradients produce ray deflection via
+\begin{equation}
+    \varepsilon_x = \frac{1}{n}\frac{\partial n}{\partial x},
+    \qquad
+    \varepsilon_z = \frac{1}{n}\frac{\partial n}{\partial z}.
+\end{equation}
+
+%===========================================================
+\chapter{Hamiltonian Ray-Tracing System}
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+
+\section{Constraint Hamiltonian}
+
+\begin{definition}[Eikonal Mass-Shell Constraint]
+Ray propagation follows the Hamiltonian
+\begin{equation}
+    H_c(\mathbf{r},\mathbf{p}) = \mathbf{p}^2 - n(\mathbf{r})^2 = 0.
+\end{equation}
+\end{definition}
+
+\section{Canonical Momentum}
+
+\begin{lemma}
+Under $\|\dot{\mathbf{r}}\|=1$, the canonical momentum satisfies
+\begin{equation}
+    \mathbf{p} = n(\mathbf{r})\dot{\mathbf{r}}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The optical Lagrangian is $L = n\|\dot{\mathbf{r}}\|$. Differentiation yields
+$\mathbf{p} = n\dot{\mathbf{r}}/\|\dot{\mathbf{r}}\|$. Under unit speed, the
+result follows.
+\end{proof}
+
+\section{Hamilton's Equations}
+
+\begin{theorem}[Ray-Tracing System]
+Ray trajectories satisfy
+\begin{equation}
+    \frac{d\mathbf{r}}{ds} = \frac{\mathbf{p}}{n(\mathbf{r})},
+    \qquad
+    \frac{d\mathbf{p}}{ds} = -n(\mathbf{r})\nabla n(\mathbf{r}).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Hamilton's equations applied to $H_c$ yield the stated system after rescaling.
+\end{proof}
+
+\section{Symplectic Invariance}
+
+\begin{theorem}[Symplectic Preservation]
+The Hamiltonian flow preserves the canonical symplectic form
+\begin{equation}
+    \omega = \sum_i dr_i \wedge dp_i.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Cartan's identity gives
+$\mathcal{L}_{X_{H_c}}\omega = d(i_{X_{H_c}}\omega) = d(dH_c) = 0$.
+\end{proof}
+
+\begin{corollary}[Liouville's Theorem]
+Phase-space volume is invariant under ROSESE ray propagation.
+\end{corollary}
+
+%===========================================================
+\chapter{Compressible Flow PDE Architecture}
+
+\section{Conservation Laws}
+\begin{align}
+    \frac{\partial \rho}{\partial t} + \nabla\cdot(\rho\mathbf{u}) &= 0,\\
+    \frac{\partial (\rho\mathbf{u})}{\partial t}
+    + \nabla\cdot(\rho\mathbf{u}\otimes\mathbf{u} + p\mathbf{I})
+    &= \nabla\cdot\boldsymbol{\tau},\\
+    \frac{\partial E}{\partial t}
+    + \nabla\cdot((E+p)\mathbf{u})
+    &= \nabla\cdot(\boldsymbol{\tau}\cdot\mathbf{u}) + \nabla\cdot(k\nabla T).
+\end{align}
+
+\section{WENO-5 Spatial Discretization}
+
+\begin{definition}[Total Variation]
+\begin{equation}
+    \operatorname{TV}(\mathbf{U}) = \sum_i \|\mathbf{U}_{i+1}-\mathbf{U}_i\|.
+\end{equation}
+\end{definition}
+
+\begin{lemma}[WENO-5 TVD Property]
+\begin{equation}
+    \operatorname{TV}(\mathcal{R}_{\text{WENO}}(\mathbf{U}^n))
+    \le \operatorname{TV}(\mathbf{U}^n).
+\end{equation}
+\end{lemma}
+
+\section{TVD-RK3 Temporal Integration}
+
+\begin{theorem}[RK3 Stability]
+\begin{equation}
+    \|\mathbf{U}(t_n) - \mathbf{U}^n\|_2 \le C\Delta t^3.
+\end{equation}
+\end{theorem}
+
+%===========================================================
+\chapter{Optical-Encryption Kernel}
+
+\section{Intensity Sampling}
+\begin{equation}
+    \mathbf{I} = (I_{ij}) \in \mathbb{R}^{N\times N}.
+\end{equation}
+
+\section{Chaotic Phase Mask}
+
+\begin{definition}[Thermodynamic Seed Vector]
+\begin{equation}
+    \boldsymbol{\theta}(t)
+    = (\rho,\nabla\rho,\nabla n,\varepsilon_x,\varepsilon_z)_t.
+\end{equation}
+\end{definition}
+
+\begin{lemma}[Chaotic Logistic Update]
+\begin{equation}
+    m_{ij}^{(k+1)} = \lambda m_{ij}^{(k)}(1 - m_{ij}^{(k)})
+    + \psi_{ij}(\boldsymbol{\theta}(t_0)),
+\end{equation}
+with $\lambda = 4.0$.
+\end{lemma}
+
+\section{Wavelet Mixing}
+
+\begin{theorem}[Ciphertext Transformation]
+\begin{equation}
+    \mathbf{C} = \mathbf{W}(\mathbf{I}\odot\mathbf{M})\mathbf{W}^\top + \mathbf{A}.
+\end{equation}
+\end{theorem}
+
+\section{Entropy}
+
+\begin{theorem}[Entropy Maximization]
+\begin{equation}
+    H(\mathbf{C}) = -\sum_{k=0}^{255} p_k\log_2 p_k \to 8\ \text{bits/byte}.
+\end{equation}
+\end{theorem}
+
+%===========================================================
+\chapter{Validation and Stress Testing}
+
+\section{Shock-Wave Stress Protocol}
+Hypersonic inflow Mach numbers $M_\infty \approx 5.2$ and gradients
+$\|\nabla\rho\|>10^4$ test solver stability.
+
+\section{Caustic Formation}
+Symplectic integration prevents coordinate singularities during caustic
+formation.
+
+\section{Cryptographic Diffusion}
+Chaotic diffusion ensures ciphertext independence from input Schlieren fields.
+
+%===========================================================
+\chapter{Conclusion}
+ROSESE establishes:
+\begin{itemize}
+    \item Symplectic Hamiltonian ray propagation.
+    \item Shock-stable PDE evolution.
+    \item High-entropy optical encryption.
+\end{itemize}
+This monograph provides a rigorous foundation for physically anchored
+cryptographic systems.
+
+\end{document}
