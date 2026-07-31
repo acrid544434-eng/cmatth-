@@ -1,0 +1,27 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+
+\newcommand{\model}{\mathcal{M}}
+\newcommand{\data}{\mathcal{D}}
+
+\begin{document}
+
+\section{Formal Framework}
+
+\begin{definition}
+A model $\model$ is a mapping $\Phi_{\model} : \mathcal{X} \to \mathcal{Y}$.
+\end{definition}
+
+\begin{lemma}
+If $\model$ fails at any tier, it cannot be validated.
+\end{lemma}
+
+\begin{theorem}
+If $\model$ passes all tiers, it attains epistemic validity.
+\end{theorem}
+
+\end{document}
