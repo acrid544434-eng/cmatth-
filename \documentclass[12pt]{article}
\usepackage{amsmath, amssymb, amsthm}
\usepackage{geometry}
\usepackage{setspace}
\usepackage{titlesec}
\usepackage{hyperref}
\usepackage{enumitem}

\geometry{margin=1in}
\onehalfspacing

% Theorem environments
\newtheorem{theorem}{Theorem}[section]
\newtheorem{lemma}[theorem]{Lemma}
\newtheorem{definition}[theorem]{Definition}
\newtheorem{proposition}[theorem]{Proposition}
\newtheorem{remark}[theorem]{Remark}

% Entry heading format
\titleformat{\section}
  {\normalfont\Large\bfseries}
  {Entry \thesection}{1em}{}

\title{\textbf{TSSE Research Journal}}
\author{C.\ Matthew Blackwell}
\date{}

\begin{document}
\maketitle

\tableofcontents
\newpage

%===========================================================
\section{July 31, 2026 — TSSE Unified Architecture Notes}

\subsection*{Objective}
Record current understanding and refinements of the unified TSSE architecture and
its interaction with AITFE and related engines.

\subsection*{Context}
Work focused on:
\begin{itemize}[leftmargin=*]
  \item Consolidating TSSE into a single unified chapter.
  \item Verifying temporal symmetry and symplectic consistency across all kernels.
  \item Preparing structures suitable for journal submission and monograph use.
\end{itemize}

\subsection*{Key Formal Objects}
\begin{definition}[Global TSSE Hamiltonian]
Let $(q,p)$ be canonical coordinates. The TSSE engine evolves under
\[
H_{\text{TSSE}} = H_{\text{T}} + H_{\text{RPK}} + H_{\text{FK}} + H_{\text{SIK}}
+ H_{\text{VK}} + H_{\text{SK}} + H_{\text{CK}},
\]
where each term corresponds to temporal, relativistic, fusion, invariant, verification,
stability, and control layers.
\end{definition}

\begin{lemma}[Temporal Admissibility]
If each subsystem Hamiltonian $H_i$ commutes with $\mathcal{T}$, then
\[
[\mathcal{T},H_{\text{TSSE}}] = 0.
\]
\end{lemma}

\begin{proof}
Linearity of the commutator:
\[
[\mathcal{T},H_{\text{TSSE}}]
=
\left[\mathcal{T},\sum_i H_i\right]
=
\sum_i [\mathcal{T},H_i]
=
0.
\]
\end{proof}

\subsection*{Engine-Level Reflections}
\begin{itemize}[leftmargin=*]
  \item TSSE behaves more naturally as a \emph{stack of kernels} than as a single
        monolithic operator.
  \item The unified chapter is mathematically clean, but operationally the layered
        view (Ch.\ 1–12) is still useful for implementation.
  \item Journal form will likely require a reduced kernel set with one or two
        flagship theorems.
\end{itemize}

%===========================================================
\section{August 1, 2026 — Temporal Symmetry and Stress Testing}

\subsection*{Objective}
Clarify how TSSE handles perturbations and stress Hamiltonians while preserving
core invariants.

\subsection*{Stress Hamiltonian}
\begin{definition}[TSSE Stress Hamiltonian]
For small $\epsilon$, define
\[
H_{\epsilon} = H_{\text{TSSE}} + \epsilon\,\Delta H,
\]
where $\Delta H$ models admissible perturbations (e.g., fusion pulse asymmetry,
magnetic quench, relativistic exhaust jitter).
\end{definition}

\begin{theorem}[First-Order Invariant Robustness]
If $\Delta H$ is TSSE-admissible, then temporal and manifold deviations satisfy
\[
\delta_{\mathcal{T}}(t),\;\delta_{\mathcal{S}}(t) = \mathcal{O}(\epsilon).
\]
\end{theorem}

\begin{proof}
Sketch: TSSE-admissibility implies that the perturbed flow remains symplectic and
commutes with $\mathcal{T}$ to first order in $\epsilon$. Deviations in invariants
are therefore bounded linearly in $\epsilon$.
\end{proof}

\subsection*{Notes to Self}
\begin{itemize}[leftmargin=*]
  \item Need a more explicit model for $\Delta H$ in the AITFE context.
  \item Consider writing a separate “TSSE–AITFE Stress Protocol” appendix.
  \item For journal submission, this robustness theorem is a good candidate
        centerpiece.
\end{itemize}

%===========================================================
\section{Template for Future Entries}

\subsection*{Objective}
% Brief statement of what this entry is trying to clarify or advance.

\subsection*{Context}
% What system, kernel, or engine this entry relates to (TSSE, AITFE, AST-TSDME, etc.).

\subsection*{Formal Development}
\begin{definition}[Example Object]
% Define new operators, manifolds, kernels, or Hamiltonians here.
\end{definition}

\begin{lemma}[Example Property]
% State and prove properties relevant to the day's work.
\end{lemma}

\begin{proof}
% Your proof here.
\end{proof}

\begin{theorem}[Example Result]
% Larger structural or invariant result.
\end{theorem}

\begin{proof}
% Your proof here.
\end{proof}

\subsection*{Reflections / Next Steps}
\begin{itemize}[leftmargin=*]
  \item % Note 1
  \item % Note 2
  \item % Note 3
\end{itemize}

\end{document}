@@ -1,0 +1,165 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\geometry{margin=1in}
+\onehalfspacing
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+
+% Entry heading format
+\titleformat{\section}
+  {\normalfont\Large\bfseries}
+  {Entry \thesection}{1em}{}
+
+\title{\textbf{TSSE Research Journal}}
+\author{C.\ Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+%===========================================================
+\section{July 31, 2026 — TSSE Unified Architecture Notes}
+
+\subsection*{Objective}
+Record current understanding and refinements of the unified TSSE architecture and
+its interaction with AITFE and related engines.
+
+\subsection*{Context}
+Work focused on:
+\begin{itemize}[leftmargin=*]
+  \item Consolidating TSSE into a single unified chapter.
+  \item Verifying temporal symmetry and symplectic consistency across all kernels.
+  \item Preparing structures suitable for journal submission and monograph use.
+\end{itemize}
+
+\subsection*{Key Formal Objects}
+\begin{definition}[Global TSSE Hamiltonian]
+Let $(q,p)$ be canonical coordinates. The TSSE engine evolves under
+\[
+H_{\text{TSSE}} = H_{\text{T}} + H_{\text{RPK}} + H_{\text{FK}} + H_{\text{SIK}}
++ H_{\text{VK}} + H_{\text{SK}} + H_{\text{CK}},
+\]
+where each term corresponds to temporal, relativistic, fusion, invariant, verification,
+stability, and control layers.
+\end{definition}
+
+\begin{lemma}[Temporal Admissibility]
+If each subsystem Hamiltonian $H_i$ commutes with $\mathcal{T}$, then
+\[
+[\mathcal{T},H_{\text{TSSE}}] = 0.
+\]
+\end{lemma}
+
+\begin{proof}
+Linearity of the commutator:
+\[
+[\mathcal{T},H_{\text{TSSE}}]
+=
+\left[\mathcal{T},\sum_i H_i\right]
+=
+\sum_i [\mathcal{T},H_i]
+=
+0.
+\]
+\end{proof}
+
+\subsection*{Engine-Level Reflections}
+\begin{itemize}[leftmargin=*]
+  \item TSSE behaves more naturally as a \emph{stack of kernels} than as a single
+        monolithic operator.
+  \item The unified chapter is mathematically clean, but operationally the layered
+        view (Ch.\ 1–12) is still useful for implementation.
+  \item Journal form will likely require a reduced kernel set with one or two
+        flagship theorems.
+\end{itemize}
+
+%===========================================================
+\section{August 1, 2026 — Temporal Symmetry and Stress Testing}
+
+\subsection*{Objective}
+Clarify how TSSE handles perturbations and stress Hamiltonians while preserving
+core invariants.
+
+\subsection*{Stress Hamiltonian}
+\begin{definition}[TSSE Stress Hamiltonian]
+For small $\epsilon$, define
+\[
+H_{\epsilon} = H_{\text{TSSE}} + \epsilon\,\Delta H,
+\]
+where $\Delta H$ models admissible perturbations (e.g., fusion pulse asymmetry,
+magnetic quench, relativistic exhaust jitter).
+\end{definition}
+
+\begin{theorem}[First-Order Invariant Robustness]
+If $\Delta H$ is TSSE-admissible, then temporal and manifold deviations satisfy
+\[
+\delta_{\mathcal{T}}(t),\;\delta_{\mathcal{S}}(t) = \mathcal{O}(\epsilon).
+\]
+\end{theorem}
+
+\begin{proof}
+Sketch: TSSE-admissibility implies that the perturbed flow remains symplectic and
+commutes with $\mathcal{T}$ to first order in $\epsilon$. Deviations in invariants
+are therefore bounded linearly in $\epsilon$.
+\end{proof}
+
+\subsection*{Notes to Self}
+\begin{itemize}[leftmargin=*]
+  \item Need a more explicit model for $\Delta H$ in the AITFE context.
+  \item Consider writing a separate “TSSE–AITFE Stress Protocol” appendix.
+  \item For journal submission, this robustness theorem is a good candidate
+        centerpiece.
+\end{itemize}
+
+%===========================================================
+\section{Template for Future Entries}
+
+\subsection*{Objective}
+% Brief statement of what this entry is trying to clarify or advance.
+
+\subsection*{Context}
+% What system, kernel, or engine this entry relates to (TSSE, AITFE, AST-TSDME, etc.).
+
+\subsection*{Formal Development}
+\begin{definition}[Example Object]
+% Define new operators, manifolds, kernels, or Hamiltonians here.
+\end{definition}
+
+\begin{lemma}[Example Property]
+% State and prove properties relevant to the day's work.
+\end{lemma}
+
+\begin{proof}
+% Your proof here.
+\end{proof}
+
+\begin{theorem}[Example Result]
+% Larger structural or invariant result.
+\end{theorem}
+
+\begin{proof}
+% Your proof here.
+\end{proof}
+
+\subsection*{Reflections / Next Steps}
+\begin{itemize}[leftmargin=*]
+  \item % Note 1
+  \item % Note 2
+  \item % Note 3
+\end{itemize}
+
+\end{document}
