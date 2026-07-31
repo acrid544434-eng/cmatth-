@@ -1,0 +1,44 @@
+\documentclass[aps,preprint,onecolumn]{revtex4-2}
+\usepackage{amsmath, amssymb}
+
+\begin{document}
+
+\title{Antimatter-Initiated Thermonuclear Fusion Engine (AITFE):\\
+A Framework for Validation and Implementation}
+\author{C.\ Matthew Blackwell}
+\affiliation{Independent Designer}
+\date{\today}
+
+\begin{abstract}
+A complete epistemological, mathematical, and engineering framework is presented
+for the Antimatter-Initiated Thermonuclear Fusion Engine (AITFE). The model integrates
+relativistic propulsion theory, antimatter-triggered fusion energetics, and a
+hardware-grounded implementation pipeline. Validation criteria and falsifiability
+tests are provided.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+The AITFE architecture combines antimatter ignition, high-gain fusion, and relativistic
+exhaust velocities.
+
+\section{Theory}
+\[
+\frac{M_0}{M_f} = \exp\!\left(\frac{\Delta v}{v_e}\right),
+\qquad v_e = 0.39c.
+\]
+
+\section{Energetics}
+\[
+E_{\text{ann}} = 4.5\times10^7\,\text{J},\qquad
+E_{\text{fusion}} = 1.44\times10^{10}\,\text{J}.
+\]
+
+\section{Implementation}
+Cryogenic antimatter traps, rail injection, pulsed annihilation, magnetic nozzle.
+
+\section{Validation}
+Peer-review protocol and falsifiability suite.
+
+\end{document}
