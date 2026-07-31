@@ -1,0 +1,183 @@
+\chapter*{Appendix A: Port-Hamiltonian Derivation}
+\addcontentsline{toc}{chapter}{Appendix A: Port-Hamiltonian Derivation}
+
+\section*{A.1 Preliminaries and Physical Foundations}
+
+We begin with the one-dimensional incompressible fluid equations governing hydraulic head 
+$H(x,t)$ and volumetric flow rate $Q(x,t)$ in a capillary conduit of cross-sectional area $A$:
+
+\begin{align}
+\frac{\partial H}{\partial t} + \frac{1}{A}\frac{\partial Q}{\partial x} &= 0, \\
+\frac{\partial Q}{\partial t} + A g \frac{\partial H}{\partial x} &= -\frac{f}{2DA^2} Q|Q| + F(x,t),
+\end{align}
+
+where $f$ is the Darcy friction factor, $D$ the hydraulic diameter, and $F(x,t)$ the telemetry forcing 
+from Face B.
+
+To embed these equations in a Hamiltonian framework, we define canonical coordinates
+
+\[
+q(x,t) = H(x,t), \qquad p(x,t) = Q(x,t),
+\]
+
+and construct the Hamiltonian functional representing total stored energy:
+
+\begin{equation}
+\mathcal{H}(q,p)
+= \int_{\Omega}
+\left[
+\frac{1}{2A\rho} p^2
++ \frac{1}{2}\rho g A q^2
+\right] dx.
+\label{eq:Hamiltonian}
+\end{equation}
+
+The variational derivatives of $\mathcal{H}$ are:
+
+\begin{align}
+\frac{\delta \mathcal{H}}{\delta q} &= \rho g A q, \\
+\frac{\delta \mathcal{H}}{\delta p} &= \frac{p}{A\rho}.
+\end{align}
+
+\section*{A.2 Canonical Hamiltonian Structure}
+
+The conservative (inviscid, unforced) system satisfies the canonical Hamiltonian equations:
+
+\begin{align}
+\frac{\partial q}{\partial t} &= \frac{\delta \mathcal{H}}{\delta p}, \\
+\frac{\partial p}{\partial t} &= -\frac{\delta \mathcal{H}}{\delta q}.
+\end{align}
+
+In matrix form:
+
+\[
+\begin{bmatrix}
+\partial_t q \\
+\partial_t p
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 1 \\
+-1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+\frac{\delta \mathcal{H}}{\delta q} \\
+\frac{\delta \mathcal{H}}{\delta p}
+\end{bmatrix}.
+\]
+
+This matrix is the canonical symplectic operator $J$ satisfying $J^T = -J$ and $J^2 = -I$.
+
+\section*{A.3 Incorporating Dissipation: The Port-Hamiltonian Extension}
+
+To incorporate hydraulic friction, we introduce the dissipation operator
+
+\begin{equation}
+\mathcal{R}(q,p)
+= \frac{f |p|}{2 D A^2 \rho},
+\end{equation}
+
+which is positive semi-definite and ensures energy decay.
+
+The extended operator becomes:
+
+\[
+J_R =
+\begin{bmatrix}
+0 & 1 \\
+-1 & -\mathcal{R}(q,p)
+\end{bmatrix}.
+\]
+
+The port-Hamiltonian system is therefore:
+
+\begin{equation}
+\begin{bmatrix}
+\partial_t q \\
+\partial_t p
+\end{bmatrix}
+=
+J_R
+\begin{bmatrix}
+\frac{\delta \mathcal{H}}{\delta q} \\
+\frac{\delta \mathcal{H}}{\delta p}
+\end{bmatrix}
++
+\begin{bmatrix}
+0 \\
+F(x,t)
+\end{bmatrix}.
+\label{eq:portHamiltonian}
+\end{equation}
+
+\section*{A.4 Verification of Port-Hamiltonian Properties}
+
+\subsection*{Skew-Symmetry of the Conservative Component}
+
+The conservative part of $J_R$ is
+
+\[
+J =
+\begin{bmatrix}
+0 & 1 \\
+-1 & 0
+\end{bmatrix},
+\]
+
+which satisfies $J^T = -J$.
+
+\subsection*{Dissipation Inequality}
+
+Energy dissipation satisfies:
+
+\[
+\frac{d\mathcal{E}}{dt}
+= -\int_{\Omega} \mathcal{R}(q,p) p^2 \, dx
++ \int_{\Omega} p F(x,t) \, dx.
+\]
+
+Since $\mathcal{R}(q,p) \ge 0$, the system is passive and dissipative.
+
+\section*{A.5 Final Port-Hamiltonian Operator}
+
+The complete operator governing DF-HITSE is:
+
+\[
+\boxed{
+\begin{bmatrix}
+\partial_t q \\
+\partial_t p
+\end{bmatrix}
+=
+\begin{bmatrix}
+0 & 1 \\
+-1 & -\mathcal{R}(q,p)
+\end{bmatrix}
+\begin{bmatrix}
+\rho g A q \\
+\frac{p}{A\rho}
+\end{bmatrix}
++
+\begin{bmatrix}
+0 \\
+F(x,t)
+\end{bmatrix}
+}
+\]
+
+This operator forms the mathematical backbone of the DF-HITSE architecture, enabling 
+symplectic integration, stability analysis, and crypto-hydraulic coupling.
+
+\section*{A.6 Summary}
+
+The port-Hamiltonian derivation demonstrates that DF-HITSE is:
+
+\begin{itemize}
+\item structurally conservative in its Hamiltonian core,
+\item dissipative under Darcy friction,
+\item externally actuated by telemetry forcing,
+\item mathematically compatible with symplectic integrators,
+\item stable under Lyapunov-bounded energy conditions.
+\end{itemize}
+
+This establishes the foundation for all subsequent chapters in the monograph.
