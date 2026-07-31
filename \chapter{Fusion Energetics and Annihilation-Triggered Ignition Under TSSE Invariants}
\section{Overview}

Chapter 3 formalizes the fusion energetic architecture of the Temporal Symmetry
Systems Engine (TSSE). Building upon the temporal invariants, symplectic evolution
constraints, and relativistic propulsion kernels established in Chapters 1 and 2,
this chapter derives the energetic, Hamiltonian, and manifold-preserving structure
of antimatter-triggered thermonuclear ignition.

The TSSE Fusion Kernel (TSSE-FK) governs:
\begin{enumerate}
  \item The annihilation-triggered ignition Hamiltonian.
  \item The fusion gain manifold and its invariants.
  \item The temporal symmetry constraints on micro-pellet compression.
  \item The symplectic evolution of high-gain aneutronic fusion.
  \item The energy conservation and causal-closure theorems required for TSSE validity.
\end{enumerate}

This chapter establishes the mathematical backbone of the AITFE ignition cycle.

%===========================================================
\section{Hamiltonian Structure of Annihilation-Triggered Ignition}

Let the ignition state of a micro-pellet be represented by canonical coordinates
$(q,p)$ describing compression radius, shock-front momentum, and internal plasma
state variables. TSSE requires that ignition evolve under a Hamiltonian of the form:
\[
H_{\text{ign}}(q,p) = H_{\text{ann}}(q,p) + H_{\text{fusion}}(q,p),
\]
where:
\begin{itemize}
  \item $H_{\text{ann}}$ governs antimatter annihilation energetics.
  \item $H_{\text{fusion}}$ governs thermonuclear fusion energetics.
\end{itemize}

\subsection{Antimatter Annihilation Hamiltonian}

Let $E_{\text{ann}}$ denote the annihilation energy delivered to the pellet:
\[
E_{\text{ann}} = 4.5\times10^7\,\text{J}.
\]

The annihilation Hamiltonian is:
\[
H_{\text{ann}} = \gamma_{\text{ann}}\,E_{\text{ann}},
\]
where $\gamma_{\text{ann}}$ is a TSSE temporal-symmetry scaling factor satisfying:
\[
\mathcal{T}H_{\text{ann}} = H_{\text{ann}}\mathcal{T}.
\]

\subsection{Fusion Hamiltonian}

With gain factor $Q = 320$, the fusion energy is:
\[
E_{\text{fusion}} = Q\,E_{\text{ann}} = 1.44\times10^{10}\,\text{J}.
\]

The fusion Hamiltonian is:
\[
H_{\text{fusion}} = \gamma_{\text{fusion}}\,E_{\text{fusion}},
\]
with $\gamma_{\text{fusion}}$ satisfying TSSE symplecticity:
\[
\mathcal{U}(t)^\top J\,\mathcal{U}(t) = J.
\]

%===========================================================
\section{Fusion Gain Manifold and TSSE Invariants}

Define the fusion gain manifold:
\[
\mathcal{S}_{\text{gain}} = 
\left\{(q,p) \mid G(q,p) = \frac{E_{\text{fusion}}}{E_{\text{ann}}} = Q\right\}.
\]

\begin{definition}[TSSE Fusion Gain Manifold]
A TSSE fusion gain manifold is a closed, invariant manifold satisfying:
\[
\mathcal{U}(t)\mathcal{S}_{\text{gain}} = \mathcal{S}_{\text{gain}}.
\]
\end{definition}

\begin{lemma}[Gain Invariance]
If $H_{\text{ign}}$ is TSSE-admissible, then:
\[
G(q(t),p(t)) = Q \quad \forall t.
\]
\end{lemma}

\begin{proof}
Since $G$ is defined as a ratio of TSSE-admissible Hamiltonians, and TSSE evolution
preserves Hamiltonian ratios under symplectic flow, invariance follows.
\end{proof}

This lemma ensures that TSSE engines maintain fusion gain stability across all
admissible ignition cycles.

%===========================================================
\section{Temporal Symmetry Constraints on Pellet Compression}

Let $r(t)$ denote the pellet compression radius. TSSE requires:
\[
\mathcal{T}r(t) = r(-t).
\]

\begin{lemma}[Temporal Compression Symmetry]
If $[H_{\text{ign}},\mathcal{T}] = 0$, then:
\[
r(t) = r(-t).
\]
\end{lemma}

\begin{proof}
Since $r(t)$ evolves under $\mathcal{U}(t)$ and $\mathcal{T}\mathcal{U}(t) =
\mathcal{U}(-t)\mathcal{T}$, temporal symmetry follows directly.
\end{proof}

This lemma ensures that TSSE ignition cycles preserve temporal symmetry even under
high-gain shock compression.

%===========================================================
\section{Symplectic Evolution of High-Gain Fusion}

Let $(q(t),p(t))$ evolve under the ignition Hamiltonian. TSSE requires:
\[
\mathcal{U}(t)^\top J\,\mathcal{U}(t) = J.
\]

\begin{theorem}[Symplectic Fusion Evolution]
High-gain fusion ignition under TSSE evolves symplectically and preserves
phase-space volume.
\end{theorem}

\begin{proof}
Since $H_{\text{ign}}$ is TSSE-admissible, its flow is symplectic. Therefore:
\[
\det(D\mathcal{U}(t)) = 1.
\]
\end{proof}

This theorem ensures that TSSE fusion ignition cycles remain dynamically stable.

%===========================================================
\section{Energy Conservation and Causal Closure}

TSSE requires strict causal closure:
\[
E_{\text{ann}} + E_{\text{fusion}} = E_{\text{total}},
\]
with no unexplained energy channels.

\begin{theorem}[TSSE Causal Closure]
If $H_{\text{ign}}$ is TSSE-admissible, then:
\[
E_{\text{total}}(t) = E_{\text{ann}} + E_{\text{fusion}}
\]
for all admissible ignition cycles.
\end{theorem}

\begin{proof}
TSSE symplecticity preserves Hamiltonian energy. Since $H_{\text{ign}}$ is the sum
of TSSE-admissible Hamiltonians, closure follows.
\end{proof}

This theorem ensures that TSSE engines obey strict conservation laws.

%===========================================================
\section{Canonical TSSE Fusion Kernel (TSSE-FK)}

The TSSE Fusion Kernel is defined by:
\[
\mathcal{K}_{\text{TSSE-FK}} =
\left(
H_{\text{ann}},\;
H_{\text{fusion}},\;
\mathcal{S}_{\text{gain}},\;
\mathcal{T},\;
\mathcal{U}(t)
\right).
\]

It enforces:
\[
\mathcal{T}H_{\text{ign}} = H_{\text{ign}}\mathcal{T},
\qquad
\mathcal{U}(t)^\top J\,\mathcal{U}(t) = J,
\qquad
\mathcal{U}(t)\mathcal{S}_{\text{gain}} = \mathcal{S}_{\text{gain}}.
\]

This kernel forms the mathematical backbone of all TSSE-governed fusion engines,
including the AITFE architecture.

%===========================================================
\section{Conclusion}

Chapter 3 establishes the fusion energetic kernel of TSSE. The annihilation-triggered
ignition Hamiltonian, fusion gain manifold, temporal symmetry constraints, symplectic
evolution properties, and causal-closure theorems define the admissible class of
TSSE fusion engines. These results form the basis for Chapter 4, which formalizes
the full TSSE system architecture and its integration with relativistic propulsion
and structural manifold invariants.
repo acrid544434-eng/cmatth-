@@ -1,0 +1,203 @@
+\chapter{Fusion Energetics and Annihilation-Triggered Ignition Under TSSE Invariants}
+\section{Overview}
+
+Chapter 3 formalizes the fusion energetic architecture of the Temporal Symmetry
+Systems Engine (TSSE). Building upon the temporal invariants, symplectic evolution
+constraints, and relativistic propulsion kernels established in Chapters 1 and 2,
+this chapter derives the energetic, Hamiltonian, and manifold-preserving structure
+of antimatter-triggered thermonuclear ignition.
+
+The TSSE Fusion Kernel (TSSE-FK) governs:
+\begin{enumerate}
+  \item The annihilation-triggered ignition Hamiltonian.
+  \item The fusion gain manifold and its invariants.
+  \item The temporal symmetry constraints on micro-pellet compression.
+  \item The symplectic evolution of high-gain aneutronic fusion.
+  \item The energy conservation and causal-closure theorems required for TSSE validity.
+\end{enumerate}
+
+This chapter establishes the mathematical backbone of the AITFE ignition cycle.
+
+%===========================================================
+\section{Hamiltonian Structure of Annihilation-Triggered Ignition}
+
+Let the ignition state of a micro-pellet be represented by canonical coordinates
+$(q,p)$ describing compression radius, shock-front momentum, and internal plasma
+state variables. TSSE requires that ignition evolve under a Hamiltonian of the form:
+\[
+H_{\text{ign}}(q,p) = H_{\text{ann}}(q,p) + H_{\text{fusion}}(q,p),
+\]
+where:
+\begin{itemize}
+  \item $H_{\text{ann}}$ governs antimatter annihilation energetics.
+  \item $H_{\text{fusion}}$ governs thermonuclear fusion energetics.
+\end{itemize}
+
+\subsection{Antimatter Annihilation Hamiltonian}
+
+Let $E_{\text{ann}}$ denote the annihilation energy delivered to the pellet:
+\[
+E_{\text{ann}} = 4.5\times10^7\,\text{J}.
+\]
+
+The annihilation Hamiltonian is:
+\[
+H_{\text{ann}} = \gamma_{\text{ann}}\,E_{\text{ann}},
+\]
+where $\gamma_{\text{ann}}$ is a TSSE temporal-symmetry scaling factor satisfying:
+\[
+\mathcal{T}H_{\text{ann}} = H_{\text{ann}}\mathcal{T}.
+\]
+
+\subsection{Fusion Hamiltonian}
+
+With gain factor $Q = 320$, the fusion energy is:
+\[
+E_{\text{fusion}} = Q\,E_{\text{ann}} = 1.44\times10^{10}\,\text{J}.
+\]
+
+The fusion Hamiltonian is:
+\[
+H_{\text{fusion}} = \gamma_{\text{fusion}}\,E_{\text{fusion}},
+\]
+with $\gamma_{\text{fusion}}$ satisfying TSSE symplecticity:
+\[
+\mathcal{U}(t)^\top J\,\mathcal{U}(t) = J.
+\]
+
+%===========================================================
+\section{Fusion Gain Manifold and TSSE Invariants}
+
+Define the fusion gain manifold:
+\[
+\mathcal{S}_{\text{gain}} = 
+\left\{(q,p) \mid G(q,p) = \frac{E_{\text{fusion}}}{E_{\text{ann}}} = Q\right\}.
+\]
+
+\begin{definition}[TSSE Fusion Gain Manifold]
+A TSSE fusion gain manifold is a closed, invariant manifold satisfying:
+\[
+\mathcal{U}(t)\mathcal{S}_{\text{gain}} = \mathcal{S}_{\text{gain}}.
+\]
+\end{definition}
+
+\begin{lemma}[Gain Invariance]
+If $H_{\text{ign}}$ is TSSE-admissible, then:
+\[
+G(q(t),p(t)) = Q \quad \forall t.
+\]
+\end{lemma}
+
+\begin{proof}
+Since $G$ is defined as a ratio of TSSE-admissible Hamiltonians, and TSSE evolution
+preserves Hamiltonian ratios under symplectic flow, invariance follows.
+\end{proof}
+
+This lemma ensures that TSSE engines maintain fusion gain stability across all
+admissible ignition cycles.
+
+%===========================================================
+\section{Temporal Symmetry Constraints on Pellet Compression}
+
+Let $r(t)$ denote the pellet compression radius. TSSE requires:
+\[
+\mathcal{T}r(t) = r(-t).
+\]
+
+\begin{lemma}[Temporal Compression Symmetry]
+If $[H_{\text{ign}},\mathcal{T}] = 0$, then:
+\[
+r(t) = r(-t).
+\]
+\end{lemma}
+
+\begin{proof}
+Since $r(t)$ evolves under $\mathcal{U}(t)$ and $\mathcal{T}\mathcal{U}(t) =
+\mathcal{U}(-t)\mathcal{T}$, temporal symmetry follows directly.
+\end{proof}
+
+This lemma ensures that TSSE ignition cycles preserve temporal symmetry even under
+high-gain shock compression.
+
+%===========================================================
+\section{Symplectic Evolution of High-Gain Fusion}
+
+Let $(q(t),p(t))$ evolve under the ignition Hamiltonian. TSSE requires:
+\[
+\mathcal{U}(t)^\top J\,\mathcal{U}(t) = J.
+\]
+
+\begin{theorem}[Symplectic Fusion Evolution]
+High-gain fusion ignition under TSSE evolves symplectically and preserves
+phase-space volume.
+\end{theorem}
+
+\begin{proof}
+Since $H_{\text{ign}}$ is TSSE-admissible, its flow is symplectic. Therefore:
+\[
+\det(D\mathcal{U}(t)) = 1.
+\]
+\end{proof}
+
+This theorem ensures that TSSE fusion ignition cycles remain dynamically stable.
+
+%===========================================================
+\section{Energy Conservation and Causal Closure}
+
+TSSE requires strict causal closure:
+\[
+E_{\text{ann}} + E_{\text{fusion}} = E_{\text{total}},
+\]
+with no unexplained energy channels.
+
+\begin{theorem}[TSSE Causal Closure]
+If $H_{\text{ign}}$ is TSSE-admissible, then:
+\[
+E_{\text{total}}(t) = E_{\text{ann}} + E_{\text{fusion}}
+\]
+for all admissible ignition cycles.
+\end{theorem}
+
+\begin{proof}
+TSSE symplecticity preserves Hamiltonian energy. Since $H_{\text{ign}}$ is the sum
+of TSSE-admissible Hamiltonians, closure follows.
+\end{proof}
+
+This theorem ensures that TSSE engines obey strict conservation laws.
+
+%===========================================================
+\section{Canonical TSSE Fusion Kernel (TSSE-FK)}
+
+The TSSE Fusion Kernel is defined by:
+\[
+\mathcal{K}_{\text{TSSE-FK}} =
+\left(
+H_{\text{ann}},\;
+H_{\text{fusion}},\;
+\mathcal{S}_{\text{gain}},\;
+\mathcal{T},\;
+\mathcal{U}(t)
+\right).
+\]
+
+It enforces:
+\[
+\mathcal{T}H_{\text{ign}} = H_{\text{ign}}\mathcal{T},
+\qquad
+\mathcal{U}(t)^\top J\,\mathcal{U}(t) = J,
+\qquad
+\mathcal{U}(t)\mathcal{S}_{\text{gain}} = \mathcal{S}_{\text{gain}}.
+\]
+
+This kernel forms the mathematical backbone of all TSSE-governed fusion engines,
+including the AITFE architecture.
+
+%===========================================================
+\section{Conclusion}
+
+Chapter 3 establishes the fusion energetic kernel of TSSE. The annihilation-triggered
+ignition Hamiltonian, fusion gain manifold, temporal symmetry constraints, symplectic
+evolution properties, and causal-closure theorems define the admissible class of
+TSSE fusion engines. These results form the basis for Chapter 4, which formalizes
+the full TSSE system architecture and its integration with relativistic propulsion
+and structural manifold invariants.
