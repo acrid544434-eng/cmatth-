@@ -1,0 +1,97 @@
+\section{Extended Subsystem Specifications}
+\label{sec:extended}
+
+\subsection{Materials and Thermal Limits}
+\noindent
+The Antimatter-Initiated Thermonuclear Fusion Engine (AITFE) operates under
+high-beta magnetic confinement ($B = 320$) and localized core temperatures
+exceeding $1.5\times10^{8}\ \text{K}$. The following materials matrix defines
+the thermal limits and degradation thresholds of all primary subsystems.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Component} &
+\textbf{Primary Material} &
+\textbf{Thermal Limit} &
+\textbf{Mitigation / Threshold} \\
+\hline
+ARC Cusp Chamber &
+CNT / W--Re Alloy &
+$3422^{\circ}\text{C}$ &
+Lithium cooling ($<1.2\times10^{-9}$ kg/s) \\
+\hline
+DECMN Magnetic Nozzle &
+Nb--Ti / Cu &
+$1800^{\circ}\text{C}$ &
+Electrostatic scavenging shunts \\
+\hline
+CASS Storage Core &
+OFHC Copper / Gold &
+$4\ \text{K}$ &
+He-3 cryogenic shielding \\
+\hline
+MPDIS Rail Accelerator &
+Be--Cu Matrix &
+$1200^{\circ}\text{C}$ &
+Pulsed magnetic quenching \\
+\hline
+\end{tabular}
+\caption{AITFE Materials and Thermal Limits}
+\end{table}
+
+\subsection{Plasma Diagnostics}
+\noindent
+Real-time closed-loop control of the ${}^{11}\text{B}$--D fusion core and
+positron/antiproton annihilation stream is achieved through a tri-modal
+diagnostic suite.
+
+\begin{itemize}
+    \item \textbf{Thomson Scattering Arrays:}
+    Nd:YAG laser scattering for electron temperature $T_e$ and density $n_e$ mapping.
+    \item \textbf{Neutron and Alpha Spectrometers:}
+    Fast scintillation detectors for fusion yield and real-time gain scaling ($Q = 320$).
+    \item \textbf{Mirnov Coil Matrices:}
+    High-frequency magnetic pickup coils embedded in CNT walls for MHD instability detection.
+\end{itemize}
+
+\subsection{Orbital Test Telemetry Framework}
+\noindent
+During TRL 6--8 orbital validation, telemetry is streamed via encrypted
+Ka-band downlinks.
+
+\begin{lemma}[Telemetry Rate]
+The AITFE telemetry architecture supports a nominal logging rate of
+$200\ \text{Hz}$, enabling sub-millisecond detection of thermal transients
+and injection throttling ($\pm 15\%$).
+\end{lemma}
+
+\begin{proof}
+The Ka-band downlink bandwidth exceeds the required data throughput for
+high-frequency plasma diagnostics, thrust vectoring logs, and thermal
+profiles. Thus the stated rate is achievable within standard orbital
+communication envelopes.
+\end{proof}
+
+\subsection{Safety and Containment Protocols}
+\noindent
+The Cryogenic Antimatter Storage Subsystem (CASS) integrates triple-redundant
+containment layers.
+
+\begin{enumerate}
+    \item \textbf{Primary Penning--Malmberg Trap:}
+    Ultra-high vacuum ($<10^{-12}$ torr) and $9\ \text{T}$ superconducting
+    magnetic confinement.
+    \item \textbf{Secondary Cryogenic Shielding:}
+    He-3 closed-loop refrigeration at $4\ \text{K}$ for thermal isolation.
+    \item \textbf{Tertiary Passive Annihilation Dump (PAD):}
+    Pyrolytic graphite and WC absorbers engineered to dissipate stored
+    rest-mass energy ($125.8\ \text{GW}$ equivalent) under emergency quench.
+\end{enumerate}
+
+\subsection{Conclusion}
+\noindent
+The extended subsystem specifications define the material, diagnostic,
+telemetry, and containment requirements necessary for TRL progression and
+future empirical validation of the AITFE architecture.
