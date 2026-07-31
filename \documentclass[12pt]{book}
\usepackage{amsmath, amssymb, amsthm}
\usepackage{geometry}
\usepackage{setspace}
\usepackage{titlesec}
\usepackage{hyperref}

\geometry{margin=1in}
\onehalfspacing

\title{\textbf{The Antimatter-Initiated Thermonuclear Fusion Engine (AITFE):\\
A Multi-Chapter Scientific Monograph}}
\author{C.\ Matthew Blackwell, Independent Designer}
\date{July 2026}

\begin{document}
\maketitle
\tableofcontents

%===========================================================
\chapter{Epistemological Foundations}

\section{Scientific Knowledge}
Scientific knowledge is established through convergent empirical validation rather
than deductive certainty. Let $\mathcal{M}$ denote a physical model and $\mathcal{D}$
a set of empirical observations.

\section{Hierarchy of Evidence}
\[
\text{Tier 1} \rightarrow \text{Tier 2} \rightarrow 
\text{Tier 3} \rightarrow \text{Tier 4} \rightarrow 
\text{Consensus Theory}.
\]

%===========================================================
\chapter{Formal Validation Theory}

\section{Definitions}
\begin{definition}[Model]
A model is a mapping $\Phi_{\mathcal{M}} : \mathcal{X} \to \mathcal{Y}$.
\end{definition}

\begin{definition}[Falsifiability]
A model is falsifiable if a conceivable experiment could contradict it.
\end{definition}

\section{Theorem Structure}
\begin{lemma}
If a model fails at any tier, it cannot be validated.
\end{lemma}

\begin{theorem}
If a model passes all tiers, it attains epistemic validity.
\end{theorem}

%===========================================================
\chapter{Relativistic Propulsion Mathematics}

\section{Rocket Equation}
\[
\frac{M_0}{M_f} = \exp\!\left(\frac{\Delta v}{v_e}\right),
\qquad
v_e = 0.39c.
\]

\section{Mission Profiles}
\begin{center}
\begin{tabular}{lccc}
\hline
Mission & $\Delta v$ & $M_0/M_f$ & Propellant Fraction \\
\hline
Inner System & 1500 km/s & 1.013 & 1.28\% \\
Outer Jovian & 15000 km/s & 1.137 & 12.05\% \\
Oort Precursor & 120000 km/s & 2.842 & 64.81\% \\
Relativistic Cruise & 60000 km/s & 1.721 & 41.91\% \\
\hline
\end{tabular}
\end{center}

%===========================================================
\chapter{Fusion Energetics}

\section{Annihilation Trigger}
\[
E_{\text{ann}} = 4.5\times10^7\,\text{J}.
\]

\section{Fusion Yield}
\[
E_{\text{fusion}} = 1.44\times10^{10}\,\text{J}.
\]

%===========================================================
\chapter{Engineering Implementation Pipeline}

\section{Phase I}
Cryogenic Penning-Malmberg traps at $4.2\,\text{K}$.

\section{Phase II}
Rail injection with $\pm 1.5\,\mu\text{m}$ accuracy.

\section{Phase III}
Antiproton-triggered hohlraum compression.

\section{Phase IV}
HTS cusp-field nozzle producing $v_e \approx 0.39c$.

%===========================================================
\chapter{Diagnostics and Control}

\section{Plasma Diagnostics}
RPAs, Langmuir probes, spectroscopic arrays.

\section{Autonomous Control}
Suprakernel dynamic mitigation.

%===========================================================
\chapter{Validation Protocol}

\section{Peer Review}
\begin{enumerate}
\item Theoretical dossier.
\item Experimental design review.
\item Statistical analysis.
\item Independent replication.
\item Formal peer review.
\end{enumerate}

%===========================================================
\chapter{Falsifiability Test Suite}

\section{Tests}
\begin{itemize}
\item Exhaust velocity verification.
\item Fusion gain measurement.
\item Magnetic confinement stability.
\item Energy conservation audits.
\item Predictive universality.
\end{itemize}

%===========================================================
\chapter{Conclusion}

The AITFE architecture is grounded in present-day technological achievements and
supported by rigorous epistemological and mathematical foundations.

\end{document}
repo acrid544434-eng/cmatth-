@@ -1,0 +1,147 @@
+\documentclass[12pt]{book}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+\onehalfspacing
+
+\title{\textbf{The Antimatter-Initiated Thermonuclear Fusion Engine (AITFE):\\
+A Multi-Chapter Scientific Monograph}}
+\author{C.\ Matthew Blackwell, Independent Designer}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%===========================================================
+\chapter{Epistemological Foundations}
+
+\section{Scientific Knowledge}
+Scientific knowledge is established through convergent empirical validation rather
+than deductive certainty. Let $\mathcal{M}$ denote a physical model and $\mathcal{D}$
+a set of empirical observations.
+
+\section{Hierarchy of Evidence}
+\[
+\text{Tier 1} \rightarrow \text{Tier 2} \rightarrow 
+\text{Tier 3} \rightarrow \text{Tier 4} \rightarrow 
+\text{Consensus Theory}.
+\]
+
+%===========================================================
+\chapter{Formal Validation Theory}
+
+\section{Definitions}
+\begin{definition}[Model]
+A model is a mapping $\Phi_{\mathcal{M}} : \mathcal{X} \to \mathcal{Y}$.
+\end{definition}
+
+\begin{definition}[Falsifiability]
+A model is falsifiable if a conceivable experiment could contradict it.
+\end{definition}
+
+\section{Theorem Structure}
+\begin{lemma}
+If a model fails at any tier, it cannot be validated.
+\end{lemma}
+
+\begin{theorem}
+If a model passes all tiers, it attains epistemic validity.
+\end{theorem}
+
+%===========================================================
+\chapter{Relativistic Propulsion Mathematics}
+
+\section{Rocket Equation}
+\[
+\frac{M_0}{M_f} = \exp\!\left(\frac{\Delta v}{v_e}\right),
+\qquad
+v_e = 0.39c.
+\]
+
+\section{Mission Profiles}
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+Mission & $\Delta v$ & $M_0/M_f$ & Propellant Fraction \\
+\hline
+Inner System & 1500 km/s & 1.013 & 1.28\% \\
+Outer Jovian & 15000 km/s & 1.137 & 12.05\% \\
+Oort Precursor & 120000 km/s & 2.842 & 64.81\% \\
+Relativistic Cruise & 60000 km/s & 1.721 & 41.91\% \\
+\hline
+\end{tabular}
+\end{center}
+
+%===========================================================
+\chapter{Fusion Energetics}
+
+\section{Annihilation Trigger}
+\[
+E_{\text{ann}} = 4.5\times10^7\,\text{J}.
+\]
+
+\section{Fusion Yield}
+\[
+E_{\text{fusion}} = 1.44\times10^{10}\,\text{J}.
+\]
+
+%===========================================================
+\chapter{Engineering Implementation Pipeline}
+
+\section{Phase I}
+Cryogenic Penning-Malmberg traps at $4.2\,\text{K}$.
+
+\section{Phase II}
+Rail injection with $\pm 1.5\,\mu\text{m}$ accuracy.
+
+\section{Phase III}
+Antiproton-triggered hohlraum compression.
+
+\section{Phase IV}
+HTS cusp-field nozzle producing $v_e \approx 0.39c$.
+
+%===========================================================
+\chapter{Diagnostics and Control}
+
+\section{Plasma Diagnostics}
+RPAs, Langmuir probes, spectroscopic arrays.
+
+\section{Autonomous Control}
+Suprakernel dynamic mitigation.
+
+%===========================================================
+\chapter{Validation Protocol}
+
+\section{Peer Review}
+\begin{enumerate}
+\item Theoretical dossier.
+\item Experimental design review.
+\item Statistical analysis.
+\item Independent replication.
+\item Formal peer review.
+\end{enumerate}
+
+%===========================================================
+\chapter{Falsifiability Test Suite}
+
+\section{Tests}
+\begin{itemize}
+\item Exhaust velocity verification.
+\item Fusion gain measurement.
+\item Magnetic confinement stability.
+\item Energy conservation audits.
+\item Predictive universality.
+\end{itemize}
+
+%===========================================================
+\chapter{Conclusion}
+
+The AITFE architecture is grounded in present-day technological achievements and
+supported by rigorous epistemological and mathematical foundations.
+
+\end{document}
