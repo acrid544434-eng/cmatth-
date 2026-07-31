@@ -1,0 +1,132 @@
+\documentclass[12pt]{book}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Real-Time Schlieren Optical-Encryption Simulation Engine\\
+Multi-Chapter Scientific White Paper}
+\author{C.~Matthew~Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%===========================================================
+\chapter{Introduction}
+
+\section{Overview}
+This white paper presents a unified architecture coupling compressible
+fluid dynamics, Hamiltonian ray tracing, and chaotic optical encryption.
+The refractive index field is governed by the Gladstone--Dale relation
+\begin{equation}
+    n(\mathbf{r},t) = 1 + K\rho(\mathbf{r},t),
+\end{equation}
+where $\rho$ is the density field.
+
+\section{Motivation}
+Schlieren imaging traditionally visualizes density gradients. Here, it
+is elevated into a deterministic cryptographic engine.
+
+%===========================================================
+\chapter{Hamiltonian Ray-Tracing Foundations}
+
+\section{Constraint Hamiltonian}
+Ray propagation follows Fermat's principle, yielding
+\begin{equation}
+    H_c(\mathbf{r},\mathbf{p}) = \mathbf{p}^2 - n(\mathbf{r})^2 = 0.
+\end{equation}
+
+\section{Canonical Momentum}
+The optical Lagrangian is
+\begin{equation}
+    L = n(\mathbf{r})\|\dot{\mathbf{r}}\|,
+\end{equation}
+and under $\|\dot{\mathbf{r}}\|=1$,
+\begin{equation}
+    \mathbf{p} = n(\mathbf{r})\dot{\mathbf{r}}.
+\end{equation}
+
+\section{Hamilton's Equations}
+\begin{equation}
+    \frac{d\mathbf{r}}{ds} = \frac{\mathbf{p}}{n(\mathbf{r})},
+    \qquad
+    \frac{d\mathbf{p}}{ds} = -n(\mathbf{r})\nabla n(\mathbf{r}).
+\end{equation}
+
+\section{Symplectic Invariance}
+The canonical symplectic form is
+\begin{equation}
+    \omega = \sum_i dr_i \wedge dp_i.
+\end{equation}
+Cartan's identity yields
+\begin{equation}
+    \mathcal{L}_{X_{H_c}}\omega = 0,
+\end{equation}
+proving phase-space volume preservation.
+
+%===========================================================
+\chapter{Compressible Flow PDE Architecture}
+
+\section{Conservation Laws}
+\begin{align}
+    \frac{\partial \rho}{\partial t} + \nabla\cdot(\rho\mathbf{u}) &= 0,\\
+    \frac{\partial (\rho\mathbf{u})}{\partial t}
+    + \nabla\cdot(\rho\mathbf{u}\otimes\mathbf{u} + p\mathbf{I})
+    &= \nabla\cdot\boldsymbol{\tau},\\
+    \frac{\partial E}{\partial t}
+    + \nabla\cdot((E+p)\mathbf{u})
+    &= \nabla\cdot(\boldsymbol{\tau}\cdot\mathbf{u}) + \nabla\cdot(k\nabla T).
+\end{align}
+
+\section{WENO-5 Spatial Discretization}
+\begin{equation}
+    \operatorname{TV}(\mathbf{U}) = \sum_i \|\mathbf{U}_{i+1}-\mathbf{U}_i\|.
+\end{equation}
+WENO-5 satisfies
+\begin{equation}
+    \operatorname{TV}(\mathcal{R}_{\text{WENO}}(\mathbf{U}^n))
+    \le \operatorname{TV}(\mathbf{U}^n).
+\end{equation}
+
+\section{TVD-RK3 Temporal Integration}
+\begin{equation}
+    \|\mathbf{U}(t_n) - \mathbf{U}^n\|_2 \le C\Delta t^3.
+\end{equation}
+
+%===========================================================
+\chapter{Optical-Encryption Kernel}
+
+\section{Intensity Sampling}
+\begin{equation}
+    \mathbf{I} = (I_{ij}) \in \mathbb{R}^{N\times N}.
+\end{equation}
+
+\section{Chaotic Phase Mask}
+\begin{equation}
+    m_{ij}^{(k+1)} = \lambda m_{ij}^{(k)}(1 - m_{ij}^{(k)})
+    + \psi_{ij}(\boldsymbol{\theta}(t_0)),
+\end{equation}
+with $\lambda = 4.0$.
+
+\section{Wavelet Mixing}
+\begin{equation}
+    \mathbf{C} = \mathbf{W}(\mathbf{I}\odot\mathbf{M})\mathbf{W}^\top + \mathbf{A}.
+\end{equation}
+
+\section{Entropy}
+\begin{equation}
+    H(\mathbf{C}) = -\sum_{k=0}^{255} p_k\log_2 p_k.
+\end{equation}
+
+%===========================================================
+\chapter{Conclusion}
+The ROESEE engine satisfies:
+\begin{itemize}
+    \item Symplectic invariance in Hamiltonian ray tracing.
+    \item Total-variation boundedness in the PDE solver.
+    \item Maximal entropy in the cryptographic kernel.
+\end{itemize}
+
+\end{document}
