@@ -1,0 +1,126 @@
+\appendix
+\section{Theorem-Only Codex: Deterministic, Cryptographic, and Astrophysical Foundations}
+
+% ---------------------------------------------------------
+\subsection*{Axioms}
+
+\textbf{Axiom 1 (Temporal Determinism).}  
+For all ticks $t \in \mathbb{N}$,
+\[
+t_{n+1} = t_n + 1,
+\]
+and all state transitions are indexed solely by $t$, independent of wall-clock time.
+
+\textbf{Axiom 2 (Fixed-Point Arithmetic Determinism).}  
+All numerical operations are performed in Q64.64 fixed-point integer space:
+\[
+x \in \mathbb{Z}_{128},
+\]
+and are architecture-invariant.
+
+\textbf{Axiom 3 (Register-Resident Cryptography).}  
+All AEAD operations are executed entirely in CPU registers; plaintext residency in RAM is identically zero:
+\[
+\text{Plaintext\_RAM} = 0.
+\]
+
+\textbf{Axiom 4 (Merkle-DAG Lineage).}  
+Each tick $t$ produces a SHA-3/512 Merkle root $H_t$ such that:
+\[
+H_t = \text{MerkleRoot}(S_t \parallel t),
+\]
+and the sequence $\{H_t\}$ is collision-resistant.
+
+\textbf{Axiom 5 (Astrophysical Input Determinism).}  
+All astrophysical inputs $D_t$ (solar wind, cosmic ray flux, MHD shock fronts) are normalized into Q64.64 with zero drift:
+\[
+\text{Drift}(D_t) = 0.
+\]
+
+% ---------------------------------------------------------
+\subsection*{Theorems}
+
+\textbf{Theorem 1 (Global Temporal Invariance).}  
+Under Axiom 1, any admissible jitter function $J(t)$ leaves the realized state sequence invariant:
+\[
+S_{t+1}^{(J)} = S_{t+1}, \quad \forall t.
+\]
+
+\textbf{Theorem 2 (Cross-Architecture Numerical Reproducibility).}  
+Under Axiom 2, for any architectures $A$ and $B$,
+\[
+S_t^{(A)} = S_t^{(B)}, \quad \forall t.
+\]
+
+\textbf{Theorem 3 (Cryptographic Leakage Nullity).}  
+Under Axiom 3, bus-snooping, DMA, and memory probing cannot observe plaintext:
+\[
+\Pr(\text{Leakage}) = 0.
+\]
+
+\textbf{Theorem 4 (Immutable Temporal Lineage).}  
+Under Axiom 4, the sequence $\{\mathcal{N}_t\}$ with
+\[
+\mathcal{N}_t = (S_t, H_t, t)
+\]
+forms an immutable temporal lineage.
+
+\textbf{Theorem 5 (Astrophysical Drift-Free Stability).}  
+Under Axiom 5, high-entropy astrophysical inputs produce:
+\[
+\text{Drift}(S_t(D_t)) = 0, \quad \forall t.
+\]
+
+\textbf{Theorem 6 (Global Falsifiability).}  
+Let $\Sigma$ be the set of stress states (scale, jitter, bus, entropy). If for all $\sigma \in \Sigma$,
+\[
+\text{Reject}(\sigma) \lor \text{Correct}(\sigma),
+\]
+then the system is globally falsifiable.
+
+\textbf{Theorem 7 (Unified Deterministic Fabric).}  
+Let $\mathcal{A}$ be the set of supported architectures and $\mathcal{C}$ the set of deterministic clusters. Under Axioms 1–5, and if Merkle-DAG and DSL invariants extend across $\mathcal{C}$, then:
+\[
+S_t^{(A_i, C_j)} = S_t^{(A_k, C_\ell)}, \quad \forall i,k,j,\ell,t.
+\]
+
+% ---------------------------------------------------------
+\subsection*{Lemmas}
+
+\textbf{Lemma 1 (Fixed-Point Operation Invariance).}  
+Under Axiom 2, for any $x,y \in \mathbb{Z}_{128}$ and any architecture $A$,
+\[
+F_A(x,y) = F(x,y).
+\]
+
+\textbf{Lemma 2 (Nonce Uniqueness).}  
+If nonce generation follows $N_t = t$, then:
+\[
+N_t \neq N_{t'}, \quad \forall t \neq t'.
+\]
+
+\textbf{Lemma 3 (Merkle Root Equality Implies State Equality).}  
+Under Axiom 4, if $H_t^{(A)} = H_t^{(B)}$, then:
+\[
+S_t^{(A)} = S_t^{(B)}.
+\]
+
+\textbf{Lemma 4 (Astrophysical Normalization Stability).}  
+Under Axiom 5, normalization of $D_t$ into Q64.64 introduces no rounding drift.
+
+% ---------------------------------------------------------
+\subsection*{Corollaries}
+
+\textbf{Corollary 1 (Replay Determinism).}  
+Given $\{H_t\}$ and $S_0$, the entire sequence $\{S_t\}$ is uniquely reconstructible.
+
+\textbf{Corollary 2 (Epistemic Tier: Proven).}  
+If Theorems 1–7 hold, the system resides in the epistemic tier:
+\[
+E_{\text{proven}}.
+\]
+
+\textbf{Corollary 3 (Foundational Reference Architecture).}  
+If Theorems 2, 4, and 7 hold, the architecture is suitable as a foundational reference model for future multi-domain deterministic engines.
+
+\end{document}
