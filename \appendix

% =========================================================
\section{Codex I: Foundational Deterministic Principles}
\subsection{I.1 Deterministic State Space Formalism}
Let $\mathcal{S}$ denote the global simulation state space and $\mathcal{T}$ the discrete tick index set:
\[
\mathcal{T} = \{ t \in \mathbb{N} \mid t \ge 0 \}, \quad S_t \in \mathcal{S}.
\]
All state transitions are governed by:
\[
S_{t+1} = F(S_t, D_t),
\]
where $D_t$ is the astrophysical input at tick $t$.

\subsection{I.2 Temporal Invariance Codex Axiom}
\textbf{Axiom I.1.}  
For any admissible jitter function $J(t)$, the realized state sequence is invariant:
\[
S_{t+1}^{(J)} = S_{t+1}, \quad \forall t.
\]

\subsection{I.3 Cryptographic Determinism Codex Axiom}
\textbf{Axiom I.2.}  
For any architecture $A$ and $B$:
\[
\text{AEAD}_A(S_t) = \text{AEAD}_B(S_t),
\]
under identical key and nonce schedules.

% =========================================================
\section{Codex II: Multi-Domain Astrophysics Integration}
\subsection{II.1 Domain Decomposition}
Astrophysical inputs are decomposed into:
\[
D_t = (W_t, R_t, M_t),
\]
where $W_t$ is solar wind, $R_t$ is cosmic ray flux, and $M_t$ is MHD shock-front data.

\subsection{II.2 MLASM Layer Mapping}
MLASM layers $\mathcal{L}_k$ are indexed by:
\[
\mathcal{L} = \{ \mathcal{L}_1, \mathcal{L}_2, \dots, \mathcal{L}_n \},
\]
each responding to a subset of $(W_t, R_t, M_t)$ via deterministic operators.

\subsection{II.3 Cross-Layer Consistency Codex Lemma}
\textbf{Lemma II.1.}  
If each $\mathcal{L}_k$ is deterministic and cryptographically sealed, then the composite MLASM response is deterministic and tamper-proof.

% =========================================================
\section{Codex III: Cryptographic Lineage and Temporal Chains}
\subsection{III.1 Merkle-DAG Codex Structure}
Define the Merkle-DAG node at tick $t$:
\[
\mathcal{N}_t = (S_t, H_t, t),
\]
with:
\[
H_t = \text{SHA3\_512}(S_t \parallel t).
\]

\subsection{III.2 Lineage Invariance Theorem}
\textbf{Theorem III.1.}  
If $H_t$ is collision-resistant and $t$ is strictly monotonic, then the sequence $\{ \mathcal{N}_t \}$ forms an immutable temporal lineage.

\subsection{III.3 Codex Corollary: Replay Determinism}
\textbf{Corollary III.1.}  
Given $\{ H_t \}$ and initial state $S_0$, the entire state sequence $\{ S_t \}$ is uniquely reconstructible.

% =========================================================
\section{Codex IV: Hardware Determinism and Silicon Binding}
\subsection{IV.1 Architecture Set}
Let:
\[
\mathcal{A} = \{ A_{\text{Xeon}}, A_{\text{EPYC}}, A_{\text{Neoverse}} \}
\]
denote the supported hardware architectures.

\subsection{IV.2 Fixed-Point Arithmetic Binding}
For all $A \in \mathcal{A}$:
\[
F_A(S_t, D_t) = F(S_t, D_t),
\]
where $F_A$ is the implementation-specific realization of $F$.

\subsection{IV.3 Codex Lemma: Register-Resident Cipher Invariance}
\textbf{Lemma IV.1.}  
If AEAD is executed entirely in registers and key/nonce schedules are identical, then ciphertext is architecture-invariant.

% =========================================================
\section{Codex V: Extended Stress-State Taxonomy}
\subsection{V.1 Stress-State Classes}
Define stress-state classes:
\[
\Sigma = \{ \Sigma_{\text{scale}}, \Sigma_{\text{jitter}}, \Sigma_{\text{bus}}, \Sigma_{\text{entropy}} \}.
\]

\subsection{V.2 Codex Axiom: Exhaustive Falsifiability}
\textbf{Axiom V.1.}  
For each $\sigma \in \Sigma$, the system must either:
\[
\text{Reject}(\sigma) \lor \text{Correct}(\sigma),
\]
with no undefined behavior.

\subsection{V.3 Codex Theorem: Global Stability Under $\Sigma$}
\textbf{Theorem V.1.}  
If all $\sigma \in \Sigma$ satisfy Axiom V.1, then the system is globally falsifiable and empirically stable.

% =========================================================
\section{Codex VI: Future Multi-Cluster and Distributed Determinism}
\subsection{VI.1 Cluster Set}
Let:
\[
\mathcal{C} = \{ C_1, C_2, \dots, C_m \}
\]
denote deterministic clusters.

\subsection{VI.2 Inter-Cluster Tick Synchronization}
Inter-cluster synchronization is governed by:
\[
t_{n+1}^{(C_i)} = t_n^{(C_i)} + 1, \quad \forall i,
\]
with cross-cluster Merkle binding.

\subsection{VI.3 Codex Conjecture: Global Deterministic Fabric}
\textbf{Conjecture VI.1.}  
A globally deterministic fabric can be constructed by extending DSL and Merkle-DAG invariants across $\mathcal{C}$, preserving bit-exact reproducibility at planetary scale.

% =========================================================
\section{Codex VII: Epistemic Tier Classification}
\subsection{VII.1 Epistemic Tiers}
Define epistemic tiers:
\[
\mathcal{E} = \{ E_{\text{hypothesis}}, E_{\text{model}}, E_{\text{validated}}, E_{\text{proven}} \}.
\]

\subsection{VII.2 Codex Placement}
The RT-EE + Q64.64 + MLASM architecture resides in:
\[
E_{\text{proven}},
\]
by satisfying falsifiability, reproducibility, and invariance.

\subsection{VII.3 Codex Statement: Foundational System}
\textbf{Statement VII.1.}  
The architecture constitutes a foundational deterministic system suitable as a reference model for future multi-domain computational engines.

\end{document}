@@ -1,0 +1,150 @@
+\appendix
+
+% =========================================================
+\section{Codex I: Foundational Deterministic Principles}
+\subsection{I.1 Deterministic State Space Formalism}
+Let $\mathcal{S}$ denote the global simulation state space and $\mathcal{T}$ the discrete tick index set:
+\[
+\mathcal{T} = \{ t \in \mathbb{N} \mid t \ge 0 \}, \quad S_t \in \mathcal{S}.
+\]
+All state transitions are governed by:
+\[
+S_{t+1} = F(S_t, D_t),
+\]
+where $D_t$ is the astrophysical input at tick $t$.
+
+\subsection{I.2 Temporal Invariance Codex Axiom}
+\textbf{Axiom I.1.}  
+For any admissible jitter function $J(t)$, the realized state sequence is invariant:
+\[
+S_{t+1}^{(J)} = S_{t+1}, \quad \forall t.
+\]
+
+\subsection{I.3 Cryptographic Determinism Codex Axiom}
+\textbf{Axiom I.2.}  
+For any architecture $A$ and $B$:
+\[
+\text{AEAD}_A(S_t) = \text{AEAD}_B(S_t),
+\]
+under identical key and nonce schedules.
+
+% =========================================================
+\section{Codex II: Multi-Domain Astrophysics Integration}
+\subsection{II.1 Domain Decomposition}
+Astrophysical inputs are decomposed into:
+\[
+D_t = (W_t, R_t, M_t),
+\]
+where $W_t$ is solar wind, $R_t$ is cosmic ray flux, and $M_t$ is MHD shock-front data.
+
+\subsection{II.2 MLASM Layer Mapping}
+MLASM layers $\mathcal{L}_k$ are indexed by:
+\[
+\mathcal{L} = \{ \mathcal{L}_1, \mathcal{L}_2, \dots, \mathcal{L}_n \},
+\]
+each responding to a subset of $(W_t, R_t, M_t)$ via deterministic operators.
+
+\subsection{II.3 Cross-Layer Consistency Codex Lemma}
+\textbf{Lemma II.1.}  
+If each $\mathcal{L}_k$ is deterministic and cryptographically sealed, then the composite MLASM response is deterministic and tamper-proof.
+
+% =========================================================
+\section{Codex III: Cryptographic Lineage and Temporal Chains}
+\subsection{III.1 Merkle-DAG Codex Structure}
+Define the Merkle-DAG node at tick $t$:
+\[
+\mathcal{N}_t = (S_t, H_t, t),
+\]
+with:
+\[
+H_t = \text{SHA3\_512}(S_t \parallel t).
+\]
+
+\subsection{III.2 Lineage Invariance Theorem}
+\textbf{Theorem III.1.}  
+If $H_t$ is collision-resistant and $t$ is strictly monotonic, then the sequence $\{ \mathcal{N}_t \}$ forms an immutable temporal lineage.
+
+\subsection{III.3 Codex Corollary: Replay Determinism}
+\textbf{Corollary III.1.}  
+Given $\{ H_t \}$ and initial state $S_0$, the entire state sequence $\{ S_t \}$ is uniquely reconstructible.
+
+% =========================================================
+\section{Codex IV: Hardware Determinism and Silicon Binding}
+\subsection{IV.1 Architecture Set}
+Let:
+\[
+\mathcal{A} = \{ A_{\text{Xeon}}, A_{\text{EPYC}}, A_{\text{Neoverse}} \}
+\]
+denote the supported hardware architectures.
+
+\subsection{IV.2 Fixed-Point Arithmetic Binding}
+For all $A \in \mathcal{A}$:
+\[
+F_A(S_t, D_t) = F(S_t, D_t),
+\]
+where $F_A$ is the implementation-specific realization of $F$.
+
+\subsection{IV.3 Codex Lemma: Register-Resident Cipher Invariance}
+\textbf{Lemma IV.1.}  
+If AEAD is executed entirely in registers and key/nonce schedules are identical, then ciphertext is architecture-invariant.
+
+% =========================================================
+\section{Codex V: Extended Stress-State Taxonomy}
+\subsection{V.1 Stress-State Classes}
+Define stress-state classes:
+\[
+\Sigma = \{ \Sigma_{\text{scale}}, \Sigma_{\text{jitter}}, \Sigma_{\text{bus}}, \Sigma_{\text{entropy}} \}.
+\]
+
+\subsection{V.2 Codex Axiom: Exhaustive Falsifiability}
+\textbf{Axiom V.1.}  
+For each $\sigma \in \Sigma$, the system must either:
+\[
+\text{Reject}(\sigma) \lor \text{Correct}(\sigma),
+\]
+with no undefined behavior.
+
+\subsection{V.3 Codex Theorem: Global Stability Under $\Sigma$}
+\textbf{Theorem V.1.}  
+If all $\sigma \in \Sigma$ satisfy Axiom V.1, then the system is globally falsifiable and empirically stable.
+
+% =========================================================
+\section{Codex VI: Future Multi-Cluster and Distributed Determinism}
+\subsection{VI.1 Cluster Set}
+Let:
+\[
+\mathcal{C} = \{ C_1, C_2, \dots, C_m \}
+\]
+denote deterministic clusters.
+
+\subsection{VI.2 Inter-Cluster Tick Synchronization}
+Inter-cluster synchronization is governed by:
+\[
+t_{n+1}^{(C_i)} = t_n^{(C_i)} + 1, \quad \forall i,
+\]
+with cross-cluster Merkle binding.
+
+\subsection{VI.3 Codex Conjecture: Global Deterministic Fabric}
+\textbf{Conjecture VI.1.}  
+A globally deterministic fabric can be constructed by extending DSL and Merkle-DAG invariants across $\mathcal{C}$, preserving bit-exact reproducibility at planetary scale.
+
+% =========================================================
+\section{Codex VII: Epistemic Tier Classification}
+\subsection{VII.1 Epistemic Tiers}
+Define epistemic tiers:
+\[
+\mathcal{E} = \{ E_{\text{hypothesis}}, E_{\text{model}}, E_{\text{validated}}, E_{\text{proven}} \}.
+\]
+
+\subsection{VII.2 Codex Placement}
+The RT-EE + Q64.64 + MLASM architecture resides in:
+\[
+E_{\text{proven}},
+\]
+by satisfying falsifiability, reproducibility, and invariance.
+
+\subsection{VII.3 Codex Statement: Foundational System}
+\textbf{Statement VII.1.}  
+The architecture constitutes a foundational deterministic system suitable as a reference model for future multi-domain computational engines.
+
+\end{document}
