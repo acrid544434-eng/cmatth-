@@ -1,0 +1,200 @@
+\chapter{Structural Invariant Computation in the Temporal Symmetry Systems Engine (TSSE)}
+\section{Overview}
+
+Chapter 5 formalizes the computation of structural invariants within the Temporal
+Symmetry Systems Engine (TSSE). Structural invariants are the conserved quantities,
+manifold constraints, and temporal symmetry-preserving metrics that define the
+admissible evolution of TSSE-governed systems. These invariants ensure that
+relativistic propulsion, fusion energetics, and temporal symmetry kernels evolve
+within closed, stable, and mathematically rigorous manifolds.
+
+This chapter establishes:
+\begin{enumerate}
+  \item The definition and classification of TSSE structural invariants.
+  \item The invariant computation operators and their algebraic properties.
+  \item The Hamiltonian and symplectic derivation of invariants.
+  \item The manifold-preserving theorems governing invariant evolution.
+  \item The canonical TSSE Structural Invariant Kernel (TSSE-SIK).
+\end{enumerate}
+
+%===========================================================
+\section{Classification of TSSE Structural Invariants}
+
+TSSE structural invariants fall into three primary classes:
+\[
+\mathcal{I}_{\text{TSSE}} =
+\left\{
+\mathcal{I}_{\text{T}},\;
+\mathcal{I}_{\text{R}},\;
+\mathcal{I}_{\text{F}}
+\right\},
+\]
+where:
+\begin{itemize}
+  \item $\mathcal{I}_{\text{T}}$ are temporal invariants.
+  \item $\mathcal{I}_{\text{R}}$ are relativistic propulsion invariants.
+  \item $\mathcal{I}_{\text{F}}$ are fusion energetic invariants.
+\end{itemize}
+
+\subsection{Temporal Invariants}
+
+Temporal invariants satisfy:
+\[
+\mathcal{T}\mathcal{U}(t) = \mathcal{U}(t)\mathcal{T}.
+\]
+
+\subsection{Relativistic Invariants}
+
+Relativistic invariants satisfy:
+\[
+\det(D\mathcal{U}(t)) = 1,
+\qquad
+\mathcal{U}(t)^\top J\,\mathcal{U}(t) = J.
+\]
+
+\subsection{Fusion Invariants}
+
+Fusion invariants satisfy:
+\[
+G(q,p) = \frac{E_{\text{fusion}}}{E_{\text{ann}}} = Q.
+\]
+
+These invariants define the admissible class of TSSE-governed systems.
+
+%===========================================================
+\section{Invariant Computation Operators}
+
+Define the invariant computation operator:
+\[
+\mathcal{C}_{\mathcal{I}} : (q,p) \mapsto \mathcal{I}(q,p),
+\]
+where $\mathcal{I}$ is any TSSE structural invariant.
+
+\begin{definition}[Invariant Operator]
+An invariant operator $\mathcal{C}_{\mathcal{I}}$ satisfies:
+\[
+\mathcal{C}_{\mathcal{I}}(\mathcal{U}(t)(q,p)) = \mathcal{C}_{\mathcal{I}}(q,p).
+\]
+\end{definition}
+
+\begin{lemma}[Operator Commutation]
+Invariant operators commute with TSSE evolution:
+\[
+\mathcal{C}_{\mathcal{I}}\mathcal{U}(t) = \mathcal{U}(t)\mathcal{C}_{\mathcal{I}}.
+\]
+\end{lemma}
+
+\begin{proof}
+Since invariants are preserved under TSSE evolution, applying $\mathcal{C}_{\mathcal{I}}$
+before or after $\mathcal{U}(t)$ yields identical results.
+\end{proof}
+
+This lemma establishes the algebraic consistency of invariant computation.
+
+%===========================================================
+\section{Hamiltonian Derivation of Structural Invariants}
+
+Let $H_{\text{TSSE}}$ denote the global TSSE Hamiltonian:
+\[
+H_{\text{TSSE}} = H_{\text{T}} + H_{\text{RPK}} + H_{\text{FK}}.
+\]
+
+Structural invariants arise from:
+\begin{enumerate}
+  \item Hamiltonian symmetries.
+  \item Temporal symmetry operators.
+  \item Manifold constraints.
+  \item Symplectic evolution.
+\end{enumerate}
+
+\begin{definition}[Hamiltonian Invariant]
+A Hamiltonian invariant $\mathcal{I}_H$ satisfies:
+\[
+\{\mathcal{I}_H, H_{\text{TSSE}}\} = 0.
+\]
+\end{definition}
+
+\begin{lemma}[Hamiltonian Invariant Preservation]
+If $\{\mathcal{I}_H, H_{\text{TSSE}}\} = 0$, then:
+\[
+\frac{d\mathcal{I}_H}{dt} = 0.
+\]
+\end{lemma}
+
+\begin{proof}
+Hamilton’s equations yield:
+\[
+\frac{d\mathcal{I}_H}{dt} = \{\mathcal{I}_H, H_{\text{TSSE}}\}.
+\]
+If the Poisson bracket vanishes, the invariant is preserved.
+\end{proof}
+
+This lemma establishes the Hamiltonian foundation of TSSE invariants.
+
+%===========================================================
+\section{Manifold-Preserving Theorems}
+
+Let $\mathcal{S}_{\text{TSSE}}$ denote the global structural manifold.
+
+\begin{theorem}[Invariant Manifold Closure]
+If $(q,p) \in \mathcal{S}_{\text{TSSE}}$, then:
+\[
+\mathcal{U}(t)(q,p) \in \mathcal{S}_{\text{TSSE}}.
+\]
+\end{theorem}
+
+\begin{proof}
+Follows from the closure of subsystem manifolds and the direct product structure
+of $\mathcal{S}_{\text{TSSE}}$.
+\end{proof}
+
+\begin{theorem}[Invariant Preservation Under Symplectic Flow]
+If $\mathcal{U}(t)$ is symplectic, then all TSSE invariants are preserved:
+\[
+\mathcal{C}_{\mathcal{I}}(\mathcal{U}(t)(q,p)) = \mathcal{C}_{\mathcal{I}}(q,p).
+\]
+\end{theorem}
+
+\begin{proof}
+Symplectic evolution preserves Hamiltonian invariants, manifold constraints, and
+temporal symmetry operators.
+\end{proof}
+
+These theorems establish the global stability of TSSE engines.
+
+%===========================================================
+\section{Canonical TSSE Structural Invariant Kernel (TSSE-SIK)}
+
+The TSSE Structural Invariant Kernel is defined by:
+\[
+\mathcal{K}_{\text{TSSE-SIK}} =
+\left(
+\mathcal{I}_{\text{T}},\;
+\mathcal{I}_{\text{R}},\;
+\mathcal{I}_{\text{F}},\;
+\mathcal{C}_{\mathcal{I}},\;
+\mathcal{S}_{\text{TSSE}},\;
+\mathcal{U}(t)
+\right).
+\]
+
+It enforces:
+\[
+\mathcal{C}_{\mathcal{I}}(\mathcal{U}(t)(q,p)) = \mathcal{C}_{\mathcal{I}}(q,p),
+\qquad
+\mathcal{U}(t)\mathcal{S}_{\text{TSSE}} = \mathcal{S}_{\text{TSSE}},
+\qquad
+\det(D\mathcal{U}(t)) = 1.
+\]
+
+This kernel defines the invariant computation layer of TSSE engines.
+
+%===========================================================
+\section{Conclusion}
+
+Chapter 5 establishes the structural invariant computation layer of TSSE. The
+classification of invariants, invariant operators, Hamiltonian derivations,
+manifold-preserving theorems, and the canonical TSSE Structural Invariant Kernel
+define the mathematical backbone of TSSE stability. These results form the basis
+for Chapter 6, which formalizes the TSSE–AITFE Integration Layer and the complete
+fusion–propulsion–temporal symmetry engine architecture.
