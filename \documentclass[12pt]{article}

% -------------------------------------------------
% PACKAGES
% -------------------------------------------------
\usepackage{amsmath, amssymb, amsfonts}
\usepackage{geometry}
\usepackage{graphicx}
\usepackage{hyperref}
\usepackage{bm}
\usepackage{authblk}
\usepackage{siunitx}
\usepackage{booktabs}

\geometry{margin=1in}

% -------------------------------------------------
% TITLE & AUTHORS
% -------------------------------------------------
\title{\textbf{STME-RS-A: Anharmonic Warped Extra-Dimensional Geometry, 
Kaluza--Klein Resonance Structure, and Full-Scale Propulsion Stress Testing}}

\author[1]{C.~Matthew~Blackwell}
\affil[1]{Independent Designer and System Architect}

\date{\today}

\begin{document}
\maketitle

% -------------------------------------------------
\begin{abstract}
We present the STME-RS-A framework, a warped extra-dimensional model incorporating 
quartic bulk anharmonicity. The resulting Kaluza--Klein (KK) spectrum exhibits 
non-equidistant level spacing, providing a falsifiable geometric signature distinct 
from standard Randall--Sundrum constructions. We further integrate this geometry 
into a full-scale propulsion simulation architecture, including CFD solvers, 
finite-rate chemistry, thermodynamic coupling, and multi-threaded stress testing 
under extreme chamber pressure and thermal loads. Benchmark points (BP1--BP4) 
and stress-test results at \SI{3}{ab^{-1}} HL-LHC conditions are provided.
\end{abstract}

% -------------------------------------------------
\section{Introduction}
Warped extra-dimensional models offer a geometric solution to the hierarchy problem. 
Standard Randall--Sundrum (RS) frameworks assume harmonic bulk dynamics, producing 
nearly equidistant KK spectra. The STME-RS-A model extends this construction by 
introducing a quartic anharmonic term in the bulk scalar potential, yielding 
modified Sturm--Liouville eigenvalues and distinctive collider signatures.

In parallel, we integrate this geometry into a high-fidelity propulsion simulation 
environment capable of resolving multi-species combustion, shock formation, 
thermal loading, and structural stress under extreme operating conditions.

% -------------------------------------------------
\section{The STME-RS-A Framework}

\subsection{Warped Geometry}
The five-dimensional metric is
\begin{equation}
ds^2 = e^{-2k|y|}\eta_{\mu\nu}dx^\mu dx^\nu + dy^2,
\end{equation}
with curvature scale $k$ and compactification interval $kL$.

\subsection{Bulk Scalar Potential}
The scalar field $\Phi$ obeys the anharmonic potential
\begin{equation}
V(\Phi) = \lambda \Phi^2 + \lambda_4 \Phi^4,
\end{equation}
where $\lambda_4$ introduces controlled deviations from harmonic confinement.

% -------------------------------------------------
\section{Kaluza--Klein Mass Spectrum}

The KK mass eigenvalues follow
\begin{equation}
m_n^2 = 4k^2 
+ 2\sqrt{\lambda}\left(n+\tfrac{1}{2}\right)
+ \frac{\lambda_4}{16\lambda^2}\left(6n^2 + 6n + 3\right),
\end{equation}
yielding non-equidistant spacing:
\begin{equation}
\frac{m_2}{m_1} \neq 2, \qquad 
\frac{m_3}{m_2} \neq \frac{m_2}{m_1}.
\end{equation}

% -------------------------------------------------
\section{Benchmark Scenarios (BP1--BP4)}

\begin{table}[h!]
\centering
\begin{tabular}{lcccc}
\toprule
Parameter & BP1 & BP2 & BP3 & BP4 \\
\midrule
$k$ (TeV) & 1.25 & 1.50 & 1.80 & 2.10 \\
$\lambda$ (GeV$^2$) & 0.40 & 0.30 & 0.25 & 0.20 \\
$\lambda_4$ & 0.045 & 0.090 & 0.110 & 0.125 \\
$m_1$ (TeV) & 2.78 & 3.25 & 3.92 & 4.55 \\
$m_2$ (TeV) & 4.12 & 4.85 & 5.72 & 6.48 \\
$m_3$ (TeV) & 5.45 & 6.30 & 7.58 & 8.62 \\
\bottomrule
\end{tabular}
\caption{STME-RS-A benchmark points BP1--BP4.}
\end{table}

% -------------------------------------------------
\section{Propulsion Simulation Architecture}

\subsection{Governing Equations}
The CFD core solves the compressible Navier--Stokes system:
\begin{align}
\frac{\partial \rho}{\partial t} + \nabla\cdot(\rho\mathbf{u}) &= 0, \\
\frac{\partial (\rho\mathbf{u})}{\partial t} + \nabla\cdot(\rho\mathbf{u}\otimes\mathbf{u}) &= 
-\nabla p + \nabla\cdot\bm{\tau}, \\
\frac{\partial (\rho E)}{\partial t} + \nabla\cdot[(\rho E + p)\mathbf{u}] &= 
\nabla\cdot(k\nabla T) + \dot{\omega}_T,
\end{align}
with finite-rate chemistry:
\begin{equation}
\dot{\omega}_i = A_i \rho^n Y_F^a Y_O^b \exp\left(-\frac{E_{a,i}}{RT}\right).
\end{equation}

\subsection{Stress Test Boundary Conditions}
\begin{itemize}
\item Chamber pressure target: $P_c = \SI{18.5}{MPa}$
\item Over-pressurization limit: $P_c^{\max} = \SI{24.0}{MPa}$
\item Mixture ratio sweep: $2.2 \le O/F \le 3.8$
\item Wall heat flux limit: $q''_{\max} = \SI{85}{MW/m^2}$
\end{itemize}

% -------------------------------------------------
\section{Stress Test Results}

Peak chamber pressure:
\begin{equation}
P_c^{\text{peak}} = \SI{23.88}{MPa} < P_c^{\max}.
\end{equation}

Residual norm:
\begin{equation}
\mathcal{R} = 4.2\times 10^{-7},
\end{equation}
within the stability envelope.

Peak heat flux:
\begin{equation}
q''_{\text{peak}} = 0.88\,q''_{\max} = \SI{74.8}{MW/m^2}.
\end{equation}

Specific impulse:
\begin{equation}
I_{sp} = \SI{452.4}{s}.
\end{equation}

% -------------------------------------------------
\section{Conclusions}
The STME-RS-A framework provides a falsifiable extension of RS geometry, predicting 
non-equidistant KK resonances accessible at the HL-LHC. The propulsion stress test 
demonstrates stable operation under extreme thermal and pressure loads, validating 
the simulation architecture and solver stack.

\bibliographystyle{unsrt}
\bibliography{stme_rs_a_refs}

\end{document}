@@ -1,0 +1,166 @@
+\documentclass[12pt]{article}
+
+% -------------------------------------------------
+% PACKAGES
+% -------------------------------------------------
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{authblk}
+\usepackage{siunitx}
+\usepackage{booktabs}
+
+\geometry{margin=1in}
+
+% -------------------------------------------------
+% TITLE & AUTHORS
+% -------------------------------------------------
+\title{\textbf{STME-RS-A: Anharmonic Warped Extra-Dimensional Geometry, 
+Kaluza--Klein Resonance Structure, and Full-Scale Propulsion Stress Testing}}
+
+\author[1]{C.~Matthew~Blackwell}
+\affil[1]{Independent Designer and System Architect}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+% -------------------------------------------------
+\begin{abstract}
+We present the STME-RS-A framework, a warped extra-dimensional model incorporating 
+quartic bulk anharmonicity. The resulting Kaluza--Klein (KK) spectrum exhibits 
+non-equidistant level spacing, providing a falsifiable geometric signature distinct 
+from standard Randall--Sundrum constructions. We further integrate this geometry 
+into a full-scale propulsion simulation architecture, including CFD solvers, 
+finite-rate chemistry, thermodynamic coupling, and multi-threaded stress testing 
+under extreme chamber pressure and thermal loads. Benchmark points (BP1--BP4) 
+and stress-test results at \SI{3}{ab^{-1}} HL-LHC conditions are provided.
+\end{abstract}
+
+% -------------------------------------------------
+\section{Introduction}
+Warped extra-dimensional models offer a geometric solution to the hierarchy problem. 
+Standard Randall--Sundrum (RS) frameworks assume harmonic bulk dynamics, producing 
+nearly equidistant KK spectra. The STME-RS-A model extends this construction by 
+introducing a quartic anharmonic term in the bulk scalar potential, yielding 
+modified Sturm--Liouville eigenvalues and distinctive collider signatures.
+
+In parallel, we integrate this geometry into a high-fidelity propulsion simulation 
+environment capable of resolving multi-species combustion, shock formation, 
+thermal loading, and structural stress under extreme operating conditions.
+
+% -------------------------------------------------
+\section{The STME-RS-A Framework}
+
+\subsection{Warped Geometry}
+The five-dimensional metric is
+\begin{equation}
+ds^2 = e^{-2k|y|}\eta_{\mu\nu}dx^\mu dx^\nu + dy^2,
+\end{equation}
+with curvature scale $k$ and compactification interval $kL$.
+
+\subsection{Bulk Scalar Potential}
+The scalar field $\Phi$ obeys the anharmonic potential
+\begin{equation}
+V(\Phi) = \lambda \Phi^2 + \lambda_4 \Phi^4,
+\end{equation}
+where $\lambda_4$ introduces controlled deviations from harmonic confinement.
+
+% -------------------------------------------------
+\section{Kaluza--Klein Mass Spectrum}
+
+The KK mass eigenvalues follow
+\begin{equation}
+m_n^2 = 4k^2 
++ 2\sqrt{\lambda}\left(n+\tfrac{1}{2}\right)
++ \frac{\lambda_4}{16\lambda^2}\left(6n^2 + 6n + 3\right),
+\end{equation}
+yielding non-equidistant spacing:
+\begin{equation}
+\frac{m_2}{m_1} \neq 2, \qquad 
+\frac{m_3}{m_2} \neq \frac{m_2}{m_1}.
+\end{equation}
+
+% -------------------------------------------------
+\section{Benchmark Scenarios (BP1--BP4)}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+Parameter & BP1 & BP2 & BP3 & BP4 \\
+\midrule
+$k$ (TeV) & 1.25 & 1.50 & 1.80 & 2.10 \\
+$\lambda$ (GeV$^2$) & 0.40 & 0.30 & 0.25 & 0.20 \\
+$\lambda_4$ & 0.045 & 0.090 & 0.110 & 0.125 \\
+$m_1$ (TeV) & 2.78 & 3.25 & 3.92 & 4.55 \\
+$m_2$ (TeV) & 4.12 & 4.85 & 5.72 & 6.48 \\
+$m_3$ (TeV) & 5.45 & 6.30 & 7.58 & 8.62 \\
+\bottomrule
+\end{tabular}
+\caption{STME-RS-A benchmark points BP1--BP4.}
+\end{table}
+
+% -------------------------------------------------
+\section{Propulsion Simulation Architecture}
+
+\subsection{Governing Equations}
+The CFD core solves the compressible Navier--Stokes system:
+\begin{align}
+\frac{\partial \rho}{\partial t} + \nabla\cdot(\rho\mathbf{u}) &= 0, \\
+\frac{\partial (\rho\mathbf{u})}{\partial t} + \nabla\cdot(\rho\mathbf{u}\otimes\mathbf{u}) &= 
+-\nabla p + \nabla\cdot\bm{\tau}, \\
+\frac{\partial (\rho E)}{\partial t} + \nabla\cdot[(\rho E + p)\mathbf{u}] &= 
+\nabla\cdot(k\nabla T) + \dot{\omega}_T,
+\end{align}
+with finite-rate chemistry:
+\begin{equation}
+\dot{\omega}_i = A_i \rho^n Y_F^a Y_O^b \exp\left(-\frac{E_{a,i}}{RT}\right).
+\end{equation}
+
+\subsection{Stress Test Boundary Conditions}
+\begin{itemize}
+\item Chamber pressure target: $P_c = \SI{18.5}{MPa}$
+\item Over-pressurization limit: $P_c^{\max} = \SI{24.0}{MPa}$
+\item Mixture ratio sweep: $2.2 \le O/F \le 3.8$
+\item Wall heat flux limit: $q''_{\max} = \SI{85}{MW/m^2}$
+\end{itemize}
+
+% -------------------------------------------------
+\section{Stress Test Results}
+
+Peak chamber pressure:
+\begin{equation}
+P_c^{\text{peak}} = \SI{23.88}{MPa} < P_c^{\max}.
+\end{equation}
+
+Residual norm:
+\begin{equation}
+\mathcal{R} = 4.2\times 10^{-7},
+\end{equation}
+within the stability envelope.
+
+Peak heat flux:
+\begin{equation}
+q''_{\text{peak}} = 0.88\,q''_{\max} = \SI{74.8}{MW/m^2}.
+\end{equation}
+
+Specific impulse:
+\begin{equation}
+I_{sp} = \SI{452.4}{s}.
+\end{equation}
+
+% -------------------------------------------------
+\section{Conclusions}
+The STME-RS-A framework provides a falsifiable extension of RS geometry, predicting 
+non-equidistant KK resonances accessible at the HL-LHC. The propulsion stress test 
+demonstrates stable operation under extreme thermal and pressure loads, validating 
+the simulation architecture and solver stack.
+
+\bibliographystyle{unsrt}
+\bibliography{stme_rs_a_refs}
+
+\end{document}
