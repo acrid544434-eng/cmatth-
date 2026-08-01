@@ -1,0 +1,26 @@
+import numpy as np
+
+def execute_tce_stress_test(trials=5000, steps=730,
+                            F_star=100.0,
+                            delta_max=15.0,
+                            lam=0.5):
+    vitality_matrix = np.zeros((trials, steps))
+    vitality_matrix[:, 0] = F_star
+
+    alpha_stress = np.random.uniform(2.5, 4.0, trials)   # S1
+    beta_stress  = np.random.uniform(1.5, 3.0, trials)   # S2
+    stochastic_noise = np.random.normal(0.0, 3.5, size=(trials, steps))
+
+    for t in range(1, steps):
+        dF = (alpha_stress - beta_stress) * 0.02 + stochastic_noise[:, t]
+        vitality_matrix[:, t] = vitality_matrix[:, t-1] + dF
+
+        # Error coordinate and Lyapunov boundary check
+        e = vitality_matrix[:, t] - F_star
+        boundary_exceeded = np.abs(e) > (delta_max / lam)
+
+        if np.any(boundary_exceeded):
+            # Sovereign reset: re-inject into basin around F*
+            vitality_matrix[boundary_exceeded, t] = F_star + 5.0  # epsilon_correct
+
+    return vitality_matrix
