@@ -1,0 +1,132 @@
+\section{Couplings and Effective 4D Lagrangian}
+
+In this section we derive the effective four-dimensional Lagrangian obtained from
+the STME-RS-A framework. The anharmonic bulk potential modifies the KK
+wavefunctions and therefore the couplings of KK modes to Standard Model (SM)
+fields. We present the full KK reduction of the action, compute gauge and fermion
+couplings, and derive decay widths and branching fractions relevant for collider
+phenomenology.
+
+\subsection{KK Reduction of the Action}
+
+We begin with the five-dimensional action
+\begin{equation}
+S = \int d^4x \int_0^L dy \sqrt{-g}
+\left[
+-\frac{1}{2}g^{MN}\partial_M\Phi\partial_N\Phi
+- V(\Phi)
++ \mathcal{L}_{\text{SM}}(x,y)
+\right].
+\end{equation}
+
+Expanding the scalar field in KK modes,
+\begin{equation}
+\Phi(x,y) = \sum_{n=0}^{\infty} \phi_n(x) f_n(y),
+\end{equation}
+and integrating over the extra dimension yields the effective 4D Lagrangian
+\begin{equation}
+\mathcal{L}_{\text{eff}} =
+\sum_{n=0}^{\infty}
+\left[
+-\frac{1}{2}\partial_\mu\phi_n\partial^\mu\phi_n
+-\frac{1}{2}m_n^2\phi_n^2
+\right]
++ \mathcal{L}_{\text{int}}.
+\end{equation}
+
+The interaction terms depend on the overlap integrals of KK wavefunctions with
+SM fields localized on the IR brane.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_KK_overlap.pdf}
+\caption{Overlap integrals $\int dy\, e^{-2ky} f_n(y)$ determining KK couplings
+to IR-localized SM fields. Anharmonicity increases IR localization and enhances
+couplings.}
+\label{fig:KK_overlap}
+\end{figure}
+
+\subsection{Gauge Couplings}
+
+Gauge fields propagate in the bulk with zero-mode profiles flat in $y$. The KK
+modes couple to gauge fields via
+\begin{equation}
+g_n = g_5 \int_0^L dy\, e^{-ky} f_n(y),
+\end{equation}
+where $g_5$ is the five-dimensional gauge coupling.
+
+Anharmonicity increases IR localization of $f_n(y)$, enhancing $g_n$.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_gauge_couplings.pdf}
+\caption{Gauge couplings $g_n$ for BP1--BP4. Anharmonicity increases IR
+localization and enhances couplings for higher KK modes.}
+\label{fig:gauge_couplings}
+\end{figure}
+
+\subsection{Fermion Localization}
+
+Fermions propagate in the bulk with localization determined by their bulk mass
+parameter $c$:
+\begin{equation}
+\psi(x,y) = e^{(2-c)ky}\psi(x).
+\end{equation}
+
+The coupling of KK modes to fermions is
+\begin{equation}
+g_{n,f} = g_5 \int_0^L dy\, e^{-3ky} f_n(y) e^{(2-c)ky}.
+\end{equation}
+
+For IR-localized fermions ($c<1/2$), the coupling is enhanced.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_fermion_couplings.pdf}
+\caption{Fermion couplings $g_{n,f}$ for representative values of $c$. IR
+localization enhances couplings to KK modes.}
+\label{fig:fermion_couplings}
+\end{figure}
+
+\subsection{Decay Widths}
+
+The decay width of a KK mode into fermions is
+\begin{equation}
+\Gamma(\phi_n \to f\bar{f}) =
+\frac{N_c g_{n,f}^2 m_n}{8\pi}
+\left(1 - \frac{4m_f^2}{m_n^2}\right)^{3/2}.
+\end{equation}
+
+Decay into gauge bosons is
+\begin{equation}
+\Gamma(\phi_n \to VV) =
+\frac{g_n^2 m_n^3}{32\pi m_V^4}
+\left(1 - \frac{4m_V^2}{m_n^2}\right)^{1/2}.
+\end{equation}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_decay_widths.pdf}
+\caption{Decay widths of KK modes into fermions and gauge bosons for BP1--BP4.
+Anharmonicity modifies branching fractions by shifting KK masses and couplings.}
+\label{fig:decay_widths}
+\end{figure}
+
+\subsection{Branching Fractions}
+
+The branching fractions are
+\begin{equation}
+\text{BR}_{n,f} = \frac{\Gamma(\phi_n \to f\bar{f})}{\Gamma_{\text{tot}}}, \qquad
+\text{BR}_{n,V} = \frac{\Gamma(\phi_n \to VV)}{\Gamma_{\text{tot}}}.
+\end{equation}
+
+Anharmonicity shifts the mass spectrum and modifies couplings, producing distinct
+branching fraction patterns.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_branching_fractions.pdf}
+\caption{Branching fractions for KK modes $n=1,2,3$ for BP1--BP4. Anharmonicity
+produces distinct patterns compared to RS models.}
+\label{fig:branching_fractions}
+\end{figure}
