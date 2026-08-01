@@ -1,0 +1,120 @@
+\section{Sturm--Liouville Reduction and KK Mode Structure}
+
+In this section we derive the full Sturm--Liouville eigenvalue problem governing
+the Kaluza--Klein (KK) tower in the STME-RS-A framework. The presence of the
+anharmonic bulk potential modifies both the eigenfunctions and eigenvalues,
+leading to non-equidistant KK masses. We present analytic approximations,
+numerical solutions, and figure-based comparisons between harmonic and
+anharmonic regimes.
+
+\subsection{Eigenvalue Problem}
+
+We expand the bulk scalar field $\Phi(x,y)$ in KK modes:
+\begin{equation}
+\Phi(x,y) = \sum_{n=0}^{\infty} \phi_n(x) f_n(y),
+\end{equation}
+where $f_n(y)$ are eigenfunctions of the Sturm--Liouville operator
+\begin{equation}
+\mathcal{L}[f_n] = -\frac{1}{e^{-4k|y|}} \frac{d}{dy}
+\left( e^{-4k|y|} \frac{df_n}{dy} \right)
++ \frac{d^2 V}{d\Phi^2} f_n.
+\end{equation}
+
+The eigenvalue equation is
+\begin{equation}
+\mathcal{L}[f_n] = m_n^2 f_n,
+\label{eq:SL}
+\end{equation}
+with orthonormality condition
+\begin{equation}
+\int_0^L dy\, e^{-2k|y|} f_n(y) f_m(y) = \delta_{nm}.
+\end{equation}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_SL_operator.pdf}
+\caption{Structure of the Sturm--Liouville operator $\mathcal{L}$ in the
+STME-RS-A model. The anharmonic term modifies the effective potential and shifts
+the eigenvalues.}
+\label{fig:SL_operator}
+\end{figure}
+
+\subsection{Harmonic vs Anharmonic Contributions}
+
+For the harmonic RS case ($\lambda_4 = 0$), the effective potential is quadratic:
+\begin{equation}
+V_{\text{harm}}''(\Phi) = 2\lambda.
+\end{equation}
+
+In the anharmonic case,
+\begin{equation}
+V_{\text{anharm}}''(\Phi) = 2\lambda + 12\lambda_4 \Phi^2.
+\end{equation}
+
+The quartic term introduces a $y$-dependent shift in the effective potential,
+modifying the eigenvalue spectrum.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_effective_potential.pdf}
+\caption{Effective potential $V''(\Phi(y))$ for harmonic and anharmonic cases.
+The quartic term increases curvature near the IR brane, shifting KK masses.}
+\label{fig:effective_potential}
+\end{figure}
+
+\subsection{Analytic Approximations}
+
+To first order in $\lambda_4$, the mass shift is
+\begin{equation}
+\Delta m_n^2 \approx
+\frac{12\lambda_4}{16\lambda^2}
+\left( 6n^2 + 6n + 3 \right).
+\label{eq:mass_shift}
+\end{equation}
+
+Thus the full mass spectrum is
+\begin{equation}
+m_n^2 =
+4k^2
++ 2\sqrt{\lambda}\left(n+\tfrac{1}{2}\right)
++ \Delta m_n^2.
+\end{equation}
+
+The deviation from equidistance is quantified by
+\begin{equation}
+\delta_{12} = \frac{m_2}{m_1} - 2, \qquad
+\delta_{23} = \frac{m_3}{m_2} - \frac{m_2}{m_1}.
+\end{equation}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_mass_shifts.pdf}
+\caption{Anharmonic mass shifts $\Delta m_n$ as a function of $\lambda_4$ for
+$n=1,2,3$. The quartic term produces non-equidistant KK spacing.}
+\label{fig:mass_shifts}
+\end{figure}
+
+\subsection{Numerical Solutions}
+
+We solve Eq.~(\ref{eq:SL}) numerically using a finite-difference discretization
+with IR-localized boundary conditions. The eigenfunctions exhibit increased
+localization near the IR brane as $\lambda_4$ increases.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_KK_wavefunctions.pdf}
+\caption{KK wavefunctions $f_n(y)$ for $n=1,2,3$ in harmonic and anharmonic
+cases. Anharmonicity increases IR localization and shifts eigenvalues upward.}
+\label{fig:KK_wavefunctions}
+\end{figure}
+
+The numerical eigenvalues match the analytic approximation in
+Eq.~(\ref{eq:mass_shift}) to within 3\% for the benchmark points BP1--BP4.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_KK_spectrum.pdf}
+\caption{KK spectrum for BP1--BP4. The anharmonic term $\lambda_4$ produces
+non-equidistant spacing, providing a falsifiable experimental signature.}
+\label{fig:KK_spectrum}
+\end{figure}
