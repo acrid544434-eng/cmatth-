@@ -1,0 +1,197 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{CMD Epistemic Closure and Neural Visual Sovereign Architect:\\
+A Formal Scientific Overview}
+\author{C.\ Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document presents a formal mathematical and architectural overview of the
+CMD Epistemic Closure framework and the Neural Visual Sovereign Architect (NVSA).
+We define the dynamical system structure, the epistemic closure conditions, and
+the bio-inspired visual pipeline (Retina, Optic Nerve, Cortex, Prediction,
+Verification). The goal is to cast the architecture in rigorous scientific
+LaTeX, suitable for monograph or publication use.
+\end{abstract}
+
+\section{Dynamical System Model}
+
+Let $(\mathcal{H}, \langle \cdot, \cdot \rangle)$ be a Hilbert space representing
+the full internal state of the NVSA--CMD engine, including:
+\begin{itemize}
+    \item visual feature tensors (retina output),
+    \item sparse event streams (optic nerve encoding),
+    \item hierarchical semantic states (cortex),
+    \item predictive latent states (simulation layer),
+    \item verification and ledger states (CMD layer).
+\end{itemize}
+
+We model the evolution of the system by
+\begin{equation}
+    \frac{dX}{dt} = \mathcal{A}X + \mathcal{N}(X, U(t)),
+\end{equation}
+where:
+\begin{itemize}
+    \item $X(t) \in \mathcal{H}$ is the global state at time $t$,
+    \item $\mathcal{A}$ is a linear generator (transport, mapping, baseline flow),
+    \item $\mathcal{N}$ is a nonlinear operator encoding perception, prediction,
+          and verification dynamics,
+    \item $U(t)$ denotes external telemetry input (e.g.\ FITS/JSON astrophysical data).
+\end{itemize}
+
+\section{Epistemic Closure: Formal Conditions}
+
+We define three core functionals:
+\begin{equation}
+    \Phi_{B}(t) \quad \text{(boundedness)}, \qquad
+    \Phi_{C}(t) \quad \text{(convergence)}, \qquad
+    \Phi_{L}(t) \quad \text{(ledger integrity)}.
+\end{equation}
+
+\subsection{Boundedness}
+
+\begin{definition}[Boundedness Functional]
+Let $V(X) = \|X\|^2$ be a Lyapunov candidate. The system is \emph{bounded} if
+there exist constants $\alpha > 0$, $\beta \geq 0$ such that
+\begin{equation}
+    \frac{d}{dt} V(X(t)) \leq -\alpha V(X(t)) + \beta,
+\end{equation}
+for all $t \geq 0$.
+\end{definition}
+
+\begin{theorem}[Global Boundedness]
+Assume $\mathcal{A}$ generates a strongly continuous semigroup and $\mathcal{N}$
+is dissipative in the sense above. Then there exists $M > 0$ such that
+\begin{equation}
+    \sup_{t \geq 0} \|X(t)\| \leq M.
+\end{equation}
+\end{theorem}
+
+\subsection{Convergence}
+
+\begin{definition}[Perceptual Convergence]
+Let $Y(t)$ denote the perceptual output (e.g.\ CME trajectory estimate). We say
+the system is \emph{convergent} if for any admissible input stream $U(t)$,
+\begin{equation}
+    \lim_{t \to \infty} Y(t) = Y_{\infty},
+\end{equation}
+exists and is stable under small perturbations of $U(t)$.
+\end{definition}
+
+\subsection{Ledger Integrity}
+
+\begin{definition}[Cryptographic Ledger]
+Let $\Lambda(k)$ be the hash of the $k$-th processing epoch:
+\begin{equation}
+    \Lambda(k) = \mathrm{SHA256}\big( X_k, U_k, Y_k, \Phi_{B,k}, \Phi_{C,k} \big).
+\end{equation}
+The ledger is \emph{integrity-preserving} if:
+\begin{itemize}
+    \item the hash function is collision-resistant,
+    \item the storage is append-only and immutable.
+\end{itemize}
+\end{definition}
+
+\section{Neural Visual Sovereign Architect (NVSA)}
+
+We formalize the five-layer pipeline as a sequence of operators:
+\begin{equation}
+    U(t) \xrightarrow{\mathcal{R}} R(t) \xrightarrow{\mathcal{O}} E(t)
+    \xrightarrow{\mathcal{V}} S(t) \xrightarrow{\mathcal{P}} \hat{S}(t+1)
+    \xrightarrow{\mathcal{C}} Z(t),
+\end{equation}
+where:
+\begin{itemize}
+    \item $\mathcal{R}$: Retina operator (preprocessing, contrast, gradients),
+    \item $\mathcal{O}$: Optic nerve operator (sparse encoding, temporal coding),
+    \item $\mathcal{V}$: Visual cortex operator (hierarchical feature mapping),
+    \item $\mathcal{P}$: Prediction operator (recurrent state-space, foveation),
+    \item $\mathcal{C}$: CMD verification operator (boundedness, convergence, ledger).
+\end{itemize}
+
+\subsection{Retina Operator}
+
+Let $U(t)$ be a raw image tensor. The retina operator $\mathcal{R}$ applies:
+\begin{equation}
+    R(t) = \mathcal{R}(U(t)) = \mathcal{H}(U(t)) + \mathcal{G}(U(t)) + \Delta U(t),
+\end{equation}
+where:
+\begin{itemize}
+    \item $\mathcal{H}$: adaptive histogram equalization,
+    \item $\mathcal{G}$: gradient filters (Sobel/Scharr),
+    \item $\Delta U(t) = U(t) - U(t-\Delta t)$: frame differencing.
+\end{itemize}
+
+\subsection{Optic Nerve Operator}
+
+The optic nerve operator $\mathcal{O}$ maps $R(t)$ to sparse events:
+\begin{equation}
+    E(t) = \mathcal{O}(R(t)) = \{ e_i(t) \mid \sigma_{\text{spatial}}(r_i) > \tau \},
+\end{equation}
+with threshold-gated sparse coding and temporal velocity encoding.
+
+\subsection{Visual Cortex Operator}
+
+The cortex operator $\mathcal{V}$ constructs semantic states:
+\begin{equation}
+    S(t) = \mathcal{V}(E(t)) = \big( S_{\text{V1/V2}}, S_{\text{V4}},
+    S_{\text{IT}}, S_{\text{Parietal}} \big),
+\end{equation}
+corresponding to orientation, shape/color, object identity, and spatial trajectory.
+
+\subsection{Prediction Operator}
+
+The prediction operator $\mathcal{P}$ is a recurrent state-space model:
+\begin{equation}
+    \hat{S}(t+1) = \mathcal{P}\big(S(t), \hat{S}(t)\big),
+\end{equation}
+with foveated attention focusing on high-entropy regions.
+
+\subsection{CMD Verification Operator}
+
+Finally, the CMD operator $\mathcal{C}$ enforces epistemic closure:
+\begin{equation}
+    Z(t) = \mathcal{C}\big(X(t), \hat{S}(t+1)\big),
+\end{equation}
+where $Z(t)$ includes:
+\begin{itemize}
+    \item boundedness verdict,
+    \item convergence status,
+    \item cryptographic ledger update.
+\end{itemize}
+
+\section{Epistemic Closure Theorem}
+
+\begin{theorem}[Epistemic Closure of NVSA--CMD]
+Assume:
+\begin{enumerate}
+    \item The dynamical system $\frac{dX}{dt} = \mathcal{A}X + \mathcal{N}(X,U(t))$
+          satisfies global boundedness.
+    \item The perceptual output $Y(t)$ converges for admissible input streams.
+    \item The ledger $\Lambda(k)$ is collision-resistant and immutable.
+\end{enumerate}
+Then every scientific or operational claim produced by the NVSA--CMD engine
+admits a triple:
+\begin{equation}
+    \big( \text{boundedness proof},\; \text{convergence evidence},\;
+    \text{ledger hash} \big),
+\end{equation}
+and the system is epistemically closed in the sense that no claim can be
+asserted without a corresponding mathematical, empirical, and cryptographic witness.
+\end{theorem}
+
+\section{Conclusion}
+
+We have cast the CMD Epistemic Closure framework and the Neural Visual Sovereign
+Architect in formal LaTeX, defining the dynamical system, the verification
+functionals, and the bio-inspired cognitive pipeline. This structure is suitable
+for inclusion as a chapter or section in a larger monograph on sovereign
+computational architectures.
+
+\end{document}
