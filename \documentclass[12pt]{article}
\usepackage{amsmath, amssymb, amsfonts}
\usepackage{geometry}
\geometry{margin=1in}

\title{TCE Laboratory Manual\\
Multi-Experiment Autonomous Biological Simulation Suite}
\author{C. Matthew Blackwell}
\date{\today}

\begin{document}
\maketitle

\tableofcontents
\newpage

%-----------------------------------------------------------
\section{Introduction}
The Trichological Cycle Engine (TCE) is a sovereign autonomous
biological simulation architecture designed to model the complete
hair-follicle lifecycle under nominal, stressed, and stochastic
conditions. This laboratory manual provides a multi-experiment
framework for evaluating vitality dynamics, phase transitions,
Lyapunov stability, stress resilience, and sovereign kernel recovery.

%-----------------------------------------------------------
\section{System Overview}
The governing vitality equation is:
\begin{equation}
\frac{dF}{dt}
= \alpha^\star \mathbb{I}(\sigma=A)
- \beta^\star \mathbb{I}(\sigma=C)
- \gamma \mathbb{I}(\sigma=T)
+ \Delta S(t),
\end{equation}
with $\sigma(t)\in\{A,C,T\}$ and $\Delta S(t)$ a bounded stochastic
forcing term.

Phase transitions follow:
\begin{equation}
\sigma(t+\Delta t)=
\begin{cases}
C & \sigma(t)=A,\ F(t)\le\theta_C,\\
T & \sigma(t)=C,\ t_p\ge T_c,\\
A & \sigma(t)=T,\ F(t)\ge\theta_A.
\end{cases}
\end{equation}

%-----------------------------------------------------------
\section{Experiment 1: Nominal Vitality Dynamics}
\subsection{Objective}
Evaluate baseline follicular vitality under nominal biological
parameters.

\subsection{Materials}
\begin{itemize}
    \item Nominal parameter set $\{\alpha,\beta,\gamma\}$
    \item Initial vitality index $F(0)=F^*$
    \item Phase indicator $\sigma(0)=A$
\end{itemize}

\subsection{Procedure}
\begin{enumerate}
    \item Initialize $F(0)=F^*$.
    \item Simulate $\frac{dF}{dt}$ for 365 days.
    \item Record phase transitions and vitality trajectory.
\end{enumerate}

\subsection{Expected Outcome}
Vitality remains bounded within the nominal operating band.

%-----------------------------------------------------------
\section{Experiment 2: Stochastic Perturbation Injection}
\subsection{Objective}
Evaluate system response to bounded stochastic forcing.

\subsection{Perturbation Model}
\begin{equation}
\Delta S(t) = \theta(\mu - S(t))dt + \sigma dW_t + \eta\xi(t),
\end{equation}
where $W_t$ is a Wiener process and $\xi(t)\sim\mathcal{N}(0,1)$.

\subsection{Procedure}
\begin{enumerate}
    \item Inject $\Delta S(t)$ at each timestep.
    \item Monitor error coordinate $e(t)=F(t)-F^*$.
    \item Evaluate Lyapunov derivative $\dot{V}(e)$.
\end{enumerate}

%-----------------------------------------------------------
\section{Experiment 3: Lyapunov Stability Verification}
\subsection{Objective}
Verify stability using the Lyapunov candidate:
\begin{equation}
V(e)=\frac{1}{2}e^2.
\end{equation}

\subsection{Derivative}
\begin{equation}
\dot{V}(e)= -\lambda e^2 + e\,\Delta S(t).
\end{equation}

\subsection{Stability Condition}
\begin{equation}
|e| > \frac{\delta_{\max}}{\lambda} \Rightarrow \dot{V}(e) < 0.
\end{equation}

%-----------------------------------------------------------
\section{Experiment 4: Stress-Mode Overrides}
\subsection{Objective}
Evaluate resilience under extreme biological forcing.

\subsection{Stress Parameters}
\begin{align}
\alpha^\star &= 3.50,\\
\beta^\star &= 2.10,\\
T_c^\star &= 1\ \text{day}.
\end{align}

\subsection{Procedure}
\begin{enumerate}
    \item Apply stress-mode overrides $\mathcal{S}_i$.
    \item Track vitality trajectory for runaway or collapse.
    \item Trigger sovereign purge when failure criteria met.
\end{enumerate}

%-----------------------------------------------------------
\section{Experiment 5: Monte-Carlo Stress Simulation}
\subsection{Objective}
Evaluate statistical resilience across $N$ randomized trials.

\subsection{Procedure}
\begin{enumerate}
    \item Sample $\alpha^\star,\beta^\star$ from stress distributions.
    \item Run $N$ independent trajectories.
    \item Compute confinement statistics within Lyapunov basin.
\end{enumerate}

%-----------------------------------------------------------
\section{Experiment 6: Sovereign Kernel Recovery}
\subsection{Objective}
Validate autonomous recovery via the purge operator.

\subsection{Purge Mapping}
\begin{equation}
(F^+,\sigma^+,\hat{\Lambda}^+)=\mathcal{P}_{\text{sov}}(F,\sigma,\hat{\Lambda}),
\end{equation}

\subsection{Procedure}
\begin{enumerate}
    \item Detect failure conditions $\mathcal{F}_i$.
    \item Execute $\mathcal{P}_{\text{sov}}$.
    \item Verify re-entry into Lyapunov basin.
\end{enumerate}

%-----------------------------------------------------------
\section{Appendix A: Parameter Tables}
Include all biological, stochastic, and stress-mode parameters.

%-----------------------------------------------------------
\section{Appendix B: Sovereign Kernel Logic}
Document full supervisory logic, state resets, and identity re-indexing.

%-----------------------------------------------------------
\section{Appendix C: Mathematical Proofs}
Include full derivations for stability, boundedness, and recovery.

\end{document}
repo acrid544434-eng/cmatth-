@@ -1,0 +1,168 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{TCE Laboratory Manual\\
+Multi-Experiment Autonomous Biological Simulation Suite}
+\author{C. Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+%-----------------------------------------------------------
+\section{Introduction}
+The Trichological Cycle Engine (TCE) is a sovereign autonomous
+biological simulation architecture designed to model the complete
+hair-follicle lifecycle under nominal, stressed, and stochastic
+conditions. This laboratory manual provides a multi-experiment
+framework for evaluating vitality dynamics, phase transitions,
+Lyapunov stability, stress resilience, and sovereign kernel recovery.
+
+%-----------------------------------------------------------
+\section{System Overview}
+The governing vitality equation is:
+\begin{equation}
+\frac{dF}{dt}
+= \alpha^\star \mathbb{I}(\sigma=A)
+- \beta^\star \mathbb{I}(\sigma=C)
+- \gamma \mathbb{I}(\sigma=T)
++ \Delta S(t),
+\end{equation}
+with $\sigma(t)\in\{A,C,T\}$ and $\Delta S(t)$ a bounded stochastic
+forcing term.
+
+Phase transitions follow:
+\begin{equation}
+\sigma(t+\Delta t)=
+\begin{cases}
+C & \sigma(t)=A,\ F(t)\le\theta_C,\\
+T & \sigma(t)=C,\ t_p\ge T_c,\\
+A & \sigma(t)=T,\ F(t)\ge\theta_A.
+\end{cases}
+\end{equation}
+
+%-----------------------------------------------------------
+\section{Experiment 1: Nominal Vitality Dynamics}
+\subsection{Objective}
+Evaluate baseline follicular vitality under nominal biological
+parameters.
+
+\subsection{Materials}
+\begin{itemize}
+    \item Nominal parameter set $\{\alpha,\beta,\gamma\}$
+    \item Initial vitality index $F(0)=F^*$
+    \item Phase indicator $\sigma(0)=A$
+\end{itemize}
+
+\subsection{Procedure}
+\begin{enumerate}
+    \item Initialize $F(0)=F^*$.
+    \item Simulate $\frac{dF}{dt}$ for 365 days.
+    \item Record phase transitions and vitality trajectory.
+\end{enumerate}
+
+\subsection{Expected Outcome}
+Vitality remains bounded within the nominal operating band.
+
+%-----------------------------------------------------------
+\section{Experiment 2: Stochastic Perturbation Injection}
+\subsection{Objective}
+Evaluate system response to bounded stochastic forcing.
+
+\subsection{Perturbation Model}
+\begin{equation}
+\Delta S(t) = \theta(\mu - S(t))dt + \sigma dW_t + \eta\xi(t),
+\end{equation}
+where $W_t$ is a Wiener process and $\xi(t)\sim\mathcal{N}(0,1)$.
+
+\subsection{Procedure}
+\begin{enumerate}
+    \item Inject $\Delta S(t)$ at each timestep.
+    \item Monitor error coordinate $e(t)=F(t)-F^*$.
+    \item Evaluate Lyapunov derivative $\dot{V}(e)$.
+\end{enumerate}
+
+%-----------------------------------------------------------
+\section{Experiment 3: Lyapunov Stability Verification}
+\subsection{Objective}
+Verify stability using the Lyapunov candidate:
+\begin{equation}
+V(e)=\frac{1}{2}e^2.
+\end{equation}
+
+\subsection{Derivative}
+\begin{equation}
+\dot{V}(e)= -\lambda e^2 + e\,\Delta S(t).
+\end{equation}
+
+\subsection{Stability Condition}
+\begin{equation}
+|e| > \frac{\delta_{\max}}{\lambda} \Rightarrow \dot{V}(e) < 0.
+\end{equation}
+
+%-----------------------------------------------------------
+\section{Experiment 4: Stress-Mode Overrides}
+\subsection{Objective}
+Evaluate resilience under extreme biological forcing.
+
+\subsection{Stress Parameters}
+\begin{align}
+\alpha^\star &= 3.50,\\
+\beta^\star &= 2.10,\\
+T_c^\star &= 1\ \text{day}.
+\end{align}
+
+\subsection{Procedure}
+\begin{enumerate}
+    \item Apply stress-mode overrides $\mathcal{S}_i$.
+    \item Track vitality trajectory for runaway or collapse.
+    \item Trigger sovereign purge when failure criteria met.
+\end{enumerate}
+
+%-----------------------------------------------------------
+\section{Experiment 5: Monte-Carlo Stress Simulation}
+\subsection{Objective}
+Evaluate statistical resilience across $N$ randomized trials.
+
+\subsection{Procedure}
+\begin{enumerate}
+    \item Sample $\alpha^\star,\beta^\star$ from stress distributions.
+    \item Run $N$ independent trajectories.
+    \item Compute confinement statistics within Lyapunov basin.
+\end{enumerate}
+
+%-----------------------------------------------------------
+\section{Experiment 6: Sovereign Kernel Recovery}
+\subsection{Objective}
+Validate autonomous recovery via the purge operator.
+
+\subsection{Purge Mapping}
+\begin{equation}
+(F^+,\sigma^+,\hat{\Lambda}^+)=\mathcal{P}_{\text{sov}}(F,\sigma,\hat{\Lambda}),
+\end{equation}
+
+\subsection{Procedure}
+\begin{enumerate}
+    \item Detect failure conditions $\mathcal{F}_i$.
+    \item Execute $\mathcal{P}_{\text{sov}}$.
+    \item Verify re-entry into Lyapunov basin.
+\end{enumerate}
+
+%-----------------------------------------------------------
+\section{Appendix A: Parameter Tables}
+Include all biological, stochastic, and stress-mode parameters.
+
+%-----------------------------------------------------------
+\section{Appendix B: Sovereign Kernel Logic}
+Document full supervisory logic, state resets, and identity re-indexing.
+
+%-----------------------------------------------------------
+\section{Appendix C: Mathematical Proofs}
+Include full derivations for stability, boundedness, and recovery.
+
+\end{document}
