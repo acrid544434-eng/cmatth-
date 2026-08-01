@@ -1,0 +1,143 @@
+\documentclass[12pt]{JHEP3}
+
+% -------------------------------------------------
+% PACKAGES
+% -------------------------------------------------
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{physics}
+\usepackage{tensor}
+\usepackage{mathtools}
+
+% -------------------------------------------------
+% TITLE
+% -------------------------------------------------
+\title{STME-RS-A: Anharmonic Warped Extra Dimensions, 
+Non-Equidistant Kaluza--Klein Resonances, 
+and High-Luminosity Collider Signatures}
+
+\author{C.~Matthew~Blackwell\\
+\textit{Independent Designer and System Architect}\\
+\texttt{email@example.com}}
+
+\abstract{
+We present the STME-RS-A framework, a warped extra-dimensional model incorporating
+quartic bulk anharmonicity. The resulting Kaluza--Klein (KK) spectrum exhibits
+non-equidistant level spacing, providing a falsifiable geometric signature distinct
+from standard Randall--Sundrum constructions. We derive the full Sturm--Liouville
+structure, compute analytic approximations for the anharmonic mass shifts, and
+construct collider-ready benchmark points (BP1--BP4). We further analyze production
+cross sections, branching ratios, and exclusion contours for HL-LHC conditions at
+$\sqrt{s}=13.6~\text{TeV}$ with $3~\text{ab}^{-1}$ of integrated luminosity.
+}
+
+\begin{document}
+
+% -------------------------------------------------
+\section{Introduction}
+% ~3 pages
+
+% -------------------------------------------------
+\section{Warped Geometry and Bulk Dynamics}
+% ~5 pages
+
+\subsection{Metric Structure}
+\subsection{Bulk Scalar Potential}
+\subsection{Einstein Equations in the Bulk}
+\subsection{Boundary Conditions on the Branes}
+
+% -------------------------------------------------
+\section{Sturm--Liouville Reduction and KK Mode Structure}
+% ~6 pages
+
+\subsection{Eigenvalue Problem}
+\subsection{Harmonic vs Anharmonic Contributions}
+\subsection{Analytic Approximations}
+\subsection{Numerical Solutions}
+
+% -------------------------------------------------
+\section{Anharmonic Mass Spectrum}
+% ~4 pages
+
+\subsection{General Expression}
+\subsection{Deviation from RS Equidistance}
+\subsection{Mass Ratios as Falsifiable Observables}
+
+% -------------------------------------------------
+\section{Benchmark Points BP1--BP4}
+% ~3 pages
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+Parameter & BP1 & BP2 & BP3 & BP4 \\
+\midrule
+$k$ (TeV) & 1.25 & 1.50 & 1.80 & 2.10 \\
+$\lambda$ (GeV$^2$) & 0.40 & 0.30 & 0.25 & 0.20 \\
+$\lambda_4$ & 0.045 & 0.090 & 0.110 & 0.125 \\
+$m_1$ (TeV) & 2.78 & 3.25 & 3.92 & 4.55 \\
+$m_2$ (TeV) & 4.12 & 4.85 & 5.72 & 6.48 \\
+$m_3$ (TeV) & 5.45 & 6.30 & 7.58 & 8.62 \\
+\bottomrule
+\end{tabular}
+\caption{STME-RS-A benchmark points BP1--BP4.}
+\end{table}
+
+% -------------------------------------------------
+\section{Couplings and Effective 4D Lagrangian}
+% ~4 pages
+
+\subsection{Gauge Couplings}
+\subsection{Fermion Localization}
+\subsection{KK Interaction Terms}
+\subsection{Decay Widths and Branching Fractions}
+
+% -------------------------------------------------
+\section{Collider Phenomenology}
+% ~6 pages
+
+\subsection{Production Channels}
+\subsection{Resonance Shapes}
+\subsection{Detector Resolution Effects}
+\subsection{HL-LHC Sensitivity}
+
+% -------------------------------------------------
+\section{Exclusion Contours and Discovery Reach}
+% ~4 pages
+
+\subsection{Comparison with RS Models}
+\subsection{Anharmonic Exclusion Islands}
+\subsection{Projected Limits at 3 ab$^{-1}$}
+
+% -------------------------------------------------
+\section{Discussion}
+% ~2 pages
+
+% -------------------------------------------------
+\section{Conclusions}
+% ~1 page
+
+% -------------------------------------------------
+\appendix
+
+\section{Appendix A: Full Sturm--Liouville Derivation}
+% ~4 pages
+
+\section{Appendix B: Numerical Methods}
+% ~3 pages
+
+\section{Appendix C: Benchmark Parameter Cards}
+% ~2 pages
+
+\section{Appendix D: Cross-Section Tables}
+% ~2 pages
+
+\bibliographystyle{JHEP}
+\bibliography{stme_rs_a_refs}
+
+\end{document}
