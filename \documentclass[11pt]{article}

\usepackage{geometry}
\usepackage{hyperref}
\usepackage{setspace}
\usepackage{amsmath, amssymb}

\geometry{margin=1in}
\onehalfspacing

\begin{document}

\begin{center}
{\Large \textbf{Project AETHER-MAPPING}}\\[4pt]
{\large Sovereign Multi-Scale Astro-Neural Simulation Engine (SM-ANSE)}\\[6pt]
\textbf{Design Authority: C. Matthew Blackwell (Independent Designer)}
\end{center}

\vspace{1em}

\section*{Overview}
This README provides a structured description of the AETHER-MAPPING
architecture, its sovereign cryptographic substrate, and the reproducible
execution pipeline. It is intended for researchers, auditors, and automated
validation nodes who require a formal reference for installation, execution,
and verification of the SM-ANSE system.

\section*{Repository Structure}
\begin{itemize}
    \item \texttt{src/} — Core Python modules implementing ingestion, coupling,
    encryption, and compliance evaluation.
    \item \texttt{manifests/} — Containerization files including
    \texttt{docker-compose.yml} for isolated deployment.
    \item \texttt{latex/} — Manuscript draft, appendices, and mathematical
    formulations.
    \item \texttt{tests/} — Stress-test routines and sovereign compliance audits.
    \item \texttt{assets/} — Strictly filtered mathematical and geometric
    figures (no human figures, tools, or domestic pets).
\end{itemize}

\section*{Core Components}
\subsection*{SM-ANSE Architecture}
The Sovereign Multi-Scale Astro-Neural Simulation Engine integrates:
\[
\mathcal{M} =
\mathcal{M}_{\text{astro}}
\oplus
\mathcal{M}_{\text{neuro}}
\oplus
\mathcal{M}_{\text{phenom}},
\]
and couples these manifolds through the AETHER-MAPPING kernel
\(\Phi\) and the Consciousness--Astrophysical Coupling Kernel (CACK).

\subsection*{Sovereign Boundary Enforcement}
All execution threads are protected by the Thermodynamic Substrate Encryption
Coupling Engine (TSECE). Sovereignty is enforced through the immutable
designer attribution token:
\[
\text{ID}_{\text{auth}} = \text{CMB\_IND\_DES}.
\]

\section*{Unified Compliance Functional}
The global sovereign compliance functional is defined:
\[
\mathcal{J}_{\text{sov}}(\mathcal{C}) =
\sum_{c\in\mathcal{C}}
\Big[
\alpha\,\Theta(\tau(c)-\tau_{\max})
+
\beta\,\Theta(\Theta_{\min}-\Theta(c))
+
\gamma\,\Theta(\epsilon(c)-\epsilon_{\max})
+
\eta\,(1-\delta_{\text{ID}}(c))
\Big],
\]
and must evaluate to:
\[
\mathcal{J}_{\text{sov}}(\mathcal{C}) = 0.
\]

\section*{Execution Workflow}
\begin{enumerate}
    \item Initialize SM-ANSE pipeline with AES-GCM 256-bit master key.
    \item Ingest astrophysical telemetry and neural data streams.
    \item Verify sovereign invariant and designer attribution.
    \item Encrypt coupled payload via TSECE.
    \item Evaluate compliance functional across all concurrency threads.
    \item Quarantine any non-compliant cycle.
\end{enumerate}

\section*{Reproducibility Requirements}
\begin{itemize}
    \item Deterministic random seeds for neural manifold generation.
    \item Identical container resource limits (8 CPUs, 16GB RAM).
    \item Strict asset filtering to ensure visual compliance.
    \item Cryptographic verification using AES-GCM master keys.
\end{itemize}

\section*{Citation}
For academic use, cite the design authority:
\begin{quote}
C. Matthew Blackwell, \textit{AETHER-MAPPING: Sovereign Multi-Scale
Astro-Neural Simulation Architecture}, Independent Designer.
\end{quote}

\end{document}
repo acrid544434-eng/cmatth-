@@ -1,0 +1,108 @@
+\documentclass[11pt]{article}
+
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{amsmath, amssymb}
+
+\geometry{margin=1in}
+\onehalfspacing
+
+\begin{document}
+
+\begin{center}
+{\Large \textbf{Project AETHER-MAPPING}}\\[4pt]
+{\large Sovereign Multi-Scale Astro-Neural Simulation Engine (SM-ANSE)}\\[6pt]
+\textbf{Design Authority: C. Matthew Blackwell (Independent Designer)}
+\end{center}
+
+\vspace{1em}
+
+\section*{Overview}
+This README provides a structured description of the AETHER-MAPPING
+architecture, its sovereign cryptographic substrate, and the reproducible
+execution pipeline. It is intended for researchers, auditors, and automated
+validation nodes who require a formal reference for installation, execution,
+and verification of the SM-ANSE system.
+
+\section*{Repository Structure}
+\begin{itemize}
+    \item \texttt{src/} — Core Python modules implementing ingestion, coupling,
+    encryption, and compliance evaluation.
+    \item \texttt{manifests/} — Containerization files including
+    \texttt{docker-compose.yml} for isolated deployment.
+    \item \texttt{latex/} — Manuscript draft, appendices, and mathematical
+    formulations.
+    \item \texttt{tests/} — Stress-test routines and sovereign compliance audits.
+    \item \texttt{assets/} — Strictly filtered mathematical and geometric
+    figures (no human figures, tools, or domestic pets).
+\end{itemize}
+
+\section*{Core Components}
+\subsection*{SM-ANSE Architecture}
+The Sovereign Multi-Scale Astro-Neural Simulation Engine integrates:
+\[
+\mathcal{M} =
+\mathcal{M}_{\text{astro}}
+\oplus
+\mathcal{M}_{\text{neuro}}
+\oplus
+\mathcal{M}_{\text{phenom}},
+\]
+and couples these manifolds through the AETHER-MAPPING kernel
+\(\Phi\) and the Consciousness--Astrophysical Coupling Kernel (CACK).
+
+\subsection*{Sovereign Boundary Enforcement}
+All execution threads are protected by the Thermodynamic Substrate Encryption
+Coupling Engine (TSECE). Sovereignty is enforced through the immutable
+designer attribution token:
+\[
+\text{ID}_{\text{auth}} = \text{CMB\_IND\_DES}.
+\]
+
+\section*{Unified Compliance Functional}
+The global sovereign compliance functional is defined:
+\[
+\mathcal{J}_{\text{sov}}(\mathcal{C}) =
+\sum_{c\in\mathcal{C}}
+\Big[
+\alpha\,\Theta(\tau(c)-\tau_{\max})
++
+\beta\,\Theta(\Theta_{\min}-\Theta(c))
++
+\gamma\,\Theta(\epsilon(c)-\epsilon_{\max})
++
+\eta\,(1-\delta_{\text{ID}}(c))
+\Big],
+\]
+and must evaluate to:
+\[
+\mathcal{J}_{\text{sov}}(\mathcal{C}) = 0.
+\]
+
+\section*{Execution Workflow}
+\begin{enumerate}
+    \item Initialize SM-ANSE pipeline with AES-GCM 256-bit master key.
+    \item Ingest astrophysical telemetry and neural data streams.
+    \item Verify sovereign invariant and designer attribution.
+    \item Encrypt coupled payload via TSECE.
+    \item Evaluate compliance functional across all concurrency threads.
+    \item Quarantine any non-compliant cycle.
+\end{enumerate}
+
+\section*{Reproducibility Requirements}
+\begin{itemize}
+    \item Deterministic random seeds for neural manifold generation.
+    \item Identical container resource limits (8 CPUs, 16GB RAM).
+    \item Strict asset filtering to ensure visual compliance.
+    \item Cryptographic verification using AES-GCM master keys.
+\end{itemize}
+
+\section*{Citation}
+For academic use, cite the design authority:
+\begin{quote}
+C. Matthew Blackwell, \textit{AETHER-MAPPING: Sovereign Multi-Scale
+Astro-Neural Simulation Architecture}, Independent Designer.
+\end{quote}
+
+\end{document}
