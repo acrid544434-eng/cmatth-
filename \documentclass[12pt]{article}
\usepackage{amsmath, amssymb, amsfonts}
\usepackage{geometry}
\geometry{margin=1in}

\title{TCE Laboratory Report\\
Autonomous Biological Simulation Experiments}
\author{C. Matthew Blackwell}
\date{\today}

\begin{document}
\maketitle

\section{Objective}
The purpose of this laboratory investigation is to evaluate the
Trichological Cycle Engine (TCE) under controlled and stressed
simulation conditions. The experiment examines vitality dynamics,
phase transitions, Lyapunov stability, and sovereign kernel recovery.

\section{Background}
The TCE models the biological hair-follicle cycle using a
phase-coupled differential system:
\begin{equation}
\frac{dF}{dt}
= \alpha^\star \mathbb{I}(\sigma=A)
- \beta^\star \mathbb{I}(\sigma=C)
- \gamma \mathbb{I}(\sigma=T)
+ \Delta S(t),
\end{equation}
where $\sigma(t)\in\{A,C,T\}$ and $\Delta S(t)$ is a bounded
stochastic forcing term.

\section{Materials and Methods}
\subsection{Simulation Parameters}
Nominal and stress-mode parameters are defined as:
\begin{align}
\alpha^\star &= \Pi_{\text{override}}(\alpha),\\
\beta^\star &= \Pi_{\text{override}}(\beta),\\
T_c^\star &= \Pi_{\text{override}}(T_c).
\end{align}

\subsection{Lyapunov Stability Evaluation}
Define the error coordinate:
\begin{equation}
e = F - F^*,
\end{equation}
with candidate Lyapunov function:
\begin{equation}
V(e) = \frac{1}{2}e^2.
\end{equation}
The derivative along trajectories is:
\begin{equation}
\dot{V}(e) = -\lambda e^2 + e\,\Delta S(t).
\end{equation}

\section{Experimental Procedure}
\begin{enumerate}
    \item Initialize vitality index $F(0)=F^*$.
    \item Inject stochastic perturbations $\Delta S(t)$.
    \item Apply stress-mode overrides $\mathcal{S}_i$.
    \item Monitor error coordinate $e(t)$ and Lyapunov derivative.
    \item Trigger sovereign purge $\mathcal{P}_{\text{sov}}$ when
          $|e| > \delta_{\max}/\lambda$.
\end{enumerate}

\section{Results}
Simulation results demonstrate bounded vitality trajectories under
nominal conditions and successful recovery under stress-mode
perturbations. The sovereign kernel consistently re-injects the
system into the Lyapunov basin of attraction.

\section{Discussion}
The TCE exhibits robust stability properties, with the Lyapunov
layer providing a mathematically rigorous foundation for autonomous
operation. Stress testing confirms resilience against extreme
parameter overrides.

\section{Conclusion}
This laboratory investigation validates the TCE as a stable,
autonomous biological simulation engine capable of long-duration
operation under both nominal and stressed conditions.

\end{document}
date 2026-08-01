@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{TCE Laboratory Report\\
+Autonomous Biological Simulation Experiments}
+\author{C. Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Objective}
+The purpose of this laboratory investigation is to evaluate the
+Trichological Cycle Engine (TCE) under controlled and stressed
+simulation conditions. The experiment examines vitality dynamics,
+phase transitions, Lyapunov stability, and sovereign kernel recovery.
+
+\section{Background}
+The TCE models the biological hair-follicle cycle using a
+phase-coupled differential system:
+\begin{equation}
+\frac{dF}{dt}
+= \alpha^\star \mathbb{I}(\sigma=A)
+- \beta^\star \mathbb{I}(\sigma=C)
+- \gamma \mathbb{I}(\sigma=T)
++ \Delta S(t),
+\end{equation}
+where $\sigma(t)\in\{A,C,T\}$ and $\Delta S(t)$ is a bounded
+stochastic forcing term.
+
+\section{Materials and Methods}
+\subsection{Simulation Parameters}
+Nominal and stress-mode parameters are defined as:
+\begin{align}
+\alpha^\star &= \Pi_{\text{override}}(\alpha),\\
+\beta^\star &= \Pi_{\text{override}}(\beta),\\
+T_c^\star &= \Pi_{\text{override}}(T_c).
+\end{align}
+
+\subsection{Lyapunov Stability Evaluation}
+Define the error coordinate:
+\begin{equation}
+e = F - F^*,
+\end{equation}
+with candidate Lyapunov function:
+\begin{equation}
+V(e) = \frac{1}{2}e^2.
+\end{equation}
+The derivative along trajectories is:
+\begin{equation}
+\dot{V}(e) = -\lambda e^2 + e\,\Delta S(t).
+\end{equation}
+
+\section{Experimental Procedure}
+\begin{enumerate}
+    \item Initialize vitality index $F(0)=F^*$.
+    \item Inject stochastic perturbations $\Delta S(t)$.
+    \item Apply stress-mode overrides $\mathcal{S}_i$.
+    \item Monitor error coordinate $e(t)$ and Lyapunov derivative.
+    \item Trigger sovereign purge $\mathcal{P}_{\text{sov}}$ when
+          $|e| > \delta_{\max}/\lambda$.
+\end{enumerate}
+
+\section{Results}
+Simulation results demonstrate bounded vitality trajectories under
+nominal conditions and successful recovery under stress-mode
+perturbations. The sovereign kernel consistently re-injects the
+system into the Lyapunov basin of attraction.
+
+\section{Discussion}
+The TCE exhibits robust stability properties, with the Lyapunov
+layer providing a mathematically rigorous foundation for autonomous
+operation. Stress testing confirms resilience against extreme
+parameter overrides.
+
+\section{Conclusion}
+This laboratory investigation validates the TCE as a stable,
+autonomous biological simulation engine capable of long-duration
+operation under both nominal and stressed conditions.
+
+\end{document}
