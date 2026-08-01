@@ -1,0 +1,97 @@
+\section{Warped Geometry and Bulk Dynamics}
+
+The STME-RS-A framework is constructed on a slice of AdS$_5$ spacetime with
+non-trivial scalar dynamics in the bulk. In this section we review the geometric
+structure, derive the Einstein equations, and introduce the anharmonic bulk
+potential responsible for the non-equidistant KK spectrum.
+
+\subsection{Metric Structure}
+
+We consider the standard warped metric
+\begin{equation}
+ds^2 = e^{-2k|y|}\eta_{\mu\nu}dx^\mu dx^\nu + dy^2,
+\label{eq:metric}
+\end{equation}
+where $k$ is the curvature scale and $y$ is the coordinate of the compact
+extra dimension. The UV brane is located at $y=0$ and the IR brane at $y=L$.
+
+The warp factor generates an exponential hierarchy:
+\begin{equation}
+m_{\text{IR}} = e^{-kL} m_{\text{UV}}.
+\end{equation}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_warp_factor.pdf}
+\caption{Warp factor $e^{-2k|y|}$ across the extra dimension. The exponential
+suppression generates the hierarchy between UV and IR scales.}
+\label{fig:warp}
+\end{figure}
+
+\subsection{Bulk Scalar Potential}
+
+The scalar field $\Phi$ propagates in the bulk with an anharmonic potential
+\begin{equation}
+V(\Phi) = \lambda \Phi^2 + \lambda_4 \Phi^4.
+\label{eq:potential}
+\end{equation}
+The quartic term $\lambda_4$ introduces a deviation from the harmonic confinement
+assumed in RS models. This modification alters the Sturm--Liouville eigenvalue
+problem and produces non-equidistant KK masses.
+
+The scalar action is
+\begin{equation}
+S_\Phi = \int d^4x \int_0^L dy \sqrt{-g}
+\left[
+-\frac{1}{2}g^{MN}\partial_M\Phi\partial_N\Phi - V(\Phi)
+\right].
+\end{equation}
+
+\subsection{Einstein Equations in the Bulk}
+
+The five-dimensional Einstein equations are
+\begin{equation}
+G_{MN} = \kappa_5^2 T_{MN},
+\end{equation}
+with bulk stress-energy tensor
+\begin{equation}
+T_{MN} = \partial_M\Phi\partial_N\Phi
+- g_{MN}\left[
+\frac{1}{2}g^{AB}\partial_A\Phi\partial_B\Phi + V(\Phi)
+\right].
+\end{equation}
+
+The scalar equation of motion is
+\begin{equation}
+\frac{1}{\sqrt{-g}}\partial_M\left(\sqrt{-g}g^{MN}\partial_N\Phi\right)
+= \frac{dV}{d\Phi}.
+\label{eq:eom}
+\end{equation}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_bulk_scalar_profile.pdf}
+\caption{Bulk scalar profile $\Phi(y)$ for harmonic ($\lambda_4=0$) and
+anharmonic ($\lambda_4\neq 0$) potentials. The quartic term modifies the
+curvature of the profile and shifts the KK eigenvalues.}
+\label{fig:scalar_profile}
+\end{figure}
+
+\subsection{Boundary Conditions on the Branes}
+
+The scalar field satisfies boundary conditions determined by brane-localized
+potentials:
+\begin{align}
+\left.\partial_y\Phi\right|_{y=0} &= \frac{dV_{\text{UV}}}{d\Phi}, \\
+\left.\partial_y\Phi\right|_{y=L} &= -\frac{dV_{\text{IR}}}{d\Phi}.
+\end{align}
+
+These conditions determine the allowed KK modes and their masses.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_brane_bc.pdf}
+\caption{Boundary conditions at the UV and IR branes. The brane-localized
+potentials determine the allowed KK eigenfunctions and modify the mass spectrum.}
+\label{fig:brane_bc}
+\end{figure}
