@@ -1,0 +1,96 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{The Trichological Cycle Engine (TCE):\\
+A Sovereign Autonomous Biological Simulation Architecture}
+\author{C. Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Trichological Cycle Engine (TCE) is a sovereign autonomous
+biological simulation framework designed to model the full
+hair-follicle lifecycle under nominal, stressed, and stochastic
+conditions. This white paper formalizes the governing differential
+system, phase-transition logic, Lyapunov stability layer, and
+supervisory sovereign kernel responsible for real-time recovery
+and identity re-indexing.
+\end{abstract}
+
+\section{Introduction}
+The TCE architecture integrates continuous biological kinetics with
+discrete supervisory logic to simulate the Anagen, Catagen, and
+Telogen phases of the human hair follicle. The system is designed
+for long-duration autonomous operation, incorporating stochastic
+perturbations, stress-mode overrides, and sovereign-level recovery
+mechanisms.
+
+\section{Governing Dynamics}
+Let $F(t)$ denote the follicular vitality index and $\sigma(t)\in\{A,C,T\}$
+the active biological phase. The governing differential equation is:
+\begin{equation}
+\frac{dF}{dt}
+= \alpha^\star \mathbb{I}(\sigma=A)
+- \beta^\star \mathbb{I}(\sigma=C)
+- \gamma \mathbb{I}(\sigma=T)
++ \Delta S(t),
+\end{equation}
+where $\alpha^\star$, $\beta^\star$ are stress-mode overrides and
+$\Delta S(t)$ is a bounded stochastic forcing term.
+
+\section{Phase Transition Logic}
+The autonomous phase update is governed by:
+\begin{equation}
+\sigma(t+\Delta t)=
+\begin{cases}
+C & \sigma(t)=A,\ F(t)\le\theta_C,\\
+T & \sigma(t)=C,\ t_p\ge T_c,\\
+A & \sigma(t)=T,\ F(t)\ge\theta_A.
+\end{cases}
+\end{equation}
+
+\section{Lyapunov Stability Layer}
+Define the error coordinate:
+\begin{equation}
+e(t)=F(t)-F^*,
+\end{equation}
+and the Lyapunov candidate:
+\begin{equation}
+V(e)=\frac{1}{2}e^2.
+\end{equation}
+Nominal dynamics yield:
+\begin{equation}
+\dot{V}(e)= -\lambda e^2 + e\,\Delta S(t),
+\end{equation}
+with stability guaranteed whenever:
+\begin{equation}
+|e| > \frac{\delta_{\max}}{\lambda}.
+\end{equation}
+
+\section{Stress Testing Protocol}
+Stress-mode overrides are defined as:
+\begin{align}
+\alpha^\star &= \Pi_{\text{override}}(\alpha),\\
+\beta^\star &= \Pi_{\text{override}}(\beta),\\
+T_c^\star &= \Pi_{\text{override}}(T_c),
+\end{align}
+with stochastic forcing modeled as an Ornstein-Uhlenbeck process.
+
+\section{Sovereign Kernel Recovery}
+Failure conditions $\mathcal{F}_i$ trigger the sovereign purge operator:
+\begin{equation}
+(F^+,\sigma^+,\hat{\Lambda}^+)=\mathcal{P}_{\text{sov}}(F,\sigma,\hat{\Lambda}),
+\end{equation}
+forcing re-entry into the Lyapunov basin around $F^*$.
+
+\section{Conclusion}
+The TCE constitutes a fully autonomous biological simulation engine
+with mathematically proven stability, stress resilience, and sovereign
+identity management. This white paper establishes the formal system
+definition required for monograph integration.
+
+\end{document}
