@@ -1,0 +1,51 @@
+\section{System Definition: Trichological Cycle Engine (TCE)}
+\noindent\textbf{Independent Design by C MATTHEW BLACKWELL}
+
+\subsection{Governing Vitality Equation}
+Let $\sigma(t)\in\{A,C,T\}$ denote the active biological phase and 
+$\mathbb{I}(\sigma=X)$ the indicator function. The follicular vitality index
+$F(t)$ evolves according to:
+
+\begin{equation}
+\frac{dF}{dt}
+= \alpha\,\mathbb{I}(\sigma=A)
+- \beta\,\mathbb{I}(\sigma=C)
+- \gamma\,\mathbb{I}(\sigma=T)
++ \Delta S,
+\end{equation}
+
+where $\alpha=1.50\ \text{day}^{-1}$, $\beta=0.85\ \text{day}^{-1}$,
+$\gamma=0.05\ \text{day}^{-1}$, and $\Delta S$ represents external
+stochastic or nutrient-driven perturbations.
+
+\subsection{Sub-System Kinetics}
+The internal phase dynamics evolve as:
+
+\begin{align}
+\frac{dA}{dt} &= k_1 W(t) - k_2 A(t),\\
+\frac{dC}{dt} &= k_3 A(t)\,\Theta(F-\theta_C) - k_4 C(t),\\
+\frac{dT}{dt} &= k_5 C(t) - k_6 T(t)\cdot\text{ExogenTrigger}.
+\end{align}
+
+\subsection{Phase-Transition Logic}
+Let $\vec{\Theta}=[\theta_A,\theta_C,\theta_T]$ and let $t_p$ denote the
+elapsed time within the current phase. The autonomous state update is:
+
+\begin{equation}
+\sigma(t+\Delta t)=
+\begin{cases}
+C & \sigma(t)=A,\ F(t)\le\theta_C,\\[4pt]
+T & \sigma(t)=C,\ t_p\ge T_c,\\[4pt]
+A & \sigma(t)=T,\ F(t)\ge\theta_A.
+\end{cases}
+\end{equation}
+
+\subsection{Continuous Yield Pipeline (CYP)}
+Long-duration simulations apply the sovereign re-indexing operator:
+
+\begin{equation}
+sr = \div\{\degree\bullet\bigcirc\bullet\} + \{\₩\¥\£\€\}
+= \hat{\Lambda},
+\end{equation}
+
+ensuring stable identity tracking across extended biological cycles.
