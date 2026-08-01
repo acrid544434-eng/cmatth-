@@ -1,0 +1,226 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb}
+
+\title{ATCSE RMHD + Cogeneration Stress-Test Stability Specification}
+\author{C. Matthew Blackwell (Independent Designer)}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Governing Equations}
+
+We consider a relativistic magnetohydrodynamic (RMHD) plasma with thermodynamic
+cogeneration channels. The evolution is governed by
+\begin{align}
+  \nabla_\mu T^{\mu\nu} &= 0, \label{eq:stress_energy_conservation} \\
+  \partial_t \mathbf{B} &= \nabla \times (\mathbf{v} \times \mathbf{B}), \label{eq:induction}
+\end{align}
+with stress-energy tensor
+\begin{equation}
+  T^{\mu\nu} = (\rho h + b^2) u^\mu u^\nu
+  + \left(p + \frac{b^2}{2}\right) g^{\mu\nu}
+  - b^\mu b^\nu,
+\end{equation}
+where $\rho$ is rest-mass density, $h$ specific enthalpy, $u^\mu$ the fluid
+four-velocity, $b^\mu$ the magnetic field four-vector, and $g^{\mu\nu}$ the metric
+(Kerr-Schild in the ATCSE stress configuration).
+
+The thermodynamic cogeneration module defines an extracted power
+\begin{equation}
+  P_{\mathrm{ext}} = P_{\mathrm{MHD}} + P_{\mathrm{rad}},
+\end{equation}
+with
+\begin{align}
+  P_{\mathrm{MHD}} &= \int_V \mathbf{J} \cdot \mathbf{E} \, dV,
+  \quad \mathbf{J} = \frac{1}{\mu_0} (\nabla \times \mathbf{B}),
+  \quad \mathbf{E} = - \mathbf{v} \times \mathbf{B}, \\
+  P_{\mathrm{rad}} &= \int_A F_{\gamma+\nu} \, dA,
+  \quad F_{\gamma+\nu} \approx \left(1 + \frac{7}{8}\right) \sigma T^4.
+\end{align}
+
+The exergy destruction rate is
+\begin{equation}
+  \dot{I} = \int_V \frac{\dot{Q}}{T} \, dV,
+\end{equation}
+and the cogeneration efficiency is
+\begin{equation}
+  \eta_{\mathrm{cogen}} = \frac{P_{\mathrm{ext}}}{L_\star},
+\end{equation}
+where $L_\star$ is the stellar (or merger) luminosity.
+
+\section{Numerical Discretization and CFL Condition}
+
+We discretize the domain with a base grid of spacing $\Delta x$ and apply
+adaptive mesh refinement (AMR). The characteristic signal speed is
+\begin{equation}
+  v_{\max} = \max \left( v_{\mathrm{fluid}}, v_{\mathrm{Alfv\acute{e}n}},
+  v_{\mathrm{fast}} \right),
+\end{equation}
+where $v_{\mathrm{fast}}$ is the fast magnetosonic speed.
+
+The explicit time-stepping scheme (e.g., Runge--Kutta or Runge--Kfehlberg)
+must satisfy the relativistic CFL condition
+\begin{equation}
+  \Delta t \leq C_{\mathrm{CFL}} \frac{\Delta x}{v_{\max}},
+  \label{eq:cfl}
+\end{equation}
+with $0 < C_{\mathrm{CFL}} < 1$. In the ATCSE stress-test configuration,
+we set $C_{\mathrm{CFL}} = 0.95$ and $v_{\max} \approx 0.988 c$.
+
+\section{Formal Stability Criterion}
+
+We define the ATCSE RMHD + cogeneration stack to be \emph{numerically stable}
+over a simulation interval $[0, T_{\mathrm{sim}}]$ if the following conditions
+are satisfied:
+
+\subsection{RMHD Stability}
+
+\begin{enumerate}
+  \item \textbf{CFL Stability:}
+  \begin{equation}
+    \Delta t \leq C_{\mathrm{CFL}} \frac{\Delta x_{\min}}{v_{\max}},
+  \end{equation}
+  where $\Delta x_{\min}$ is the smallest cell size in the AMR hierarchy.
+
+  \item \textbf{Positivity Preservation:}
+  \begin{equation}
+    \rho > 0, \quad p > 0, \quad \epsilon > 0
+    \quad \forall \, t \in [0, T_{\mathrm{sim}}], \, \forall \text{ cells}.
+  \end{equation}
+
+  \item \textbf{Divergence-Free Magnetic Field:}
+  \begin{equation}
+    \left\| \nabla \cdot \mathbf{B} \right\|_{\infty}
+    \leq \varepsilon_{\mathrm{divB}},
+  \end{equation}
+  for a prescribed tolerance $\varepsilon_{\mathrm{divB}}$ (e.g., machine precision
+  scaled by field strength).
+\end{enumerate}
+
+\subsection{Cogeneration Stability}
+
+\begin{enumerate}
+  \item \textbf{Energy Conservation with Extraction:}
+  \begin{equation}
+    \left| \frac{d}{dt} \left( E_{\mathrm{tot}} - \int_0^t P_{\mathrm{ext}} \, dt' \right)
+    \right| \leq \varepsilon_{\mathrm{energy}},
+  \end{equation}
+  where $E_{\mathrm{tot}}$ is the total energy (fluid + magnetic + radiation)
+  and $\varepsilon_{\mathrm{energy}}$ is a small tolerance.
+
+  \item \textbf{Exergy Boundedness:}
+  \begin{equation}
+    0 \leq \eta_{\mathrm{cogen}}(t) \leq \eta_{\max} < 1,
+  \end{equation}
+  with $\eta_{\max}$ a prescribed upper bound (e.g., $0.95$ in the stress-test
+  configuration). Violation of $\eta_{\mathrm{cogen}} > \eta_{\max}$ indicates
+  unphysical over-extraction or numerical instability in the cogeneration module.
+\end{enumerate}
+
+\section{Failure Envelope}
+
+We define the \emph{failure envelope} as the set of conditions under which the
+solver is expected to lose stability or physical fidelity. The primary failure
+modes are:
+
+\subsection{CFL Violation}
+
+If
+\begin{equation}
+  \Delta t > C_{\mathrm{CFL}} \frac{\Delta x_{\min}}{v_{\max}},
+\end{equation}
+then high-frequency RMHD modes are under-resolved in time, leading to
+\begin{equation}
+  \max_{\text{cells}} \left| U^{n+1} - U^{n} \right|
+  \gg U^{n},
+\end{equation}
+where $U$ denotes the conserved variables. This manifests as:
+
+\begin{itemize}
+  \item Divergence of shock-capturing viscosity terms.
+  \item Growth of spurious oscillations near discontinuities.
+\end{itemize}
+
+\subsection{Magnetic Divergence Instability}
+
+If
+\begin{equation}
+  \left\| \nabla \cdot \mathbf{B} \right\|_{\infty}
+  > \varepsilon_{\mathrm{divB,crit}},
+\end{equation}
+for some critical threshold $\varepsilon_{\mathrm{divB,crit}}$, then numerical
+monopoles generate unphysical forces, leading to:
+
+\begin{itemize}
+  \item Spurious acceleration of fluid elements.
+  \item Violation of momentum conservation.
+\end{itemize}
+
+\subsection{Thermodynamic Over-Extraction}
+
+If the cogeneration module attempts exergy extraction beyond the physically
+available free energy, i.e.,
+\begin{equation}
+  P_{\mathrm{ext}}(t) > P_{\mathrm{avail}}(t),
+\end{equation}
+where $P_{\mathrm{avail}}$ is the maximum physically realizable exergy rate,
+then
+\begin{equation}
+  \eta_{\mathrm{cogen}}(t) > 1,
+\end{equation}
+and the energy conservation condition is violated:
+\begin{equation}
+  \frac{dE_{\mathrm{tot}}}{dt} + P_{\mathrm{ext}} \neq 0.
+\end{equation}
+This is a hard failure mode indicating that the cogeneration module has driven
+the system outside the physical energy budget.
+
+\subsection{Equation of State (EoS) Breakdown}
+
+At super-nuclear densities and extreme magnetic fields, if the EoS is applied
+outside its calibrated domain, i.e.,
+\begin{equation}
+  \rho > \rho_{\max}^{\mathrm{EoS}} \quad \text{or} \quad B > B_{\max}^{\mathrm{EoS}},
+\end{equation}
+then the thermodynamic derivatives
+\begin{equation}
+  \left( \frac{\partial p}{\partial \rho} \right)_s, \quad
+  \left( \frac{\partial \epsilon}{\partial \rho} \right)_s
+\end{equation}
+may become unphysical (negative or divergent), leading to:
+
+\begin{itemize}
+  \item Imaginary or superluminal sound speeds.
+  \item Loss of hyperbolicity of the RMHD system.
+\end{itemize}
+
+\section{ATCSE Stress-Test Bounds}
+
+For the ATCSE Full Simulation Stress-Testing Execution Suite, we adopt the
+following explicit bounds:
+
+\begin{align}
+  C_{\mathrm{CFL}} &= 0.95, \\
+  v_{\max} &\approx 0.988 c, \\
+  \eta_{\max} &= 0.95, \\
+  \rho_{\max}^{\mathrm{EoS}} &\approx 4.2 \times 10^{15} \, \mathrm{g/cm}^3, \\
+  B_{\max}^{\mathrm{EoS}} &\approx 5.8 \times 10^{13} \, \mathrm{T}.
+\end{align}
+
+The solver is declared \emph{stable} for a given stress-test run if, for all
+$t \in [0, T_{\mathrm{sim}}]$:
+
+\begin{enumerate}
+  \item The CFL condition \eqref{eq:cfl} holds at all AMR levels.
+  \item Positivity and divergence-free constraints are satisfied within
+        tolerances.
+  \item $\eta_{\mathrm{cogen}}(t) \leq \eta_{\max}$ and energy conservation
+        holds within $\varepsilon_{\mathrm{energy}}$.
+  \item The EoS is evaluated strictly within its calibrated domain.
+\end{enumerate}
+
+Violation of any of these conditions places the run inside the failure envelope
+and must be flagged as a critical solver divergence.
+
+\end{document}
