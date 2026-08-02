@@ -1,0 +1,32 @@
+\chapter{Relativistic Magnetohydrodynamics and Riemann Solvers}
+
+\section{Introduction}
+The evolution of magnetofluids in curved spacetime requires simultaneous solution of Einstein’s
+field equations and the conservation laws of GRMHD. This chapter formalizes the Valencia
+framework, characteristic wave speeds, and HRSC shock-capturing schemes.
+
+\section{Valencia Formulation}
+\begin{equation}
+\mathbf{U}
+= \sqrt{-g}
+\begin{pmatrix}
+\rho W \\
+\rho h W^2 v_j \\
+\rho h W^2 - P - \rho W + \frac{1}{2}b^2 \\
+B^k
+\end{pmatrix},
+\qquad
+W = (1 - v_i v^i)^{-1/2}.
+\end{equation}
+
+\section{HLLE Riemann Solver}
+\begin{equation}
+\mathbf{F}_{\mathrm{HLLE}}
+= \frac{
+S^+ \mathbf{F}_L
+- S^- \mathbf{F}_R
++ S^+ S^- (\mathbf{U}_R - \mathbf{U}_L)
+}{
+S^+ - S^-
+}.
+\end{equation}
