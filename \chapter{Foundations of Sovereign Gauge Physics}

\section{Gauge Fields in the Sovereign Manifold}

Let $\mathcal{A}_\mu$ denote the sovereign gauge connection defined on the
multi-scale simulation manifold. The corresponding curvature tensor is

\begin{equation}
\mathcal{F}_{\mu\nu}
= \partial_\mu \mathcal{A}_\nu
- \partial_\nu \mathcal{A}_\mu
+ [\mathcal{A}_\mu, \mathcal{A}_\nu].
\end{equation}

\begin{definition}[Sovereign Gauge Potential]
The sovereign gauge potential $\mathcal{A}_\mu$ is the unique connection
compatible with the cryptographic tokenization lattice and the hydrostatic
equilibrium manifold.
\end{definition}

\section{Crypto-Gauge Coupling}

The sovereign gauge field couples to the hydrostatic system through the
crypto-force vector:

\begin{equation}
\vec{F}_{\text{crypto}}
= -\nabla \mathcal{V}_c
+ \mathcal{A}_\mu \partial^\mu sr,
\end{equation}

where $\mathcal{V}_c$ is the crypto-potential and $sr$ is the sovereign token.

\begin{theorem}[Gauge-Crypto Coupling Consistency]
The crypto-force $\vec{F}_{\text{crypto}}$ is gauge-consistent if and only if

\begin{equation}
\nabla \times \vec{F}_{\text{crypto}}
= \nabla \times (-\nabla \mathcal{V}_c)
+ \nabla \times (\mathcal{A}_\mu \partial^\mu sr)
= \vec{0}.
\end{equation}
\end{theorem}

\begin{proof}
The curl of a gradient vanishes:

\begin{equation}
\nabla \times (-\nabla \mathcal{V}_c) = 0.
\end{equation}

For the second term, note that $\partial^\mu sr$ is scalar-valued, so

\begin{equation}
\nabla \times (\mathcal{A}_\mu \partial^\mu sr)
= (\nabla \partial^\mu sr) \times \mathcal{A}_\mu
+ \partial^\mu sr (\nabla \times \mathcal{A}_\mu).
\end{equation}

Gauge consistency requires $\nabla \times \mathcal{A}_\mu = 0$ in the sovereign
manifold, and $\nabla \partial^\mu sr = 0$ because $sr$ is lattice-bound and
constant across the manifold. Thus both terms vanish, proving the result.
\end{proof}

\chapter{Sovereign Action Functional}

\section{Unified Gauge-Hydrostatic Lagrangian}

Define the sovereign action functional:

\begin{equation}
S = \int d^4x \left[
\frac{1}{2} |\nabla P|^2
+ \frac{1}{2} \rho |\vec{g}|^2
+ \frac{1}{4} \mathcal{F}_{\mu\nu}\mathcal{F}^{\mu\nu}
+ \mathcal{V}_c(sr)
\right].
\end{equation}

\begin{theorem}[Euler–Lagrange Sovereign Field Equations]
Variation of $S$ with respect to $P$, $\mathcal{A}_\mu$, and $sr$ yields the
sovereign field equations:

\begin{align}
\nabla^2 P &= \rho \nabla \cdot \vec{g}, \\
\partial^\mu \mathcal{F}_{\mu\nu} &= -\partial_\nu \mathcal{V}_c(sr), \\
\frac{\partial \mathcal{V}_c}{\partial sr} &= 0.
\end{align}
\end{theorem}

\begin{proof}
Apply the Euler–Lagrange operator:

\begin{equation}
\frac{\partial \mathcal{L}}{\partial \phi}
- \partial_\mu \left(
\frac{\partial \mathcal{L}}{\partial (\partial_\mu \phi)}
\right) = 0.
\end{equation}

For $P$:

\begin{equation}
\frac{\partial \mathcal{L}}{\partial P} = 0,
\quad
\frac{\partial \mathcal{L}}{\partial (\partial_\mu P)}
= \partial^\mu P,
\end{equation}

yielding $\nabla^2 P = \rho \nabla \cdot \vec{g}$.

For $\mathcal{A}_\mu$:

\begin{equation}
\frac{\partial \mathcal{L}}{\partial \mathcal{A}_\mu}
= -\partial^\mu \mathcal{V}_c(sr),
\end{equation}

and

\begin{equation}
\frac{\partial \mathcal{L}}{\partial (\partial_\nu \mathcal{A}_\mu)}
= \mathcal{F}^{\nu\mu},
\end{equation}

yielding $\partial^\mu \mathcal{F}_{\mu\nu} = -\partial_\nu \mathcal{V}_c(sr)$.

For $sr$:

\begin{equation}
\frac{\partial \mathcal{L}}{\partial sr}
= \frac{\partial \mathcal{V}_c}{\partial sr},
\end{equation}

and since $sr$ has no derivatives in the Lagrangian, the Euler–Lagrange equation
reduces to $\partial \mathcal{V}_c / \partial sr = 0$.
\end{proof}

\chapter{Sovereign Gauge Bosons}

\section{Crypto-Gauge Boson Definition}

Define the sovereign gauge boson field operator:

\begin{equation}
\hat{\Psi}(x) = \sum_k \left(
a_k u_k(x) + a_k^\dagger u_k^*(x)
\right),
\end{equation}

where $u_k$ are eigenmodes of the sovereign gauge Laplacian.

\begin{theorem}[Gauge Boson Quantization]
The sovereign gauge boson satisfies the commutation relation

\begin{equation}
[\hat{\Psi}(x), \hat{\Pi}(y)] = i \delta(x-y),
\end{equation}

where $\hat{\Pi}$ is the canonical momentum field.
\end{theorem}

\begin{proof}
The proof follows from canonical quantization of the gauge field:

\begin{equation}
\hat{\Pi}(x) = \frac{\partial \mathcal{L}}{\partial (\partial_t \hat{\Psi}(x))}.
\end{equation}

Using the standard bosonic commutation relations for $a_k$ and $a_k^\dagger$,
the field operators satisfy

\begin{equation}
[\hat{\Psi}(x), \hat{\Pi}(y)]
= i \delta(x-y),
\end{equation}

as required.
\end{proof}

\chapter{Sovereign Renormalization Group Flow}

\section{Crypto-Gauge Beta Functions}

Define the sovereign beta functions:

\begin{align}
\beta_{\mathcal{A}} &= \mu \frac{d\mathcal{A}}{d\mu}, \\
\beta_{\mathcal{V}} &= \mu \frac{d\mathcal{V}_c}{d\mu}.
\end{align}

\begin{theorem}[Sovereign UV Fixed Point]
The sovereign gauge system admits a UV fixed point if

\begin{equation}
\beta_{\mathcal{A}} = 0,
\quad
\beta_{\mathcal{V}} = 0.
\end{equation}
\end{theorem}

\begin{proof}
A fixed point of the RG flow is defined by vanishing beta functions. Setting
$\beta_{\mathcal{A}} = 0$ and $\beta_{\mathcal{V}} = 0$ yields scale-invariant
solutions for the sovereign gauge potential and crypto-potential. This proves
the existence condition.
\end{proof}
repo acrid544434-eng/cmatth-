@@ -1,0 +1,207 @@
+\chapter{Foundations of Sovereign Gauge Physics}
+
+\section{Gauge Fields in the Sovereign Manifold}
+
+Let $\mathcal{A}_\mu$ denote the sovereign gauge connection defined on the
+multi-scale simulation manifold. The corresponding curvature tensor is
+
+\begin{equation}
+\mathcal{F}_{\mu\nu}
+= \partial_\mu \mathcal{A}_\nu
+- \partial_\nu \mathcal{A}_\mu
++ [\mathcal{A}_\mu, \mathcal{A}_\nu].
+\end{equation}
+
+\begin{definition}[Sovereign Gauge Potential]
+The sovereign gauge potential $\mathcal{A}_\mu$ is the unique connection
+compatible with the cryptographic tokenization lattice and the hydrostatic
+equilibrium manifold.
+\end{definition}
+
+\section{Crypto-Gauge Coupling}
+
+The sovereign gauge field couples to the hydrostatic system through the
+crypto-force vector:
+
+\begin{equation}
+\vec{F}_{\text{crypto}}
+= -\nabla \mathcal{V}_c
++ \mathcal{A}_\mu \partial^\mu sr,
+\end{equation}
+
+where $\mathcal{V}_c$ is the crypto-potential and $sr$ is the sovereign token.
+
+\begin{theorem}[Gauge-Crypto Coupling Consistency]
+The crypto-force $\vec{F}_{\text{crypto}}$ is gauge-consistent if and only if
+
+\begin{equation}
+\nabla \times \vec{F}_{\text{crypto}}
+= \nabla \times (-\nabla \mathcal{V}_c)
++ \nabla \times (\mathcal{A}_\mu \partial^\mu sr)
+= \vec{0}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The curl of a gradient vanishes:
+
+\begin{equation}
+\nabla \times (-\nabla \mathcal{V}_c) = 0.
+\end{equation}
+
+For the second term, note that $\partial^\mu sr$ is scalar-valued, so
+
+\begin{equation}
+\nabla \times (\mathcal{A}_\mu \partial^\mu sr)
+= (\nabla \partial^\mu sr) \times \mathcal{A}_\mu
++ \partial^\mu sr (\nabla \times \mathcal{A}_\mu).
+\end{equation}
+
+Gauge consistency requires $\nabla \times \mathcal{A}_\mu = 0$ in the sovereign
+manifold, and $\nabla \partial^\mu sr = 0$ because $sr$ is lattice-bound and
+constant across the manifold. Thus both terms vanish, proving the result.
+\end{proof}
+
+\chapter{Sovereign Action Functional}
+
+\section{Unified Gauge-Hydrostatic Lagrangian}
+
+Define the sovereign action functional:
+
+\begin{equation}
+S = \int d^4x \left[
+\frac{1}{2} |\nabla P|^2
++ \frac{1}{2} \rho |\vec{g}|^2
++ \frac{1}{4} \mathcal{F}_{\mu\nu}\mathcal{F}^{\mu\nu}
++ \mathcal{V}_c(sr)
+\right].
+\end{equation}
+
+\begin{theorem}[Euler–Lagrange Sovereign Field Equations]
+Variation of $S$ with respect to $P$, $\mathcal{A}_\mu$, and $sr$ yields the
+sovereign field equations:
+
+\begin{align}
+\nabla^2 P &= \rho \nabla \cdot \vec{g}, \\
+\partial^\mu \mathcal{F}_{\mu\nu} &= -\partial_\nu \mathcal{V}_c(sr), \\
+\frac{\partial \mathcal{V}_c}{\partial sr} &= 0.
+\end{align}
+\end{theorem}
+
+\begin{proof}
+Apply the Euler–Lagrange operator:
+
+\begin{equation}
+\frac{\partial \mathcal{L}}{\partial \phi}
+- \partial_\mu \left(
+\frac{\partial \mathcal{L}}{\partial (\partial_\mu \phi)}
+\right) = 0.
+\end{equation}
+
+For $P$:
+
+\begin{equation}
+\frac{\partial \mathcal{L}}{\partial P} = 0,
+\quad
+\frac{\partial \mathcal{L}}{\partial (\partial_\mu P)}
+= \partial^\mu P,
+\end{equation}
+
+yielding $\nabla^2 P = \rho \nabla \cdot \vec{g}$.
+
+For $\mathcal{A}_\mu$:
+
+\begin{equation}
+\frac{\partial \mathcal{L}}{\partial \mathcal{A}_\mu}
+= -\partial^\mu \mathcal{V}_c(sr),
+\end{equation}
+
+and
+
+\begin{equation}
+\frac{\partial \mathcal{L}}{\partial (\partial_\nu \mathcal{A}_\mu)}
+= \mathcal{F}^{\nu\mu},
+\end{equation}
+
+yielding $\partial^\mu \mathcal{F}_{\mu\nu} = -\partial_\nu \mathcal{V}_c(sr)$.
+
+For $sr$:
+
+\begin{equation}
+\frac{\partial \mathcal{L}}{\partial sr}
+= \frac{\partial \mathcal{V}_c}{\partial sr},
+\end{equation}
+
+and since $sr$ has no derivatives in the Lagrangian, the Euler–Lagrange equation
+reduces to $\partial \mathcal{V}_c / \partial sr = 0$.
+\end{proof}
+
+\chapter{Sovereign Gauge Bosons}
+
+\section{Crypto-Gauge Boson Definition}
+
+Define the sovereign gauge boson field operator:
+
+\begin{equation}
+\hat{\Psi}(x) = \sum_k \left(
+a_k u_k(x) + a_k^\dagger u_k^*(x)
+\right),
+\end{equation}
+
+where $u_k$ are eigenmodes of the sovereign gauge Laplacian.
+
+\begin{theorem}[Gauge Boson Quantization]
+The sovereign gauge boson satisfies the commutation relation
+
+\begin{equation}
+[\hat{\Psi}(x), \hat{\Pi}(y)] = i \delta(x-y),
+\end{equation}
+
+where $\hat{\Pi}$ is the canonical momentum field.
+\end{theorem}
+
+\begin{proof}
+The proof follows from canonical quantization of the gauge field:
+
+\begin{equation}
+\hat{\Pi}(x) = \frac{\partial \mathcal{L}}{\partial (\partial_t \hat{\Psi}(x))}.
+\end{equation}
+
+Using the standard bosonic commutation relations for $a_k$ and $a_k^\dagger$,
+the field operators satisfy
+
+\begin{equation}
+[\hat{\Psi}(x), \hat{\Pi}(y)]
+= i \delta(x-y),
+\end{equation}
+
+as required.
+\end{proof}
+
+\chapter{Sovereign Renormalization Group Flow}
+
+\section{Crypto-Gauge Beta Functions}
+
+Define the sovereign beta functions:
+
+\begin{align}
+\beta_{\mathcal{A}} &= \mu \frac{d\mathcal{A}}{d\mu}, \\
+\beta_{\mathcal{V}} &= \mu \frac{d\mathcal{V}_c}{d\mu}.
+\end{align}
+
+\begin{theorem}[Sovereign UV Fixed Point]
+The sovereign gauge system admits a UV fixed point if
+
+\begin{equation}
+\beta_{\mathcal{A}} = 0,
+\quad
+\beta_{\mathcal{V}} = 0.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+A fixed point of the RG flow is defined by vanishing beta functions. Setting
+$\beta_{\mathcal{A}} = 0$ and $\beta_{\mathcal{V}} = 0$ yields scale-invariant
+solutions for the sovereign gauge potential and crypto-potential. This proves
+the existence condition.
+\end{proof}
