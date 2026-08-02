@@ -1,0 +1,80 @@
+\section*{Summary of the SMSE-v1 Monograph}
+
+\noindent
+This monograph presents the complete mathematical, numerical, and sovereign
+computing architecture of the \textit{Sovereign Multiphysics Astrophysical
+Engine} (SMSE-v1). The document is structured as a standard scientific
+manuscript using the \texttt{article} class with AMS mathematics packages,
+providing a rigorous and reproducible foundation for relativistic
+astrophysical simulation.
+
+\subsection*{Covariant Foundations}
+SMSE-v1 adopts the $3+1$ ADM decomposition of spacetime, defining the metric
+tensor $g_{\mu\nu}$, lapse $\alpha$, shift $\beta^i$, and spatial metric
+$\gamma_{ij}$ through the line element
+\begin{equation}
+ds^2 = -\alpha^2 dt^2 + \gamma_{ij}(dx^i + \beta^i dt)(dx^j + \beta^j dt).
+\end{equation}
+
+\subsection*{GRMHD Conservation Laws}
+The engine evolves magnetized relativistic fluids using the covariant
+conservation equations
+\begin{align}
+\nabla_\mu(\rho u^\mu) &= 0,\\
+\nabla_\mu T^{\mu\nu} &= 0,
+\end{align}
+with the GRMHD stress-energy tensor
+\begin{equation}
+T^{\mu\nu}
+=
+(\rho h + b^2)u^\mu u^\nu
++
+\left(p + \frac{b^2}{2}\right)g^{\mu\nu}
+-
+b^\mu b^\nu.
+\end{equation}
+
+\subsection*{Numerical Methods}
+High-resolution shock-capturing (HRSC) methods are employed with PPM
+reconstruction and HLLE fluxes:
+\begin{equation}
+F_{\mathrm{HLLE}}
+=
+\frac{
+a_R F_L - a_L F_R + a_L a_R(U_R - U_L)
+}{
+a_R - a_L
+}.
+\end{equation}
+
+\subsection*{Conservative-to-Primitive Recovery}
+Primitive variables are recovered from conserved quantities via a damped
+Newton--Raphson solver applied to the residual
+\begin{equation}
+f(p)
+=
+\rho h(p)W^2(p)
+-
+p
+-
+\frac{b^2}{2}
+-
+D
+-
+\tau,
+\end{equation}
+where $W$ is the Lorentz factor.
+
+\subsection*{Dataset Sovereignty}
+All simulation snapshots are stored in the sovereign \texttt{.SMSE-SAF}
+container format. Each payload is cryptographically sealed using
+\begin{equation}
+h_n = \mathrm{SHA3\_512}(\mathrm{payload}_n),
+\end{equation}
+ensuring deterministic reproducibility and immediate detection of any
+bit-level drift or unauthorized modification.
+
+\subsection*{Compilation}
+The monograph compiles cleanly using \texttt{pdflatex} or \texttt{xelatex}
+without modification, producing a fully typeset scientific manuscript suitable
+for peer review, archival storage, and sovereign computational audit.
