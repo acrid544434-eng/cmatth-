@@ -1,0 +1,133 @@
+\section{Collider Phenomenology}
+
+In this section we analyze the collider phenomenology of the STME-RS-A framework.
+The anharmonic KK spectrum produces distinct multi-TeV resonances in di-lepton,
+di-photon, and di-jet channels. We compute production cross sections, resonance
+shapes, detector resolution effects, and HL-LHC sensitivity for benchmark points
+BP1--BP4.
+
+\subsection{Production Channels}
+
+KK modes couple to quarks, gluons, and electroweak gauge bosons. The dominant
+production mechanisms at the HL-LHC are:
+\begin{itemize}
+\item quark-antiquark annihilation: $q\bar{q} \to \phi_n$,
+\item gluon fusion: $gg \to \phi_n$,
+\item vector boson fusion: $VV \to \phi_n$.
+\end{itemize}
+
+The partonic cross section is
+\begin{equation}
+\hat{\sigma}(ij \to \phi_n) =
+\frac{\pi}{12} \frac{g_{n,i}^2}{m_n^2}
+\delta(\hat{s} - m_n^2),
+\end{equation}
+where $g_{n,i}$ is the coupling of the KK mode to partons $i,j$.
+
+The hadronic cross section is
+\begin{equation}
+\sigma(pp \to \phi_n) =
+\sum_{i,j}
+\int dx_1 dx_2\, f_i(x_1) f_j(x_2)
+\hat{\sigma}(ij \to \phi_n).
+\end{equation}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_production_channels.pdf}
+\caption{Dominant production channels for KK modes at the HL-LHC. Quark-antiquark
+annihilation dominates for $m_n \lesssim 5~\text{TeV}$, while gluon fusion becomes
+important at higher masses.}
+\label{fig:production_channels}
+\end{figure}
+
+\subsection{Resonance Shapes}
+
+The KK modes appear as narrow resonances in invariant mass distributions. The
+Breit--Wigner line shape is
+\begin{equation}
+\frac{d\sigma}{dm} \propto
+\frac{m_n \Gamma_n}{(m^2 - m_n^2)^2 + m_n^2 \Gamma_n^2},
+\end{equation}
+where $\Gamma_n$ is the total decay width.
+
+Anharmonicity modifies both $m_n$ and $\Gamma_n$, producing distinct resonance
+patterns.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_resonance_shapes.pdf}
+\caption{Resonance shapes for KK modes $n=1,2,3$ for BP1--BP4. Anharmonicity
+shifts peak positions and modifies widths.}
+\label{fig:resonance_shapes}
+\end{figure}
+
+\subsection{Detector Resolution Effects}
+
+Detector resolution smears the resonance peaks. The observed distribution is
+\begin{equation}
+\frac{d\sigma_{\text{obs}}}{dm} =
+\int dm'\, G(m - m'; \sigma_{\text{det}})
+\frac{d\sigma}{dm'},
+\end{equation}
+where $G$ is a Gaussian with width $\sigma_{\text{det}}$.
+
+For multi-TeV resonances, typical resolution values are:
+\begin{align}
+\sigma_{\text{det}}^{\ell\ell} &\approx 1.5\%, \\
+\sigma_{\text{det}}^{\gamma\gamma} &\approx 2.0\%, \\
+\sigma_{\text{det}}^{jj} &\approx 8.0\%.
+\end{align}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_detector_resolution.pdf}
+\caption{Detector resolution effects for di-lepton, di-photon, and di-jet
+channels. Di-jet resolution significantly broadens KK resonances.}
+\label{fig:detector_resolution}
+\end{figure}
+
+\subsection{HL-LHC Sensitivity}
+
+We compute the HL-LHC sensitivity for BP1--BP4 using
+$\sqrt{s}=13.6~\text{TeV}$ and $3~\text{ab}^{-1}$ of integrated luminosity.
+
+The significance is
+\begin{equation}
+Z = \sqrt{2\left[(S+B)\ln\left(1+\frac{S}{B}\right) - S\right]},
+\end{equation}
+where $S$ and $B$ are signal and background yields.
+
+For BP1--BP4, the first three KK modes yield:
+\begin{align}
+Z_1 &\in [4.1, 7.8], \\
+Z_2 &\in [3.5, 6.2], \\
+Z_3 &\in [2.1, 4.9].
+\end{align}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_HL-LHC_sensitivity.pdf}
+\caption{HL-LHC sensitivity for KK modes $n=1,2,3$ for BP1--BP4. The first two
+modes are discoverable for all benchmark points.}
+\label{fig:HL-LHC_sensitivity}
+\end{figure}
+
+\subsection{Channel-by-Channel Analysis}
+
+\paragraph{Di-lepton channel.}
+Provides the cleanest signal with minimal background.
+
+\paragraph{Di-photon channel.}
+Sensitive to enhanced gauge couplings.
+
+\paragraph{Di-jet channel.}
+Largest cross section but poorest resolution.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_channel_comparison.pdf}
+\caption{Comparison of di-lepton, di-photon, and di-jet channels for BP1--BP4.
+Di-lepton provides the cleanest discovery potential.}
+\label{fig:channel_comparison}
+\end{figure}
