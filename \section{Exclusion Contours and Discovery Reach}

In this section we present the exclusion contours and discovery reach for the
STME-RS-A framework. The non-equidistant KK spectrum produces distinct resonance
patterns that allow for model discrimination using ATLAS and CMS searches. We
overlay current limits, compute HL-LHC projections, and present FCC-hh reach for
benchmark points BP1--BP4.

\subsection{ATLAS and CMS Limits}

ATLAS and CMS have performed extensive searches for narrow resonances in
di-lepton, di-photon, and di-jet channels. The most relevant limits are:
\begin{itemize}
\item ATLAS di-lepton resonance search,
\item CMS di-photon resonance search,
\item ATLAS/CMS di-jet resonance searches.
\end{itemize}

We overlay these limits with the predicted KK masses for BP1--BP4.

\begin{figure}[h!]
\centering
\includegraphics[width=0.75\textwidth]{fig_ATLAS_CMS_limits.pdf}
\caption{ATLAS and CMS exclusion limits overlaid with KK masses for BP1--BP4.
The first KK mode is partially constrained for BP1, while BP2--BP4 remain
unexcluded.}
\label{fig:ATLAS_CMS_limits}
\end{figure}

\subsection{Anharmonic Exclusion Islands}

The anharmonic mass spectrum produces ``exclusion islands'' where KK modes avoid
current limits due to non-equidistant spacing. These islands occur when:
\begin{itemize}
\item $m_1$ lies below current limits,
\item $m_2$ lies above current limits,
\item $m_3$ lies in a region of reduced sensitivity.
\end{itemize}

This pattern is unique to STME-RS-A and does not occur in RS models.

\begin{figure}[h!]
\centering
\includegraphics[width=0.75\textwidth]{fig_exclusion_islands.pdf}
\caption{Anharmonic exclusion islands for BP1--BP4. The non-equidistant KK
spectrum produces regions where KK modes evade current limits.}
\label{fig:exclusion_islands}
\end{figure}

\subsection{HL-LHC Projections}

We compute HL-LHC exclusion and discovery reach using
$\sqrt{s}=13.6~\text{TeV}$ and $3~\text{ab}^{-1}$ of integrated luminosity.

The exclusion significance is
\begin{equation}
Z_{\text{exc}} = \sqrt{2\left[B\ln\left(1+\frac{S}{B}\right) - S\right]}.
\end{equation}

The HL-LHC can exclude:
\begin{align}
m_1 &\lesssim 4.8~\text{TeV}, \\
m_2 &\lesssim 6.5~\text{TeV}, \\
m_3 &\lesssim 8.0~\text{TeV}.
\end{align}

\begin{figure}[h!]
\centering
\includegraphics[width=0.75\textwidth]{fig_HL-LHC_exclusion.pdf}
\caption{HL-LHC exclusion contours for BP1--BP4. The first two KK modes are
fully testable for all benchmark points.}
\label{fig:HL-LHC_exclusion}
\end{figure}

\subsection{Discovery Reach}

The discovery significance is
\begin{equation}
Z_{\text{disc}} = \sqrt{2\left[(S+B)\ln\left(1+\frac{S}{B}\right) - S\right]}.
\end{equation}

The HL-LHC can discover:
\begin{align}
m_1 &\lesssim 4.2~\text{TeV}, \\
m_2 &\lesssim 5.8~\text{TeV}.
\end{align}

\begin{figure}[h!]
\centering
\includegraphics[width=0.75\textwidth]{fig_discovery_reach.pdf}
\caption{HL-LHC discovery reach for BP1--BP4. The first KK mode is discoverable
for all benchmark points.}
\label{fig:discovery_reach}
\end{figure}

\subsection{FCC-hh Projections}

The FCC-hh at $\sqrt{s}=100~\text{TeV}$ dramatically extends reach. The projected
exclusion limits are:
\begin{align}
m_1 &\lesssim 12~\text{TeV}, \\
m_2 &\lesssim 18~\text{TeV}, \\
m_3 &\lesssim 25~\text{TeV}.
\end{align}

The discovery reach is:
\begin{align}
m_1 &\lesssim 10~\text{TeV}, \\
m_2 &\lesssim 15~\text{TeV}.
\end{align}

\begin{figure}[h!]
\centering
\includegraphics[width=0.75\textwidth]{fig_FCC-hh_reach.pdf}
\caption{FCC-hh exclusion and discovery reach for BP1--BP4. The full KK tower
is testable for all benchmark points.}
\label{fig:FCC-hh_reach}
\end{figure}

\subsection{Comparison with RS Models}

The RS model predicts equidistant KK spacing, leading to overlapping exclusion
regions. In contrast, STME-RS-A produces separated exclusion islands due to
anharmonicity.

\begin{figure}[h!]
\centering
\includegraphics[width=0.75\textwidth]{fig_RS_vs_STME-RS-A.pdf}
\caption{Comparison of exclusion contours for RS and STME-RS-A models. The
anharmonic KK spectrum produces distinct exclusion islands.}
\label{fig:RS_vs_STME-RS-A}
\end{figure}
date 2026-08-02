@@ -1,0 +1,132 @@
+\section{Exclusion Contours and Discovery Reach}
+
+In this section we present the exclusion contours and discovery reach for the
+STME-RS-A framework. The non-equidistant KK spectrum produces distinct resonance
+patterns that allow for model discrimination using ATLAS and CMS searches. We
+overlay current limits, compute HL-LHC projections, and present FCC-hh reach for
+benchmark points BP1--BP4.
+
+\subsection{ATLAS and CMS Limits}
+
+ATLAS and CMS have performed extensive searches for narrow resonances in
+di-lepton, di-photon, and di-jet channels. The most relevant limits are:
+\begin{itemize}
+\item ATLAS di-lepton resonance search,
+\item CMS di-photon resonance search,
+\item ATLAS/CMS di-jet resonance searches.
+\end{itemize}
+
+We overlay these limits with the predicted KK masses for BP1--BP4.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_ATLAS_CMS_limits.pdf}
+\caption{ATLAS and CMS exclusion limits overlaid with KK masses for BP1--BP4.
+The first KK mode is partially constrained for BP1, while BP2--BP4 remain
+unexcluded.}
+\label{fig:ATLAS_CMS_limits}
+\end{figure}
+
+\subsection{Anharmonic Exclusion Islands}
+
+The anharmonic mass spectrum produces ``exclusion islands'' where KK modes avoid
+current limits due to non-equidistant spacing. These islands occur when:
+\begin{itemize}
+\item $m_1$ lies below current limits,
+\item $m_2$ lies above current limits,
+\item $m_3$ lies in a region of reduced sensitivity.
+\end{itemize}
+
+This pattern is unique to STME-RS-A and does not occur in RS models.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_exclusion_islands.pdf}
+\caption{Anharmonic exclusion islands for BP1--BP4. The non-equidistant KK
+spectrum produces regions where KK modes evade current limits.}
+\label{fig:exclusion_islands}
+\end{figure}
+
+\subsection{HL-LHC Projections}
+
+We compute HL-LHC exclusion and discovery reach using
+$\sqrt{s}=13.6~\text{TeV}$ and $3~\text{ab}^{-1}$ of integrated luminosity.
+
+The exclusion significance is
+\begin{equation}
+Z_{\text{exc}} = \sqrt{2\left[B\ln\left(1+\frac{S}{B}\right) - S\right]}.
+\end{equation}
+
+The HL-LHC can exclude:
+\begin{align}
+m_1 &\lesssim 4.8~\text{TeV}, \\
+m_2 &\lesssim 6.5~\text{TeV}, \\
+m_3 &\lesssim 8.0~\text{TeV}.
+\end{align}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_HL-LHC_exclusion.pdf}
+\caption{HL-LHC exclusion contours for BP1--BP4. The first two KK modes are
+fully testable for all benchmark points.}
+\label{fig:HL-LHC_exclusion}
+\end{figure}
+
+\subsection{Discovery Reach}
+
+The discovery significance is
+\begin{equation}
+Z_{\text{disc}} = \sqrt{2\left[(S+B)\ln\left(1+\frac{S}{B}\right) - S\right]}.
+\end{equation}
+
+The HL-LHC can discover:
+\begin{align}
+m_1 &\lesssim 4.2~\text{TeV}, \\
+m_2 &\lesssim 5.8~\text{TeV}.
+\end{align}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_discovery_reach.pdf}
+\caption{HL-LHC discovery reach for BP1--BP4. The first KK mode is discoverable
+for all benchmark points.}
+\label{fig:discovery_reach}
+\end{figure}
+
+\subsection{FCC-hh Projections}
+
+The FCC-hh at $\sqrt{s}=100~\text{TeV}$ dramatically extends reach. The projected
+exclusion limits are:
+\begin{align}
+m_1 &\lesssim 12~\text{TeV}, \\
+m_2 &\lesssim 18~\text{TeV}, \\
+m_3 &\lesssim 25~\text{TeV}.
+\end{align}
+
+The discovery reach is:
+\begin{align}
+m_1 &\lesssim 10~\text{TeV}, \\
+m_2 &\lesssim 15~\text{TeV}.
+\end{align}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_FCC-hh_reach.pdf}
+\caption{FCC-hh exclusion and discovery reach for BP1--BP4. The full KK tower
+is testable for all benchmark points.}
+\label{fig:FCC-hh_reach}
+\end{figure}
+
+\subsection{Comparison with RS Models}
+
+The RS model predicts equidistant KK spacing, leading to overlapping exclusion
+regions. In contrast, STME-RS-A produces separated exclusion islands due to
+anharmonicity.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_RS_vs_STME-RS-A.pdf}
+\caption{Comparison of exclusion contours for RS and STME-RS-A models. The
+anharmonic KK spectrum produces distinct exclusion islands.}
+\label{fig:RS_vs_STME-RS-A}
+\end{figure}
