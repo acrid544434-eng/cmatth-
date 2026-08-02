@@ -1,0 +1,66 @@
+\section{Figures and Diagrams}
+
+\subsection{Modulus Chain Architecture}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.85\textwidth]{fig_modulus_chain_placeholder}
+\caption{Schematic representation of the monotone RNS modulus chain used in ADLE‑v1.
+The chain consists of five primes $(q_0, q_1, q_2, q_3, q_4)$ arranged in strictly
+descending bit-length. Each encrypted multiplication consumes one level and triggers
+a rescaling operation that reduces the active modulus.}
+\label{fig:modulus_chain}
+\end{figure}
+
+\subsection{Encrypted RMHD Operator Pipeline}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.90\textwidth]{fig_operator_pipeline_placeholder}
+\caption{Block diagram of the encrypted RMHD operator pipeline. Linear advection
+operators are implemented via ciphertext rotations and plaintext masks, while
+non-linear operators (Lorentz tensor products and Chebyshev reaction networks)
+consume multiplicative depth. The pipeline ensures scale alignment across all
+fields at each timestep.}
+\label{fig:operator_pipeline}
+\end{figure}
+
+\subsection{Chebyshev Polynomial Evaluation Flow}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.80\textwidth]{fig_chebyshev_flow_placeholder}
+\caption{Evaluation flow for degree-$d$ Chebyshev polynomials under CKKS encryption.
+Encrypted multiplications generate intermediate powers $T^2$, $T^3$, and $T^5$,
+each followed by rescaling to maintain numerical stability. The final polynomial
+is assembled via encrypted linear combinations.}
+\label{fig:chebyshev_flow}
+\end{figure}
+
+\subsection{Encrypted Stability Envelope}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.85\textwidth]{fig_stability_envelope_placeholder}
+\caption{Encrypted stability envelope showing noise growth across timesteps for
+Tier~1, Tier~2, and Tier~3 physical regimes. The envelope predicts a safe execution
+window of approximately 42 timesteps under hyper-stiff conditions before the noise
+threshold $q_4/16$ is reached.}
+\label{fig:stability_envelope}
+\end{figure}
+
+\subsection{Supersonic Shock Ingestion Results}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.90\textwidth]{fig_shock_profile_placeholder}
+\caption{Encrypted RMHD shock ingestion profile for Mach $M_s = 15.5$. Density and
+velocity fields reproduce Rankine–Hugoniot jump conditions with relative error
+below $10^{-4}$ compared to plaintext reference simulations.}
+\label{fig:shock_profile}
+\end{figure}
+
+\subsection{Lorentz Tensor Product Evaluation}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.85\textwidth]{fig_lorentz_tensor_placeholder}
+\caption{Encrypted evaluation of the Lorentz force term $\mathbf{J}\times\mathbf{B}$.
+Tensor products are computed via encrypted–encrypted multiplications, with rescaling
+operations preserving numerical stability and preventing modulus saturation.}
+\label{fig:lorentz_tensor}
+\end{figure}
