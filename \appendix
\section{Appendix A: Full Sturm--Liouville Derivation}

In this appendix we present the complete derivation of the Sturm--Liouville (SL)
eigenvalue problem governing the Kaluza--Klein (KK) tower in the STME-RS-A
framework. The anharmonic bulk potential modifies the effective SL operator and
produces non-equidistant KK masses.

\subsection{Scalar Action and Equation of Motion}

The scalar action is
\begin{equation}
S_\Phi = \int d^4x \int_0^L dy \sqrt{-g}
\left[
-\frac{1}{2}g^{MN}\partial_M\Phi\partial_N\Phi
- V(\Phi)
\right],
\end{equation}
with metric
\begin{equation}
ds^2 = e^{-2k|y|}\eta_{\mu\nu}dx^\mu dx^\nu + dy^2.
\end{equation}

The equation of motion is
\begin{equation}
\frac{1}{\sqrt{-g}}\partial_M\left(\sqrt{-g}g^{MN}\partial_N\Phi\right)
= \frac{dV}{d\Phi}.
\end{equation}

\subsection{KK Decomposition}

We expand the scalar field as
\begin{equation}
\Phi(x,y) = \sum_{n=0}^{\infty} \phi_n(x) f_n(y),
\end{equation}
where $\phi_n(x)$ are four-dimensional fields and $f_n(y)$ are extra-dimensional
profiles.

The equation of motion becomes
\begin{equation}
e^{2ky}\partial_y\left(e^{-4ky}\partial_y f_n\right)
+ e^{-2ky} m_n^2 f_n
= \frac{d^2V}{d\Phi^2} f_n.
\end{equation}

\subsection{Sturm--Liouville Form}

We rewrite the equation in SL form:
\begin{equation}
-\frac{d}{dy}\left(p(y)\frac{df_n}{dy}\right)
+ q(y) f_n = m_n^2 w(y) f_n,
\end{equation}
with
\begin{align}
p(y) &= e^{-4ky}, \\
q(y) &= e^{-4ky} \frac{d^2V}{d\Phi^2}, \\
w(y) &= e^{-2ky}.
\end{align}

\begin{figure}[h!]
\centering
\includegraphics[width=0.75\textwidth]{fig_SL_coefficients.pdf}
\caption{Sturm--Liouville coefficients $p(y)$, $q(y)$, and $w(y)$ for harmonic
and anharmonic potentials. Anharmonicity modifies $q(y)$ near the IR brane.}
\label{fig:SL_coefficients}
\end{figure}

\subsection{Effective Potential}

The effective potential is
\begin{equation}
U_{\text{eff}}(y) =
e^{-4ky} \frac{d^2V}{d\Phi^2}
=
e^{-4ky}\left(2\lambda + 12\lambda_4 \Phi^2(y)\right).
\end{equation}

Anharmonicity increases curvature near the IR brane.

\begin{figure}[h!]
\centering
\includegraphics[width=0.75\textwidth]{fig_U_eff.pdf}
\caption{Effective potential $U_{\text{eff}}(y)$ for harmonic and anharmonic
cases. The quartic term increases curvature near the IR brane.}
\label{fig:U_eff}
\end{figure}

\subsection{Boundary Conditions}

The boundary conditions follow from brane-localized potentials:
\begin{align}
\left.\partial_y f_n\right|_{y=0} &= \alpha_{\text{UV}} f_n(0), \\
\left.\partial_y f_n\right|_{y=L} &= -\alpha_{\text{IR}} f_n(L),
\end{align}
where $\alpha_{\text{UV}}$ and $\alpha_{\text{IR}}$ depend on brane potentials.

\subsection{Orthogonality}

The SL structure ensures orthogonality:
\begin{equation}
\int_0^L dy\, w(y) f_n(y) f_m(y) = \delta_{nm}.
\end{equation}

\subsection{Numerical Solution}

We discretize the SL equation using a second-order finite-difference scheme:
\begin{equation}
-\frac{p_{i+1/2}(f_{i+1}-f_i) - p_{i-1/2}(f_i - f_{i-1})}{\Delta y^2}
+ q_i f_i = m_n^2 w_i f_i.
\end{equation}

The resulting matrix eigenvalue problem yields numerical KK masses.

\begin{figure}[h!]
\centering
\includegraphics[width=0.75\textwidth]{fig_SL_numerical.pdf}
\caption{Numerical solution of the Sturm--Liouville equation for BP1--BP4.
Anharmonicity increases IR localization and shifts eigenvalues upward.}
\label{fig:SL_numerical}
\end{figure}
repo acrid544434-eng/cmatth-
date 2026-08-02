@@ -1,0 +1,120 @@
+\appendix
+\section{Appendix A: Full Sturm--Liouville Derivation}
+
+In this appendix we present the complete derivation of the Sturm--Liouville (SL)
+eigenvalue problem governing the Kaluza--Klein (KK) tower in the STME-RS-A
+framework. The anharmonic bulk potential modifies the effective SL operator and
+produces non-equidistant KK masses.
+
+\subsection{Scalar Action and Equation of Motion}
+
+The scalar action is
+\begin{equation}
+S_\Phi = \int d^4x \int_0^L dy \sqrt{-g}
+\left[
+-\frac{1}{2}g^{MN}\partial_M\Phi\partial_N\Phi
+- V(\Phi)
+\right],
+\end{equation}
+with metric
+\begin{equation}
+ds^2 = e^{-2k|y|}\eta_{\mu\nu}dx^\mu dx^\nu + dy^2.
+\end{equation}
+
+The equation of motion is
+\begin{equation}
+\frac{1}{\sqrt{-g}}\partial_M\left(\sqrt{-g}g^{MN}\partial_N\Phi\right)
+= \frac{dV}{d\Phi}.
+\end{equation}
+
+\subsection{KK Decomposition}
+
+We expand the scalar field as
+\begin{equation}
+\Phi(x,y) = \sum_{n=0}^{\infty} \phi_n(x) f_n(y),
+\end{equation}
+where $\phi_n(x)$ are four-dimensional fields and $f_n(y)$ are extra-dimensional
+profiles.
+
+The equation of motion becomes
+\begin{equation}
+e^{2ky}\partial_y\left(e^{-4ky}\partial_y f_n\right)
++ e^{-2ky} m_n^2 f_n
+= \frac{d^2V}{d\Phi^2} f_n.
+\end{equation}
+
+\subsection{Sturm--Liouville Form}
+
+We rewrite the equation in SL form:
+\begin{equation}
+-\frac{d}{dy}\left(p(y)\frac{df_n}{dy}\right)
++ q(y) f_n = m_n^2 w(y) f_n,
+\end{equation}
+with
+\begin{align}
+p(y) &= e^{-4ky}, \\
+q(y) &= e^{-4ky} \frac{d^2V}{d\Phi^2}, \\
+w(y) &= e^{-2ky}.
+\end{align}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_SL_coefficients.pdf}
+\caption{Sturm--Liouville coefficients $p(y)$, $q(y)$, and $w(y)$ for harmonic
+and anharmonic potentials. Anharmonicity modifies $q(y)$ near the IR brane.}
+\label{fig:SL_coefficients}
+\end{figure}
+
+\subsection{Effective Potential}
+
+The effective potential is
+\begin{equation}
+U_{\text{eff}}(y) =
+e^{-4ky} \frac{d^2V}{d\Phi^2}
+=
+e^{-4ky}\left(2\lambda + 12\lambda_4 \Phi^2(y)\right).
+\end{equation}
+
+Anharmonicity increases curvature near the IR brane.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_U_eff.pdf}
+\caption{Effective potential $U_{\text{eff}}(y)$ for harmonic and anharmonic
+cases. The quartic term increases curvature near the IR brane.}
+\label{fig:U_eff}
+\end{figure}
+
+\subsection{Boundary Conditions}
+
+The boundary conditions follow from brane-localized potentials:
+\begin{align}
+\left.\partial_y f_n\right|_{y=0} &= \alpha_{\text{UV}} f_n(0), \\
+\left.\partial_y f_n\right|_{y=L} &= -\alpha_{\text{IR}} f_n(L),
+\end{align}
+where $\alpha_{\text{UV}}$ and $\alpha_{\text{IR}}$ depend on brane potentials.
+
+\subsection{Orthogonality}
+
+The SL structure ensures orthogonality:
+\begin{equation}
+\int_0^L dy\, w(y) f_n(y) f_m(y) = \delta_{nm}.
+\end{equation}
+
+\subsection{Numerical Solution}
+
+We discretize the SL equation using a second-order finite-difference scheme:
+\begin{equation}
+-\frac{p_{i+1/2}(f_{i+1}-f_i) - p_{i-1/2}(f_i - f_{i-1})}{\Delta y^2}
++ q_i f_i = m_n^2 w_i f_i.
+\end{equation}
+
+The resulting matrix eigenvalue problem yields numerical KK masses.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.75\textwidth]{fig_SL_numerical.pdf}
+\caption{Numerical solution of the Sturm--Liouville equation for BP1--BP4.
+Anharmonicity increases IR localization and shifts eigenvalues upward.}
+\label{fig:SL_numerical}
+\end{figure}
