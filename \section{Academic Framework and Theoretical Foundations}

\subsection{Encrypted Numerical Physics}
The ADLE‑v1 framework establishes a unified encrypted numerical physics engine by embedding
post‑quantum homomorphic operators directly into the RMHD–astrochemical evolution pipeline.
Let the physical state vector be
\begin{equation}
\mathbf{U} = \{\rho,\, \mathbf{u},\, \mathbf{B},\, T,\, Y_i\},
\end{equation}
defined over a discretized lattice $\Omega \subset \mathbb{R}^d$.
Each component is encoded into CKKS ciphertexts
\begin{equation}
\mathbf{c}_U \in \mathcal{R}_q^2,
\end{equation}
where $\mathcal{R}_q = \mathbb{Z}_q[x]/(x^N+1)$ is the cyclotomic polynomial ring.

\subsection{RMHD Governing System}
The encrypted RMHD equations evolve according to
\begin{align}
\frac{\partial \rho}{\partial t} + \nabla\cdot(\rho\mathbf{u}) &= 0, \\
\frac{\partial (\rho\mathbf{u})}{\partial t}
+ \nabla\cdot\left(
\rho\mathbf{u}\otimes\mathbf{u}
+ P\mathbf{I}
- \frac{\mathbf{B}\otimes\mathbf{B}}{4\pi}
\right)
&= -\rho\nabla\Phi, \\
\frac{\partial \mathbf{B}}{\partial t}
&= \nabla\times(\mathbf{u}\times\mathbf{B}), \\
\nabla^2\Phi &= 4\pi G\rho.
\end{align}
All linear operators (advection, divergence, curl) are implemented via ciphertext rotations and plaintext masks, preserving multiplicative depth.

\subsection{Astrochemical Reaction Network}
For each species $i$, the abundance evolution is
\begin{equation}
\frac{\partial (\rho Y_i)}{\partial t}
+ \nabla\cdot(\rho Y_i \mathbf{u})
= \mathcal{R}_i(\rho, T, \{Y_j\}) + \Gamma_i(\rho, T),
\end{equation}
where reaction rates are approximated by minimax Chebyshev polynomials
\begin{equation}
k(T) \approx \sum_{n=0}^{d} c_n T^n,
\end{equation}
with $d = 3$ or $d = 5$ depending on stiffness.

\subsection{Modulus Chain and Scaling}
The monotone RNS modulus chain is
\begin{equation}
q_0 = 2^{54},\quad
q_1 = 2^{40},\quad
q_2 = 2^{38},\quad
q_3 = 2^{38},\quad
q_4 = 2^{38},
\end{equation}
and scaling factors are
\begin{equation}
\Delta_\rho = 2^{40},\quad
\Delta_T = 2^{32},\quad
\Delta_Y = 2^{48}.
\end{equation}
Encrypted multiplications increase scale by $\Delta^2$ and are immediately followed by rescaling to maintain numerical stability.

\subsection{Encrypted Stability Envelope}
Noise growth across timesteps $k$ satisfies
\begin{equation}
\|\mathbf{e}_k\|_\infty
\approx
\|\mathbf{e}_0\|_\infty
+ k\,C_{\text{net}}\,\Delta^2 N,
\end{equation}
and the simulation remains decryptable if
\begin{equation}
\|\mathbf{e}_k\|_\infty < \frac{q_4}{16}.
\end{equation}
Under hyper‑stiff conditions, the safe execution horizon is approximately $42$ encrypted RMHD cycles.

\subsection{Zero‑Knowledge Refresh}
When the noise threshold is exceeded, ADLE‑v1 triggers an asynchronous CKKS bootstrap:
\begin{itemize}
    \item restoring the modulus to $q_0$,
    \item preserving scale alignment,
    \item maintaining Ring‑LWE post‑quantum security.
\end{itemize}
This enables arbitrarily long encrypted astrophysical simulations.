@@ -1,0 +1,85 @@
+\section{Academic Framework and Theoretical Foundations}
+
+\subsection{Encrypted Numerical Physics}
+The ADLE‑v1 framework establishes a unified encrypted numerical physics engine by embedding
+post‑quantum homomorphic operators directly into the RMHD–astrochemical evolution pipeline.
+Let the physical state vector be
+\begin{equation}
+\mathbf{U} = \{\rho,\, \mathbf{u},\, \mathbf{B},\, T,\, Y_i\},
+\end{equation}
+defined over a discretized lattice $\Omega \subset \mathbb{R}^d$.
+Each component is encoded into CKKS ciphertexts
+\begin{equation}
+\mathbf{c}_U \in \mathcal{R}_q^2,
+\end{equation}
+where $\mathcal{R}_q = \mathbb{Z}_q[x]/(x^N+1)$ is the cyclotomic polynomial ring.
+
+\subsection{RMHD Governing System}
+The encrypted RMHD equations evolve according to
+\begin{align}
+\frac{\partial \rho}{\partial t} + \nabla\cdot(\rho\mathbf{u}) &= 0, \\
+\frac{\partial (\rho\mathbf{u})}{\partial t}
++ \nabla\cdot\left(
+\rho\mathbf{u}\otimes\mathbf{u}
++ P\mathbf{I}
+- \frac{\mathbf{B}\otimes\mathbf{B}}{4\pi}
+\right)
+&= -\rho\nabla\Phi, \\
+\frac{\partial \mathbf{B}}{\partial t}
+&= \nabla\times(\mathbf{u}\times\mathbf{B}), \\
+\nabla^2\Phi &= 4\pi G\rho.
+\end{align}
+All linear operators (advection, divergence, curl) are implemented via ciphertext rotations and plaintext masks, preserving multiplicative depth.
+
+\subsection{Astrochemical Reaction Network}
+For each species $i$, the abundance evolution is
+\begin{equation}
+\frac{\partial (\rho Y_i)}{\partial t}
++ \nabla\cdot(\rho Y_i \mathbf{u})
+= \mathcal{R}_i(\rho, T, \{Y_j\}) + \Gamma_i(\rho, T),
+\end{equation}
+where reaction rates are approximated by minimax Chebyshev polynomials
+\begin{equation}
+k(T) \approx \sum_{n=0}^{d} c_n T^n,
+\end{equation}
+with $d = 3$ or $d = 5$ depending on stiffness.
+
+\subsection{Modulus Chain and Scaling}
+The monotone RNS modulus chain is
+\begin{equation}
+q_0 = 2^{54},\quad
+q_1 = 2^{40},\quad
+q_2 = 2^{38},\quad
+q_3 = 2^{38},\quad
+q_4 = 2^{38},
+\end{equation}
+and scaling factors are
+\begin{equation}
+\Delta_\rho = 2^{40},\quad
+\Delta_T = 2^{32},\quad
+\Delta_Y = 2^{48}.
+\end{equation}
+Encrypted multiplications increase scale by $\Delta^2$ and are immediately followed by rescaling to maintain numerical stability.
+
+\subsection{Encrypted Stability Envelope}
+Noise growth across timesteps $k$ satisfies
+\begin{equation}
+\|\mathbf{e}_k\|_\infty
+\approx
+\|\mathbf{e}_0\|_\infty
++ k\,C_{\text{net}}\,\Delta^2 N,
+\end{equation}
+and the simulation remains decryptable if
+\begin{equation}
+\|\mathbf{e}_k\|_\infty < \frac{q_4}{16}.
+\end{equation}
+Under hyper‑stiff conditions, the safe execution horizon is approximately $42$ encrypted RMHD cycles.
+
+\subsection{Zero‑Knowledge Refresh}
+When the noise threshold is exceeded, ADLE‑v1 triggers an asynchronous CKKS bootstrap:
+\begin{itemize}
+    \item restoring the modulus to $q_0$,
+    \item preserving scale alignment,
+    \item maintaining Ring‑LWE post‑quantum security.
+\end{itemize}
+This enables arbitrarily long encrypted astrophysical simulations.
