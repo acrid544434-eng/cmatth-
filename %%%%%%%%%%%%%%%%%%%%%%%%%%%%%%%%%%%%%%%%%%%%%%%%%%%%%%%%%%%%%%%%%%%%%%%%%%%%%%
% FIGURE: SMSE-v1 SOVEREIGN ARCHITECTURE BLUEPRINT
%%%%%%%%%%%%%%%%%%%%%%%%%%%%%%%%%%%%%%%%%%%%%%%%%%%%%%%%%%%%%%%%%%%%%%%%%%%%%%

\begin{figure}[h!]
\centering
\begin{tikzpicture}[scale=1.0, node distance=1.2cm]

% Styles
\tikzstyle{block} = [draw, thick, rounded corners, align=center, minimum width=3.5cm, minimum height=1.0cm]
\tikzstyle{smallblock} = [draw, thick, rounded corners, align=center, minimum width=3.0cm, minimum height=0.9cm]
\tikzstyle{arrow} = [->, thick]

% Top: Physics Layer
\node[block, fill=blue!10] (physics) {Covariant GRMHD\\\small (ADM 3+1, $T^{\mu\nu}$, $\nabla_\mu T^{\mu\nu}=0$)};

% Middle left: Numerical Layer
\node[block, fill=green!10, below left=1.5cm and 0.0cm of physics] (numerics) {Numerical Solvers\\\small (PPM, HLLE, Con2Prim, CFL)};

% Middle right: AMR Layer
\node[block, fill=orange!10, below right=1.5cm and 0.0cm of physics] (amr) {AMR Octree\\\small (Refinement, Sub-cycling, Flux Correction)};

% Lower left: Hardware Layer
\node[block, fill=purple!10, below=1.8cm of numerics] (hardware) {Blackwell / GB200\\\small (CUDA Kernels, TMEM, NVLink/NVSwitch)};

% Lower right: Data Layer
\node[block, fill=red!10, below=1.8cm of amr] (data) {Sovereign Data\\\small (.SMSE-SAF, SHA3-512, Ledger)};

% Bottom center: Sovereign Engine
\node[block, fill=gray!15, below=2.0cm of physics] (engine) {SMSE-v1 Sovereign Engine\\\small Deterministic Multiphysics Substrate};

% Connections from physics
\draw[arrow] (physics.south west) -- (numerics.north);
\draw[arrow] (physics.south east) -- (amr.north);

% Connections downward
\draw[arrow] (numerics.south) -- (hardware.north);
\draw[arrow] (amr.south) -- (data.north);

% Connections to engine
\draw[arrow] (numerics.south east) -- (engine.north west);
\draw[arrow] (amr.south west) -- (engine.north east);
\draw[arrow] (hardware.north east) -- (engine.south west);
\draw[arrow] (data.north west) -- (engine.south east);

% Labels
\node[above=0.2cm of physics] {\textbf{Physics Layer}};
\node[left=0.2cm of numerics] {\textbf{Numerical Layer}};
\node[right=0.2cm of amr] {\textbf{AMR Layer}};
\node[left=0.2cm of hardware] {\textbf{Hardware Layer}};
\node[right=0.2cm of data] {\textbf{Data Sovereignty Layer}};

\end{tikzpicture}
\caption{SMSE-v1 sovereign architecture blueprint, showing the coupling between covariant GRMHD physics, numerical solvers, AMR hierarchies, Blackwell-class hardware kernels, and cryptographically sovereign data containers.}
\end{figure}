@@ -1,0 +1,55 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FIGURE: SMSE-v1 SOVEREIGN ARCHITECTURE BLUEPRINT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[scale=1.0, node distance=1.2cm]
+
+% Styles
+\tikzstyle{block} = [draw, thick, rounded corners, align=center, minimum width=3.5cm, minimum height=1.0cm]
+\tikzstyle{smallblock} = [draw, thick, rounded corners, align=center, minimum width=3.0cm, minimum height=0.9cm]
+\tikzstyle{arrow} = [->, thick]
+
+% Top: Physics Layer
+\node[block, fill=blue!10] (physics) {Covariant GRMHD\\\small (ADM 3+1, $T^{\mu\nu}$, $\nabla_\mu T^{\mu\nu}=0$)};
+
+% Middle left: Numerical Layer
+\node[block, fill=green!10, below left=1.5cm and 0.0cm of physics] (numerics) {Numerical Solvers\\\small (PPM, HLLE, Con2Prim, CFL)};
+
+% Middle right: AMR Layer
+\node[block, fill=orange!10, below right=1.5cm and 0.0cm of physics] (amr) {AMR Octree\\\small (Refinement, Sub-cycling, Flux Correction)};
+
+% Lower left: Hardware Layer
+\node[block, fill=purple!10, below=1.8cm of numerics] (hardware) {Blackwell / GB200\\\small (CUDA Kernels, TMEM, NVLink/NVSwitch)};
+
+% Lower right: Data Layer
+\node[block, fill=red!10, below=1.8cm of amr] (data) {Sovereign Data\\\small (.SMSE-SAF, SHA3-512, Ledger)};
+
+% Bottom center: Sovereign Engine
+\node[block, fill=gray!15, below=2.0cm of physics] (engine) {SMSE-v1 Sovereign Engine\\\small Deterministic Multiphysics Substrate};
+
+% Connections from physics
+\draw[arrow] (physics.south west) -- (numerics.north);
+\draw[arrow] (physics.south east) -- (amr.north);
+
+% Connections downward
+\draw[arrow] (numerics.south) -- (hardware.north);
+\draw[arrow] (amr.south) -- (data.north);
+
+% Connections to engine
+\draw[arrow] (numerics.south east) -- (engine.north west);
+\draw[arrow] (amr.south west) -- (engine.north east);
+\draw[arrow] (hardware.north east) -- (engine.south west);
+\draw[arrow] (data.north west) -- (engine.south east);
+
+% Labels
+\node[above=0.2cm of physics] {\textbf{Physics Layer}};
+\node[left=0.2cm of numerics] {\textbf{Numerical Layer}};
+\node[right=0.2cm of amr] {\textbf{AMR Layer}};
+\node[left=0.2cm of hardware] {\textbf{Hardware Layer}};
+\node[right=0.2cm of data] {\textbf{Data Sovereignty Layer}};
+
+\end{tikzpicture}
+\caption{SMSE-v1 sovereign architecture blueprint, showing the coupling between covariant GRMHD physics, numerical solvers, AMR hierarchies, Blackwell-class hardware kernels, and cryptographically sovereign data containers.}
+\end{figure}
