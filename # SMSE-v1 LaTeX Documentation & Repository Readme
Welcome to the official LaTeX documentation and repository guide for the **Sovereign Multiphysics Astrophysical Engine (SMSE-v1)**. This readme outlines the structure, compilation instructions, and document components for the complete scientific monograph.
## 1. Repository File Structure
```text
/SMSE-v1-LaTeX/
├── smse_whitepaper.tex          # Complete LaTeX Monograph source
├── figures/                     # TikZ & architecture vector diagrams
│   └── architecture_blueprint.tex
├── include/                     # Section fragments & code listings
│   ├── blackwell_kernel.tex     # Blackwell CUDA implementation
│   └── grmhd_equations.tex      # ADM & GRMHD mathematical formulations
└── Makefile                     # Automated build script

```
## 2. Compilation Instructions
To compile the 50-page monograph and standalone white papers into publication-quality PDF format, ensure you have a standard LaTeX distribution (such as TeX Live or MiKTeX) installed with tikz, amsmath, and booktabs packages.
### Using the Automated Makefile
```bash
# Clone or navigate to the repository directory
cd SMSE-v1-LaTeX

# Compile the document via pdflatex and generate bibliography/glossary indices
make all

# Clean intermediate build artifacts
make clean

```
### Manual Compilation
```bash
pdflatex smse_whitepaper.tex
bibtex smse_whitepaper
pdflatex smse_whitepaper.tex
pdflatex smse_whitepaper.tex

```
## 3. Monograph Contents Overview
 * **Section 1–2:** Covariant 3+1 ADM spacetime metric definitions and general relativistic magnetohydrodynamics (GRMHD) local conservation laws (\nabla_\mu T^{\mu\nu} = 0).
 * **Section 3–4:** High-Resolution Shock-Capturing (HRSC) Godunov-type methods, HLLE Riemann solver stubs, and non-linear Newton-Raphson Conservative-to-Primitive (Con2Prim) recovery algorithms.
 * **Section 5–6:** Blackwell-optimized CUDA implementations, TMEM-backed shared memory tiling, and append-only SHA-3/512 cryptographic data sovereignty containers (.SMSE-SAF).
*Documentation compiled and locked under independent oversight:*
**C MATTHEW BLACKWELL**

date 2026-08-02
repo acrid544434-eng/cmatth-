@@ -1,0 +1,42 @@
+# SMSE-v1 LaTeX Documentation & Repository Readme
+Welcome to the official LaTeX documentation and repository guide for the **Sovereign Multiphysics Astrophysical Engine (SMSE-v1)**. This readme outlines the structure, compilation instructions, and document components for the complete scientific monograph.
+## 1. Repository File Structure
+```text
+/SMSE-v1-LaTeX/
+├── smse_whitepaper.tex          # Complete LaTeX Monograph source
+├── figures/                     # TikZ & architecture vector diagrams
+│   └── architecture_blueprint.tex
+├── include/                     # Section fragments & code listings
+│   ├── blackwell_kernel.tex     # Blackwell CUDA implementation
+│   └── grmhd_equations.tex      # ADM & GRMHD mathematical formulations
+└── Makefile                     # Automated build script
+
+```
+## 2. Compilation Instructions
+To compile the 50-page monograph and standalone white papers into publication-quality PDF format, ensure you have a standard LaTeX distribution (such as TeX Live or MiKTeX) installed with tikz, amsmath, and booktabs packages.
+### Using the Automated Makefile
+```bash
+# Clone or navigate to the repository directory
+cd SMSE-v1-LaTeX
+
+# Compile the document via pdflatex and generate bibliography/glossary indices
+make all
+
+# Clean intermediate build artifacts
+make clean
+
+```
+### Manual Compilation
+```bash
+pdflatex smse_whitepaper.tex
+bibtex smse_whitepaper
+pdflatex smse_whitepaper.tex
+pdflatex smse_whitepaper.tex
+
+```
+## 3. Monograph Contents Overview
+ * **Section 1–2:** Covariant 3+1 ADM spacetime metric definitions and general relativistic magnetohydrodynamics (GRMHD) local conservation laws (\nabla_\mu T^{\mu\nu} = 0).
+ * **Section 3–4:** High-Resolution Shock-Capturing (HRSC) Godunov-type methods, HLLE Riemann solver stubs, and non-linear Newton-Raphson Conservative-to-Primitive (Con2Prim) recovery algorithms.
+ * **Section 5–6:** Blackwell-optimized CUDA implementations, TMEM-backed shared memory tiling, and append-only SHA-3/512 cryptographic data sovereignty containers (.SMSE-SAF).
+*Documentation compiled and locked under independent oversight:*
+**C MATTHEW BLACKWELL**
