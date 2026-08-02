@@ -1,0 +1,77 @@
+% ============================================================
+% STME-RS-A Test Harness Specification — Failure Envelopes
+% ============================================================
+
+\chapter{STME-RS-A Test Harness Specification}
+
+\section{Purpose}
+
+This test harness defines subsystem-level validation criteria, failure
+envelopes, and stress-test procedures for the STME-RS-A propulsion system.
+
+\section{Subsystem Failure Envelopes}
+
+\subsection{Combustion Chamber Liner}
+
+\begin{itemize}
+\item Material: Ta$_4$HfC$_5$ + CNT Matrix
+\item Thermal Failure Threshold: 4200 K
+\item Mechanical Failure Threshold: 1150 MPa
+\item Validation Criterion: No micro-fractures under 3900 K and 820 MPa.
+\end{itemize}
+
+\subsection{HTS Magnetic Confinement Coils}
+
+\begin{itemize}
+\item Material: REBCO Tape
+\item Magnetic Failure Threshold: 15 T
+\item Cryogenic Margin: 4.2 K
+\item Validation Criterion: No quench events at 14.1 T.
+\end{itemize}
+
+\subsection{PZT Acoustic Dampening Array}
+
+\begin{itemize}
+\item Material: PZT Ceramics
+\item Frequency Limit: 50 kHz
+\item Validation Criterion: 40 dB attenuation at 34 kHz oscillation.
+\end{itemize}
+
+\subsection{Topological Invariant Detector Grid}
+
+\begin{itemize}
+\item Invariant: $\mathcal{W}$
+\item Drift Threshold: $\Delta \mathcal{W}_{\text{crit}} = 0.15$
+\item Validation Criterion: $\Delta \mathcal{W} < 0.03$ under full load.
+\end{itemize}
+
+\section{Test Harness Execution Sequence}
+
+\begin{enumerate}
+\item Initialize sensor array and telemetry streamer.
+\item Ramp magnetic confinement field to 12.4 T.
+\item Inject thermal load to 3900 K.
+\item Apply overpressure factor of 1.40.
+\item Measure:
+    \begin{itemize}
+    \item residual norms,
+    \item geometry–plasma coupling coefficient $\Gamma$,
+    \item topological drift $\Delta \mathcal{W}$.
+    \end{itemize}
+\item Validate against subsystem envelopes.
+\item Trigger emergency shutdown if any threshold is exceeded.
+\end{enumerate}
+
+\section{Pass/Fail Criteria}
+
+\begin{itemize}
+\item \textbf{PASS:} All subsystems remain within thermal, magnetic,
+mechanical, and topological limits.
+\item \textbf{FAIL:} Any subsystem exceeds its envelope or drift threshold.
+\end{itemize}
+
+\section{Summary}
+
+This test harness provides a deterministic, reproducible validation
+framework for certifying STME-RS-A hardware and software subsystems under
+extreme operational conditions.
