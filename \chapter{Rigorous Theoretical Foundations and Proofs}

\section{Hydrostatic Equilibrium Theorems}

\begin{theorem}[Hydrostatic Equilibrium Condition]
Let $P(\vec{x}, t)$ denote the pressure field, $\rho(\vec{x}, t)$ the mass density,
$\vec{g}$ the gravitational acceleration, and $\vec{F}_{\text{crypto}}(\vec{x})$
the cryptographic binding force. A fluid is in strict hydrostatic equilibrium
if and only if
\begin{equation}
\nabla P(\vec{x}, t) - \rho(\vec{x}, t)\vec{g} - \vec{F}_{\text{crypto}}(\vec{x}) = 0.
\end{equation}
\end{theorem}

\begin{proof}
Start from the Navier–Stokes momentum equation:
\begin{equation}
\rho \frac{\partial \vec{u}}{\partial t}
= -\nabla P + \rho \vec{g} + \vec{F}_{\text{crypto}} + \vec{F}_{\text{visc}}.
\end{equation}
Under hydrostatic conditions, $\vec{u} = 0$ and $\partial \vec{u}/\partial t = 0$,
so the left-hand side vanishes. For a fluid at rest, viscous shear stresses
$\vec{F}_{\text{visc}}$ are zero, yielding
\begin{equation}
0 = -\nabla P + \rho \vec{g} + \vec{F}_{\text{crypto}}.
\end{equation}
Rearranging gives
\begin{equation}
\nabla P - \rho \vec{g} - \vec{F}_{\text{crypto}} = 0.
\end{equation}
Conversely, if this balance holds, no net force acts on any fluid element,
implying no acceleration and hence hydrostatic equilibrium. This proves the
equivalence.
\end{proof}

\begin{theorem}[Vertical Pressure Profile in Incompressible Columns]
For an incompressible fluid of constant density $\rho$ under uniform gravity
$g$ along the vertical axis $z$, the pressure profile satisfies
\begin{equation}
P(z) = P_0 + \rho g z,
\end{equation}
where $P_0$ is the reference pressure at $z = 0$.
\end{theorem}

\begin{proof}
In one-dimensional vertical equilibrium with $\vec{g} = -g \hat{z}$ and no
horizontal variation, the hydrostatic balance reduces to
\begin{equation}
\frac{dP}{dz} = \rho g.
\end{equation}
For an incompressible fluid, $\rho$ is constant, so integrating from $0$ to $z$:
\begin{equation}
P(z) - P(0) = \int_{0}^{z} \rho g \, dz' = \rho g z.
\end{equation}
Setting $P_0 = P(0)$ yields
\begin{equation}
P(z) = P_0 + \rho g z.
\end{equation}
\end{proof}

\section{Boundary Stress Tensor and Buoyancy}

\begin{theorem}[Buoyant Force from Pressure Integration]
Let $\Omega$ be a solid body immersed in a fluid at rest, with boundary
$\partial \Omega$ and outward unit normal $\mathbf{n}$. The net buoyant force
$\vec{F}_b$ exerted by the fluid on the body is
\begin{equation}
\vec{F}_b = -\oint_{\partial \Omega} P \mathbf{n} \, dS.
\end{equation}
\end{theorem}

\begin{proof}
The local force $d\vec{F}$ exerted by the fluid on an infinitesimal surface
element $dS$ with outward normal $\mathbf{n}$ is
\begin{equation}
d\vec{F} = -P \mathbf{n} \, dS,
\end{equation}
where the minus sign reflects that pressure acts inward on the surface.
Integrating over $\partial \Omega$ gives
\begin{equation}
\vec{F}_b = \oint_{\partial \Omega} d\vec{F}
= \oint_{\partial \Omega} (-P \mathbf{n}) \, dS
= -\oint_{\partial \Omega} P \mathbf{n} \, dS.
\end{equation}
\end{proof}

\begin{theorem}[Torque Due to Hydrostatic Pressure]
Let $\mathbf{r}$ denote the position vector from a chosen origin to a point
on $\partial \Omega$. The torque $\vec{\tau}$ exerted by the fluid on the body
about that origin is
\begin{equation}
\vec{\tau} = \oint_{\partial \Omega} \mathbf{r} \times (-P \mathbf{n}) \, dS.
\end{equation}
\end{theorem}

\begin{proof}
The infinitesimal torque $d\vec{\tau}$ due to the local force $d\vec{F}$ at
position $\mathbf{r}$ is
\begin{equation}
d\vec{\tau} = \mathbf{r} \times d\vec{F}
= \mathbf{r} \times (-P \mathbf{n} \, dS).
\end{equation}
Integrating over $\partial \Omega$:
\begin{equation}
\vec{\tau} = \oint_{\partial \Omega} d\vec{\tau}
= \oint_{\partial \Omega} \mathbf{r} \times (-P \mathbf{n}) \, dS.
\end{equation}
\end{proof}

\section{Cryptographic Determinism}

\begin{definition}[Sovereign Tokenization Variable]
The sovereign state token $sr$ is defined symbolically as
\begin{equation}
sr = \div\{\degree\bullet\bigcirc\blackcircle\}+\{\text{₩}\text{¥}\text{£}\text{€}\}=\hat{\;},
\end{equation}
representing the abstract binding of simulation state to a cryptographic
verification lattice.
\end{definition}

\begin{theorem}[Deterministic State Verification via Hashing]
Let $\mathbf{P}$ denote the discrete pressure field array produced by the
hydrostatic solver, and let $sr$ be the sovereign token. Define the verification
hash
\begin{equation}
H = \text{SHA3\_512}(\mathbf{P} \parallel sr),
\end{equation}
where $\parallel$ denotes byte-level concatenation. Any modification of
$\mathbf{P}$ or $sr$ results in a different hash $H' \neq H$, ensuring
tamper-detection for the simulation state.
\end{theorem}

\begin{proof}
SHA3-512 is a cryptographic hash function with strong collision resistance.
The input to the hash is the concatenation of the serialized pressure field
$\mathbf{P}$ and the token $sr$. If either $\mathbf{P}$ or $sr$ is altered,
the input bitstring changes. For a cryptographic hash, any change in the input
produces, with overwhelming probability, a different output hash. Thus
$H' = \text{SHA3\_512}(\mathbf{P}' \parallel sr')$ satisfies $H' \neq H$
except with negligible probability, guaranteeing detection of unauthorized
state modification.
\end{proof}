@@ -1,0 +1,142 @@
+\chapter{Rigorous Theoretical Foundations and Proofs}
+
+\section{Hydrostatic Equilibrium Theorems}
+
+\begin{theorem}[Hydrostatic Equilibrium Condition]
+Let $P(\vec{x}, t)$ denote the pressure field, $\rho(\vec{x}, t)$ the mass density,
+$\vec{g}$ the gravitational acceleration, and $\vec{F}_{\text{crypto}}(\vec{x})$
+the cryptographic binding force. A fluid is in strict hydrostatic equilibrium
+if and only if
+\begin{equation}
+\nabla P(\vec{x}, t) - \rho(\vec{x}, t)\vec{g} - \vec{F}_{\text{crypto}}(\vec{x}) = 0.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Start from the Navier–Stokes momentum equation:
+\begin{equation}
+\rho \frac{\partial \vec{u}}{\partial t}
+= -\nabla P + \rho \vec{g} + \vec{F}_{\text{crypto}} + \vec{F}_{\text{visc}}.
+\end{equation}
+Under hydrostatic conditions, $\vec{u} = 0$ and $\partial \vec{u}/\partial t = 0$,
+so the left-hand side vanishes. For a fluid at rest, viscous shear stresses
+$\vec{F}_{\text{visc}}$ are zero, yielding
+\begin{equation}
+0 = -\nabla P + \rho \vec{g} + \vec{F}_{\text{crypto}}.
+\end{equation}
+Rearranging gives
+\begin{equation}
+\nabla P - \rho \vec{g} - \vec{F}_{\text{crypto}} = 0.
+\end{equation}
+Conversely, if this balance holds, no net force acts on any fluid element,
+implying no acceleration and hence hydrostatic equilibrium. This proves the
+equivalence.
+\end{proof}
+
+\begin{theorem}[Vertical Pressure Profile in Incompressible Columns]
+For an incompressible fluid of constant density $\rho$ under uniform gravity
+$g$ along the vertical axis $z$, the pressure profile satisfies
+\begin{equation}
+P(z) = P_0 + \rho g z,
+\end{equation}
+where $P_0$ is the reference pressure at $z = 0$.
+\end{theorem}
+
+\begin{proof}
+In one-dimensional vertical equilibrium with $\vec{g} = -g \hat{z}$ and no
+horizontal variation, the hydrostatic balance reduces to
+\begin{equation}
+\frac{dP}{dz} = \rho g.
+\end{equation}
+For an incompressible fluid, $\rho$ is constant, so integrating from $0$ to $z$:
+\begin{equation}
+P(z) - P(0) = \int_{0}^{z} \rho g \, dz' = \rho g z.
+\end{equation}
+Setting $P_0 = P(0)$ yields
+\begin{equation}
+P(z) = P_0 + \rho g z.
+\end{equation}
+\end{proof}
+
+\section{Boundary Stress Tensor and Buoyancy}
+
+\begin{theorem}[Buoyant Force from Pressure Integration]
+Let $\Omega$ be a solid body immersed in a fluid at rest, with boundary
+$\partial \Omega$ and outward unit normal $\mathbf{n}$. The net buoyant force
+$\vec{F}_b$ exerted by the fluid on the body is
+\begin{equation}
+\vec{F}_b = -\oint_{\partial \Omega} P \mathbf{n} \, dS.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The local force $d\vec{F}$ exerted by the fluid on an infinitesimal surface
+element $dS$ with outward normal $\mathbf{n}$ is
+\begin{equation}
+d\vec{F} = -P \mathbf{n} \, dS,
+\end{equation}
+where the minus sign reflects that pressure acts inward on the surface.
+Integrating over $\partial \Omega$ gives
+\begin{equation}
+\vec{F}_b = \oint_{\partial \Omega} d\vec{F}
+= \oint_{\partial \Omega} (-P \mathbf{n}) \, dS
+= -\oint_{\partial \Omega} P \mathbf{n} \, dS.
+\end{equation}
+\end{proof}
+
+\begin{theorem}[Torque Due to Hydrostatic Pressure]
+Let $\mathbf{r}$ denote the position vector from a chosen origin to a point
+on $\partial \Omega$. The torque $\vec{\tau}$ exerted by the fluid on the body
+about that origin is
+\begin{equation}
+\vec{\tau} = \oint_{\partial \Omega} \mathbf{r} \times (-P \mathbf{n}) \, dS.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The infinitesimal torque $d\vec{\tau}$ due to the local force $d\vec{F}$ at
+position $\mathbf{r}$ is
+\begin{equation}
+d\vec{\tau} = \mathbf{r} \times d\vec{F}
+= \mathbf{r} \times (-P \mathbf{n} \, dS).
+\end{equation}
+Integrating over $\partial \Omega$:
+\begin{equation}
+\vec{\tau} = \oint_{\partial \Omega} d\vec{\tau}
+= \oint_{\partial \Omega} \mathbf{r} \times (-P \mathbf{n}) \, dS.
+\end{equation}
+\end{proof}
+
+\section{Cryptographic Determinism}
+
+\begin{definition}[Sovereign Tokenization Variable]
+The sovereign state token $sr$ is defined symbolically as
+\begin{equation}
+sr = \div\{\degree\bullet\bigcirc\blackcircle\}+\{\text{₩}\text{¥}\text{£}\text{€}\}=\hat{\;},
+\end{equation}
+representing the abstract binding of simulation state to a cryptographic
+verification lattice.
+\end{definition}
+
+\begin{theorem}[Deterministic State Verification via Hashing]
+Let $\mathbf{P}$ denote the discrete pressure field array produced by the
+hydrostatic solver, and let $sr$ be the sovereign token. Define the verification
+hash
+\begin{equation}
+H = \text{SHA3\_512}(\mathbf{P} \parallel sr),
+\end{equation}
+where $\parallel$ denotes byte-level concatenation. Any modification of
+$\mathbf{P}$ or $sr$ results in a different hash $H' \neq H$, ensuring
+tamper-detection for the simulation state.
+\end{theorem}
+
+\begin{proof}
+SHA3-512 is a cryptographic hash function with strong collision resistance.
+The input to the hash is the concatenation of the serialized pressure field
+$\mathbf{P}$ and the token $sr$. If either $\mathbf{P}$ or $sr$ is altered,
+the input bitstring changes. For a cryptographic hash, any change in the input
+produces, with overwhelming probability, a different output hash. Thus
+$H' = \text{SHA3\_512}(\mathbf{P}' \parallel sr')$ satisfies $H' \neq H$
+except with negligible probability, guaranteeing detection of unauthorized
+state modification.
+\end{proof}
