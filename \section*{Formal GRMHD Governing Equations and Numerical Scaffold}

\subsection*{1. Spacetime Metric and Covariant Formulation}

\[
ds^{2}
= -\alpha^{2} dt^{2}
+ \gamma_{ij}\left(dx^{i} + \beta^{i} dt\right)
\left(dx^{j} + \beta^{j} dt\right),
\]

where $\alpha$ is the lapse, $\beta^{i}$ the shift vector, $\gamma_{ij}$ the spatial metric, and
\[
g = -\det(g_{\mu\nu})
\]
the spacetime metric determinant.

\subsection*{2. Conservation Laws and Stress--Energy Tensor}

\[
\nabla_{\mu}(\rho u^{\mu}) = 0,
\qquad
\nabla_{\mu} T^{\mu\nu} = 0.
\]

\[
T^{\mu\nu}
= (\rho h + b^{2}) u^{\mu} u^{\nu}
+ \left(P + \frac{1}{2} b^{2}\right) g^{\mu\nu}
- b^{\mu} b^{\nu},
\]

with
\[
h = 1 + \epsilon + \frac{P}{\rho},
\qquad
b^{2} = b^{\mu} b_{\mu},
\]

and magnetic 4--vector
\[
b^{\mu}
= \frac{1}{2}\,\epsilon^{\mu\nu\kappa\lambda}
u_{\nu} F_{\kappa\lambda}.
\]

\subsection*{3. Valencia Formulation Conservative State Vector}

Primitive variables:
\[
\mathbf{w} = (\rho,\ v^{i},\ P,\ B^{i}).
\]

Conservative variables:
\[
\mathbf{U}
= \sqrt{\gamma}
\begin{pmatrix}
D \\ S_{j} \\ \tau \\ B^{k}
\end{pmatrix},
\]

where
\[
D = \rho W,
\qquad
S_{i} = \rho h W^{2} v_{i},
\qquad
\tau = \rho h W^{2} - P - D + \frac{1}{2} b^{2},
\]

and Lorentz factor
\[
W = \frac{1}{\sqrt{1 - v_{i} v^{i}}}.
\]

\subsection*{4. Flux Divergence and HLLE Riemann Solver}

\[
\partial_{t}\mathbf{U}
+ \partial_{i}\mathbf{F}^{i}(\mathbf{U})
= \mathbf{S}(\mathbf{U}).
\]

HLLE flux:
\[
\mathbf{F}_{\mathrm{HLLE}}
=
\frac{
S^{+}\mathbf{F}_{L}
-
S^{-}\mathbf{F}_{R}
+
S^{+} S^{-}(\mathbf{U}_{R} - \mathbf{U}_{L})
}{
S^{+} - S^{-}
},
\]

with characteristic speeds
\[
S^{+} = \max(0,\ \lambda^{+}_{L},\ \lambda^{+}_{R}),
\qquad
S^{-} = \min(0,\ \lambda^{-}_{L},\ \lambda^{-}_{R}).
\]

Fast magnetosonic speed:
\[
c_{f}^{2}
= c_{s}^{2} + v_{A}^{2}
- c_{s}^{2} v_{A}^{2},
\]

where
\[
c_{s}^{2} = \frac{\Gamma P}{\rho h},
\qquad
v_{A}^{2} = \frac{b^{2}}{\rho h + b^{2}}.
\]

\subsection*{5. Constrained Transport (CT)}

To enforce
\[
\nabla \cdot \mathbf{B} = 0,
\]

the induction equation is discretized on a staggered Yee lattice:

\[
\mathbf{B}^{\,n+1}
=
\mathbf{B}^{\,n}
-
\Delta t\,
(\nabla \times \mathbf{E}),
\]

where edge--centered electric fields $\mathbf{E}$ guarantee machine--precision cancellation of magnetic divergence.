@@ -1,0 +1,139 @@
+\section*{Formal GRMHD Governing Equations and Numerical Scaffold}
+
+\subsection*{1. Spacetime Metric and Covariant Formulation}
+
+\[
+ds^{2}
+= -\alpha^{2} dt^{2}
++ \gamma_{ij}\left(dx^{i} + \beta^{i} dt\right)
+\left(dx^{j} + \beta^{j} dt\right),
+\]
+
+where $\alpha$ is the lapse, $\beta^{i}$ the shift vector, $\gamma_{ij}$ the spatial metric, and
+\[
+g = -\det(g_{\mu\nu})
+\]
+the spacetime metric determinant.
+
+\subsection*{2. Conservation Laws and Stress--Energy Tensor}
+
+\[
+\nabla_{\mu}(\rho u^{\mu}) = 0,
+\qquad
+\nabla_{\mu} T^{\mu\nu} = 0.
+\]
+
+\[
+T^{\mu\nu}
+= (\rho h + b^{2}) u^{\mu} u^{\nu}
++ \left(P + \frac{1}{2} b^{2}\right) g^{\mu\nu}
+- b^{\mu} b^{\nu},
+\]
+
+with
+\[
+h = 1 + \epsilon + \frac{P}{\rho},
+\qquad
+b^{2} = b^{\mu} b_{\mu},
+\]
+
+and magnetic 4--vector
+\[
+b^{\mu}
+= \frac{1}{2}\,\epsilon^{\mu\nu\kappa\lambda}
+u_{\nu} F_{\kappa\lambda}.
+\]
+
+\subsection*{3. Valencia Formulation Conservative State Vector}
+
+Primitive variables:
+\[
+\mathbf{w} = (\rho,\ v^{i},\ P,\ B^{i}).
+\]
+
+Conservative variables:
+\[
+\mathbf{U}
+= \sqrt{\gamma}
+\begin{pmatrix}
+D \\ S_{j} \\ \tau \\ B^{k}
+\end{pmatrix},
+\]
+
+where
+\[
+D = \rho W,
+\qquad
+S_{i} = \rho h W^{2} v_{i},
+\qquad
+\tau = \rho h W^{2} - P - D + \frac{1}{2} b^{2},
+\]
+
+and Lorentz factor
+\[
+W = \frac{1}{\sqrt{1 - v_{i} v^{i}}}.
+\]
+
+\subsection*{4. Flux Divergence and HLLE Riemann Solver}
+
+\[
+\partial_{t}\mathbf{U}
++ \partial_{i}\mathbf{F}^{i}(\mathbf{U})
+= \mathbf{S}(\mathbf{U}).
+\]
+
+HLLE flux:
+\[
+\mathbf{F}_{\mathrm{HLLE}}
+=
+\frac{
+S^{+}\mathbf{F}_{L}
+-
+S^{-}\mathbf{F}_{R}
++
+S^{+} S^{-}(\mathbf{U}_{R} - \mathbf{U}_{L})
+}{
+S^{+} - S^{-}
+},
+\]
+
+with characteristic speeds
+\[
+S^{+} = \max(0,\ \lambda^{+}_{L},\ \lambda^{+}_{R}),
+\qquad
+S^{-} = \min(0,\ \lambda^{-}_{L},\ \lambda^{-}_{R}).
+\]
+
+Fast magnetosonic speed:
+\[
+c_{f}^{2}
+= c_{s}^{2} + v_{A}^{2}
+- c_{s}^{2} v_{A}^{2},
+\]
+
+where
+\[
+c_{s}^{2} = \frac{\Gamma P}{\rho h},
+\qquad
+v_{A}^{2} = \frac{b^{2}}{\rho h + b^{2}}.
+\]
+
+\subsection*{5. Constrained Transport (CT)}
+
+To enforce
+\[
+\nabla \cdot \mathbf{B} = 0,
+\]
+
+the induction equation is discretized on a staggered Yee lattice:
+
+\[
+\mathbf{B}^{\,n+1}
+=
+\mathbf{B}^{\,n}
+-
+\Delta t\,
+(\nabla \times \mathbf{E}),
+\]
+
+where edge--centered electric fields $\mathbf{E}$ guarantee machine--precision cancellation of magnetic divergence.
