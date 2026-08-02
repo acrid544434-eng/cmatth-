@@ -1,0 +1,29 @@
+# Sovereign Multiphysics Astrophysical Engine (SMSE-v1): Mathematical Formulation, Numerical Methods, and Dataset Sovereignty
+**C. MATTHEW BLACKWELL** *Independent Scientific Design & Computational Architecture* ---
+## Abstract
+We present the mathematical framework, numerical algorithms, and sovereign data architecture for the **Sovereign Multiphysics Astrophysical Engine (SMSE-v1)**. Designed for petascale cluster deployment on modern hardware accelerators, SMSE-v1 unifies General Relativistic Magnetohydrodynamics (GRMHD), adaptive mesh refinement (AMR) octree hierarchies, and cryptographic provenance ledgers into a single deterministic computing substrate. This paper details the covariant formulation of spacetime metric tensors, the conservation laws governing relativistic fluid dynamics, the non-linear primitive recovery schemes, and the hardware-accelerated memory fabrics required to maintain absolute computational sovereignty.
+## 1. Introduction and Covariant Foundations
+Astrophysical phenomena involving extreme gravitational fields—such as binary black hole mergers, relativistic jets, and magnetised accretion disks—require a fully covariant treatment of spacetime and plasma dynamics. SMSE-v1 models these systems using the 3+1 ADM (Arnowitt-Deser-Misner) formalism of General Relativity, coupled with ideal magnetohydrodynamics.
+The spacetime interval ds^2 is defined by the metric tensor g_{\mu\nu}:
+Where:
+ * \alpha is the lapse function governing proper time scaling.
+ * \beta^i is the shift vector accounting for spatial coordinate drift.
+ * \gamma_{ij} is the 3-metric induced on spatial hypersurfaces.
+## 2. Governing Equations of GRMHD
+The evolution of relativistic magnetized plasmas is governed by local conservation laws of baryon number, energy-momentum, and magnetic flux (Maxwell's equations):
+Where \rho is the rest-mass density, u^\mu is the 4-velocity of the fluid, and T^{\mu\nu} represents the total energy-momentum tensor for a magnetofluid:
+Here, h = 1 + \frac{\epsilon}{c^2} + \frac{p}{\rho c^2} is the specific enthalpy, p is the thermal pressure, and b^\mu is the magnetic field 4-vector projected onto the spatial frame.
+## 3. Numerical Discretization and HLLE Riemann Solvers
+To solve the hyperbolic conservation laws stably across high-gradient shocks, SMSE-v1 employs High-Resolution Shock-Capturing (HRSC) Godunov-type methods with piecewise parabolic reconstruction (PPM).
+At cell interfaces, the numerical flux F_{i+1/2} is evaluated using the Harten-Lax-van Leer-Einfeldt (HLLE) approximation:
+Where a_L and a_R represent the minimum and maximum wave speeds bounding the local Riemann fan, derived from the characteristic eigenvalues of the GRMHD flux Jacobian.
+## 4. Non-Linear Conservative-to-Primitive (Con2Prim) Recovery
+Because numerical time integration updates conserved quantities U = (D, S_i, \tau, B_i), recovering physical primitive variables P = (\rho, p, v^i, B^i) requires solving a non-linear algebraic system dictated by the Lorentz factor W:
+We define the residual function for pressure p as:
+This is solved iteratively via a damped Newton-Raphson method with sub-cycling fallback to guarantee convergence under superluminal velocity or extreme magnetic pressure regimes:
+## 5. Dataset Sovereignty and Cryptographic Provenance
+To eliminate external telemetry leakage and ensure deterministic reproducibility across distributed cluster runs, SMSE-v1 enforces an append-only binary container format (.SMSE-SAF).
+Each simulation snapshot is cryptographically fingerprinted using SHA-3/512 over the payload block:
+This ensures that any bit-level drift, hardware fault, or unauthorized modification is immediately flagged by the verification harness.
+## 6. Conclusion
+The SMSE-v1 architecture successfully bridges rigorous covariant mathematics with petascale hardware acceleration. By combining strict divergence-free conservation, robust non-linear inversions, and cryptographic data sovereignty, the framework provides a future-proof foundation for computational astrophysics.
