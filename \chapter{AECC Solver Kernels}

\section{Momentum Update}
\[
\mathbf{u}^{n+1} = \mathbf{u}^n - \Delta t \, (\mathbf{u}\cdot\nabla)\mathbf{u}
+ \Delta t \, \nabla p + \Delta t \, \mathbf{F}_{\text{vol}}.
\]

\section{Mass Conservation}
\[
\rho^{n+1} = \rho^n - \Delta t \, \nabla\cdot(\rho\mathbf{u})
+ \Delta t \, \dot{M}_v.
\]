@@ -1,0 +1,13 @@
+\chapter{AECC Solver Kernels}
+
+\section{Momentum Update}
+\[
+\mathbf{u}^{n+1} = \mathbf{u}^n - \Delta t \, (\mathbf{u}\cdot\nabla)\mathbf{u}
++ \Delta t \, \nabla p + \Delta t \, \mathbf{F}_{\text{vol}}.
+\]
+
+\section{Mass Conservation}
+\[
+\rho^{n+1} = \rho^n - \Delta t \, \nabla\cdot(\rho\mathbf{u})
++ \Delta t \, \dot{M}_v.
+\]
