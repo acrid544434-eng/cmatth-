@@ -1,0 +1,105 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDIX: GRMHD EIGENSTRUCTURE AND CHARACTERISTIC WAVE SPEEDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+\section{GRMHD Eigenstructure and Characteristic Wave Speeds}
+
+In this appendix we summarize the one-dimensional GRMHD eigenstructure used
+to construct HLLE-type numerical fluxes and CFL stability bounds in SMSE-v1.
+We consider a single spatial direction $x$ with metric components
+$g_{\mu\nu}$ and a fluid state $(\rho, p, v^x, B^x)$.
+
+\subsection{Primitive and Conserved Variables}
+
+The primitive variables are
+\begin{equation}
+P = (\rho, p, v^x, B^x),
+\end{equation}
+and the conserved variables in $3+1$ form are
+\begin{equation}
+U = (D, S_x, \tau, B^x),
+\end{equation}
+where
+\begin{align}
+D   &= \rho W,\\
+S_x &= (\rho h + b^2) W^2 v^x - b^0 b^x,\\
+\tau &= (\rho h + b^2) W^2 - \left(p + \frac{b^2}{2}\right) - D.
+\end{align}
+Here $W$ is the Lorentz factor and $b^\mu$ the magnetic 4-vector.
+
+\subsection{Sound Speed and Alfv\'en Speed}
+
+For an ideal equation of state with adiabatic index $\Gamma$, the sound speed
+is
+\begin{equation}
+c_s^2 = \frac{\Gamma p}{\rho h},
+\end{equation}
+and the Alfv\'en speed in the fluid frame is
+\begin{equation}
+v_A^2 = \frac{b^2}{\rho h + b^2},
+\end{equation}
+where $b^2 = b_\mu b^\mu$.
+
+\subsection{Fast Magnetosonic Speed}
+
+The fast magnetosonic speed $v_{\mathrm{ms}}$ is given by
+\begin{equation}
+v_{\mathrm{ms}}^2
+=
+\frac{1}{2}
+\left[
+c_s^2 + v_A^2
++
+\sqrt{(c_s^2 + v_A^2)^2 - 4 c_s^2 v_A^2}
+\right].
+\end{equation}
+This speed sets the dominant characteristic wave bound for GRMHD fluxes.
+
+\subsection{Characteristic Eigenvalues in 3+1 Form}
+
+In the $3+1$ ADM decomposition, the coordinate-frame characteristic speeds
+along $x$ are
+\begin{equation}
+\lambda_{\pm}
+=
+\frac{\alpha}{1 - v^x \beta^x}
+\left(
+v^x \pm v_{\mathrm{ms}}
+\right)
+-
+\beta^x,
+\end{equation}
+where $\alpha$ is the lapse and $\beta^x$ the shift component.
+
+For HLLE fluxes, we define
+\begin{align}
+a_L &= \min\left(\lambda_{\mathrm{min}}^{L}, \lambda_{\mathrm{min}}^{R}\right),\\
+a_R &= \max\left(\lambda_{\mathrm{max}}^{L}, \lambda_{\mathrm{max}}^{R}\right),
+\end{align}
+where the superscripts $L$ and $R$ denote left and right states at an
+interface.
+
+\subsection{CFL Stability Condition}
+
+The relativistic CFL time-step bound in SMSE-v1 is
+\begin{equation}
+\Delta t
+\le
+\mathcal{C}_{\mathrm{CFL}}
+\left[
+\max_i
+\left(
+\frac{
+|\lambda_{+,i}| + |\lambda_{-,i}|
+}{
+\Delta x^i
+}
+\right)
+\right]^{-1},
+\end{equation}
+with $\mathcal{C}_{\mathrm{CFL}} \in (0,1)$ a safety factor and $\Delta x^i$
+the coordinate cell widths.
+
+This eigenstructure underpins the HLLE flux construction, CFL enforcement,
+and stability guarantees of the SMSE-v1 GRMHD solver.
