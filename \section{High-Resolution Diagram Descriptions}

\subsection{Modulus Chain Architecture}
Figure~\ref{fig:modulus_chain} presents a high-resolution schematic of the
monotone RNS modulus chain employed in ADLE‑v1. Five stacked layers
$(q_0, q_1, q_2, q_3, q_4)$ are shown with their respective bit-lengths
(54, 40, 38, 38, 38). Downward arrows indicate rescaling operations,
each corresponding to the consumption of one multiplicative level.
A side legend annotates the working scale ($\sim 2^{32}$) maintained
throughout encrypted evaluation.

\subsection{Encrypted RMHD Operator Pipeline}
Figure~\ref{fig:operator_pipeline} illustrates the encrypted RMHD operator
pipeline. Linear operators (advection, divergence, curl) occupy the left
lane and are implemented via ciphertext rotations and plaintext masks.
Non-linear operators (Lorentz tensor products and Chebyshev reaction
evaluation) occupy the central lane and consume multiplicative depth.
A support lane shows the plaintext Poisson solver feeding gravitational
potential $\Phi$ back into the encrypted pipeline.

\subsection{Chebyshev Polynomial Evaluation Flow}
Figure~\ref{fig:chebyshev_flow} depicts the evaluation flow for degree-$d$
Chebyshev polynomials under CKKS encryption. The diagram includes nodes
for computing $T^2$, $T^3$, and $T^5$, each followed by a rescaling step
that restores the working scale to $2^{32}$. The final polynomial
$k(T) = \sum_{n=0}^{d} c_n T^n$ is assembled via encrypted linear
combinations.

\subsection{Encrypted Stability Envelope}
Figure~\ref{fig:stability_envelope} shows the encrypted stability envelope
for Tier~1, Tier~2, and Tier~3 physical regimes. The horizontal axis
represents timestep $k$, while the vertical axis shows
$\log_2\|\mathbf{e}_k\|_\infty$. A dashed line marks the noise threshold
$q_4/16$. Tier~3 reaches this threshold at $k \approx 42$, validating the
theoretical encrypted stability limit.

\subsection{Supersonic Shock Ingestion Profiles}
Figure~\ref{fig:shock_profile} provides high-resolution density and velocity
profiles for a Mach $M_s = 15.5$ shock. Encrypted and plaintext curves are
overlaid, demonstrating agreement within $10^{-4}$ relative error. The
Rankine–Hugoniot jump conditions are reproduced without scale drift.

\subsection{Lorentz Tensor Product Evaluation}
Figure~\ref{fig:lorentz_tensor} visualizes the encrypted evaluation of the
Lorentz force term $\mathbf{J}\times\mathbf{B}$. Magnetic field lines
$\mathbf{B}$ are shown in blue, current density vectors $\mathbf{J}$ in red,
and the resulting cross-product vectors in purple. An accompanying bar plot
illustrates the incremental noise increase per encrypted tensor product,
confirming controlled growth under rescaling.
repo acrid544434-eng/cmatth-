@@ -1,0 +1,49 @@
+\section{High-Resolution Diagram Descriptions}
+
+\subsection{Modulus Chain Architecture}
+Figure~\ref{fig:modulus_chain} presents a high-resolution schematic of the
+monotone RNS modulus chain employed in ADLE‑v1. Five stacked layers
+$(q_0, q_1, q_2, q_3, q_4)$ are shown with their respective bit-lengths
+(54, 40, 38, 38, 38). Downward arrows indicate rescaling operations,
+each corresponding to the consumption of one multiplicative level.
+A side legend annotates the working scale ($\sim 2^{32}$) maintained
+throughout encrypted evaluation.
+
+\subsection{Encrypted RMHD Operator Pipeline}
+Figure~\ref{fig:operator_pipeline} illustrates the encrypted RMHD operator
+pipeline. Linear operators (advection, divergence, curl) occupy the left
+lane and are implemented via ciphertext rotations and plaintext masks.
+Non-linear operators (Lorentz tensor products and Chebyshev reaction
+evaluation) occupy the central lane and consume multiplicative depth.
+A support lane shows the plaintext Poisson solver feeding gravitational
+potential $\Phi$ back into the encrypted pipeline.
+
+\subsection{Chebyshev Polynomial Evaluation Flow}
+Figure~\ref{fig:chebyshev_flow} depicts the evaluation flow for degree-$d$
+Chebyshev polynomials under CKKS encryption. The diagram includes nodes
+for computing $T^2$, $T^3$, and $T^5$, each followed by a rescaling step
+that restores the working scale to $2^{32}$. The final polynomial
+$k(T) = \sum_{n=0}^{d} c_n T^n$ is assembled via encrypted linear
+combinations.
+
+\subsection{Encrypted Stability Envelope}
+Figure~\ref{fig:stability_envelope} shows the encrypted stability envelope
+for Tier~1, Tier~2, and Tier~3 physical regimes. The horizontal axis
+represents timestep $k$, while the vertical axis shows
+$\log_2\|\mathbf{e}_k\|_\infty$. A dashed line marks the noise threshold
+$q_4/16$. Tier~3 reaches this threshold at $k \approx 42$, validating the
+theoretical encrypted stability limit.
+
+\subsection{Supersonic Shock Ingestion Profiles}
+Figure~\ref{fig:shock_profile} provides high-resolution density and velocity
+profiles for a Mach $M_s = 15.5$ shock. Encrypted and plaintext curves are
+overlaid, demonstrating agreement within $10^{-4}$ relative error. The
+Rankine–Hugoniot jump conditions are reproduced without scale drift.
+
+\subsection{Lorentz Tensor Product Evaluation}
+Figure~\ref{fig:lorentz_tensor} visualizes the encrypted evaluation of the
+Lorentz force term $\mathbf{J}\times\mathbf{B}$. Magnetic field lines
+$\mathbf{B}$ are shown in blue, current density vectors $\mathbf{J}$ in red,
+and the resulting cross-product vectors in purple. An accompanying bar plot
+illustrates the incremental noise increase per encrypted tensor product,
+confirming controlled growth under rescaling.
