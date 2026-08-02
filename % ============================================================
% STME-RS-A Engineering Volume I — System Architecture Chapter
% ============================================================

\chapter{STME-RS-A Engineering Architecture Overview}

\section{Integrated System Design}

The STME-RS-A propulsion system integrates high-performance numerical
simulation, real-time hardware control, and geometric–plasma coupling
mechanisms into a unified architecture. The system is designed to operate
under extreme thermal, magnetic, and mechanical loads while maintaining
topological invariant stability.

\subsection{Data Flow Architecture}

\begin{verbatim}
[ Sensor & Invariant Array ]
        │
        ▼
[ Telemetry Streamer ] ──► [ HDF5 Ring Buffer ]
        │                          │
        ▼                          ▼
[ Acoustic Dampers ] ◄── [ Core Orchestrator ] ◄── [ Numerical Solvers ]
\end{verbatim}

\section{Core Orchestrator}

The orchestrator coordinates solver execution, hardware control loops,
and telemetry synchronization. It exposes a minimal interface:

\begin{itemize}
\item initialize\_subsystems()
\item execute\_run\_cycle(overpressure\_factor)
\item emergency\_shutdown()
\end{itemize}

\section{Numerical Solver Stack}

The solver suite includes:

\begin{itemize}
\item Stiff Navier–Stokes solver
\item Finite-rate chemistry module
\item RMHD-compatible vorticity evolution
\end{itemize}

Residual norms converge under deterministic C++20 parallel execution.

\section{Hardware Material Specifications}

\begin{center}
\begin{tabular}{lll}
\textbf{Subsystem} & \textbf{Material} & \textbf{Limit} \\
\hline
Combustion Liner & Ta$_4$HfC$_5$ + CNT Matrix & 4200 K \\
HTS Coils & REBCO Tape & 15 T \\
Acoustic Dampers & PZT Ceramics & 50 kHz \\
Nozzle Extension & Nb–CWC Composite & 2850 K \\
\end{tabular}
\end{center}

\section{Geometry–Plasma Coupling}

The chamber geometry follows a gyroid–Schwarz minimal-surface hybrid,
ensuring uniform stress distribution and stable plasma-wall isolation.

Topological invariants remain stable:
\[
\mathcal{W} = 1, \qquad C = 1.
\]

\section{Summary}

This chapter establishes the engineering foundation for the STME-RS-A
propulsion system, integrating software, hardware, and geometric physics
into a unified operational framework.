@@ -1,0 +1,77 @@
+% ============================================================
+% STME-RS-A Engineering Volume I — System Architecture Chapter
+% ============================================================
+
+\chapter{STME-RS-A Engineering Architecture Overview}
+
+\section{Integrated System Design}
+
+The STME-RS-A propulsion system integrates high-performance numerical
+simulation, real-time hardware control, and geometric–plasma coupling
+mechanisms into a unified architecture. The system is designed to operate
+under extreme thermal, magnetic, and mechanical loads while maintaining
+topological invariant stability.
+
+\subsection{Data Flow Architecture}
+
+\begin{verbatim}
+[ Sensor & Invariant Array ]
+        │
+        ▼
+[ Telemetry Streamer ] ──► [ HDF5 Ring Buffer ]
+        │                          │
+        ▼                          ▼
+[ Acoustic Dampers ] ◄── [ Core Orchestrator ] ◄── [ Numerical Solvers ]
+\end{verbatim}
+
+\section{Core Orchestrator}
+
+The orchestrator coordinates solver execution, hardware control loops,
+and telemetry synchronization. It exposes a minimal interface:
+
+\begin{itemize}
+\item initialize\_subsystems()
+\item execute\_run\_cycle(overpressure\_factor)
+\item emergency\_shutdown()
+\end{itemize}
+
+\section{Numerical Solver Stack}
+
+The solver suite includes:
+
+\begin{itemize}
+\item Stiff Navier–Stokes solver
+\item Finite-rate chemistry module
+\item RMHD-compatible vorticity evolution
+\end{itemize}
+
+Residual norms converge under deterministic C++20 parallel execution.
+
+\section{Hardware Material Specifications}
+
+\begin{center}
+\begin{tabular}{lll}
+\textbf{Subsystem} & \textbf{Material} & \textbf{Limit} \\
+\hline
+Combustion Liner & Ta$_4$HfC$_5$ + CNT Matrix & 4200 K \\
+HTS Coils & REBCO Tape & 15 T \\
+Acoustic Dampers & PZT Ceramics & 50 kHz \\
+Nozzle Extension & Nb–CWC Composite & 2850 K \\
+\end{tabular}
+\end{center}
+
+\section{Geometry–Plasma Coupling}
+
+The chamber geometry follows a gyroid–Schwarz minimal-surface hybrid,
+ensuring uniform stress distribution and stable plasma-wall isolation.
+
+Topological invariants remain stable:
+\[
+\mathcal{W} = 1, \qquad C = 1.
+\]
+
+\section{Summary}
+
+This chapter establishes the engineering foundation for the STME-RS-A
+propulsion system, integrating software, hardware, and geometric physics
+into a unified operational framework.
