@@ -1,0 +1,140 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\title{\textbf{Sovereign Multiphysics Astrophysical Engine (SMSE-v1):}\\
+Mathematical Formulation, Numerical Methods, and Dataset Sovereignty}
+
+\author{C.~Matthew~Blackwell\\
+Independent Scientific Design \& Computational Architecture}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present the mathematical framework, numerical algorithms, and sovereign
+data architecture for the \emph{Sovereign Multiphysics Astrophysical Engine}
+(SMSE-v1). Designed for petascale cluster deployment on modern hardware
+accelerators, SMSE-v1 unifies General Relativistic Magnetohydrodynamics
+(GRMHD), adaptive mesh refinement (AMR) octree hierarchies, and cryptographic
+provenance ledgers into a single deterministic computing substrate. This paper
+details the covariant formulation of spacetime metric tensors, the conservation
+laws governing relativistic fluid dynamics, the non-linear primitive recovery
+schemes, and the hardware-accelerated memory fabrics required to maintain
+absolute computational sovereignty.
+\end{abstract}
+
+\section{Introduction and Covariant Foundations}
+
+Astrophysical phenomena involving extreme gravitational fields require a fully
+covariant treatment of spacetime and plasma dynamics. SMSE-v1 models these
+systems using the $3+1$ ADM formalism of General Relativity.
+
+The spacetime interval is
+\begin{equation}
+ds^2 = g_{\mu\nu} dx^\mu dx^\nu,
+\end{equation}
+with the $3+1$ decomposition
+\begin{equation}
+ds^2 = -\alpha^2 dt^2
++ \gamma_{ij} (dx^i + \beta^i dt)(dx^j + \beta^j dt),
+\end{equation}
+where $\alpha$ is the lapse, $\beta^i$ the shift vector, and $\gamma_{ij}$ the
+spatial metric.
+
+\section{Governing Equations of GRMHD}
+
+Relativistic magnetized plasmas obey the conservation laws
+\begin{align}
+\nabla_\mu (\rho u^\mu) &= 0,\\
+\nabla_\mu T^{\mu\nu} &= 0,
+\end{align}
+where $\rho$ is rest-mass density and $u^\mu$ the fluid 4-velocity.
+
+The GRMHD energy-momentum tensor is
+\begin{equation}
+T^{\mu\nu}
+=
+(\rho h + b^2) u^\mu u^\nu
++
+\left(p + \frac{b^2}{2}\right) g^{\mu\nu}
+-
+b^\mu b^\nu,
+\end{equation}
+with specific enthalpy
+\begin{equation}
+h = 1 + \frac{\epsilon}{c^2} + \frac{p}{\rho c^2}.
+\end{equation}
+
+\section{Numerical Discretization and HLLE Riemann Solvers}
+
+SMSE-v1 employs high-resolution shock-capturing (HRSC) Godunov methods with
+piecewise parabolic reconstruction (PPM). Numerical fluxes at cell interfaces
+use the HLLE approximation:
+\begin{equation}
+F_{\mathrm{HLLE}}
+=
+\frac{
+a_R F_L - a_L F_R + a_L a_R (U_R - U_L)
+}{
+a_R - a_L
+},
+\end{equation}
+where $a_L$ and $a_R$ bound the characteristic wave speeds.
+
+\section{Non-Linear Conservative-to-Primitive Recovery}
+
+Time integration evolves conserved variables
+\[
+U = (D, S_i, \tau, B_i),
+\]
+requiring recovery of primitive variables
+\[
+P = (\rho, p, v^i, B^i).
+\]
+
+We define the pressure residual
+\begin{equation}
+f(p)
+=
+\rho h(p) W^2(p)
+-
+p
+-
+\frac{b^2}{2}
+-
+D
+-
+\tau,
+\end{equation}
+where the Lorentz factor is
+\begin{equation}
+W = \frac{1}{\sqrt{1 - v^2}}.
+\end{equation}
+
+A damped Newton--Raphson method solves $f(p)=0$ with fallback under
+superluminal velocity conditions.
+
+\section{Dataset Sovereignty and Cryptographic Provenance}
+
+SMSE-v1 enforces an append-only sovereign binary format (.SMSE-SAF). Each
+snapshot is cryptographically fingerprinted:
+\begin{equation}
+h_n = \mathrm{SHA3\_512}(\mathrm{payload}_n),
+\end{equation}
+ensuring deterministic reproducibility and immediate detection of any
+bit-level drift or unauthorized modification.
+
+\section{Conclusion}
+
+SMSE-v1 bridges covariant mathematics with petascale hardware acceleration.
+By combining divergence-free conservation, robust non-linear inversions, and
+cryptographic data sovereignty, the framework establishes a future-proof
+foundation for computational astrophysics.
+
+\end{document}
