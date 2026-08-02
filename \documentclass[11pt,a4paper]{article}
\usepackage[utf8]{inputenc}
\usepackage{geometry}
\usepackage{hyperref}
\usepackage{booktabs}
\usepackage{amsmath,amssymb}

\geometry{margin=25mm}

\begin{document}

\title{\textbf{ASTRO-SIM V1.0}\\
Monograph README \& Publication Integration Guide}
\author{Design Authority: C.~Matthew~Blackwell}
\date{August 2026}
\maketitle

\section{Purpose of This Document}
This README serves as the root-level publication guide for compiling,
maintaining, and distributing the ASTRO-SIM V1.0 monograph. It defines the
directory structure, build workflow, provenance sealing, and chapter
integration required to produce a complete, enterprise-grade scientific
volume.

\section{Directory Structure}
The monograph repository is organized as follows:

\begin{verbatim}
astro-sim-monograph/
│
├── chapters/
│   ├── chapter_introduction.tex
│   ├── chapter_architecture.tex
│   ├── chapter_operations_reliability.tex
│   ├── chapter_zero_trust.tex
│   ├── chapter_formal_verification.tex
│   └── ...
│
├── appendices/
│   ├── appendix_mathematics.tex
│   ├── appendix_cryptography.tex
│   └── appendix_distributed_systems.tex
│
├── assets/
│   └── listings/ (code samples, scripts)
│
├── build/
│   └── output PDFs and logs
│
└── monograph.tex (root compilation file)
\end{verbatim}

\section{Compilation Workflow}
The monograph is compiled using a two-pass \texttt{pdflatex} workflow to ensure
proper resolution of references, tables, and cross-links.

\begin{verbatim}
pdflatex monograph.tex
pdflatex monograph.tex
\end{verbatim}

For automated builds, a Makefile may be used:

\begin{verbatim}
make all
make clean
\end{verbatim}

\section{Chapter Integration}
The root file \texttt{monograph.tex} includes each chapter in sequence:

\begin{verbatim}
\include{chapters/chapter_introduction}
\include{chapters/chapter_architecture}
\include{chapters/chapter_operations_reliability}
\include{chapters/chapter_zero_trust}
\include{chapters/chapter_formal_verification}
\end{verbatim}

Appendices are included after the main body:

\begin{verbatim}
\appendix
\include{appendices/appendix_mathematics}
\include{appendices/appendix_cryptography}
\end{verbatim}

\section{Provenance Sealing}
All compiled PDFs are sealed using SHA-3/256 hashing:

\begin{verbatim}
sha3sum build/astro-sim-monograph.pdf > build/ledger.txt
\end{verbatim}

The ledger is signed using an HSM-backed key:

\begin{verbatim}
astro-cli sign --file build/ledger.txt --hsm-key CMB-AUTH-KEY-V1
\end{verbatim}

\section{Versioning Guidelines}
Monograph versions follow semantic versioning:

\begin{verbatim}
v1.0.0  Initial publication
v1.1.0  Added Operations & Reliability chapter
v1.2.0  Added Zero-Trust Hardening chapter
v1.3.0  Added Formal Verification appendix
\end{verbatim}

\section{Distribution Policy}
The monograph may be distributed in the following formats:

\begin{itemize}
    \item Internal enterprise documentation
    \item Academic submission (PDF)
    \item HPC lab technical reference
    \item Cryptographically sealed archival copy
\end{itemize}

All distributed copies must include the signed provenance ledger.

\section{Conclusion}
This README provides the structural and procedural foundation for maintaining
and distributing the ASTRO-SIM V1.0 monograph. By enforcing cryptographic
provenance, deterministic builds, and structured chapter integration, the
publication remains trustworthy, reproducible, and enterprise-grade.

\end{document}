@@ -1,0 +1,129 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+
+\geometry{margin=25mm}
+
+\begin{document}
+
+\title{\textbf{ASTRO-SIM V1.0}\\
+Monograph README \& Publication Integration Guide}
+\author{Design Authority: C.~Matthew~Blackwell}
+\date{August 2026}
+\maketitle
+
+\section{Purpose of This Document}
+This README serves as the root-level publication guide for compiling,
+maintaining, and distributing the ASTRO-SIM V1.0 monograph. It defines the
+directory structure, build workflow, provenance sealing, and chapter
+integration required to produce a complete, enterprise-grade scientific
+volume.
+
+\section{Directory Structure}
+The monograph repository is organized as follows:
+
+\begin{verbatim}
+astro-sim-monograph/
+│
+├── chapters/
+│   ├── chapter_introduction.tex
+│   ├── chapter_architecture.tex
+│   ├── chapter_operations_reliability.tex
+│   ├── chapter_zero_trust.tex
+│   ├── chapter_formal_verification.tex
+│   └── ...
+│
+├── appendices/
+│   ├── appendix_mathematics.tex
+│   ├── appendix_cryptography.tex
+│   └── appendix_distributed_systems.tex
+│
+├── assets/
+│   └── listings/ (code samples, scripts)
+│
+├── build/
+│   └── output PDFs and logs
+│
+└── monograph.tex (root compilation file)
+\end{verbatim}
+
+\section{Compilation Workflow}
+The monograph is compiled using a two-pass \texttt{pdflatex} workflow to ensure
+proper resolution of references, tables, and cross-links.
+
+\begin{verbatim}
+pdflatex monograph.tex
+pdflatex monograph.tex
+\end{verbatim}
+
+For automated builds, a Makefile may be used:
+
+\begin{verbatim}
+make all
+make clean
+\end{verbatim}
+
+\section{Chapter Integration}
+The root file \texttt{monograph.tex} includes each chapter in sequence:
+
+\begin{verbatim}
+\include{chapters/chapter_introduction}
+\include{chapters/chapter_architecture}
+\include{chapters/chapter_operations_reliability}
+\include{chapters/chapter_zero_trust}
+\include{chapters/chapter_formal_verification}
+\end{verbatim}
+
+Appendices are included after the main body:
+
+\begin{verbatim}
+\appendix
+\include{appendices/appendix_mathematics}
+\include{appendices/appendix_cryptography}
+\end{verbatim}
+
+\section{Provenance Sealing}
+All compiled PDFs are sealed using SHA-3/256 hashing:
+
+\begin{verbatim}
+sha3sum build/astro-sim-monograph.pdf > build/ledger.txt
+\end{verbatim}
+
+The ledger is signed using an HSM-backed key:
+
+\begin{verbatim}
+astro-cli sign --file build/ledger.txt --hsm-key CMB-AUTH-KEY-V1
+\end{verbatim}
+
+\section{Versioning Guidelines}
+Monograph versions follow semantic versioning:
+
+\begin{verbatim}
+v1.0.0  Initial publication
+v1.1.0  Added Operations & Reliability chapter
+v1.2.0  Added Zero-Trust Hardening chapter
+v1.3.0  Added Formal Verification appendix
+\end{verbatim}
+
+\section{Distribution Policy}
+The monograph may be distributed in the following formats:
+
+\begin{itemize}
+    \item Internal enterprise documentation
+    \item Academic submission (PDF)
+    \item HPC lab technical reference
+    \item Cryptographically sealed archival copy
+\end{itemize}
+
+All distributed copies must include the signed provenance ledger.
+
+\section{Conclusion}
+This README provides the structural and procedural foundation for maintaining
+and distributing the ASTRO-SIM V1.0 monograph. By enforcing cryptographic
+provenance, deterministic builds, and structured chapter integration, the
+publication remains trustworthy, reproducible, and enterprise-grade.
+
+\end{document}
