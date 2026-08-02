@@ -1,0 +1,87 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FIGURE: SMSE-v1 LABORATORY EXECUTION ARCHITECTURE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=1.4cm, scale=1.05]
+
+% Styles
+\tikzstyle{block} = [draw, thick, rounded corners, minimum width=4.8cm,
+                     minimum height=1.2cm, align=center, fill=gray!10]
+\tikzstyle{smallblock} = [draw, thick, rounded corners, minimum width=3.8cm,
+                          minimum height=1.0cm, align=center, fill=gray!5]
+\tikzstyle{arrow} = [->, thick]
+
+% TOP: Physics Layer
+\node[block, fill=blue!10] (physics)
+{\textbf{Covariant GRMHD}\\
+\small ADM 3+1, $T^{\mu\nu}$, $\nabla_\mu T^{\mu\nu}=0$};
+
+% NUMERICAL LAYER
+\node[block, fill=green!10, below=1.6cm of physics] (numerics)
+{\textbf{Numerical Solvers}\\
+\small PPM, HLLE, CFL, Con2Prim};
+
+\node[smallblock, fill=green!5, below left=0.8cm and 0.5cm of numerics]
+(num1) {PPM Reconstruction};
+
+\node[smallblock, fill=green!5, below right=0.8cm and 0.5cm of numerics]
+(num2) {HLLE Fluxes};
+
+\draw[arrow] (numerics) -- (num1);
+\draw[arrow] (numerics) -- (num2);
+
+% HARDWARE LAYER
+\node[block, fill=purple!10, below=3.2cm of physics] (hardware)
+{\textbf{Blackwell/GB200 Hardware}\\
+\small TMEM, FP4/FP8, NVLink-5, NVSwitch};
+
+\node[smallblock, fill=purple!5, below left=0.8cm and 0.5cm of hardware]
+(hw1) {TMEM Tiling};
+
+\node[smallblock, fill=purple!5, below right=0.8cm and 0.5cm of hardware]
+(hw2) {FP4/FP8 Compression};
+
+\draw[arrow] (hardware) -- (hw1);
+\draw[arrow] (hardware) -- (hw2);
+
+% DATA SOVEREIGNTY LAYER
+\node[block, fill=red!10, below=3.2cm of numerics] (data)
+{\textbf{Data Sovereignty}\\
+\small SMSE-SAF, SHA3-512, Append-only Ledger};
+
+\node[smallblock, fill=red!5, below left=0.8cm and 0.5cm of data]
+(ds1) {SMSE-SAF Format};
+
+\node[smallblock, fill=red!5, below right=0.8cm and 0.5cm of data]
+(ds2) {SHA3-512 Verification};
+
+\draw[arrow] (data) -- (ds1);
+\draw[arrow] (data) -- (ds2);
+
+% CENTRAL EXECUTION ENGINE
+\node[block, fill=gray!25, below=3.5cm of hardware, minimum width=12cm]
+(engine)
+{\textbf{SMSE-v1 Laboratory Execution Engine}\\
+\small Deterministic GRMHD + AMR + Hardware Co-Design + Sovereign Ledger};
+
+% Arrows from physics to numerics
+\draw[arrow] (physics.south) -- (numerics.north);
+
+% Arrows from numerics to hardware
+\draw[arrow] (numerics.south) -- (hardware.north);
+
+% Arrows from numerics to data
+\draw[arrow] (numerics.south east) -- (data.north west);
+
+% Arrows from hardware and data to engine
+\draw[arrow] (hardware.south) -- (engine.north west);
+\draw[arrow] (data.south) -- (engine.north east);
+
+\end{tikzpicture}
+
+\caption{SMSE-v1 laboratory execution architecture, showing the interaction
+between covariant GRMHD physics, numerical solvers, Blackwell-class hardware
+kernels, and sovereign data provenance systems.}
+\end{figure}
