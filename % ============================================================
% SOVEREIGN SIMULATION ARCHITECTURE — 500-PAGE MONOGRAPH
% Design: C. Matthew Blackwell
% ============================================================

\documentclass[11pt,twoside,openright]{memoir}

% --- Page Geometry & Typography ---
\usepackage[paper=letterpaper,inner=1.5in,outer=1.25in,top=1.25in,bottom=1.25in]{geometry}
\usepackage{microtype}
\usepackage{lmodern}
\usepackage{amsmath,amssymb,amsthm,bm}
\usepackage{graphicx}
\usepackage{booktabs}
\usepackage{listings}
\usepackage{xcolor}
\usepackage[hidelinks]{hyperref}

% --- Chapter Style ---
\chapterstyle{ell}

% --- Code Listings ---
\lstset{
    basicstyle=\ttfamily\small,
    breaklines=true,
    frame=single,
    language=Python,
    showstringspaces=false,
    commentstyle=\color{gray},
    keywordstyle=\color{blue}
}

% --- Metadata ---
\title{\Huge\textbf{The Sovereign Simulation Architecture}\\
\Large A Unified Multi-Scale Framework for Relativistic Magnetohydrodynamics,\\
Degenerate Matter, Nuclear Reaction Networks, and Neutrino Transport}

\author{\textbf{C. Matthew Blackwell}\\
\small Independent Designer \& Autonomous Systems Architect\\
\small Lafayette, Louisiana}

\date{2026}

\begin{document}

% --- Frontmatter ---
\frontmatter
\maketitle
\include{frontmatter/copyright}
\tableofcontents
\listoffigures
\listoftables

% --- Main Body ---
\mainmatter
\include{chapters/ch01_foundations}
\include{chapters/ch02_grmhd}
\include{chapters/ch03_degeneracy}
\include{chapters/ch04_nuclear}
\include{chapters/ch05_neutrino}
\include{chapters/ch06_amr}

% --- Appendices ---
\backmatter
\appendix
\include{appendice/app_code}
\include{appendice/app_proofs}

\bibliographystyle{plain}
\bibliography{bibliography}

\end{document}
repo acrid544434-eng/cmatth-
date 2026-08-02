@@ -1,0 +1,72 @@
+% ============================================================
+% SOVEREIGN SIMULATION ARCHITECTURE — 500-PAGE MONOGRAPH
+% Design: C. Matthew Blackwell
+% ============================================================
+
+\documentclass[11pt,twoside,openright]{memoir}
+
+% --- Page Geometry & Typography ---
+\usepackage[paper=letterpaper,inner=1.5in,outer=1.25in,top=1.25in,bottom=1.25in]{geometry}
+\usepackage{microtype}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+% --- Chapter Style ---
+\chapterstyle{ell}
+
+% --- Code Listings ---
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    language=Python,
+    showstringspaces=false,
+    commentstyle=\color{gray},
+    keywordstyle=\color{blue}
+}
+
+% --- Metadata ---
+\title{\Huge\textbf{The Sovereign Simulation Architecture}\\
+\Large A Unified Multi-Scale Framework for Relativistic Magnetohydrodynamics,\\
+Degenerate Matter, Nuclear Reaction Networks, and Neutrino Transport}
+
+\author{\textbf{C. Matthew Blackwell}\\
+\small Independent Designer \& Autonomous Systems Architect\\
+\small Lafayette, Louisiana}
+
+\date{2026}
+
+\begin{document}
+
+% --- Frontmatter ---
+\frontmatter
+\maketitle
+\include{frontmatter/copyright}
+\tableofcontents
+\listoffigures
+\listoftables
+
+% --- Main Body ---
+\mainmatter
+\include{chapters/ch01_foundations}
+\include{chapters/ch02_grmhd}
+\include{chapters/ch03_degeneracy}
+\include{chapters/ch04_nuclear}
+\include{chapters/ch05_neutrino}
+\include{chapters/ch06_amr}
+
+% --- Appendices ---
+\backmatter
+\appendix
+\include{appendice/app_code}
+\include{appendice/app_proofs}
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+\end{document}
