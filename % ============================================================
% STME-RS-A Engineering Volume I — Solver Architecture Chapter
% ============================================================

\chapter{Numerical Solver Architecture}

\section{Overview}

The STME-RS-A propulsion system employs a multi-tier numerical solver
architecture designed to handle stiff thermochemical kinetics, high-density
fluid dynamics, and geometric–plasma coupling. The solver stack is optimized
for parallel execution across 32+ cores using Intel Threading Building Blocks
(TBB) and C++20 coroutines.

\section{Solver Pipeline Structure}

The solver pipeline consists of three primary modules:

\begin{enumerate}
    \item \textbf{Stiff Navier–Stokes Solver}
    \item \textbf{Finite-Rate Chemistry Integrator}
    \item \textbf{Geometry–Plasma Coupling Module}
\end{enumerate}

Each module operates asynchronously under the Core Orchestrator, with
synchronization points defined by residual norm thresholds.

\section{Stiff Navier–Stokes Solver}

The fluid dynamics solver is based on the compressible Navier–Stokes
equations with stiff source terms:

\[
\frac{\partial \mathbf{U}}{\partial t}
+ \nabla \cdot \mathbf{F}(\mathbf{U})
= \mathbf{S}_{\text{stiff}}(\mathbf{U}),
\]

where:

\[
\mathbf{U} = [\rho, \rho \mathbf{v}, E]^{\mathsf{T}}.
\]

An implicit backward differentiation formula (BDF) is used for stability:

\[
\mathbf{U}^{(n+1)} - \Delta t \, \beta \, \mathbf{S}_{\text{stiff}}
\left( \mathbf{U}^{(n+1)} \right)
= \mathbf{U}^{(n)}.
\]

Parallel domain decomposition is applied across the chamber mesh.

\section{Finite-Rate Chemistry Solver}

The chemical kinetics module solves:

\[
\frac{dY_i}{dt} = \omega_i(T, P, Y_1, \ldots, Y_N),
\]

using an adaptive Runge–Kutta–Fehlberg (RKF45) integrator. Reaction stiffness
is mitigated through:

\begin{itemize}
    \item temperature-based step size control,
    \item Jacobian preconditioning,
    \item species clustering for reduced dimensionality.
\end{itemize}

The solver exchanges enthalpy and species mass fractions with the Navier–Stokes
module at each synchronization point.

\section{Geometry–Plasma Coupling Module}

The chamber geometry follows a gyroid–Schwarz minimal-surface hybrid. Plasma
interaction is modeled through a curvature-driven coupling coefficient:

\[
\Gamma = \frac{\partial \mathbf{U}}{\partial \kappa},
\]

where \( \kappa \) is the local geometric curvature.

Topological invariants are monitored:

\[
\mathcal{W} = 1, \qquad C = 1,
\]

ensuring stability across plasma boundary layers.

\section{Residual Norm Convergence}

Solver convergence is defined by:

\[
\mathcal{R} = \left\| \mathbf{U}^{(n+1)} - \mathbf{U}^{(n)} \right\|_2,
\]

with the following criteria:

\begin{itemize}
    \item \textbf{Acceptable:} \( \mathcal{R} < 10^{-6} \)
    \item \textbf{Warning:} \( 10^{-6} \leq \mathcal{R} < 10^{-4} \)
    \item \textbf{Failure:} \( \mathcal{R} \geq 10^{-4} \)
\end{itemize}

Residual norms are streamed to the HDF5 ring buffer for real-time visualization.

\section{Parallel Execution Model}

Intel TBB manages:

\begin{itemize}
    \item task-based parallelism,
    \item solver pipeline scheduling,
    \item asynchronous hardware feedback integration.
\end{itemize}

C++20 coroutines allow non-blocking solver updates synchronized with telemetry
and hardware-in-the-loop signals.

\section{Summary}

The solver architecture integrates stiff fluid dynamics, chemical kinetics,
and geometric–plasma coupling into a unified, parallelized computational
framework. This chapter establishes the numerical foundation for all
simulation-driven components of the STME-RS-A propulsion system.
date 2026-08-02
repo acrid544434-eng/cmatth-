@@ -1,0 +1,130 @@
+% ============================================================
+% STME-RS-A Engineering Volume I — Solver Architecture Chapter
+% ============================================================
+
+\chapter{Numerical Solver Architecture}
+
+\section{Overview}
+
+The STME-RS-A propulsion system employs a multi-tier numerical solver
+architecture designed to handle stiff thermochemical kinetics, high-density
+fluid dynamics, and geometric–plasma coupling. The solver stack is optimized
+for parallel execution across 32+ cores using Intel Threading Building Blocks
+(TBB) and C++20 coroutines.
+
+\section{Solver Pipeline Structure}
+
+The solver pipeline consists of three primary modules:
+
+\begin{enumerate}
+    \item \textbf{Stiff Navier–Stokes Solver}
+    \item \textbf{Finite-Rate Chemistry Integrator}
+    \item \textbf{Geometry–Plasma Coupling Module}
+\end{enumerate}
+
+Each module operates asynchronously under the Core Orchestrator, with
+synchronization points defined by residual norm thresholds.
+
+\section{Stiff Navier–Stokes Solver}
+
+The fluid dynamics solver is based on the compressible Navier–Stokes
+equations with stiff source terms:
+
+\[
+\frac{\partial \mathbf{U}}{\partial t}
++ \nabla \cdot \mathbf{F}(\mathbf{U})
+= \mathbf{S}_{\text{stiff}}(\mathbf{U}),
+\]
+
+where:
+
+\[
+\mathbf{U} = [\rho, \rho \mathbf{v}, E]^{\mathsf{T}}.
+\]
+
+An implicit backward differentiation formula (BDF) is used for stability:
+
+\[
+\mathbf{U}^{(n+1)} - \Delta t \, \beta \, \mathbf{S}_{\text{stiff}}
+\left( \mathbf{U}^{(n+1)} \right)
+= \mathbf{U}^{(n)}.
+\]
+
+Parallel domain decomposition is applied across the chamber mesh.
+
+\section{Finite-Rate Chemistry Solver}
+
+The chemical kinetics module solves:
+
+\[
+\frac{dY_i}{dt} = \omega_i(T, P, Y_1, \ldots, Y_N),
+\]
+
+using an adaptive Runge–Kutta–Fehlberg (RKF45) integrator. Reaction stiffness
+is mitigated through:
+
+\begin{itemize}
+    \item temperature-based step size control,
+    \item Jacobian preconditioning,
+    \item species clustering for reduced dimensionality.
+\end{itemize}
+
+The solver exchanges enthalpy and species mass fractions with the Navier–Stokes
+module at each synchronization point.
+
+\section{Geometry–Plasma Coupling Module}
+
+The chamber geometry follows a gyroid–Schwarz minimal-surface hybrid. Plasma
+interaction is modeled through a curvature-driven coupling coefficient:
+
+\[
+\Gamma = \frac{\partial \mathbf{U}}{\partial \kappa},
+\]
+
+where \( \kappa \) is the local geometric curvature.
+
+Topological invariants are monitored:
+
+\[
+\mathcal{W} = 1, \qquad C = 1,
+\]
+
+ensuring stability across plasma boundary layers.
+
+\section{Residual Norm Convergence}
+
+Solver convergence is defined by:
+
+\[
+\mathcal{R} = \left\| \mathbf{U}^{(n+1)} - \mathbf{U}^{(n)} \right\|_2,
+\]
+
+with the following criteria:
+
+\begin{itemize}
+    \item \textbf{Acceptable:} \( \mathcal{R} < 10^{-6} \)
+    \item \textbf{Warning:} \( 10^{-6} \leq \mathcal{R} < 10^{-4} \)
+    \item \textbf{Failure:} \( \mathcal{R} \geq 10^{-4} \)
+\end{itemize}
+
+Residual norms are streamed to the HDF5 ring buffer for real-time visualization.
+
+\section{Parallel Execution Model}
+
+Intel TBB manages:
+
+\begin{itemize}
+    \item task-based parallelism,
+    \item solver pipeline scheduling,
+    \item asynchronous hardware feedback integration.
+\end{itemize}
+
+C++20 coroutines allow non-blocking solver updates synchronized with telemetry
+and hardware-in-the-loop signals.
+
+\section{Summary}
+
+The solver architecture integrates stiff fluid dynamics, chemical kinetics,
+and geometric–plasma coupling into a unified, parallelized computational
+framework. This chapter establishes the numerical foundation for all
+simulation-driven components of the STME-RS-A propulsion system.
