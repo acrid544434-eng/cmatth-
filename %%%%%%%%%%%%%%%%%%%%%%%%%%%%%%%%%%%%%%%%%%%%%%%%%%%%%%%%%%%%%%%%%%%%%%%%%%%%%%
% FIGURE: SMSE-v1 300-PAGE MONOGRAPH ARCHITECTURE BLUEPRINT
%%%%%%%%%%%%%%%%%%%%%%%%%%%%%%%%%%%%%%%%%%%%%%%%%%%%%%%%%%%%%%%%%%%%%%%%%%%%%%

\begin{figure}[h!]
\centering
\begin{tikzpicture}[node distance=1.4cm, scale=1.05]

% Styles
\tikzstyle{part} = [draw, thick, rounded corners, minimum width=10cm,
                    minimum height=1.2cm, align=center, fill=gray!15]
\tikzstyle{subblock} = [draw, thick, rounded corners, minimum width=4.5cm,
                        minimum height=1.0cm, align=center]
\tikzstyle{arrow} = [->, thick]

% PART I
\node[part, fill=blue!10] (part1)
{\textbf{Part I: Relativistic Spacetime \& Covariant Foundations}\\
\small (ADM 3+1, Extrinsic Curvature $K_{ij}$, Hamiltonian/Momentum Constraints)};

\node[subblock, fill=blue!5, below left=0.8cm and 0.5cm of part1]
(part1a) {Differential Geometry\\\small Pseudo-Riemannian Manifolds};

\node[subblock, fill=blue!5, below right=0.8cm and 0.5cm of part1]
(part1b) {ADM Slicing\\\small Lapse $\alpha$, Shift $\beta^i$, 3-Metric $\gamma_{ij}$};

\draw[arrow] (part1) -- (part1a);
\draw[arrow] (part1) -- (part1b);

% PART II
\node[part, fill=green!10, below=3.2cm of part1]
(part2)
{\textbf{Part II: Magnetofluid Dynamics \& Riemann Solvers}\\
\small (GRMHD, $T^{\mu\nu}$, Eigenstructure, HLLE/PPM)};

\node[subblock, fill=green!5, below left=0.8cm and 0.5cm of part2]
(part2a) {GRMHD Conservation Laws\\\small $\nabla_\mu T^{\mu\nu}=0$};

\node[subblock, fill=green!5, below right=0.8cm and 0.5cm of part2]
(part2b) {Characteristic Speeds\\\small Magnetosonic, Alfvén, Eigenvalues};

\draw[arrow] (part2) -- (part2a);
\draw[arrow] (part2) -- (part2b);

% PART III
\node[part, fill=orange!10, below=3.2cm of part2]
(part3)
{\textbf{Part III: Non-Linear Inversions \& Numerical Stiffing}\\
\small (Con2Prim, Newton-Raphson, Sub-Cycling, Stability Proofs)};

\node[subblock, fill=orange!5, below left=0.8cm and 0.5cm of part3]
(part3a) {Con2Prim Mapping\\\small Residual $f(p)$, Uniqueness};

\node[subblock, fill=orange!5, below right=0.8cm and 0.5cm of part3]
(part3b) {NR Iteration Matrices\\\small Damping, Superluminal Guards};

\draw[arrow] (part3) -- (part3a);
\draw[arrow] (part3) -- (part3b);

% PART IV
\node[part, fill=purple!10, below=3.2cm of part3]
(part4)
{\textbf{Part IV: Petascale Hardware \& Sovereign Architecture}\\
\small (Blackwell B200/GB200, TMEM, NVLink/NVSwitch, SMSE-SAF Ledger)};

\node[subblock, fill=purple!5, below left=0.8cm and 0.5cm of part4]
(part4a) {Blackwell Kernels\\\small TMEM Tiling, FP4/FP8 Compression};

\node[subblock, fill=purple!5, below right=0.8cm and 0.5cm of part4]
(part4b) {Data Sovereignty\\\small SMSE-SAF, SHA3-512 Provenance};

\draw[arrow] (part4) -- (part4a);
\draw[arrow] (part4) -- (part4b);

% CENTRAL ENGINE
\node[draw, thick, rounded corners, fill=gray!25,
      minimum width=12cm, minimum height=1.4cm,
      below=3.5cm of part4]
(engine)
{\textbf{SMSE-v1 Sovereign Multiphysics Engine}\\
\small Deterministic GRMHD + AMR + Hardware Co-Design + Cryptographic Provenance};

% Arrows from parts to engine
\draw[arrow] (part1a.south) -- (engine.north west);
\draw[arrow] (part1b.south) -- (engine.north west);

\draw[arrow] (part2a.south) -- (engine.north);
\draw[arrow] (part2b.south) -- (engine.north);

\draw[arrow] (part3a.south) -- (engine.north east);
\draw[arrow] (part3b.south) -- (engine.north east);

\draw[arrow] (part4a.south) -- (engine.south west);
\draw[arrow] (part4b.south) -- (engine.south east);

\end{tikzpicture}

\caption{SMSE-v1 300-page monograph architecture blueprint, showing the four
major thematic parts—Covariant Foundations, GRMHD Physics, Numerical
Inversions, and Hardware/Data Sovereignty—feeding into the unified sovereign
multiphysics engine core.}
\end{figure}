@@ -1,0 +1,102 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FIGURE: SMSE-v1 300-PAGE MONOGRAPH ARCHITECTURE BLUEPRINT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=1.4cm, scale=1.05]
+
+% Styles
+\tikzstyle{part} = [draw, thick, rounded corners, minimum width=10cm,
+                    minimum height=1.2cm, align=center, fill=gray!15]
+\tikzstyle{subblock} = [draw, thick, rounded corners, minimum width=4.5cm,
+                        minimum height=1.0cm, align=center]
+\tikzstyle{arrow} = [->, thick]
+
+% PART I
+\node[part, fill=blue!10] (part1)
+{\textbf{Part I: Relativistic Spacetime \& Covariant Foundations}\\
+\small (ADM 3+1, Extrinsic Curvature $K_{ij}$, Hamiltonian/Momentum Constraints)};
+
+\node[subblock, fill=blue!5, below left=0.8cm and 0.5cm of part1]
+(part1a) {Differential Geometry\\\small Pseudo-Riemannian Manifolds};
+
+\node[subblock, fill=blue!5, below right=0.8cm and 0.5cm of part1]
+(part1b) {ADM Slicing\\\small Lapse $\alpha$, Shift $\beta^i$, 3-Metric $\gamma_{ij}$};
+
+\draw[arrow] (part1) -- (part1a);
+\draw[arrow] (part1) -- (part1b);
+
+% PART II
+\node[part, fill=green!10, below=3.2cm of part1]
+(part2)
+{\textbf{Part II: Magnetofluid Dynamics \& Riemann Solvers}\\
+\small (GRMHD, $T^{\mu\nu}$, Eigenstructure, HLLE/PPM)};
+
+\node[subblock, fill=green!5, below left=0.8cm and 0.5cm of part2]
+(part2a) {GRMHD Conservation Laws\\\small $\nabla_\mu T^{\mu\nu}=0$};
+
+\node[subblock, fill=green!5, below right=0.8cm and 0.5cm of part2]
+(part2b) {Characteristic Speeds\\\small Magnetosonic, Alfvén, Eigenvalues};
+
+\draw[arrow] (part2) -- (part2a);
+\draw[arrow] (part2) -- (part2b);
+
+% PART III
+\node[part, fill=orange!10, below=3.2cm of part2]
+(part3)
+{\textbf{Part III: Non-Linear Inversions \& Numerical Stiffing}\\
+\small (Con2Prim, Newton-Raphson, Sub-Cycling, Stability Proofs)};
+
+\node[subblock, fill=orange!5, below left=0.8cm and 0.5cm of part3]
+(part3a) {Con2Prim Mapping\\\small Residual $f(p)$, Uniqueness};
+
+\node[subblock, fill=orange!5, below right=0.8cm and 0.5cm of part3]
+(part3b) {NR Iteration Matrices\\\small Damping, Superluminal Guards};
+
+\draw[arrow] (part3) -- (part3a);
+\draw[arrow] (part3) -- (part3b);
+
+% PART IV
+\node[part, fill=purple!10, below=3.2cm of part3]
+(part4)
+{\textbf{Part IV: Petascale Hardware \& Sovereign Architecture}\\
+\small (Blackwell B200/GB200, TMEM, NVLink/NVSwitch, SMSE-SAF Ledger)};
+
+\node[subblock, fill=purple!5, below left=0.8cm and 0.5cm of part4]
+(part4a) {Blackwell Kernels\\\small TMEM Tiling, FP4/FP8 Compression};
+
+\node[subblock, fill=purple!5, below right=0.8cm and 0.5cm of part4]
+(part4b) {Data Sovereignty\\\small SMSE-SAF, SHA3-512 Provenance};
+
+\draw[arrow] (part4) -- (part4a);
+\draw[arrow] (part4) -- (part4b);
+
+% CENTRAL ENGINE
+\node[draw, thick, rounded corners, fill=gray!25,
+      minimum width=12cm, minimum height=1.4cm,
+      below=3.5cm of part4]
+(engine)
+{\textbf{SMSE-v1 Sovereign Multiphysics Engine}\\
+\small Deterministic GRMHD + AMR + Hardware Co-Design + Cryptographic Provenance};
+
+% Arrows from parts to engine
+\draw[arrow] (part1a.south) -- (engine.north west);
+\draw[arrow] (part1b.south) -- (engine.north west);
+
+\draw[arrow] (part2a.south) -- (engine.north);
+\draw[arrow] (part2b.south) -- (engine.north);
+
+\draw[arrow] (part3a.south) -- (engine.north east);
+\draw[arrow] (part3b.south) -- (engine.north east);
+
+\draw[arrow] (part4a.south) -- (engine.south west);
+\draw[arrow] (part4b.south) -- (engine.south east);
+
+\end{tikzpicture}
+
+\caption{SMSE-v1 300-page monograph architecture blueprint, showing the four
+major thematic parts—Covariant Foundations, GRMHD Physics, Numerical
+Inversions, and Hardware/Data Sovereignty—feeding into the unified sovereign
+multiphysics engine core.}
+\end{figure}
