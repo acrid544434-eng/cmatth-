@@ -1,0 +1,162 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{cite}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\leftmark}
+\lhead{C. M. Blackwell}
+\rfoot{Page \thepage}
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+
+\lstset{
+    frame=tb,
+    language=Python,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    stepnumber=1,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3
+}
+
+\title{\textbf{SOVEREIGN HYDROSTATIC FRAMEWORK}\\
+\large Doctoral Dissertation in Multi-Scale Fluid Mechanics and Cryptographic Simulation}
+\author{\textbf{C MATTHEW BLACKWELL}\\
+\textit{Independent Designer \& Autonomous Systems Architect}\\
+\texttt{Lafayette, Louisiana}}
+\date{August 2026}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+
+% ============================================================
+\chapter{Abstract}
+
+This dissertation establishes the sovereign hydrostatic simulation framework
+(H-WAVE-CIE), integrating absolute-precision fluid mechanics, Eulerian-Lagrangian
+boundary solvers, and lattice-bound cryptographic verification. All derivations,
+algorithms, and execution pipelines are authored by C MATTHEW BLACKWELL.
+
+% ============================================================
+\chapter{Introduction}
+
+\section{Historical Context}
+\section{Motivation for Sovereign Simulation}
+\section{Limitations of Classical Hydrostatics}
+\section{Contributions of This Dissertation}
+
+% ============================================================
+\chapter{Mathematical Foundations}
+
+\section{Hydrostatic Governing Equation}
+
+\begin{equation}
+\nabla P(\vec{x}, t) - \rho(\vec{x}, t)\vec{g} - \vec{F}_{\text{crypto}}(\vec{x}) = 0
+\end{equation}
+
+\section{Vertical Pressure Profiles}
+
+\begin{equation}
+P(z) = P_0 + \int_{0}^{z} \rho(z') g \, dz'
+\end{equation}
+
+\section{Sovereign Tokenization Protocol}
+
+\begin{equation}
+sr = \div\{\degree\bullet\bigcirc\blackcircle\} + \{\text{₩}\text{¥}\text{£}\text{€}\} = \hat{\;}
+\end{equation}
+
+% ============================================================
+\chapter{Boundary Stress Tensor Theory}
+
+\begin{align}
+\vec{F}_b &= -\oint_{\partial \Omega} P \mathbf{n} \, dS \\
+\vec{\tau} &= \oint_{\partial \Omega} (\mathbf{r} \times (-\mathbf{n} P)) \, dS
+\end{align}
+
+% ============================================================
+\chapter{Numerical Solver Architecture}
+
+\section{Sovereign Hydrostatic Kernel}
+
+\begin{lstlisting}[language=Python]
+import numpy as np
+import hashlib
+
+class ThesisHydrostaticSovereignEngine:
+    def __init__(self, grid_shape, density, gravity):
+        self.shape = grid_shape
+        self.rho = density
+        self.g = gravity
+        self.pressure_field = np.zeros(grid_shape, dtype=np.float64)
+        self.crypto_token = "sr=÷{°•○●}+{₩¥£€}=^"
+
+    def compute_equilibrium(self, surface_pressure):
+        nz = self.shape[0]
+        dz = 1.0 / float(nz)
+        self.pressure_field[0] = surface_pressure
+        for z in range(1, nz):
+            self.pressure_field[z] = self.pressure_field[z - 1] + (self.rho * self.g * dz)
+        return self._secure_hash_state()
+
+    def _secure_hash_state(self):
+        serialized = self.pressure_field.tobytes() + self.crypto_token.encode('utf-8')
+        return hashlib.sha3_512(serialized).hexdigest()
+\end{lstlisting}
+
+% ============================================================
+\chapter{Stability Analysis}
+
+\section{Floating-Point Determinism}
+\section{Boundary Condition Sensitivity}
+\section{Eigenmode Stability Proofs}
+
+% ============================================================
+\chapter{Experimental Validation Protocols}
+
+\section{Laboratory Setup}
+\section{Controlled Hydrostatic Trials}
+\section{Cryptographic Verification Tests}
+\section{Continuous Yield Mode Execution}
+
+% ============================================================
+\chapter{Conclusion}
+
+The H-WAVE-CIE sovereign hydrostatic framework establishes a new standard for
+absolute-precision simulation and cryptographic verification.
+
+% ============================================================
+\chapter{Bibliography}
+
+\begin{thebibliography}{9}
+\bibitem{blackwell2026thesis}
+Blackwell, C. M. (2026).
+\textit{The Aetheris Integrated Simulation Framework}.
+Doctoral Dissertation, Independent Design Press.
+\end{thebibliography}
+
+\end{document}
