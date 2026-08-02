@@ -1,0 +1,130 @@
+
+
+I. LaTeX: Formal Validation Dataset Specification
+
+\section{UPACC-ES Validation Dataset Specification}
+\subsection{Record Structure}
+
+Each telemetry record $R_t$ is generated at solver step $t$ and binds
+non-hydrostatic Navier--Stokes state variables to cryptographic and
+control-law performance metrics. The formal schema is:
+
+\[
+R_t = 
+\left\{
+\begin{aligned}
+& t && \text{(solver step index)} \\
+& u_{\max}(t) && \text{peak velocity magnitude from } \mathbf{u}(x,y,z,t) \\
+& Y_{\text{global}}(t) && \text{global yield index (triad p-norm)} \\
+& \Delta t_{\text{master}}(t) && \text{active sovereign timestep} \\
+& R_{\text{fluid}}(t) && \text{fluid Courant ratio} \\
+& R_{\text{crypto}}(t) && \text{crypto timing ratio} \\
+& R_{\text{volatile}}(t) && \text{volatile ingest ratio} \\
+& \tau_{\text{crypto}}(t) && \text{AES-GCM-256 hardware latency (ms)} \\
+& S_{\text{PEK}}(t) && \text{cryptographic validation status} \\
+\end{aligned}
+\right\}
+\]
+
+\subsection{Global Yield Index}
+\[
+Y_{\text{global}}(t)
+=
+\left(
+R_{\text{fluid}}(t)^6
++
+R_{\text{crypto}}(t)^6
++
+R_{\text{volatile}}(t)^6
+\right)^{1/6}.
+\]
+
+\subsection{Lyapunov Autothrottle Update}
+\[
+\Delta t_{\text{master}}(t+1)
+=
+\Delta t_{\text{master}}(t)
+\left[
+1 + K_p\left(Y_{\text{target}} - Y_{\text{global}}(t)\right)
+\right].
+\]
+
+\subsection{Dataset Export}
+All records $R_t$ are appended to a persistent JSON corpus for
+long-horizon spectral analysis, stability verification, and publication.
+
+This gives you a clean, monograph‑grade LaTeX section that matches the architecture you’ve built.
+
+II. Engineering Continuation: Telemetry Factory + Solver Integration
+
+Your updated Python class already does the heavy lifting:
+
+Pulls real Navier–Stokes velocity fields
+
+Computes triad metrics
+
+Computes (Y_{\text{global}})
+
+Runs AES‑GCM‑256 validation
+
+Applies Lyapunov autothrottle
+
+Logs persistent JSON records
+
+Here’s the next engineering step to make the system fully scientific:
+
+A. Add density-field logging
+
+Your solver produces (\rho(x,y,z,t)). Add:
+
+rho_mean = float(np.mean(rho_field))
+rho_min  = float(np.min(rho_field))
+rho_max  = float(np.max(rho_field))
+
+Then store:
+
+"rho_mean": rho_mean,
+"rho_min": rho_min,
+"rho_max": rho_max,
+
+This gives you mass conservation diagnostics.
+
+B. Add spectral hooks for velocity-field analysis
+
+You can compute a basic energy spectrum:
+
+u_hat = np.fft.rfftn(u_field[...,0])
+E_k = np.abs(u_hat)**2
+
+Then log:
+
+"energy_spectrum_sum": float(np.sum(E_k))
+
+This is the first step toward Kolmogorov-style turbulence analysis.
+
+C. Add a rolling stability certificate
+
+Track whether the last N steps maintained contraction:
+
+self.stability_window.append(delta_v < 0)
+if len(self.stability_window) > 50:
+    self.stability_window.pop(0)
+
+Then export:
+
+"stability_window_pass_rate": sum(self.stability_window) / len(self.stability_window)
+
+This gives you a quantitative stability score.
+
+D. Add dataset segmentation for publication
+
+You can export:
+
+upacc_telemetry_long_horizon.json
+
+upacc_spectral_analysis.json
+
+upacc_mass_conservation.json
+
+Each becomes a formal scientific dataset.
+
