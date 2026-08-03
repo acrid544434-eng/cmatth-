@@ -1,0 +1,223 @@
+\chapter{Conformal Thin-Sandwich Solver Architecture}
+
+\section{Introduction}
+The Conformal Thin-Sandwich (CTS) formalism provides a dynamic method for generating 
+initial data in general relativity by solving a coupled system of elliptic equations 
+for the conformal factor $\psi$, the shift vector $\beta^i$, and the densitized lapse 
+$\tilde{\alpha}$. This chapter presents the full solver architecture used by UKG-SE 
+to implement CTS, including discretization, numerical stabilization, constraint 
+feedback, and integration with ADM and York modules.
+
+\section{Overview of CTS Solver Pipeline}
+
+The CTS solver pipeline consists of four major stages:
+
+\begin{enumerate}
+    \item Conformal metric preparation,
+    \item Momentum constraint solver,
+    \item Hamiltonian constraint solver,
+    \item Lapse equation solver.
+\end{enumerate}
+
+Each stage produces fields that feed into subsequent modules, forming a closed 
+constraint-satisfying loop.
+
+\section{Stage 1: Conformal Metric Preparation}
+
+\subsection{Input Fields}
+The solver receives:
+\begin{itemize}
+    \item $\tilde{h}_{ij}$ — conformal metric,
+    \item $\dot{\tilde{h}}_{ij}$ — conformal metric time derivative,
+    \item $K$ — mean curvature,
+    \item $\partial_t K$ — time derivative of mean curvature.
+\end{itemize}
+
+\subsection{Normalization}
+The conformal metric is normalized to satisfy:
+\begin{equation}
+\det(\tilde{h}_{ij}) = 1.
+\end{equation}
+
+\subsection{Preprocessing}
+The solver computes:
+\begin{equation}
+\tilde{R}, \qquad
+\tilde{D}_i, \qquad
+\tilde{\Gamma}^{k}_{ij},
+\end{equation}
+using finite-difference or spectral methods.
+
+\section{Stage 2: Momentum Constraint Solver}
+
+\subsection{Momentum Constraint Equation}
+The CTS momentum constraint is:
+\begin{equation}
+\tilde{D}_j
+\left[
+\frac{1}{2\tilde{\alpha}}
+\left(
+\dot{\tilde{h}}^{ij}
+- (\tilde{L} \beta)^{ij}
+\right)
+\right]
+=
+\frac{2}{3} \psi^6 \tilde{D}^i K
++ 8\pi G \psi^{10} S^i.
+\end{equation}
+
+\subsection{Longitudinal Operator}
+The longitudinal operator is:
+\begin{equation}
+(\tilde{L} \beta)^{ij} =
+\tilde{D}^i \beta^j
++ \tilde{D}^j \beta^i
+- \frac{2}{3} \tilde{h}^{ij} \tilde{D}_k \beta^k.
+\end{equation}
+
+\subsection{Elliptic Solver}
+The momentum constraint is solved using:
+\begin{itemize}
+    \item multigrid elliptic solvers,
+    \item spectral elliptic solvers,
+    \item conjugate-gradient methods.
+\end{itemize}
+
+The output is the shift vector $\beta^i$.
+
+\section{Stage 3: Hamiltonian Constraint Solver}
+
+\subsection{Hamiltonian Constraint Equation}
+The CTS Hamiltonian constraint is:
+\begin{equation}
+\tilde{D}^2 \psi
+- \frac{1}{8} \tilde{R} \psi
++ \frac{1}{8} \psi^{-7}
+\tilde{A}_{ij} \tilde{A}^{ij}
++ \frac{1}{12} K^2 \psi^5
+= -2\pi G \psi^5 \rho.
+\end{equation}
+
+\subsection{Trace-Free Extrinsic Curvature}
+Compute:
+\begin{equation}
+\tilde{A}^{ij} =
+\frac{1}{2\tilde{\alpha}}
+\left(
+\dot{\tilde{h}}^{ij}
+- (\tilde{L} \beta)^{ij}
+\right).
+\end{equation}
+
+\subsection{Elliptic Solver}
+The Hamiltonian constraint is solved using:
+\begin{itemize}
+    \item Newton–Krylov methods,
+    \item spectral collocation,
+    \item adaptive multigrid refinement.
+\end{itemize}
+
+The output is the conformal factor $\psi$.
+
+\section{Stage 4: Lapse Equation Solver}
+
+\subsection{Lapse Equation}
+The densitized lapse satisfies:
+\begin{equation}
+\tilde{D}^2 \tilde{\alpha}
+- \tilde{\alpha}
+\left(
+\tilde{A}_{ij} \tilde{A}^{ij}
++ \frac{1}{3} K^2
+\right)
+=
+\psi^6 \partial_t K.
+\end{equation}
+
+\subsection{Elliptic Solver}
+The lapse equation is solved using:
+\begin{itemize}
+    \item spectral elliptic solvers,
+    \item stabilized Gauss–Seidel iteration,
+    \item preconditioned conjugate-gradient methods.
+\end{itemize}
+
+The output is $\tilde{\alpha}$.
+
+\section{Numerical Stabilization}
+
+\subsection{Damping Terms}
+The solver applies damping:
+\begin{equation}
+\psi \rightarrow \psi - \epsilon_{\psi} \mathcal{H},
+\end{equation}
+\begin{equation}
+\beta^i \rightarrow \beta^i - \epsilon_{\beta} \mathcal{M}^i,
+\end{equation}
+to suppress constraint drift.
+
+\subsection{Residual Monitoring}
+Residuals are monitored:
+\begin{equation}
+\|\mathcal{H}\| < 10^{-12}, \qquad
+\|\mathcal{M}^i\| < 10^{-12}.
+\end{equation}
+
+\section{Integration with ADM and York Modules}
+
+\subsection{ADM → CTS}
+ADM provides:
+\begin{itemize}
+    \item $h_{ij}$,
+    \item $K_{ij}$,
+    \item $R^{(3)}$,
+    \item $D_i$.
+\end{itemize}
+
+\subsection{York → CTS}
+York provides:
+\begin{itemize}
+    \item $\tilde{h}_{ij}$,
+    \item $W^i$,
+    \item $\tilde{A}^{ij}$.
+\end{itemize}
+
+\subsection{CTS → Residual Engine}
+CTS outputs:
+\begin{itemize}
+    \item $\psi$,
+    \item $\beta^i$,
+    \item $\tilde{\alpha}$,
+    \item reconstructed $h_{ij}$ and $K_{ij}$.
+\end{itemize}
+
+These feed into the residual engine for final correction.
+
+\section{UKG-SE CTS Solver Summary}
+
+\subsection{Pipeline Summary}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Stage} & \textbf{Output} \\
+\hline
+Conformal Metric Prep & $\tilde{h}_{ij}, \tilde{R}, \tilde{D}_i$ \\
+Momentum Constraint & $\beta^i$ \\
+Hamiltonian Constraint & $\psi$ \\
+Lapse Equation & $\tilde{\alpha}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Constraint Stability}
+UKG-SE enforces:
+\begin{equation}
+\mathcal{H} < 10^{-12}, \qquad
+\mathcal{M}^i < 10^{-12}.
+\end{equation}
+
+\section{Conclusion}
+This chapter presents the full CTS solver architecture used by UKG-SE v2.0. The 
+pipeline integrates conformal geometry, elliptic solvers, constraint stabilization, 
+and residual correction to generate consistent initial data for evolving spacetimes, 
+including high-spin Kerr geometries.
