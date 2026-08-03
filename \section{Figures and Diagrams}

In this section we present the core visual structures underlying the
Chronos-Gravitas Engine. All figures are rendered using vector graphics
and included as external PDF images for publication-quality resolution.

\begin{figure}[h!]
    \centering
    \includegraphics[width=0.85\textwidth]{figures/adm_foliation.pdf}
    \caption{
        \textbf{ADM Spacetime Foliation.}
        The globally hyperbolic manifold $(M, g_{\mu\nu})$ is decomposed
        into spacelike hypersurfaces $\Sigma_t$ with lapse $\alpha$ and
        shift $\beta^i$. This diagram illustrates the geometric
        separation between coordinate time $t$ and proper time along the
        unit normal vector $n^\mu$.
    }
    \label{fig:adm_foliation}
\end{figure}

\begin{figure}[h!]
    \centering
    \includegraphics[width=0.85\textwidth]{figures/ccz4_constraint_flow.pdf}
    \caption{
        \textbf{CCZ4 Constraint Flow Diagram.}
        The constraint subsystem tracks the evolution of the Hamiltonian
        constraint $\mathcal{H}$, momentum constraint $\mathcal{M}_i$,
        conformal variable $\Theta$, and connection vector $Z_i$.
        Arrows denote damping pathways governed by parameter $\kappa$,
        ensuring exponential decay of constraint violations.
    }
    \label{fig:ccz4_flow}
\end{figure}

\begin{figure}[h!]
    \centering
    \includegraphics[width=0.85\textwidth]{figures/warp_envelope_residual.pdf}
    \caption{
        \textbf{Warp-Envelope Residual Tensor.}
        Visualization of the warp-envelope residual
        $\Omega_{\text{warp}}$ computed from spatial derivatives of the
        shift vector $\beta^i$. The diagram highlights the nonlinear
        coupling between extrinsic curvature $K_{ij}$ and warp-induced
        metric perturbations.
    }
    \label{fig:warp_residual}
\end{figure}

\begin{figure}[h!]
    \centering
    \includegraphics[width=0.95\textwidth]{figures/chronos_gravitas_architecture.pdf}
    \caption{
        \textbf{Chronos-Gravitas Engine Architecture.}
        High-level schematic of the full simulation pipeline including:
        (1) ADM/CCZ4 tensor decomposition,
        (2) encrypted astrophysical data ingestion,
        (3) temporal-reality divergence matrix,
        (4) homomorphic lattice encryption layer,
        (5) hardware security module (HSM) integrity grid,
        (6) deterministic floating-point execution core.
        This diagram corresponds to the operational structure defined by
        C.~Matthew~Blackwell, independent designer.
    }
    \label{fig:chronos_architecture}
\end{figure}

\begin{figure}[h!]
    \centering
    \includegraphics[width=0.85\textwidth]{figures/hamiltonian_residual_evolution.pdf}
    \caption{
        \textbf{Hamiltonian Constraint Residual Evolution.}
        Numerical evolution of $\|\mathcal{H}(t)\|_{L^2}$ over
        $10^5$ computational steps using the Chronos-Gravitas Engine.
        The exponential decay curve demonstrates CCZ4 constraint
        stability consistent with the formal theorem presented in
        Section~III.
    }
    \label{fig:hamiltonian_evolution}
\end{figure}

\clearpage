@@ -1,0 +1,81 @@
+\section{Figures and Diagrams}
+
+In this section we present the core visual structures underlying the
+Chronos-Gravitas Engine. All figures are rendered using vector graphics
+and included as external PDF images for publication-quality resolution.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/adm_foliation.pdf}
+    \caption{
+        \textbf{ADM Spacetime Foliation.}
+        The globally hyperbolic manifold $(M, g_{\mu\nu})$ is decomposed
+        into spacelike hypersurfaces $\Sigma_t$ with lapse $\alpha$ and
+        shift $\beta^i$. This diagram illustrates the geometric
+        separation between coordinate time $t$ and proper time along the
+        unit normal vector $n^\mu$.
+    }
+    \label{fig:adm_foliation}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/ccz4_constraint_flow.pdf}
+    \caption{
+        \textbf{CCZ4 Constraint Flow Diagram.}
+        The constraint subsystem tracks the evolution of the Hamiltonian
+        constraint $\mathcal{H}$, momentum constraint $\mathcal{M}_i$,
+        conformal variable $\Theta$, and connection vector $Z_i$.
+        Arrows denote damping pathways governed by parameter $\kappa$,
+        ensuring exponential decay of constraint violations.
+    }
+    \label{fig:ccz4_flow}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/warp_envelope_residual.pdf}
+    \caption{
+        \textbf{Warp-Envelope Residual Tensor.}
+        Visualization of the warp-envelope residual
+        $\Omega_{\text{warp}}$ computed from spatial derivatives of the
+        shift vector $\beta^i$. The diagram highlights the nonlinear
+        coupling between extrinsic curvature $K_{ij}$ and warp-induced
+        metric perturbations.
+    }
+    \label{fig:warp_residual}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/chronos_gravitas_architecture.pdf}
+    \caption{
+        \textbf{Chronos-Gravitas Engine Architecture.}
+        High-level schematic of the full simulation pipeline including:
+        (1) ADM/CCZ4 tensor decomposition,
+        (2) encrypted astrophysical data ingestion,
+        (3) temporal-reality divergence matrix,
+        (4) homomorphic lattice encryption layer,
+        (5) hardware security module (HSM) integrity grid,
+        (6) deterministic floating-point execution core.
+        This diagram corresponds to the operational structure defined by
+        C.~Matthew~Blackwell, independent designer.
+    }
+    \label{fig:chronos_architecture}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/hamiltonian_residual_evolution.pdf}
+    \caption{
+        \textbf{Hamiltonian Constraint Residual Evolution.}
+        Numerical evolution of $\|\mathcal{H}(t)\|_{L^2}$ over
+        $10^5$ computational steps using the Chronos-Gravitas Engine.
+        The exponential decay curve demonstrates CCZ4 constraint
+        stability consistent with the formal theorem presented in
+        Section~III.
+    }
+    \label{fig:hamiltonian_evolution}
+\end{figure}
+
+\clearpage
