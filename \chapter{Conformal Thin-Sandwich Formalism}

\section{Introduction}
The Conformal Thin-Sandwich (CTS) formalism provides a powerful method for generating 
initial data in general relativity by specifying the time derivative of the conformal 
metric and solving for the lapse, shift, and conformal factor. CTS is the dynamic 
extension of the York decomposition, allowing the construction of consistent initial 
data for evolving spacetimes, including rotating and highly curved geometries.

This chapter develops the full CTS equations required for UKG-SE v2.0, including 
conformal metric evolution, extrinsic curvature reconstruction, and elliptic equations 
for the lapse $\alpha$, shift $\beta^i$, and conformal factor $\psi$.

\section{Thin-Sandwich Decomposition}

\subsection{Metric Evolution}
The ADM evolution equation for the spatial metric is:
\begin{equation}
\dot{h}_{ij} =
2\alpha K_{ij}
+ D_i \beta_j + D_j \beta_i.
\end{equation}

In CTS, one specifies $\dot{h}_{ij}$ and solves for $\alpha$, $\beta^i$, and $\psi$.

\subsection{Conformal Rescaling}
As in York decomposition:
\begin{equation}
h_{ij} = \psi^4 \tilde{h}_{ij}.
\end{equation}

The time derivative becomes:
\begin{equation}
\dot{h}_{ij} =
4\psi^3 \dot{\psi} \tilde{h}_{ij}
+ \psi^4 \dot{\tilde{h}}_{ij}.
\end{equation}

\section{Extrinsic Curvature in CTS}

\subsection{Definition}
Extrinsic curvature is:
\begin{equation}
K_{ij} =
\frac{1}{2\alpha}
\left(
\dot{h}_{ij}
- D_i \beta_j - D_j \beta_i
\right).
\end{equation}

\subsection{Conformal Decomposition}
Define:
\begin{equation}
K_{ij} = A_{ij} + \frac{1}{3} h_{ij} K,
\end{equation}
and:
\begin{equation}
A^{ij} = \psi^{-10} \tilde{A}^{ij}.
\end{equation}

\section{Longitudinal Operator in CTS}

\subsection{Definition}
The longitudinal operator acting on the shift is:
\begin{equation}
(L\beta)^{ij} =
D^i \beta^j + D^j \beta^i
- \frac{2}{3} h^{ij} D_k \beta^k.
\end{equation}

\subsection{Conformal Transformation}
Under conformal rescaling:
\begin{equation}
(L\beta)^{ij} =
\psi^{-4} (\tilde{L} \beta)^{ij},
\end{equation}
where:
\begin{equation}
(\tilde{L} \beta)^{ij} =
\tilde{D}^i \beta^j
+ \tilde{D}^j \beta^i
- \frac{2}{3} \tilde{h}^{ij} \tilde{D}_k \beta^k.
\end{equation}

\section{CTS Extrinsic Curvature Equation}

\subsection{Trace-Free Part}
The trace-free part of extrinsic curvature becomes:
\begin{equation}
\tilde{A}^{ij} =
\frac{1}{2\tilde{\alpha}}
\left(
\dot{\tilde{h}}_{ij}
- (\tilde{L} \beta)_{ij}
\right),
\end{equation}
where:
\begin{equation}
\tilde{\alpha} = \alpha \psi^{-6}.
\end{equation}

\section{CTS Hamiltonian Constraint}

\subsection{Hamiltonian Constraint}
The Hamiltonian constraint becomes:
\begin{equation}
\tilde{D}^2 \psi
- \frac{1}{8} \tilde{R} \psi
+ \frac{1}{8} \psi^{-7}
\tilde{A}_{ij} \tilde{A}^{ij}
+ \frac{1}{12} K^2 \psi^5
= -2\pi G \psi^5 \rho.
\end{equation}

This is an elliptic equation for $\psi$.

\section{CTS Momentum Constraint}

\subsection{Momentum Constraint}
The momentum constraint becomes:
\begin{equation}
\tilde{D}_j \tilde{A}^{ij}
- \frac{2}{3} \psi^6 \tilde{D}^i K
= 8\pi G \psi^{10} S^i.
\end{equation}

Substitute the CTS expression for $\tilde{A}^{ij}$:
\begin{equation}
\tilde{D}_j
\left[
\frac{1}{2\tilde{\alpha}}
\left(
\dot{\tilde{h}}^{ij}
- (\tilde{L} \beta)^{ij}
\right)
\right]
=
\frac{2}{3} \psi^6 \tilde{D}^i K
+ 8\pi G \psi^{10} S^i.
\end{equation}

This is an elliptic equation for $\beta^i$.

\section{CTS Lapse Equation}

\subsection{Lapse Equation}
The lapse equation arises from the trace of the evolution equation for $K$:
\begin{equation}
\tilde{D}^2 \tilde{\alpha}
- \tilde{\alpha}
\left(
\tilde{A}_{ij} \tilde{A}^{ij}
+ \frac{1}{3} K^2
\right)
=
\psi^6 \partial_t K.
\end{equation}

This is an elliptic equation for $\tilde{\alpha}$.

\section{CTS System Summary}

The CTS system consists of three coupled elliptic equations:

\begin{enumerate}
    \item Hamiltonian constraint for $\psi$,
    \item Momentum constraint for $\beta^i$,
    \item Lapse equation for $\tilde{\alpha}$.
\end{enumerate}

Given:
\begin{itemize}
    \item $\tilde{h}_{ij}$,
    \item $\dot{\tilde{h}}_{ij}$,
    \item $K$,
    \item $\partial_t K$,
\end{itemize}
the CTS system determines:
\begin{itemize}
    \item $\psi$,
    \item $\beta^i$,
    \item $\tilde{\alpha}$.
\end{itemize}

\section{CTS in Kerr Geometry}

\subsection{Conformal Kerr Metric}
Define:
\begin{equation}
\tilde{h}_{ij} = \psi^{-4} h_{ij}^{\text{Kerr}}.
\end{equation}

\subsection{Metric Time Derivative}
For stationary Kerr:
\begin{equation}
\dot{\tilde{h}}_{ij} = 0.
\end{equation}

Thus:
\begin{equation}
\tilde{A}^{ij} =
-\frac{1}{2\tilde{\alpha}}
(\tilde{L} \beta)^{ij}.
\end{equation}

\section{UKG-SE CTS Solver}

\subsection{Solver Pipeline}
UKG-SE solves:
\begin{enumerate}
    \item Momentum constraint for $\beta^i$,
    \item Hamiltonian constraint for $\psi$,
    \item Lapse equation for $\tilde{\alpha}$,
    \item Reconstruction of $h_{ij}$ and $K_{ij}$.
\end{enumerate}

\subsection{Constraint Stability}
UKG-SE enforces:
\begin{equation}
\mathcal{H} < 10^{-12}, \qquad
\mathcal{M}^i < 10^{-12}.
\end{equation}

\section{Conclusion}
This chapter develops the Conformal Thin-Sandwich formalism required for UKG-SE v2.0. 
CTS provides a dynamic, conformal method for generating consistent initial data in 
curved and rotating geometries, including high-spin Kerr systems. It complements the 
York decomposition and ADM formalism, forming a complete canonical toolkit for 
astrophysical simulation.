@@ -1,0 +1,230 @@
+\chapter{Conformal Thin-Sandwich Formalism}
+
+\section{Introduction}
+The Conformal Thin-Sandwich (CTS) formalism provides a powerful method for generating 
+initial data in general relativity by specifying the time derivative of the conformal 
+metric and solving for the lapse, shift, and conformal factor. CTS is the dynamic 
+extension of the York decomposition, allowing the construction of consistent initial 
+data for evolving spacetimes, including rotating and highly curved geometries.
+
+This chapter develops the full CTS equations required for UKG-SE v2.0, including 
+conformal metric evolution, extrinsic curvature reconstruction, and elliptic equations 
+for the lapse $\alpha$, shift $\beta^i$, and conformal factor $\psi$.
+
+\section{Thin-Sandwich Decomposition}
+
+\subsection{Metric Evolution}
+The ADM evolution equation for the spatial metric is:
+\begin{equation}
+\dot{h}_{ij} =
+2\alpha K_{ij}
++ D_i \beta_j + D_j \beta_i.
+\end{equation}
+
+In CTS, one specifies $\dot{h}_{ij}$ and solves for $\alpha$, $\beta^i$, and $\psi$.
+
+\subsection{Conformal Rescaling}
+As in York decomposition:
+\begin{equation}
+h_{ij} = \psi^4 \tilde{h}_{ij}.
+\end{equation}
+
+The time derivative becomes:
+\begin{equation}
+\dot{h}_{ij} =
+4\psi^3 \dot{\psi} \tilde{h}_{ij}
++ \psi^4 \dot{\tilde{h}}_{ij}.
+\end{equation}
+
+\section{Extrinsic Curvature in CTS}
+
+\subsection{Definition}
+Extrinsic curvature is:
+\begin{equation}
+K_{ij} =
+\frac{1}{2\alpha}
+\left(
+\dot{h}_{ij}
+- D_i \beta_j - D_j \beta_i
+\right).
+\end{equation}
+
+\subsection{Conformal Decomposition}
+Define:
+\begin{equation}
+K_{ij} = A_{ij} + \frac{1}{3} h_{ij} K,
+\end{equation}
+and:
+\begin{equation}
+A^{ij} = \psi^{-10} \tilde{A}^{ij}.
+\end{equation}
+
+\section{Longitudinal Operator in CTS}
+
+\subsection{Definition}
+The longitudinal operator acting on the shift is:
+\begin{equation}
+(L\beta)^{ij} =
+D^i \beta^j + D^j \beta^i
+- \frac{2}{3} h^{ij} D_k \beta^k.
+\end{equation}
+
+\subsection{Conformal Transformation}
+Under conformal rescaling:
+\begin{equation}
+(L\beta)^{ij} =
+\psi^{-4} (\tilde{L} \beta)^{ij},
+\end{equation}
+where:
+\begin{equation}
+(\tilde{L} \beta)^{ij} =
+\tilde{D}^i \beta^j
++ \tilde{D}^j \beta^i
+- \frac{2}{3} \tilde{h}^{ij} \tilde{D}_k \beta^k.
+\end{equation}
+
+\section{CTS Extrinsic Curvature Equation}
+
+\subsection{Trace-Free Part}
+The trace-free part of extrinsic curvature becomes:
+\begin{equation}
+\tilde{A}^{ij} =
+\frac{1}{2\tilde{\alpha}}
+\left(
+\dot{\tilde{h}}_{ij}
+- (\tilde{L} \beta)_{ij}
+\right),
+\end{equation}
+where:
+\begin{equation}
+\tilde{\alpha} = \alpha \psi^{-6}.
+\end{equation}
+
+\section{CTS Hamiltonian Constraint}
+
+\subsection{Hamiltonian Constraint}
+The Hamiltonian constraint becomes:
+\begin{equation}
+\tilde{D}^2 \psi
+- \frac{1}{8} \tilde{R} \psi
++ \frac{1}{8} \psi^{-7}
+\tilde{A}_{ij} \tilde{A}^{ij}
++ \frac{1}{12} K^2 \psi^5
+= -2\pi G \psi^5 \rho.
+\end{equation}
+
+This is an elliptic equation for $\psi$.
+
+\section{CTS Momentum Constraint}
+
+\subsection{Momentum Constraint}
+The momentum constraint becomes:
+\begin{equation}
+\tilde{D}_j \tilde{A}^{ij}
+- \frac{2}{3} \psi^6 \tilde{D}^i K
+= 8\pi G \psi^{10} S^i.
+\end{equation}
+
+Substitute the CTS expression for $\tilde{A}^{ij}$:
+\begin{equation}
+\tilde{D}_j
+\left[
+\frac{1}{2\tilde{\alpha}}
+\left(
+\dot{\tilde{h}}^{ij}
+- (\tilde{L} \beta)^{ij}
+\right)
+\right]
+=
+\frac{2}{3} \psi^6 \tilde{D}^i K
++ 8\pi G \psi^{10} S^i.
+\end{equation}
+
+This is an elliptic equation for $\beta^i$.
+
+\section{CTS Lapse Equation}
+
+\subsection{Lapse Equation}
+The lapse equation arises from the trace of the evolution equation for $K$:
+\begin{equation}
+\tilde{D}^2 \tilde{\alpha}
+- \tilde{\alpha}
+\left(
+\tilde{A}_{ij} \tilde{A}^{ij}
++ \frac{1}{3} K^2
+\right)
+=
+\psi^6 \partial_t K.
+\end{equation}
+
+This is an elliptic equation for $\tilde{\alpha}$.
+
+\section{CTS System Summary}
+
+The CTS system consists of three coupled elliptic equations:
+
+\begin{enumerate}
+    \item Hamiltonian constraint for $\psi$,
+    \item Momentum constraint for $\beta^i$,
+    \item Lapse equation for $\tilde{\alpha}$.
+\end{enumerate}
+
+Given:
+\begin{itemize}
+    \item $\tilde{h}_{ij}$,
+    \item $\dot{\tilde{h}}_{ij}$,
+    \item $K$,
+    \item $\partial_t K$,
+\end{itemize}
+the CTS system determines:
+\begin{itemize}
+    \item $\psi$,
+    \item $\beta^i$,
+    \item $\tilde{\alpha}$.
+\end{itemize}
+
+\section{CTS in Kerr Geometry}
+
+\subsection{Conformal Kerr Metric}
+Define:
+\begin{equation}
+\tilde{h}_{ij} = \psi^{-4} h_{ij}^{\text{Kerr}}.
+\end{equation}
+
+\subsection{Metric Time Derivative}
+For stationary Kerr:
+\begin{equation}
+\dot{\tilde{h}}_{ij} = 0.
+\end{equation}
+
+Thus:
+\begin{equation}
+\tilde{A}^{ij} =
+-\frac{1}{2\tilde{\alpha}}
+(\tilde{L} \beta)^{ij}.
+\end{equation}
+
+\section{UKG-SE CTS Solver}
+
+\subsection{Solver Pipeline}
+UKG-SE solves:
+\begin{enumerate}
+    \item Momentum constraint for $\beta^i$,
+    \item Hamiltonian constraint for $\psi$,
+    \item Lapse equation for $\tilde{\alpha}$,
+    \item Reconstruction of $h_{ij}$ and $K_{ij}$.
+\end{enumerate}
+
+\subsection{Constraint Stability}
+UKG-SE enforces:
+\begin{equation}
+\mathcal{H} < 10^{-12}, \qquad
+\mathcal{M}^i < 10^{-12}.
+\end{equation}
+
+\section{Conclusion}
+This chapter develops the Conformal Thin-Sandwich formalism required for UKG-SE v2.0. 
+CTS provides a dynamic, conformal method for generating consistent initial data in 
+curved and rotating geometries, including high-spin Kerr systems. It complements the 
+York decomposition and ADM formalism, forming a complete canonical toolkit for 
+astrophysical simulation.
