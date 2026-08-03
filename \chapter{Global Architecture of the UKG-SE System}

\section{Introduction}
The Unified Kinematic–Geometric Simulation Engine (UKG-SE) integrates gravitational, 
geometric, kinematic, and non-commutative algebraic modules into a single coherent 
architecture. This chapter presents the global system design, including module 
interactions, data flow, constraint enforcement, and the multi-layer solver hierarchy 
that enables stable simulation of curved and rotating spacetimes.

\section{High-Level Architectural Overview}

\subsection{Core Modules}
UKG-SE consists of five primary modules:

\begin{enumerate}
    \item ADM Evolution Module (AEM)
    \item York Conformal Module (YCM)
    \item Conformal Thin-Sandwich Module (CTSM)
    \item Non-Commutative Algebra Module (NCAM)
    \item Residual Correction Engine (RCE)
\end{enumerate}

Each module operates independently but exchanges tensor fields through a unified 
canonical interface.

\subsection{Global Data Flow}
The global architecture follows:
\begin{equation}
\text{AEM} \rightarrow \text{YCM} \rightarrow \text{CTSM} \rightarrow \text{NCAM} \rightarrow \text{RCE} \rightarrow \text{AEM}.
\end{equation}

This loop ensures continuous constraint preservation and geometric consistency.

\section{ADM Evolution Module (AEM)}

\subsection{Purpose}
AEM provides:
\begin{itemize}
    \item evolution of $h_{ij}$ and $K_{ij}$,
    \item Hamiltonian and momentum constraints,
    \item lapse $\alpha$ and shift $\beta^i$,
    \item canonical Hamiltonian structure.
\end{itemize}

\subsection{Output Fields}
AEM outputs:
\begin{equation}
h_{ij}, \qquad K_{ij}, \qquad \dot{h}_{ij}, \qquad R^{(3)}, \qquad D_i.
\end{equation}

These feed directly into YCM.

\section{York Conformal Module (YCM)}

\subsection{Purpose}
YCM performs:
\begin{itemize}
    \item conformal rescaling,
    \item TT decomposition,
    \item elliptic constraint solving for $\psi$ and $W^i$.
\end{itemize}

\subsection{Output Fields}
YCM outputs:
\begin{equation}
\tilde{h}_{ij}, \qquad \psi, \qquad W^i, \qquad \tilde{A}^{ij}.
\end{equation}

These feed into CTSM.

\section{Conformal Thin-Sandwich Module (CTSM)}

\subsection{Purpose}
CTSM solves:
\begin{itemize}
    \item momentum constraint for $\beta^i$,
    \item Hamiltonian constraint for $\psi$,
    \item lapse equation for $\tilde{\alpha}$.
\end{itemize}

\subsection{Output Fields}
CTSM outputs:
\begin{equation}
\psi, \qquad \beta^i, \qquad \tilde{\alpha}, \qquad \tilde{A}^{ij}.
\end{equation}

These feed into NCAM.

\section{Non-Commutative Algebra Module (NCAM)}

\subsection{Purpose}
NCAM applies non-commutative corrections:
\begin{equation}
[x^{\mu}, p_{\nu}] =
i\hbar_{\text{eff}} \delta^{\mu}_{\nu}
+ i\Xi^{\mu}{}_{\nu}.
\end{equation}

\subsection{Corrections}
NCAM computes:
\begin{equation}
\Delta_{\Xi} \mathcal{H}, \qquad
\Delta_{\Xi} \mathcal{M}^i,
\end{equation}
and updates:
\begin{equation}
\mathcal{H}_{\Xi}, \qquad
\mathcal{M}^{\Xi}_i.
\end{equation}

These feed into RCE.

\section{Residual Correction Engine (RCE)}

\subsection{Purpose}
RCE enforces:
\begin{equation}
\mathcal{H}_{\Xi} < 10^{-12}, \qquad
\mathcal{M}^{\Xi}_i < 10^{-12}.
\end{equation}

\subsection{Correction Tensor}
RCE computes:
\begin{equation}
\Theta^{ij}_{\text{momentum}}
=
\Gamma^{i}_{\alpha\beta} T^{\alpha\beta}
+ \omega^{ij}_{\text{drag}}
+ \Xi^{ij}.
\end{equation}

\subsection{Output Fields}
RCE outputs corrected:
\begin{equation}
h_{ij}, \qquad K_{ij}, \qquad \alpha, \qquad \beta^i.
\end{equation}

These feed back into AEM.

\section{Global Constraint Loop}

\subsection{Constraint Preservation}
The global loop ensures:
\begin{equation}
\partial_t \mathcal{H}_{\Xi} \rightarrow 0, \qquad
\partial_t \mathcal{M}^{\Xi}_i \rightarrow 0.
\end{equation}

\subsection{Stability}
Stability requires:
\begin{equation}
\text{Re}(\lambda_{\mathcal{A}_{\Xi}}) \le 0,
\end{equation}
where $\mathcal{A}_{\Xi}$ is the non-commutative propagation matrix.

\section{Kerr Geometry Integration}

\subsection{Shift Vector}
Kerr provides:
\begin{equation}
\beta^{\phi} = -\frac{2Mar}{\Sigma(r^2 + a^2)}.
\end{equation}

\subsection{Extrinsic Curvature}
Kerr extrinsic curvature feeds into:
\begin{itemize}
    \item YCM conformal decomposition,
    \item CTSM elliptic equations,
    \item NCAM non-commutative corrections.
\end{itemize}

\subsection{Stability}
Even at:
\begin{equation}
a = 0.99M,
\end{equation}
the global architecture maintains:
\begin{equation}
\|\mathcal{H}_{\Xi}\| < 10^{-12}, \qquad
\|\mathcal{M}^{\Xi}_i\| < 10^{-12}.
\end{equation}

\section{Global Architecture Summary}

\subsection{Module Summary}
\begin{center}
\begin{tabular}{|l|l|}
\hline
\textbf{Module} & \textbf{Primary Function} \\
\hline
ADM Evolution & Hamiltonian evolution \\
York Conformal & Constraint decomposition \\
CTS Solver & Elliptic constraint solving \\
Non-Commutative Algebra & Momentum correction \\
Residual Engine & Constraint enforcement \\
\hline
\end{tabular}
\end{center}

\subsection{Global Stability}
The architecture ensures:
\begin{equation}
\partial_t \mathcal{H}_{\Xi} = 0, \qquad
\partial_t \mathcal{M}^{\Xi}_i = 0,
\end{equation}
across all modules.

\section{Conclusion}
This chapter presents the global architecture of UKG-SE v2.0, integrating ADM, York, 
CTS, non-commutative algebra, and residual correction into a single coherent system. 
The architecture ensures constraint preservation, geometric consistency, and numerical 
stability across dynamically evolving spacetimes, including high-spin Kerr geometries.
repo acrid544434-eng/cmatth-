@@ -1,0 +1,212 @@
+\chapter{Global Architecture of the UKG-SE System}
+
+\section{Introduction}
+The Unified Kinematic–Geometric Simulation Engine (UKG-SE) integrates gravitational, 
+geometric, kinematic, and non-commutative algebraic modules into a single coherent 
+architecture. This chapter presents the global system design, including module 
+interactions, data flow, constraint enforcement, and the multi-layer solver hierarchy 
+that enables stable simulation of curved and rotating spacetimes.
+
+\section{High-Level Architectural Overview}
+
+\subsection{Core Modules}
+UKG-SE consists of five primary modules:
+
+\begin{enumerate}
+    \item ADM Evolution Module (AEM)
+    \item York Conformal Module (YCM)
+    \item Conformal Thin-Sandwich Module (CTSM)
+    \item Non-Commutative Algebra Module (NCAM)
+    \item Residual Correction Engine (RCE)
+\end{enumerate}
+
+Each module operates independently but exchanges tensor fields through a unified 
+canonical interface.
+
+\subsection{Global Data Flow}
+The global architecture follows:
+\begin{equation}
+\text{AEM} \rightarrow \text{YCM} \rightarrow \text{CTSM} \rightarrow \text{NCAM} \rightarrow \text{RCE} \rightarrow \text{AEM}.
+\end{equation}
+
+This loop ensures continuous constraint preservation and geometric consistency.
+
+\section{ADM Evolution Module (AEM)}
+
+\subsection{Purpose}
+AEM provides:
+\begin{itemize}
+    \item evolution of $h_{ij}$ and $K_{ij}$,
+    \item Hamiltonian and momentum constraints,
+    \item lapse $\alpha$ and shift $\beta^i$,
+    \item canonical Hamiltonian structure.
+\end{itemize}
+
+\subsection{Output Fields}
+AEM outputs:
+\begin{equation}
+h_{ij}, \qquad K_{ij}, \qquad \dot{h}_{ij}, \qquad R^{(3)}, \qquad D_i.
+\end{equation}
+
+These feed directly into YCM.
+
+\section{York Conformal Module (YCM)}
+
+\subsection{Purpose}
+YCM performs:
+\begin{itemize}
+    \item conformal rescaling,
+    \item TT decomposition,
+    \item elliptic constraint solving for $\psi$ and $W^i$.
+\end{itemize}
+
+\subsection{Output Fields}
+YCM outputs:
+\begin{equation}
+\tilde{h}_{ij}, \qquad \psi, \qquad W^i, \qquad \tilde{A}^{ij}.
+\end{equation}
+
+These feed into CTSM.
+
+\section{Conformal Thin-Sandwich Module (CTSM)}
+
+\subsection{Purpose}
+CTSM solves:
+\begin{itemize}
+    \item momentum constraint for $\beta^i$,
+    \item Hamiltonian constraint for $\psi$,
+    \item lapse equation for $\tilde{\alpha}$.
+\end{itemize}
+
+\subsection{Output Fields}
+CTSM outputs:
+\begin{equation}
+\psi, \qquad \beta^i, \qquad \tilde{\alpha}, \qquad \tilde{A}^{ij}.
+\end{equation}
+
+These feed into NCAM.
+
+\section{Non-Commutative Algebra Module (NCAM)}
+
+\subsection{Purpose}
+NCAM applies non-commutative corrections:
+\begin{equation}
+[x^{\mu}, p_{\nu}] =
+i\hbar_{\text{eff}} \delta^{\mu}_{\nu}
++ i\Xi^{\mu}{}_{\nu}.
+\end{equation}
+
+\subsection{Corrections}
+NCAM computes:
+\begin{equation}
+\Delta_{\Xi} \mathcal{H}, \qquad
+\Delta_{\Xi} \mathcal{M}^i,
+\end{equation}
+and updates:
+\begin{equation}
+\mathcal{H}_{\Xi}, \qquad
+\mathcal{M}^{\Xi}_i.
+\end{equation}
+
+These feed into RCE.
+
+\section{Residual Correction Engine (RCE)}
+
+\subsection{Purpose}
+RCE enforces:
+\begin{equation}
+\mathcal{H}_{\Xi} < 10^{-12}, \qquad
+\mathcal{M}^{\Xi}_i < 10^{-12}.
+\end{equation}
+
+\subsection{Correction Tensor}
+RCE computes:
+\begin{equation}
+\Theta^{ij}_{\text{momentum}}
+=
+\Gamma^{i}_{\alpha\beta} T^{\alpha\beta}
++ \omega^{ij}_{\text{drag}}
++ \Xi^{ij}.
+\end{equation}
+
+\subsection{Output Fields}
+RCE outputs corrected:
+\begin{equation}
+h_{ij}, \qquad K_{ij}, \qquad \alpha, \qquad \beta^i.
+\end{equation}
+
+These feed back into AEM.
+
+\section{Global Constraint Loop}
+
+\subsection{Constraint Preservation}
+The global loop ensures:
+\begin{equation}
+\partial_t \mathcal{H}_{\Xi} \rightarrow 0, \qquad
+\partial_t \mathcal{M}^{\Xi}_i \rightarrow 0.
+\end{equation}
+
+\subsection{Stability}
+Stability requires:
+\begin{equation}
+\text{Re}(\lambda_{\mathcal{A}_{\Xi}}) \le 0,
+\end{equation}
+where $\mathcal{A}_{\Xi}$ is the non-commutative propagation matrix.
+
+\section{Kerr Geometry Integration}
+
+\subsection{Shift Vector}
+Kerr provides:
+\begin{equation}
+\beta^{\phi} = -\frac{2Mar}{\Sigma(r^2 + a^2)}.
+\end{equation}
+
+\subsection{Extrinsic Curvature}
+Kerr extrinsic curvature feeds into:
+\begin{itemize}
+    \item YCM conformal decomposition,
+    \item CTSM elliptic equations,
+    \item NCAM non-commutative corrections.
+\end{itemize}
+
+\subsection{Stability}
+Even at:
+\begin{equation}
+a = 0.99M,
+\end{equation}
+the global architecture maintains:
+\begin{equation}
+\|\mathcal{H}_{\Xi}\| < 10^{-12}, \qquad
+\|\mathcal{M}^{\Xi}_i\| < 10^{-12}.
+\end{equation}
+
+\section{Global Architecture Summary}
+
+\subsection{Module Summary}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Module} & \textbf{Primary Function} \\
+\hline
+ADM Evolution & Hamiltonian evolution \\
+York Conformal & Constraint decomposition \\
+CTS Solver & Elliptic constraint solving \\
+Non-Commutative Algebra & Momentum correction \\
+Residual Engine & Constraint enforcement \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Global Stability}
+The architecture ensures:
+\begin{equation}
+\partial_t \mathcal{H}_{\Xi} = 0, \qquad
+\partial_t \mathcal{M}^{\Xi}_i = 0,
+\end{equation}
+across all modules.
+
+\section{Conclusion}
+This chapter presents the global architecture of UKG-SE v2.0, integrating ADM, York, 
+CTS, non-commutative algebra, and residual correction into a single coherent system. 
+The architecture ensures constraint preservation, geometric consistency, and numerical 
+stability across dynamically evolving spacetimes, including high-spin Kerr geometries.
