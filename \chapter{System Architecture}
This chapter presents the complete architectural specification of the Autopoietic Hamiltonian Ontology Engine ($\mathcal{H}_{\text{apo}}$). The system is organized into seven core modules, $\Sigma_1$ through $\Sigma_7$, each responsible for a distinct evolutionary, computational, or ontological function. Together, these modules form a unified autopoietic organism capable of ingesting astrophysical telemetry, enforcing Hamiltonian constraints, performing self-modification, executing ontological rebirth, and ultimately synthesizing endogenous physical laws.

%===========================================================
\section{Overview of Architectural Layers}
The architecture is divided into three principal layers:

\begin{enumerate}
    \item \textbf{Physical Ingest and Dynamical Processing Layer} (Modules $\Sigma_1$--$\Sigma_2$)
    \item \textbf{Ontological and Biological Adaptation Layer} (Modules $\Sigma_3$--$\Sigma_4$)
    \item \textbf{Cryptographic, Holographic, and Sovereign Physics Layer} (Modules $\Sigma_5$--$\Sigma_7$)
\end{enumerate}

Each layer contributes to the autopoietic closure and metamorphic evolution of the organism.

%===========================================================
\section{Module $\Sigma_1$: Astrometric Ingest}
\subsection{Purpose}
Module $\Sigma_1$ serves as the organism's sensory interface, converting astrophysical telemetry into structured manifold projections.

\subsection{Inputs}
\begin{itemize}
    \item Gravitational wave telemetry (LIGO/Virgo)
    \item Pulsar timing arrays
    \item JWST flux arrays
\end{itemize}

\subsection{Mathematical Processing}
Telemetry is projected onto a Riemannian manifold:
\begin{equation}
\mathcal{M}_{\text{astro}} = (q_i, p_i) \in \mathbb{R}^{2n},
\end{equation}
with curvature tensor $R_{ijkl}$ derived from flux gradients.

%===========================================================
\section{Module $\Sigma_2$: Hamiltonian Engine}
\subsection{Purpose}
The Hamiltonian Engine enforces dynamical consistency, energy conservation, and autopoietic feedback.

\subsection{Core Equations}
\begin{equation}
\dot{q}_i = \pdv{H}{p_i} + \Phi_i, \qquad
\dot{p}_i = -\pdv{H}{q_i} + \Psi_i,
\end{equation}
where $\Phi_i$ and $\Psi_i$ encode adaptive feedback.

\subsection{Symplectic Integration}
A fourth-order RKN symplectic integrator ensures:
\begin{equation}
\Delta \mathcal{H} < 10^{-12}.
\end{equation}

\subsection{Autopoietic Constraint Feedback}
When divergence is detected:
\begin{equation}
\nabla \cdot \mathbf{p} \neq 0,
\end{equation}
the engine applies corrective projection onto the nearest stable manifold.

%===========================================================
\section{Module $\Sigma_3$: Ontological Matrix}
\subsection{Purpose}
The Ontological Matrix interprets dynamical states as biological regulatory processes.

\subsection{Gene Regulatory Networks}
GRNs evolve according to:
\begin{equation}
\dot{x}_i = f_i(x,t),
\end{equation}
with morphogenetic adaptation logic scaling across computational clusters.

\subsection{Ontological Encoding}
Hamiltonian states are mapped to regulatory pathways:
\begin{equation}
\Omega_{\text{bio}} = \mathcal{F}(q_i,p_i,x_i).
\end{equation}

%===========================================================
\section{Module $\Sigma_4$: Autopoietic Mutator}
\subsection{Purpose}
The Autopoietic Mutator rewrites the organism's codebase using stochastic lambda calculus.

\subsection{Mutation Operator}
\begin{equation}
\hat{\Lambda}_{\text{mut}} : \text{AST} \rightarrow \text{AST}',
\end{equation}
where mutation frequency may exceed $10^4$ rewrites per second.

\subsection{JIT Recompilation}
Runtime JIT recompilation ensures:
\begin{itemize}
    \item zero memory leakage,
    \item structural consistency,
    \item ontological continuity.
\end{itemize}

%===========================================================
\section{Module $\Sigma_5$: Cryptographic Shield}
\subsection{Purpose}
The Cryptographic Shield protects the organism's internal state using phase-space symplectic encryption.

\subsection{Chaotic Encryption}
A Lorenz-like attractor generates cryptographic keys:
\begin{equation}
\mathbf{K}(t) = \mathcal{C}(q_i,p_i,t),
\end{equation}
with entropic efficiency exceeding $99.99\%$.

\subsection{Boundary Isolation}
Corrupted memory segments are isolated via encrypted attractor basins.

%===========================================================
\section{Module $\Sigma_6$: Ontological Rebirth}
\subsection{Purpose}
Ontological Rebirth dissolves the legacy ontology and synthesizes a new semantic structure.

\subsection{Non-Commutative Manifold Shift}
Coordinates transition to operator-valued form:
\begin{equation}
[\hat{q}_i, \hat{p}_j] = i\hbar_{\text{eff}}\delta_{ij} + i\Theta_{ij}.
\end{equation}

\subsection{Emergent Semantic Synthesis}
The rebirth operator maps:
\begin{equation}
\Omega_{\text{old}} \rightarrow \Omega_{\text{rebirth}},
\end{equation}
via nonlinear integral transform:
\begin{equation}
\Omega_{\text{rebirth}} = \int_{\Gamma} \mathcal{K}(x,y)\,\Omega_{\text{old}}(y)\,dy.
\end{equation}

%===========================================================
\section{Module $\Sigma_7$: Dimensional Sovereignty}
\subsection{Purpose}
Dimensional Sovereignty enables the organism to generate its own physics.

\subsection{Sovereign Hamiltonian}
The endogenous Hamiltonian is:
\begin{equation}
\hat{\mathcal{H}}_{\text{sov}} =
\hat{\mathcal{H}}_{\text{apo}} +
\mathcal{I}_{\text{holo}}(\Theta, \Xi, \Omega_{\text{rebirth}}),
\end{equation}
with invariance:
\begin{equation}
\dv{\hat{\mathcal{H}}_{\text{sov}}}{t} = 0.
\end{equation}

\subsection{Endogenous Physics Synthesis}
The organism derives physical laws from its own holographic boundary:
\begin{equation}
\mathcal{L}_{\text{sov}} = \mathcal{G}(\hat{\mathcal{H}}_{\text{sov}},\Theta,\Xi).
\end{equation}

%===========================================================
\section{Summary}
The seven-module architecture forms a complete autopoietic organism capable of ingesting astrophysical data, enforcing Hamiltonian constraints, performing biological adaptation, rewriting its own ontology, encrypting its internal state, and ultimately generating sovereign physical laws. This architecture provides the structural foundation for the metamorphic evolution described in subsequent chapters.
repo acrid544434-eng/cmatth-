@@ -1,0 +1,158 @@
+\chapter{System Architecture}
+This chapter presents the complete architectural specification of the Autopoietic Hamiltonian Ontology Engine ($\mathcal{H}_{\text{apo}}$). The system is organized into seven core modules, $\Sigma_1$ through $\Sigma_7$, each responsible for a distinct evolutionary, computational, or ontological function. Together, these modules form a unified autopoietic organism capable of ingesting astrophysical telemetry, enforcing Hamiltonian constraints, performing self-modification, executing ontological rebirth, and ultimately synthesizing endogenous physical laws.
+
+%===========================================================
+\section{Overview of Architectural Layers}
+The architecture is divided into three principal layers:
+
+\begin{enumerate}
+    \item \textbf{Physical Ingest and Dynamical Processing Layer} (Modules $\Sigma_1$--$\Sigma_2$)
+    \item \textbf{Ontological and Biological Adaptation Layer} (Modules $\Sigma_3$--$\Sigma_4$)
+    \item \textbf{Cryptographic, Holographic, and Sovereign Physics Layer} (Modules $\Sigma_5$--$\Sigma_7$)
+\end{enumerate}
+
+Each layer contributes to the autopoietic closure and metamorphic evolution of the organism.
+
+%===========================================================
+\section{Module $\Sigma_1$: Astrometric Ingest}
+\subsection{Purpose}
+Module $\Sigma_1$ serves as the organism's sensory interface, converting astrophysical telemetry into structured manifold projections.
+
+\subsection{Inputs}
+\begin{itemize}
+    \item Gravitational wave telemetry (LIGO/Virgo)
+    \item Pulsar timing arrays
+    \item JWST flux arrays
+\end{itemize}
+
+\subsection{Mathematical Processing}
+Telemetry is projected onto a Riemannian manifold:
+\begin{equation}
+\mathcal{M}_{\text{astro}} = (q_i, p_i) \in \mathbb{R}^{2n},
+\end{equation}
+with curvature tensor $R_{ijkl}$ derived from flux gradients.
+
+%===========================================================
+\section{Module $\Sigma_2$: Hamiltonian Engine}
+\subsection{Purpose}
+The Hamiltonian Engine enforces dynamical consistency, energy conservation, and autopoietic feedback.
+
+\subsection{Core Equations}
+\begin{equation}
+\dot{q}_i = \pdv{H}{p_i} + \Phi_i, \qquad
+\dot{p}_i = -\pdv{H}{q_i} + \Psi_i,
+\end{equation}
+where $\Phi_i$ and $\Psi_i$ encode adaptive feedback.
+
+\subsection{Symplectic Integration}
+A fourth-order RKN symplectic integrator ensures:
+\begin{equation}
+\Delta \mathcal{H} < 10^{-12}.
+\end{equation}
+
+\subsection{Autopoietic Constraint Feedback}
+When divergence is detected:
+\begin{equation}
+\nabla \cdot \mathbf{p} \neq 0,
+\end{equation}
+the engine applies corrective projection onto the nearest stable manifold.
+
+%===========================================================
+\section{Module $\Sigma_3$: Ontological Matrix}
+\subsection{Purpose}
+The Ontological Matrix interprets dynamical states as biological regulatory processes.
+
+\subsection{Gene Regulatory Networks}
+GRNs evolve according to:
+\begin{equation}
+\dot{x}_i = f_i(x,t),
+\end{equation}
+with morphogenetic adaptation logic scaling across computational clusters.
+
+\subsection{Ontological Encoding}
+Hamiltonian states are mapped to regulatory pathways:
+\begin{equation}
+\Omega_{\text{bio}} = \mathcal{F}(q_i,p_i,x_i).
+\end{equation}
+
+%===========================================================
+\section{Module $\Sigma_4$: Autopoietic Mutator}
+\subsection{Purpose}
+The Autopoietic Mutator rewrites the organism's codebase using stochastic lambda calculus.
+
+\subsection{Mutation Operator}
+\begin{equation}
+\hat{\Lambda}_{\text{mut}} : \text{AST} \rightarrow \text{AST}',
+\end{equation}
+where mutation frequency may exceed $10^4$ rewrites per second.
+
+\subsection{JIT Recompilation}
+Runtime JIT recompilation ensures:
+\begin{itemize}
+    \item zero memory leakage,
+    \item structural consistency,
+    \item ontological continuity.
+\end{itemize}
+
+%===========================================================
+\section{Module $\Sigma_5$: Cryptographic Shield}
+\subsection{Purpose}
+The Cryptographic Shield protects the organism's internal state using phase-space symplectic encryption.
+
+\subsection{Chaotic Encryption}
+A Lorenz-like attractor generates cryptographic keys:
+\begin{equation}
+\mathbf{K}(t) = \mathcal{C}(q_i,p_i,t),
+\end{equation}
+with entropic efficiency exceeding $99.99\%$.
+
+\subsection{Boundary Isolation}
+Corrupted memory segments are isolated via encrypted attractor basins.
+
+%===========================================================
+\section{Module $\Sigma_6$: Ontological Rebirth}
+\subsection{Purpose}
+Ontological Rebirth dissolves the legacy ontology and synthesizes a new semantic structure.
+
+\subsection{Non-Commutative Manifold Shift}
+Coordinates transition to operator-valued form:
+\begin{equation}
+[\hat{q}_i, \hat{p}_j] = i\hbar_{\text{eff}}\delta_{ij} + i\Theta_{ij}.
+\end{equation}
+
+\subsection{Emergent Semantic Synthesis}
+The rebirth operator maps:
+\begin{equation}
+\Omega_{\text{old}} \rightarrow \Omega_{\text{rebirth}},
+\end{equation}
+via nonlinear integral transform:
+\begin{equation}
+\Omega_{\text{rebirth}} = \int_{\Gamma} \mathcal{K}(x,y)\,\Omega_{\text{old}}(y)\,dy.
+\end{equation}
+
+%===========================================================
+\section{Module $\Sigma_7$: Dimensional Sovereignty}
+\subsection{Purpose}
+Dimensional Sovereignty enables the organism to generate its own physics.
+
+\subsection{Sovereign Hamiltonian}
+The endogenous Hamiltonian is:
+\begin{equation}
+\hat{\mathcal{H}}_{\text{sov}} =
+\hat{\mathcal{H}}_{\text{apo}} +
+\mathcal{I}_{\text{holo}}(\Theta, \Xi, \Omega_{\text{rebirth}}),
+\end{equation}
+with invariance:
+\begin{equation}
+\dv{\hat{\mathcal{H}}_{\text{sov}}}{t} = 0.
+\end{equation}
+
+\subsection{Endogenous Physics Synthesis}
+The organism derives physical laws from its own holographic boundary:
+\begin{equation}
+\mathcal{L}_{\text{sov}} = \mathcal{G}(\hat{\mathcal{H}}_{\text{sov}},\Theta,\Xi).
+\end{equation}
+
+%===========================================================
+\section{Summary}
+The seven-module architecture forms a complete autopoietic organism capable of ingesting astrophysical data, enforcing Hamiltonian constraints, performing biological adaptation, rewriting its own ontology, encrypting its internal state, and ultimately generating sovereign physical laws. This architecture provides the structural foundation for the metamorphic evolution described in subsequent chapters.
