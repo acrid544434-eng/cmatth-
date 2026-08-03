@@ -1,0 +1,197 @@
+\chapter{Non-Commutative Hamiltonian Extensions}
+
+\section{Introduction}
+Non-commutative geometry modifies the canonical phase-space structure by introducing 
+curvature-dependent corrections to the coordinate–momentum commutator:
+\begin{equation}
+[x^{\mu}, p_{\nu}] =
+i\hbar_{\text{eff}} \delta^{\mu}_{\nu}
++ i\Xi^{\mu}{}_{\nu}.
+\end{equation}
+This chapter develops the extended Hamiltonian formalism required for UKG-SE v2.0, 
+including generalized Poisson brackets, modified Hamiltonian evolution, tensor-level 
+corrections, and non-linear coupling between curvature and momentum.
+
+\section{Generalized Phase-Space Structure}
+
+\subsection{Non-Commutative Commutator}
+The non-commutative structure is encoded in:
+\begin{equation}
+\Xi^{\mu}{}_{\nu}
+=
+\Theta^{\mu}{}_{\alpha\beta} g^{\alpha\beta}{}_{\nu},
+\end{equation}
+where $\Theta^{\mu}{}_{\alpha\beta}$ is a curvature-induced deformation tensor.
+
+\subsection{Generalized Poisson Bracket}
+Define:
+\begin{equation}
+\{A, B\}_{\Xi}
+=
+\{A, B\}
++ \Xi^{\mu}{}_{\nu}
+\frac{\partial A}{\partial p_{\mu}}
+\frac{\partial B}{\partial x^{\nu}}.
+\end{equation}
+
+\section{Extended Hamiltonian}
+
+\subsection{Classical Hamiltonian}
+The classical Hamiltonian is:
+\begin{equation}
+H =
+\frac{1}{2} g^{\mu\nu} p_{\mu} p_{\nu}.
+\end{equation}
+
+\subsection{Non-Commutative Correction}
+The extended Hamiltonian becomes:
+\begin{equation}
+H_{\Xi} =
+H + \Delta_{\Xi} H,
+\end{equation}
+where:
+\begin{equation}
+\Delta_{\Xi} H =
+\Xi^{\mu}{}_{\nu} p_{\mu} p^{\nu}
++ \Xi^{\mu\nu} \Gamma^{\alpha}_{\mu\nu} p_{\alpha}
++ \Xi^{\mu\nu} \omega_{\mu\nu}^{\text{drag}}.
+\end{equation}
+
+\subsection{Interpretation}
+The correction terms represent:
+\begin{itemize}
+    \item curvature-induced momentum deformation,
+    \item torsion-like geometric coupling,
+    \item frame-dragging amplification,
+    \item non-linear tensor mixing.
+\end{itemize}
+
+\section{Extended Hamiltonian Equations}
+
+\subsection{Coordinate Evolution}
+\begin{equation}
+\dot{x}^{\mu}
+=
+\{x^{\mu}, H_{\Xi}\}_{\Xi}
+=
+g^{\mu\nu} p_{\nu}
++ \Xi^{\mu}{}_{\nu} g^{\nu\alpha} p_{\alpha}.
+\end{equation}
+
+\subsection{Momentum Evolution}
+\begin{equation}
+\dot{p}_{\mu}
+=
+-\frac{\partial H_{\Xi}}{\partial x^{\mu}}
++ \Xi^{\alpha}{}_{\mu} \frac{\partial H}{\partial x^{\alpha}}.
+\end{equation}
+
+\section{Extended Geodesic Equation}
+
+\subsection{Classical Geodesic}
+\begin{equation}
+\dot{p}_{\mu}
+=
+-\frac{1}{2} \partial_{\mu} g^{\alpha\beta} p_{\alpha} p_{\beta}.
+\end{equation}
+
+\subsection{Non-Commutative Geodesic}
+\begin{equation}
+\dot{p}_{\mu}^{\Xi}
+=
+-\frac{1}{2} \partial_{\mu} g^{\alpha\beta} p_{\alpha} p_{\beta}
++ \Xi^{\alpha}{}_{\mu} \partial_{\alpha} g^{\beta\gamma} p_{\beta} p_{\gamma}
++ \Xi^{\alpha\beta} R_{\alpha\beta\mu\nu} p^{\nu}.
+\end{equation}
+
+\section{Extended Hamilton–Jacobi Equation}
+
+\subsection{Classical Hamilton–Jacobi}
+\begin{equation}
+g^{\mu\nu} \partial_{\mu} S \partial_{\nu} S = -m^2.
+\end{equation}
+
+\subsection{Non-Commutative Hamilton–Jacobi}
+\begin{equation}
+g^{\mu\nu} \partial_{\mu} S \partial_{\nu} S
++ \Xi^{\mu}{}_{\nu} \partial_{\mu} S \partial^{\nu} S
++ \Xi^{\mu\nu} \Gamma^{\alpha}_{\mu\nu} \partial_{\alpha} S
+= -m^2.
+\end{equation}
+
+\section{Extended Carter Constant}
+
+\subsection{Classical Carter Constant}
+\begin{equation}
+Q =
+p_{\theta}^2
++ a^2 (m^2 - E^2) \cos^2\theta
++ L^2 \cot^2\theta.
+\end{equation}
+
+\subsection{Non-Commutative Carter Constant}
+\begin{equation}
+Q_{\Xi} =
+Q
++ \Xi^{\theta}{}_{\theta} p_{\theta}^2
++ \Xi^{\phi}{}_{\phi} L^2
++ \Xi^{\theta\phi} p_{\theta} L.
+\end{equation}
+
+\section{Extended Momentum Flux Hamiltonian}
+
+\subsection{Flux Hamiltonian}
+\begin{equation}
+H_{\Pi} =
+\frac{1}{2} g^{\mu\nu} \Pi_{\mu} \Pi_{\nu}.
+\end{equation}
+
+\subsection{Non-Commutative Flux Correction}
+\begin{equation}
+H_{\Pi,\Xi} =
+H_{\Pi}
++ \Xi^{\mu\nu} \Pi_{\mu} \Pi_{\nu}
++ \Xi^{\mu\nu} \omega_{\mu\nu}^{\text{drag}}.
+\end{equation}
+
+\section{Extended Constraint Hamiltonian}
+
+\subsection{Constraint Hamiltonian}
+\begin{equation}
+H_{\text{constraint}}
+=
+\alpha \mathcal{H}_{\Xi}
++ \beta^i \mathcal{M}^{\Xi}_i.
+\end{equation}
+
+\subsection{Non-Commutative Closure}
+Constraint closure requires:
+\begin{equation}
+\{H_{\text{constraint}}, H_{\Xi}\}_{\Xi} = 0.
+\end{equation}
+
+\section{UKG-SE Hamiltonian Enforcement}
+
+\subsection{Residual Correction}
+UKG-SE enforces:
+\begin{equation}
+H_{\Xi} \rightarrow H_{\Xi} - \epsilon_{\Xi} \mathcal{R}_{\Xi},
+\end{equation}
+where:
+\begin{equation}
+\mathcal{R}_{\Xi} =
+\mathcal{H}_{\Xi}^2 + \mathcal{M}^{\Xi}_i \mathcal{M}^{\Xi\,i}.
+\end{equation}
+
+\subsection{Stability}
+Stability requires:
+\begin{equation}
+\partial_t H_{\Xi} \rightarrow 0.
+\end{equation}
+
+\section{Conclusion}
+This chapter develops the extended non-commutative Hamiltonian formalism required for 
+UKG-SE v2.0. The generalized Hamiltonian incorporates curvature-induced momentum 
+deformation, torsion-like coupling, frame-dragging amplification, and tensor-level 
+non-linear corrections, enabling stable simulation of non-commutative dynamics in 
+curved and rotating
