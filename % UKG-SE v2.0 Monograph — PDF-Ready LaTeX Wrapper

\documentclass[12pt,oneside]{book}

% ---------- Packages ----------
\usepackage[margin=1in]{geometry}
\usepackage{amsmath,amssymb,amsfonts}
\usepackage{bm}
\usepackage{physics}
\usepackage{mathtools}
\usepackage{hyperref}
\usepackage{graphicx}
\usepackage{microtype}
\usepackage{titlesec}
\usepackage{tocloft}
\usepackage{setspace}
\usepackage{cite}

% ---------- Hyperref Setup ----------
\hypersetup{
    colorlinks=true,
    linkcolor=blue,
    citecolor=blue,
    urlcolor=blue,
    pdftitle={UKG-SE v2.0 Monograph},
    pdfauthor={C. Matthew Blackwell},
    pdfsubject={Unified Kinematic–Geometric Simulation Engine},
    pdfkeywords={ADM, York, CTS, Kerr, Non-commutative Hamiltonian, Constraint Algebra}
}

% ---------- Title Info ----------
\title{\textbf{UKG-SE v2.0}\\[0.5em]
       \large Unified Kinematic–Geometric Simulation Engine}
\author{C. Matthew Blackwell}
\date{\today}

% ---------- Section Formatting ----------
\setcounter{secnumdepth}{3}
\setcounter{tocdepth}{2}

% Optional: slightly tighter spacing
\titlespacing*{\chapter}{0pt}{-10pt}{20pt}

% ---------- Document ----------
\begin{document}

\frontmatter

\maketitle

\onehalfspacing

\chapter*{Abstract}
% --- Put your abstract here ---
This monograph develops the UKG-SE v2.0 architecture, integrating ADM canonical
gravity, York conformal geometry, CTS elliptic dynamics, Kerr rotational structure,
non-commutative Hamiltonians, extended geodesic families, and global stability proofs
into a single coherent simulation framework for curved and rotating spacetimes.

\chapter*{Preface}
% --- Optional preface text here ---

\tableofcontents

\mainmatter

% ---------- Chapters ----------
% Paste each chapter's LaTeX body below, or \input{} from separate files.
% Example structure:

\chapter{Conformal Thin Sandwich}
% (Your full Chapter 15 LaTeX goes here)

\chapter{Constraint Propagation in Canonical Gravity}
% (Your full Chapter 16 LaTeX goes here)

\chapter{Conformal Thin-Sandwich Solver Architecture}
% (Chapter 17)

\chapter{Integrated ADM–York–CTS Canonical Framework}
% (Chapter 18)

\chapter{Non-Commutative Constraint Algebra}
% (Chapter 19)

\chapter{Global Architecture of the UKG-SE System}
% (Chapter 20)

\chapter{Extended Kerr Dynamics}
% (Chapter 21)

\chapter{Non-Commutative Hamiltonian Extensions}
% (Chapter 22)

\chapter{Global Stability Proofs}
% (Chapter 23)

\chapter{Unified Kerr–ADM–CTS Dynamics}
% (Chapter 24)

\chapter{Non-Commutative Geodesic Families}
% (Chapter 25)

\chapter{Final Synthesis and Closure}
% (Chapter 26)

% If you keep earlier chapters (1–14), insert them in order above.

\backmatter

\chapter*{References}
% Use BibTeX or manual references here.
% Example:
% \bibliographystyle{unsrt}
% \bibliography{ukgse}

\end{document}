@@ -1,0 +1,117 @@
+% UKG-SE v2.0 Monograph — PDF-Ready LaTeX Wrapper
+
+\documentclass[12pt,oneside]{book}
+
+% ---------- Packages ----------
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{setspace}
+\usepackage{cite}
+
+% ---------- Hyperref Setup ----------
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    pdftitle={UKG-SE v2.0 Monograph},
+    pdfauthor={C. Matthew Blackwell},
+    pdfsubject={Unified Kinematic–Geometric Simulation Engine},
+    pdfkeywords={ADM, York, CTS, Kerr, Non-commutative Hamiltonian, Constraint Algebra}
+}
+
+% ---------- Title Info ----------
+\title{\textbf{UKG-SE v2.0}\\[0.5em]
+       \large Unified Kinematic–Geometric Simulation Engine}
+\author{C. Matthew Blackwell}
+\date{\today}
+
+% ---------- Section Formatting ----------
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+% Optional: slightly tighter spacing
+\titlespacing*{\chapter}{0pt}{-10pt}{20pt}
+
+% ---------- Document ----------
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\onehalfspacing
+
+\chapter*{Abstract}
+% --- Put your abstract here ---
+This monograph develops the UKG-SE v2.0 architecture, integrating ADM canonical
+gravity, York conformal geometry, CTS elliptic dynamics, Kerr rotational structure,
+non-commutative Hamiltonians, extended geodesic families, and global stability proofs
+into a single coherent simulation framework for curved and rotating spacetimes.
+
+\chapter*{Preface}
+% --- Optional preface text here ---
+
+\tableofcontents
+
+\mainmatter
+
+% ---------- Chapters ----------
+% Paste each chapter's LaTeX body below, or \input{} from separate files.
+% Example structure:
+
+\chapter{Conformal Thin Sandwich}
+% (Your full Chapter 15 LaTeX goes here)
+
+\chapter{Constraint Propagation in Canonical Gravity}
+% (Your full Chapter 16 LaTeX goes here)
+
+\chapter{Conformal Thin-Sandwich Solver Architecture}
+% (Chapter 17)
+
+\chapter{Integrated ADM–York–CTS Canonical Framework}
+% (Chapter 18)
+
+\chapter{Non-Commutative Constraint Algebra}
+% (Chapter 19)
+
+\chapter{Global Architecture of the UKG-SE System}
+% (Chapter 20)
+
+\chapter{Extended Kerr Dynamics}
+% (Chapter 21)
+
+\chapter{Non-Commutative Hamiltonian Extensions}
+% (Chapter 22)
+
+\chapter{Global Stability Proofs}
+% (Chapter 23)
+
+\chapter{Unified Kerr–ADM–CTS Dynamics}
+% (Chapter 24)
+
+\chapter{Non-Commutative Geodesic Families}
+% (Chapter 25)
+
+\chapter{Final Synthesis and Closure}
+% (Chapter 26)
+
+% If you keep earlier chapters (1–14), insert them in order above.
+
+\backmatter
+
+\chapter*{References}
+% Use BibTeX or manual references here.
+% Example:
+% \bibliographystyle{unsrt}
+% \bibliography{ukgse}
+
+\end{document}
