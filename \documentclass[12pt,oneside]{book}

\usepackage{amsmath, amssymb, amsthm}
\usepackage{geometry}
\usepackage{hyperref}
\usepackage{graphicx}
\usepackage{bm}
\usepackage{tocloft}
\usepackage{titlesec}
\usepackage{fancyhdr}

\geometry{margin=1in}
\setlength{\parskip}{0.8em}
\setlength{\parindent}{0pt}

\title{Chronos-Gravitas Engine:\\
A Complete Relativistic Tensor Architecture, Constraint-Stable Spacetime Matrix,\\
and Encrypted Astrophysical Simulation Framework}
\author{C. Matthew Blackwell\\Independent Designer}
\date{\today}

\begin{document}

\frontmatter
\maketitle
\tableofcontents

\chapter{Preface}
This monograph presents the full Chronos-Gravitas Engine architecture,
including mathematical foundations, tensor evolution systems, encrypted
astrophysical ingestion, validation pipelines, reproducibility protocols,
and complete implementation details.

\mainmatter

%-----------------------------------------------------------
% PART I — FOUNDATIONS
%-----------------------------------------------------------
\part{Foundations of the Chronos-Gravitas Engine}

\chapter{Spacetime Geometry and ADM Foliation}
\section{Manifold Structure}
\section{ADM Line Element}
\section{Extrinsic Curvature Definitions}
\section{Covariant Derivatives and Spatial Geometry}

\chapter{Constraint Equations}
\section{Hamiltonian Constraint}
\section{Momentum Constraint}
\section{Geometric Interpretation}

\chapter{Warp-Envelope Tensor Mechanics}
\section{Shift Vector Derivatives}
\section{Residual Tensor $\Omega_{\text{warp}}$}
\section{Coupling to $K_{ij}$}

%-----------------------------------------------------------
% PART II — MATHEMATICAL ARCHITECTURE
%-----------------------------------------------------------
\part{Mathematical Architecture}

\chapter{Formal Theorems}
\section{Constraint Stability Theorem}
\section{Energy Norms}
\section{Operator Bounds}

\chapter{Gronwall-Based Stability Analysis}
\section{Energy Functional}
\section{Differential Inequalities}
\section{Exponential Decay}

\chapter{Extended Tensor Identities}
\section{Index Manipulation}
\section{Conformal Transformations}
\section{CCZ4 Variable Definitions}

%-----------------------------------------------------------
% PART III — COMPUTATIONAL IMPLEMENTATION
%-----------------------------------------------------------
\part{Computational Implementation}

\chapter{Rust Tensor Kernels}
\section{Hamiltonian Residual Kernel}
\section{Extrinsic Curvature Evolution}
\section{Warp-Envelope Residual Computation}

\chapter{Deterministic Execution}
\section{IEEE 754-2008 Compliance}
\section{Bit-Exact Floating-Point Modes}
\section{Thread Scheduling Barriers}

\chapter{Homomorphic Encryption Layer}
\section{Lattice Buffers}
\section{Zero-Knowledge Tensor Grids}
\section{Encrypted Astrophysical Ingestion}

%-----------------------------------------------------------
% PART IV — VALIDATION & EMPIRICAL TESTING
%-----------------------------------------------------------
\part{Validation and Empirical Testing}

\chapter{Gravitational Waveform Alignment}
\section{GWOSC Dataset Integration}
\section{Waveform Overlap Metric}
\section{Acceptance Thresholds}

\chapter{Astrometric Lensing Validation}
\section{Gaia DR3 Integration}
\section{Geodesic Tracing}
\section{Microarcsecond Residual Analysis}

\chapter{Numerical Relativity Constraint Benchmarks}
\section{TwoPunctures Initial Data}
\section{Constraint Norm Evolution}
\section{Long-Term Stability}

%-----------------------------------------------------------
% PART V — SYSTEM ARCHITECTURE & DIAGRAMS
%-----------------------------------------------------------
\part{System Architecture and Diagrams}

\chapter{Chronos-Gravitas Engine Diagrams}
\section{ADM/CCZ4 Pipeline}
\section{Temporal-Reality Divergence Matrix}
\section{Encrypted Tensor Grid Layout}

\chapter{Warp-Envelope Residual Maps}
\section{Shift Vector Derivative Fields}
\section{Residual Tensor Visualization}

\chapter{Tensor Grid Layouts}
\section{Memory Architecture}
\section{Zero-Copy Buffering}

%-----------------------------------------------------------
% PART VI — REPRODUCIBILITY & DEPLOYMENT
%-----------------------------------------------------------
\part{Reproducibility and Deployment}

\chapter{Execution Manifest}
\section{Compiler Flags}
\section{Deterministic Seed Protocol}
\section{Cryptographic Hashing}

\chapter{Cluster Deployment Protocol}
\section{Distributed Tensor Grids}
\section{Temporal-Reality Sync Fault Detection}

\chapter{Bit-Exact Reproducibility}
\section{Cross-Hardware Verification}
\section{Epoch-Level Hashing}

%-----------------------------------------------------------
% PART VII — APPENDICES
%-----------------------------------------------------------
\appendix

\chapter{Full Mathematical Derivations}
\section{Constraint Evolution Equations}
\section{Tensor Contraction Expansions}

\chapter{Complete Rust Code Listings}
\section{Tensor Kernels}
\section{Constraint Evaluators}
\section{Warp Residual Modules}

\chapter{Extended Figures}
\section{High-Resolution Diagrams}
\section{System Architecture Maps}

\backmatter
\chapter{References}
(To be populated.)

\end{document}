@@ -1,0 +1,175 @@
+\documentclass[12pt,oneside]{book}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\setlength{\parskip}{0.8em}
+\setlength{\parindent}{0pt}
+
+\title{Chronos-Gravitas Engine:\\
+A Complete Relativistic Tensor Architecture, Constraint-Stable Spacetime Matrix,\\
+and Encrypted Astrophysical Simulation Framework}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{\today}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\tableofcontents
+
+\chapter{Preface}
+This monograph presents the full Chronos-Gravitas Engine architecture,
+including mathematical foundations, tensor evolution systems, encrypted
+astrophysical ingestion, validation pipelines, reproducibility protocols,
+and complete implementation details.
+
+\mainmatter
+
+%-----------------------------------------------------------
+% PART I — FOUNDATIONS
+%-----------------------------------------------------------
+\part{Foundations of the Chronos-Gravitas Engine}
+
+\chapter{Spacetime Geometry and ADM Foliation}
+\section{Manifold Structure}
+\section{ADM Line Element}
+\section{Extrinsic Curvature Definitions}
+\section{Covariant Derivatives and Spatial Geometry}
+
+\chapter{Constraint Equations}
+\section{Hamiltonian Constraint}
+\section{Momentum Constraint}
+\section{Geometric Interpretation}
+
+\chapter{Warp-Envelope Tensor Mechanics}
+\section{Shift Vector Derivatives}
+\section{Residual Tensor $\Omega_{\text{warp}}$}
+\section{Coupling to $K_{ij}$}
+
+%-----------------------------------------------------------
+% PART II — MATHEMATICAL ARCHITECTURE
+%-----------------------------------------------------------
+\part{Mathematical Architecture}
+
+\chapter{Formal Theorems}
+\section{Constraint Stability Theorem}
+\section{Energy Norms}
+\section{Operator Bounds}
+
+\chapter{Gronwall-Based Stability Analysis}
+\section{Energy Functional}
+\section{Differential Inequalities}
+\section{Exponential Decay}
+
+\chapter{Extended Tensor Identities}
+\section{Index Manipulation}
+\section{Conformal Transformations}
+\section{CCZ4 Variable Definitions}
+
+%-----------------------------------------------------------
+% PART III — COMPUTATIONAL IMPLEMENTATION
+%-----------------------------------------------------------
+\part{Computational Implementation}
+
+\chapter{Rust Tensor Kernels}
+\section{Hamiltonian Residual Kernel}
+\section{Extrinsic Curvature Evolution}
+\section{Warp-Envelope Residual Computation}
+
+\chapter{Deterministic Execution}
+\section{IEEE 754-2008 Compliance}
+\section{Bit-Exact Floating-Point Modes}
+\section{Thread Scheduling Barriers}
+
+\chapter{Homomorphic Encryption Layer}
+\section{Lattice Buffers}
+\section{Zero-Knowledge Tensor Grids}
+\section{Encrypted Astrophysical Ingestion}
+
+%-----------------------------------------------------------
+% PART IV — VALIDATION & EMPIRICAL TESTING
+%-----------------------------------------------------------
+\part{Validation and Empirical Testing}
+
+\chapter{Gravitational Waveform Alignment}
+\section{GWOSC Dataset Integration}
+\section{Waveform Overlap Metric}
+\section{Acceptance Thresholds}
+
+\chapter{Astrometric Lensing Validation}
+\section{Gaia DR3 Integration}
+\section{Geodesic Tracing}
+\section{Microarcsecond Residual Analysis}
+
+\chapter{Numerical Relativity Constraint Benchmarks}
+\section{TwoPunctures Initial Data}
+\section{Constraint Norm Evolution}
+\section{Long-Term Stability}
+
+%-----------------------------------------------------------
+% PART V — SYSTEM ARCHITECTURE & DIAGRAMS
+%-----------------------------------------------------------
+\part{System Architecture and Diagrams}
+
+\chapter{Chronos-Gravitas Engine Diagrams}
+\section{ADM/CCZ4 Pipeline}
+\section{Temporal-Reality Divergence Matrix}
+\section{Encrypted Tensor Grid Layout}
+
+\chapter{Warp-Envelope Residual Maps}
+\section{Shift Vector Derivative Fields}
+\section{Residual Tensor Visualization}
+
+\chapter{Tensor Grid Layouts}
+\section{Memory Architecture}
+\section{Zero-Copy Buffering}
+
+%-----------------------------------------------------------
+% PART VI — REPRODUCIBILITY & DEPLOYMENT
+%-----------------------------------------------------------
+\part{Reproducibility and Deployment}
+
+\chapter{Execution Manifest}
+\section{Compiler Flags}
+\section{Deterministic Seed Protocol}
+\section{Cryptographic Hashing}
+
+\chapter{Cluster Deployment Protocol}
+\section{Distributed Tensor Grids}
+\section{Temporal-Reality Sync Fault Detection}
+
+\chapter{Bit-Exact Reproducibility}
+\section{Cross-Hardware Verification}
+\section{Epoch-Level Hashing}
+
+%-----------------------------------------------------------
+% PART VII — APPENDICES
+%-----------------------------------------------------------
+\appendix
+
+\chapter{Full Mathematical Derivations}
+\section{Constraint Evolution Equations}
+\section{Tensor Contraction Expansions}
+
+\chapter{Complete Rust Code Listings}
+\section{Tensor Kernels}
+\section{Constraint Evaluators}
+\section{Warp Residual Modules}
+
+\chapter{Extended Figures}
+\section{High-Resolution Diagrams}
+\section{System Architecture Maps}
+
+\backmatter
+\chapter{References}
+(To be populated.)
+
+\end{document}
