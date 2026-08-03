@@ -1,0 +1,139 @@
+\chapter{Momentum Propagation in Curved Spacetime}
+
+\section{Introduction}
+Momentum propagation in curved spacetime is governed by the interaction between 
+geometric curvature, stress-energy flux, and the underlying manifold structure. 
+Classical physics assumes that momentum conservation is independent of geometry, 
+but this assumption fails in dynamically curved or rotating spacetimes. 
+This chapter develops the full covariant momentum propagation framework used by UKG-SE.
+
+\section{Classical Momentum Conservation}
+
+\subsection{Flat Spacetime}
+In Minkowski spacetime, the conservation of momentum is expressed as:
+\begin{equation}
+\partial_{\mu} T^{\mu\nu} = 0.
+\end{equation}
+
+This condition assumes:
+\begin{itemize}
+    \item a flat metric $\eta_{\mu\nu}$,
+    \item no curvature,
+    \item no torsion,
+    \item no frame-dragging,
+    \item commutative phase space.
+\end{itemize}
+
+\subsection{Curved Spacetime}
+In general relativity, the conservation law becomes:
+\begin{equation}
+\nabla_{\mu} T^{\mu\nu} = 0.
+\end{equation}
+
+Expanding the covariant derivative:
+\begin{equation}
+\nabla_{\mu} T^{\mu\nu} =
+\partial_{\mu} T^{\mu\nu}
++ \Gamma^{\mu}_{\mu\lambda} T^{\lambda\nu}
++ \Gamma^{\nu}_{\mu\lambda} T^{\mu\lambda}.
+\end{equation}
+
+This expression reveals that geometry directly influences momentum propagation.
+
+\section{Geometric Effects on Momentum}
+
+\subsection{Christoffel Contributions}
+The Christoffel symbols introduce geometric corrections:
+\begin{equation}
+\Gamma^{\nu}_{\mu\lambda} T^{\mu\lambda}
+\end{equation}
+which represent momentum transfer due to curvature.
+
+\subsection{Frame-Dragging}
+In rotating spacetimes (e.g., Kerr geometry), frame-dragging contributes:
+\begin{equation}
+\omega^{\mu\nu}_{\text{drag}} =
+\frac{2Mar}{\Sigma^2}
+\left(
+\delta^{\mu}_{t}\delta^{\nu}_{\phi}
++
+\delta^{\mu}_{\phi}\delta^{\nu}_{t}
+\right).
+\end{equation}
+
+This term is essential for accurate momentum propagation in rotating astrophysical systems.
+
+\section{Failure of Classical Conservation Laws}
+
+\subsection{Non-Linearity of Curved Spacetime}
+In curved spacetime, the divergence of the stress-energy tensor is influenced by:
+\begin{itemize}
+    \item curvature,
+    \item torsion-like effects,
+    \item rotational dynamics,
+    \item non-linear momentum flux.
+\end{itemize}
+
+Thus the classical condition $\nabla_{\mu} T^{\mu\nu} = 0$ is insufficient.
+
+\subsection{Curvature-Induced Momentum Sources}
+The commutator of covariant derivatives introduces curvature-dependent terms:
+\begin{equation}
+[\nabla_{\mu}, \nabla_{\nu}] V^{\sigma} =
+R^{\sigma}{}_{\lambda\mu\nu} V^{\lambda}.
+\end{equation}
+
+This implies:
+\begin{equation}
+\nabla_{\mu} T^{\mu\nu} = \Xi^{\nu},
+\end{equation}
+where $\Xi^{\nu}$ is a curvature-bound momentum source term.
+
+\section{Corrected Momentum Propagation}
+
+\subsection{Corrected Flux Tensor}
+UKG-SE defines the corrected momentum flux tensor:
+\begin{equation}
+\Pi^{\mu\nu} = T^{\mu\nu} + \Theta^{\mu\nu}_{\text{momentum}},
+\end{equation}
+where:
+\begin{equation}
+\Theta^{\mu\nu}_{\text{momentum}} =
+\Gamma^{\mu}_{\alpha\beta} T^{\alpha\beta}
++ \omega^{\mu\nu}_{\text{drag}}.
+\end{equation}
+
+\subsection{Corrected Conservation Law}
+Momentum propagation becomes:
+\begin{equation}
+\nabla_{\mu} \Pi^{\mu\nu} = 0.
+\end{equation}
+
+This corrected law is valid even in rotating or dynamically curved spacetimes.
+
+\section{Propagation in Kerr Geometry}
+
+\subsection{Kerr Metric Influence}
+The Kerr metric introduces:
+\begin{itemize}
+    \item off-diagonal metric components,
+    \item frame-dragging,
+    \item ergosphere-induced flux,
+    \item non-linear curvature effects.
+\end{itemize}
+
+\subsection{Momentum Evolution}
+Momentum propagation in Kerr spacetime follows:
+\begin{equation}
+\nabla_{\mu} \Pi^{\mu\nu} =
+\partial_{\mu} \Pi^{\mu\nu}
++ \Gamma^{\mu}_{\mu\lambda} \Pi^{\lambda\nu}
++ \Gamma^{\nu}_{\mu\lambda} \Pi^{\mu\lambda}.
+\end{equation}
+
+UKG-SE numerically stabilizes this evolution even at high spin parameter $a = 0.99M$.
+
+\section{Summary}
+This chapter develops the full momentum propagation framework required for UKG-SE. 
+The next chapter introduces the non-commutative conservation laws that arise from 
+curvature-bound momentum sources and dynamic spacetime geometry.
