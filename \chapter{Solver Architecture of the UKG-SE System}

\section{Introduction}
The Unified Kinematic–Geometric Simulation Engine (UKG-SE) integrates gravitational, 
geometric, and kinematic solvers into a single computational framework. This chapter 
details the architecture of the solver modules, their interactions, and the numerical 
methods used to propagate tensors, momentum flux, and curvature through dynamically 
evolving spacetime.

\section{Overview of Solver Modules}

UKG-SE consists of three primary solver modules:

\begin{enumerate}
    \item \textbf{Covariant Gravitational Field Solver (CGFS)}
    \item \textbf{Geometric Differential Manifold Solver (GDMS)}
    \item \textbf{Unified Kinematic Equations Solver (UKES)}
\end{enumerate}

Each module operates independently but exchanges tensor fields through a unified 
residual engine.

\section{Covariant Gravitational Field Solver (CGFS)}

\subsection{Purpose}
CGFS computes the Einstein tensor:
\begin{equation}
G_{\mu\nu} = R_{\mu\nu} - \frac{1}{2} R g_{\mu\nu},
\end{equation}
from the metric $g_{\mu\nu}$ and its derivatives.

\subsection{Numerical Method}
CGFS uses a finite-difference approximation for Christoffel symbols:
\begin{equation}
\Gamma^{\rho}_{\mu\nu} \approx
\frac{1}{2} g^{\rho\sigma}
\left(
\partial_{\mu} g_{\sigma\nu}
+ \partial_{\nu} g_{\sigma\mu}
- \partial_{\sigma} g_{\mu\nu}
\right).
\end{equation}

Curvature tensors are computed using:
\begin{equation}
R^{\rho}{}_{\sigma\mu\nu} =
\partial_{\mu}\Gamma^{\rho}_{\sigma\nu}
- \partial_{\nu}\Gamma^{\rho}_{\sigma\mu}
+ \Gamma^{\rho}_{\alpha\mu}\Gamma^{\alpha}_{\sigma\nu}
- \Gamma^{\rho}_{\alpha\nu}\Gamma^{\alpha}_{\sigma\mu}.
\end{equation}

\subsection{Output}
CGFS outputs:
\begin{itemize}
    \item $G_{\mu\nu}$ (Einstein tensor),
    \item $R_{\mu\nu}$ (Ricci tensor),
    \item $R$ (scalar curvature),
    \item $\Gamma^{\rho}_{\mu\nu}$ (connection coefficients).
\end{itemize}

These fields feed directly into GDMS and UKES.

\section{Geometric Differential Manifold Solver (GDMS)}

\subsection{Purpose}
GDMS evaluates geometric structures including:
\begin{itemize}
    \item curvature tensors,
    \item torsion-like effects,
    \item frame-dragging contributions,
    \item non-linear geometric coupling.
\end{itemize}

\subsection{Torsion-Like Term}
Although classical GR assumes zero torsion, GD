@@ -1,0 +1,76 @@
+\chapter{Solver Architecture of the UKG-SE System}
+
+\section{Introduction}
+The Unified Kinematic–Geometric Simulation Engine (UKG-SE) integrates gravitational, 
+geometric, and kinematic solvers into a single computational framework. This chapter 
+details the architecture of the solver modules, their interactions, and the numerical 
+methods used to propagate tensors, momentum flux, and curvature through dynamically 
+evolving spacetime.
+
+\section{Overview of Solver Modules}
+
+UKG-SE consists of three primary solver modules:
+
+\begin{enumerate}
+    \item \textbf{Covariant Gravitational Field Solver (CGFS)}
+    \item \textbf{Geometric Differential Manifold Solver (GDMS)}
+    \item \textbf{Unified Kinematic Equations Solver (UKES)}
+\end{enumerate}
+
+Each module operates independently but exchanges tensor fields through a unified 
+residual engine.
+
+\section{Covariant Gravitational Field Solver (CGFS)}
+
+\subsection{Purpose}
+CGFS computes the Einstein tensor:
+\begin{equation}
+G_{\mu\nu} = R_{\mu\nu} - \frac{1}{2} R g_{\mu\nu},
+\end{equation}
+from the metric $g_{\mu\nu}$ and its derivatives.
+
+\subsection{Numerical Method}
+CGFS uses a finite-difference approximation for Christoffel symbols:
+\begin{equation}
+\Gamma^{\rho}_{\mu\nu} \approx
+\frac{1}{2} g^{\rho\sigma}
+\left(
+\partial_{\mu} g_{\sigma\nu}
++ \partial_{\nu} g_{\sigma\mu}
+- \partial_{\sigma} g_{\mu\nu}
+\right).
+\end{equation}
+
+Curvature tensors are computed using:
+\begin{equation}
+R^{\rho}{}_{\sigma\mu\nu} =
+\partial_{\mu}\Gamma^{\rho}_{\sigma\nu}
+- \partial_{\nu}\Gamma^{\rho}_{\sigma\mu}
++ \Gamma^{\rho}_{\alpha\mu}\Gamma^{\alpha}_{\sigma\nu}
+- \Gamma^{\rho}_{\alpha\nu}\Gamma^{\alpha}_{\sigma\mu}.
+\end{equation}
+
+\subsection{Output}
+CGFS outputs:
+\begin{itemize}
+    \item $G_{\mu\nu}$ (Einstein tensor),
+    \item $R_{\mu\nu}$ (Ricci tensor),
+    \item $R$ (scalar curvature),
+    \item $\Gamma^{\rho}_{\mu\nu}$ (connection coefficients).
+\end{itemize}
+
+These fields feed directly into GDMS and UKES.
+
+\section{Geometric Differential Manifold Solver (GDMS)}
+
+\subsection{Purpose}
+GDMS evaluates geometric structures including:
+\begin{itemize}
+    \item curvature tensors,
+    \item torsion-like effects,
+    \item frame-dragging contributions,
+    \item non-linear geometric coupling.
+\end{itemize}
+
+\subsection{Torsion-Like Term}
+Although classical GR assumes zero torsion, GD
