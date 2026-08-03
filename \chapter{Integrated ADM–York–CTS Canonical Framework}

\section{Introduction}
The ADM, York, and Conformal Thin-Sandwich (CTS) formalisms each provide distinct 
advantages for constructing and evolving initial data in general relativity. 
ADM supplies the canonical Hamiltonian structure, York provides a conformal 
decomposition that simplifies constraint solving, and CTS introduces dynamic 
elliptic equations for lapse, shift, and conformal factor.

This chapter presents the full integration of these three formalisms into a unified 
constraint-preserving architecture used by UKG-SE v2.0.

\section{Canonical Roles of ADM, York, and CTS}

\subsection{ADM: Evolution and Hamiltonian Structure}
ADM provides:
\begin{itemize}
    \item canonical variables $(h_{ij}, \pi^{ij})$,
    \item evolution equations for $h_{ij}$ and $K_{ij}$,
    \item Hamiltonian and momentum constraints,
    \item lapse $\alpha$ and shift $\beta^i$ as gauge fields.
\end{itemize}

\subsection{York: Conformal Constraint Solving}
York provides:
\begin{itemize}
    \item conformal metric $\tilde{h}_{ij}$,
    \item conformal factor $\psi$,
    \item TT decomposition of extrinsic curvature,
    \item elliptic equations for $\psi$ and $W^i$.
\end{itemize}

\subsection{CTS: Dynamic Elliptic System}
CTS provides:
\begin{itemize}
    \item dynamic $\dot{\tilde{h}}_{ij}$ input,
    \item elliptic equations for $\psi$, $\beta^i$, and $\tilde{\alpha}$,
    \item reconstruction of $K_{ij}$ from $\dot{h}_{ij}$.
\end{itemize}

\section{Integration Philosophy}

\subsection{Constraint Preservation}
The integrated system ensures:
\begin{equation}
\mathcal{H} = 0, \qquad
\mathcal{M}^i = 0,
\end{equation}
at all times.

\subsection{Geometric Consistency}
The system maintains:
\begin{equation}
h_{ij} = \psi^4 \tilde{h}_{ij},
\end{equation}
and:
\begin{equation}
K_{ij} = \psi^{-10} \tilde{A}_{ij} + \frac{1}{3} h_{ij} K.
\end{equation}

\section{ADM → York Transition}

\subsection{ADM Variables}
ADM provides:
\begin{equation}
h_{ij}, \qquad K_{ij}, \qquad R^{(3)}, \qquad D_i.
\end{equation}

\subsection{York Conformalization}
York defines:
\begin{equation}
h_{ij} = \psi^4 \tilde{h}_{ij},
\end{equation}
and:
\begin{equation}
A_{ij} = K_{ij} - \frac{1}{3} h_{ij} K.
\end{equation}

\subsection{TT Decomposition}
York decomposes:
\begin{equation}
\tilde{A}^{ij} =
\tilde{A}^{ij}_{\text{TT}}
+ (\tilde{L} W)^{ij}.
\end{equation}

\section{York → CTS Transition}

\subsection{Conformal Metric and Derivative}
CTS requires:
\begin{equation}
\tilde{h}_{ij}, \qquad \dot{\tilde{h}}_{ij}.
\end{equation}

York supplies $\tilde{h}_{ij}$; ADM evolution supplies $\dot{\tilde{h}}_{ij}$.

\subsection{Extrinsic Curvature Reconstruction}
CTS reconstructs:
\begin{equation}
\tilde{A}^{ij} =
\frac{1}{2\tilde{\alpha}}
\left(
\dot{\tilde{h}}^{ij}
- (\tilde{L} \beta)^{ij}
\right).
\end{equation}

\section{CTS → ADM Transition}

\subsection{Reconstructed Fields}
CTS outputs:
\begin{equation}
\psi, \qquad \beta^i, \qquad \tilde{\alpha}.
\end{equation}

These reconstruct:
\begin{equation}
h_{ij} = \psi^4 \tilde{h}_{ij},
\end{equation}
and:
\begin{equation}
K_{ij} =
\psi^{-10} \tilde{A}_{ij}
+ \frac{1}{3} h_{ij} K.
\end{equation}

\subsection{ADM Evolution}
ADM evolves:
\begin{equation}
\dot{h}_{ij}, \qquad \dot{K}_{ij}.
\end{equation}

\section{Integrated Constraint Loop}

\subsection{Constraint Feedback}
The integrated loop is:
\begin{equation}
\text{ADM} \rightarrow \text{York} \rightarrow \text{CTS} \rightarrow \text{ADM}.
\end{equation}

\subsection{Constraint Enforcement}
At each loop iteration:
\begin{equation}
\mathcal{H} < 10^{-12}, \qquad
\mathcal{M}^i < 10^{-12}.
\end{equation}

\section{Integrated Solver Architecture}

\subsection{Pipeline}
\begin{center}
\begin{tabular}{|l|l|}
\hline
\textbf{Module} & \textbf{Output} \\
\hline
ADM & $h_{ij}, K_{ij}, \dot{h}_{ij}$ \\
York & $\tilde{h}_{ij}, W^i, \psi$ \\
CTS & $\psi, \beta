@@ -1,0 +1,158 @@
+\chapter{Integrated ADM–York–CTS Canonical Framework}
+
+\section{Introduction}
+The ADM, York, and Conformal Thin-Sandwich (CTS) formalisms each provide distinct 
+advantages for constructing and evolving initial data in general relativity. 
+ADM supplies the canonical Hamiltonian structure, York provides a conformal 
+decomposition that simplifies constraint solving, and CTS introduces dynamic 
+elliptic equations for lapse, shift, and conformal factor.
+
+This chapter presents the full integration of these three formalisms into a unified 
+constraint-preserving architecture used by UKG-SE v2.0.
+
+\section{Canonical Roles of ADM, York, and CTS}
+
+\subsection{ADM: Evolution and Hamiltonian Structure}
+ADM provides:
+\begin{itemize}
+    \item canonical variables $(h_{ij}, \pi^{ij})$,
+    \item evolution equations for $h_{ij}$ and $K_{ij}$,
+    \item Hamiltonian and momentum constraints,
+    \item lapse $\alpha$ and shift $\beta^i$ as gauge fields.
+\end{itemize}
+
+\subsection{York: Conformal Constraint Solving}
+York provides:
+\begin{itemize}
+    \item conformal metric $\tilde{h}_{ij}$,
+    \item conformal factor $\psi$,
+    \item TT decomposition of extrinsic curvature,
+    \item elliptic equations for $\psi$ and $W^i$.
+\end{itemize}
+
+\subsection{CTS: Dynamic Elliptic System}
+CTS provides:
+\begin{itemize}
+    \item dynamic $\dot{\tilde{h}}_{ij}$ input,
+    \item elliptic equations for $\psi$, $\beta^i$, and $\tilde{\alpha}$,
+    \item reconstruction of $K_{ij}$ from $\dot{h}_{ij}$.
+\end{itemize}
+
+\section{Integration Philosophy}
+
+\subsection{Constraint Preservation}
+The integrated system ensures:
+\begin{equation}
+\mathcal{H} = 0, \qquad
+\mathcal{M}^i = 0,
+\end{equation}
+at all times.
+
+\subsection{Geometric Consistency}
+The system maintains:
+\begin{equation}
+h_{ij} = \psi^4 \tilde{h}_{ij},
+\end{equation}
+and:
+\begin{equation}
+K_{ij} = \psi^{-10} \tilde{A}_{ij} + \frac{1}{3} h_{ij} K.
+\end{equation}
+
+\section{ADM → York Transition}
+
+\subsection{ADM Variables}
+ADM provides:
+\begin{equation}
+h_{ij}, \qquad K_{ij}, \qquad R^{(3)}, \qquad D_i.
+\end{equation}
+
+\subsection{York Conformalization}
+York defines:
+\begin{equation}
+h_{ij} = \psi^4 \tilde{h}_{ij},
+\end{equation}
+and:
+\begin{equation}
+A_{ij} = K_{ij} - \frac{1}{3} h_{ij} K.
+\end{equation}
+
+\subsection{TT Decomposition}
+York decomposes:
+\begin{equation}
+\tilde{A}^{ij} =
+\tilde{A}^{ij}_{\text{TT}}
++ (\tilde{L} W)^{ij}.
+\end{equation}
+
+\section{York → CTS Transition}
+
+\subsection{Conformal Metric and Derivative}
+CTS requires:
+\begin{equation}
+\tilde{h}_{ij}, \qquad \dot{\tilde{h}}_{ij}.
+\end{equation}
+
+York supplies $\tilde{h}_{ij}$; ADM evolution supplies $\dot{\tilde{h}}_{ij}$.
+
+\subsection{Extrinsic Curvature Reconstruction}
+CTS reconstructs:
+\begin{equation}
+\tilde{A}^{ij} =
+\frac{1}{2\tilde{\alpha}}
+\left(
+\dot{\tilde{h}}^{ij}
+- (\tilde{L} \beta)^{ij}
+\right).
+\end{equation}
+
+\section{CTS → ADM Transition}
+
+\subsection{Reconstructed Fields}
+CTS outputs:
+\begin{equation}
+\psi, \qquad \beta^i, \qquad \tilde{\alpha}.
+\end{equation}
+
+These reconstruct:
+\begin{equation}
+h_{ij} = \psi^4 \tilde{h}_{ij},
+\end{equation}
+and:
+\begin{equation}
+K_{ij} =
+\psi^{-10} \tilde{A}_{ij}
++ \frac{1}{3} h_{ij} K.
+\end{equation}
+
+\subsection{ADM Evolution}
+ADM evolves:
+\begin{equation}
+\dot{h}_{ij}, \qquad \dot{K}_{ij}.
+\end{equation}
+
+\section{Integrated Constraint Loop}
+
+\subsection{Constraint Feedback}
+The integrated loop is:
+\begin{equation}
+\text{ADM} \rightarrow \text{York} \rightarrow \text{CTS} \rightarrow \text{ADM}.
+\end{equation}
+
+\subsection{Constraint Enforcement}
+At each loop iteration:
+\begin{equation}
+\mathcal{H} < 10^{-12}, \qquad
+\mathcal{M}^i < 10^{-12}.
+\end{equation}
+
+\section{Integrated Solver Architecture}
+
+\subsection{Pipeline}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Module} & \textbf{Output} \\
+\hline
+ADM & $h_{ij}, K_{ij}, \dot{h}_{ij}$ \\
+York & $\tilde{h}_{ij}, W^i, \psi$ \\
+CTS & $\psi, \beta
