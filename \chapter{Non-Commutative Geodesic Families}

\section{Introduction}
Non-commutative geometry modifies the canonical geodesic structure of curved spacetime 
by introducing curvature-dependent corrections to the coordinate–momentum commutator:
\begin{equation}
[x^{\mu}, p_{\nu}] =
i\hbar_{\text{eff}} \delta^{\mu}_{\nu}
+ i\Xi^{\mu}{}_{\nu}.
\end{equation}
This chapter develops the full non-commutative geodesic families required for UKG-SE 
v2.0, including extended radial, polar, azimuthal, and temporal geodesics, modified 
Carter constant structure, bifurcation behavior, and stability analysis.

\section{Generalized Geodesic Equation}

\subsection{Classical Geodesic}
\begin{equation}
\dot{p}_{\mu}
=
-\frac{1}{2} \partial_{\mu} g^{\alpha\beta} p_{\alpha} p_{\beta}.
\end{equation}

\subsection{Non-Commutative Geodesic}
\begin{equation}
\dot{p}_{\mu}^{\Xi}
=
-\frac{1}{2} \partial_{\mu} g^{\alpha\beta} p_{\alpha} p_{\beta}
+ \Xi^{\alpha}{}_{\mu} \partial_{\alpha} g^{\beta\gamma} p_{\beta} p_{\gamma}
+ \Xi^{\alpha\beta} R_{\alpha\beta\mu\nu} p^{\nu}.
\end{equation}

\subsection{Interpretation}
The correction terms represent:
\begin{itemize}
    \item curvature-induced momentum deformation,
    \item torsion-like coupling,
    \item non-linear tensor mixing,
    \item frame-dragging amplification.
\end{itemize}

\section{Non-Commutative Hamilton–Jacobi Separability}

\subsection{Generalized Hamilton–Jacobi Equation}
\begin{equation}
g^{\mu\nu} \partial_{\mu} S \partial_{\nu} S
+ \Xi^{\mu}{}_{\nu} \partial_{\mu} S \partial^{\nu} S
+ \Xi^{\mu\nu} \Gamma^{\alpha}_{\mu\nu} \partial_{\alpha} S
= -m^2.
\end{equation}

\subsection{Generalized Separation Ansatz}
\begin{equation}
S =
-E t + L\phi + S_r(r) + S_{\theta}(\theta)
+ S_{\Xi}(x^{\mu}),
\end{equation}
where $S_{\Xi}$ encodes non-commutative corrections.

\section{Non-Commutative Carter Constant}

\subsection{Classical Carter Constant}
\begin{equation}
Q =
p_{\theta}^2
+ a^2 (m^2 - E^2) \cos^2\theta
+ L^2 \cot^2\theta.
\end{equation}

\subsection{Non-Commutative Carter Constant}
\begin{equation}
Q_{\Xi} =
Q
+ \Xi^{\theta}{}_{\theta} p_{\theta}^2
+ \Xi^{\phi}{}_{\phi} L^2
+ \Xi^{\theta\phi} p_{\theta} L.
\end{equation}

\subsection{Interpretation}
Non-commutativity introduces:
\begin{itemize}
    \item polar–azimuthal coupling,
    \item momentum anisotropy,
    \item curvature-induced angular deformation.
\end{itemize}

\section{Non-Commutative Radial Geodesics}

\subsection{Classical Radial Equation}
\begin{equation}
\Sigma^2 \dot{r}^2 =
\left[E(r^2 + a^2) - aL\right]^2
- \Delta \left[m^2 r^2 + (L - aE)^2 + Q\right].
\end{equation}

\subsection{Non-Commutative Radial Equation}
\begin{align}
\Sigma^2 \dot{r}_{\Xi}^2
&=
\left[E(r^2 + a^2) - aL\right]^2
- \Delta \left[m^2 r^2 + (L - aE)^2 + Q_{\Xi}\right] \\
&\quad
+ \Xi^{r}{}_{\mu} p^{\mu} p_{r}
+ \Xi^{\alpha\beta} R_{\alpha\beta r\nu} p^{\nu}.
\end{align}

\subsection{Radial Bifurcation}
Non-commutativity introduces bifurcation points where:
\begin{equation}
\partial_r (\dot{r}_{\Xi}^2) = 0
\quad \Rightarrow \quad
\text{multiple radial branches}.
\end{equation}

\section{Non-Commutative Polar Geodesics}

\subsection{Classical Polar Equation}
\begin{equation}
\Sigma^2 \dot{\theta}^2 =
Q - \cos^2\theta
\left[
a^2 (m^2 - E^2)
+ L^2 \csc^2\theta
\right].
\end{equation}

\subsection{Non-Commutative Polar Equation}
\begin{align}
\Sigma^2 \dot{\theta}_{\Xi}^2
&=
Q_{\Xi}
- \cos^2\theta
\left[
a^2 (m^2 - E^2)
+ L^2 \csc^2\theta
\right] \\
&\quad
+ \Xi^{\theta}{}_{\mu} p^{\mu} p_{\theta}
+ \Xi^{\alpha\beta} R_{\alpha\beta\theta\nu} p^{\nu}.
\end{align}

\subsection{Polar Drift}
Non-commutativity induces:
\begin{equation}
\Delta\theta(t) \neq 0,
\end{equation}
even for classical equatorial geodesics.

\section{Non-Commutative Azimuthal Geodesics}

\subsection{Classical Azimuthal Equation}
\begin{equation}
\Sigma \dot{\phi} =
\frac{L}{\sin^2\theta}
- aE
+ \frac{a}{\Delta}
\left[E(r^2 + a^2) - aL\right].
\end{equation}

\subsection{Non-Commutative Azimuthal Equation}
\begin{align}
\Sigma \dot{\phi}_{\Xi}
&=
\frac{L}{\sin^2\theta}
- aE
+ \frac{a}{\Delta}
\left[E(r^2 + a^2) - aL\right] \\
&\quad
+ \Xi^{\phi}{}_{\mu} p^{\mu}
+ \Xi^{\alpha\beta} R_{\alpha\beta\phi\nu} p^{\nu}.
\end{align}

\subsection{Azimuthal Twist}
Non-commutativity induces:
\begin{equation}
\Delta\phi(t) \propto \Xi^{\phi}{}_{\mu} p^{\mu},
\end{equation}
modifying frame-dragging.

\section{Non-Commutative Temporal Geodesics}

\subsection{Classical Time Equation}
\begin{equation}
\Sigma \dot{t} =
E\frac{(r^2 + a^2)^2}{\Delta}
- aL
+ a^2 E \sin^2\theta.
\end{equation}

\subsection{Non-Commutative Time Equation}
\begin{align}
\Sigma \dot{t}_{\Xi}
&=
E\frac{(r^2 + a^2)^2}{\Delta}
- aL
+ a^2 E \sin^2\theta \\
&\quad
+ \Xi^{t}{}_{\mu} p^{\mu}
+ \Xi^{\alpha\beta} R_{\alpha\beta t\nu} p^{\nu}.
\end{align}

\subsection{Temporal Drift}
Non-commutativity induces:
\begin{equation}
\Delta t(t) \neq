@@ -1,0 +1,205 @@
+\chapter{Non-Commutative Geodesic Families}
+
+\section{Introduction}
+Non-commutative geometry modifies the canonical geodesic structure of curved spacetime 
+by introducing curvature-dependent corrections to the coordinate–momentum commutator:
+\begin{equation}
+[x^{\mu}, p_{\nu}] =
+i\hbar_{\text{eff}} \delta^{\mu}_{\nu}
++ i\Xi^{\mu}{}_{\nu}.
+\end{equation}
+This chapter develops the full non-commutative geodesic families required for UKG-SE 
+v2.0, including extended radial, polar, azimuthal, and temporal geodesics, modified 
+Carter constant structure, bifurcation behavior, and stability analysis.
+
+\section{Generalized Geodesic Equation}
+
+\subsection{Classical Geodesic}
+\begin{equation}
+\dot{p}_{\mu}
+=
+-\frac{1}{2} \partial_{\mu} g^{\alpha\beta} p_{\alpha} p_{\beta}.
+\end{equation}
+
+\subsection{Non-Commutative Geodesic}
+\begin{equation}
+\dot{p}_{\mu}^{\Xi}
+=
+-\frac{1}{2} \partial_{\mu} g^{\alpha\beta} p_{\alpha} p_{\beta}
++ \Xi^{\alpha}{}_{\mu} \partial_{\alpha} g^{\beta\gamma} p_{\beta} p_{\gamma}
++ \Xi^{\alpha\beta} R_{\alpha\beta\mu\nu} p^{\nu}.
+\end{equation}
+
+\subsection{Interpretation}
+The correction terms represent:
+\begin{itemize}
+    \item curvature-induced momentum deformation,
+    \item torsion-like coupling,
+    \item non-linear tensor mixing,
+    \item frame-dragging amplification.
+\end{itemize}
+
+\section{Non-Commutative Hamilton–Jacobi Separability}
+
+\subsection{Generalized Hamilton–Jacobi Equation}
+\begin{equation}
+g^{\mu\nu} \partial_{\mu} S \partial_{\nu} S
++ \Xi^{\mu}{}_{\nu} \partial_{\mu} S \partial^{\nu} S
++ \Xi^{\mu\nu} \Gamma^{\alpha}_{\mu\nu} \partial_{\alpha} S
+= -m^2.
+\end{equation}
+
+\subsection{Generalized Separation Ansatz}
+\begin{equation}
+S =
+-E t + L\phi + S_r(r) + S_{\theta}(\theta)
++ S_{\Xi}(x^{\mu}),
+\end{equation}
+where $S_{\Xi}$ encodes non-commutative corrections.
+
+\section{Non-Commutative Carter Constant}
+
+\subsection{Classical Carter Constant}
+\begin{equation}
+Q =
+p_{\theta}^2
++ a^2 (m^2 - E^2) \cos^2\theta
++ L^2 \cot^2\theta.
+\end{equation}
+
+\subsection{Non-Commutative Carter Constant}
+\begin{equation}
+Q_{\Xi} =
+Q
++ \Xi^{\theta}{}_{\theta} p_{\theta}^2
++ \Xi^{\phi}{}_{\phi} L^2
++ \Xi^{\theta\phi} p_{\theta} L.
+\end{equation}
+
+\subsection{Interpretation}
+Non-commutativity introduces:
+\begin{itemize}
+    \item polar–azimuthal coupling,
+    \item momentum anisotropy,
+    \item curvature-induced angular deformation.
+\end{itemize}
+
+\section{Non-Commutative Radial Geodesics}
+
+\subsection{Classical Radial Equation}
+\begin{equation}
+\Sigma^2 \dot{r}^2 =
+\left[E(r^2 + a^2) - aL\right]^2
+- \Delta \left[m^2 r^2 + (L - aE)^2 + Q\right].
+\end{equation}
+
+\subsection{Non-Commutative Radial Equation}
+\begin{align}
+\Sigma^2 \dot{r}_{\Xi}^2
+&=
+\left[E(r^2 + a^2) - aL\right]^2
+- \Delta \left[m^2 r^2 + (L - aE)^2 + Q_{\Xi}\right] \\
+&\quad
++ \Xi^{r}{}_{\mu} p^{\mu} p_{r}
++ \Xi^{\alpha\beta} R_{\alpha\beta r\nu} p^{\nu}.
+\end{align}
+
+\subsection{Radial Bifurcation}
+Non-commutativity introduces bifurcation points where:
+\begin{equation}
+\partial_r (\dot{r}_{\Xi}^2) = 0
+\quad \Rightarrow \quad
+\text{multiple radial branches}.
+\end{equation}
+
+\section{Non-Commutative Polar Geodesics}
+
+\subsection{Classical Polar Equation}
+\begin{equation}
+\Sigma^2 \dot{\theta}^2 =
+Q - \cos^2\theta
+\left[
+a^2 (m^2 - E^2)
++ L^2 \csc^2\theta
+\right].
+\end{equation}
+
+\subsection{Non-Commutative Polar Equation}
+\begin{align}
+\Sigma^2 \dot{\theta}_{\Xi}^2
+&=
+Q_{\Xi}
+- \cos^2\theta
+\left[
+a^2 (m^2 - E^2)
++ L^2 \csc^2\theta
+\right] \\
+&\quad
++ \Xi^{\theta}{}_{\mu} p^{\mu} p_{\theta}
++ \Xi^{\alpha\beta} R_{\alpha\beta\theta\nu} p^{\nu}.
+\end{align}
+
+\subsection{Polar Drift}
+Non-commutativity induces:
+\begin{equation}
+\Delta\theta(t) \neq 0,
+\end{equation}
+even for classical equatorial geodesics.
+
+\section{Non-Commutative Azimuthal Geodesics}
+
+\subsection{Classical Azimuthal Equation}
+\begin{equation}
+\Sigma \dot{\phi} =
+\frac{L}{\sin^2\theta}
+- aE
++ \frac{a}{\Delta}
+\left[E(r^2 + a^2) - aL\right].
+\end{equation}
+
+\subsection{Non-Commutative Azimuthal Equation}
+\begin{align}
+\Sigma \dot{\phi}_{\Xi}
+&=
+\frac{L}{\sin^2\theta}
+- aE
++ \frac{a}{\Delta}
+\left[E(r^2 + a^2) - aL\right] \\
+&\quad
++ \Xi^{\phi}{}_{\mu} p^{\mu}
++ \Xi^{\alpha\beta} R_{\alpha\beta\phi\nu} p^{\nu}.
+\end{align}
+
+\subsection{Azimuthal Twist}
+Non-commutativity induces:
+\begin{equation}
+\Delta\phi(t) \propto \Xi^{\phi}{}_{\mu} p^{\mu},
+\end{equation}
+modifying frame-dragging.
+
+\section{Non-Commutative Temporal Geodesics}
+
+\subsection{Classical Time Equation}
+\begin{equation}
+\Sigma \dot{t} =
+E\frac{(r^2 + a^2)^2}{\Delta}
+- aL
++ a^2 E \sin^2\theta.
+\end{equation}
+
+\subsection{Non-Commutative Time Equation}
+\begin{align}
+\Sigma \dot{t}_{\Xi}
+&=
+E\frac{(r^2 + a^2)^2}{\Delta}
+- aL
++ a^2 E \sin^2\theta \\
+&\quad
++ \Xi^{t}{}_{\mu} p^{\mu}
++ \Xi^{\alpha\beta} R_{\alpha\beta t\nu} p^{\nu}.
+\end{align}
+
+\subsection{Temporal Drift}
+Non-commutativity induces:
+\begin{equation}
+\Delta t(t) \neq
