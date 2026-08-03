@@ -1,0 +1,195 @@
+\documentclass[12pt,oneside]{book}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{cite}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{float}
+\usepackage{tocloft}
+
+\geometry{margin=1in}
+\setstretch{1.15}
+
+% Chapter formatting
+\titleformat{\chapter}[display]
+  {\bfseries\Huge}
+  {\filright\MakeUppercase{\chaptertitlename}~\thechapter}
+  {2ex}
+  {\titlerule\vspace{2ex}\filright}
+  [\vspace{2ex}\titlerule]
+
+\title{
+\textbf{Superluminal Thermodynamics Simulation Engine (STSE-H v2.0)}\\
+\vspace{0.2cm}
+\large Technical Monograph \& Reference Manual
+}
+\author{C.~Matthew~Blackwell}
+\date{}
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\chapter*{Preface}
+This monograph presents the complete mathematical, astrophysical, thermodynamic, 
+and computational architecture of the Superluminal Thermodynamics Simulation 
+Engine (STSE-H v2.0). It is intended as a comprehensive reference for researchers 
+working in warp-field physics, numerical relativity, exotic matter thermodynamics, 
+and GPU-accelerated Hamiltonian simulation.
+
+\tableofcontents
+
+\mainmatter
+
+%===========================================================
+\chapter{Introduction}
+\section{Overview}
+The STSE-H v2.0 engine provides a unified computational framework for 
+superluminal metric deformation, tachyonic thermodynamics, and ADM 3+1 
+Hamiltonian evolution. Real astrophysical datasets (Gaia DR3, Planck 2018, 
+LIGO transients) are integrated directly into a GPU-accelerated solver 
+architecture secured by AES-GCM-256 hardware enclaves.
+
+\section{Motivation}
+Warp-field physics requires simultaneous control of spatial expansion, 
+contraction gradients, exotic stress-energy tensors, and Hamiltonian 
+constraint stability. STSE-H v2.0 is designed to evaluate manifold integrity 
+under extreme warp conditions.
+
+%===========================================================
+\chapter{Extended ADM Hamiltonian Formulation}
+\section{3+1 Decomposition}
+\input{chapters/adm_decomposition.tex}
+
+\section{Hamiltonian Constraint}
+\input{chapters/hamiltonian_constraint.tex}
+
+\section{Momentum Constraint}
+\input{chapters/momentum_constraint.tex}
+
+\section{Supermetric Geometry}
+\input{chapters/supermetric.tex}
+
+\section{Conjugate Momentum}
+\input{chapters/conjugate_momentum.tex}
+
+\section{Exotic Stress-Energy Tensor}
+\input{chapters/exotic_tensor.tex}
+
+\section{Matos–Tonchev Potential}
+\input{chapters/matos_tonchev.tex}
+
+\section{Constraint Violation Analysis}
+\input{chapters/violation_analysis.tex}
+
+%===========================================================
+\chapter{Astrophysical Dataset Integration}
+\section{Gaia DR3 Pipeline}
+\input{chapters/gaia.tex}
+
+\section{Planck 2018 CMB Anisotropies}
+\input{chapters/planck.tex}
+
+\section{LIGO Transient Curvature Injection}
+\input{chapters/ligo.tex}
+
+\section{GPU Tensor Mapping}
+\input{chapters/tensor_mapping.tex}
+
+%===========================================================
+\chapter{Superluminal Thermodynamics}
+\section{Tachyonic Stefan-Boltzmann Law}
+\input{chapters/tachyon_sb.tex}
+
+\section{Complex Partition Functions}
+\input{chapters/partition_functions.tex}
+
+\section{Negative Heat-Capacity Regimes}
+\input{chapters/negative_heat.tex}
+
+\section{Exotic Matter EOS}
+\input{chapters/exotic_eos.tex}
+
+%===========================================================
+\chapter{Software Architecture}
+\section{Project Structure}
+\input{chapters/software_structure.tex}
+
+\section{C++20 Core Modules}
+\input{chapters/cpp_core.tex}
+
+\section{CUDA Metric Deformation Kernels}
+\input{chapters/cuda_kernels.tex}
+
+\section{Unified Memory Architecture}
+\input{chapters/unified_memory.tex}
+
+\section{Encryption Pipeline}
+\input{chapters/encryption.tex}
+
+\section{WarpController Internals}
+\input{chapters/warp_controller.tex}
+
+%===========================================================
+\chapter{Warp-Factor Stress Testing}
+\section{Warp Sweep Methodology}
+\input{chapters/warp_methodology.tex}
+
+\section{Hamiltonian Violation Curves}
+\input{chapters/violation_curves.tex}
+
+\section{Exotic Density Scaling}
+\input{chapters/density_scaling.tex}
+
+\section{Stability Analysis}
+\input{chapters/stability.tex}
+
+%===========================================================
+\chapter{Results}
+\section{Warp 1.0 to Warp 3375.0 Sweep}
+\input{chapters/results_warp.tex}
+
+\section{Telemetry Tables}
+\input{chapters/telemetry_tables.tex}
+
+\section{Discussion}
+\input{chapters/discussion.tex}
+
+%===========================================================
+\chapter{Conclusion}
+STSE-H v2.0 represents a fully buildable, secure, and high-performance 
+simulation engine capable of evaluating superluminal warp-field stability 
+under extreme Hamiltonian and thermodynamic regimes.
+
+%===========================================================
+\appendix
+\chapter{Appendix A: Full CUDA Kernels}
+\input{appendices/cuda_full.tex}
+
+\chapter{Appendix B: Full C++ Source Listings}
+\input{appendices/cpp_full.tex}
+
+\chapter{Appendix C: Telemetry Logs}
+\input{appendices/telemetry_full.tex}
+
+\chapter{Appendix D: Mathematical Proofs}
+\input{appendices/proofs.tex}
+
+\chapter{Appendix E: Glossary}
+\input{appendices/glossary.tex}
+
+%===========================================================
+\backmatter
+\bibliographystyle{IEEEtran}
+\begin{thebibliography}{1}
+\bibitem{gaia} Gaia Collaboration, ``Gaia Data Release 3,'' 2022.
+\bibitem{planck} Planck Collaboration, ``Planck 2018 Results,'' 2018.
+\bibitem{ligo} LIGO Scientific Collaboration, ``Gravitational Wave Transient Catalog,'' 2023.
+\end{thebibliography}
+
+\end{document}
