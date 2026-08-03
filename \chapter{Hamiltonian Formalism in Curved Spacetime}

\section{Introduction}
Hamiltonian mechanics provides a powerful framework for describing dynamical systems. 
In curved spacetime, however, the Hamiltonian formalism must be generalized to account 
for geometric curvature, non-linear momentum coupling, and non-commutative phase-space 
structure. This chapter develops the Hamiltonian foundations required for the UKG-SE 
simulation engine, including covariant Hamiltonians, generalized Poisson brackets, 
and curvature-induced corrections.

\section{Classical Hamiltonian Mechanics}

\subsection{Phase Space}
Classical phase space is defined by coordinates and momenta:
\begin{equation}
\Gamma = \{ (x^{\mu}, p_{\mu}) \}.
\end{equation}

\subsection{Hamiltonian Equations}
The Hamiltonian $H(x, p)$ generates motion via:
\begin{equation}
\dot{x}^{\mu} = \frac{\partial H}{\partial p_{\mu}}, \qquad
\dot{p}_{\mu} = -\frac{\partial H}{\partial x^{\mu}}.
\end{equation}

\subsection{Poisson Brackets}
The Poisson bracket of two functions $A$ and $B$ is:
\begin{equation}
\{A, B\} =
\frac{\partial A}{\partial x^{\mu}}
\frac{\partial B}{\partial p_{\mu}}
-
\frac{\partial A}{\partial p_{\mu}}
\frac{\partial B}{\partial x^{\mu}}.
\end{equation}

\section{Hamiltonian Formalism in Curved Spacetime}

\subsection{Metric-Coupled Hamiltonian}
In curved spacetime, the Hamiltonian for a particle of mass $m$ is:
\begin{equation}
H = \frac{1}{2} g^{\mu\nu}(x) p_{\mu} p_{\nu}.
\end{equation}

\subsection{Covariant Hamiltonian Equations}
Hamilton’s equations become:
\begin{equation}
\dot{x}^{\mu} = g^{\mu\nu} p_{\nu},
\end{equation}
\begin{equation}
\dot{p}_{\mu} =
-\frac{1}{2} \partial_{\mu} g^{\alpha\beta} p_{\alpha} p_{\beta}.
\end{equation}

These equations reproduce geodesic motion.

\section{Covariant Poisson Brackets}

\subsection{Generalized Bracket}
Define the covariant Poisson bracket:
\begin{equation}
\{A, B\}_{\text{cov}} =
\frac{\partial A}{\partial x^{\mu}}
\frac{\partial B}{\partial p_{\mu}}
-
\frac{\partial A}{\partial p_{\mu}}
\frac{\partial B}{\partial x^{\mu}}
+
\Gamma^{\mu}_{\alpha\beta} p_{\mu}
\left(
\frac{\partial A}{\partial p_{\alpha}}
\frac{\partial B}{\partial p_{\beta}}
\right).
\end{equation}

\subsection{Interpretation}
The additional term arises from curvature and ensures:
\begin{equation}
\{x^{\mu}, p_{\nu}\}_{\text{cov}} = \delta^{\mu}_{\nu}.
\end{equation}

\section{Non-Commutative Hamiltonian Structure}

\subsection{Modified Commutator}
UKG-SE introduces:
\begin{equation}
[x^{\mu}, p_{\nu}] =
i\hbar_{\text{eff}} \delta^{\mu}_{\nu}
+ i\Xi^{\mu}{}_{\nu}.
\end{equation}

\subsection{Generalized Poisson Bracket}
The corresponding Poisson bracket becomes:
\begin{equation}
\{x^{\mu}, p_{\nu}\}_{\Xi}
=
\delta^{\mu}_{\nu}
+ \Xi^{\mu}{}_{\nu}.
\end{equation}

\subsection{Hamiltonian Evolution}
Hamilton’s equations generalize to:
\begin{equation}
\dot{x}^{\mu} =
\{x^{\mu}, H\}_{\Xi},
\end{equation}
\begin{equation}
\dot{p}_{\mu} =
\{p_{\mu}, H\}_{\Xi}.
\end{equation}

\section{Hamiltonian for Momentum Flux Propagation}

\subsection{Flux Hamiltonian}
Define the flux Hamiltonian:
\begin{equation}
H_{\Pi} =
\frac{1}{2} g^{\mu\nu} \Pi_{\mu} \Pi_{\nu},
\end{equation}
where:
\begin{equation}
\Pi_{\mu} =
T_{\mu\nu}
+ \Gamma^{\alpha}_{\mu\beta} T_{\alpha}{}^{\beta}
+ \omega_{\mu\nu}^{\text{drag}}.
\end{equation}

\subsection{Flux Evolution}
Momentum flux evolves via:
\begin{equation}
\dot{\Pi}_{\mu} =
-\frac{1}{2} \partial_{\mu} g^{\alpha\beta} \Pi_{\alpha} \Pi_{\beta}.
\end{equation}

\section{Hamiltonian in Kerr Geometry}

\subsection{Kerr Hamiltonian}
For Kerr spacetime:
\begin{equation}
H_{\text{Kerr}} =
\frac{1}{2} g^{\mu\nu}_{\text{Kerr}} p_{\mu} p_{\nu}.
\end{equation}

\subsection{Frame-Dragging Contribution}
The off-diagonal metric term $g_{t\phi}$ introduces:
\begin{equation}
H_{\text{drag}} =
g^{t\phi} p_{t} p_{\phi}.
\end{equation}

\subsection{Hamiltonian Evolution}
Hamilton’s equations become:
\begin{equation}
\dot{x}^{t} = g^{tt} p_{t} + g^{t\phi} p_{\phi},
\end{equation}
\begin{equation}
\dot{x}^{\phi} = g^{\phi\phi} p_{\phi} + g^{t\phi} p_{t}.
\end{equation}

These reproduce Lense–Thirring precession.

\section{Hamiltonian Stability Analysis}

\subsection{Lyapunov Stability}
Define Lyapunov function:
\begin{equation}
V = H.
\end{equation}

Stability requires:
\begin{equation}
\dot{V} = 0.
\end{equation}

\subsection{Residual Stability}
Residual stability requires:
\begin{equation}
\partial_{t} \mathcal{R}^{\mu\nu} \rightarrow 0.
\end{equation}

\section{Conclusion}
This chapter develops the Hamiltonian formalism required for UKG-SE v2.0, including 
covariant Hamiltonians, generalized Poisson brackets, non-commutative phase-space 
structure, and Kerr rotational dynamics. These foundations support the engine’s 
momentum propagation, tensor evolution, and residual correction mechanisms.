@@ -1,0 +1,185 @@
+\chapter{Hamiltonian Formalism in Curved Spacetime}
+
+\section{Introduction}
+Hamiltonian mechanics provides a powerful framework for describing dynamical systems. 
+In curved spacetime, however, the Hamiltonian formalism must be generalized to account 
+for geometric curvature, non-linear momentum coupling, and non-commutative phase-space 
+structure. This chapter develops the Hamiltonian foundations required for the UKG-SE 
+simulation engine, including covariant Hamiltonians, generalized Poisson brackets, 
+and curvature-induced corrections.
+
+\section{Classical Hamiltonian Mechanics}
+
+\subsection{Phase Space}
+Classical phase space is defined by coordinates and momenta:
+\begin{equation}
+\Gamma = \{ (x^{\mu}, p_{\mu}) \}.
+\end{equation}
+
+\subsection{Hamiltonian Equations}
+The Hamiltonian $H(x, p)$ generates motion via:
+\begin{equation}
+\dot{x}^{\mu} = \frac{\partial H}{\partial p_{\mu}}, \qquad
+\dot{p}_{\mu} = -\frac{\partial H}{\partial x^{\mu}}.
+\end{equation}
+
+\subsection{Poisson Brackets}
+The Poisson bracket of two functions $A$ and $B$ is:
+\begin{equation}
+\{A, B\} =
+\frac{\partial A}{\partial x^{\mu}}
+\frac{\partial B}{\partial p_{\mu}}
+-
+\frac{\partial A}{\partial p_{\mu}}
+\frac{\partial B}{\partial x^{\mu}}.
+\end{equation}
+
+\section{Hamiltonian Formalism in Curved Spacetime}
+
+\subsection{Metric-Coupled Hamiltonian}
+In curved spacetime, the Hamiltonian for a particle of mass $m$ is:
+\begin{equation}
+H = \frac{1}{2} g^{\mu\nu}(x) p_{\mu} p_{\nu}.
+\end{equation}
+
+\subsection{Covariant Hamiltonian Equations}
+Hamilton’s equations become:
+\begin{equation}
+\dot{x}^{\mu} = g^{\mu\nu} p_{\nu},
+\end{equation}
+\begin{equation}
+\dot{p}_{\mu} =
+-\frac{1}{2} \partial_{\mu} g^{\alpha\beta} p_{\alpha} p_{\beta}.
+\end{equation}
+
+These equations reproduce geodesic motion.
+
+\section{Covariant Poisson Brackets}
+
+\subsection{Generalized Bracket}
+Define the covariant Poisson bracket:
+\begin{equation}
+\{A, B\}_{\text{cov}} =
+\frac{\partial A}{\partial x^{\mu}}
+\frac{\partial B}{\partial p_{\mu}}
+-
+\frac{\partial A}{\partial p_{\mu}}
+\frac{\partial B}{\partial x^{\mu}}
++
+\Gamma^{\mu}_{\alpha\beta} p_{\mu}
+\left(
+\frac{\partial A}{\partial p_{\alpha}}
+\frac{\partial B}{\partial p_{\beta}}
+\right).
+\end{equation}
+
+\subsection{Interpretation}
+The additional term arises from curvature and ensures:
+\begin{equation}
+\{x^{\mu}, p_{\nu}\}_{\text{cov}} = \delta^{\mu}_{\nu}.
+\end{equation}
+
+\section{Non-Commutative Hamiltonian Structure}
+
+\subsection{Modified Commutator}
+UKG-SE introduces:
+\begin{equation}
+[x^{\mu}, p_{\nu}] =
+i\hbar_{\text{eff}} \delta^{\mu}_{\nu}
++ i\Xi^{\mu}{}_{\nu}.
+\end{equation}
+
+\subsection{Generalized Poisson Bracket}
+The corresponding Poisson bracket becomes:
+\begin{equation}
+\{x^{\mu}, p_{\nu}\}_{\Xi}
+=
+\delta^{\mu}_{\nu}
++ \Xi^{\mu}{}_{\nu}.
+\end{equation}
+
+\subsection{Hamiltonian Evolution}
+Hamilton’s equations generalize to:
+\begin{equation}
+\dot{x}^{\mu} =
+\{x^{\mu}, H\}_{\Xi},
+\end{equation}
+\begin{equation}
+\dot{p}_{\mu} =
+\{p_{\mu}, H\}_{\Xi}.
+\end{equation}
+
+\section{Hamiltonian for Momentum Flux Propagation}
+
+\subsection{Flux Hamiltonian}
+Define the flux Hamiltonian:
+\begin{equation}
+H_{\Pi} =
+\frac{1}{2} g^{\mu\nu} \Pi_{\mu} \Pi_{\nu},
+\end{equation}
+where:
+\begin{equation}
+\Pi_{\mu} =
+T_{\mu\nu}
++ \Gamma^{\alpha}_{\mu\beta} T_{\alpha}{}^{\beta}
++ \omega_{\mu\nu}^{\text{drag}}.
+\end{equation}
+
+\subsection{Flux Evolution}
+Momentum flux evolves via:
+\begin{equation}
+\dot{\Pi}_{\mu} =
+-\frac{1}{2} \partial_{\mu} g^{\alpha\beta} \Pi_{\alpha} \Pi_{\beta}.
+\end{equation}
+
+\section{Hamiltonian in Kerr Geometry}
+
+\subsection{Kerr Hamiltonian}
+For Kerr spacetime:
+\begin{equation}
+H_{\text{Kerr}} =
+\frac{1}{2} g^{\mu\nu}_{\text{Kerr}} p_{\mu} p_{\nu}.
+\end{equation}
+
+\subsection{Frame-Dragging Contribution}
+The off-diagonal metric term $g_{t\phi}$ introduces:
+\begin{equation}
+H_{\text{drag}} =
+g^{t\phi} p_{t} p_{\phi}.
+\end{equation}
+
+\subsection{Hamiltonian Evolution}
+Hamilton’s equations become:
+\begin{equation}
+\dot{x}^{t} = g^{tt} p_{t} + g^{t\phi} p_{\phi},
+\end{equation}
+\begin{equation}
+\dot{x}^{\phi} = g^{\phi\phi} p_{\phi} + g^{t\phi} p_{t}.
+\end{equation}
+
+These reproduce Lense–Thirring precession.
+
+\section{Hamiltonian Stability Analysis}
+
+\subsection{Lyapunov Stability}
+Define Lyapunov function:
+\begin{equation}
+V = H.
+\end{equation}
+
+Stability requires:
+\begin{equation}
+\dot{V} = 0.
+\end{equation}
+
+\subsection{Residual Stability}
+Residual stability requires:
+\begin{equation}
+\partial_{t} \mathcal{R}^{\mu\nu} \rightarrow 0.
+\end{equation}
+
+\section{Conclusion}
+This chapter develops the Hamiltonian formalism required for UKG-SE v2.0, including 
+covariant Hamiltonians, generalized Poisson brackets, non-commutative phase-space 
+structure, and Kerr rotational dynamics. These foundations support the engine’s 
+momentum propagation, tensor evolution, and residual correction mechanisms.
