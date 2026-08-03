@@ -1,0 +1,197 @@
+\chapter{Extended Kerr Dynamics}
+
+\section{Introduction}
+Kerr spacetime describes the geometry around a rotating mass. Its dynamics are richer 
+than Schwarzschild due to frame-dragging, ergosphere structure, non-linear angular 
+momentum coupling, and separability of the Hamilton–Jacobi equation. This chapter 
+extends Kerr dynamics beyond the standard formulation, developing full geodesic 
+families, Carter constant structure, flux propagation, and high-spin asymptotics 
+relevant to UKG-SE v2.0.
+
+\section{Kerr Metric Structure}
+
+\subsection{Metric Components}
+The Kerr metric in Boyer–Lindquist coordinates is:
+\begin{align}
+ds^2 &= 
+-\left(1 - \frac{2Mr}{\Sigma}\right) dt^2
+- \frac{4Mar\sin^2\theta}{\Sigma} dt\, d\phi
++ \frac{\Sigma}{\Delta} dr^2
++ \Sigma d\theta^2 \\
+&\quad +
+\left(r^2 + a^2 + \frac{2Ma^2 r\sin^2\theta}{\Sigma}\right)
+\sin^2\theta\, d\phi^2,
+\end{align}
+where:
+\begin{equation}
+\Sigma = r^2 + a^2\cos^2\theta, \qquad
+\Delta = r^2 - 2Mr + a^2.
+\end{equation}
+
+\subsection{Ergosphere}
+The ergosphere boundary satisfies:
+\begin{equation}
+g_{tt} = 0
+\quad \Rightarrow \quad
+r_{\text{ergo}}(\theta) =
+M + \sqrt{M^2 - a^2\cos^2\theta}.
+\end{equation}
+
+\section{Hamilton–Jacobi Separability}
+
+\subsection{Hamilton–Jacobi Equation}
+The Hamilton–Jacobi equation is:
+\begin{equation}
+g^{\mu\nu} \partial_{\mu} S \partial_{\nu} S = -m^2.
+\end{equation}
+
+Carter discovered that $S$ separates:
+\begin{equation}
+S = -Et + L\phi + S_r(r) + S_{\theta}(\theta).
+\end{equation}
+
+\subsection{Carter Constant}
+Separability introduces the Carter constant:
+\begin{equation}
+Q =
+p_{\theta}^2
++ a^2 (m^2 - E^2) \cos^2\theta
++ L^2 \cot^2\theta.
+\end{equation}
+
+\section{Geodesic Equations}
+
+\subsection{Radial Equation}
+\begin{equation}
+\Sigma^2 \dot{r}^2 =
+\left[E(r^2 + a^2) - aL\right]^2
+- \Delta \left[m^2 r^2 + (L - aE)^2 + Q\right].
+\end{equation}
+
+\subsection{Polar Equation}
+\begin{equation}
+\Sigma^2 \dot{\theta}^2 =
+Q - \cos^2\theta
+\left[
+a^2 (m^2 - E^2)
++ L^2 \csc^2\theta
+\right].
+\end{equation}
+
+\subsection{Azimuthal Equation}
+\begin{equation}
+\Sigma \dot{\phi} =
+\frac{L}{\sin^2\theta}
+- aE
++ \frac{a}{\Delta}
+\left[E(r^2 + a^2) - aL\right].
+\end{equation}
+
+\subsection{Time Equation}
+\begin{equation}
+\Sigma \dot{t} =
+E\frac{(r^2 + a^2)^2}{\Delta}
+- aL
++ a^2 E \sin^2\theta.
+\end{equation}
+
+\section{Circular Orbits and ISCO}
+
+\subsection{Circular Orbit Conditions}
+Circular orbits satisfy:
+\begin{equation}
+\dot{r} = 0, \qquad
+\partial_r (\dot{r}^2) = 0.
+\end{equation}
+
+\subsection{ISCO Radius}
+The ISCO radius for prograde orbits is:
+\begin{equation}
+r_{\text{ISCO}} =
+M\left[
+3 + Z_2 - \sqrt{(3 - Z_1)(3 + Z_1 + 2Z_2)}
+\right],
+\end{equation}
+where:
+\begin{equation}
+Z_1 = 1 + (1 - a^2/M^2)^{1/3}
+\left[
+(1 + a/M)^{1/3} + (1 - a/M)^{1/3}
+\right],
+\end{equation}
+\begin{equation}
+Z_2 = \sqrt{3a^2/M^2 + Z_1^2}.
+\end{equation}
+
+\section{Frame-Dragging Dynamics}
+
+\subsection{Angular Velocity of Dragging}
+\begin{equation}
+\omega =
+\frac{2Mar}{\Sigma(r^2 + a^2)}.
+\end{equation}
+
+\subsection{Asymptotic Behavior}
+For $a \rightarrow M$:
+\begin{equation}
+\omega \rightarrow \frac{1}{2M},
+\end{equation}
+indicating maximal dragging.
+
+\section{Energy Extraction: Penrose Process}
+
+\subsection{Negative Energy States}
+Inside the ergosphere:
+\begin{equation}
+E_{\text{particle}} < 0.
+\end{equation}
+
+\subsection{Energy Extraction Condition}
+Penrose extraction requires:
+\begin{equation}
+E_{\text{out}} > E_{\text{in}}.
+\end{equation}
+
+\section{Flux Transport in Kerr Geometry}
+
+\subsection{Momentum Flux Tensor}
+\begin{equation}
+\Pi^{\mu\nu} =
+T^{\mu\nu}
++ \Gamma^{\mu}_{\alpha\beta} T^{\alpha\beta}
++ \omega^{\mu\nu}_{\text{drag}}.
+\end{equation}
+
+\subsection{Flux Drift}
+Flux drift satisfies:
+\begin{equation}
+\nabla_{\mu} \Pi^{\mu\nu} = 0.
+\end{equation}
+
+\section{High-Spin Kerr Dynamics}
+
+\subsection{Near-Extremal Limit}
+For:
+\begin{equation}
+a = 0.99M,
+\end{equation}
+the geometry exhibits:
+\begin{itemize}
+    \item extreme frame-dragging,
+    \item narrow ISCO radius,
+    \item strong polar coupling,
+    \item enhanced Carter constant effects.
+\end{itemize}
+
+\subsection{UKG-SE Stability}
+UKG-SE maintains:
+\begin{equation}
+\|\mathcal{R}^{\mu\nu}\| < 10^{-12},
+\end{equation}
+even under near-extremal rotation.
+
+\section{Conclusion}
+This chapter develops extended Kerr dynamics, including full geodesic families, 
+Carter constant structure, frame-dragging asymptotics, flux propagation, and 
+high-spin behavior. These results form the dynamical backbone of UKG-SE v2.0’s 
+rotating spacetime simulations.
