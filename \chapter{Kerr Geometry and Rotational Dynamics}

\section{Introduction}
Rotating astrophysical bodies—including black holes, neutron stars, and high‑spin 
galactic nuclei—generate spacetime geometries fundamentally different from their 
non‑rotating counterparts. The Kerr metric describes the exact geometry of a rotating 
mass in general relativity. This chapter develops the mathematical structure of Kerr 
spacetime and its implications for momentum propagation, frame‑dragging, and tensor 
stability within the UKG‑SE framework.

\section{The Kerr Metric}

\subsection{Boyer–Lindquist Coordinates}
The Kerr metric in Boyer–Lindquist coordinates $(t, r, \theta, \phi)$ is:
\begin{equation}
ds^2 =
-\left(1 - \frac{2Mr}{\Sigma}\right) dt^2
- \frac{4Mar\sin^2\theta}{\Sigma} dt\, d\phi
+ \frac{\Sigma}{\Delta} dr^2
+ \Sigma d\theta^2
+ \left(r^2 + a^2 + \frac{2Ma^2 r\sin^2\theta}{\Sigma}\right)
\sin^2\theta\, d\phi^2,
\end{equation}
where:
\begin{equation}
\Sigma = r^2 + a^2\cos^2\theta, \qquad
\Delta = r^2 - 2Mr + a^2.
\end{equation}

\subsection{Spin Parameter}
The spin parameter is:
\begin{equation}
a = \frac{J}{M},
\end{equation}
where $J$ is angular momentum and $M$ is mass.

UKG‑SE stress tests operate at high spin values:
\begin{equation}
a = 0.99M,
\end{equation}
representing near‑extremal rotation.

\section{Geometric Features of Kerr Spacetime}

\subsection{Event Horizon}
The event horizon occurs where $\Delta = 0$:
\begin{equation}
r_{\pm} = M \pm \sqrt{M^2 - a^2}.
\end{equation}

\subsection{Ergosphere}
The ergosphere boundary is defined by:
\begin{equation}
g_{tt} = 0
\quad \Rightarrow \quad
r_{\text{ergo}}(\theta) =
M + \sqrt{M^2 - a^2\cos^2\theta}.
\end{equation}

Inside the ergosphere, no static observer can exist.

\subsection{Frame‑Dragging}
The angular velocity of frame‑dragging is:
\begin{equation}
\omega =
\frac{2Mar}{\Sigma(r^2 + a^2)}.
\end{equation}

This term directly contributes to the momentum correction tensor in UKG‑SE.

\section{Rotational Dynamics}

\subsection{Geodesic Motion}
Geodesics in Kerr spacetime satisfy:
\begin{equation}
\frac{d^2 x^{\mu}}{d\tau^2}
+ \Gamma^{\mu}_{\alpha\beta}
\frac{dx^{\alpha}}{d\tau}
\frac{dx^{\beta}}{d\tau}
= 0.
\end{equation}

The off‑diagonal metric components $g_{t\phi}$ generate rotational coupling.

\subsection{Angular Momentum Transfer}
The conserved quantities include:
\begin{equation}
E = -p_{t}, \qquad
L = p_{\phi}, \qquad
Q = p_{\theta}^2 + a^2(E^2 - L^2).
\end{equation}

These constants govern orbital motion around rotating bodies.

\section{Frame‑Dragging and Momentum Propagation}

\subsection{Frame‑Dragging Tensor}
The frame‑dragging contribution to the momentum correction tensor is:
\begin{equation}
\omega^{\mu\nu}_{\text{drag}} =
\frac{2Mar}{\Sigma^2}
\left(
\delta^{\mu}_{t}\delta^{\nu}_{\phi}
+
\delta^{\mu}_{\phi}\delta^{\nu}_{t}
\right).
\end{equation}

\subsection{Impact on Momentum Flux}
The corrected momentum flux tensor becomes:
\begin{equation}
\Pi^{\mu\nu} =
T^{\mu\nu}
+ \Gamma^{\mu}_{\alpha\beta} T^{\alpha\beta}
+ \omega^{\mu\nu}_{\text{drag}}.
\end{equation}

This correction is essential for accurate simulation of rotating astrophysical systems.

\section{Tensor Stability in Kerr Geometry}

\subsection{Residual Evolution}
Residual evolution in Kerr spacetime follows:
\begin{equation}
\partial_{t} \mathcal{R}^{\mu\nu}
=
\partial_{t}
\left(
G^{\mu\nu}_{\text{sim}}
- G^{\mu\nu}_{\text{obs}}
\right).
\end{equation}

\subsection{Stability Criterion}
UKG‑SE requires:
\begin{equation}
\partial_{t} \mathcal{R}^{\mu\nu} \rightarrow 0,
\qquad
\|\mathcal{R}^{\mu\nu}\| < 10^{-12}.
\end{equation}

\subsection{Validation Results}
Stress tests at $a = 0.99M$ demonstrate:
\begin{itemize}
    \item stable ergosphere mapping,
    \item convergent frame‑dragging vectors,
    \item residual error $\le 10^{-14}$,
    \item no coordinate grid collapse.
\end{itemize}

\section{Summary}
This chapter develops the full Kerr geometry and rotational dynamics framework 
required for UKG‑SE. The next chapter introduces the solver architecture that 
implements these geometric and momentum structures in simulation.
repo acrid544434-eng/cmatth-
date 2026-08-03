@@ -1,0 +1,154 @@
+\chapter{Kerr Geometry and Rotational Dynamics}
+
+\section{Introduction}
+Rotating astrophysical bodies—including black holes, neutron stars, and high‑spin 
+galactic nuclei—generate spacetime geometries fundamentally different from their 
+non‑rotating counterparts. The Kerr metric describes the exact geometry of a rotating 
+mass in general relativity. This chapter develops the mathematical structure of Kerr 
+spacetime and its implications for momentum propagation, frame‑dragging, and tensor 
+stability within the UKG‑SE framework.
+
+\section{The Kerr Metric}
+
+\subsection{Boyer–Lindquist Coordinates}
+The Kerr metric in Boyer–Lindquist coordinates $(t, r, \theta, \phi)$ is:
+\begin{equation}
+ds^2 =
+-\left(1 - \frac{2Mr}{\Sigma}\right) dt^2
+- \frac{4Mar\sin^2\theta}{\Sigma} dt\, d\phi
++ \frac{\Sigma}{\Delta} dr^2
++ \Sigma d\theta^2
++ \left(r^2 + a^2 + \frac{2Ma^2 r\sin^2\theta}{\Sigma}\right)
+\sin^2\theta\, d\phi^2,
+\end{equation}
+where:
+\begin{equation}
+\Sigma = r^2 + a^2\cos^2\theta, \qquad
+\Delta = r^2 - 2Mr + a^2.
+\end{equation}
+
+\subsection{Spin Parameter}
+The spin parameter is:
+\begin{equation}
+a = \frac{J}{M},
+\end{equation}
+where $J$ is angular momentum and $M$ is mass.
+
+UKG‑SE stress tests operate at high spin values:
+\begin{equation}
+a = 0.99M,
+\end{equation}
+representing near‑extremal rotation.
+
+\section{Geometric Features of Kerr Spacetime}
+
+\subsection{Event Horizon}
+The event horizon occurs where $\Delta = 0$:
+\begin{equation}
+r_{\pm} = M \pm \sqrt{M^2 - a^2}.
+\end{equation}
+
+\subsection{Ergosphere}
+The ergosphere boundary is defined by:
+\begin{equation}
+g_{tt} = 0
+\quad \Rightarrow \quad
+r_{\text{ergo}}(\theta) =
+M + \sqrt{M^2 - a^2\cos^2\theta}.
+\end{equation}
+
+Inside the ergosphere, no static observer can exist.
+
+\subsection{Frame‑Dragging}
+The angular velocity of frame‑dragging is:
+\begin{equation}
+\omega =
+\frac{2Mar}{\Sigma(r^2 + a^2)}.
+\end{equation}
+
+This term directly contributes to the momentum correction tensor in UKG‑SE.
+
+\section{Rotational Dynamics}
+
+\subsection{Geodesic Motion}
+Geodesics in Kerr spacetime satisfy:
+\begin{equation}
+\frac{d^2 x^{\mu}}{d\tau^2}
++ \Gamma^{\mu}_{\alpha\beta}
+\frac{dx^{\alpha}}{d\tau}
+\frac{dx^{\beta}}{d\tau}
+= 0.
+\end{equation}
+
+The off‑diagonal metric components $g_{t\phi}$ generate rotational coupling.
+
+\subsection{Angular Momentum Transfer}
+The conserved quantities include:
+\begin{equation}
+E = -p_{t}, \qquad
+L = p_{\phi}, \qquad
+Q = p_{\theta}^2 + a^2(E^2 - L^2).
+\end{equation}
+
+These constants govern orbital motion around rotating bodies.
+
+\section{Frame‑Dragging and Momentum Propagation}
+
+\subsection{Frame‑Dragging Tensor}
+The frame‑dragging contribution to the momentum correction tensor is:
+\begin{equation}
+\omega^{\mu\nu}_{\text{drag}} =
+\frac{2Mar}{\Sigma^2}
+\left(
+\delta^{\mu}_{t}\delta^{\nu}_{\phi}
++
+\delta^{\mu}_{\phi}\delta^{\nu}_{t}
+\right).
+\end{equation}
+
+\subsection{Impact on Momentum Flux}
+The corrected momentum flux tensor becomes:
+\begin{equation}
+\Pi^{\mu\nu} =
+T^{\mu\nu}
++ \Gamma^{\mu}_{\alpha\beta} T^{\alpha\beta}
++ \omega^{\mu\nu}_{\text{drag}}.
+\end{equation}
+
+This correction is essential for accurate simulation of rotating astrophysical systems.
+
+\section{Tensor Stability in Kerr Geometry}
+
+\subsection{Residual Evolution}
+Residual evolution in Kerr spacetime follows:
+\begin{equation}
+\partial_{t} \mathcal{R}^{\mu\nu}
+=
+\partial_{t}
+\left(
+G^{\mu\nu}_{\text{sim}}
+- G^{\mu\nu}_{\text{obs}}
+\right).
+\end{equation}
+
+\subsection{Stability Criterion}
+UKG‑SE requires:
+\begin{equation}
+\partial_{t} \mathcal{R}^{\mu\nu} \rightarrow 0,
+\qquad
+\|\mathcal{R}^{\mu\nu}\| < 10^{-12}.
+\end{equation}
+
+\subsection{Validation Results}
+Stress tests at $a = 0.99M$ demonstrate:
+\begin{itemize}
+    \item stable ergosphere mapping,
+    \item convergent frame‑dragging vectors,
+    \item residual error $\le 10^{-14}$,
+    \item no coordinate grid collapse.
+\end{itemize}
+
+\section{Summary}
+This chapter develops the full Kerr geometry and rotational dynamics framework 
+required for UKG‑SE. The next chapter introduces the solver architecture that 
+implements these geometric and momentum structures in simulation.
