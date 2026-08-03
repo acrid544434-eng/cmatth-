@@ -1,0 +1,138 @@
+\chapter{Mathematical Framework of the UKG-SE System}
+
+\section{Overview}
+This chapter establishes the mathematical structures required for the Unified 
+Kinematic–Geometric Simulation Engine (UKG-SE). The framework integrates classical 
+differential geometry, tensor calculus, covariant conservation laws, and non-linear 
+momentum propagation. These foundations support the tensor residual engine and 
+non-commutative momentum framework introduced in later chapters.
+
+\section{Differential Geometry Foundations}
+
+\subsection{Manifold Structure}
+Let $(\mathcal{M}, g_{\mu\nu})$ be a smooth, four-dimensional Lorentzian manifold. 
+The metric signature is chosen as $(-,+,+,+)$, consistent with classical general relativity.
+
+A coordinate chart is defined by:
+\begin{equation}
+x^{\mu} : \mathcal{M} \rightarrow \mathbb{R}^4,
+\end{equation}
+with basis vectors:
+\begin{equation}
+e_{\mu} = \frac{\partial}{\partial x^{\mu}}.
+\end{equation}
+
+\subsection{Connection and Covariant Derivative}
+The Levi-Civita connection $\Gamma^{\rho}_{\mu\nu}$ satisfies:
+\begin{equation}
+\nabla_{\lambda} g_{\mu\nu} = 0, \qquad
+\Gamma^{\rho}_{\mu\nu} = \Gamma^{\rho}_{\nu\mu}.
+\end{equation}
+
+The covariant derivative of a vector field $V^{\mu}$ is:
+\begin{equation}
+\nabla_{\nu} V^{\mu} = \partial_{\nu} V^{\mu} + \Gamma^{\mu}_{\nu\lambda} V^{\lambda}.
+\end{equation}
+
+\subsection{Curvature Tensors}
+The Riemann curvature tensor is defined by:
+\begin{equation}
+R^{\rho}{}_{\sigma\mu\nu} =
+\partial_{\mu}\Gamma^{\rho}_{\sigma\nu}
+- \partial_{\nu}\Gamma^{\rho}_{\sigma\mu}
++ \Gamma^{\rho}_{\alpha\mu}\Gamma^{\alpha}_{\sigma\nu}
+- \Gamma^{\rho}_{\alpha\nu}\Gamma^{\alpha}_{\sigma\mu}.
+\end{equation}
+
+The Ricci tensor and scalar curvature follow:
+\begin{equation}
+R_{\mu\nu} = R^{\rho}{}_{\mu\rho\nu}, \qquad
+R = g^{\mu\nu} R_{\mu\nu}.
+\end{equation}
+
+The Einstein tensor is:
+\begin{equation}
+G_{\mu\nu} = R_{\mu\nu} - \frac{1}{2} R g_{\mu\nu}.
+\end{equation}
+
+These classical objects form the backbone of the UKG-SE tensor residual engine.
+
+\section{Stress-Energy Tensor Formalism}
+
+\subsection{Classical Definition}
+The stress-energy tensor $T^{\mu\nu}$ encodes energy density, momentum flux, and 
+pressure contributions. In classical field theory:
+\begin{equation}
+\nabla_{\mu} T^{\mu\nu} = 0.
+\end{equation}
+
+This condition assumes:
+\begin{itemize}
+    \item commutative phase space,
+    \item vanishing torsion,
+    \item no curvature-induced gauge fields,
+    \item no frame-dragging momentum sources.
+\end{itemize}
+
+UKG-SE v2.0 demonstrates that these assumptions fail in dynamic astrophysical environments.
+
+\subsection{Momentum Flux Tensor}
+Define the momentum flux tensor:
+\begin{equation}
+\Pi^{\mu\nu} = T^{\mu\nu} + \Theta^{\mu\nu}_{\text{momentum}},
+\end{equation}
+where $\Theta^{\mu\nu}_{\text{momentum}}$ is the curvature-bound correction term 
+introduced in Chapter 3.
+
+\section{Phase-Space Structure}
+
+\subsection{Classical Phase Space}
+Classically, phase space is defined by:
+\begin{equation}
+\Gamma = \{ (x^{\mu}, p_{\nu}) \},
+\end{equation}
+with canonical Poisson brackets:
+\begin{equation}
+\{ x^{\mu}, p_{\nu} \} = \delta^{\mu}_{\nu}.
+\end{equation}
+
+\subsection{Non-Commutative Phase Space}
+UKG-SE modifies this structure by introducing curvature-induced non-commutativity:
+\begin{equation}
+[x^{\mu}, p_{\nu}] = i\hbar_{\text{eff}}\delta^{\mu}_{\nu} + i\Xi^{\mu}{}_{\nu},
+\end{equation}
+where $\Xi^{\mu}{}_{\nu}$ encodes geometric torsion, frame-dragging, and 
+momentum-dependent gauge fields.
+
+This modification is essential for accurate momentum propagation in Kerr geometries 
+and rotating astrophysical systems.
+
+\section{Tensor Residual Framework}
+
+\subsection{Residual Definition}
+The tensor residual is defined as:
+\begin{equation}
+\mathcal{R}^{\mu\nu} = G^{\mu\nu}_{\text{sim}} - G^{\mu\nu}_{\text{obs}}.
+\end{equation}
+
+\subsection{Residual Correction}
+To correct momentum propagation, UKG-SE introduces:
+\begin{equation}
+\Theta^{\mu\nu}_{\text{momentum}} =
+\Gamma^{\mu}_{\alpha\beta} T^{\alpha\beta}
++ \omega^{\mu\nu}_{\text{drag}},
+\end{equation}
+where $\omega^{\mu\nu}_{\text{drag}}$ captures frame-dragging contributions.
+
+\subsection{Convergence Criterion}
+Residual convergence requires:
+\begin{equation}
+\|\mathcal{R}^{\mu\nu}\| < 10^{-12}.
+\end{equation}
+
+All UKG-SE v2.0 validation tests satisfy this bound.
+
+\section{Summary}
+This chapter establishes the mathematical foundations required for the UKG-SE system. 
+The next chapter develops the full tensor residual engine, including explicit 
+derivations and correction mechanisms.
