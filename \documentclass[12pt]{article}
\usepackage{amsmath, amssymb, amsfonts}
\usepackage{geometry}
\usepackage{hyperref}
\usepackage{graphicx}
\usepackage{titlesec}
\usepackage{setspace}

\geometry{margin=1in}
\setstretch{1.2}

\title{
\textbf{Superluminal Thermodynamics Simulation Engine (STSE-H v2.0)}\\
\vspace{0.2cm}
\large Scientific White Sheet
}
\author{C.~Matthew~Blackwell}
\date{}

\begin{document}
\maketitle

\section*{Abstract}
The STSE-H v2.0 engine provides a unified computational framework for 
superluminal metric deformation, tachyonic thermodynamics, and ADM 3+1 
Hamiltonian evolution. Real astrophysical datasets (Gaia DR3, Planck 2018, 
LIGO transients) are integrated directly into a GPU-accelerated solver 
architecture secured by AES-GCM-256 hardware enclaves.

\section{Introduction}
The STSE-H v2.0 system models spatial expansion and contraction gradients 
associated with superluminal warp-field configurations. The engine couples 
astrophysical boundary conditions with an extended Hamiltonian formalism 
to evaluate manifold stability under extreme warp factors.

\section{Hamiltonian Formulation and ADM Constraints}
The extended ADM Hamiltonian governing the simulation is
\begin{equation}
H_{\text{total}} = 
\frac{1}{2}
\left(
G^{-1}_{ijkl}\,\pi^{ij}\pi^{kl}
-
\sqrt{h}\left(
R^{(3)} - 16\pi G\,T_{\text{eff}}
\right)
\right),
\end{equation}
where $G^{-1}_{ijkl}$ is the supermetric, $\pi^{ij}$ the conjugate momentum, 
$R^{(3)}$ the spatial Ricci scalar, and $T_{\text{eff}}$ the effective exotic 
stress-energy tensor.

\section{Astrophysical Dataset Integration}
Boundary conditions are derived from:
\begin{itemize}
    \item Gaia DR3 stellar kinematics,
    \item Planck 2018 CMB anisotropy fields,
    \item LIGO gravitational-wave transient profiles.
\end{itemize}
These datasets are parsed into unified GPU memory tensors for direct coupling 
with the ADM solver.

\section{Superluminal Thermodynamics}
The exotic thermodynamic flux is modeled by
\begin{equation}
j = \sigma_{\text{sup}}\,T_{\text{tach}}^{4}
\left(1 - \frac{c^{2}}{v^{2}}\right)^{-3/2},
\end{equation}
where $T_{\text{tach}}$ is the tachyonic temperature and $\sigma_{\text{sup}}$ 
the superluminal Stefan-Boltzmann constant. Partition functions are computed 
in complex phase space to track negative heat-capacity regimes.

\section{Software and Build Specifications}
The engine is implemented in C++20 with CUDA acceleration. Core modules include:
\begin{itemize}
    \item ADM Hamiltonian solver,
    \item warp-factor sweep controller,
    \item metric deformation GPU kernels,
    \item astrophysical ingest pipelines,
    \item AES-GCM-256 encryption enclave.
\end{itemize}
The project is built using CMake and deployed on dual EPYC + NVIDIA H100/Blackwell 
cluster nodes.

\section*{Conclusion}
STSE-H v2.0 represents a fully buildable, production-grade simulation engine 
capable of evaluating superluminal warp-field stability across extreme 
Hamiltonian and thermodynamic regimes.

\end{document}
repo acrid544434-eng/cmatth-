@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{setspace}
+
+\geometry{margin=1in}
+\setstretch{1.2}
+
+\title{
+\textbf{Superluminal Thermodynamics Simulation Engine (STSE-H v2.0)}\\
+\vspace{0.2cm}
+\large Scientific White Sheet
+}
+\author{C.~Matthew~Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Abstract}
+The STSE-H v2.0 engine provides a unified computational framework for 
+superluminal metric deformation, tachyonic thermodynamics, and ADM 3+1 
+Hamiltonian evolution. Real astrophysical datasets (Gaia DR3, Planck 2018, 
+LIGO transients) are integrated directly into a GPU-accelerated solver 
+architecture secured by AES-GCM-256 hardware enclaves.
+
+\section{Introduction}
+The STSE-H v2.0 system models spatial expansion and contraction gradients 
+associated with superluminal warp-field configurations. The engine couples 
+astrophysical boundary conditions with an extended Hamiltonian formalism 
+to evaluate manifold stability under extreme warp factors.
+
+\section{Hamiltonian Formulation and ADM Constraints}
+The extended ADM Hamiltonian governing the simulation is
+\begin{equation}
+H_{\text{total}} = 
+\frac{1}{2}
+\left(
+G^{-1}_{ijkl}\,\pi^{ij}\pi^{kl}
+-
+\sqrt{h}\left(
+R^{(3)} - 16\pi G\,T_{\text{eff}}
+\right)
+\right),
+\end{equation}
+where $G^{-1}_{ijkl}$ is the supermetric, $\pi^{ij}$ the conjugate momentum, 
+$R^{(3)}$ the spatial Ricci scalar, and $T_{\text{eff}}$ the effective exotic 
+stress-energy tensor.
+
+\section{Astrophysical Dataset Integration}
+Boundary conditions are derived from:
+\begin{itemize}
+    \item Gaia DR3 stellar kinematics,
+    \item Planck 2018 CMB anisotropy fields,
+    \item LIGO gravitational-wave transient profiles.
+\end{itemize}
+These datasets are parsed into unified GPU memory tensors for direct coupling 
+with the ADM solver.
+
+\section{Superluminal Thermodynamics}
+The exotic thermodynamic flux is modeled by
+\begin{equation}
+j = \sigma_{\text{sup}}\,T_{\text{tach}}^{4}
+\left(1 - \frac{c^{2}}{v^{2}}\right)^{-3/2},
+\end{equation}
+where $T_{\text{tach}}$ is the tachyonic temperature and $\sigma_{\text{sup}}$ 
+the superluminal Stefan-Boltzmann constant. Partition functions are computed 
+in complex phase space to track negative heat-capacity regimes.
+
+\section{Software and Build Specifications}
+The engine is implemented in C++20 with CUDA acceleration. Core modules include:
+\begin{itemize}
+    \item ADM Hamiltonian solver,
+    \item warp-factor sweep controller,
+    \item metric deformation GPU kernels,
+    \item astrophysical ingest pipelines,
+    \item AES-GCM-256 encryption enclave.
+\end{itemize}
+The project is built using CMake and deployed on dual EPYC + NVIDIA H100/Blackwell 
+cluster nodes.
+
+\section*{Conclusion}
+STSE-H v2.0 represents a fully buildable, production-grade simulation engine 
+capable of evaluating superluminal warp-field stability across extreme 
+Hamiltonian and thermodynamic regimes.
+
+\end{document}
