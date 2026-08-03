@@ -1,0 +1,122 @@
+\chapter{Non-Commutative Constraint Algebra}
+
+\section{Introduction}
+The canonical constraint algebra of general relativity is traditionally expressed in 
+terms of Poisson brackets between the Hamiltonian and momentum constraints. In 
+non-commutative phase space, however, the algebra acquires curvature-dependent 
+corrections that modify the closure relations and introduce new geometric source 
+terms. This chapter develops the full non-commutative constraint algebra required 
+for UKG-SE v2.0, integrating ADM, York, and CTS formalisms with the generalized 
+momentum structure:
+\begin{equation}
+[x^{\mu}, p_{\nu}] =
+i\hbar_{\text{eff}} \delta^{\mu}_{\nu}
++ i\Xi^{\mu}{}_{\nu}.
+\end{equation}
+
+\section{Canonical ADM Constraint Algebra}
+
+\subsection{Hamiltonian Constraint}
+\begin{equation}
+\mathcal{H}(x) =
+R^{(3)} + K^2 - K_{ij} K^{ij}
+- 16\pi G \rho.
+\end{equation}
+
+\subsection{Momentum Constraint}
+\begin{equation}
+\mathcal{M}_i(x) =
+D_j (K^{j}{}_{i} - \delta^{j}_{i} K)
+- 8\pi G S_i.
+\end{equation}
+
+\subsection{Classical Constraint Algebra}
+The classical Poisson algebra is:
+\begin{align}
+\{\mathcal{H}(x), \mathcal{H}(y)\}
+&=
+h^{ij}(x) \mathcal{M}_i(x) \partial_j \delta(x,y), \\
+\{\mathcal{H}(x), \mathcal{M}_i(y)\}
+&=
+\mathcal{H}(y) \partial_i \delta(x,y), \\
+\{\mathcal{M}_i(x), \mathcal{M}_j(y)\}
+&=
+\mathcal{M}_i(y) \partial_j \delta(x,y)
++ \mathcal{M}_j(x) \partial_i \delta(x,y).
+\end{align}
+
+\section{Non-Commutative Phase Space}
+
+\subsection{Generalized Commutator}
+Non-commutativity introduces:
+\begin{equation}
+[x^{\mu}, p_{\nu}] =
+i\hbar_{\text{eff}} \delta^{\mu}_{\nu}
++ i\Xi^{\mu}{}_{\nu},
+\end{equation}
+where $\Xi^{\mu}{}_{\nu}$ encodes curvature-induced torsion-like effects.
+
+\subsection{Generalized Poisson Bracket}
+Define:
+\begin{equation}
+\{A, B\}_{\Xi}
+=
+\{A, B\}
++ \Xi^{\mu}{}_{\nu}
+\frac{\partial A}{\partial p_{\mu}}
+\frac{\partial B}{\partial x^{\nu}}.
+\end{equation}
+
+\section{Non-Commutative Hamiltonian Constraint}
+
+\subsection{Generalized Hamiltonian}
+The Hamiltonian becomes:
+\begin{equation}
+\mathcal{H}_{\Xi} =
+\mathcal{H}
++ \Delta_{\Xi} \mathcal{H},
+\end{equation}
+where:
+\begin{equation}
+\Delta_{\Xi} \mathcal{H}
+=
+\Xi^{ij} K_{ij}
++ \Xi^{i}{}_{j} D_i D^j \psi
++ \Xi^{ij} \tilde{A}_{ij}.
+\end{equation}
+
+\subsection{Interpretation}
+The correction terms represent:
+\begin{itemize}
+    \item curvature-induced momentum sources,
+    \item torsion-like geometric coupling,
+    \item frame-dragging contributions,
+    \item non-linear conformal corrections.
+\end{itemize}
+
+\section{Non-Commutative Momentum Constraint}
+
+\subsection{Generalized Momentum Constraint}
+\begin{equation}
+\mathcal{M}^{\Xi}_i =
+\mathcal{M}_i
++ \Delta_{\Xi} \mathcal{M}_i,
+\end{equation}
+where:
+\begin{equation}
+\Delta_{\Xi} \mathcal{M}_i =
+\Xi^{j}{}_{i} K_{jk}
++ \Xi^{j}{}_{k} D_j K^{k}{}_{i}
++ \Xi^{j}{}_{i} D_j K.
+\end{equation}
+
+\section{Non-Commutative Constraint Algebra}
+
+\subsection{Generalized Algebra}
+The non-commutative algebra becomes:
+\begin{align}
+\{\mathcal{H}_{\Xi}(x), \mathcal{H}_{\Xi}(y)\}_{\Xi}
+&=
+h^{ij}(x) \mathcal{M}^{\Xi}_i(x) \partial_j \delta(x,y)
++ \Delta_{\Xi}^{HH}(x,y), \\
+\{\mathcal{H}_{\Xi}(x), \mathcal{M}^{\Xi
