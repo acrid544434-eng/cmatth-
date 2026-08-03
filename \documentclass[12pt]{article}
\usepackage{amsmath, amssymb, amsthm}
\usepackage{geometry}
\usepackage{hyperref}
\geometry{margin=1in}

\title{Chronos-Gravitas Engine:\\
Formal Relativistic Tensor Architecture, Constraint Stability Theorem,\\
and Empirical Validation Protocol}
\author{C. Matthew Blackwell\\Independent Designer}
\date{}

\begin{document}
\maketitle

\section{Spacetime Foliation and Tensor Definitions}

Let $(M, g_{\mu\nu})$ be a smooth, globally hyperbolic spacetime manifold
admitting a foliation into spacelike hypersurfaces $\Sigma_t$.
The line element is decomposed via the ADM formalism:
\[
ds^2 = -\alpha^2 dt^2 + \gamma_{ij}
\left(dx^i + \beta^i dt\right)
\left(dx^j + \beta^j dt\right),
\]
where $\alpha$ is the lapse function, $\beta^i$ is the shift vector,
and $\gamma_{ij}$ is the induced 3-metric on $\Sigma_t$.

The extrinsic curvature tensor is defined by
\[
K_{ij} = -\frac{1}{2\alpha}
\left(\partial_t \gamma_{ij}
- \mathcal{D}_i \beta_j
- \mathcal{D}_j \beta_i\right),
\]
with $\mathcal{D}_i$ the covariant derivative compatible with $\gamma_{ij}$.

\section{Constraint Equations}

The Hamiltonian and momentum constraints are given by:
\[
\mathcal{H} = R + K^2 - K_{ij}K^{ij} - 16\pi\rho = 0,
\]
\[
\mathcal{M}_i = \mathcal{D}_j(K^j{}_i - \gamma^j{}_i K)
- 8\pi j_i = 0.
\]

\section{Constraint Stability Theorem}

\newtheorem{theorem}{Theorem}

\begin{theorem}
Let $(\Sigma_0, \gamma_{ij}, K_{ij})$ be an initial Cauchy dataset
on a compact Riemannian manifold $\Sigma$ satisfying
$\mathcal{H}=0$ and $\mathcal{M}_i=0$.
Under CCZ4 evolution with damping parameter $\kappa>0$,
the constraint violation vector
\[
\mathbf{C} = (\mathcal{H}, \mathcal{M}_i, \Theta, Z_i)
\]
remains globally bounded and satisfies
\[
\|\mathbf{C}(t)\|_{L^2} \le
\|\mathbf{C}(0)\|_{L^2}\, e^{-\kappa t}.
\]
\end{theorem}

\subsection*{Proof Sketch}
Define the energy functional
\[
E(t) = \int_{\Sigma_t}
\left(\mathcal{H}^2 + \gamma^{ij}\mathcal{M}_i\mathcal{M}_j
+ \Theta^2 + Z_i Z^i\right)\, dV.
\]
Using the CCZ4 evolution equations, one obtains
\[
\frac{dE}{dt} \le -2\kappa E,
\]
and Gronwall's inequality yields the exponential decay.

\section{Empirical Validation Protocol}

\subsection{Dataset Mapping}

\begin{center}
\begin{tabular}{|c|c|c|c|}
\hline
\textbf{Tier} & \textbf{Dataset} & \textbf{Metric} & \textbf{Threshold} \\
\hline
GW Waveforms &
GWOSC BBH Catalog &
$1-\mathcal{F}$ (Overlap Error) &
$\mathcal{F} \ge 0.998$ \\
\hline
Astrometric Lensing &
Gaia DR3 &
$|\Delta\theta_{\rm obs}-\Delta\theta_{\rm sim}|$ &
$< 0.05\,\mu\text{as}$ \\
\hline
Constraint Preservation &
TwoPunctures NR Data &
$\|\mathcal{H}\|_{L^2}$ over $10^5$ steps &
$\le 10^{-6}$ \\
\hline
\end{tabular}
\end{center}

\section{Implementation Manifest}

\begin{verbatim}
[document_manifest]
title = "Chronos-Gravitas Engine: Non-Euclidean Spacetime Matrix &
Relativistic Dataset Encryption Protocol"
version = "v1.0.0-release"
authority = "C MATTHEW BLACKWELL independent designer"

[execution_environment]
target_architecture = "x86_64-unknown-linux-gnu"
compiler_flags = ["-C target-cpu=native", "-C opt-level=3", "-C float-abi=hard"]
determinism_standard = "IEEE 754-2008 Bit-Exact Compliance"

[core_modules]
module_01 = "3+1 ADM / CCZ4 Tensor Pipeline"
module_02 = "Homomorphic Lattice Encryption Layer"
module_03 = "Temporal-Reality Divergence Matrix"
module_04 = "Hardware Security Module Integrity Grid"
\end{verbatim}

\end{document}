@@ -1,0 +1,130 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\title{Chronos-Gravitas Engine:\\
+Formal Relativistic Tensor Architecture, Constraint Stability Theorem,\\
+and Empirical Validation Protocol}
+\author{C. Matthew Blackwell\\Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Spacetime Foliation and Tensor Definitions}
+
+Let $(M, g_{\mu\nu})$ be a smooth, globally hyperbolic spacetime manifold
+admitting a foliation into spacelike hypersurfaces $\Sigma_t$.
+The line element is decomposed via the ADM formalism:
+\[
+ds^2 = -\alpha^2 dt^2 + \gamma_{ij}
+\left(dx^i + \beta^i dt\right)
+\left(dx^j + \beta^j dt\right),
+\]
+where $\alpha$ is the lapse function, $\beta^i$ is the shift vector,
+and $\gamma_{ij}$ is the induced 3-metric on $\Sigma_t$.
+
+The extrinsic curvature tensor is defined by
+\[
+K_{ij} = -\frac{1}{2\alpha}
+\left(\partial_t \gamma_{ij}
+- \mathcal{D}_i \beta_j
+- \mathcal{D}_j \beta_i\right),
+\]
+with $\mathcal{D}_i$ the covariant derivative compatible with $\gamma_{ij}$.
+
+\section{Constraint Equations}
+
+The Hamiltonian and momentum constraints are given by:
+\[
+\mathcal{H} = R + K^2 - K_{ij}K^{ij} - 16\pi\rho = 0,
+\]
+\[
+\mathcal{M}_i = \mathcal{D}_j(K^j{}_i - \gamma^j{}_i K)
+- 8\pi j_i = 0.
+\]
+
+\section{Constraint Stability Theorem}
+
+\newtheorem{theorem}{Theorem}
+
+\begin{theorem}
+Let $(\Sigma_0, \gamma_{ij}, K_{ij})$ be an initial Cauchy dataset
+on a compact Riemannian manifold $\Sigma$ satisfying
+$\mathcal{H}=0$ and $\mathcal{M}_i=0$.
+Under CCZ4 evolution with damping parameter $\kappa>0$,
+the constraint violation vector
+\[
+\mathbf{C} = (\mathcal{H}, \mathcal{M}_i, \Theta, Z_i)
+\]
+remains globally bounded and satisfies
+\[
+\|\mathbf{C}(t)\|_{L^2} \le
+\|\mathbf{C}(0)\|_{L^2}\, e^{-\kappa t}.
+\]
+\end{theorem}
+
+\subsection*{Proof Sketch}
+Define the energy functional
+\[
+E(t) = \int_{\Sigma_t}
+\left(\mathcal{H}^2 + \gamma^{ij}\mathcal{M}_i\mathcal{M}_j
++ \Theta^2 + Z_i Z^i\right)\, dV.
+\]
+Using the CCZ4 evolution equations, one obtains
+\[
+\frac{dE}{dt} \le -2\kappa E,
+\]
+and Gronwall's inequality yields the exponential decay.
+
+\section{Empirical Validation Protocol}
+
+\subsection{Dataset Mapping}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Tier} & \textbf{Dataset} & \textbf{Metric} & \textbf{Threshold} \\
+\hline
+GW Waveforms &
+GWOSC BBH Catalog &
+$1-\mathcal{F}$ (Overlap Error) &
+$\mathcal{F} \ge 0.998$ \\
+\hline
+Astrometric Lensing &
+Gaia DR3 &
+$|\Delta\theta_{\rm obs}-\Delta\theta_{\rm sim}|$ &
+$< 0.05\,\mu\text{as}$ \\
+\hline
+Constraint Preservation &
+TwoPunctures NR Data &
+$\|\mathcal{H}\|_{L^2}$ over $10^5$ steps &
+$\le 10^{-6}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Implementation Manifest}
+
+\begin{verbatim}
+[document_manifest]
+title = "Chronos-Gravitas Engine: Non-Euclidean Spacetime Matrix &
+Relativistic Dataset Encryption Protocol"
+version = "v1.0.0-release"
+authority = "C MATTHEW BLACKWELL independent designer"
+
+[execution_environment]
+target_architecture = "x86_64-unknown-linux-gnu"
+compiler_flags = ["-C target-cpu=native", "-C opt-level=3", "-C float-abi=hard"]
+determinism_standard = "IEEE 754-2008 Bit-Exact Compliance"
+
+[core_modules]
+module_01 = "3+1 ADM / CCZ4 Tensor Pipeline"
+module_02 = "Homomorphic Lattice Encryption Layer"
+module_03 = "Temporal-Reality Divergence Matrix"
+module_04 = "Hardware Security Module Integrity Grid"
+\end{verbatim}
+
+\end{document}
