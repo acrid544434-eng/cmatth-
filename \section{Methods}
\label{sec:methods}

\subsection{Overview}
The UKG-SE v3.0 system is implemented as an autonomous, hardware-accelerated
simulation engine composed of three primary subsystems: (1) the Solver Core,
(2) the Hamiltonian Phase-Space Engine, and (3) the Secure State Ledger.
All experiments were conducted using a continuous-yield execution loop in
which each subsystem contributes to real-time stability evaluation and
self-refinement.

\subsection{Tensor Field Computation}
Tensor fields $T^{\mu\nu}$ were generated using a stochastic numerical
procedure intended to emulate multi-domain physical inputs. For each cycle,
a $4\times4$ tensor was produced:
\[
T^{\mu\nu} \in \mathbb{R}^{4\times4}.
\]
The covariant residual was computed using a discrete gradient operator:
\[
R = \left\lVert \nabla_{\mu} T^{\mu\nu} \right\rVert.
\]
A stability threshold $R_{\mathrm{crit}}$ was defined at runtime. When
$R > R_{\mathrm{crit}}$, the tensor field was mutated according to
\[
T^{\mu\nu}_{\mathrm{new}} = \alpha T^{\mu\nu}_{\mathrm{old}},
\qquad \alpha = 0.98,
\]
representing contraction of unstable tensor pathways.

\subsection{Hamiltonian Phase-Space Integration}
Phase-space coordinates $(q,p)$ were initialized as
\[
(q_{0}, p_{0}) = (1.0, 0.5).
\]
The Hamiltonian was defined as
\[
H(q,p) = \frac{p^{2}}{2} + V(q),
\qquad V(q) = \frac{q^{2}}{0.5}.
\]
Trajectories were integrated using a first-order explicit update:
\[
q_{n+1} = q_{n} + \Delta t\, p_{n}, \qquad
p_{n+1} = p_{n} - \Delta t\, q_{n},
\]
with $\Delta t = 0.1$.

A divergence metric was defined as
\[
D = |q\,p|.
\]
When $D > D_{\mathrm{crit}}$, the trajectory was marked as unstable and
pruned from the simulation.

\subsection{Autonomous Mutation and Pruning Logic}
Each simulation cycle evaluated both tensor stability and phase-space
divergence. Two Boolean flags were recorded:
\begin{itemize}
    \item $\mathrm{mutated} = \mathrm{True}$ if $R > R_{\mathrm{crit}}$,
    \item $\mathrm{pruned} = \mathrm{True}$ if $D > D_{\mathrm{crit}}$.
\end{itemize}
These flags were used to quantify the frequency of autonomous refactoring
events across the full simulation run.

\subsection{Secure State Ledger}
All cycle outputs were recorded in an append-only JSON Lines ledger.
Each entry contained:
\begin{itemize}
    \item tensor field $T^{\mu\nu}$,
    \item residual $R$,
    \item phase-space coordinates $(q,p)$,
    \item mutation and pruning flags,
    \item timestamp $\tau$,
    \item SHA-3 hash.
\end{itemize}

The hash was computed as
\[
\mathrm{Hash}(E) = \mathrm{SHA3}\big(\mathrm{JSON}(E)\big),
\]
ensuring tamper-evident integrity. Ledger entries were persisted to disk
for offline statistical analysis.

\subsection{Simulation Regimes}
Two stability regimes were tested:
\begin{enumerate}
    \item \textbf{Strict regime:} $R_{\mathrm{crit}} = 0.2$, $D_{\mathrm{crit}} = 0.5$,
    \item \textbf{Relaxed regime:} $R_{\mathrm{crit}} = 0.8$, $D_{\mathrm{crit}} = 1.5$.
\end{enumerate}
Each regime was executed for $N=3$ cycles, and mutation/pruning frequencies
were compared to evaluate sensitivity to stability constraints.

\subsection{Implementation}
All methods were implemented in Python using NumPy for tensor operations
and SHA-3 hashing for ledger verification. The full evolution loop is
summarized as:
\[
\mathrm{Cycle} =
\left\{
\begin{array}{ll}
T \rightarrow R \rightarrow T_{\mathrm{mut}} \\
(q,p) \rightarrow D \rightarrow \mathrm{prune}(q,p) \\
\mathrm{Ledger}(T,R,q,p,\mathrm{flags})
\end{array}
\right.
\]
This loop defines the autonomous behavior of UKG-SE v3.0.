@@ -1,0 +1,107 @@
+\section{Methods}
+\label{sec:methods}
+
+\subsection{Overview}
+The UKG-SE v3.0 system is implemented as an autonomous, hardware-accelerated
+simulation engine composed of three primary subsystems: (1) the Solver Core,
+(2) the Hamiltonian Phase-Space Engine, and (3) the Secure State Ledger.
+All experiments were conducted using a continuous-yield execution loop in
+which each subsystem contributes to real-time stability evaluation and
+self-refinement.
+
+\subsection{Tensor Field Computation}
+Tensor fields $T^{\mu\nu}$ were generated using a stochastic numerical
+procedure intended to emulate multi-domain physical inputs. For each cycle,
+a $4\times4$ tensor was produced:
+\[
+T^{\mu\nu} \in \mathbb{R}^{4\times4}.
+\]
+The covariant residual was computed using a discrete gradient operator:
+\[
+R = \left\lVert \nabla_{\mu} T^{\mu\nu} \right\rVert.
+\]
+A stability threshold $R_{\mathrm{crit}}$ was defined at runtime. When
+$R > R_{\mathrm{crit}}$, the tensor field was mutated according to
+\[
+T^{\mu\nu}_{\mathrm{new}} = \alpha T^{\mu\nu}_{\mathrm{old}},
+\qquad \alpha = 0.98,
+\]
+representing contraction of unstable tensor pathways.
+
+\subsection{Hamiltonian Phase-Space Integration}
+Phase-space coordinates $(q,p)$ were initialized as
+\[
+(q_{0}, p_{0}) = (1.0, 0.5).
+\]
+The Hamiltonian was defined as
+\[
+H(q,p) = \frac{p^{2}}{2} + V(q),
+\qquad V(q) = \frac{q^{2}}{0.5}.
+\]
+Trajectories were integrated using a first-order explicit update:
+\[
+q_{n+1} = q_{n} + \Delta t\, p_{n}, \qquad
+p_{n+1} = p_{n} - \Delta t\, q_{n},
+\]
+with $\Delta t = 0.1$.
+
+A divergence metric was defined as
+\[
+D = |q\,p|.
+\]
+When $D > D_{\mathrm{crit}}$, the trajectory was marked as unstable and
+pruned from the simulation.
+
+\subsection{Autonomous Mutation and Pruning Logic}
+Each simulation cycle evaluated both tensor stability and phase-space
+divergence. Two Boolean flags were recorded:
+\begin{itemize}
+    \item $\mathrm{mutated} = \mathrm{True}$ if $R > R_{\mathrm{crit}}$,
+    \item $\mathrm{pruned} = \mathrm{True}$ if $D > D_{\mathrm{crit}}$.
+\end{itemize}
+These flags were used to quantify the frequency of autonomous refactoring
+events across the full simulation run.
+
+\subsection{Secure State Ledger}
+All cycle outputs were recorded in an append-only JSON Lines ledger.
+Each entry contained:
+\begin{itemize}
+    \item tensor field $T^{\mu\nu}$,
+    \item residual $R$,
+    \item phase-space coordinates $(q,p)$,
+    \item mutation and pruning flags,
+    \item timestamp $\tau$,
+    \item SHA-3 hash.
+\end{itemize}
+
+The hash was computed as
+\[
+\mathrm{Hash}(E) = \mathrm{SHA3}\big(\mathrm{JSON}(E)\big),
+\]
+ensuring tamper-evident integrity. Ledger entries were persisted to disk
+for offline statistical analysis.
+
+\subsection{Simulation Regimes}
+Two stability regimes were tested:
+\begin{enumerate}
+    \item \textbf{Strict regime:} $R_{\mathrm{crit}} = 0.2$, $D_{\mathrm{crit}} = 0.5$,
+    \item \textbf{Relaxed regime:} $R_{\mathrm{crit}} = 0.8$, $D_{\mathrm{crit}} = 1.5$.
+\end{enumerate}
+Each regime was executed for $N=3$ cycles, and mutation/pruning frequencies
+were compared to evaluate sensitivity to stability constraints.
+
+\subsection{Implementation}
+All methods were implemented in Python using NumPy for tensor operations
+and SHA-3 hashing for ledger verification. The full evolution loop is
+summarized as:
+\[
+\mathrm{Cycle} =
+\left\{
+\begin{array}{ll}
+T \rightarrow R \rightarrow T_{\mathrm{mut}} \\
+(q,p) \rightarrow D \rightarrow \mathrm{prune}(q,p) \\
+\mathrm{Ledger}(T,R,q,p,\mathrm{flags})
+\end{array}
+\right.
+\]
+This loop defines the autonomous behavior of UKG-SE v3.0.
