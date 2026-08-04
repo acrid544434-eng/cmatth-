@@ -1,0 +1,39 @@
+\chapter{State Speed Verification Architecture}
+
+\section{Overview}
+State Speed redefines velocity as the rate of resonance-stable, ledger-anchored
+state evolution across hybrid aerodynamic and plasma regimes.
+
+\section{Formal Definition}
+\[
+\mathcal{S}_{\text{v}}(t) =
+\mathbb{I}_{\text{ledger}} \cdot
+\mathcal{R}(t) \cdot
+\frac{\|\Psi(t+\Delta t)-\Psi(t)\|}{\Delta t}
+\]
+
+\section{State Speed Tiers}
+\subsection{Atmospheric Tier}
+Classical compressible flow, geometry-first control.
+
+\subsection{Plasma Tier}
+Electrohydrodynamic plasma sheath, field-first control.
+
+\subsection{Warp-Interface Tier}
+Metric coupling and Hamiltonian invariants.
+
+\section{Maximum Theoretical State Speed}
+\[
+\mathcal{S}_{\max} =
+\frac{\|\Delta \Psi\|}{\Delta t_{\text{Planck}}}
+\cdot
+\mathcal{R}_{\text{optimal}}
+\cdot
+\mathbb{I}_{\text{ledger}}
+\]
+
+\section{Mapping Matrix}
+Classical velocity becomes a projection of sovereign velocity.
+
+\section{Verification Suite}
+Hybrid Navier–Stokes/plasma tests validate resonance stability and tier scaling.
