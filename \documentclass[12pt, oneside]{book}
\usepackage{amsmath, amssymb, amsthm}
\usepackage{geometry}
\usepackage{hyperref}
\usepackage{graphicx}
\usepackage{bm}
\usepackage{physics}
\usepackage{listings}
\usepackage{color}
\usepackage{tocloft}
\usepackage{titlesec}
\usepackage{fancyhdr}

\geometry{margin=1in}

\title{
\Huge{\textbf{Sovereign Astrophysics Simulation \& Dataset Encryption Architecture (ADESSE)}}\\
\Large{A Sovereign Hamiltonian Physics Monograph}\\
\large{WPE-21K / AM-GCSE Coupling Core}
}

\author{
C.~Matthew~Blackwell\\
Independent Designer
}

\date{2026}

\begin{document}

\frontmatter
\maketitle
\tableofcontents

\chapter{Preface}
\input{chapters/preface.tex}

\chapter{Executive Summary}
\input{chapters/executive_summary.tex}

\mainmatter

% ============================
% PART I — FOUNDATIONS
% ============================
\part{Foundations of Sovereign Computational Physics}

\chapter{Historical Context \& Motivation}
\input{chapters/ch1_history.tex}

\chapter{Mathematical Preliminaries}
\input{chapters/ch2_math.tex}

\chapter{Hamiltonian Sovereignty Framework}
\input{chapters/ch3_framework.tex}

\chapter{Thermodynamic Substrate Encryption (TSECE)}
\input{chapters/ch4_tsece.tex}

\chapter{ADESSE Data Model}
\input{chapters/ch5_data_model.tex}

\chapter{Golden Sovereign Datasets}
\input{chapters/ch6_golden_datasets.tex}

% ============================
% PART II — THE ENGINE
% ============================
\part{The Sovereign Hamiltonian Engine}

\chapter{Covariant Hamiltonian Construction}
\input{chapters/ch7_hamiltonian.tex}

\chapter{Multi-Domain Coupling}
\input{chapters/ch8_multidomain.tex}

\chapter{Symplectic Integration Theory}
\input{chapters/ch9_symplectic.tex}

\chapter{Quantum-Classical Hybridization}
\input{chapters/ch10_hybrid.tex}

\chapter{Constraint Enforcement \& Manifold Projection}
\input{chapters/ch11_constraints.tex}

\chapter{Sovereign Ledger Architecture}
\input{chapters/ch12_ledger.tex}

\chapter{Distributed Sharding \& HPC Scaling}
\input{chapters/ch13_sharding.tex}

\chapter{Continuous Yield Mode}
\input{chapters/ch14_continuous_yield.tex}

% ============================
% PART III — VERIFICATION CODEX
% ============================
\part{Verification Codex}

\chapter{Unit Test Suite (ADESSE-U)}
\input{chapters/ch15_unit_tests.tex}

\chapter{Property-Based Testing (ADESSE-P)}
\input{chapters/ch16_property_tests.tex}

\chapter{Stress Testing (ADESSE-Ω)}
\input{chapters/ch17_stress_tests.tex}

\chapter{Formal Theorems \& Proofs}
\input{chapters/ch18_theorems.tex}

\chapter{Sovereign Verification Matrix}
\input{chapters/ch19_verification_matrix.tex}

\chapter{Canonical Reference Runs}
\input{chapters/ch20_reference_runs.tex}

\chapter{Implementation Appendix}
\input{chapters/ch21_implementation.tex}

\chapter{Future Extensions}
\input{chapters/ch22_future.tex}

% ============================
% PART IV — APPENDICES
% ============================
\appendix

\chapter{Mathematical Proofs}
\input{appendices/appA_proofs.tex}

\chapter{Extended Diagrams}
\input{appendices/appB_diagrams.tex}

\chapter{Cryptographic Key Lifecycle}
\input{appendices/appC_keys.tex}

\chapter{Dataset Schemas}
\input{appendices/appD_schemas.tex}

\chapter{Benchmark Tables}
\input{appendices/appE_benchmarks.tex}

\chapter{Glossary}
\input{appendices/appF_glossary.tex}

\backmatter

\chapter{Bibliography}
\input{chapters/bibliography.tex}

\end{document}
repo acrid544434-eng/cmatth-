@@ -1,0 +1,152 @@
+\documentclass[12pt, oneside]{book}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+
+\title{
+\Huge{\textbf{Sovereign Astrophysics Simulation \& Dataset Encryption Architecture (ADESSE)}}\\
+\Large{A Sovereign Hamiltonian Physics Monograph}\\
+\large{WPE-21K / AM-GCSE Coupling Core}
+}
+
+\author{
+C.~Matthew~Blackwell\\
+Independent Designer
+}
+
+\date{2026}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\tableofcontents
+
+\chapter{Preface}
+\input{chapters/preface.tex}
+
+\chapter{Executive Summary}
+\input{chapters/executive_summary.tex}
+
+\mainmatter
+
+% ============================
+% PART I — FOUNDATIONS
+% ============================
+\part{Foundations of Sovereign Computational Physics}
+
+\chapter{Historical Context \& Motivation}
+\input{chapters/ch1_history.tex}
+
+\chapter{Mathematical Preliminaries}
+\input{chapters/ch2_math.tex}
+
+\chapter{Hamiltonian Sovereignty Framework}
+\input{chapters/ch3_framework.tex}
+
+\chapter{Thermodynamic Substrate Encryption (TSECE)}
+\input{chapters/ch4_tsece.tex}
+
+\chapter{ADESSE Data Model}
+\input{chapters/ch5_data_model.tex}
+
+\chapter{Golden Sovereign Datasets}
+\input{chapters/ch6_golden_datasets.tex}
+
+% ============================
+% PART II — THE ENGINE
+% ============================
+\part{The Sovereign Hamiltonian Engine}
+
+\chapter{Covariant Hamiltonian Construction}
+\input{chapters/ch7_hamiltonian.tex}
+
+\chapter{Multi-Domain Coupling}
+\input{chapters/ch8_multidomain.tex}
+
+\chapter{Symplectic Integration Theory}
+\input{chapters/ch9_symplectic.tex}
+
+\chapter{Quantum-Classical Hybridization}
+\input{chapters/ch10_hybrid.tex}
+
+\chapter{Constraint Enforcement \& Manifold Projection}
+\input{chapters/ch11_constraints.tex}
+
+\chapter{Sovereign Ledger Architecture}
+\input{chapters/ch12_ledger.tex}
+
+\chapter{Distributed Sharding \& HPC Scaling}
+\input{chapters/ch13_sharding.tex}
+
+\chapter{Continuous Yield Mode}
+\input{chapters/ch14_continuous_yield.tex}
+
+% ============================
+% PART III — VERIFICATION CODEX
+% ============================
+\part{Verification Codex}
+
+\chapter{Unit Test Suite (ADESSE-U)}
+\input{chapters/ch15_unit_tests.tex}
+
+\chapter{Property-Based Testing (ADESSE-P)}
+\input{chapters/ch16_property_tests.tex}
+
+\chapter{Stress Testing (ADESSE-Ω)}
+\input{chapters/ch17_stress_tests.tex}
+
+\chapter{Formal Theorems \& Proofs}
+\input{chapters/ch18_theorems.tex}
+
+\chapter{Sovereign Verification Matrix}
+\input{chapters/ch19_verification_matrix.tex}
+
+\chapter{Canonical Reference Runs}
+\input{chapters/ch20_reference_runs.tex}
+
+\chapter{Implementation Appendix}
+\input{chapters/ch21_implementation.tex}
+
+\chapter{Future Extensions}
+\input{chapters/ch22_future.tex}
+
+% ============================
+% PART IV — APPENDICES
+% ============================
+\appendix
+
+\chapter{Mathematical Proofs}
+\input{appendices/appA_proofs.tex}
+
+\chapter{Extended Diagrams}
+\input{appendices/appB_diagrams.tex}
+
+\chapter{Cryptographic Key Lifecycle}
+\input{appendices/appC_keys.tex}
+
+\chapter{Dataset Schemas}
+\input{appendices/appD_schemas.tex}
+
+\chapter{Benchmark Tables}
+\input{appendices/appE_benchmarks.tex}
+
+\chapter{Glossary}
+\input{appendices/appF_glossary.tex}
+
+\backmatter
+
+\chapter{Bibliography}
+\input{chapters/bibliography.tex}
+
+\end{document}
