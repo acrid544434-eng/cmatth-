@@ -1,0 +1,60 @@
+\documentclass[11pt]{amsart}
+
+% Core packages
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+% Metadata
+\title{Sovereign Hamiltonian Simulation Framework:\\
+ADESSE-v4.0 and Atmospheric--Warp Interface Glider}
+\author{C. MATTHEW BLACKWELL \\ \textit{Independent Designer}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+%=========================
+% Part I: Foundational Framework
+%=========================
+\section*{Part I: Foundational Sovereign Framework}
+\addcontentsline{toc}{section}{Part I: Foundational Sovereign Framework}
+
+\input{chapters/01_adesse_core_engine.tex}        % ADESSE-v4.0 architecture
+\input{chapters/02_hamiltonian_continuity.tex}    % Hamiltonian invariants, symplectic Φ_Δt
+\input{chapters/03_ledger_continuity.tex}         % Merkle ledger, WPE-21K compliance
+
+%=========================
+% Part II: Atmospheric--Warp Interface Glider
+%=========================
+\section*{Part II: Atmospheric--Warp Interface Glider}
+\addcontentsline{toc}{section}{Part II: Atmospheric--Warp Interface Glider}
+
+\input{chapters/10_glider_architecture.tex}       % Triskelion hull, tiers, controllers
+\input{chapters/11_state_speed_verification.tex}  % State Speed metric, test suite
+\input{chapters/12_resonance_corridor.tex}        % Resonance index, hypersonic stability
+
+%=========================
+% Part III: Unified Physics Architecture
+%=========================
+\section*{Part III: Unified Physics Architecture}
+\addcontentsline{toc}{section}{Part III: Unified Physics Architecture}
+
+\input{chapters/20_unified_physics_architecture.tex}  % Unified runtime stack
+\input{chapters/21_sovereign_state_speed_joint.tex}   % Joint chapter you just wrote
+\input{chapters/22_macro_micro_coupling.tex}          % Macro telemetry → micro propulsion
+
+%=========================
+% Appendices: Stress Tests & Telemetry
+%=========================
+\appendix
+
+\input{chapters/90_stress_test_protocol.tex}      % ADESSE-v4.0 stress-testing description
+\input{chapters/91_stress_telemetry_matrix.tex}   % The appendix we just wrote
+\input{chapters/92_yield_invariance_theorem.tex}  % Optional: ∞-Continuity proof
+
+\end{document}
