@@ -1,0 +1,64 @@
+\chapter{Numerical Methods and Solver Design}
+\label{chap:numerical-methods}
+
+\section{Introduction}
+The sovereign physics engine requires numerical methods capable of resolving
+mixed-sign mass interactions, dynamic curvature fields, and topological
+transitions. This chapter describes the integration schemes, precision modes,
+and stability mechanisms used throughout the simulation.
+
+\section{Time Integration Schemes}
+The engine supports three integration modes:
+\begin{itemize}
+    \item \textbf{Euler Forward}: fast but low precision.
+    \item \textbf{RK2 Midpoint}: balanced accuracy and performance.
+    \item \textbf{RK4 Classical}: high precision for curvature-sensitive regions.
+\end{itemize}
+
+The RK4 update for position $\vb{x}$ and velocity $\vb{v}$ is:
+\begin{equation}
+    \vb{x}(t+\Delta t)
+    = \vb{x}(t)
+    + \frac{1}{6}(k_1 + 2k_2 + 2k_3 + k_4),
+\end{equation}
+with $k_i$ computed from acceleration fields.
+
+\section{Precision Modes}
+Three precision tiers are available:
+\begin{itemize}
+    \item \textbf{FP32}: general particle dynamics.
+    \item \textbf{FP64}: metric tensor evolution.
+    \item \textbf{FP128}: wormhole throat stability sweeps.
+\end{itemize}
+
+\section{Reciprocal Mass Caching}
+To prevent division-by-zero anomalies:
+\begin{equation}
+    m_i^{-1} = 
+    \begin{cases}
+        1/m_i, & |m_i| > \epsilon, \\
+        1/\epsilon, & \text{otherwise},
+    \end{cases}
+\end{equation}
+with $\epsilon = 10^{-12}$.
+
+\section{Parallel Compute Pipeline}
+The solver executes on:
+\begin{itemize}
+    \item GPU compute shaders,
+    \item multi-core CPU threads,
+    \item optional distributed nodes.
+\end{itemize}
+
+Each frame resolves:
+\begin{enumerate}
+    \item particle forces,
+    \item inertial responses,
+    \item curvature updates,
+    \item topology checks,
+    \item anomaly detection.
+\end{enumerate}
+
+\section{Conclusion}
+These numerical methods ensure stability across exotic-matter regimes,
+wormhole geometries, and warp metrics.
