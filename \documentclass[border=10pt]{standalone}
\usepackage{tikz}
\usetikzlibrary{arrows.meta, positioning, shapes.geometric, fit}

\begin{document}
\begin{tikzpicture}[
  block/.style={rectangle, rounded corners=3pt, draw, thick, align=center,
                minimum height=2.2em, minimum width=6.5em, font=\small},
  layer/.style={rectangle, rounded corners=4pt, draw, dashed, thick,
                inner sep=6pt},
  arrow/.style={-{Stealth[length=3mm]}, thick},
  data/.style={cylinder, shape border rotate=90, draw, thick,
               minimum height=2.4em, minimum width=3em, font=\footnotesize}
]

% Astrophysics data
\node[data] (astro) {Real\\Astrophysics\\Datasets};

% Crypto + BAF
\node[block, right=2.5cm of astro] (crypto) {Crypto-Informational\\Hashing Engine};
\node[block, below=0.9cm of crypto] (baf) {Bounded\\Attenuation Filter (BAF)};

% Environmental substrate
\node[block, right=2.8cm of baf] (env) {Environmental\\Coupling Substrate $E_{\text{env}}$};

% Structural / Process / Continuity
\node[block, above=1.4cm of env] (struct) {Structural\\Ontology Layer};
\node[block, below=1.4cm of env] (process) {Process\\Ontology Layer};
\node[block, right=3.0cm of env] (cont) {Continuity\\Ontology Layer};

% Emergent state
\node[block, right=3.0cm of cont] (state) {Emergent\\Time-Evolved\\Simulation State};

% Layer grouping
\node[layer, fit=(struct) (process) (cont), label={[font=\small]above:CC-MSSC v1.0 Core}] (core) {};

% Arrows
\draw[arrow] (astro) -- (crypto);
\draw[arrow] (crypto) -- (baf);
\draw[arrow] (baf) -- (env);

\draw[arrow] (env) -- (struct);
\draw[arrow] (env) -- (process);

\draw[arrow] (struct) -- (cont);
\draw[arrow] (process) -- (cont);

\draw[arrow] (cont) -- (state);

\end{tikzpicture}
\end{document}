@@ -1,0 +1,51 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, fit}
+
+\begin{document}
+\begin{tikzpicture}[
+  block/.style={rectangle, rounded corners=3pt, draw, thick, align=center,
+                minimum height=2.2em, minimum width=6.5em, font=\small},
+  layer/.style={rectangle, rounded corners=4pt, draw, dashed, thick,
+                inner sep=6pt},
+  arrow/.style={-{Stealth[length=3mm]}, thick},
+  data/.style={cylinder, shape border rotate=90, draw, thick,
+               minimum height=2.4em, minimum width=3em, font=\footnotesize}
+]
+
+% Astrophysics data
+\node[data] (astro) {Real\\Astrophysics\\Datasets};
+
+% Crypto + BAF
+\node[block, right=2.5cm of astro] (crypto) {Crypto-Informational\\Hashing Engine};
+\node[block, below=0.9cm of crypto] (baf) {Bounded\\Attenuation Filter (BAF)};
+
+% Environmental substrate
+\node[block, right=2.8cm of baf] (env) {Environmental\\Coupling Substrate $E_{\text{env}}$};
+
+% Structural / Process / Continuity
+\node[block, above=1.4cm of env] (struct) {Structural\\Ontology Layer};
+\node[block, below=1.4cm of env] (process) {Process\\Ontology Layer};
+\node[block, right=3.0cm of env] (cont) {Continuity\\Ontology Layer};
+
+% Emergent state
+\node[block, right=3.0cm of cont] (state) {Emergent\\Time-Evolved\\Simulation State};
+
+% Layer grouping
+\node[layer, fit=(struct) (process) (cont), label={[font=\small]above:CC-MSSC v1.0 Core}] (core) {};
+
+% Arrows
+\draw[arrow] (astro) -- (crypto);
+\draw[arrow] (crypto) -- (baf);
+\draw[arrow] (baf) -- (env);
+
+\draw[arrow] (env) -- (struct);
+\draw[arrow] (env) -- (process);
+
+\draw[arrow] (struct) -- (cont);
+\draw[arrow] (process) -- (cont);
+
+\draw[arrow] (cont) -- (state);
+
+\end{tikzpicture}
+\end{document}
