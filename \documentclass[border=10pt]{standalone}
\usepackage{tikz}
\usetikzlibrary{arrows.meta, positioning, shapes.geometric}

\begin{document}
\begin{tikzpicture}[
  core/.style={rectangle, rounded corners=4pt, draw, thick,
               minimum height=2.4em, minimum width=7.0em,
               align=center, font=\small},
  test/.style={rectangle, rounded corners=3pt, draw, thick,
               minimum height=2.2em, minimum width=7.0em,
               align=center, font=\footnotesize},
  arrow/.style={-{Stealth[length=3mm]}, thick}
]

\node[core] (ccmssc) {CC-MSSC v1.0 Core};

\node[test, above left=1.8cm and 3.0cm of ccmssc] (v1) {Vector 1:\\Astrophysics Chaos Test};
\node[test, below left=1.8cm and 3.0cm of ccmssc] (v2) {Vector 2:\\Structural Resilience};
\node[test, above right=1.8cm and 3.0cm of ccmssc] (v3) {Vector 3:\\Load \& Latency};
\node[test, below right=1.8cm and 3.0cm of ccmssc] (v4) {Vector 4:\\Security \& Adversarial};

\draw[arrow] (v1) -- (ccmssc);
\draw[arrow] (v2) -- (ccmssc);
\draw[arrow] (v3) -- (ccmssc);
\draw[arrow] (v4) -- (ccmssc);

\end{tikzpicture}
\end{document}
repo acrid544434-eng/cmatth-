@@ -1,0 +1,29 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+
+\begin{document}
+\begin{tikzpicture}[
+  core/.style={rectangle, rounded corners=4pt, draw, thick,
+               minimum height=2.4em, minimum width=7.0em,
+               align=center, font=\small},
+  test/.style={rectangle, rounded corners=3pt, draw, thick,
+               minimum height=2.2em, minimum width=7.0em,
+               align=center, font=\footnotesize},
+  arrow/.style={-{Stealth[length=3mm]}, thick}
+]
+
+\node[core] (ccmssc) {CC-MSSC v1.0 Core};
+
+\node[test, above left=1.8cm and 3.0cm of ccmssc] (v1) {Vector 1:\\Astrophysics Chaos Test};
+\node[test, below left=1.8cm and 3.0cm of ccmssc] (v2) {Vector 2:\\Structural Resilience};
+\node[test, above right=1.8cm and 3.0cm of ccmssc] (v3) {Vector 3:\\Load \& Latency};
+\node[test, below right=1.8cm and 3.0cm of ccmssc] (v4) {Vector 4:\\Security \& Adversarial};
+
+\draw[arrow] (v1) -- (ccmssc);
+\draw[arrow] (v2) -- (ccmssc);
+\draw[arrow] (v3) -- (ccmssc);
+\draw[arrow] (v4) -- (ccmssc);
+
+\end{tikzpicture}
+\end{document}
