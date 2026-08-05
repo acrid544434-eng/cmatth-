@@ -1,0 +1,36 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+
+\begin{document}
+\begin{tikzpicture}[
+  comp/.style={rectangle, rounded corners=3pt, draw, thick,
+               minimum height=2.0em, minimum width=6.0em,
+               align=center, font=\small},
+  arrow/.style={-{Stealth[length=3mm]}, thick}
+]
+
+% UFSL components
+\node[comp] (zbio) {$\mathcal{Z}_{bio}$\\Latent Biology};
+\node[comp, below=0.6cm of zbio] (emicro) {$\mathcal{E}_{micro}$\\Micro-Environment};
+\node[comp, below=0.6cm of emicro] (xi) {$\Xi_{noise}$\\Stochastic Noise};
+\node[comp, below=0.6cm of xi] (aent) {$\mathcal{A}_{entropy}$\\Astrophysical Entropy};
+\node[comp, below=0.6cm of aent] (cid) {$\mathcal{C}_{identity}$\\Continuity Constraints};
+
+\node[comp, right=3.2cm of emicro] (theta) {UFSL Tensor\\$\Theta$};
+\node[comp, right=3.2cm of theta] (KX) {Coupling Kernel\\$\mathbf{K}(\mathbf{X})$};
+\node[comp, right=3.2cm of KX] (dX) {Master Evolution\\$\dfrac{d\mathbf{X}}{dt}$};
+
+% Arrows into Theta
+\draw[arrow] (zbio.east) -- (theta.west);
+\draw[arrow] (emicro.east) -- (theta.west);
+\draw[arrow] (xi.east) -- (theta.west);
+\draw[arrow] (aent.east) -- (theta.west);
+\draw[arrow] (cid.east) -- (theta.west);
+
+% Theta -> K(X) -> dX/dt
+\draw[arrow] (theta) -- (KX);
+\draw[arrow] (KX) -- (dX);
+
+\end{tikzpicture}
+\end{document}
