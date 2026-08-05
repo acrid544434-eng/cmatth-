@@ -1,0 +1,127 @@
+\chapter{Classical and Relativistic Gravitation}
+\label{chap:gravitation}
+
+\section{Introduction}
+Negative mass astrodynamics requires a precise understanding of the classical
+and relativistic gravitational frameworks it extends. This chapter establishes
+the baseline equations, tensor structures, and conservation laws that the
+Bondi--Hermann formalism modifies. By grounding the simulation engine in
+Einsteinian and Newtonian mechanics, we ensure that exotic-matter behaviors
+remain mathematically consistent with established physical invariants.
+
+\section{Newtonian Gravitation}
+Classical gravity describes the force between two masses $m_1$ and $m_2$ as:
+\begin{equation}
+    \vb{F}_{12}
+    = -\,\frac{G m_1 m_2}{r^2}\,\hat{\vb{r}}_{12},
+    \label{eq:newton-grav}
+\end{equation}
+where $G$ is the gravitational constant, $r$ is the separation distance, and
+$\hat{\vb{r}}_{12}$ is the unit vector from particle 1 to particle 2.
+
+Newton's second law provides the inertial response:
+\begin{equation}
+    \vb{a} = \frac{\vb{F}}{m_i}.
+    \label{eq:newton-second}
+\end{equation}
+
+In standard physics, $m_i = m_g > 0$. Chapter~\ref{chap:bondi-hermann} removes
+this constraint.
+
+\section{General Relativity Foundations}
+General Relativity describes gravity not as a force, but as curvature of
+spacetime. The metric tensor $g_{\mu\nu}$ defines the geometry:
+\begin{equation}
+    ds^2 = g_{\mu\nu} dx^\mu dx^\nu.
+\end{equation}
+
+The Einstein field equations relate curvature to energy-momentum:
+\begin{equation}
+    G_{\mu\nu} = 8\pi G\, T_{\mu\nu},
+    \label{eq:einstein}
+\end{equation}
+where $G_{\mu\nu}$ is the Einstein tensor and $T_{\mu\nu}$ is the stress-energy
+tensor.
+
+\subsection{Stress-Energy Tensor}
+For a perfect fluid:
+\begin{equation}
+    T_{\mu\nu}
+    = (\rho + p) u_\mu u_\nu + p\, g_{\mu\nu},
+\end{equation}
+where $\rho$ is energy density, $p$ is pressure, and $u_\mu$ is the four-velocity.
+
+Negative mass states require $\rho < 0$, violating classical energy conditions.
+
+\section{Energy Conditions}
+The Weak Energy Condition (WEC) requires:
+\begin{equation}
+    T_{\mu\nu} u^\mu u^\nu \ge 0.
+\end{equation}
+
+Negative mass violates:
+\begin{equation}
+    \rho < 0 \quad \Rightarrow \quad T_{\mu\nu} u^\mu u^\nu < 0.
+\end{equation}
+
+This violation is essential for:
+\begin{itemize}
+    \item exotic matter,
+    \item wormhole stability,
+    \item Alcubierre-class warp metrics,
+    \item negative energy density fields.
+\end{itemize}
+
+\section{Geodesic Motion}
+Particles follow geodesics defined by:
+\begin{equation}
+    \frac{d^2 x^\mu}{d\tau^2}
+    + \Gamma^\mu_{\alpha\beta}
+      \frac{dx^\alpha}{d\tau}
+      \frac{dx^\beta}{d\tau}
+    = 0,
+\end{equation}
+where $\Gamma^\mu_{\alpha\beta}$ are Christoffel symbols.
+
+Negative inertial mass reverses the sign of the geodesic acceleration term,
+producing inverted motion trajectories.
+
+\section{Newtonian Limit of General Relativity}
+In weak-field, low-velocity regimes:
+\begin{equation}
+    g_{00} \approx -\left(1 + 2\Phi\right),
+\end{equation}
+where $\Phi$ is the gravitational potential.
+
+The acceleration becomes:
+\begin{equation}
+    \vb{a} = -\nabla \Phi.
+\end{equation}
+
+Negative gravitational mass flips the sign of $\Phi$, producing repulsive gravity.
+
+\section{Relevance to Negative Mass Astrodynamics}
+The classical and relativistic frameworks above provide the baseline for the
+Bondi--Hermann extensions:
+\begin{itemize}
+    \item Newtonian gravity is modified by sign-flipped $m_g$.
+    \item Inertial response is modified by sign-flipped $m_i$.
+    \item Stress-energy tensor admits $\rho < 0$.
+    \item Geodesic motion reverses under negative inertia.
+    \item Metric potentials invert under negative gravitational mass.
+\end{itemize}
+
+These foundational behaviors enable:
+\begin{itemize}
+    \item runaway acceleration symmetry,
+    \item mutual negative-mass repulsion,
+    \item wormhole throat stabilization,
+    \item Alcubierre-class warp bubble formation,
+    \item topological metric encryption.
+\end{itemize}
+
+\section{Conclusion}
+This chapter establishes the classical and relativistic gravitational framework
+that the Bondi--Hermann formalism extends. By grounding exotic-matter dynamics
+in established physics, the simulation engine maintains mathematical rigor while
+exploring new gravitational regimes.
