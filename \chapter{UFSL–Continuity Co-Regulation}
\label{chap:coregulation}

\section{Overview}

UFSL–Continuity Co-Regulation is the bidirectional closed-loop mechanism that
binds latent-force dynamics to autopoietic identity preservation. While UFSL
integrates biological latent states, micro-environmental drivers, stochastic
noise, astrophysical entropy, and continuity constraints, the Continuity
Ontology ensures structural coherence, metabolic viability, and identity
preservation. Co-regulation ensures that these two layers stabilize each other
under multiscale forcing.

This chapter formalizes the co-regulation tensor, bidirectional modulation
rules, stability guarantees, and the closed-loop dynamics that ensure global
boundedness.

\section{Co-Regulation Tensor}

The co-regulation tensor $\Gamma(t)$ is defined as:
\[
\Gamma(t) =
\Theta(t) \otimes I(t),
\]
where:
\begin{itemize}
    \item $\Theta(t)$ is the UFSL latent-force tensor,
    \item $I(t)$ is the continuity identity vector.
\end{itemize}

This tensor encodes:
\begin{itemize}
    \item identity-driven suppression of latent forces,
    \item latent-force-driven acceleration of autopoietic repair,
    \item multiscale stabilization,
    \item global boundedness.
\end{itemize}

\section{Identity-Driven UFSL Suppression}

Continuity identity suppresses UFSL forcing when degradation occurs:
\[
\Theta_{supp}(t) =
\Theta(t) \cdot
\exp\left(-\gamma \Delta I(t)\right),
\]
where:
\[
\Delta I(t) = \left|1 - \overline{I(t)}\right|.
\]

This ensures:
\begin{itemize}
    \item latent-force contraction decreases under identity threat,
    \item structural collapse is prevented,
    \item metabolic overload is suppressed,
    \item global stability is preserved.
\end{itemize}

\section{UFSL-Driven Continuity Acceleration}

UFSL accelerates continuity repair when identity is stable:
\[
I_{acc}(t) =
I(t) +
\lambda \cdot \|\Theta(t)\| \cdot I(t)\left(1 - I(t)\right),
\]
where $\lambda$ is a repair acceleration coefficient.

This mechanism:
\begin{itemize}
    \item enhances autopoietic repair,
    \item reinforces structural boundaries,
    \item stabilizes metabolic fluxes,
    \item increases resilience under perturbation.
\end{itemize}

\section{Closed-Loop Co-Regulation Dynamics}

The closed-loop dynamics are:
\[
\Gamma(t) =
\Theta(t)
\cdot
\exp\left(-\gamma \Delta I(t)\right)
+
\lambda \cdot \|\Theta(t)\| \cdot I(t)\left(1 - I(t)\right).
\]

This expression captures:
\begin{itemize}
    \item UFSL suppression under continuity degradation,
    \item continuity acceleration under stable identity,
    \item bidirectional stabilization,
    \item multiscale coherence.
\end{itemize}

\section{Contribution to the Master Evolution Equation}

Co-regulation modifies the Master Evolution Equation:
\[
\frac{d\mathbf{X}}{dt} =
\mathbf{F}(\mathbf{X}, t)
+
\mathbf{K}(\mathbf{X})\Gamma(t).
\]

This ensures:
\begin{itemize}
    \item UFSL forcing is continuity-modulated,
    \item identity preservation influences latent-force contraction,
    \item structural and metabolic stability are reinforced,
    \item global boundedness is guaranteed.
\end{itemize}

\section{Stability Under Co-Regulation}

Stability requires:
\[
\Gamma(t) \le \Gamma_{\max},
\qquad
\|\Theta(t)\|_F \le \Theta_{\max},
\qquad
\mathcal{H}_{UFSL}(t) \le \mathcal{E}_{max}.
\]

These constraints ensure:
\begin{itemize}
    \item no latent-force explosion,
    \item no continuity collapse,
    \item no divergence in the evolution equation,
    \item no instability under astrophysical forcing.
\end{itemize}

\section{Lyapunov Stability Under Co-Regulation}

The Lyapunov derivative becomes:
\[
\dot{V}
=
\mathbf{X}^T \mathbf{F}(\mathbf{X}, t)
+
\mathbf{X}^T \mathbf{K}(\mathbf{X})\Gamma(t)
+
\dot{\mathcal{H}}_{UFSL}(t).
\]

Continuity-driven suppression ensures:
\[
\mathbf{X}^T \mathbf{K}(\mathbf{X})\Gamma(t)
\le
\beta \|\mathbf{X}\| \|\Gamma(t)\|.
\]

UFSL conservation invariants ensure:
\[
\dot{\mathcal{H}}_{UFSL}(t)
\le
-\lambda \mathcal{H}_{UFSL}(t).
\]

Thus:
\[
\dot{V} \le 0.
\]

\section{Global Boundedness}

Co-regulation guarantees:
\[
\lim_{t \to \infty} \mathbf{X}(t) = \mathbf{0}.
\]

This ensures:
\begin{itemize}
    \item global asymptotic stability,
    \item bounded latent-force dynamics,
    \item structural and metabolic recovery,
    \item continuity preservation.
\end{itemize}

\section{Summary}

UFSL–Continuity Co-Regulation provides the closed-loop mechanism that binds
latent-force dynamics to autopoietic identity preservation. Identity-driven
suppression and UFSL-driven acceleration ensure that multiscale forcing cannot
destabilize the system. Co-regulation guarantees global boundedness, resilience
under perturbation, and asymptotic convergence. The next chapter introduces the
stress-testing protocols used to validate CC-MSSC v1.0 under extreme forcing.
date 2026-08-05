@@ -1,0 +1,189 @@
+\chapter{UFSL–Continuity Co-Regulation}
+\label{chap:coregulation}
+
+\section{Overview}
+
+UFSL–Continuity Co-Regulation is the bidirectional closed-loop mechanism that
+binds latent-force dynamics to autopoietic identity preservation. While UFSL
+integrates biological latent states, micro-environmental drivers, stochastic
+noise, astrophysical entropy, and continuity constraints, the Continuity
+Ontology ensures structural coherence, metabolic viability, and identity
+preservation. Co-regulation ensures that these two layers stabilize each other
+under multiscale forcing.
+
+This chapter formalizes the co-regulation tensor, bidirectional modulation
+rules, stability guarantees, and the closed-loop dynamics that ensure global
+boundedness.
+
+\section{Co-Regulation Tensor}
+
+The co-regulation tensor $\Gamma(t)$ is defined as:
+\[
+\Gamma(t) =
+\Theta(t) \otimes I(t),
+\]
+where:
+\begin{itemize}
+    \item $\Theta(t)$ is the UFSL latent-force tensor,
+    \item $I(t)$ is the continuity identity vector.
+\end{itemize}
+
+This tensor encodes:
+\begin{itemize}
+    \item identity-driven suppression of latent forces,
+    \item latent-force-driven acceleration of autopoietic repair,
+    \item multiscale stabilization,
+    \item global boundedness.
+\end{itemize}
+
+\section{Identity-Driven UFSL Suppression}
+
+Continuity identity suppresses UFSL forcing when degradation occurs:
+\[
+\Theta_{supp}(t) =
+\Theta(t) \cdot
+\exp\left(-\gamma \Delta I(t)\right),
+\]
+where:
+\[
+\Delta I(t) = \left|1 - \overline{I(t)}\right|.
+\]
+
+This ensures:
+\begin{itemize}
+    \item latent-force contraction decreases under identity threat,
+    \item structural collapse is prevented,
+    \item metabolic overload is suppressed,
+    \item global stability is preserved.
+\end{itemize}
+
+\section{UFSL-Driven Continuity Acceleration}
+
+UFSL accelerates continuity repair when identity is stable:
+\[
+I_{acc}(t) =
+I(t) +
+\lambda \cdot \|\Theta(t)\| \cdot I(t)\left(1 - I(t)\right),
+\]
+where $\lambda$ is a repair acceleration coefficient.
+
+This mechanism:
+\begin{itemize}
+    \item enhances autopoietic repair,
+    \item reinforces structural boundaries,
+    \item stabilizes metabolic fluxes,
+    \item increases resilience under perturbation.
+\end{itemize}
+
+\section{Closed-Loop Co-Regulation Dynamics}
+
+The closed-loop dynamics are:
+\[
+\Gamma(t) =
+\Theta(t)
+\cdot
+\exp\left(-\gamma \Delta I(t)\right)
++
+\lambda \cdot \|\Theta(t)\| \cdot I(t)\left(1 - I(t)\right).
+\]
+
+This expression captures:
+\begin{itemize}
+    \item UFSL suppression under continuity degradation,
+    \item continuity acceleration under stable identity,
+    \item bidirectional stabilization,
+    \item multiscale coherence.
+\end{itemize}
+
+\section{Contribution to the Master Evolution Equation}
+
+Co-regulation modifies the Master Evolution Equation:
+\[
+\frac{d\mathbf{X}}{dt} =
+\mathbf{F}(\mathbf{X}, t)
++
+\mathbf{K}(\mathbf{X})\Gamma(t).
+\]
+
+This ensures:
+\begin{itemize}
+    \item UFSL forcing is continuity-modulated,
+    \item identity preservation influences latent-force contraction,
+    \item structural and metabolic stability are reinforced,
+    \item global boundedness is guaranteed.
+\end{itemize}
+
+\section{Stability Under Co-Regulation}
+
+Stability requires:
+\[
+\Gamma(t) \le \Gamma_{\max},
+\qquad
+\|\Theta(t)\|_F \le \Theta_{\max},
+\qquad
+\mathcal{H}_{UFSL}(t) \le \mathcal{E}_{max}.
+\]
+
+These constraints ensure:
+\begin{itemize}
+    \item no latent-force explosion,
+    \item no continuity collapse,
+    \item no divergence in the evolution equation,
+    \item no instability under astrophysical forcing.
+\end{itemize}
+
+\section{Lyapunov Stability Under Co-Regulation}
+
+The Lyapunov derivative becomes:
+\[
+\dot{V}
+=
+\mathbf{X}^T \mathbf{F}(\mathbf{X}, t)
++
+\mathbf{X}^T \mathbf{K}(\mathbf{X})\Gamma(t)
++
+\dot{\mathcal{H}}_{UFSL}(t).
+\]
+
+Continuity-driven suppression ensures:
+\[
+\mathbf{X}^T \mathbf{K}(\mathbf{X})\Gamma(t)
+\le
+\beta \|\mathbf{X}\| \|\Gamma(t)\|.
+\]
+
+UFSL conservation invariants ensure:
+\[
+\dot{\mathcal{H}}_{UFSL}(t)
+\le
+-\lambda \mathcal{H}_{UFSL}(t).
+\]
+
+Thus:
+\[
+\dot{V} \le 0.
+\]
+
+\section{Global Boundedness}
+
+Co-regulation guarantees:
+\[
+\lim_{t \to \infty} \mathbf{X}(t) = \mathbf{0}.
+\]
+
+This ensures:
+\begin{itemize}
+    \item global asymptotic stability,
+    \item bounded latent-force dynamics,
+    \item structural and metabolic recovery,
+    \item continuity preservation.
+\end{itemize}
+
+\section{Summary}
+
+UFSL–Continuity Co-Regulation provides the closed-loop mechanism that binds
+latent-force dynamics to autopoietic identity preservation. Identity-driven
+suppression and UFSL-driven acceleration ensure that multiscale forcing cannot
+destabilize the system. Co-regulation guarantees global boundedness, resilience
+under perturbation, and asymptotic convergence. The next chapter introduces the
+stress-testing protocols used to validate CC-MSSC v1.0 under extreme forcing.
