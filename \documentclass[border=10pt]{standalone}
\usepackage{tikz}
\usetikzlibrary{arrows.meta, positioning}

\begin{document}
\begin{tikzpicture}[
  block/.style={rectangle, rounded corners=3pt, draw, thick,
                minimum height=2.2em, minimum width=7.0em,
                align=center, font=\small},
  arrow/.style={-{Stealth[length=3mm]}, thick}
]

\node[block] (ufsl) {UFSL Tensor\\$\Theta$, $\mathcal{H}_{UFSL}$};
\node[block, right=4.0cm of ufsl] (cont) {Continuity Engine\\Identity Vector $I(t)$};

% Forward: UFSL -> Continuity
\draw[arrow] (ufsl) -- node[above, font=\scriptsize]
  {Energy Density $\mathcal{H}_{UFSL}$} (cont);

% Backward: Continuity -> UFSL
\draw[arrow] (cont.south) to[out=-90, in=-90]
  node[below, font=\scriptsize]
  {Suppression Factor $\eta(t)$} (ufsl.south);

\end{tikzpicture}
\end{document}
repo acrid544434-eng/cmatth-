@@ -1,0 +1,26 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+
+\begin{document}
+\begin{tikzpicture}[
+  block/.style={rectangle, rounded corners=3pt, draw, thick,
+                minimum height=2.2em, minimum width=7.0em,
+                align=center, font=\small},
+  arrow/.style={-{Stealth[length=3mm]}, thick}
+]
+
+\node[block] (ufsl) {UFSL Tensor\\$\Theta$, $\mathcal{H}_{UFSL}$};
+\node[block, right=4.0cm of ufsl] (cont) {Continuity Engine\\Identity Vector $I(t)$};
+
+% Forward: UFSL -> Continuity
+\draw[arrow] (ufsl) -- node[above, font=\scriptsize]
+  {Energy Density $\mathcal{H}_{UFSL}$} (cont);
+
+% Backward: Continuity -> UFSL
+\draw[arrow] (cont.south) to[out=-90, in=-90]
+  node[below, font=\scriptsize]
+  {Suppression Factor $\eta(t)$} (ufsl.south);
+
+\end{tikzpicture}
+\end{document}
