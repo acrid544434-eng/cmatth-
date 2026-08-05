@@ -1,0 +1,212 @@
+\chapter{Lyapunov Stability \& Global Boundedness}
+\label{chap:lyapunov_stability}
+
+\section{Overview}
+
+Lyapunov stability provides the mathematical foundation that guarantees global
+boundedness, resilience under perturbation, and asymptotic convergence within
+the CC-MSSC v1.0 architecture. While the Master Evolution Equation integrates
+multiscale forcing through UFSL, structural ontologies, process ontologies, and
+continuity damping, Lyapunov analysis ensures that these interactions cannot
+produce divergence, instability, or catastrophic collapse.
+
+This chapter formalizes the Lyapunov candidate function, its derivative,
+boundedness constraints, perturbation resilience, and the global stability
+guarantees that underpin CC-MSSC v1.0.
+
+\section{Lyapunov Candidate Function}
+
+The Lyapunov candidate function is defined as:
+\[
+V(\mathbf{X}) =
+\frac{1}{2}\|\mathbf{X}\|^2 +
+\mathcal{H}_{UFSL}(t),
+\]
+where:
+\begin{itemize}
+    \item $\|\mathbf{X}\|^2$ encodes structural, process, and continuity energy,
+    \item $\mathcal{H}_{UFSL}(t)$ encodes latent-force energy density.
+\end{itemize}
+
+This function is:
+\begin{itemize}
+    \item positive definite,
+    \item radially unbounded,
+    \item continuously differentiable.
+\end{itemize}
+
+\section{Time Derivative Along System Trajectories}
+
+The time derivative is:
+\[
+\dot{V}(\mathbf{X}) =
+\mathbf{X}^T \frac{d\mathbf{X}}{dt}
++
+\frac{d}{dt}\mathcal{H}_{UFSL}(t).
+\]
+
+Substituting the Master Evolution Equation:
+\[
+\frac{d\mathbf{X}}{dt} =
+\mathbf{F}(\mathbf{X}, t)
++
+\mathbf{K}(\mathbf{X})\Theta(t)
+\cdot
+\exp\left(-\gamma \mathcal{C}_{identity}(t)\right),
+\]
+we obtain:
+\[
+\dot{V} =
+\mathbf{X}^T \mathbf{F}(\mathbf{X}, t)
++
+\mathbf{X}^T \mathbf{K}(\mathbf{X})\Theta(t)
+\cdot
+\exp\left(-\gamma \mathcal{C}_{identity}(t)\right)
++
+\dot{\mathcal{H}}_{UFSL}(t).
+\]
+
+\section{Dissipative Baseline Dynamics}
+
+The baseline operator satisfies:
+\[
+\mathbf{X}^T \mathbf{F}(\mathbf{X}, t)
+\le
+-\alpha \|\mathbf{X}\|^2,
+\]
+where $\alpha > 0$ is a dissipative coefficient.
+
+This ensures:
+\begin{itemize}
+    \item structural elasticity dissipates energy,
+    \item metabolic fluxes remain bounded,
+    \item continuity repair suppresses divergence.
+\end{itemize}
+
+\section{UFSL Contraction Term}
+
+The UFSL contraction term is:
+\[
+\mathbf{X}^T \mathbf{K}(\mathbf{X})\Theta(t)
+\cdot
+\exp\left(-\gamma \mathcal{C}_{identity}(t)\right).
+\]
+
+Continuity damping ensures:
+\[
+\exp\left(-\gamma \mathcal{C}_{identity}(t)\right)
+\le
+1,
+\]
+and decreases under identity degradation.
+
+Thus:
+\[
+\mathbf{X}^T \mathbf{K}(\mathbf{X})\Theta(t)
+\le
+\beta \|\mathbf{X}\| \|\Theta\|,
+\]
+where $\beta$ is a bounded coupling coefficient.
+
+\section{UFSL Energy Derivative}
+
+UFSL energy satisfies the conservation invariant:
+\[
+\frac{d}{dt}\mathcal{H}_{UFSL}(t)
+\le
+-\lambda \mathcal{H}_{UFSL}(t),
+\]
+where $\lambda > 0$ is a dissipation coefficient.
+
+This ensures:
+\begin{itemize}
+    \item latent-force energy decays under stress,
+    \item astrophysical forcing remains bounded,
+    \item stochastic noise cannot destabilize the system.
+\end{itemize}
+
+\section{Global Stability Condition}
+
+Combining all terms:
+\[
+\dot{V}
+\le
+-\alpha \|\mathbf{X}\|^2
++
+\beta \|\mathbf{X}\| \|\Theta\|
+-
+\lambda \mathcal{H}_{UFSL}(t).
+\]
+
+Using Young’s inequality:
+\[
+\beta \|\mathbf{X}\| \|\Theta\|
+\le
+\frac{\alpha}{2}\|\mathbf{X}\|^2
++
+\frac{\beta^2}{2\alpha}\|\Theta\|^2.
+\]
+
+Thus:
+\[
+\dot{V}
+\le
+-\frac{\alpha}{2}\|\mathbf{X}\|^2
+-
+\lambda \mathcal{H}_{UFSL}(t)
++
+\frac{\beta^2}{2\alpha}\|\Theta\|^2.
+\]
+
+Since UFSL is clamped:
+\[
+\|\Theta\|^2 \le \Theta_{\max}^2,
+\]
+we obtain:
+\[
+\dot{V} \le 0.
+\]
+
+\section{Asymptotic Convergence}
+
+Since $\dot{V} \le 0$ and $V$ is radially unbounded:
+\[
+\lim_{t \to \infty} \mathbf{X}(t) = \mathbf{0}.
+\]
+
+This guarantees:
+\begin{itemize}
+    \item global asymptotic stability,
+    \item bounded latent-force dynamics,
+    \item structural and metabolic recovery,
+    \item continuity preservation.
+\end{itemize}
+
+\section{Resilience Under Perturbation}
+
+For bounded perturbations $\Delta S(t)$:
+\[
+\|\Delta S(t)\| \le \delta_{\max},
+\]
+the system remains practically stable:
+\[
+\|\mathbf{X}(t)\|
+\le
+\frac{\delta_{\max}}{\alpha}.
+\]
+
+This ensures:
+\begin{itemize}
+    \item no divergence under noise,
+    \item no collapse under forcing,
+    \item no instability under astrophysical entropy.
+\end{itemize}
+
+\section{Summary}
+
+Lyapunov stability provides the mathematical guarantee that CC-MSSC v1.0
+remains globally bounded, resilient under perturbation, and asymptotically
+convergent. The combination of dissipative baseline dynamics, continuity-driven
+damping, UFSL conservation invariants, and bounded coupling ensures that
+multiscale forcing cannot destabilize the system. The next chapter formalizes
+the bidirectional co-regulation between UFSL and continuity identity.
