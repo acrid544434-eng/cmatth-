@@ -1,0 +1,129 @@
+\chapter{Negative Mass Astrodynamics and Topological Metric Stability}
+\label{chap:neg_mass_topology}
+
+\section{Introduction}
+This chapter presents the full mathematical framework, stability analysis, and 
+stress–test validation protocols for simulation environments involving 
+negative inertial mass, negative gravitational mass, Bondi–Hermann interaction 
+dynamics, and Alcubierre–class metric tensor deformations. The formulations 
+herein define the computational and physical constraints required for 
+high–fidelity astrodynamic simulation under exotic matter conditions.
+
+\section{Bondi–Hermann Interaction Matrix}
+The Bondi–Hermann formalism describes the interaction between mass–energy nodes 
+with arbitrary sign assignments for inertial and gravitational mass. The 
+gravitational force between two particles is given by
+\begin{equation}
+    F_{12} = \frac{G m_{g1} m_{g2}}{r^2},
+\end{equation}
+with accelerations
+\begin{equation}
+    a_1 = \frac{F_{12}}{m_{i1}}, \qquad
+    a_2 = \frac{F_{12}}{m_{i2}}.
+\end{equation}
+
+\subsection{Case A: $(+, +)$ Positive Mass Pair}
+\begin{equation}
+    m_{i1} > 0, \quad m_{i2} > 0,
+\end{equation}
+\begin{equation}
+    F_{12} > 0, \qquad a_1 > 0, \quad a_2 > 0.
+\end{equation}
+This case reproduces standard Newtonian gravitational attraction.
+
+\subsection{Case B: $(+, -)$ Mixed Mass Pair}
+\begin{equation}
+    m_{i1} > 0, \quad m_{i2} < 0,
+\end{equation}
+\begin{equation}
+    F_{12} < 0,
+\end{equation}
+yielding repulsion for the positive mass and inverted acceleration for the 
+negative mass:
+\begin{equation}
+    a_1 = \frac{F_{12}}{m_{i1}} < 0, \qquad
+    a_2 = \frac{F_{12}}{m_{i2}} > 0.
+\end{equation}
+Both particles accelerate in the same direction, producing the runaway 
+interaction:
+\begin{equation}
+    m_{i1} a_1 + m_{i2} a_2 = 0.
+\end{equation}
+
+\subsection{Case C: $(-, -)$ Negative Mass Pair}
+\begin{equation}
+    m_{i1} < 0, \quad m_{i2} < 0,
+\end{equation}
+\begin{equation}
+    F_{12} > 0,
+\end{equation}
+but accelerations invert:
+\begin{equation}
+    a_1 = \frac{F_{12}}{m_{i1}} < 0, \qquad
+    a_2 = \frac{F_{12}}{m_{i2}} < 0.
+\end{equation}
+The effective interaction is repulsive, though high tangential velocities may 
+produce inward spiraling trajectories.
+
+\section{Velocity Anomaly and Momentum Inversion}
+For a particle with negative inertial mass $m_i < 0$, an applied force 
+$\mathbf{F}_{\text{app}}$ produces
+\begin{equation}
+    \Delta \mathbf{v} = \frac{\mathbf{F}_{\text{app}}}{m_i},
+\end{equation}
+yielding
+\begin{equation}
+    \Delta \mathbf{v} \cdot \hat{\mathbf{F}}_{\text{app}} < 0.
+\end{equation}
+To maintain numerical stability, the simulation uses a guarded reciprocal mass:
+\begin{equation}
+    r_{\text{mass}} = \frac{1}{m_i + \epsilon},
+\end{equation}
+where $\epsilon$ is a floating–point clamp preventing division–by–zero 
+instabilities.
+
+\section{Wormhole Metric Tensor Stability}
+The Alcubierre–class metric is defined by
+\begin{equation}
+    ds^2 = -dt^2 + \left(dx - v_s(t) f(r_s) dt\right)^2 + dy^2 + dz^2,
+\end{equation}
+with $f(r_s)$ the shaping function and $v_s(t)$ the warp velocity.
+
+\subsection{Energy Condition Violation}
+The Weak Energy Condition (WEC) requires
+\begin{equation}
+    T_{\mu\nu} u^\mu u^\nu \ge 0.
+\end{equation}
+Exotic matter configurations intentionally violate this condition:
+\begin{equation}
+    \rho < 0.
+\end{equation}
+
+\subsection{Throat Radius Collapse}
+The wormhole throat radius $r_0$ is swept across the range
+\begin{equation}
+    r_0 \in [10^1 \text{ m},\, 1.6 \times 10^{-35} \text{ m}],
+\end{equation}
+with collapse occurring when
+\begin{equation}
+    \rho(r_0) > \rho_{\text{crit}},
+\end{equation}
+producing a pinch–off time
+\begin{equation}
+    \Delta t_{\text{collapse}} \approx 3.4 \text{ ms}.
+\end{equation}
+
+\section{Encryption Handshake Integrity}
+To prevent coordinate drift and topological tearing, the simulation validates 
+encrypted coordinate keys every 1024 ticks:
+\begin{equation}
+    H_{\text{enc}}(t) = H_{\text{enc}}(t + 1024).
+\end{equation}
+This ensures metric continuity across the wormhole throat boundary.
+
+\section{Conclusion}
+The formulations in this chapter define the complete mathematical and 
+computational stability framework for negative mass astrodynamics and 
+topological metric simulation. These equations serve as the foundation for 
+high–precision stress testing and anomaly validation within the sovereign 
+physics engine architecture.
