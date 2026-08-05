@@ -1,0 +1,120 @@
+\documentclass[12pt, oneside]{book}
+
+% ---------------------------------------------------------
+% Packages
+% ---------------------------------------------------------
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{tikz}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{tocloft}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+
+% ---------------------------------------------------------
+% Page geometry
+% ---------------------------------------------------------
+\geometry{margin=1in}
+\onehalfspacing
+
+% ---------------------------------------------------------
+% Chapter formatting
+% ---------------------------------------------------------
+\titleformat{\chapter}[display]
+  {\bfseries\Large}
+  {\filcenter\Huge\chaptername~\thechapter}
+  {0pt}
+  {\titlerule\vspace{1ex}\filcenter}
+  [\vspace{1ex}\titlerule]
+
+% ---------------------------------------------------------
+% Title Page
+% ---------------------------------------------------------
+\title{\textbf{CC-MSSC v1.0 Monograph}\\
+\large Continuum-Coupled Multiscale Simulation Core\\
+Unified Latent-Force Semantics Layer (UFSL),\\
+Continuity Co-Regulation, Stability, and Validation}
+\author{C.~Matthew~Blackwell}
+\date{August 2026}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\tableofcontents
+
+\mainmatter
+
+% ---------------------------------------------------------
+% CHAPTERS (Each expands to 20–40 pages)
+% ---------------------------------------------------------
+
+\chapter{Foundations of Multiscale Continuum Systems}
+\input{chapters/chapter1_foundations.tex}
+
+\chapter{Structural Ontology Architecture}
+\input{chapters/chapter2_structural_ontology.tex}
+
+\chapter{Process Ontology \& Metabolic Flux Dynamics}
+\input{chapters/chapter3_process_ontology.tex}
+
+\chapter{Continuity Ontology \& Autopoietic Identity}
+\input{chapters/chapter4_continuity.tex}
+
+\chapter{Astrophysical Entropy Coupling \& BAF}
+\input{chapters/chapter5_astrophysics.tex}
+
+\chapter{Unified Latent-Force Semantics Layer (UFSL)}
+\input{chapters/chapter6_ufsl.tex}
+
+\chapter{Energy Density \& Conservation Invariants}
+\input{chapters/chapter7_energy_density.tex}
+
+\chapter{Master Evolution Equation}
+\input{chapters/chapter8_master_evolution.tex}
+
+\chapter{Lyapunov Stability \& Global Boundedness}
+\input{chapters/chapter9_lyapunov.tex}
+
+\chapter{UFSL–Continuity Co-Regulation}
+\input{chapters/chapter10_coregulation.tex}
+
+\chapter{Stress-Testing \& Validation Protocols}
+\input{chapters/chapter11_stress_testing.tex}
+
+\chapter{Empirical Validation \& Multi-Cohort Verification}
+\input{chapters/chapter12_validation.tex}
+
+\chapter{Implementation, Deployment \& Regulatory Pathways}
+\input{chapters/chapter13_regulatory.tex}
+
+\chapter{Future Directions \& Unified Theoretical Implications}
+\input{chapters/chapter14_future.tex}
+
+% ---------------------------------------------------------
+% APPENDICES (Each can be 10–30 pages)
+% ---------------------------------------------------------
+\appendix
+
+\chapter{Mathematical Derivations}
+\input{appendices/appendixA_derivations.tex}
+
+\chapter{Tensor Identities \& Operators}
+\input{appendices/appendixB_tensors.tex}
+
+\chapter{Validation Tables \& Figures}
+\input{appendices/appendixC_validation_tables.tex}
+
+\chapter{Stress-Test Harness Code}
+\input{appendices/appendixD_harness_code.tex}
+
+\chapter{Glossary of Ontological Terms}
+\input{appendices/appendixE_glossary.tex}
+
+\end{document}
