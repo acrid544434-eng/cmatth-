@@ -1,0 +1,135 @@
+\chapter{System Overview and Module Decomposition}
+\label{chap:system-overview}
+
+\section{Introduction}
+The sovereign physics engine designed by C.~Matthew Blackwell integrates
+classical gravitation, relativistic curvature, negative mass dynamics, and
+topological metric manipulation into a unified computational architecture.
+This chapter provides a high-level overview of the system, describing each
+major subsystem, its responsibilities, and its interactions with the rest of
+the engine.
+
+The architecture is modular, parallelized, and designed for high-performance
+execution on heterogeneous compute platforms including CPUs, GPUs, and
+distributed clusters.
+
+\section{Global Architecture}
+The engine is organized into five primary subsystems:
+\begin{enumerate}
+    \item \textbf{Particle Dynamics Core}
+    \item \textbf{Metric Tensor Solver}
+    \item \textbf{Topology and Wormhole Module}
+    \item \textbf{Anomaly Detection and Stability Layer}
+    \item \textbf{Telemetry, Logging, and Encryption Layer}
+\end{enumerate}
+
+Each subsystem operates independently but communicates through shared memory
+buffers and synchronized compute pipelines.
+
+\section{Particle Dynamics Core}
+The Particle Dynamics Core is responsible for:
+\begin{itemize}
+    \item resolving Bondi--Hermann force interactions,
+    \item computing inertial acceleration responses,
+    \item updating particle positions and velocities,
+    \item maintaining reciprocal mass caches,
+    \item preventing division-by-zero anomalies.
+\end{itemize}
+
+The core update loop is:
+\begin{equation}
+    \vb{a}_i = \sum_{j \neq i}
+    \frac{-G m_{gi} m_{gj}}{r_{ij}^2}\,\hat{\vb{r}}_{ij}
+    \cdot \frac{1}{m_{ii}},
+\end{equation}
+executed in parallel across all particles.
+
+\section{Metric Tensor Solver}
+The Metric Tensor Solver computes spacetime curvature using a discretized
+form of the Einstein field equations:
+\begin{equation}
+    G_{\mu\nu} = 8\pi G\, T_{\mu\nu}.
+\end{equation}
+
+Responsibilities include:
+\begin{itemize}
+    \item evaluating Alcubierre-class warp metrics,
+    \item computing throat stability conditions,
+    \item updating curvature fields,
+    \item enforcing energy condition violations for exotic matter.
+\end{itemize}
+
+The solver operates on a 3+1 decomposition grid, updating:
+\begin{equation}
+    g_{\mu\nu}(t + \Delta t)
+\end{equation}
+each simulation tick.
+
+\section{Topology and Wormhole Module}
+This subsystem manages:
+\begin{itemize}
+    \item wormhole throat radius sweeps,
+    \item topology corruption detection,
+    \item encrypted coordinate key generation,
+    \item metric continuity verification,
+    \item dynamic topology locking.
+\end{itemize}
+
+The throat stability condition is:
+\begin{equation}
+    \rho(r_0) \le \rho_{\text{crit}},
+\end{equation}
+with collapse triggered when the inequality is violated.
+
+\section{Anomaly Detection and Stability Layer}
+This layer monitors:
+\begin{itemize}
+    \item runaway acceleration loops,
+    \item negative mass clustering,
+    \item metric discontinuities,
+    \item topology tearing events,
+    \item divergence in reciprocal mass caches.
+\end{itemize}
+
+Anomalies are classified into:
+\begin{itemize}
+    \item Type I: benign numerical artifacts,
+    \item Type II: unstable physical configurations,
+    \item Type III: catastrophic topology failures.
+\end{itemize}
+
+\section{Telemetry, Logging, and Encryption Layer}
+This subsystem provides:
+\begin{itemize}
+    \item real-time simulation telemetry,
+    \item encrypted logging of metric states,
+    \item topology handshake verification every 1024 ticks,
+    \item secure archival of wormhole configurations,
+    \item compression of curvature fields for long-term storage.
+\end{itemize}
+
+All logs are encrypted using coordinate-key hashing to prevent unauthorized
+metric reconstruction.
+
+\section{Module Interaction Diagram}
+The following conceptual diagram describes subsystem interactions:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Subsystem} & \textbf{Communicates With} \\
+\hline
+Particle Dynamics Core & Metric Solver, Anomaly Layer \\
+Metric Tensor Solver & Topology Module, Telemetry Layer \\
+Topology Module & Metric Solver, Anomaly Layer \\
+Anomaly Layer & All Subsystems \\
+Telemetry Layer & All Subsystems \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Conclusion}
+This chapter establishes the structural foundation of the sovereign physics
+engine. Each subsystem is designed to operate independently while contributing
+to a unified simulation environment capable of modeling exotic-matter
+astrodynamics, negative mass interactions, and dynamic spacetime topology.
