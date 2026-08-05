@@ -1,0 +1,61 @@
+\chapter{Alcubierre-Class Metric Implementation}
+\label{chap:alcubierre}
+
+\section{Introduction}
+The Alcubierre warp metric enables spacetime translation without violating
+local speed-of-light constraints. This chapter describes the shaping function,
+curvature gradients, and stability conditions used in the engine.
+
+\section{Warp Metric Definition}
+The Alcubierre line element is:
+\begin{equation}
+    ds^2 = -c^2 dt^2
+    + [dx - v_s(t) f(r_s) dt]^2
+    + dy^2 + dz^2,
+\end{equation}
+where:
+\begin{itemize}
+    \item $v_s(t)$ is the bubble velocity,
+    \item $f(r_s)$ is the shaping function,
+    \item $r_s$ is the distance to the bubble center.
+\end{itemize}
+
+\section{Shaping Function}
+The shaping function is:
+\begin{equation}
+    f(r_s)
+    = \frac{\tanh[\sigma(r_s + R)] - \tanh[\sigma(r_s - R)]}
+           {2\tanh(\sigma R)},
+\end{equation}
+with:
+\begin{itemize}
+    \item $R$ bubble radius,
+    \item $\sigma$ steepness parameter.
+\end{itemize}
+
+\section{Curvature Gradients}
+The metric solver computes:
+\begin{equation}
+    G_{\mu\nu}(t+\Delta t)
+    = G_{\mu\nu}(t)
+    + \Delta t \cdot \partial_t G_{\mu\nu},
+\end{equation}
+with FP64 precision.
+
+\section{Energy Density Requirements}
+Warp metrics require:
+\begin{equation}
+    \rho < 0,
+\end{equation}
+which is provided by negative mass fields.
+
+\section{Stability Conditions}
+Bubble stability requires:
+\begin{equation}
+    |\nabla f(r_s)| < \kappa,
+\end{equation}
+with $\kappa$ determined by curvature thresholds.
+
+\section{Conclusion}
+This implementation enables stable warp bubble formation within the sovereign
+physics engine, supported by negative mass and exotic energy densities.
