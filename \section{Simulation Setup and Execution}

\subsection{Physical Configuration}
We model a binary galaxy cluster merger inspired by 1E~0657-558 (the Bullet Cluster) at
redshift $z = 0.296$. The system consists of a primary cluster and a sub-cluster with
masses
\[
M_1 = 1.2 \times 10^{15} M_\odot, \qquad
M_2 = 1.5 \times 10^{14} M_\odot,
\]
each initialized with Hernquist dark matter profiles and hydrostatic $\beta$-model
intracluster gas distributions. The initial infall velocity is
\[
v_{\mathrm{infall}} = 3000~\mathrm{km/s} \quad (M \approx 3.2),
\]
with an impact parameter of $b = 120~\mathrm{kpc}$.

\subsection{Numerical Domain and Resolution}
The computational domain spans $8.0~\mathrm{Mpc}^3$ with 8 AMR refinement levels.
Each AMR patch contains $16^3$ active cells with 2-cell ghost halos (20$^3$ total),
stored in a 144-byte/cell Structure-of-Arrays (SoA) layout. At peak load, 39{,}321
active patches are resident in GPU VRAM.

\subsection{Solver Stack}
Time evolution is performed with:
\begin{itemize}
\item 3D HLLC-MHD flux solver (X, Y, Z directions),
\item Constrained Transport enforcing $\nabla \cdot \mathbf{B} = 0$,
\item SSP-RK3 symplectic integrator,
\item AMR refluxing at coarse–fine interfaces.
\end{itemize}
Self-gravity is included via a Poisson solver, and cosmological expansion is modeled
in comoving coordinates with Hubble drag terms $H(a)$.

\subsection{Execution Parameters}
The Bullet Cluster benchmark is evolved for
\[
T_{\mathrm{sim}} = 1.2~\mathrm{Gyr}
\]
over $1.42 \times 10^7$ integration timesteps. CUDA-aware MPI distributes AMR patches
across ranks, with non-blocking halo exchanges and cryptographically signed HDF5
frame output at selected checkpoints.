@@ -1,0 +1,42 @@
+\section{Simulation Setup and Execution}
+
+\subsection{Physical Configuration}
+We model a binary galaxy cluster merger inspired by 1E~0657-558 (the Bullet Cluster) at
+redshift $z = 0.296$. The system consists of a primary cluster and a sub-cluster with
+masses
+\[
+M_1 = 1.2 \times 10^{15} M_\odot, \qquad
+M_2 = 1.5 \times 10^{14} M_\odot,
+\]
+each initialized with Hernquist dark matter profiles and hydrostatic $\beta$-model
+intracluster gas distributions. The initial infall velocity is
+\[
+v_{\mathrm{infall}} = 3000~\mathrm{km/s} \quad (M \approx 3.2),
+\]
+with an impact parameter of $b = 120~\mathrm{kpc}$.
+
+\subsection{Numerical Domain and Resolution}
+The computational domain spans $8.0~\mathrm{Mpc}^3$ with 8 AMR refinement levels.
+Each AMR patch contains $16^3$ active cells with 2-cell ghost halos (20$^3$ total),
+stored in a 144-byte/cell Structure-of-Arrays (SoA) layout. At peak load, 39{,}321
+active patches are resident in GPU VRAM.
+
+\subsection{Solver Stack}
+Time evolution is performed with:
+\begin{itemize}
+\item 3D HLLC-MHD flux solver (X, Y, Z directions),
+\item Constrained Transport enforcing $\nabla \cdot \mathbf{B} = 0$,
+\item SSP-RK3 symplectic integrator,
+\item AMR refluxing at coarse–fine interfaces.
+\end{itemize}
+Self-gravity is included via a Poisson solver, and cosmological expansion is modeled
+in comoving coordinates with Hubble drag terms $H(a)$.
+
+\subsection{Execution Parameters}
+The Bullet Cluster benchmark is evolved for
+\[
+T_{\mathrm{sim}} = 1.2~\mathrm{Gyr}
+\]
+over $1.42 \times 10^7$ integration timesteps. CUDA-aware MPI distributes AMR patches
+across ranks, with non-blocking halo exchanges and cryptographically signed HDF5
+frame output at selected checkpoints.
