@@ -1,0 +1,16 @@
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[node distance=2.5cm,>=stealth]
+\node[draw, rounded corners, thick] (ham) {Global Hamiltonian Core $H$};
+\node[draw, rounded corners, thick, below left of=ham] (star) {Stellar Engine};
+\node[draw, rounded corners, thick, below of=ham] (fusion) {Fusion Confinement};
+\node[draw, rounded corners, thick, below right of=ham] (icf) {ICF Module};
+\node[draw, rounded corners, thick, right of=ham] (enc) {Encryption Tensor $E_{\Lambda}$};
+
+\draw[->, thick] (star) -- (ham);
+\draw[->, thick] (fusion) -- (ham);
+\draw[->, thick] (icf) -- (ham);
+\draw[->, thick] (ham) -- (enc);
+\end{tikzpicture}
+\caption{High-level architecture of the Blackwell Hamiltonian-Encrypted Simulation Suite.}
+\end{figure}
