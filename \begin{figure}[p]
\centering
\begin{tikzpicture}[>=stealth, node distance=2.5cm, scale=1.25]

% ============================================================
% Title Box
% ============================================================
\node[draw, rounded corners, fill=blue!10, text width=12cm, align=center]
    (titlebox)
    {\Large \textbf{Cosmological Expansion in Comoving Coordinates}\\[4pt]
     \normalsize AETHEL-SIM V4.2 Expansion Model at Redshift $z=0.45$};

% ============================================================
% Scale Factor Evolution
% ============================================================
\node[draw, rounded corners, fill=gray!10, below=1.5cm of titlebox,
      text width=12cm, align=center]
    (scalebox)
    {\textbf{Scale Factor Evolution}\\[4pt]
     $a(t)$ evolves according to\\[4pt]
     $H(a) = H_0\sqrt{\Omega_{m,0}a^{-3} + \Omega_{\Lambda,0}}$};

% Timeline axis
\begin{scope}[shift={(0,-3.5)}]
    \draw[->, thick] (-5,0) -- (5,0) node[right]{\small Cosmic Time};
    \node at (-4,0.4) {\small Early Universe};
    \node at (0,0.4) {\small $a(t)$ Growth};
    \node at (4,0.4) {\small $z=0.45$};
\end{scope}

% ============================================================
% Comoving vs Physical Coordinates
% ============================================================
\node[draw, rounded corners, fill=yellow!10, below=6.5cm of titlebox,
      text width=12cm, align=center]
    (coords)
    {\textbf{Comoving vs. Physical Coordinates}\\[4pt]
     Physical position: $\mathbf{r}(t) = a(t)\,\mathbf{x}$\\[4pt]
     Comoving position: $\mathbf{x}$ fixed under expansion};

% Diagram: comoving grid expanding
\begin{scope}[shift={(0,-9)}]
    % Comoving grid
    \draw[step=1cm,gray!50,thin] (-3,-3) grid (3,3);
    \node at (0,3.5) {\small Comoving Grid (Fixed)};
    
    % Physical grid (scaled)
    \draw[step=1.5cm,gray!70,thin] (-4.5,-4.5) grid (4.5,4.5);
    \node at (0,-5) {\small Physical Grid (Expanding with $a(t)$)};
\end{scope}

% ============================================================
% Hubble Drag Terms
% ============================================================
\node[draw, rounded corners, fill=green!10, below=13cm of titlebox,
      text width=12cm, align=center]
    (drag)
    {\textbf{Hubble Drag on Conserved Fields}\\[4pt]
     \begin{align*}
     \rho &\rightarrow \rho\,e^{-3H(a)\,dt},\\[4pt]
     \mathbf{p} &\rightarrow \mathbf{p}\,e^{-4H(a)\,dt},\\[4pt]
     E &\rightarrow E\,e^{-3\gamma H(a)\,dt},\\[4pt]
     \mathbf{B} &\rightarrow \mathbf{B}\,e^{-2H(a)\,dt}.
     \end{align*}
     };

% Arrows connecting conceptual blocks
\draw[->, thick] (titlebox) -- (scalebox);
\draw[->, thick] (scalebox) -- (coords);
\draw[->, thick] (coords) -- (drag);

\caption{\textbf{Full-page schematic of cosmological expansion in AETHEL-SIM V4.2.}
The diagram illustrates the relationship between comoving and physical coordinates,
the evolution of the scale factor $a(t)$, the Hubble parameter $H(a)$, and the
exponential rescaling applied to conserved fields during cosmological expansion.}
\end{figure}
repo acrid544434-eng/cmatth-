@@ -1,0 +1,76 @@
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[>=stealth, node distance=2.5cm, scale=1.25]
+
+% ============================================================
+% Title Box
+% ============================================================
+\node[draw, rounded corners, fill=blue!10, text width=12cm, align=center]
+    (titlebox)
+    {\Large \textbf{Cosmological Expansion in Comoving Coordinates}\\[4pt]
+     \normalsize AETHEL-SIM V4.2 Expansion Model at Redshift $z=0.45$};
+
+% ============================================================
+% Scale Factor Evolution
+% ============================================================
+\node[draw, rounded corners, fill=gray!10, below=1.5cm of titlebox,
+      text width=12cm, align=center]
+    (scalebox)
+    {\textbf{Scale Factor Evolution}\\[4pt]
+     $a(t)$ evolves according to\\[4pt]
+     $H(a) = H_0\sqrt{\Omega_{m,0}a^{-3} + \Omega_{\Lambda,0}}$};
+
+% Timeline axis
+\begin{scope}[shift={(0,-3.5)}]
+    \draw[->, thick] (-5,0) -- (5,0) node[right]{\small Cosmic Time};
+    \node at (-4,0.4) {\small Early Universe};
+    \node at (0,0.4) {\small $a(t)$ Growth};
+    \node at (4,0.4) {\small $z=0.45$};
+\end{scope}
+
+% ============================================================
+% Comoving vs Physical Coordinates
+% ============================================================
+\node[draw, rounded corners, fill=yellow!10, below=6.5cm of titlebox,
+      text width=12cm, align=center]
+    (coords)
+    {\textbf{Comoving vs. Physical Coordinates}\\[4pt]
+     Physical position: $\mathbf{r}(t) = a(t)\,\mathbf{x}$\\[4pt]
+     Comoving position: $\mathbf{x}$ fixed under expansion};
+
+% Diagram: comoving grid expanding
+\begin{scope}[shift={(0,-9)}]
+    % Comoving grid
+    \draw[step=1cm,gray!50,thin] (-3,-3) grid (3,3);
+    \node at (0,3.5) {\small Comoving Grid (Fixed)};
+    
+    % Physical grid (scaled)
+    \draw[step=1.5cm,gray!70,thin] (-4.5,-4.5) grid (4.5,4.5);
+    \node at (0,-5) {\small Physical Grid (Expanding with $a(t)$)};
+\end{scope}
+
+% ============================================================
+% Hubble Drag Terms
+% ============================================================
+\node[draw, rounded corners, fill=green!10, below=13cm of titlebox,
+      text width=12cm, align=center]
+    (drag)
+    {\textbf{Hubble Drag on Conserved Fields}\\[4pt]
+     \begin{align*}
+     \rho &\rightarrow \rho\,e^{-3H(a)\,dt},\\[4pt]
+     \mathbf{p} &\rightarrow \mathbf{p}\,e^{-4H(a)\,dt},\\[4pt]
+     E &\rightarrow E\,e^{-3\gamma H(a)\,dt},\\[4pt]
+     \mathbf{B} &\rightarrow \mathbf{B}\,e^{-2H(a)\,dt}.
+     \end{align*}
+     };
+
+% Arrows connecting conceptual blocks
+\draw[->, thick] (titlebox) -- (scalebox);
+\draw[->, thick] (scalebox) -- (coords);
+\draw[->, thick] (coords) -- (drag);
+
+\caption{\textbf{Full-page schematic of cosmological expansion in AETHEL-SIM V4.2.}
+The diagram illustrates the relationship between comoving and physical coordinates,
+the evolution of the scale factor $a(t)$, the Hubble parameter $H(a)$, and the
+exponential rescaling applied to conserved fields during cosmological expansion.}
+\end{figure}
