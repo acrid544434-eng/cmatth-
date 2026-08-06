@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, geometry, setspace, listings}
+
+\geometry{margin=1in}
+\setstretch{1.25}
+
+\title{\textbf{API Reference Manual}\\Apex Core Sovereign Engine}
+\author{C.~Matthew Blackwell}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\section{Overview}
+This manual documents the Apex Core API for:
+\begin{itemize}
+    \item manifold engine control,
+    \item suprakernel arbitration,
+    \item multi-physics solver execution,
+    \item cryptographic entropy ingestion.
+\end{itemize}
+
+\section{Namespace: ApexCore}
+\subsection{Class: ManifoldEngine}
+\begin{lstlisting}[language=C++]
+ManifoldEngine(const SystemConfig& cfg);
+void ExecuteSimulationStep(StateVector& state);
+double ComputeEulerLagrangeResidual(const StateVector& state);
+bool VerifyGlobalInvariant() const;
+\end{lstlisting}
+
+\subsection{Class: ASASE}
+\begin{lstlisting}[language=C++]
+bool EnforceTopologicalConstraints(const StateVector& state);
+void ApplyDynamicManifoldClamp(StateVector& state);
+\end{lstlisting}
+
+\subsection{Namespace: CryptoLattice}
+\begin{lstlisting}[language=C++]
+EntropySeed FetchPulsarEntropyStream();
+void InitializeHomomorphicKeys(const EntropySeed& seed);
+\end{lstlisting}
+
+\subsection{Namespace: Solvers}
+\begin{lstlisting}[language=C++]
+Field ExecuteWesterveltStep(const Field& p, double dt);
+Tensor ExecuteViscoelasticFEA(const Field& p, double E);
+Field ExecuteNavierStokesDRL(const Field& v, const Tensor& stress, double Re);
+PhaseState ExecuteMolecularDynamicsDissolution(const Field& v, double density);
+\end{lstlisting}
+
+\section{Configuration Schema}
+See production\_cluster.json for full parameter definitions.
+
+\end{document}
