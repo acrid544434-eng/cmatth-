@@ -1,0 +1,47 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{authblk}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{listings}
+
+\geometry{margin=1in}
+\setstretch{1.25}
+
+\title{\textbf{Apex-Acoustic-Astrophysic Hybrid Simulation Core}\\
+\large Sovereign Engine Master Specification Dossier}
+\author[1]{C.~Matthew Blackwell}
+\affil[1]{Independent Designer}
+\date{2026}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+%-----------------------------------------------------------
+\section{Hardware Datasheet}
+\input{hardware_datasheet_apex_core.tex}
+
+%-----------------------------------------------------------
+\section{Firmware Specification}
+\input{firmware_spec_apex_core.tex}
+
+%-----------------------------------------------------------
+\section{Sovereign Certification Document}
+\input{sovereign_cert_apex_core.tex}
+
+%-----------------------------------------------------------
+\section{Stress-Test Annex}
+\input{stress_test_annex_apex_core.tex}
+
+%-----------------------------------------------------------
+\section{API Reference Manual}
+\input{api_reference_apex_core.tex}
+
+\end{document}
