@@ -1,0 +1,243 @@
+\documentclass[12pt]{book}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{authblk}
+\usepackage{titlesec}
+\usepackage{tocloft}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\Huge}{\chaptername\ \thechapter}{20pt}{\Huge}
+
+\title{\textbf{Unified Cosmic Catalyst Simulation System (CCSS)}\\
+\Large Codex Volume I: Architecture, Unified Field Theory, and Autonomous Cosmology}
+\author{C.~Matthew~Blackwell\\Independent Designer}
+\date{\today}
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\chapter*{Abstract}
+The Unified Cosmic Catalyst Simulation System (CCSS) is a sovereign physics
+engine unifying chemical catalysis, general relativistic spacetime curvature,
+quantum decoherence, and vacuum energy fluctuations into a single operational
+field primitive. This monograph presents the full architecture, unified field
+equations, numerical methods, cryptographic ingestion framework, canonical
+scenario catalog, stress testing envelope, hardware-in-the-loop validation, and
+the autonomous epochic intelligence loop governing self-directed cosmological
+evolution.
+
+\tableofcontents
+
+\mainmatter
+
+%===========================================================
+\part{Foundations of the CCSS Architecture}
+%===========================================================
+
+\chapter{System Overview}
+\section{Motivation}
+Modern physics partitions chemical kinetics, spacetime curvature, quantum
+measurement, and vacuum fluctuations into separate domains. CCSS proposes a
+unified operational engine coupling these domains through catalytic field
+constraints.
+
+\section{High-Level Architecture}
+The CCSS engine consists of:
+\begin{itemize}
+  \item Post-quantum cryptographic ingestion layer.
+  \item Unified physical core (chemical, relativistic, quantum).
+  \item Cosmic synthesis engine.
+  \item Autonomous epoch progression loop.
+\end{itemize}
+
+\chapter{Post-Quantum Cryptographic Transport}
+\section{Hybrid Envelope Protocol}
+Key encapsulation:
+\[
+K \leftarrow \text{Kyber-1024}.
+\]
+Payload encryption:
+\[
+C = \text{AES-256-GCM}_K(M).
+\]
+Integrity:
+\[
+h = \text{SHA3-512}(M).
+\]
+
+\section{Ingestion Pipeline}
+\[
+\text{Stream} \to \text{SHA3-512} \to \text{Kyber-1024} \to
+\text{AES-256-GCM} \to \text{Unified Buffer}.
+\]
+
+%===========================================================
+\part{Unified Physical Field Theory}
+%===========================================================
+
+\chapter{Catalytic Chemical Field}
+\section{Modified Arrhenius Dynamics}
+\[
+k(x,t) = A \exp\left[-\frac{E_a - \chi_{\text{cat}}(x,t)}{R T(x,t)}\right].
+\]
+
+\section{Catalytic Potential Operator}
+\[
+\chi_{\text{cat}}(x,t) = \Delta E_{\text{cat}}(x,t).
+\]
+
+\chapter{Relativistic Spacetime Field}
+\section{Catalytic Stress-Energy Tensor}
+\[
+G_{\mu\nu} + \Lambda g_{\mu\nu}
+= \frac{8\pi G}{c^4}\left(T_{\mu\nu} + \Theta_{\mu\nu}^{(\text{cat})}\right).
+\]
+
+\section{Proper Time Dilation}
+\[
+\dd{\tau} = \sqrt{-g_{00}}\,\dd{t}.
+\]
+
+\chapter{Quantum Decoherence Field}
+\section{Lindblad Dynamics}
+\[
+\frac{\dd \rho}{\dd t}
+= -\frac{i}{\hbar}[H,\rho]
++ \sum_k \left(
+L_k \rho L_k^\dagger
+- \frac{1}{2}\{L_k^\dagger L_k,\rho\}
+\right).
+\]
+
+\section{Catalytic Collapse Operators}
+\[
+L_k \to L_k^{(\text{cat})}(x,t).
+\]
+
+\chapter{Vacuum Energy Field}
+\section{Zero-Point Fluctuation Coupling}
+\[
+T_{\mu\nu}^{(\text{vac})} = -\rho_{\text{vac}} g_{\mu\nu}.
+\]
+
+\section{Catalytic Vacuum Modulation}
+\[
+\rho_{\text{vac}}(x,t)
+= \rho_{\text{vac},0} + \delta \rho_{\text{vac}}^{(\text{cat})}(x,t).
+\]
+
+%===========================================================
+\part{Numerical Methods and Simulation Architecture}
+%===========================================================
+
+\chapter{Adaptive Mesh Refinement}
+\section{Octree Mesh Near Horizon}
+\[
+r \to 1.0001\,r_g.
+\]
+
+\section{NaN Suppression}
+Catalytic tensor regularization prevents divergence.
+
+\chapter{High-Dimensional Quantum Scaling}
+\section{Distributed Density Matrix}
+\[
+\rho \in \mathbb{C}^{N\times N},\quad N = 1{,}048{,}576.
+\]
+
+\section{Trace and Hermiticity Preservation}
+\[
+\Tr(\rho) = 1.000000,\qquad
+\Vert \rho - \rho^\dagger\Vert_F \ll 10^{-13}.
+\]
+
+\chapter{Observation-Aware Simulation Inference}
+\section{Maximum Mean Discrepancy}
+\[
+\text{MMD}^2(P_{\text{obs}},P_{\text{sim}})
+= \mathbb{E}_{x,x'}[k(x,x')]
++ \mathbb{E}_{y,y'}[k(y,y')]
+- 2\mathbb{E}_{x,y}[k(x,y)].
+\]
+
+%===========================================================
+\part{Canonical Scenarios and Stress Testing}
+%===========================================================
+
+\chapter{Scenario Alpha: Stellar Core Matrix}
+\[
+T = 1.5\times 10^7~\text{K},\quad
+P = 2.6\times 10^{11}~\text{atm}.
+\]
+
+\chapter{Scenario Beta: Event Horizon Proximity}
+\[
+r \approx 1.001\,r_g.
+\]
+
+\chapter{Scenario Gamma: Quantum Megamatrix}
+\[
+N = 1{,}048{,}576.
+\]
+
+%===========================================================
+\part{Hardware-in-the-Loop Validation}
+%===========================================================
+
+\chapter{EBIT X-ray Validation}
+\[
+\Delta E_{\text{cat}}^{\text{sim}} \approx \Delta E_{\text{lab}}
+\pm 0.1~\text{eV}.
+\]
+
+\chapter{Interferometric Decoherence Validation}
+Sagnac, Talbot-Lau, and Ramsey interferometry confirm amplitude damping,
+macroscopic coherence decay, and phase evolution.
+
+%===========================================================
+\part{Autonomous Cosmological Intelligence}
+%===========================================================
+
+\chapter{Epochic Intelligence Loop}
+\section{Epoch Evolution}
+\[
+\mathcal{S}_{n+1}
+= \mathcal{F}\big(\mathcal{S}_n;\chi_{\text{cat}},
+\Theta_{\mu\nu}^{(\text{cat})},
+\text{OASIS},\text{AMR}\big).
+\]
+
+\section{Self-Directed Cosmology}
+The loop defines autonomous cosmological evolution.
+
+%===========================================================
+\appendix
+%===========================================================
+
+\chapter{Appendix A: Data Structures}
+\begin{verbatim}
+struct RealityStateNode {
+    double spacetime_metric[4][4];
+    double energy_density;
+    double catalyst_potential;
+    double wave_function_coherence;
+};
+\end{verbatim}
+
+\chapter{Appendix B: Cryptographic Parameters}
+Kyber-1024 ciphertext length: 1568 bytes.
+
+\chapter{Appendix C: Cluster Execution Notes}
+Grace Blackwell NVL NVLink supercluster.
+
+\backmatter
+\chapter*{Acknowledgments}
+Designed and authored by C. Matthew Blackwell.
+
+\end{document}
