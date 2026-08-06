@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, geometry, setspace}
+
+\geometry{margin=1in}
+\setstretch{1.25}
+
+\title{\textbf{Hardware Datasheet}\\Apex-Acoustic-Astrophysic Hybrid Simulation Core}
+\author{C.~Matthew Blackwell}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\section{System Classification}
+Sovereign Multi-Physics Compute Appliance (v4.2)
+
+\section{Host Processors}
+\begin{itemize}
+    \item Dual AMD EPYC 9654 (96 cores/socket)
+    \item Base Clock: 2.4 GHz, Boost: 3.7 GHz
+    \item 24-channel DDR5 memory controller
+\end{itemize}
+
+\section{Accelerator Units}
+\subsection{GPU Tensor Cluster}
+\begin{itemize}
+    \item 8× NVIDIA H200 Tensor Core GPUs
+    \item NVLink 4.0 (900 GB/s bidirectional)
+\end{itemize}
+
+\subsection{NPU Core Matrix}
+Optimized for:
+\begin{itemize}
+    \item Discontinuous Galerkin acoustic solvers
+    \item Viscoelastic FEA mechanics
+\end{itemize}
+
+\subsection{Neuromorphic Core}
+Dedicated to:
+\begin{itemize}
+    \item Coarse-grained molecular dynamics
+    \item Lyotropic phase transitions
+\end{itemize}
+
+\section{Cryptographic Co-Processor}
+\begin{itemize}
+    \item FPGA: Xilinx Virtex UltraScale+
+    \item McEliece homomorphic lattice engine
+    \item Pulsar timing residue extraction
+\end{itemize}
+
+\section{Memory}
+\begin{itemize}
+    \item 2 TB DDR5-4800 ECC RAM
+    \item 24-channel symmetric topology
+\end{itemize}
+
+\section{Interconnect}
+\begin{itemize}
+    \item InfiniBand NDR (400 Gb/s)
+    \item PCIe Gen 6 switch fabric
+\end{itemize}
+
+\section{Power and Cooling}
+\begin{itemize}
+    \item Redundant 3000W titanium PSUs
+    \item Liquid-to-air heat exchangers
+\end{itemize}
+
+\end{document}
