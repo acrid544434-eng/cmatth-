@@ -1,0 +1,88 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{authblk}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{tocloft}
+
+\geometry{margin=1in}
+\setstretch{1.25}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{Apex-Acoustic-Astrophysic Hybrid Simulation Core}\\
+\large Unified Multi-Physics Sovereign Simulation Engine}
+\author{C. Matthew Blackwell, Independent Designer}
+\date{2026}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+%-----------------------------------------------------------
+\section{Abstract}
+The Apex-Acoustic-Astrophysic Hybrid Simulation Core is a sovereign, multi-physics simulation engine integrating astrophysical entropy cryptography, ultrasonic cavitation modeling, viscoelastic negative-pressure mechanics, AI-driven turbulent flow navigation, and lyotropic crystal dissolution kinetics. The system is governed by a unified space-time manifold equation and stabilized by the Autonomous Sovereign Self-Design Intelligence (ASASE) suprakernel arbitration layer. This white paper presents the mathematical foundations, system architecture, solver coupling operators, cryptographic verification framework, and full stress-test validation results.
+
+%-----------------------------------------------------------
+\section{Introduction}
+Modern multi-scale biomedical simulation requires deterministic physics, cryptographic integrity, and autonomous safety enforcement. The Apex Hybrid Simulation Core achieves this by merging astrophysical entropy sources with high-fidelity numerical solvers across four distinct phases:
+\begin{enumerate}
+    \item Ultrasonic cavitation and acoustic wave propagation.
+    \item Negative-pressure viscoelastic endothelial dilation.
+    \item AI-driven micro-carrier navigation through turbulent arterial flow.
+    \item Lyotropic liquid crystal phase transitions for plaque dissolution.
+\end{enumerate}
+
+A unified manifold equation ensures global physical consistency, while the ASASE suprakernel enforces topological safety and energy conservation.
+
+%-----------------------------------------------------------
+\section{Astrophysical Entropy Cryptographic Framework}
+Astrophysical datasets provide high-entropy seeds for cryptographic protection of simulation telemetry.
+
+\subsection{Pulsar Timing Residuals}
+Real-time timing residuals from millisecond pulsars (e.g., PSR B1937+21) generate entropy:
+\[
+\Delta t_{\text{residual}} = t_{\text{observed}} - t_{\text{model}}
+\]
+
+\subsection{Homomorphic Lattice Wrapping}
+Intermediate simulation states are encrypted via a modified McEliece lattice:
+\[
+\bm{C} = \bm{G}\bm{m} + \bm{e}
+\]
+where $\bm{G}$ is the generator matrix, $\bm{m}$ the message vector, and $\bm{e}$ the error vector.
+
+\subsection{Zero-Knowledge Execution Proofs}
+Each solver step is validated against cryptographic ledger hashes:
+\[
+H_{\text{ZK}} = \text{SHA3-512}(\text{state}_{n})
+\]
+
+%-----------------------------------------------------------
+\section{Unified Governing Manifold Equation}
+The system evolves on a fiber bundle over a four-dimensional Riemannian manifold $M$ with metric $g_{\mu\nu}$.
+
+\subsection{State Vector}
+\[
+\Phi^\alpha = 
+\left[
+\Psi_{\text{acoustic}},\,
+\sigma_{\text{tensor}},\,
+u_{\text{fluid}},\,
+C_{\text{crystal}}
+\right]
+\]
+
+\subsection{Total Action Functional}
+\[
+S_{\text{total}} = 
+\int_{M}
