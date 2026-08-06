@@ -1,0 +1,64 @@
+% ============================================================
+% AETHEL-SIM V4.2 WHITE SHEET COVER PAGE
+% ============================================================
+
+\begin{titlepage}
+\centering
+
+\vspace*{2cm}
+
+{\Huge \textbf{AETHEL-SIM V4.2}}\\[12pt]
+{\Large \textbf{Scientific White Sheet}}\\[6pt]
+{\large High-Performance Symplectic MHD Solver for Exascale Astrophysical Collisions}\\[24pt]
+
+{\large \textbf{C. Matthew Blackwell}}\\[6pt]
+{\large Independent Designer — High-Complexity Physics \& Simulation Architectures}\\[18pt]
+
+% ------------------------------------------------------------
+% Architecture Diagram (IEEE-Compatible TikZ)
+% ------------------------------------------------------------
+\vspace{1cm}
+
+\begin{tikzpicture}[scale=1.15, node distance=1.2cm]
+
+% Outer frame
+\draw[thick] (-5,-2) rectangle (5,2);
+
+% Title inside frame
+\node at (0,1.4) {\Large \textbf{Core Architecture Overview}};
+
+% Layer 1
+\node[draw, rounded corners, fill=blue!10, text width=7cm, align=center]
+    at (0,0.6)
+    {\textbf{Variational Field Theory}\\
+     Action Integrals, Hamiltonian Structure, Casimir Invariants};
+
+% Layer 2
+\node[draw, rounded corners, fill=green!10, text width=7cm, align=center]
+    at (0,-0.4)
+    {\textbf{GPU-Accelerated Solvers}\\
+     HLLC-MHD, Constrained Transport, SSP-RK3 Symplectic Integration};
+
+% Layer 3
+\node[draw, rounded corners, fill=yellow!10, text width=7cm, align=center]
+    at (0,-1.4)
+    {\textbf{Distributed Execution}\\
+     AMR, CUDA-Aware MPI, Cryptographic HDF5 Persistence};
+
+\end{tikzpicture}
+
+% ------------------------------------------------------------
+% Footer
+% ------------------------------------------------------------
+\vfill
+
+{\small
+AETHEL-SIM V4.2 is a sovereign-grade GPU-accelerated ideal MHD engine engineered for
+high-Mach astrophysical collisions, featuring divergence-free magnetic evolution,
+Hamiltonian-preserving symplectic integration, and exascale-ready AMR parallelism.
+}\\[6pt]
+
+{\small \textbf{Version:} August 2026}\\
+{\small \textbf{Contact:} matthew.blackwell — Technical Architecture Division}
+
+\end{titlepage}
