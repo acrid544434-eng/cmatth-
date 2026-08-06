@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\begin{document}
+
+% ============================================================
+% Cover Page Title Block
+% ============================================================
+
+\begin{center}
+
+\vspace*{2cm}
+
+{\Huge \textbf{AETHEL-SIM V4.2}}\\[10pt]
+{\Large \textbf{Scientific White Sheet}}\\[6pt]
+{\large High-Performance Symplectic MHD Solver for Exascale Astrophysical Collisions}\\[20pt]
+
+{\large \textbf{C. Matthew Blackwell}}\\[6pt]
+{\large Independent Designer — High-Complexity Physics \& Simulation Architectures}\\[20pt]
+
+\vspace{1cm}
+
+% ============================================================
+% Logo / Schematic Block (TikZ)
+% ============================================================
+
+\begin{tikzpicture}[scale=1.2]
+
+% Outer frame
+\draw[thick] (-5,-2) rectangle (5,2);
+
+% Three-layer architecture diagram
+\node at (0,1.2) {\Large \textbf{Architecture Overview}};
+
+\node[draw, rounded corners, fill=blue!10, text width=6cm, align=center]
+    at (0,0.4)
+    {\textbf{Variational Field Theory}\\
+     Action Integrals, Hamiltonian Structure, Casimir Invariants};
+
+\node[draw, rounded corners, fill=green!10, text width=6cm, align=center]
+    at (0,-0.6)
+    {\textbf{GPU-Accelerated Solvers}\\
+     HLLC-MHD, Constrained Transport, SSP-RK3 Symplectic Integration};
+
+\node[draw, rounded corners, fill=yellow!10, text width=6cm, align=center]
+    at (0,-1.6)
+    {\textbf{Distributed Execution}\\
+     AMR, CUDA-Aware MPI, Cryptographic HDF5 Persistence};
+
+\end{tikzpicture}
+
+\vspace{1cm}
+
+% ============================================================
+% Footer Block
+% ============================================================
+
+{\small
+AETHEL-SIM V4.2 is a sovereign-grade GPU-accelerated ideal MHD engine designed for
+high-Mach astrophysical collisions, featuring divergence-free magnetic evolution,
+Hamiltonian-preserving symplectic integration, and exascale-ready AMR parallelism.
+}
+
+\vfill
+
+{\small \textbf{Version:} August 2026}\\
+{\small \textbf{Contact:} matthew.blackwell — Technical Architecture Division}\\
+
+\end{center}
+
+\end{document}
