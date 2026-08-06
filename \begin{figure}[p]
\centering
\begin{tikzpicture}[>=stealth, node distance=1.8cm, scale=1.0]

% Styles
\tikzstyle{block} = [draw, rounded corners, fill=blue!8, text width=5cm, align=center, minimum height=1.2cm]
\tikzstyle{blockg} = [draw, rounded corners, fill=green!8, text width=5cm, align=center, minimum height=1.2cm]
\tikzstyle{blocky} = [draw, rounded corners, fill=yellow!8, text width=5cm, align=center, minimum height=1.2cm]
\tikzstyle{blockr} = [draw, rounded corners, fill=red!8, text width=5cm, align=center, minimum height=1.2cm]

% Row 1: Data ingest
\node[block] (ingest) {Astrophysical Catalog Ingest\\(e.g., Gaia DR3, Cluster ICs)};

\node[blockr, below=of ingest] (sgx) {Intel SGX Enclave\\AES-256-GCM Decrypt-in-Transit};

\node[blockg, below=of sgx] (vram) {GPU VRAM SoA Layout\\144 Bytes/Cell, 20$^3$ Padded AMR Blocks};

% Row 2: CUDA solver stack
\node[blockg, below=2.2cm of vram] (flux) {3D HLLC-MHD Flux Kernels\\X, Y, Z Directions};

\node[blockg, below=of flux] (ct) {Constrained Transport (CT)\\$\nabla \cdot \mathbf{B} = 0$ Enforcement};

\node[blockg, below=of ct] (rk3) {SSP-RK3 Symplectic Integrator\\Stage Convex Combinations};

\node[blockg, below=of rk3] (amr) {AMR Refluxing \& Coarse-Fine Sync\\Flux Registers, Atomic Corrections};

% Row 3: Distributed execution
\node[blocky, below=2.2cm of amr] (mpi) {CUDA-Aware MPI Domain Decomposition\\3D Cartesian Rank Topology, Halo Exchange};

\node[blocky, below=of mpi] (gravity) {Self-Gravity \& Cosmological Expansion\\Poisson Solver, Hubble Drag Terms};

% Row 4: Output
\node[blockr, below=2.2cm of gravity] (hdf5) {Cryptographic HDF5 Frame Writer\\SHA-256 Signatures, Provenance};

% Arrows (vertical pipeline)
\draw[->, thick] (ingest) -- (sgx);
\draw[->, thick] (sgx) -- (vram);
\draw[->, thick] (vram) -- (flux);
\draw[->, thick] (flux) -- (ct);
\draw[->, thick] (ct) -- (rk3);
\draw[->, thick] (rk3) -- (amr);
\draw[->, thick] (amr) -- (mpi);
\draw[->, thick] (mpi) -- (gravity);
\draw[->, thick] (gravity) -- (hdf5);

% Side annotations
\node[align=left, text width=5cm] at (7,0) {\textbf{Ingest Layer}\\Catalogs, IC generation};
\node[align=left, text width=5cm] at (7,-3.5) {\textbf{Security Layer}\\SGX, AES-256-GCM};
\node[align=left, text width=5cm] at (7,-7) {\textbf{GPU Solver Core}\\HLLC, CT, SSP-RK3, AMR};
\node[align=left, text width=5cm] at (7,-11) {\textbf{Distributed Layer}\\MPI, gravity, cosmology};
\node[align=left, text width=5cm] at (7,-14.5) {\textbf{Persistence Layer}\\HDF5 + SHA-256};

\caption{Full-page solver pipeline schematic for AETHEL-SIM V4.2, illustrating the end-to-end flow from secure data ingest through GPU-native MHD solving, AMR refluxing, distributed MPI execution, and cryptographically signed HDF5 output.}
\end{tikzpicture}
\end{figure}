@@ -1,0 +1,55 @@
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[>=stealth, node distance=1.8cm, scale=1.0]
+
+% Styles
+\tikzstyle{block} = [draw, rounded corners, fill=blue!8, text width=5cm, align=center, minimum height=1.2cm]
+\tikzstyle{blockg} = [draw, rounded corners, fill=green!8, text width=5cm, align=center, minimum height=1.2cm]
+\tikzstyle{blocky} = [draw, rounded corners, fill=yellow!8, text width=5cm, align=center, minimum height=1.2cm]
+\tikzstyle{blockr} = [draw, rounded corners, fill=red!8, text width=5cm, align=center, minimum height=1.2cm]
+
+% Row 1: Data ingest
+\node[block] (ingest) {Astrophysical Catalog Ingest\\(e.g., Gaia DR3, Cluster ICs)};
+
+\node[blockr, below=of ingest] (sgx) {Intel SGX Enclave\\AES-256-GCM Decrypt-in-Transit};
+
+\node[blockg, below=of sgx] (vram) {GPU VRAM SoA Layout\\144 Bytes/Cell, 20$^3$ Padded AMR Blocks};
+
+% Row 2: CUDA solver stack
+\node[blockg, below=2.2cm of vram] (flux) {3D HLLC-MHD Flux Kernels\\X, Y, Z Directions};
+
+\node[blockg, below=of flux] (ct) {Constrained Transport (CT)\\$\nabla \cdot \mathbf{B} = 0$ Enforcement};
+
+\node[blockg, below=of ct] (rk3) {SSP-RK3 Symplectic Integrator\\Stage Convex Combinations};
+
+\node[blockg, below=of rk3] (amr) {AMR Refluxing \& Coarse-Fine Sync\\Flux Registers, Atomic Corrections};
+
+% Row 3: Distributed execution
+\node[blocky, below=2.2cm of amr] (mpi) {CUDA-Aware MPI Domain Decomposition\\3D Cartesian Rank Topology, Halo Exchange};
+
+\node[blocky, below=of mpi] (gravity) {Self-Gravity \& Cosmological Expansion\\Poisson Solver, Hubble Drag Terms};
+
+% Row 4: Output
+\node[blockr, below=2.2cm of gravity] (hdf5) {Cryptographic HDF5 Frame Writer\\SHA-256 Signatures, Provenance};
+
+% Arrows (vertical pipeline)
+\draw[->, thick] (ingest) -- (sgx);
+\draw[->, thick] (sgx) -- (vram);
+\draw[->, thick] (vram) -- (flux);
+\draw[->, thick] (flux) -- (ct);
+\draw[->, thick] (ct) -- (rk3);
+\draw[->, thick] (rk3) -- (amr);
+\draw[->, thick] (amr) -- (mpi);
+\draw[->, thick] (mpi) -- (gravity);
+\draw[->, thick] (gravity) -- (hdf5);
+
+% Side annotations
+\node[align=left, text width=5cm] at (7,0) {\textbf{Ingest Layer}\\Catalogs, IC generation};
+\node[align=left, text width=5cm] at (7,-3.5) {\textbf{Security Layer}\\SGX, AES-256-GCM};
+\node[align=left, text width=5cm] at (7,-7) {\textbf{GPU Solver Core}\\HLLC, CT, SSP-RK3, AMR};
+\node[align=left, text width=5cm] at (7,-11) {\textbf{Distributed Layer}\\MPI, gravity, cosmology};
+\node[align=left, text width=5cm] at (7,-14.5) {\textbf{Persistence Layer}\\HDF5 + SHA-256};
+
+\caption{Full-page solver pipeline schematic for AETHEL-SIM V4.2, illustrating the end-to-end flow from secure data ingest through GPU-native MHD solving, AMR refluxing, distributed MPI execution, and cryptographically signed HDF5 output.}
+\end{tikzpicture}
+\end{figure}
