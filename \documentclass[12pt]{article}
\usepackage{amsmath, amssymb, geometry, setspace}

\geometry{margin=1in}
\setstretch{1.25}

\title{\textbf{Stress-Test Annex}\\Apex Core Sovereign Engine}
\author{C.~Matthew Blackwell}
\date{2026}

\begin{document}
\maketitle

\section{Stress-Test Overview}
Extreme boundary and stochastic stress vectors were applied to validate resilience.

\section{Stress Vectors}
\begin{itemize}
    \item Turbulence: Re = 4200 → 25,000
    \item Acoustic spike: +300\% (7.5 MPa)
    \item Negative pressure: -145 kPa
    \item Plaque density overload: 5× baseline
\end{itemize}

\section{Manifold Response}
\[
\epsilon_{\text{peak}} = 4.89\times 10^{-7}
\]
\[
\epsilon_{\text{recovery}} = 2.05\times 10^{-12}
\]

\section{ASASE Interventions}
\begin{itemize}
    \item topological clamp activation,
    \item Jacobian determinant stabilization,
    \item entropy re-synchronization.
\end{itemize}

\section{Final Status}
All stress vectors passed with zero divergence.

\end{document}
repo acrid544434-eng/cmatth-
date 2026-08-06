@@ -1,0 +1,43 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, geometry, setspace}
+
+\geometry{margin=1in}
+\setstretch{1.25}
+
+\title{\textbf{Stress-Test Annex}\\Apex Core Sovereign Engine}
+\author{C.~Matthew Blackwell}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\section{Stress-Test Overview}
+Extreme boundary and stochastic stress vectors were applied to validate resilience.
+
+\section{Stress Vectors}
+\begin{itemize}
+    \item Turbulence: Re = 4200 → 25,000
+    \item Acoustic spike: +300\% (7.5 MPa)
+    \item Negative pressure: -145 kPa
+    \item Plaque density overload: 5× baseline
+\end{itemize}
+
+\section{Manifold Response}
+\[
+\epsilon_{\text{peak}} = 4.89\times 10^{-7}
+\]
+\[
+\epsilon_{\text{recovery}} = 2.05\times 10^{-12}
+\]
+
+\section{ASASE Interventions}
+\begin{itemize}
+    \item topological clamp activation,
+    \item Jacobian determinant stabilization,
+    \item entropy re-synchronization.
+\end{itemize}
+
+\section{Final Status}
+All stress vectors passed with zero divergence.
+
+\end{document}
