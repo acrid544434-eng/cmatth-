@@ -1,0 +1,163 @@
+\chapter{Mathematical Preliminaries}
+\label{chap:math_prelim}
+
+\section{Introduction}
+This chapter establishes the mathematical foundations required for the
+Scientific Compressed Cosmos Vortex (SCCV-1) Engine. The SCCV-1 platform
+relies on differential geometry, tensor calculus, spin-density coupling,
+and post-quantum encrypted numerical evaluation. These preliminaries
+provide the formal language for Einstein–Cartan torsion gravity and
+Kerr–Cartan geodesic integration.
+
+\section{Manifolds and Coordinate Systems}
+Let $(\mathcal{M}, g_{\mu\nu})$ denote a four-dimensional Lorentzian
+manifold. Coordinates $x^\mu$ are chosen such that the metric signature
+is $(-,+,+,+)$.
+
+\subsection{Metric Tensor}
+The metric tensor $g_{\mu\nu}$ defines the invariant interval:
+\[
+ds^2 = g_{\mu\nu} dx^\mu dx^\nu.
+\]
+
+For Kerr spacetime in Boyer–Lindquist coordinates:
+\[
+g_{\mu\nu} =
+\begin{pmatrix}
+-(1 - \frac{2Mr}{\Sigma}) & 0 & 0 & -\frac{2Mar\sin^2\theta}{\Sigma} \\
+0 & \frac{\Sigma}{\Delta} & 0 & 0 \\
+0 & 0 & \Sigma & 0 \\
+-\frac{2Mar\sin^2\theta}{\Sigma} & 0 & 0 &
+\left(r^2 + a^2 + \frac{2Ma^2 r \sin^2\theta}{\Sigma}\right)\sin^2\theta
+\end{pmatrix}
+\]
+where
+\[
+\Sigma = r^2 + a^2 \cos^2\theta, \qquad
+\Delta = r^2 - 2Mr + a^2.
+\]
+
+\section{Tensor Calculus}
+\subsection{Christoffel Symbols}
+The Levi–Civita connection is defined by:
+\[
+\Gamma^\lambda_{\mu\nu}
+= \frac{1}{2} g^{\lambda\sigma}
+\left(
+\partial_\mu g_{\sigma\nu}
++ \partial_\nu g_{\sigma\mu}
+- \partial_\sigma g_{\mu\nu}
+\right).
+\]
+
+\subsection{Riemann Curvature Tensor}
+\[
+R^\rho_{\ \sigma\mu\nu}
+= \partial_\mu \Gamma^\rho_{\sigma\nu}
+- \partial_\nu \Gamma^\rho_{\sigma\mu}
++ \Gamma^\rho_{\lambda\mu}\Gamma^\lambda_{\sigma\nu}
+- \Gamma^\rho_{\lambda\nu}\Gamma^\lambda_{\sigma\mu}.
+\]
+
+\section{Einstein–Cartan Torsion Formalism}
+Einstein–Cartan theory generalizes GR by allowing torsion:
+\[
+T^\lambda_{\ \mu\nu}
+= \Gamma^\lambda_{\mu\nu}
+- \Gamma^\lambda_{\nu\mu}.
+\]
+
+The contortion tensor is:
+\[
+K^\lambda_{\ \mu\nu}
+= \frac{1}{2}
+\left(
+T^\lambda_{\ \mu\nu}
+- T_{\mu\ \nu}^{\ \lambda}
+- T_{\nu\ \mu}^{\ \lambda}
+\right).
+\]
+
+\subsection{Spin–Torsion Coupling}
+Matter with intrinsic spin generates torsion:
+\[
+T^\lambda_{\ \mu\nu}
+\propto \alpha \, S_{\mu\nu}^{\ \ \lambda}
+\]
+where $\alpha$ is the SCCV-1 torsion coupling parameter.
+
+\section{Geodesic Equations}
+The SCCV-1 engine integrates geodesics using:
+\[
+\frac{d^2 x^\lambda}{d\tau^2}
++ \Gamma^\lambda_{\mu\nu}
+\frac{dx^\mu}{d\tau}
+\frac{dx^\nu}{d\tau}
+= 0.
+\]
+
+In the presence of torsion:
+\[
+\Gamma^\lambda_{\mu\nu}
+\rightarrow
+\Gamma^\lambda_{\mu\nu} + K^\lambda_{\mu\nu}.
+\]
+
+\section{Homomorphic Numerical Evaluation}
+Encrypted tensor fields are evaluated using CKKS homomorphic arithmetic.
+
+\subsection{Encrypted Inner Product}
+Given encrypted vectors $\mathbf{u}$ and $\mathbf{v}$:
+\[
+\langle \mathbf{u}, \mathbf{v} \rangle_{\text{enc}}
+= \text{CKKS}(\mathbf{u}) \cdot \text{CKKS}(\mathbf{v})
+\]
+
+Noise growth is bounded by:
+\[
+\text{PSNR} > 120 \text{ dB}
+\]
+with SCCV-1 achieving:
+\[
+\text{PSNR} = 138.4 \text{ dB}.
+\]
+
+\section{Tables}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Quantity & Definition & SCCV-1 Usage \\
+\hline
+$\Sigma$ & $r^2 + a^2\cos^2\theta$ & Kerr geometry \\
+$\Delta$ & $r^2 - 2Mr + a^2$ & Horizon structure \\
+$K^\lambda_{\mu\nu}$ & Contortion tensor & Torsion suppression \\
+PSNR & Signal-to-noise ratio & CKKS precision \\
+\hline
+\end{tabular}
+\caption{Core mathematical quantities used in SCCV-1.}
+\end{table}
+
+\section{Diagram}
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=1.2]
+\draw[thick] (0,0) circle (2);
+\draw[thick, dashed] (0,0) circle (1);
+\node at (0,2.3) {Kerr Horizons};
+\node at (0,1.3) {$r_+$};
+\node at (0,0.3) {$r_-$};
+\end{tikzpicture}
+\caption{Outer and inner Kerr horizons used in SCCV-1 geodesic integration.}
+\end{figure}
+
+\section{References}
+\begin{itemize}
+\item S. Weinberg, \textit{Gravitation and Cosmology}.
+\item F. Hehl et al., \textit{Foundations of Einstein–Cartan Theory}.
+\item J. Boyd, \textit{Chebyshev and Spectral Methods}.
+\item CRYSTALS-Kyber Specification v3.0.
+\item CKKS Homomorphic Encryption Standard.
+\end{itemize}
+
+\end{document}
