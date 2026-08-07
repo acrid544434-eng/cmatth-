@@ -1,0 +1,178 @@
+% ====================================================================
+% APPENDIX H: PRODUCTION BILL OF MATERIALS (BOM)
+% ====================================================================
+\chapter{Production Bill of Materials (BOM)}
+
+\section{BOM Overview}
+
+This Production BOM defines all components required for full manufacturing
+of the MPS--PCE hardware platform, including PCB-level parts, mechanical
+assemblies, thermal systems, power delivery modules, and compliance-critical
+elements. All components listed meet IPC, UL, CE, FCC, and RoHS requirements.
+
+% ====================================================================
+% SECTION H.1: ELECTRONIC COMPONENTS
+% ====================================================================
+\section{Electronic Components}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Part Number} & \textbf{Description} & \textbf{Qty} & \textbf{Notes} \\
+\midrule
+CPU-64RV-TILE & 64-core RISC-V compute tile & 2 & Scalar + vector units \\
+ACC-TENSOR-4X & Tensor accelerator module & 4 & Simulation kernels \\
+CRYPTO-LATTICE-PRO & PQ cryptographic co-processor & 1 & ZKP + lattice ops \\
+HBM3-STACK-16GB & 16 GB HBM3 memory stack & 32 & 512 GB total \\
+NVME-G4-2TB & NVMe Gen4 SSD, 2 TB & 4 & RAID configuration \\
+VRM-320A-085V & Core VRM module & 1 & 0.85 V @ 320 A \\
+VRM-180A-110V & Memory VRM module & 1 & 1.10 V @ 180 A \\
+ETH-40GBE-DUAL & Dual-port 40 GbE NIC & 2 & Redundant uplinks \\
+BMC-SECURE-MGMT & Secure baseboard controller & 1 & Out-of-band control \\
+\bottomrule
+\end{tabular}
+\caption{Electronic Component BOM}
+\label{tab:electronic_bom}
+\end{table}
+
+% ====================================================================
+% SECTION H.2: PCB FABRICATION MATERIALS
+% ====================================================================
+\section{PCB Fabrication Materials}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Material} & \textbf{Specification} & \textbf{Qty} & \textbf{Notes} \\
+\midrule
+RO4350B Laminate & RF-grade dielectric & 8 sheets & High-speed layers \\
+FR4 Core & 400 µm dielectric & 4 sheets & Structural layers \\
+Cu Foil & 2 oz copper & 16 sheets & Power + signal planes \\
+ENIG Finish & Gold immersion & Full PCB & High-reliability pads \\
+Microvia Fill & Conductive epoxy & As needed & HDI via fill \\
+Soldermask & Matte black & Full PCB & High-contrast silkscreen \\
+\bottomrule
+\end{tabular}
+\caption{PCB Material BOM}
+\label{tab:pcb_material_bom}
+\end{table}
+
+% ====================================================================
+% SECTION H.3: MECHANICAL COMPONENTS
+% ====================================================================
+\section{Mechanical Components}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Component} & \textbf{Material} & \textbf{Qty} & \textbf{Notes} \\
+\midrule
+1U Chassis Frame & Cold-rolled steel & 1 & Powder-coated \\
+Top Cover & Aluminum 5052 & 1 & CNC machined \\
+Mounting Rails & Stainless steel & 2 & Tool-less rack mount \\
+Fan Module 40mm & PWM-controlled & 4 & Hot-swappable \\
+Heatsink Assembly & Copper + fins & 1 & High-density profile \\
+Vapor Chamber & Copper, 3 mm & 1 & 450 W dissipation \\
+Heatpipes 6mm & Copper sealed & 4 & Parallel conduction \\
+\bottomrule
+\end{tabular}
+\caption{Mechanical Component BOM}
+\label{tab:mechanical_bom}
+\end{table}
+
+% ====================================================================
+% SECTION H.4: THERMAL COMPONENTS
+% ====================================================================
+\section{Thermal Components}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Component} & \textbf{Spec} & \textbf{Qty} & \textbf{Notes} \\
+\midrule
+TIM Pad & 8 W/mK & 6 & CPU + accelerators \\
+Thermal Grease & 12 W/mK & 1 tube & High-pressure interfaces \\
+Vapor Chamber & 450 W & 1 & Main cooling plate \\
+Heatpipe Array & 6 mm diameter & 4 & Parallel conduction \\
+Liquid Loop (Optional) & 600 W & 1 & High-density config \\
+\bottomrule
+\end{tabular}
+\caption{Thermal Component BOM}
+\label{tab:thermal_bom}
+\end{table}
+
+% ====================================================================
+% SECTION H.5: POWER DELIVERY COMPONENTS
+% ====================================================================
+\section{Power Delivery Components}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Component} & \textbf{Rating} & \textbf{Qty} & \textbf{Notes} \\
+\midrule
+VRM Core Module & 0.85 V @ 320 A & 1 & CPU complex \\
+VRM Memory Module & 1.10 V @ 180 A & 1 & HBM stacks \\
+VRM Aux Module & 1.80 V @ 85 A & 1 & Logic rails \\
+12V Bus Converter & 45 A & 1 & Main input \\
+Power Plane Copper & 2 oz & Full PCB & High-current paths \\
+\bottomrule
+\end{tabular}
+\caption{Power Delivery BOM}
+\label{tab:power_bom}
+\end{table}
+
+% ====================================================================
+% SECTION H.6: FASTENERS, CONNECTORS, AND MISC
+% ====================================================================
+\section{Fasteners, Connectors, and Miscellaneous}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Item} & \textbf{Spec} & \textbf{Qty} & \textbf{Notes} \\
+\midrule
+M3 Screws & Stainless steel & 40 & PCB + chassis \\
+M2.5 Screws & Stainless steel & 20 & Fan modules \\
+PCIe Gen5 Connector & x16 & 2 & Node fabric \\
+HBM Interposer & 1024-ball BGA & 32 & Memory stacks \\
+Thermal Pads & 8 W/mK & 6 & TIM interfaces \\
+Cable Harness & Custom & 1 set & Power + signal \\
+\bottomrule
+\end{tabular}
+\caption{Fasteners and Connectors BOM}
+\label{tab:fasteners_bom}
+\end{table}
+
+% ====================================================================
+% SECTION H.7: COMPLIANCE AND LABELING
+% ====================================================================
+\section{Compliance and Labeling}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Label} & \textbf{Standard} & \textbf{Qty} & \textbf{Notes} \\
+\midrule
+CE Mark & EU & 1 & Chassis rear \\
+FCC Class A & US & 1 & Chassis rear \\
+RoHS Mark & Global & 1 & PCB silkscreen \\
+UL Safety & US/Canada & 1 & PSU module \\
+Serial Number Label & Custom & 1 & Laser-etched \\
+\bottomrule
+\end{tabular}
+\caption{Compliance Labeling BOM}
+\label{tab:compliance_bom}
+\end{table}
+
+% ====================================================================
+% END OF PRODUCTION BOM
+% ====================================================================
+\end{document}
