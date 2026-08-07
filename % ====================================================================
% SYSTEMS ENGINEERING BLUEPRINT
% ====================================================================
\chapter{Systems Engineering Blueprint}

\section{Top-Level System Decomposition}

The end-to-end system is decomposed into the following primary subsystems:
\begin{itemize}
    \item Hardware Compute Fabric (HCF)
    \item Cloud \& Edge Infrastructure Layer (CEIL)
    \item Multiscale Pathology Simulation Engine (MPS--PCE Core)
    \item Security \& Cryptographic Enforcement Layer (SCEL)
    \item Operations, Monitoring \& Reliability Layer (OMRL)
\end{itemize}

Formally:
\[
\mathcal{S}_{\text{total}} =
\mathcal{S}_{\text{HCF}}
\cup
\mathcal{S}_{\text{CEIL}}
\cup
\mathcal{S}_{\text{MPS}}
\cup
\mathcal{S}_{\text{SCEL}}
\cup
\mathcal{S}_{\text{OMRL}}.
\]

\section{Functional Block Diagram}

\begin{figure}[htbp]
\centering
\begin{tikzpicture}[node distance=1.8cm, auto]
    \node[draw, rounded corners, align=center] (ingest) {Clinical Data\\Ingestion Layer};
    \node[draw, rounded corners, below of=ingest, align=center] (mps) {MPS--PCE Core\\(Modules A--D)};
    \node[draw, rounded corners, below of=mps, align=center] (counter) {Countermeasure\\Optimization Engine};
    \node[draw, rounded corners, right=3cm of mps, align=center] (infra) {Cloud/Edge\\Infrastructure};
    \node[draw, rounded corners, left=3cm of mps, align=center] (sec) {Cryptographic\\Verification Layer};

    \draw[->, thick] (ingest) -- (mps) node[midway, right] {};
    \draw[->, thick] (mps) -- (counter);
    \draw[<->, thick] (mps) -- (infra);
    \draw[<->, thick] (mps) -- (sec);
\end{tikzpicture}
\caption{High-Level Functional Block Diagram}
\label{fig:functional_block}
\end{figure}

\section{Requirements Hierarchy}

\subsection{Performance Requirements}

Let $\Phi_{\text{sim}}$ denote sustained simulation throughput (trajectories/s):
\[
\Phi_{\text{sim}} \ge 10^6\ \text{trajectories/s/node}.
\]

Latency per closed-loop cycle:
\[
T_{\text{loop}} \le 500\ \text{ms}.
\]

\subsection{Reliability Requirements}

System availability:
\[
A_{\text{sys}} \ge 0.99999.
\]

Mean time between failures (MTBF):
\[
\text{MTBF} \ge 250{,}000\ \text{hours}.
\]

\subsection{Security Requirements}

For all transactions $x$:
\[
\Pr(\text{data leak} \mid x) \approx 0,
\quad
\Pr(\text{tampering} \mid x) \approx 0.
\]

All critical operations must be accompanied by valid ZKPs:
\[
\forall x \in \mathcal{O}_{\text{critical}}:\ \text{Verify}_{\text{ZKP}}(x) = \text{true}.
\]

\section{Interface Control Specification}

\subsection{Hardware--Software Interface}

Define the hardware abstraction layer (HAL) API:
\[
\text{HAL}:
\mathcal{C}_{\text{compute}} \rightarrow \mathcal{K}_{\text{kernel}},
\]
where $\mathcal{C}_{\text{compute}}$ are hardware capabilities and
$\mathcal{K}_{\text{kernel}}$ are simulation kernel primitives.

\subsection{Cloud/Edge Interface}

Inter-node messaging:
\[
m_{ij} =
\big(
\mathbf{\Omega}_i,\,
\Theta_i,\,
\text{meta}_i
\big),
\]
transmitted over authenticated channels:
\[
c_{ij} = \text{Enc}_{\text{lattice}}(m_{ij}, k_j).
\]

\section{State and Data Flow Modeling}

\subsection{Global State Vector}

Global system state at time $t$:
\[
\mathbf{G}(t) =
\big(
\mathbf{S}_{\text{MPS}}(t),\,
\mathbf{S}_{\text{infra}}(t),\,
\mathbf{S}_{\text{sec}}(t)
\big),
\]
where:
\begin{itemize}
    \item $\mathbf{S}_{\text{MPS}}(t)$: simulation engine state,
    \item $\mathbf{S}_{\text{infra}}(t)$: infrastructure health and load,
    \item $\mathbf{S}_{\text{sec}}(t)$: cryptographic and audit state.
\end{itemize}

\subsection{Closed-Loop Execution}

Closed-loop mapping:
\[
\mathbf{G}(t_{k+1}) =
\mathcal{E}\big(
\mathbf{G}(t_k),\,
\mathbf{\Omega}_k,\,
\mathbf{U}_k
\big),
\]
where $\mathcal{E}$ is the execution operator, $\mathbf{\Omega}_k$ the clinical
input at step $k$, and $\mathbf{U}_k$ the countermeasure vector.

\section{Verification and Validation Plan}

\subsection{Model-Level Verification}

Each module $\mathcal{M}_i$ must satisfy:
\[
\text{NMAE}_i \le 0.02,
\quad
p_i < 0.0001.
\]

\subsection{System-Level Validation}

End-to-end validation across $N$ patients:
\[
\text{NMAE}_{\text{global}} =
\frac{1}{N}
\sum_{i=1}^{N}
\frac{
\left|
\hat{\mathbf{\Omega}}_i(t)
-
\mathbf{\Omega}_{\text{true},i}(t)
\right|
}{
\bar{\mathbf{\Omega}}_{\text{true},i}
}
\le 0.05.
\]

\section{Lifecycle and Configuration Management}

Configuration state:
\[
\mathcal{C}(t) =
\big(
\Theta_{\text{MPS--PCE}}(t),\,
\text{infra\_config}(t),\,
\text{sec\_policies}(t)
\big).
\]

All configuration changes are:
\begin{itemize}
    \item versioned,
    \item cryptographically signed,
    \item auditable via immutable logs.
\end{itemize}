@@ -1,0 +1,200 @@
+% ====================================================================
+% SYSTEMS ENGINEERING BLUEPRINT
+% ====================================================================
+\chapter{Systems Engineering Blueprint}
+
+\section{Top-Level System Decomposition}
+
+The end-to-end system is decomposed into the following primary subsystems:
+\begin{itemize}
+    \item Hardware Compute Fabric (HCF)
+    \item Cloud \& Edge Infrastructure Layer (CEIL)
+    \item Multiscale Pathology Simulation Engine (MPS--PCE Core)
+    \item Security \& Cryptographic Enforcement Layer (SCEL)
+    \item Operations, Monitoring \& Reliability Layer (OMRL)
+\end{itemize}
+
+Formally:
+\[
+\mathcal{S}_{\text{total}} =
+\mathcal{S}_{\text{HCF}}
+\cup
+\mathcal{S}_{\text{CEIL}}
+\cup
+\mathcal{S}_{\text{MPS}}
+\cup
+\mathcal{S}_{\text{SCEL}}
+\cup
+\mathcal{S}_{\text{OMRL}}.
+\]
+
+\section{Functional Block Diagram}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=1.8cm, auto]
+    \node[draw, rounded corners, align=center] (ingest) {Clinical Data\\Ingestion Layer};
+    \node[draw, rounded corners, below of=ingest, align=center] (mps) {MPS--PCE Core\\(Modules A--D)};
+    \node[draw, rounded corners, below of=mps, align=center] (counter) {Countermeasure\\Optimization Engine};
+    \node[draw, rounded corners, right=3cm of mps, align=center] (infra) {Cloud/Edge\\Infrastructure};
+    \node[draw, rounded corners, left=3cm of mps, align=center] (sec) {Cryptographic\\Verification Layer};
+
+    \draw[->, thick] (ingest) -- (mps) node[midway, right] {};
+    \draw[->, thick] (mps) -- (counter);
+    \draw[<->, thick] (mps) -- (infra);
+    \draw[<->, thick] (mps) -- (sec);
+\end{tikzpicture}
+\caption{High-Level Functional Block Diagram}
+\label{fig:functional_block}
+\end{figure}
+
+\section{Requirements Hierarchy}
+
+\subsection{Performance Requirements}
+
+Let $\Phi_{\text{sim}}$ denote sustained simulation throughput (trajectories/s):
+\[
+\Phi_{\text{sim}} \ge 10^6\ \text{trajectories/s/node}.
+\]
+
+Latency per closed-loop cycle:
+\[
+T_{\text{loop}} \le 500\ \text{ms}.
+\]
+
+\subsection{Reliability Requirements}
+
+System availability:
+\[
+A_{\text{sys}} \ge 0.99999.
+\]
+
+Mean time between failures (MTBF):
+\[
+\text{MTBF} \ge 250{,}000\ \text{hours}.
+\]
+
+\subsection{Security Requirements}
+
+For all transactions $x$:
+\[
+\Pr(\text{data leak} \mid x) \approx 0,
+\quad
+\Pr(\text{tampering} \mid x) \approx 0.
+\]
+
+All critical operations must be accompanied by valid ZKPs:
+\[
+\forall x \in \mathcal{O}_{\text{critical}}:\ \text{Verify}_{\text{ZKP}}(x) = \text{true}.
+\]
+
+\section{Interface Control Specification}
+
+\subsection{Hardware--Software Interface}
+
+Define the hardware abstraction layer (HAL) API:
+\[
+\text{HAL}:
+\mathcal{C}_{\text{compute}} \rightarrow \mathcal{K}_{\text{kernel}},
+\]
+where $\mathcal{C}_{\text{compute}}$ are hardware capabilities and
+$\mathcal{K}_{\text{kernel}}$ are simulation kernel primitives.
+
+\subsection{Cloud/Edge Interface}
+
+Inter-node messaging:
+\[
+m_{ij} =
+\big(
+\mathbf{\Omega}_i,\,
+\Theta_i,\,
+\text{meta}_i
+\big),
+\]
+transmitted over authenticated channels:
+\[
+c_{ij} = \text{Enc}_{\text{lattice}}(m_{ij}, k_j).
+\]
+
+\section{State and Data Flow Modeling}
+
+\subsection{Global State Vector}
+
+Global system state at time $t$:
+\[
+\mathbf{G}(t) =
+\big(
+\mathbf{S}_{\text{MPS}}(t),\,
+\mathbf{S}_{\text{infra}}(t),\,
+\mathbf{S}_{\text{sec}}(t)
+\big),
+\]
+where:
+\begin{itemize}
+    \item $\mathbf{S}_{\text{MPS}}(t)$: simulation engine state,
+    \item $\mathbf{S}_{\text{infra}}(t)$: infrastructure health and load,
+    \item $\mathbf{S}_{\text{sec}}(t)$: cryptographic and audit state.
+\end{itemize}
+
+\subsection{Closed-Loop Execution}
+
+Closed-loop mapping:
+\[
+\mathbf{G}(t_{k+1}) =
+\mathcal{E}\big(
+\mathbf{G}(t_k),\,
+\mathbf{\Omega}_k,\,
+\mathbf{U}_k
+\big),
+\]
+where $\mathcal{E}$ is the execution operator, $\mathbf{\Omega}_k$ the clinical
+input at step $k$, and $\mathbf{U}_k$ the countermeasure vector.
+
+\section{Verification and Validation Plan}
+
+\subsection{Model-Level Verification}
+
+Each module $\mathcal{M}_i$ must satisfy:
+\[
+\text{NMAE}_i \le 0.02,
+\quad
+p_i < 0.0001.
+\]
+
+\subsection{System-Level Validation}
+
+End-to-end validation across $N$ patients:
+\[
+\text{NMAE}_{\text{global}} =
+\frac{1}{N}
+\sum_{i=1}^{N}
+\frac{
+\left|
+\hat{\mathbf{\Omega}}_i(t)
+-
+\mathbf{\Omega}_{\text{true},i}(t)
+\right|
+}{
+\bar{\mathbf{\Omega}}_{\text{true},i}
+}
+\le 0.05.
+\]
+
+\section{Lifecycle and Configuration Management}
+
+Configuration state:
+\[
+\mathcal{C}(t) =
+\big(
+\Theta_{\text{MPS--PCE}}(t),\,
+\text{infra\_config}(t),\,
+\text{sec\_policies}(t)
+\big).
+\]
+
+All configuration changes are:
+\begin{itemize}
+    \item versioned,
+    \item cryptographically signed,
+    \item auditable via immutable logs.
+\end{itemize}
