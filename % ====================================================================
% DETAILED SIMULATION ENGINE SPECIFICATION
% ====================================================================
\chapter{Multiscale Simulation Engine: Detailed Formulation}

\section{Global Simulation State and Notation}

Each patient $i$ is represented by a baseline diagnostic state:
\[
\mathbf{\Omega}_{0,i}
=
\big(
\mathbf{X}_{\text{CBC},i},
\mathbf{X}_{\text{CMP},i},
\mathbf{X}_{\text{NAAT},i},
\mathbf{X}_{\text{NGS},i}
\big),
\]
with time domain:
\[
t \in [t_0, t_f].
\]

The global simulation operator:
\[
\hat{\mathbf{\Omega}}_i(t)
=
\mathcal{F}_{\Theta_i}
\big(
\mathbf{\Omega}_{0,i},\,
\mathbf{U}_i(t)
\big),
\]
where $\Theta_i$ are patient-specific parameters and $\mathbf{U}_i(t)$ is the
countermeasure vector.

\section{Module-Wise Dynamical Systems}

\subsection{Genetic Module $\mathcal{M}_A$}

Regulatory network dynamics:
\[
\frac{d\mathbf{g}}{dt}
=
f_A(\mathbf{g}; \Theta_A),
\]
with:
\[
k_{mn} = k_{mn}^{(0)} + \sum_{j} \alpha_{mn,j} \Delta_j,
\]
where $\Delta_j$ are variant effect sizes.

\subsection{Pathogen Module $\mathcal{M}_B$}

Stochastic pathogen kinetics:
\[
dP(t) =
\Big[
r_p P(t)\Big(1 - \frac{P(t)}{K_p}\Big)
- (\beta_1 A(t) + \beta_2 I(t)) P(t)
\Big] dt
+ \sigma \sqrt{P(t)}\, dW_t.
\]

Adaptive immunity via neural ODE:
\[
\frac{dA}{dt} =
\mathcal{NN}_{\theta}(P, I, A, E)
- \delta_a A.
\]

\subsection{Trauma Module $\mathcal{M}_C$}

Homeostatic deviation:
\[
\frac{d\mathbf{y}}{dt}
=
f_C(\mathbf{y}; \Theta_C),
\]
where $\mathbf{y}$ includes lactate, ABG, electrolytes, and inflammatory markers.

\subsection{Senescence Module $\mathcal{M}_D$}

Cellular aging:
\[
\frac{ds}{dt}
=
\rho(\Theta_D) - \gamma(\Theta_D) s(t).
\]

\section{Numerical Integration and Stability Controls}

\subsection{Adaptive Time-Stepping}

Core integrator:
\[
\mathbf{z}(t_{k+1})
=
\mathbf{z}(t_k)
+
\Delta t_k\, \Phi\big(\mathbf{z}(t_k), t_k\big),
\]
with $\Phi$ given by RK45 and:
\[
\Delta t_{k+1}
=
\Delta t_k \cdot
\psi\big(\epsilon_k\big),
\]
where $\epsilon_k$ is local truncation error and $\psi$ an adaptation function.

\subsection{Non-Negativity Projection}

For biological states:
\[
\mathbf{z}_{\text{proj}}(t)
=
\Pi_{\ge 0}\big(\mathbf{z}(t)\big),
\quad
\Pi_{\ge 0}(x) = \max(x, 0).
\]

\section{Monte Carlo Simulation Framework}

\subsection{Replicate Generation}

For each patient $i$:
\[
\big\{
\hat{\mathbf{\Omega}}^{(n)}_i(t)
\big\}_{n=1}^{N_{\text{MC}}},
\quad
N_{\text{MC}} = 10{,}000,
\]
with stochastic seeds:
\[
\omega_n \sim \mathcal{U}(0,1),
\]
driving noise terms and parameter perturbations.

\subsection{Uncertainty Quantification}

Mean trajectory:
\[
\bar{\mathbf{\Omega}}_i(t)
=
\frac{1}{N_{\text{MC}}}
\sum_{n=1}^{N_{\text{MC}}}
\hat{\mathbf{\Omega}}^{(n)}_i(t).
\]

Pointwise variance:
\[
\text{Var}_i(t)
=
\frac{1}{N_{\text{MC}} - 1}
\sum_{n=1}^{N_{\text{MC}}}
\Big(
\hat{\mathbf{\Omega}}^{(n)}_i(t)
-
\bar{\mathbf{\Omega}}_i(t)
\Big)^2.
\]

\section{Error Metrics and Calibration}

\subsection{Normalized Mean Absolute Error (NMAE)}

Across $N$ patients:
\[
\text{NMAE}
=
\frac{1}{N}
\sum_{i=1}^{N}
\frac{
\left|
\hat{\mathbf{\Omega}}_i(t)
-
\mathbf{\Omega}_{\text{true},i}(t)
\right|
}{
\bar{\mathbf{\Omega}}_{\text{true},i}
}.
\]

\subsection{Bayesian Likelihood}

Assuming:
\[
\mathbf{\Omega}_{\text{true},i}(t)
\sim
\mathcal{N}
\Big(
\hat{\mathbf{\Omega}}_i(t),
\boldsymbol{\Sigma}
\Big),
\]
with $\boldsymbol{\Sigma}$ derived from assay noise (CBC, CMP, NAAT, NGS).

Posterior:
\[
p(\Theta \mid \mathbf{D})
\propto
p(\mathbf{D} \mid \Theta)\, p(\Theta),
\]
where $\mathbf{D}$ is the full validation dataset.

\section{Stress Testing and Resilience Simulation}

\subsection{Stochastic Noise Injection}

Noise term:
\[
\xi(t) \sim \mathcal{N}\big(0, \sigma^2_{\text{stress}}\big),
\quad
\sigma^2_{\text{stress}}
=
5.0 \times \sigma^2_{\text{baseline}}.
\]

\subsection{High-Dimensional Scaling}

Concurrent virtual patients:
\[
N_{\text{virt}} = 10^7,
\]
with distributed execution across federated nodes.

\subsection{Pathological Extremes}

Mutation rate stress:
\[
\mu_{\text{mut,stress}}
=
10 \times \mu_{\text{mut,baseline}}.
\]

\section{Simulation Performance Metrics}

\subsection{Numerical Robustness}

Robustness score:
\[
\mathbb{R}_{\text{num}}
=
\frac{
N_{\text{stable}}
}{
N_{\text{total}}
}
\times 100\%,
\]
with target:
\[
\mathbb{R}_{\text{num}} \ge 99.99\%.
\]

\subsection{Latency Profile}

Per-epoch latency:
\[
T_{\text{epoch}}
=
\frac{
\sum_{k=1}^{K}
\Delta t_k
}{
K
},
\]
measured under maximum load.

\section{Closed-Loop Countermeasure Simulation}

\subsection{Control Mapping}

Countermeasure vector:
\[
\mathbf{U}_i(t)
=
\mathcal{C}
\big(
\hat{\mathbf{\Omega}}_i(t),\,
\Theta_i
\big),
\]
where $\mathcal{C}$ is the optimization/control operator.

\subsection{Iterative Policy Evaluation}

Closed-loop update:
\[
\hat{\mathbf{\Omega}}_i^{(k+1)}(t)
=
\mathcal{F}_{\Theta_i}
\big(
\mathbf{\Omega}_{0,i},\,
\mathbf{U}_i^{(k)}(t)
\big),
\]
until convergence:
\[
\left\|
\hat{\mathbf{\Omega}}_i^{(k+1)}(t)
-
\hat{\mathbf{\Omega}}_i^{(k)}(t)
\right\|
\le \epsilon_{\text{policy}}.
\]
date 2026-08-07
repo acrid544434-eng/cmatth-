@@ -1,0 +1,309 @@
+% ====================================================================
+% DETAILED SIMULATION ENGINE SPECIFICATION
+% ====================================================================
+\chapter{Multiscale Simulation Engine: Detailed Formulation}
+
+\section{Global Simulation State and Notation}
+
+Each patient $i$ is represented by a baseline diagnostic state:
+\[
+\mathbf{\Omega}_{0,i}
+=
+\big(
+\mathbf{X}_{\text{CBC},i},
+\mathbf{X}_{\text{CMP},i},
+\mathbf{X}_{\text{NAAT},i},
+\mathbf{X}_{\text{NGS},i}
+\big),
+\]
+with time domain:
+\[
+t \in [t_0, t_f].
+\]
+
+The global simulation operator:
+\[
+\hat{\mathbf{\Omega}}_i(t)
+=
+\mathcal{F}_{\Theta_i}
+\big(
+\mathbf{\Omega}_{0,i},\,
+\mathbf{U}_i(t)
+\big),
+\]
+where $\Theta_i$ are patient-specific parameters and $\mathbf{U}_i(t)$ is the
+countermeasure vector.
+
+\section{Module-Wise Dynamical Systems}
+
+\subsection{Genetic Module $\mathcal{M}_A$}
+
+Regulatory network dynamics:
+\[
+\frac{d\mathbf{g}}{dt}
+=
+f_A(\mathbf{g}; \Theta_A),
+\]
+with:
+\[
+k_{mn} = k_{mn}^{(0)} + \sum_{j} \alpha_{mn,j} \Delta_j,
+\]
+where $\Delta_j$ are variant effect sizes.
+
+\subsection{Pathogen Module $\mathcal{M}_B$}
+
+Stochastic pathogen kinetics:
+\[
+dP(t) =
+\Big[
+r_p P(t)\Big(1 - \frac{P(t)}{K_p}\Big)
+- (\beta_1 A(t) + \beta_2 I(t)) P(t)
+\Big] dt
++ \sigma \sqrt{P(t)}\, dW_t.
+\]
+
+Adaptive immunity via neural ODE:
+\[
+\frac{dA}{dt} =
+\mathcal{NN}_{\theta}(P, I, A, E)
+- \delta_a A.
+\]
+
+\subsection{Trauma Module $\mathcal{M}_C$}
+
+Homeostatic deviation:
+\[
+\frac{d\mathbf{y}}{dt}
+=
+f_C(\mathbf{y}; \Theta_C),
+\]
+where $\mathbf{y}$ includes lactate, ABG, electrolytes, and inflammatory markers.
+
+\subsection{Senescence Module $\mathcal{M}_D$}
+
+Cellular aging:
+\[
+\frac{ds}{dt}
+=
+\rho(\Theta_D) - \gamma(\Theta_D) s(t).
+\]
+
+\section{Numerical Integration and Stability Controls}
+
+\subsection{Adaptive Time-Stepping}
+
+Core integrator:
+\[
+\mathbf{z}(t_{k+1})
+=
+\mathbf{z}(t_k)
++
+\Delta t_k\, \Phi\big(\mathbf{z}(t_k), t_k\big),
+\]
+with $\Phi$ given by RK45 and:
+\[
+\Delta t_{k+1}
+=
+\Delta t_k \cdot
+\psi\big(\epsilon_k\big),
+\]
+where $\epsilon_k$ is local truncation error and $\psi$ an adaptation function.
+
+\subsection{Non-Negativity Projection}
+
+For biological states:
+\[
+\mathbf{z}_{\text{proj}}(t)
+=
+\Pi_{\ge 0}\big(\mathbf{z}(t)\big),
+\quad
+\Pi_{\ge 0}(x) = \max(x, 0).
+\]
+
+\section{Monte Carlo Simulation Framework}
+
+\subsection{Replicate Generation}
+
+For each patient $i$:
+\[
+\big\{
+\hat{\mathbf{\Omega}}^{(n)}_i(t)
+\big\}_{n=1}^{N_{\text{MC}}},
+\quad
+N_{\text{MC}} = 10{,}000,
+\]
+with stochastic seeds:
+\[
+\omega_n \sim \mathcal{U}(0,1),
+\]
+driving noise terms and parameter perturbations.
+
+\subsection{Uncertainty Quantification}
+
+Mean trajectory:
+\[
+\bar{\mathbf{\Omega}}_i(t)
+=
+\frac{1}{N_{\text{MC}}}
+\sum_{n=1}^{N_{\text{MC}}}
+\hat{\mathbf{\Omega}}^{(n)}_i(t).
+\]
+
+Pointwise variance:
+\[
+\text{Var}_i(t)
+=
+\frac{1}{N_{\text{MC}} - 1}
+\sum_{n=1}^{N_{\text{MC}}}
+\Big(
+\hat{\mathbf{\Omega}}^{(n)}_i(t)
+-
+\bar{\mathbf{\Omega}}_i(t)
+\Big)^2.
+\]
+
+\section{Error Metrics and Calibration}
+
+\subsection{Normalized Mean Absolute Error (NMAE)}
+
+Across $N$ patients:
+\[
+\text{NMAE}
+=
+\frac{1}{N}
+\sum_{i=1}^{N}
+\frac{
+\left|
+\hat{\mathbf{\Omega}}_i(t)
+-
+\mathbf{\Omega}_{\text{true},i}(t)
+\right|
+}{
+\bar{\mathbf{\Omega}}_{\text{true},i}
+}.
+\]
+
+\subsection{Bayesian Likelihood}
+
+Assuming:
+\[
+\mathbf{\Omega}_{\text{true},i}(t)
+\sim
+\mathcal{N}
+\Big(
+\hat{\mathbf{\Omega}}_i(t),
+\boldsymbol{\Sigma}
+\Big),
+\]
+with $\boldsymbol{\Sigma}$ derived from assay noise (CBC, CMP, NAAT, NGS).
+
+Posterior:
+\[
+p(\Theta \mid \mathbf{D})
+\propto
+p(\mathbf{D} \mid \Theta)\, p(\Theta),
+\]
+where $\mathbf{D}$ is the full validation dataset.
+
+\section{Stress Testing and Resilience Simulation}
+
+\subsection{Stochastic Noise Injection}
+
+Noise term:
+\[
+\xi(t) \sim \mathcal{N}\big(0, \sigma^2_{\text{stress}}\big),
+\quad
+\sigma^2_{\text{stress}}
+=
+5.0 \times \sigma^2_{\text{baseline}}.
+\]
+
+\subsection{High-Dimensional Scaling}
+
+Concurrent virtual patients:
+\[
+N_{\text{virt}} = 10^7,
+\]
+with distributed execution across federated nodes.
+
+\subsection{Pathological Extremes}
+
+Mutation rate stress:
+\[
+\mu_{\text{mut,stress}}
+=
+10 \times \mu_{\text{mut,baseline}}.
+\]
+
+\section{Simulation Performance Metrics}
+
+\subsection{Numerical Robustness}
+
+Robustness score:
+\[
+\mathbb{R}_{\text{num}}
+=
+\frac{
+N_{\text{stable}}
+}{
+N_{\text{total}}
+}
+\times 100\%,
+\]
+with target:
+\[
+\mathbb{R}_{\text{num}} \ge 99.99\%.
+\]
+
+\subsection{Latency Profile}
+
+Per-epoch latency:
+\[
+T_{\text{epoch}}
+=
+\frac{
+\sum_{k=1}^{K}
+\Delta t_k
+}{
+K
+},
+\]
+measured under maximum load.
+
+\section{Closed-Loop Countermeasure Simulation}
+
+\subsection{Control Mapping}
+
+Countermeasure vector:
+\[
+\mathbf{U}_i(t)
+=
+\mathcal{C}
+\big(
+\hat{\mathbf{\Omega}}_i(t),\,
+\Theta_i
+\big),
+\]
+where $\mathcal{C}$ is the optimization/control operator.
+
+\subsection{Iterative Policy Evaluation}
+
+Closed-loop update:
+\[
+\hat{\mathbf{\Omega}}_i^{(k+1)}(t)
+=
+\mathcal{F}_{\Theta_i}
+\big(
+\mathbf{\Omega}_{0,i},\,
+\mathbf{U}_i^{(k)}(t)
+\big),
+\]
+until convergence:
+\[
+\left\|
+\hat{\mathbf{\Omega}}_i^{(k+1)}(t)
+-
+\hat{\mathbf{\Omega}}_i^{(k)}(t)
+\right\|
+\le \epsilon_{\text{policy}}.
+\]
