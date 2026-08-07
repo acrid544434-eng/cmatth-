@@ -1,0 +1,253 @@
+% ====================================================================
+% CHAPTER: GLOBAL SIMULATION ARCHITECTURE
+% ====================================================================
+
+\chapter{Global Simulation Architecture}
+
+\section{Overview}
+
+The Global Simulation Architecture defines the unified computational framework
+that governs all dynamical processes within the MPS--PCE system. It integrates
+heterogeneous biological modules, numerical solvers, uncertainty quantification,
+and closed-loop countermeasure optimization into a single coherent execution
+graph.
+
+The architecture is designed to support:
+\begin{itemize}
+    \item multiscale biological modeling,
+    \item stochastic and deterministic dynamics,
+    \item high-throughput Monte Carlo replication,
+    \item distributed execution across cloud and edge nodes,
+    \item cryptographically verified computation.
+\end{itemize}
+
+\section{Global State Definition}
+
+At any simulation time $t$, the global state vector is defined as:
+\[
+\mathbf{G}(t)
+=
+\big(
+\mathbf{S}_{A}(t),\,
+\mathbf{S}_{B}(t),\,
+\mathbf{S}_{C}(t),\,
+\mathbf{S}_{D}(t),\,
+\mathbf{S}_{\text{infra}}(t),\,
+\mathbf{S}_{\text{sec}}(t)
+\big),
+\]
+where:
+\begin{itemize}
+    \item $\mathbf{S}_{A}(t)$: genetic dysregulation state,
+    \item $\mathbf{S}_{B}(t)$: pathogen kinetics state,
+    \item $\mathbf{S}_{C}(t)$: trauma physiology state,
+    \item $\mathbf{S}_{D}(t)$: cellular senescence state,
+    \item $\mathbf{S}_{\text{infra}}(t)$: infrastructure health/load,
+    \item $\mathbf{S}_{\text{sec}}(t)$: cryptographic verification state.
+\end{itemize}
+
+\section{Execution Operator}
+
+The simulation evolves according to the global execution operator:
+\[
+\mathbf{G}(t_{k+1})
+=
+\mathcal{E}
+\Big(
+\mathbf{G}(t_k),\,
+\mathbf{\Omega}(t_k),\,
+\mathbf{U}(t_k)
+\Big),
+\]
+where:
+\begin{itemize}
+    \item $\mathbf{\Omega}(t_k)$ is the diagnostic observation vector,
+    \item $\mathbf{U}(t_k)$ is the countermeasure vector,
+    \item $\mathcal{E}$ is the unified evolution operator.
+\end{itemize}
+
+\section{Unified Module Graph}
+
+The system is composed of four biological modules and two infrastructure modules.
+Their interactions are represented by the directed graph in Figure
+\ref{fig:global_graph}.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=2.5cm, auto]
+    \node[draw, rounded corners, align=center] (A) {Module A\\Genetic};
+    \node[draw, rounded corners, right of=A, align=center] (B) {Module B\\Pathogen};
+    \node[draw, rounded corners, below of=A, align=center] (C) {Module C\\Trauma};
+    \node[draw, rounded corners, below of=B, align=center] (D) {Module D\\Senescence};
+    \node[draw, rounded corners, right=3cm of B, align=center] (INF) {Infrastructure};
+    \node[draw, rounded corners, right=3cm of D, align=center] (SEC) {Security};
+
+    \draw[->, thick] (A) -- (B);
+    \draw[->, thick] (B) -- (C);
+    \draw[->, thick] (C) -- (D);
+    \draw[<->, thick] (B) -- (INF);
+    \draw[<->, thick] (D) -- (SEC);
+\end{tikzpicture}
+\caption{Global Module Interaction Graph}
+\label{fig:global_graph}
+\end{figure}
+
+\section{Diagnostic Ingestion Layer}
+
+The diagnostic ingestion layer transforms raw clinical measurements into
+normalized state vectors:
+\[
+\mathbf{\Omega}(t)
+=
+\mathcal{I}
+\big(
+\mathbf{X}_{\text{CBC}},
+\mathbf{X}_{\text{CMP}},
+\mathbf{X}_{\text{NAAT}},
+\mathbf{X}_{\text{NGS}}
+\big),
+\]
+where $\mathcal{I}$ is the ingestion operator.
+
+Normalization:
+\[
+\tilde{x}_i = \frac{x_i - \mu_i}{\sigma_i}.
+\]
+
+\section{Parameter Mapping}
+
+Each module receives a parameter set:
+\[
+\Theta
+=
+\{\Theta_A,\, \Theta_B,\, \Theta_C,\, \Theta_D\},
+\]
+computed via:
+\[
+\Theta_i = \mathcal{T}_i(\mathbf{\Omega}(t)).
+\]
+
+\section{Unified Dynamics}
+
+The global dynamics are defined by:
+\[
+\frac{d\mathbf{G}}{dt}
+=
+\mathcal{F}
+\big(
+\mathbf{G}(t),\,
+\Theta,\,
+\mathbf{U}(t)
+\big),
+\]
+where $\mathcal{F}$ is the unified dynamical operator.
+
+\subsection{Coupling Terms}
+
+Coupling between modules is expressed as:
+\[
+\mathbf{C}_{ij}(t)
+=
+\Gamma_{ij}
+\big(
+\mathbf{S}_i(t),\,
+\mathbf{S}_j(t)
+\big),
+\]
+with $\Gamma_{ij}$ representing cross-module influence.
+
+\section{Closed-Loop Countermeasure System}
+
+Countermeasures are computed via:
+\[
+\mathbf{U}(t)
+=
+\mathcal{C}
+\big(
+\mathbf{G}(t),\,
+\Theta
+\big),
+\]
+where $\mathcal{C}$ is the control operator.
+
+Policy convergence:
+\[
+\left\|
+\mathbf{U}^{(k+1)}(t)
+-
+\mathbf{U}^{(k)}(t)
+\right\|
+\le
+\epsilon_{\text{policy}}.
+\]
+
+\section{Distributed Execution Model}
+
+The simulation is distributed across nodes:
+\[
+\mathcal{N}
+=
+\{\text{Edge}_i,\ \text{Regional}_j,\ \text{Core}_k\}.
+\]
+
+Bandwidth:
+\[
+B_{ij}
+=
+\frac{S}{\tau_{ij}},
+\]
+where $S$ is packet size and $\tau_{ij}$ is latency.
+
+\section{Security Binding}
+
+All simulation steps are cryptographically verified:
+\[
+\text{Verify}_{\text{ZKP}}
+\big(
+\mathbf{G}(t),\,
+\mathbf{U}(t)
+\big)
+=
+\text{true}.
+\]
+
+Audit hash:
+\[
+H(t)
+=
+\text{SHA3}
+\big(
+\mathbf{G}(t)
+\parallel
+\mathbf{U}(t)
+\parallel
+t
+\big).
+\]
+
+\section{Global Error Metrics}
+
+Global NMAE:
+\[
+\text{NMAE}_{\text{global}}
+=
+\frac{1}{N}
+\sum_{i=1}^{N}
+\frac{
+\left|
+\hat{\mathbf{\Omega}}_i(t)
+-
+\mathbf{\Omega}_{\text{true},i}(t)
+\right|
+}{
+\bar{\mathbf{\Omega}}_{\text{true},i}
+}.
+\]
+
+\section{Summary}
+
+The Global Simulation Architecture provides the structural backbone of the
+MPS--PCE system, enabling multiscale modeling, distributed computation,
+cryptographic verification, and closed-loop optimization. It ensures that all
+biological, computational, and infrastructural components operate as a unified,
+coherent simulation engine.
