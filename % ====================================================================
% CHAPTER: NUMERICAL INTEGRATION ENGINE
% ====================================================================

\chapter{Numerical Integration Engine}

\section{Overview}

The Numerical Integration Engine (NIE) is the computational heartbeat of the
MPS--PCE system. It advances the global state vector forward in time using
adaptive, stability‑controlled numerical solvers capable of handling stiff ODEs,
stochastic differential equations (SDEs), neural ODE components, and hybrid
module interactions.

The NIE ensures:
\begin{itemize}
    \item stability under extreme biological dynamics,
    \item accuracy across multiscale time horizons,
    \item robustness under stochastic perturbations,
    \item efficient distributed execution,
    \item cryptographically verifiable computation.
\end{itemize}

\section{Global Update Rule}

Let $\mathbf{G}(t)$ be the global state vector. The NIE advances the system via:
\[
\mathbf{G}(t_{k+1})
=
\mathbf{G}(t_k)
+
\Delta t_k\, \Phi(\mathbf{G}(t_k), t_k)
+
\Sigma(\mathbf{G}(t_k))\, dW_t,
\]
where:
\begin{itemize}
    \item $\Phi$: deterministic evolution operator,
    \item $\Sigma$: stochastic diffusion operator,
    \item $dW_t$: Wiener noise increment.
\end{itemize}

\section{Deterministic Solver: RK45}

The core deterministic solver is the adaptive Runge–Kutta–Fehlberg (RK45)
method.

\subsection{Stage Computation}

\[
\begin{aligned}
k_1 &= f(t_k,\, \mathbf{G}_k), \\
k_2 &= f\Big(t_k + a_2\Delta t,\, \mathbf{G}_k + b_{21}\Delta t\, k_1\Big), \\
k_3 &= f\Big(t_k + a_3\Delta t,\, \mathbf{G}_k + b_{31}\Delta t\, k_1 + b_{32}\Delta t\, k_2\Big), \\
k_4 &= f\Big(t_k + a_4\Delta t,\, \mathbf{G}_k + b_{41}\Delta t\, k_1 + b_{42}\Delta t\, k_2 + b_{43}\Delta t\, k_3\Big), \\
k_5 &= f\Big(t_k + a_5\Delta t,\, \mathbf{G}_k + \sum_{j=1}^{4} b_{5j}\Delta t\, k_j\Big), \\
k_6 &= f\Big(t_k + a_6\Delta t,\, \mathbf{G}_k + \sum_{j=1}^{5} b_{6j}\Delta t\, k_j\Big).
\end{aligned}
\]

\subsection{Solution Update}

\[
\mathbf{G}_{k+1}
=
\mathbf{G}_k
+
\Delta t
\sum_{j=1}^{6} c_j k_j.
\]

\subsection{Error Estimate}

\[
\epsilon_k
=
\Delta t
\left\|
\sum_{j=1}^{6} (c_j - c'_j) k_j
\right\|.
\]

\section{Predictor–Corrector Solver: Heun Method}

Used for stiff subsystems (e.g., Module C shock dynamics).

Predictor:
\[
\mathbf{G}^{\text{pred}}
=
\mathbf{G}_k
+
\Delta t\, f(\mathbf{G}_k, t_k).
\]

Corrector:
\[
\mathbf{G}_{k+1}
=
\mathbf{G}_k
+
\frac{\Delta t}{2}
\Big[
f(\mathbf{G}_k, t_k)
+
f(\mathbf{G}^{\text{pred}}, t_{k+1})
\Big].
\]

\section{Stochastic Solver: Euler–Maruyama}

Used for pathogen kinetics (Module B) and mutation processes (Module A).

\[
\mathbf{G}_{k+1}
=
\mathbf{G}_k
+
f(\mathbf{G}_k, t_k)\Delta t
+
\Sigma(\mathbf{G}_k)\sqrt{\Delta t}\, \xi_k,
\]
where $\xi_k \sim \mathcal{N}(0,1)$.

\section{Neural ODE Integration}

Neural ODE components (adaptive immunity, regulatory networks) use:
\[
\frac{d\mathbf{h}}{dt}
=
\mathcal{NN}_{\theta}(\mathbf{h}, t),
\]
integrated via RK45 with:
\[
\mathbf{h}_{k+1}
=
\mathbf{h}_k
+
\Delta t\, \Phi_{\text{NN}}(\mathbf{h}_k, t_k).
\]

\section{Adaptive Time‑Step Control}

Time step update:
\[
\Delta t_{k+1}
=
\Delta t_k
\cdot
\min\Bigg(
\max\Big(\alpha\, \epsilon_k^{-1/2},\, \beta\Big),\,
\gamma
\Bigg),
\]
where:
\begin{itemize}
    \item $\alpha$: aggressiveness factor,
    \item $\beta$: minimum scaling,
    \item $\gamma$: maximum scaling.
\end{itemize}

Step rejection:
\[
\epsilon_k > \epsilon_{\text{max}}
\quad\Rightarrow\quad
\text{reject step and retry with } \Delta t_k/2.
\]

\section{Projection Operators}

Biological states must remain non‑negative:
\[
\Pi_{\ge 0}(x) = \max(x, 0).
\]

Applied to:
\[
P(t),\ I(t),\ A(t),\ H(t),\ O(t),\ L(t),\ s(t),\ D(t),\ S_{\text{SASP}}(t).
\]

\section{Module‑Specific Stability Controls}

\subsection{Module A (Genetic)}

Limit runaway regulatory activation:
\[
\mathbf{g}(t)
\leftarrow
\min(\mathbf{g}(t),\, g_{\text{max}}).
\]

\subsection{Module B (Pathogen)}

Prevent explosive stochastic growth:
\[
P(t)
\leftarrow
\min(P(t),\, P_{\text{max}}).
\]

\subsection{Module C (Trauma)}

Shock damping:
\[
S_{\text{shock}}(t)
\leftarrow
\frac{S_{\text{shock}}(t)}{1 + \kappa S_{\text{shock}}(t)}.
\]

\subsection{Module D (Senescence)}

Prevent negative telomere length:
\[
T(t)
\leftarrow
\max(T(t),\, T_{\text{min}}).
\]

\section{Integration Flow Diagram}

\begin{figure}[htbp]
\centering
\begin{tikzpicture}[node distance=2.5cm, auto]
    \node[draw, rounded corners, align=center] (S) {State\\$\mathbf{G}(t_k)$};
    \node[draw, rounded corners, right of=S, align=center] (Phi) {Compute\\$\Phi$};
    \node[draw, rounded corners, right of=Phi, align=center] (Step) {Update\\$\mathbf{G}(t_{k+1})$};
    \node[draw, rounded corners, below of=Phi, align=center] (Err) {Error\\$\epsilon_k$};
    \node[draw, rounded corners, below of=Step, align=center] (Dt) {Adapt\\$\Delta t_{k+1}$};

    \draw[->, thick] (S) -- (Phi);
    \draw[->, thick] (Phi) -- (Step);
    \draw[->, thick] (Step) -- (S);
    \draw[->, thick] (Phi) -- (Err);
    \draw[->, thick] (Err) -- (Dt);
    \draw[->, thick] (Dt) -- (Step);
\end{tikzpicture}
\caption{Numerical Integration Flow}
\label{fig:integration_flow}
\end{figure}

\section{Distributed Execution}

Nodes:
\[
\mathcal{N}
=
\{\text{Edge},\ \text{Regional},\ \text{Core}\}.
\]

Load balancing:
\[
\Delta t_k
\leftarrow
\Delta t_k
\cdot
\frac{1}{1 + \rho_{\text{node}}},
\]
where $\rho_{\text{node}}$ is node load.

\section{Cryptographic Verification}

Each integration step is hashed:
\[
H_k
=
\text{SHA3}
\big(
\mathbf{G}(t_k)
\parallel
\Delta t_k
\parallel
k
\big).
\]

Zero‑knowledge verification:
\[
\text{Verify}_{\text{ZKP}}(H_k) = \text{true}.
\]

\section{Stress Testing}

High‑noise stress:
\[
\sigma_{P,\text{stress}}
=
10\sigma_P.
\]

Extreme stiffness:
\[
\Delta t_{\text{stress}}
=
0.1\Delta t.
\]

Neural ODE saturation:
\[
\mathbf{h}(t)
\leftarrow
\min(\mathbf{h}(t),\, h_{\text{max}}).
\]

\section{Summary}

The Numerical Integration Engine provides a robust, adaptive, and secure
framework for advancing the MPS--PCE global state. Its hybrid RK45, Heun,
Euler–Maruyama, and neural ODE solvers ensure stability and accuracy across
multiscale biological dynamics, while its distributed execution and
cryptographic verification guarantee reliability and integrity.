@@ -1,0 +1,310 @@
+% ====================================================================
+% CHAPTER: NUMERICAL INTEGRATION ENGINE
+% ====================================================================
+
+\chapter{Numerical Integration Engine}
+
+\section{Overview}
+
+The Numerical Integration Engine (NIE) is the computational heartbeat of the
+MPS--PCE system. It advances the global state vector forward in time using
+adaptive, stability‑controlled numerical solvers capable of handling stiff ODEs,
+stochastic differential equations (SDEs), neural ODE components, and hybrid
+module interactions.
+
+The NIE ensures:
+\begin{itemize}
+    \item stability under extreme biological dynamics,
+    \item accuracy across multiscale time horizons,
+    \item robustness under stochastic perturbations,
+    \item efficient distributed execution,
+    \item cryptographically verifiable computation.
+\end{itemize}
+
+\section{Global Update Rule}
+
+Let $\mathbf{G}(t)$ be the global state vector. The NIE advances the system via:
+\[
+\mathbf{G}(t_{k+1})
+=
+\mathbf{G}(t_k)
++
+\Delta t_k\, \Phi(\mathbf{G}(t_k), t_k)
++
+\Sigma(\mathbf{G}(t_k))\, dW_t,
+\]
+where:
+\begin{itemize}
+    \item $\Phi$: deterministic evolution operator,
+    \item $\Sigma$: stochastic diffusion operator,
+    \item $dW_t$: Wiener noise increment.
+\end{itemize}
+
+\section{Deterministic Solver: RK45}
+
+The core deterministic solver is the adaptive Runge–Kutta–Fehlberg (RK45)
+method.
+
+\subsection{Stage Computation}
+
+\[
+\begin{aligned}
+k_1 &= f(t_k,\, \mathbf{G}_k), \\
+k_2 &= f\Big(t_k + a_2\Delta t,\, \mathbf{G}_k + b_{21}\Delta t\, k_1\Big), \\
+k_3 &= f\Big(t_k + a_3\Delta t,\, \mathbf{G}_k + b_{31}\Delta t\, k_1 + b_{32}\Delta t\, k_2\Big), \\
+k_4 &= f\Big(t_k + a_4\Delta t,\, \mathbf{G}_k + b_{41}\Delta t\, k_1 + b_{42}\Delta t\, k_2 + b_{43}\Delta t\, k_3\Big), \\
+k_5 &= f\Big(t_k + a_5\Delta t,\, \mathbf{G}_k + \sum_{j=1}^{4} b_{5j}\Delta t\, k_j\Big), \\
+k_6 &= f\Big(t_k + a_6\Delta t,\, \mathbf{G}_k + \sum_{j=1}^{5} b_{6j}\Delta t\, k_j\Big).
+\end{aligned}
+\]
+
+\subsection{Solution Update}
+
+\[
+\mathbf{G}_{k+1}
+=
+\mathbf{G}_k
++
+\Delta t
+\sum_{j=1}^{6} c_j k_j.
+\]
+
+\subsection{Error Estimate}
+
+\[
+\epsilon_k
+=
+\Delta t
+\left\|
+\sum_{j=1}^{6} (c_j - c'_j) k_j
+\right\|.
+\]
+
+\section{Predictor–Corrector Solver: Heun Method}
+
+Used for stiff subsystems (e.g., Module C shock dynamics).
+
+Predictor:
+\[
+\mathbf{G}^{\text{pred}}
+=
+\mathbf{G}_k
++
+\Delta t\, f(\mathbf{G}_k, t_k).
+\]
+
+Corrector:
+\[
+\mathbf{G}_{k+1}
+=
+\mathbf{G}_k
++
+\frac{\Delta t}{2}
+\Big[
+f(\mathbf{G}_k, t_k)
++
+f(\mathbf{G}^{\text{pred}}, t_{k+1})
+\Big].
+\]
+
+\section{Stochastic Solver: Euler–Maruyama}
+
+Used for pathogen kinetics (Module B) and mutation processes (Module A).
+
+\[
+\mathbf{G}_{k+1}
+=
+\mathbf{G}_k
++
+f(\mathbf{G}_k, t_k)\Delta t
++
+\Sigma(\mathbf{G}_k)\sqrt{\Delta t}\, \xi_k,
+\]
+where $\xi_k \sim \mathcal{N}(0,1)$.
+
+\section{Neural ODE Integration}
+
+Neural ODE components (adaptive immunity, regulatory networks) use:
+\[
+\frac{d\mathbf{h}}{dt}
+=
+\mathcal{NN}_{\theta}(\mathbf{h}, t),
+\]
+integrated via RK45 with:
+\[
+\mathbf{h}_{k+1}
+=
+\mathbf{h}_k
++
+\Delta t\, \Phi_{\text{NN}}(\mathbf{h}_k, t_k).
+\]
+
+\section{Adaptive Time‑Step Control}
+
+Time step update:
+\[
+\Delta t_{k+1}
+=
+\Delta t_k
+\cdot
+\min\Bigg(
+\max\Big(\alpha\, \epsilon_k^{-1/2},\, \beta\Big),\,
+\gamma
+\Bigg),
+\]
+where:
+\begin{itemize}
+    \item $\alpha$: aggressiveness factor,
+    \item $\beta$: minimum scaling,
+    \item $\gamma$: maximum scaling.
+\end{itemize}
+
+Step rejection:
+\[
+\epsilon_k > \epsilon_{\text{max}}
+\quad\Rightarrow\quad
+\text{reject step and retry with } \Delta t_k/2.
+\]
+
+\section{Projection Operators}
+
+Biological states must remain non‑negative:
+\[
+\Pi_{\ge 0}(x) = \max(x, 0).
+\]
+
+Applied to:
+\[
+P(t),\ I(t),\ A(t),\ H(t),\ O(t),\ L(t),\ s(t),\ D(t),\ S_{\text{SASP}}(t).
+\]
+
+\section{Module‑Specific Stability Controls}
+
+\subsection{Module A (Genetic)}
+
+Limit runaway regulatory activation:
+\[
+\mathbf{g}(t)
+\leftarrow
+\min(\mathbf{g}(t),\, g_{\text{max}}).
+\]
+
+\subsection{Module B (Pathogen)}
+
+Prevent explosive stochastic growth:
+\[
+P(t)
+\leftarrow
+\min(P(t),\, P_{\text{max}}).
+\]
+
+\subsection{Module C (Trauma)}
+
+Shock damping:
+\[
+S_{\text{shock}}(t)
+\leftarrow
+\frac{S_{\text{shock}}(t)}{1 + \kappa S_{\text{shock}}(t)}.
+\]
+
+\subsection{Module D (Senescence)}
+
+Prevent negative telomere length:
+\[
+T(t)
+\leftarrow
+\max(T(t),\, T_{\text{min}}).
+\]
+
+\section{Integration Flow Diagram}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=2.5cm, auto]
+    \node[draw, rounded corners, align=center] (S) {State\\$\mathbf{G}(t_k)$};
+    \node[draw, rounded corners, right of=S, align=center] (Phi) {Compute\\$\Phi$};
+    \node[draw, rounded corners, right of=Phi, align=center] (Step) {Update\\$\mathbf{G}(t_{k+1})$};
+    \node[draw, rounded corners, below of=Phi, align=center] (Err) {Error\\$\epsilon_k$};
+    \node[draw, rounded corners, below of=Step, align=center] (Dt) {Adapt\\$\Delta t_{k+1}$};
+
+    \draw[->, thick] (S) -- (Phi);
+    \draw[->, thick] (Phi) -- (Step);
+    \draw[->, thick] (Step) -- (S);
+    \draw[->, thick] (Phi) -- (Err);
+    \draw[->, thick] (Err) -- (Dt);
+    \draw[->, thick] (Dt) -- (Step);
+\end{tikzpicture}
+\caption{Numerical Integration Flow}
+\label{fig:integration_flow}
+\end{figure}
+
+\section{Distributed Execution}
+
+Nodes:
+\[
+\mathcal{N}
+=
+\{\text{Edge},\ \text{Regional},\ \text{Core}\}.
+\]
+
+Load balancing:
+\[
+\Delta t_k
+\leftarrow
+\Delta t_k
+\cdot
+\frac{1}{1 + \rho_{\text{node}}},
+\]
+where $\rho_{\text{node}}$ is node load.
+
+\section{Cryptographic Verification}
+
+Each integration step is hashed:
+\[
+H_k
+=
+\text{SHA3}
+\big(
+\mathbf{G}(t_k)
+\parallel
+\Delta t_k
+\parallel
+k
+\big).
+\]
+
+Zero‑knowledge verification:
+\[
+\text{Verify}_{\text{ZKP}}(H_k) = \text{true}.
+\]
+
+\section{Stress Testing}
+
+High‑noise stress:
+\[
+\sigma_{P,\text{stress}}
+=
+10\sigma_P.
+\]
+
+Extreme stiffness:
+\[
+\Delta t_{\text{stress}}
+=
+0.1\Delta t.
+\]
+
+Neural ODE saturation:
+\[
+\mathbf{h}(t)
+\leftarrow
+\min(\mathbf{h}(t),\, h_{\text{max}}).
+\]
+
+\section{Summary}
+
+The Numerical Integration Engine provides a robust, adaptive, and secure
+framework for advancing the MPS--PCE global state. Its hybrid RK45, Heun,
+Euler–Maruyama, and neural ODE solvers ensure stability and accuracy across
+multiscale biological dynamics, while its distributed execution and
+cryptographic verification guarantee reliability and integrity.
