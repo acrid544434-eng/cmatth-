@@ -1,0 +1,307 @@
+% ====================================================================
+% CHAPTER: MODULE B — PATHOGEN KINETICS
+% ====================================================================
+
+\chapter{Module B: Pathogen Kinetics}
+
+\section{Overview}
+
+Module B models the multiscale kinetics of pathogen replication, clearance,
+immune evasion, and evolutionary drift. It integrates stochastic replication
+dynamics, immune system interactions, mutation-driven escape, and clinical
+diagnostic assimilation.
+
+The module is designed to:
+\begin{itemize}
+    \item simulate pathogen load trajectories under stochastic noise,
+    \item incorporate innate and adaptive immune responses,
+    \item model evolutionary escape under selective pressure,
+    \item fuse clinical assay data into latent state estimates,
+    \item provide downstream signals to Modules C and D.
+\end{itemize}
+
+\section{State Variables}
+
+The pathogen-host system is represented by the state vector:
+\[
+\mathbf{S}_B(t)
+=
+\big(
+P(t),\,
+I(t),\,
+A(t),\,
+E(t)
+\big),
+\]
+where:
+\begin{itemize}
+    \item $P(t)$: active pathogen load,
+    \item $I(t)$: innate immune cell density,
+    \item $A(t)$: adaptive immune capacity,
+    \item $E(t)$: evolutionary escape index.
+\end{itemize}
+
+\section{Stochastic Pathogen Replication}
+
+Pathogen replication follows a logistic SDE:
+\[
+dP(t)
+=
+\Big[
+r_p P(t)
+\Big(1 - \frac{P(t)}{K_p}\Big)
+-
+(\beta_1 A(t) + \beta_2 I(t)) P(t)
+\Big] dt
++
+\sigma_P \sqrt{P(t)}\, dW_t,
+\]
+where:
+\begin{itemize}
+    \item $r_p$: intrinsic replication rate,
+    \item $K_p$: carrying capacity,
+    \item $\beta_1$: adaptive clearance coefficient,
+    \item $\beta_2$: innate clearance coefficient,
+    \item $\sigma_P$: stochastic noise amplitude.
+\end{itemize}
+
+\section{Innate Immune Dynamics}
+
+Innate immunity responds rapidly:
+\[
+\frac{dI}{dt}
+=
+\alpha_I P(t)
+-
+\delta_I I(t),
+\]
+with:
+\begin{itemize}
+    \item $\alpha_I$: innate activation rate,
+    \item $\delta_I$: innate decay rate.
+\end{itemize}
+
+\section{Adaptive Immune Dynamics (Neural ODE)}
+
+Adaptive immunity is modeled using a neural ODE:
+\[
+\frac{dA}{dt}
+=
+\mathcal{NN}_{\theta}
+\big(
+P(t),\,
+I(t),\,
+A(t),\,
+E(t)
+\big)
+-
+\delta_A A(t),
+\]
+where:
+\begin{itemize}
+    \item $\mathcal{NN}_{\theta}$: neural network parameterized by $\theta$,
+    \item $\delta_A$: adaptive immune decay rate.
+\end{itemize}
+
+The neural ODE captures:
+\begin{itemize}
+    \item immune exhaustion,
+    \item cytokine feedback loops,
+    \item nonlinear activation thresholds,
+    \item multi-omics-informed immune modulation.
+\end{itemize}
+
+\section{Evolutionary Escape Dynamics}
+
+Evolutionary escape increases under selective pressure:
+\[
+\frac{dE}{dt}
+=
+\mu_{\text{mut}} P(t)
++
+\lambda_E \tanh(A(t))
+-
+\delta_E E(t),
+\]
+where:
+\begin{itemize}
+    \item $\mu_{\text{mut}}$: mutation probability per replication cycle,
+    \item $\lambda_E$: selective pressure coefficient,
+    \item $\delta_E$: escape decay rate.
+\end{itemize}
+
+\section{Module Interaction Diagram}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=2.5cm, auto]
+    \node[draw, rounded corners, align=center] (P) {Pathogen Load\\$P(t)$};
+    \node[draw, rounded corners, right of=P, align=center] (I) {Innate Immunity\\$I(t)$};
+    \node[draw, rounded corners, below of=P, align=center] (A) {Adaptive Immunity\\$A(t)$};
+    \node[draw, rounded corners, right of=A, align=center] (E) {Escape Index\\$E(t)$};
+
+    \draw[->, thick] (P) -- (I);
+    \draw[->, thick] (P) -- (A);
+    \draw[->, thick] (A) -- (E);
+    \draw[->, thick] (I) -- (P);
+    \draw[->, thick] (A) -- (P);
+\end{tikzpicture}
+\caption{Module B Interaction Diagram}
+\label{fig:moduleB_diagram}
+\end{figure}
+
+\section{Clinical Assimilation Layer}
+
+Clinical assays provide partial observations:
+\[
+\mathbf{z}_k
+=
+\big(
+\text{NAAT}_k,\,
+\text{CBC}_k
+\big).
+\]
+
+Observation model:
+\[
+\mathbf{z}_k
+=
+H \mathbf{S}_B(t_k)
++
+\epsilon_k,
+\]
+where:
+\begin{itemize}
+    \item $H$: observation matrix,
+    \item $\epsilon_k$: measurement noise.
+\end{itemize}
+
+Assimilation uses an Unscented Kalman Filter (UKF):
+\[
+\mathbf{S}_B(t_k^+)
+=
+\mathbf{S}_B(t_k^-)
++
+K_k
+\big(
+\mathbf{z}_k - H\mathbf{S}_B(t_k^-)
+\big),
+\]
+with $K_k$ the Kalman gain.
+
+\section{Coupling to Module A}
+
+Genetic dysregulation modifies:
+\[
+\beta_1(t)
+=
+\beta_1^{(0)}
++
+\lambda_1 \|\mathbf{g}(t)\|,
+\]
+\[
+\mu_{\text{mut}}(t)
+=
+\mu_{\text{mut}}^{(0)}
++
+\lambda_2 \|\mathbf{t}(t)\|.
+\]
+
+\section{Coupling to Module C}
+
+Trauma physiology affects:
+\[
+\alpha_I(t)
+=
+\alpha_I^{(0)}
++
+\lambda_3 \iota(t),
+\]
+where $\iota(t)$ is the inflammatory index from Module C.
+
+\section{Coupling to Module D}
+
+Senescence increases susceptibility:
+\[
+r_p(t)
+=
+r_p^{(0)}
++
+\lambda_4 s(t),
+\]
+where $s(t)$ is the senescence burden.
+
+\section{Numerical Integration}
+
+Hybrid solver:
+\[
+\mathbf{z}(t_{k+1})
+=
+\mathbf{z}(t_k)
++
+\Delta t_k\, \Phi_B(\mathbf{z}(t_k), t_k)
++
+\Sigma_B dW_t.
+\]
+
+Projection:
+\[
+P(t) \leftarrow \max(P(t), 0).
+\]
+
+Adaptive step control:
+\[
+\Delta t_{k+1}
+=
+\Delta t_k \cdot \psi(\epsilon_k).
+\]
+
+\section{Stress Testing}
+
+High replication stress:
+\[
+r_{p,\text{stress}}
+=
+5 r_p^{(0)}.
+\]
+
+Immune collapse:
+\[
+A_{\text{stress}}(t)
+=
+0.1 A(t).
+\]
+
+Hypermutation:
+\[
+\mu_{\text{mut,stress}}
+=
+20 \mu_{\text{mut}}^{(0)}.
+\]
+
+\section{Module Output}
+
+Module B outputs:
+\[
+\mathbf{S}_B(t)
+=
+\big(
+P(t),\,
+I(t),\,
+A(t),\,
+E(t)
+\big),
+\]
+which feeds:
+\begin{itemize}
+    \item Module C (trauma physiology),
+    \item Module D (senescence),
+    \item countermeasure optimization.
+\end{itemize}
+
+\section{Summary}
+
+Module B provides a multiscale, stochastic, immune-coupled model of pathogen
+dynamics. Its integration of replication kinetics, immune response, evolutionary
+escape, and clinical assimilation makes it the central engine for infection
+trajectory prediction and countermeasure optimization.
