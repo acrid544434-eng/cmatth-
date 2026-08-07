@@ -1,0 +1,182 @@
+\documentclass[12pt,oneside]{book}
+
+% ------------------------------------------------------------
+% PREAMBLE
+% ------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{tikz}
+
+\geometry{
+    left=25mm,
+    right=25mm,
+    top=25mm,
+    bottom=25mm
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    pdftitle={MPS--PCE Codex},
+    pdfauthor={C. Matthew Blackwell}
+}
+
+% ------------------------------------------------------------
+% TITLE PAGE
+% ------------------------------------------------------------
+\title{\textbf{The MPS--PCE Codex}\\
+\large Multiscale Pathology Simulation \& Precision Countermeasure Engine}
+\author{C. Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% ------------------------------------------------------------
+% PART I — FOUNDATIONS
+% ------------------------------------------------------------
+\part{Foundations of the MPS--PCE}
+
+\chapter{Conceptual Overview}
+\section{Motivation}
+\section{Scope of the Codex}
+\section{System Philosophy}
+
+\chapter{Scientific Background}
+\section{Multiscale Pathology}
+\section{Mechanistic vs Statistical Models}
+\section{Precision Countermeasure Theory}
+
+\chapter{Mathematical Preliminaries}
+\section{Notation}
+\section{ODE/SDE Fundamentals}
+\section{Bayesian Inference Foundations}
+
+% ------------------------------------------------------------
+% PART II — CORE SIMULATION ENGINE
+% ------------------------------------------------------------
+\part{Core Simulation Engine}
+
+\chapter{Global Simulation Architecture}
+\section{State Vector Definition}
+\section{Execution Operator}
+\section{Closed-Loop Control}
+
+\chapter{Module A: Genetic Dysregulation}
+\section{Regulatory Network Model}
+\section{Variant Mapping}
+\section{Dynamics}
+
+\chapter{Module B: Pathogen Kinetics}
+\section{Stochastic Infection Model}
+\section{Neural ODE Immunity}
+\section{Parameterization}
+
+\chapter{Module C: Acute Trauma}
+\section{Homeostatic Deviation}
+\section{Shock Modeling}
+\section{Stress Response}
+
+\chapter{Module D: Cellular Senescence}
+\section{Senescent Cell Dynamics}
+\section{Long-Horizon Drift}
+\section{Aging Trajectories}
+
+\chapter{Numerical Integration Engine}
+\section{Adaptive RK45}
+\section{Stability Controls}
+\section{Projection Operators}
+
+\chapter{Monte Carlo Simulation Layer}
+\section{Replicate Generation}
+\section{Uncertainty Quantification}
+\section{Stress Testing}
+
+% ------------------------------------------------------------
+% PART III — HARDWARE & INFRASTRUCTURE
+% ------------------------------------------------------------
+\part{Hardware \& Infrastructure Architecture}
+
+\chapter{Physical Hardware Architecture}
+\section{Compute Fabric}
+\section{Memory Topology}
+\section{Interconnects}
+
+\chapter{Thermal Envelope}
+\section{Heat Transfer Model}
+\section{Cooling Assemblies}
+
+\chapter{Power Delivery Network}
+\section{VRM Specifications}
+\section{Impedance Modeling}
+
+\chapter{Cloud \& Edge Infrastructure}
+\section{Distributed Node Topology}
+\section{High-Availability Scheduling}
+
+% ------------------------------------------------------------
+% PART IV — SECURITY & CRYPTOGRAPHY
+% ------------------------------------------------------------
+\part{Security \& Cryptographic Enforcement}
+
+\chapter{Zero-Knowledge Verification}
+\section{Proof Binding}
+\section{Execution Integrity}
+
+\chapter{Lattice-Based Encryption}
+\section{Channel Security}
+\section{Key Management}
+
+\chapter{Audit Trails}
+\section{Tamper-Evident Logs}
+\section{Hashing Standards}
+
+% ------------------------------------------------------------
+% PART V — MANUFACTURING & DEPLOYMENT
+% ------------------------------------------------------------
+\part{Manufacturing \& Deployment}
+
+\chapter{Fabrication Package}
+\section{PCB Stackup}
+\section{Mechanical Drawings}
+\section{Thermal Fabrication}
+
+\chapter{Production BOM}
+\section{Electronic Components}
+\section{Mechanical Components}
+\section{Thermal Components}
+
+\chapter{Assembly Instructions}
+\section{Process Flow}
+\section{Exploded Diagrams}
+
+\chapter{Quality Assurance}
+\section{Electrical Testing}
+\section{Thermal Testing}
+\section{Mechanical Testing}
+
+\chapter{Compliance Certification}
+\section{Regulatory Matrix}
+\section{Safety Standards}
+
+% ------------------------------------------------------------
+% APPENDICES
+% ------------------------------------------------------------
+\appendix
+
+\chapter{Appendix A: Mathematical Proofs}
+\chapter{Appendix B: Reference Tables}
+\chapter{Appendix C: Extended Simulation Logs}
+\chapter{Appendix D: Manufacturing Drawings Set}
+
+% ------------------------------------------------------------
+\end{document}
