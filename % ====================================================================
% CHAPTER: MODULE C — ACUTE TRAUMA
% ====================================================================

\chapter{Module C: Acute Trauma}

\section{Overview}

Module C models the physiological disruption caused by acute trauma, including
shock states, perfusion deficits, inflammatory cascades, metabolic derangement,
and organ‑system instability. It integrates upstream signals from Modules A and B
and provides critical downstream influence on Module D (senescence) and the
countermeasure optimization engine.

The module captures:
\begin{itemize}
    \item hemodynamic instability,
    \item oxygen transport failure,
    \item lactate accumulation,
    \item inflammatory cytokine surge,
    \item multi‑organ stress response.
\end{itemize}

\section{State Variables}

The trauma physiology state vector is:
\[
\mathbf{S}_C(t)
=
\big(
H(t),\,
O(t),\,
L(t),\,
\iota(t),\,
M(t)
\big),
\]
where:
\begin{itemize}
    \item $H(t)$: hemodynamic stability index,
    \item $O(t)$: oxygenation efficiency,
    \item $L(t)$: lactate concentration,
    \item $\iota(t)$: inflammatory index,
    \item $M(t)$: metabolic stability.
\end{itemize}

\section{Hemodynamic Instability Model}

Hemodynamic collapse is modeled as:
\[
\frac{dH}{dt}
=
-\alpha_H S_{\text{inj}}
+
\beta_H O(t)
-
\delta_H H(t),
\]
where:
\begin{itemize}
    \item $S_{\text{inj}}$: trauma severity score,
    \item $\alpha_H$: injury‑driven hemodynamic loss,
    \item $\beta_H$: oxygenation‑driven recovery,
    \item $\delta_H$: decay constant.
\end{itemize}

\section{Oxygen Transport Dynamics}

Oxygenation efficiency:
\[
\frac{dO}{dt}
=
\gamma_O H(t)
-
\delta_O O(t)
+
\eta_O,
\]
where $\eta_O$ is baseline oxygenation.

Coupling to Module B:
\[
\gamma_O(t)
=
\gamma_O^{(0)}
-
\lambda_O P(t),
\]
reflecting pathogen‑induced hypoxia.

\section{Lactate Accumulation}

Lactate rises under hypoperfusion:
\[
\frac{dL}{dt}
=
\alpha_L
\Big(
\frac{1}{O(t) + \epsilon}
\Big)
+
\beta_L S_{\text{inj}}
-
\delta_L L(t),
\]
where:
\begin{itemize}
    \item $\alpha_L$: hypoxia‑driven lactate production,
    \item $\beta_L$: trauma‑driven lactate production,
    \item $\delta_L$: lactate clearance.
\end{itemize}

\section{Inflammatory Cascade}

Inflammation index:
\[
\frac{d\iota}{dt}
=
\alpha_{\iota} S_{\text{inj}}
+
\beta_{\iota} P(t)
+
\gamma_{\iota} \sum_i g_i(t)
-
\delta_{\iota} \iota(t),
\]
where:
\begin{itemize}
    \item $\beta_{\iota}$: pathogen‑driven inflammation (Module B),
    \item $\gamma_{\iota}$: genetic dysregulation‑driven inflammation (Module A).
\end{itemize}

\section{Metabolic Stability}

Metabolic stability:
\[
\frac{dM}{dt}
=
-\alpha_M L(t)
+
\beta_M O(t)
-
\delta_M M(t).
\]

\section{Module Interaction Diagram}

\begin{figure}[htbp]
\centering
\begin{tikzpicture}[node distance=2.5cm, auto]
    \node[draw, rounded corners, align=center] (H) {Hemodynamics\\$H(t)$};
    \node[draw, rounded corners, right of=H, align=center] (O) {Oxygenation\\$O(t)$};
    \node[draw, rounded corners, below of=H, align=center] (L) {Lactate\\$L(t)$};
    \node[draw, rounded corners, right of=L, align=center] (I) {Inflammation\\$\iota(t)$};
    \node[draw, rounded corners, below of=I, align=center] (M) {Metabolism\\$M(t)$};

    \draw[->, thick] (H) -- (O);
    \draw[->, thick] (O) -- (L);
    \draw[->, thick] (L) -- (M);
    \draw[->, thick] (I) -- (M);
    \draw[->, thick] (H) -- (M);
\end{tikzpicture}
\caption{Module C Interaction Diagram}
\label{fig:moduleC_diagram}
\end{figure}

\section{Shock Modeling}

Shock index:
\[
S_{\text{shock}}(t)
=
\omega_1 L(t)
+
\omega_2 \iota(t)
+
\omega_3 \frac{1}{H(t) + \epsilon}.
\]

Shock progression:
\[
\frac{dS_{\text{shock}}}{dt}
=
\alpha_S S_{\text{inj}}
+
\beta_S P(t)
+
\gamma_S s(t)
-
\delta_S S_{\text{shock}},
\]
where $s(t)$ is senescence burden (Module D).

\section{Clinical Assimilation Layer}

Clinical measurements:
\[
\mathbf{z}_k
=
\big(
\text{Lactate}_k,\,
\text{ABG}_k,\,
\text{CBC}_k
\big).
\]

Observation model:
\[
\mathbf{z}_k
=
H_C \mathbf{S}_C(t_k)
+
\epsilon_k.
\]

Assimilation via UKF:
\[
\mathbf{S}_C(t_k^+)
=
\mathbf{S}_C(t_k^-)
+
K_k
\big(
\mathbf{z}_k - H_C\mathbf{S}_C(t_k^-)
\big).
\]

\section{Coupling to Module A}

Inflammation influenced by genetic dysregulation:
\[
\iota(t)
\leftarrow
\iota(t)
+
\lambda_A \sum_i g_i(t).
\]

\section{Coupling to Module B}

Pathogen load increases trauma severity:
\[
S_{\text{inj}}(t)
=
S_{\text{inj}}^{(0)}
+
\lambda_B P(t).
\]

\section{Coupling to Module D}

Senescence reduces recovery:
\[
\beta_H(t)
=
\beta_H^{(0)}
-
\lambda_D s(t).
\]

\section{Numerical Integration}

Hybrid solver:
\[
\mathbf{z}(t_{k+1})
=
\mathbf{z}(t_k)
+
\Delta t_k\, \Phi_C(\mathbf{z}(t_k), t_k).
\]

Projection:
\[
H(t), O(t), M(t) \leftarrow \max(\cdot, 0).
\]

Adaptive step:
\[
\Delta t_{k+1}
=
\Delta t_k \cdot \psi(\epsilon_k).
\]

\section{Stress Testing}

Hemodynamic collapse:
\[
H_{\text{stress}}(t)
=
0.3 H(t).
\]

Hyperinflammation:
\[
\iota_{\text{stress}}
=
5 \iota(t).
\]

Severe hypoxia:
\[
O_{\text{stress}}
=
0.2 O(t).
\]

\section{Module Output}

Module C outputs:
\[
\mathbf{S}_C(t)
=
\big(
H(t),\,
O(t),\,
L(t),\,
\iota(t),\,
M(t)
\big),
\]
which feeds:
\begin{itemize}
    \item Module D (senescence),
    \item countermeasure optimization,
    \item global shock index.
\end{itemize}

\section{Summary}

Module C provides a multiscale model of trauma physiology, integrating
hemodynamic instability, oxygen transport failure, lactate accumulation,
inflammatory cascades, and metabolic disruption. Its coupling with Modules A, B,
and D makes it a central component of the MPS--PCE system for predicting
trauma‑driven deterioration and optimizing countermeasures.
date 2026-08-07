@@ -1,0 +1,334 @@
+% ====================================================================
+% CHAPTER: MODULE C — ACUTE TRAUMA
+% ====================================================================
+
+\chapter{Module C: Acute Trauma}
+
+\section{Overview}
+
+Module C models the physiological disruption caused by acute trauma, including
+shock states, perfusion deficits, inflammatory cascades, metabolic derangement,
+and organ‑system instability. It integrates upstream signals from Modules A and B
+and provides critical downstream influence on Module D (senescence) and the
+countermeasure optimization engine.
+
+The module captures:
+\begin{itemize}
+    \item hemodynamic instability,
+    \item oxygen transport failure,
+    \item lactate accumulation,
+    \item inflammatory cytokine surge,
+    \item multi‑organ stress response.
+\end{itemize}
+
+\section{State Variables}
+
+The trauma physiology state vector is:
+\[
+\mathbf{S}_C(t)
+=
+\big(
+H(t),\,
+O(t),\,
+L(t),\,
+\iota(t),\,
+M(t)
+\big),
+\]
+where:
+\begin{itemize}
+    \item $H(t)$: hemodynamic stability index,
+    \item $O(t)$: oxygenation efficiency,
+    \item $L(t)$: lactate concentration,
+    \item $\iota(t)$: inflammatory index,
+    \item $M(t)$: metabolic stability.
+\end{itemize}
+
+\section{Hemodynamic Instability Model}
+
+Hemodynamic collapse is modeled as:
+\[
+\frac{dH}{dt}
+=
+-\alpha_H S_{\text{inj}}
++
+\beta_H O(t)
+-
+\delta_H H(t),
+\]
+where:
+\begin{itemize}
+    \item $S_{\text{inj}}$: trauma severity score,
+    \item $\alpha_H$: injury‑driven hemodynamic loss,
+    \item $\beta_H$: oxygenation‑driven recovery,
+    \item $\delta_H$: decay constant.
+\end{itemize}
+
+\section{Oxygen Transport Dynamics}
+
+Oxygenation efficiency:
+\[
+\frac{dO}{dt}
+=
+\gamma_O H(t)
+-
+\delta_O O(t)
++
+\eta_O,
+\]
+where $\eta_O$ is baseline oxygenation.
+
+Coupling to Module B:
+\[
+\gamma_O(t)
+=
+\gamma_O^{(0)}
+-
+\lambda_O P(t),
+\]
+reflecting pathogen‑induced hypoxia.
+
+\section{Lactate Accumulation}
+
+Lactate rises under hypoperfusion:
+\[
+\frac{dL}{dt}
+=
+\alpha_L
+\Big(
+\frac{1}{O(t) + \epsilon}
+\Big)
++
+\beta_L S_{\text{inj}}
+-
+\delta_L L(t),
+\]
+where:
+\begin{itemize}
+    \item $\alpha_L$: hypoxia‑driven lactate production,
+    \item $\beta_L$: trauma‑driven lactate production,
+    \item $\delta_L$: lactate clearance.
+\end{itemize}
+
+\section{Inflammatory Cascade}
+
+Inflammation index:
+\[
+\frac{d\iota}{dt}
+=
+\alpha_{\iota} S_{\text{inj}}
++
+\beta_{\iota} P(t)
++
+\gamma_{\iota} \sum_i g_i(t)
+-
+\delta_{\iota} \iota(t),
+\]
+where:
+\begin{itemize}
+    \item $\beta_{\iota}$: pathogen‑driven inflammation (Module B),
+    \item $\gamma_{\iota}$: genetic dysregulation‑driven inflammation (Module A).
+\end{itemize}
+
+\section{Metabolic Stability}
+
+Metabolic stability:
+\[
+\frac{dM}{dt}
+=
+-\alpha_M L(t)
++
+\beta_M O(t)
+-
+\delta_M M(t).
+\]
+
+\section{Module Interaction Diagram}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=2.5cm, auto]
+    \node[draw, rounded corners, align=center] (H) {Hemodynamics\\$H(t)$};
+    \node[draw, rounded corners, right of=H, align=center] (O) {Oxygenation\\$O(t)$};
+    \node[draw, rounded corners, below of=H, align=center] (L) {Lactate\\$L(t)$};
+    \node[draw, rounded corners, right of=L, align=center] (I) {Inflammation\\$\iota(t)$};
+    \node[draw, rounded corners, below of=I, align=center] (M) {Metabolism\\$M(t)$};
+
+    \draw[->, thick] (H) -- (O);
+    \draw[->, thick] (O) -- (L);
+    \draw[->, thick] (L) -- (M);
+    \draw[->, thick] (I) -- (M);
+    \draw[->, thick] (H) -- (M);
+\end{tikzpicture}
+\caption{Module C Interaction Diagram}
+\label{fig:moduleC_diagram}
+\end{figure}
+
+\section{Shock Modeling}
+
+Shock index:
+\[
+S_{\text{shock}}(t)
+=
+\omega_1 L(t)
++
+\omega_2 \iota(t)
++
+\omega_3 \frac{1}{H(t) + \epsilon}.
+\]
+
+Shock progression:
+\[
+\frac{dS_{\text{shock}}}{dt}
+=
+\alpha_S S_{\text{inj}}
++
+\beta_S P(t)
++
+\gamma_S s(t)
+-
+\delta_S S_{\text{shock}},
+\]
+where $s(t)$ is senescence burden (Module D).
+
+\section{Clinical Assimilation Layer}
+
+Clinical measurements:
+\[
+\mathbf{z}_k
+=
+\big(
+\text{Lactate}_k,\,
+\text{ABG}_k,\,
+\text{CBC}_k
+\big).
+\]
+
+Observation model:
+\[
+\mathbf{z}_k
+=
+H_C \mathbf{S}_C(t_k)
++
+\epsilon_k.
+\]
+
+Assimilation via UKF:
+\[
+\mathbf{S}_C(t_k^+)
+=
+\mathbf{S}_C(t_k^-)
++
+K_k
+\big(
+\mathbf{z}_k - H_C\mathbf{S}_C(t_k^-)
+\big).
+\]
+
+\section{Coupling to Module A}
+
+Inflammation influenced by genetic dysregulation:
+\[
+\iota(t)
+\leftarrow
+\iota(t)
++
+\lambda_A \sum_i g_i(t).
+\]
+
+\section{Coupling to Module B}
+
+Pathogen load increases trauma severity:
+\[
+S_{\text{inj}}(t)
+=
+S_{\text{inj}}^{(0)}
++
+\lambda_B P(t).
+\]
+
+\section{Coupling to Module D}
+
+Senescence reduces recovery:
+\[
+\beta_H(t)
+=
+\beta_H^{(0)}
+-
+\lambda_D s(t).
+\]
+
+\section{Numerical Integration}
+
+Hybrid solver:
+\[
+\mathbf{z}(t_{k+1})
+=
+\mathbf{z}(t_k)
++
+\Delta t_k\, \Phi_C(\mathbf{z}(t_k), t_k).
+\]
+
+Projection:
+\[
+H(t), O(t), M(t) \leftarrow \max(\cdot, 0).
+\]
+
+Adaptive step:
+\[
+\Delta t_{k+1}
+=
+\Delta t_k \cdot \psi(\epsilon_k).
+\]
+
+\section{Stress Testing}
+
+Hemodynamic collapse:
+\[
+H_{\text{stress}}(t)
+=
+0.3 H(t).
+\]
+
+Hyperinflammation:
+\[
+\iota_{\text{stress}}
+=
+5 \iota(t).
+\]
+
+Severe hypoxia:
+\[
+O_{\text{stress}}
+=
+0.2 O(t).
+\]
+
+\section{Module Output}
+
+Module C outputs:
+\[
+\mathbf{S}_C(t)
+=
+\big(
+H(t),\,
+O(t),\,
+L(t),\,
+\iota(t),\,
+M(t)
+\big),
+\]
+which feeds:
+\begin{itemize}
+    \item Module D (senescence),
+    \item countermeasure optimization,
+    \item global shock index.
+\end{itemize}
+
+\section{Summary}
+
+Module C provides a multiscale model of trauma physiology, integrating
+hemodynamic instability, oxygen transport failure, lactate accumulation,
+inflammatory cascades, and metabolic disruption. Its coupling with Modules A, B,
+and D makes it a central component of the MPS--PCE system for predicting
+trauma‑driven deterioration and optimizing countermeasures.
