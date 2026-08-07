@@ -1,0 +1,186 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{MCSE-v1: Full Simulation Codex\\
+Theory, Engine Specification, Execution, Hardware Integration, and Unified Summary}
+\author{C.~Matthew Blackwell \\ Independent Designer}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document presents the full MCSE-v1 simulation codex in five sections: (I) simulation theory, (II) engine specification, (III) execution log, (IV) hardware integration, and (V) unified master summary. MCSE-v1 enforces non-interchangeable cellular and tissue identities via astrophysical entropy, Riemannian manifold constraints, cryptographic identity-locking, and deterministic elimination protocols.
+\end{abstract}
+
+\section{I. Full Simulation Theory}
+
+\subsection{Phenotypic Manifold}
+
+Define the phenotypic manifold:
+\[
+\mathcal{M}_{\text{pheno}} = \bigcup_k \Omega_k
+\]
+with disjoint tissue domains:
+\[
+\Omega_{\text{cardiac}} \cap \Omega_{\text{neural}} = \emptyset.
+\]
+
+\subsection{Constrained Evolution Operator}
+
+\[
+\mathcal{E}_{\text{constrained}}(t): \Omega_k \to \Omega_k
+\]
+and
+\[
+p(t+\Delta t) =
+\begin{cases}
+p(t) + \mathcal{F}_{\text{bio}}(p(t), S_{gw})\Delta t, & p \in \Omega_k, \\
+\varnothing, & p \notin \Omega_k.
+\end{cases}
+\]
+
+\subsection{Non-Overlap Proof}
+
+Embedding:
+\[
+\Phi(x) = (V,r,\lambda,0,0), \quad \Phi(y) = (0,0,0,v,w),
+\]
+implies:
+\[
+\overline{\Omega_{\text{cardiac}}} \cap \overline{\Omega_{\text{neural}}} = \emptyset.
+\]
+
+\subsection{Lyapunov Stability}
+
+\[
+L(x) = (V-V^*)^2 + (r-r^*)^2 + (\lambda-\lambda^*)^2,
+\]
+\[
+\dot{L}(x) \le -2\gamma_{\min}L(x) + \zeta(S_{gw}).
+\]
+
+\section{II. Full Simulation Engine Specification}
+
+\subsection{Astrophysical Entropy Ingestion}
+
+Raw strain $h(t)$:
+\[
+\tilde{h}_w(f) = \frac{\tilde{h}(f)}{\sqrt{S_n(f)}},
+\]
+wavelet filtering:
+\[
+W_{j,k}^{(\text{filtered})} =
+\begin{cases}
+W_{j,k}, & |W_{j,k}| \le 5\sigma_{\text{noise}}, \\
+0, & |W_{j,k}| > 5\sigma_{\text{noise}}.
+\end{cases}
+\]
+seed:
+\[
+S_{gw} = \mathcal{H}\big(\{W_{j,k}^{(\text{filtered})}\}\big).
+\]
+
+\subsection{Cardiac Kernel}
+
+State:
+\[
+x = [V,r,\lambda]^T,
+\]
+update:
+\[
+x_{n+1} = x_n + \mathcal{F}_{\text{cardiac}}(x_n,S_{gw})\Delta t.
+\]
+
+\subsection{Neural Kernel}
+
+State:
+\[
+y = [v,w]^T,
+\]
+update:
+\[
+y_{n+1} = y_n + \mathcal{F}_{\text{neural}}(y_n,S_{gw})\Delta t.
+\]
+
+\subsection{Domain Enforcement}
+
+At each step:
+\[
+\chi_{\Omega_k}(p_n) = 0 \Rightarrow p_{n+1} = \varnothing.
+\]
+
+\section{III. Full Simulation Execution Log (Conceptual)}
+
+\subsection{Initialization}
+
+\begin{itemize}
+    \item Ingest 72h LIGO + Gaia.
+    \item Compute $S_{gw}$.
+    \item Initialize $x_0 \in \Omega_{\text{cardiac}}$, $y_0 \in \Omega_{\text{neural}}$.
+\end{itemize}
+
+\subsection{Time-Stepping}
+
+For $n = 0,\dots,N$:
+\[
+x_{n+1} = x_n + \mathcal{F}_{\text{cardiac}}(x_n,S_{gw})\Delta t,
+\]
+\[
+y_{n+1} = y_n + \mathcal{F}_{\text{neural}}(y_n,S_{gw})\Delta t.
+\]
+
+\subsection{Monitoring}
+
+At each step:
+\[
+D_{KL}(P\parallel Q_n), \quad \lambda_{\max}(n),
+\]
+if
+\[
+D_{KL} > 10^{-2} \ \text{or}\ \lambda_{\max} \ge 0 \Rightarrow \text{purge sector}.
+\]
+
+\section{IV. Full Simulation + Hardware Integration}
+
+\subsection{Subsystems}
+
+\begin{itemize}
+    \item AEIS: astrophysical ingestion.
+    \item PQLCA-v1: lattice cryptography.
+    \item RM-MPU: manifold memory protection.
+    \item UTEP-HW: elimination controller.
+\end{itemize}
+
+\subsection{Hardware Enforcement of Domains}
+
+\[
+\chi_{\Omega_k}(p) = 0 \Rightarrow \text{bus fault} \Rightarrow p = \varnothing.
+\]
+
+\subsection{Purge Timing}
+
+\[
+t_{\text{purge}} < 0.08\text{ ms}.
+\]
+
+\section{V. Unified Master Summary}
+
+MCSE-v1 combines:
+
+\begin{itemize}
+    \item astrophysical entropy ($S_{gw}$),
+    \item Riemannian phenotypic manifold ($\mathcal{M}_{\text{pheno}}$),
+    \item constrained evolution ($\mathcal{E}_{\text{constrained}}$),
+    \item Lyapunov and KL monitoring,
+    \item hardware-enforced identity and purge.
+\end{itemize}
+
+Identity is non-interchangeable, enforced at mathematical, cryptographic, and physical levels. Any violation leads to deterministic elimination, guaranteeing absolute simulation integrity.
+
+\end{document}
