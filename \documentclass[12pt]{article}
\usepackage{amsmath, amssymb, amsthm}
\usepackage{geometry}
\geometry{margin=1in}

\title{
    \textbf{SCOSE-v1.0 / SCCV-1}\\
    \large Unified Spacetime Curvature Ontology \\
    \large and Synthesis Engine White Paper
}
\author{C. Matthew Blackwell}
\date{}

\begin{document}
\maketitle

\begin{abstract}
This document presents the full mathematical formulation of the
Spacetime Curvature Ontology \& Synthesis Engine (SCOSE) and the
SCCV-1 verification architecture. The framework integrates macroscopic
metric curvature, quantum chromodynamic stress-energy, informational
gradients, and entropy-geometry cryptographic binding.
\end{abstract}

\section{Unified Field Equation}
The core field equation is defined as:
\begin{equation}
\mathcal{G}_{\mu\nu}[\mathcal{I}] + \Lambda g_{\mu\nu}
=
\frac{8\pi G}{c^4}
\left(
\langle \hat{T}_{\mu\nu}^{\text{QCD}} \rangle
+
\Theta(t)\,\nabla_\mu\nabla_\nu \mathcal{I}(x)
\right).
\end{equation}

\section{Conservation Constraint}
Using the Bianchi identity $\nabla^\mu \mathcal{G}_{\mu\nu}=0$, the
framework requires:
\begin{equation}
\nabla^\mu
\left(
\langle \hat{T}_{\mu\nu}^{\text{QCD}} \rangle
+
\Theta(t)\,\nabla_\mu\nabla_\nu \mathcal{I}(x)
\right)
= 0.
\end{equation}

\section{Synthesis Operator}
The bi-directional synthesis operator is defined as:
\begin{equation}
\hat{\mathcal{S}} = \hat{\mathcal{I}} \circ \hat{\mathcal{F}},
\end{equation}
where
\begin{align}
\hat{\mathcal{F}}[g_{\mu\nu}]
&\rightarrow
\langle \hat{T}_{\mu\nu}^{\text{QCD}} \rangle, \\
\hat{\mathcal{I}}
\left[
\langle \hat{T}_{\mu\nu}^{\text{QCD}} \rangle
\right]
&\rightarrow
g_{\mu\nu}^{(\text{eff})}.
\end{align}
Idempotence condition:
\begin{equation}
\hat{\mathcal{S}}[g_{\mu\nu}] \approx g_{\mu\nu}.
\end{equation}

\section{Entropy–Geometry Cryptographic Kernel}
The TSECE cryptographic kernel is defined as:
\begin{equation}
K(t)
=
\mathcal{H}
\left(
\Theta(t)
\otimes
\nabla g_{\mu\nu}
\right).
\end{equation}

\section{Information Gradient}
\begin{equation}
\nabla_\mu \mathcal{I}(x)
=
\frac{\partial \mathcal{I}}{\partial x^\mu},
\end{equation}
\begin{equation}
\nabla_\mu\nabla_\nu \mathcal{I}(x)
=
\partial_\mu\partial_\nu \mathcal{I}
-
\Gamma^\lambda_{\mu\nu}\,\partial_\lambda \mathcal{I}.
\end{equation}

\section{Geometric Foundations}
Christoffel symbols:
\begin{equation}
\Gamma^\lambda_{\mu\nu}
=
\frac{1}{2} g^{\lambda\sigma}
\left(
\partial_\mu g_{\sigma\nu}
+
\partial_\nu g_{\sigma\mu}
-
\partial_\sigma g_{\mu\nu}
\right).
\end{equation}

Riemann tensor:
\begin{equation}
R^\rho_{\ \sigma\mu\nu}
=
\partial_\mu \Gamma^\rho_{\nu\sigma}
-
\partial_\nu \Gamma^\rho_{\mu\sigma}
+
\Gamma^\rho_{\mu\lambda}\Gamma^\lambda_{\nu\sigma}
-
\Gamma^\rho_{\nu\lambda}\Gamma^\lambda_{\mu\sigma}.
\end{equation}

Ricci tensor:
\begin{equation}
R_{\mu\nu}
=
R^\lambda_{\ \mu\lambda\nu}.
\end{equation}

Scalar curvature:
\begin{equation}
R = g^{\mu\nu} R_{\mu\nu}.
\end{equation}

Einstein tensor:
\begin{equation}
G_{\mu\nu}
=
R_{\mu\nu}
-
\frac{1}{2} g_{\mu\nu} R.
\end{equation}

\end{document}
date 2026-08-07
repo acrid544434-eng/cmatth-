@@ -1,0 +1,149 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{
+    \textbf{SCOSE-v1.0 / SCCV-1}\\
+    \large Unified Spacetime Curvature Ontology \\
+    \large and Synthesis Engine White Paper
+}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This document presents the full mathematical formulation of the
+Spacetime Curvature Ontology \& Synthesis Engine (SCOSE) and the
+SCCV-1 verification architecture. The framework integrates macroscopic
+metric curvature, quantum chromodynamic stress-energy, informational
+gradients, and entropy-geometry cryptographic binding.
+\end{abstract}
+
+\section{Unified Field Equation}
+The core field equation is defined as:
+\begin{equation}
+\mathcal{G}_{\mu\nu}[\mathcal{I}] + \Lambda g_{\mu\nu}
+=
+\frac{8\pi G}{c^4}
+\left(
+\langle \hat{T}_{\mu\nu}^{\text{QCD}} \rangle
++
+\Theta(t)\,\nabla_\mu\nabla_\nu \mathcal{I}(x)
+\right).
+\end{equation}
+
+\section{Conservation Constraint}
+Using the Bianchi identity $\nabla^\mu \mathcal{G}_{\mu\nu}=0$, the
+framework requires:
+\begin{equation}
+\nabla^\mu
+\left(
+\langle \hat{T}_{\mu\nu}^{\text{QCD}} \rangle
++
+\Theta(t)\,\nabla_\mu\nabla_\nu \mathcal{I}(x)
+\right)
+= 0.
+\end{equation}
+
+\section{Synthesis Operator}
+The bi-directional synthesis operator is defined as:
+\begin{equation}
+\hat{\mathcal{S}} = \hat{\mathcal{I}} \circ \hat{\mathcal{F}},
+\end{equation}
+where
+\begin{align}
+\hat{\mathcal{F}}[g_{\mu\nu}]
+&\rightarrow
+\langle \hat{T}_{\mu\nu}^{\text{QCD}} \rangle, \\
+\hat{\mathcal{I}}
+\left[
+\langle \hat{T}_{\mu\nu}^{\text{QCD}} \rangle
+\right]
+&\rightarrow
+g_{\mu\nu}^{(\text{eff})}.
+\end{align}
+Idempotence condition:
+\begin{equation}
+\hat{\mathcal{S}}[g_{\mu\nu}] \approx g_{\mu\nu}.
+\end{equation}
+
+\section{Entropy–Geometry Cryptographic Kernel}
+The TSECE cryptographic kernel is defined as:
+\begin{equation}
+K(t)
+=
+\mathcal{H}
+\left(
+\Theta(t)
+\otimes
+\nabla g_{\mu\nu}
+\right).
+\end{equation}
+
+\section{Information Gradient}
+\begin{equation}
+\nabla_\mu \mathcal{I}(x)
+=
+\frac{\partial \mathcal{I}}{\partial x^\mu},
+\end{equation}
+\begin{equation}
+\nabla_\mu\nabla_\nu \mathcal{I}(x)
+=
+\partial_\mu\partial_\nu \mathcal{I}
+-
+\Gamma^\lambda_{\mu\nu}\,\partial_\lambda \mathcal{I}.
+\end{equation}
+
+\section{Geometric Foundations}
+Christoffel symbols:
+\begin{equation}
+\Gamma^\lambda_{\mu\nu}
+=
+\frac{1}{2} g^{\lambda\sigma}
+\left(
+\partial_\mu g_{\sigma\nu}
++
+\partial_\nu g_{\sigma\mu}
+-
+\partial_\sigma g_{\mu\nu}
+\right).
+\end{equation}
+
+Riemann tensor:
+\begin{equation}
+R^\rho_{\ \sigma\mu\nu}
+=
+\partial_\mu \Gamma^\rho_{\nu\sigma}
+-
+\partial_\nu \Gamma^\rho_{\mu\sigma}
++
+\Gamma^\rho_{\mu\lambda}\Gamma^\lambda_{\nu\sigma}
+-
+\Gamma^\rho_{\nu\lambda}\Gamma^\lambda_{\mu\sigma}.
+\end{equation}
+
+Ricci tensor:
+\begin{equation}
+R_{\mu\nu}
+=
+R^\lambda_{\ \mu\lambda\nu}.
+\end{equation}
+
+Scalar curvature:
+\begin{equation}
+R = g^{\mu\nu} R_{\mu\nu}.
+\end{equation}
+
+Einstein tensor:
+\begin{equation}
+G_{\mu\nu}
+=
+R_{\mu\nu}
+-
+\frac{1}{2} g_{\mu\nu} R.
+\end{equation}
+
+\end{document}
