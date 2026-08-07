@@ -1,0 +1,169 @@
+% ====================================================================
+% CHAPTER 3: Compute Fabric & Silicon Architecture
+% ====================================================================
+\chapter{Compute Fabric \& Silicon Architecture}
+
+\section{Multi-Core Processing Matrix}
+
+The compute fabric integrates heterogeneous processing clusters composed of:
+\begin{itemize}
+    \item RISC-V scalar/vector tiles for deterministic low-latency control loops,
+    \item Tensor-optimized accelerators for high-throughput simulation kernels,
+    \item Cryptographic co-processors implementing lattice-based primitives.
+\end{itemize}
+
+Let the aggregate compute throughput be expressed as:
+\[
+\Phi_{\text{total}} =
+\sum_{i=1}^{N_{\text{tiles}}}
+\Big(
+\Phi^{\text{scalar}}_i
++
+\Phi^{\text{vector}}_i
++
+\Phi^{\text{crypto}}_i
+\Big),
+\]
+where each term corresponds to per-tile sustained GFLOP/s under thermal steady-state.
+
+\section{High-Bandwidth Memory Fabric}
+
+Memory channels are modeled using a multi-lane topology:
+\[
+B_{\text{mem}} = L \cdot W \cdot f_{\text{clk}},
+\]
+where $L$ is the number of lanes, $W$ the bus width, and $f_{\text{clk}}$ the effective clock rate.
+
+A typical configuration:
+\[
+L = 8,\quad W = 128\text{-bit},\quad f_{\text{clk}} = 3.2\text{GHz},
+\]
+yielding:
+\[
+B_{\text{mem}} = 3.2768\ \text{TB/s}.
+\]
+
+% ====================================================================
+% CHAPTER 4: Thermal Envelope & Cooling Dynamics
+% ====================================================================
+\chapter{Thermal Envelope Modeling}
+
+\section{Heat Dissipation Model}
+
+Thermal load $Q(t)$ is modeled as:
+\[
+Q(t) = \sum_{i=1}^{N_{\text{blocks}}} P_i(t),
+\]
+where $P_i(t)$ is instantaneous power consumption of block $i$.
+
+Heat transfer through vapor chamber assembly:
+\[
+\Delta T =
+\frac{Q(t)}{hA},
+\]
+with $h$ the heat transfer coefficient and $A$ the effective surface area.
+
+\section{Cooling System Specification}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Cooling Type} & \textbf{Capacity (W)} & \textbf{Fluid} & \textbf{Max Delta-T} \\
+\midrule
+Vapor Chamber & 450 W & Water/Glycol & $< 12^\circ\text{C}$ \\
+Dual Heatpipe Array & 280 W & R134a & $< 18^\circ\text{C}$ \\
+Liquid Loop & 600 W & DI Water & $< 8^\circ\text{C}$ \\
+\bottomrule
+\end{tabular}
+\caption{Thermal Solutions for High-Density Compute Nodes}
+\end{table}
+
+% ====================================================================
+% CHAPTER 5: Cloud \& Edge Infrastructure
+% ====================================================================
+\chapter{Cloud \& Edge Infrastructure Architecture}
+
+\section{Distributed Node Topology}
+
+Nodes are deployed in a hierarchical mesh:
+\[
+\mathcal{N} =
+\{\text{Edge}_i,\ \text{Regional}_j,\ \text{Core}_k\},
+\]
+with inter-node bandwidth:
+\[
+B_{ij} = \frac{S}{\tau},
+\]
+where $S$ is packet size and $\tau$ is propagation latency.
+
+\section{High-Availability Scheduling}
+
+Fault-tolerant scheduling uses:
+\[
+R(t) = e^{-\lambda t},
+\]
+with $\lambda$ the failure rate. Active-active clustering ensures:
+\[
+R_{\text{cluster}}(t) =
+\prod_{i=1}^{M}
+e^{-\lambda_i t}
+\approx 0.99999.
+\]
+
+% ====================================================================
+% CHAPTER 6: Security \& Cryptographic Enforcement
+% ====================================================================
+\chapter{Security \& Cryptographic Enforcement}
+
+\section{Zero-Knowledge Verification}
+
+All hardware telemetry and configuration updates are validated using ZKPs:
+\[
+\text{Verify}(x) \rightarrow
+\begin{cases}
+\text{true}, & \text{if proof is valid},\\
+\text{false}, & \text{otherwise}.
+\end{cases}
+\]
+
+\section{Quantum-Resistant Lattice Encryption}
+
+Communication channels use lattice-based encryption:
+\[
+c = \text{Enc}_{\text{lattice}}(m, k),
+\]
+where $m$ is message payload and $k$ is the public key.
+
+\section{Tamper-Evident Audit Trails}
+
+Audit logs are hashed:
+\[
+H = \text{SHA3}(D \parallel t \parallel \text{sig}),
+\]
+ensuring immutability across distributed nodes.
+
+% ====================================================================
+% CHAPTER 7: Manufacturing BOM \& Compliance
+% ====================================================================
+\chapter{Manufacturing Bill of Materials (BOM)}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Component} & \textbf{Specification} & \textbf{Compliance} \\
+\midrule
+HDI PCB & 18-layer, RO4350B & IPC-6012 Class 3 \\
+Power Stage & 320A VRM, 0.85V rail & RoHS \\
+Interconnect & PCIe Gen5 x16 & PCI-SIG \\
+Cooling Assembly & Vapor Chamber 450W & UL/CE \\
+\bottomrule
+\end{tabular}
+\caption{Manufacturing-Ready BOM Summary}
+\end{table}
+
+% ====================================================================
+% END OF DOCUMENT
+% ====================================================================
+\end{document}
