@@ -1,0 +1,168 @@
+% ====================================================================
+% MANUFACTURING DRAWINGS SET
+% ====================================================================
+\appendix
+\chapter{Manufacturing Drawings Set}
+
+\section{Chassis Orthographic Views}
+
+\subsection{Front View}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.08]
+    % Outer frame
+    \draw[thick] (0,0) rectangle (50,10);
+    % Drive bays
+    \foreach \x in {3,10,17,24,31,38,45} {
+        \draw[thick] (\x,2) rectangle (\x+4,8);
+    }
+    % Label
+    \node at (25, -3) {Front View - 1U Chassis};
+\end{tikzpicture}
+\caption{Front Orthographic View}
+\label{fig:front_view}
+\end{figure}
+
+\subsection{Top View}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.08]
+    % Outer frame
+    \draw[thick] (0,0) rectangle (70,40);
+    % PCB outline
+    \draw[thick] (5,5) rectangle (65,30);
+    % Fan cutouts
+    \foreach \x in {10,25,40,55} {
+        \draw[thick] (\x,32) circle (3);
+    }
+    % Mounting holes
+    \foreach \x/\y in {7/7,63/7,7/28,63/28} {
+        \draw[thick] (\x,\y) circle (1);
+    }
+    % Label
+    \node at (35, -5) {Top View - Internal Layout};
+\end{tikzpicture}
+\caption{Top Orthographic View}
+\label{fig:top_view}
+\end{figure}
+
+\subsection{Side View}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.08]
+    % Outer frame
+    \draw[thick] (0,0) rectangle (70,5);
+    % Heatsink profile
+    \draw[thick] (20,5) -- (20,9) -- (50,9) -- (50,5);
+    \foreach \x in {22,26,30,34,38,42,46,50} {
+        \draw[thick] (\x,5) -- (\x,9);
+    }
+    % Label
+    \node at (35, -4) {Side View - Heatsink Profile};
+\end{tikzpicture}
+\caption{Side Orthographic View}
+\label{fig:side_view}
+\end{figure}
+
+% ====================================================================
+% PCB OUTLINE AND MOUNTING
+% ====================================================================
+\section{PCB Outline and Mounting Pattern}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.1]
+    % PCB outline
+    \draw[thick] (0,0) rectangle (60,40);
+    % Mounting holes
+    \foreach \x/\y in {4/4,56/4,4/36,56/36} {
+        \draw[thick] (\x,\y) circle (1);
+    }
+    % Connector edge
+    \draw[thick] (0,18) -- (-5,18) -- (-5,22) -- (0,22);
+    % Keep-out zones
+    \draw[dashed] (10,10) rectangle (20,20);
+    \draw[dashed] (40,10) rectangle (50,20);
+    % Label
+    \node at (30,-5) {PCB Outline and Mounting Pattern};
+\end{tikzpicture}
+\caption{PCB Mechanical Drawing}
+\label{fig:pcb_outline}
+\end{figure}
+
+% ====================================================================
+% COOLING ASSEMBLY DRAWING
+% ====================================================================
+\section{Cooling Assembly Drawing}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.1]
+    % Vapor chamber
+    \draw[thick] (10,10) rectangle (50,20);
+    % Heatpipes
+    \foreach \y in {12,14,16,18} {
+        \draw[thick] (12,\y) -- (48,\y);
+    }
+    % Mounting posts
+    \foreach \x/\y in {12/10,48/10,12/20,48/20} {
+        \draw[thick] (\x,\y) circle (1);
+    }
+    % Label
+    \node at (30,5) {Cooling Assembly - Vapor Chamber \& Heatpipes};
+\end{tikzpicture}
+\caption{Cooling Assembly Mechanical Drawing}
+\label{fig:cooling_assembly}
+\end{figure}
+
+% ====================================================================
+% RACK MOUNTING DRAWING
+% ====================================================================
+\section{Rack Mounting Drawing}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.08]
+    % Rack rails
+    \draw[thick] (0,0) rectangle (5,50);
+    \draw[thick] (65,0) rectangle (70,50);
+    % Chassis
+    \draw[thick] (5,20) rectangle (65,30);
+    % Mounting ears
+    \draw[thick] (5,20) -- (0,18);
+    \draw[thick] (5,30) -- (0,32);
+    \draw[thick] (65,20) -- (70,18);
+    \draw[thick] (65,30) -- (70,32);
+    % Label
+    \node at (35,-4) {Rack Mounting - 1U Chassis Integration};
+\end{tikzpicture}
+\caption{Rack Mounting Mechanical Drawing}
+\label{fig:rack_mount}
+\end{figure}
+
+% ====================================================================
+% TOLERANCE AND DIMENSIONING TABLE
+% ====================================================================
+\section{Dimensioning and Tolerances}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Feature} & \textbf{Nominal Dimension} & \textbf{Tolerance} \\
+\midrule
+Chassis Height & 43.5 mm & $\pm 0.2$ mm \\
+Chassis Width & 440 mm & $\pm 0.5$ mm \\
+Chassis Depth & 700 mm & $\pm 1.0$ mm \\
+PCB Thickness & 1.6 mm & $\pm 0.1$ mm \\
+Mounting Hole Diameter & 3.5 mm & $\pm 0.05$ mm \\
+Fan Cutout Diameter & 40 mm & $\pm 0.2$ mm \\
+Connector Edge Offset & 5 mm & $\pm 0.1$ mm \\
+\bottomrule
+\end{tabular}
+\caption{Manufacturing Dimensions and Tolerances}
+\label{tab:dimensions_tolerances}
+\end{table}
