@@ -1,0 +1,271 @@
+% ====================================================================
+% CHAPTER: MODULE A — GENETIC DYSREGULATION
+% ====================================================================
+
+\chapter{Module A: Genetic Dysregulation}
+
+\section{Overview}
+
+Module A models the dynamics of genetic dysregulation arising from inherited
+variants, somatic mutations, epigenetic drift, and regulatory network
+perturbations. It provides the foundational upstream signals that influence
+pathogen kinetics (Module B), trauma physiology (Module C), and senescence
+(Module D).
+
+The module integrates:
+\begin{itemize}
+    \item regulatory network topology,
+    \item variant effect propagation,
+    \item transcription factor (TF) dynamics,
+    \item epigenetic modulation,
+    \item stochastic mutation processes.
+\end{itemize}
+
+\section{Regulatory Network Structure}
+
+Let the regulatory network be represented as a directed graph:
+\[
+\mathcal{R} = (\mathcal{V}, \mathcal{E}),
+\]
+where:
+\begin{itemize}
+    \item $\mathcal{V}$ is the set of genes, TFs, and regulatory elements,
+    \item $\mathcal{E}$ is the set of directed edges representing activation or repression.
+\end{itemize}
+
+Each edge $e_{mn} \in \mathcal{E}$ has:
+\[
+e_{mn} = (m \rightarrow n,\ k_{mn},\ \sigma_{mn}),
+\]
+where $k_{mn}$ is the interaction strength and $\sigma_{mn}$ is the regulatory mode
+(activation or repression).
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=2.5cm, auto]
+    \node[draw, rounded corners, align=center] (G1) {Gene 1};
+    \node[draw, rounded corners, right of=G1, align=center] (G2) {Gene 2};
+    \node[draw, rounded corners, below of=G1, align=center] (TF1) {TF A};
+    \node[draw, rounded corners, below of=G2, align=center] (TF2) {TF B};
+
+    \draw[->, thick] (G1) -- (G2) node[midway, above] {$k_{12}$};
+    \draw[->, thick] (TF1) -- (G1);
+    \draw[->, thick] (TF2) -- (G2);
+    \draw[->, thick] (TF1) -- (G2);
+\end{tikzpicture}
+\caption{Example Regulatory Network Subgraph}
+\label{fig:reg_network}
+\end{figure}
+
+\section{Variant Effect Mapping}
+
+Let $\Delta_j$ denote the effect size of variant $j$.
+
+Variant mapping operator:
+\[
+\Theta_A = \mathcal{T}_A(\mathbf{X}_{\text{NGS}}),
+\]
+where $\mathbf{X}_{\text{NGS}}$ is the genomic sequencing vector.
+
+Interaction strength modification:
+\[
+k_{mn}
+=
+k_{mn}^{(0)}
++
+\sum_{j}
+\alpha_{mn,j}\Delta_j.
+\]
+
+Epigenetic drift:
+\[
+\epsilon_{mn}(t)
+=
+\epsilon_{mn}^{(0)}
++
+\eta_{mn} t,
+\]
+with $\eta_{mn}$ representing drift rate.
+
+\section{Gene Expression Dynamics}
+
+Let $\mathbf{g}(t)$ be the gene expression vector.
+
+The core dynamics are:
+\[
+\frac{d\mathbf{g}}{dt}
+=
+f_A(\mathbf{g}; \Theta_A)
+=
+\mathbf{W}\,\phi(\mathbf{g})
+-
+\mathbf{D}\mathbf{g}
++
+\mathbf{b},
+\]
+where:
+\begin{itemize}
+    \item $\mathbf{W}$ is the regulatory weight matrix,
+    \item $\phi(\cdot)$ is a nonlinear activation function,
+    \item $\mathbf{D}$ is the degradation matrix,
+    \item $\mathbf{b}$ is the basal transcription vector.
+\end{itemize}
+
+Activation function:
+\[
+\phi(g_i) = \frac{1}{1 + e^{-\beta(g_i - \theta_i)}}.
+\]
+
+\section{Transcription Factor Dynamics}
+
+TF concentrations evolve according to:
+\[
+\frac{d\mathbf{t}}{dt}
+=
+\mathbf{A}\mathbf{g}
+-
+\mathbf{B}\mathbf{t},
+\]
+where:
+\begin{itemize}
+    \item $\mathbf{A}$ maps gene expression to TF production,
+    \item $\mathbf{B}$ is the TF degradation matrix.
+\end{itemize}
+
+Coupling:
+\[
+\mathbf{W}(t)
+=
+\mathbf{W}^{(0)}
++
+\gamma \mathbf{t}(t).
+\]
+
+\section{Stochastic Mutation Process}
+
+Somatic mutation rate:
+\[
+\mu(t)
+=
+\mu_0
++
+\sigma_{\mu} dW_t,
+\]
+where $dW_t$ is a Wiener process.
+
+Mutation impact on expression:
+\[
+\Delta \mathbf{g}(t)
+=
+\mathbf{M}\,\mu(t),
+\]
+with $\mathbf{M}$ representing mutation sensitivity.
+
+\section{Module Output}
+
+Module A outputs:
+\[
+\mathbf{S}_A(t)
+=
+\big(
+\mathbf{g}(t),\,
+\mathbf{t}(t),\,
+\Theta_A
+\big).
+\]
+
+This output feeds:
+\begin{itemize}
+    \item Module B (pathogen kinetics),
+    \item Module C (trauma physiology),
+    \item Module D (senescence).
+\end{itemize}
+
+\section{Coupling to Module B}
+
+Immune modulation:
+\[
+\beta_1(t)
+=
+\beta_1^{(0)}
++
+\lambda_1 \|\mathbf{g}(t)\|.
+\]
+
+Pathogen susceptibility:
+\[
+\chi(t)
+=
+\chi_0
++
+\lambda_2 \phi(\mathbf{t}(t)).
+\]
+
+\section{Coupling to Module C}
+
+Inflammatory response:
+\[
+\iota(t)
+=
+\iota_0
++
+\lambda_3 \sum_i g_i(t).
+\]
+
+Shock sensitivity:
+\[
+\sigma_{\text{shock}}(t)
+=
+\sigma_0
++
+\lambda_4 \|\mathbf{t}(t)\|.
+\]
+
+\section{Coupling to Module D}
+
+Senescence acceleration:
+\[
+\gamma_{\text{sen}}(t)
+=
+\gamma_0
++
+\lambda_5 \sum_i g_i(t).
+\]
+
+\section{Numerical Integration}
+
+Module A uses adaptive RK45:
+\[
+\mathbf{z}(t_{k+1})
+=
+\mathbf{z}(t_k)
++
+\Delta t_k\, \Phi_A(\mathbf{z}(t_k), t_k),
+\]
+with projection:
+\[
+\mathbf{z}_{\text{proj}} = \max(\mathbf{z}, 0).
+\]
+
+\section{Stress Testing}
+
+High mutation stress:
+\[
+\mu_{\text{stress}}
+=
+10\mu_0.
+\]
+
+Regulatory collapse test:
+\[
+\mathbf{W}_{\text{stress}}
+=
+0.5\mathbf{W}^{(0)}.
+\]
+
+\section{Summary}
+
+Module A provides the upstream genetic and regulatory signals that shape all
+downstream biological modules. Its integration of variant effects, regulatory
+network dynamics, TF modulation, and stochastic mutation processes makes it the
+foundation of the MPS--PCE multiscale simulation engine.
