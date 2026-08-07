@@ -1,0 +1,251 @@
+% ====================================================================
+% FABRICATION PACKAGE
+% ====================================================================
+\appendix
+\chapter{Fabrication Package}
+
+\section{Overview}
+
+This fabrication package defines the manufacturing specifications, PCB stackups,
+mechanical tolerances, assembly instructions, and compliance requirements for
+the production of the MPS--PCE hardware platform. All parameters herein are
+validated under deterministic timing, thermal, and electrical constraints.
+
+% ====================================================================
+% SECTION A: PCB FABRICATION SPECIFICATIONS
+% ====================================================================
+\section{PCB Fabrication Specifications}
+
+\subsection{Stackup Definition}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Layer} & \textbf{Material} & \textbf{Thickness} & \textbf{Function} \\
+\midrule
+L1 & Cu / ENIG & 35 µm & High-speed signals \\
+L2 & RO4350B & 200 µm & RF / differential pairs \\
+L3 & Cu & 35 µm & Ground plane \\
+L4 & FR4 & 400 µm & Structural dielectric \\
+L5 & Cu & 35 µm & Power distribution \\
+L6 & FR4 & 400 µm & Mechanical core \\
+L7 & Cu & 35 µm & Memory channels \\
+L8 & Cu / ENIG & 35 µm & Component layer \\
+\bottomrule
+\end{tabular}
+\caption{HDI PCB Stackup (8-Layer)}
+\label{tab:pcb_stackup}
+\end{table}
+
+\subsection{Trace Geometry}
+
+Differential pair impedance:
+\[
+Z_{\text{diff}} = 100\ \Omega \pm 10\%.
+\]
+
+Single-ended impedance:
+\[
+Z_{\text{se}} = 50\ \Omega \pm 10\%.
+\]
+
+Minimum trace width:
+\[
+w_{\min} = 3\ \text{mil}.
+\]
+
+Minimum spacing:
+\[
+s_{\min} = 3\ \text{mil}.
+\]
+
+Via specifications:
+\[
+d_{\text{via}} = 0.2\ \text{mm},\quad
+\text{pad} = 0.45\ \text{mm}.
+\]
+
+% ====================================================================
+% SECTION B: MECHANICAL FABRICATION DRAWINGS
+% ====================================================================
+\section{Mechanical Fabrication Drawings}
+
+\subsection{Chassis Dimensions}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Tolerance} \\
+\midrule
+Height & 43.5 mm (1U) & $\pm 0.2$ mm \\
+Width & 440 mm & $\pm 0.5$ mm \\
+Depth & 700 mm & $\pm 1.0$ mm \\
+Mounting Hole Diameter & 3.5 mm & $\pm 0.05$ mm \\
+\bottomrule
+\end{tabular}
+\caption{Mechanical Chassis Dimensions}
+\label{tab:mech_dims}
+\end{table}
+
+\subsection{Exploded Assembly Diagram}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=0.9]
+    \draw[thick] (0,0) rectangle (6,3) node[midway]{Main Chassis};
+    \draw[thick] (0.5,3.5) rectangle (5.5,4.5) node[midway]{Top Cover};
+    \draw[thick] (1,1) rectangle (5,2) node[midway]{PCB Assembly};
+    \draw[thick] (1.5,-1) rectangle (4.5,0) node[midway]{Cooling Plate};
+    \draw[->, thick] (3,3.5) -- (3,3);
+    \draw[->, thick] (3,1) -- (3,0);
+\end{tikzpicture}
+\caption{Exploded Mechanical Assembly}
+\label{fig:exploded}
+\end{figure}
+
+% ====================================================================
+% SECTION C: THERMAL FABRICATION SPECIFICATIONS
+% ====================================================================
+\section{Thermal Fabrication Specifications}
+
+\subsection{Thermal Interface Materials}
+
+Thermal pad conductivity:
+\[
+k_{\text{pad}} = 8\ \text{W/mK}.
+\]
+
+Vapor chamber thickness:
+\[
+t_{\text{vc}} = 3.0\ \text{mm}.
+\]
+
+Heatpipe diameter:
+\[
+d_{\text{hp}} = 6\ \text{mm}.
+\]
+
+\subsection{Thermal Resistance Model}
+
+Total thermal resistance:
+\[
+R_{\theta} =
+R_{\theta,\text{sink}}
++
+R_{\theta,\text{interface}}
++
+R_{\theta,\text{ambient}}.
+\]
+
+Target:
+\[
+R_{\theta} \le 0.12\ ^\circ\text{C/W}.
+\]
+
+% ====================================================================
+% SECTION D: POWER FABRICATION PACKAGE
+% ====================================================================
+\section{Power Fabrication Package}
+
+\subsection{VRM Specifications}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Rail} & \textbf{Voltage} & \textbf{Max Current} & \textbf{Ripple} \\
+\midrule
+Core & 0.85 V & 320 A & 15 mV \\
+Memory & 1.10 V & 180 A & 20 mV \\
+Aux & 1.80 V & 85 A & 30 mV \\
+Bus & 12.0 V & 45 A & 150 mV \\
+\bottomrule
+\end{tabular}
+\caption{VRM Fabrication Specifications}
+\label{tab:vrm_specs}
+\end{table}
+
+\subsection{Power Plane Geometry}
+
+Copper thickness:
+\[
+t_{\text{Cu}} = 2\ \text{oz}.
+\]
+
+Plane resistance:
+\[
+R_{\text{plane}} = \frac{\rho L}{A}.
+\]
+
+% ====================================================================
+% SECTION E: MANUFACTURING PROCESS FLOW
+% ====================================================================
+\section{Manufacturing Process Flow}
+
+\begin{enumerate}
+    \item PCB fabrication (HDI, microvias, ENIG finish)
+    \item SMT component placement (0402 minimum)
+    \item Reflow soldering (lead-free, 245°C peak)
+    \item Mechanical chassis machining (CNC, 0.05 mm tolerance)
+    \item Thermal assembly bonding (TIM application)
+    \item Final system integration
+    \item Electrical validation and burn-in
+    \item Cryptographic provisioning (ZKP keys)
+\end{enumerate}
+
+% ====================================================================
+% SECTION F: QUALITY CONTROL AND TESTING
+% ====================================================================
+\section{Quality Control \& Testing}
+
+\subsection{Electrical Testing}
+
+Boundary scan:
+\[
+\text{JTAG IEEE 1149.1}.
+\]
+
+High-speed link validation:
+\[
+\text{Eye margin} \ge 15\% \text{UI}.
+\]
+
+\subsection{Thermal Testing}
+
+Burn-in:
+\[
+T = 48\ \text{hours},\quad
+P = 100\%.
+\]
+
+\subsection{Mechanical Testing}
+
+Shock:
+\[
+15\ g,\ 11\ \text{ms}.
+\]
+
+Vibration:
+\[
+0.5\ g,\ 10\text{--}200\ \text{Hz}.
+\]
+
+% ====================================================================
+% SECTION G: COMPLIANCE DOCUMENTATION
+% ====================================================================
+\section{Compliance Documentation}
+
+\begin{itemize}
+    \item CE (EU)
+    \item FCC Class A (US)
+    \item RoHS (Global)
+    \item UL/CSA Safety (North America)
+    \item PCI-SIG Compliance (Global)
+\end{itemize}
+
+% ====================================================================
+% END OF FABRICATION PACKAGE
+% ====================================================================
+\end{document}
