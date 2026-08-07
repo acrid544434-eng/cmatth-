@@ -1,0 +1,178 @@
+% ====================================================================
+% APPENDIX A: Hardware Datasheet
+% ====================================================================
+\appendix
+\chapter{Hardware Datasheet Appendix}
+
+\section{Core Compute Node Specifications}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Notes} \\
+\midrule
+Form Factor & 1U / Custom Edge Module & Rack or edge enclosure \\
+CPU Complex & 2x 64-core RISC-V tiles & Scalar + vector units \\
+Accelerators & 4x Tensor Engines & Simulation kernels \\
+Crypto Engine & Lattice-based Co-Processor & ZKP \& PQ encryption \\
+System Memory & 512 GB HBM3 & ECC protected \\
+Local Storage & 8 TB NVMe Gen4 & Redundant boot partitions \\
+Interconnect & PCIe Gen5 x16, 2 ports & Node-to-node fabric \\
+Management & BMC with secure boot & Out-of-band control \\
+\bottomrule
+\end{tabular}
+\caption{Core Compute Node Summary}
+\label{tab:core_compute_node}
+\end{table}
+
+\section{Electrical Characteristics}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Rail} & \textbf{Nominal Voltage} & \textbf{Max Current} \\
+\midrule
+Core VRM & $0.85\ \text{V}$ & $320\ \text{A}$ \\
+Memory VRM & $1.10\ \text{V}$ & $180\ \text{A}$ \\
+Aux Logic & $1.80\ \text{V}$ & $85\ \text{A}$ \\
+Peripheral Bus & $3.30\ \text{V}$ & $40\ \text{A}$ \\
+Main Input & $12.0\ \text{V}$ & $45\ \text{A}$ \\
+\bottomrule
+\end{tabular}
+\caption{Electrical Rail Specifications}
+\label{tab:electrical_rails}
+\end{table}
+
+\section{Thermal Envelope}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Condition} \\
+\midrule
+Max TDP & 550 W & Full load, all accelerators active \\
+Ambient Operating Range & $10^\circ\text{C}$ to $35^\circ\text{C}$ & Data center spec \\
+Max Junction Temperature & $95^\circ\text{C}$ & CPU complex \\
+Recommended Airflow & $40\ \text{CFM}$ & Front-to-back \\
+Liquid Loop Option & 600 W capacity & Optional high-density config \\
+\bottomrule
+\end{tabular}
+\caption{Thermal Operating Envelope}
+\label{tab:thermal_envelope}
+\end{table}
+
+\section{Mechanical Dimensions}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Notes} \\
+\midrule
+Height & 43.5 mm (1U) & Standard rack height \\
+Width & 440 mm & Fits 19" rack chassis \\
+Depth & 700 mm & Including cable clearance \\
+Mounting & Tool-less rail kit & Front/rear support \\
+Weight & 12.5 kg & Fully populated \\
+\bottomrule
+\end{tabular}
+\caption{Mechanical Dimensions}
+\label{tab:mechanical_dimensions}
+\end{table}
+
+\section{Interface and Connectivity}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Interface} & \textbf{Quantity} & \textbf{Specification} \\
+\midrule
+PCIe Gen5 x16 & 2 & Node fabric / accelerator slots \\
+10/25/40 GbE & 4 & Redundant network uplinks \\
+Management LAN & 1 & Dedicated BMC port \\
+USB 3.x & 2 & Local service access \\
+Console (UART) & 1 & Debug / low-level access \\
+\bottomrule
+\end{tabular}
+\caption{External Interfaces}
+\label{tab:interfaces}
+\end{table}
+
+\section{Reliability and Environmental Ratings}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Parameter} & \textbf{Rating} & \textbf{Standard} \\
+\midrule
+MTBF & $> 250{,}000$ hours & Telcordia SR-332 \\
+Shock & 15 g, 11 ms & IEC 60068-2-27 \\
+Vibration & 0.5 g, 10–200 Hz & IEC 60068-2-6 \\
+Humidity & 10–80\% non-condensing & Operating \\
+Altitude & Up to 2,000 m & Standard deployment \\
+\bottomrule
+\end{tabular}
+\caption{Reliability and Environmental Specifications}
+\label{tab:reliability_environment}
+\end{table}
+
+\section{Compliance and Certifications}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcc}
+\toprule
+\textbf{Certification} & \textbf{Status} & \textbf{Region} \\
+\midrule
+CE & Compliant & EU \\
+FCC Class A & Compliant & US \\
+RoHS & Compliant & Global \\
+UL Safety & Pending / Design-Ready & US/Canada \\
+PCI-SIG & Electrical/Protocol Compliant & Global \\
+\bottomrule
+\end{tabular}
+\caption{Compliance and Certification Matrix}
+\label{tab:compliance}
+\end{table}
+
+\section{Signal Integrity Summary}
+
+Critical high-speed links are characterized by insertion loss and eye margin.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Link} & \textbf{Data Rate} & \textbf{Max Insertion Loss} & \textbf{Eye Margin} \\
+\midrule
+PCIe Gen5 x16 & 32 GT/s & $< 20\ \text{dB}$ @ Nyquist & $> 15\%$ UI \\
+HBM3 Channel & 6.4 Gbps/pin & $< 12\ \text{dB}$ & $> 20\%$ UI \\
+25 GbE Lane & 25 Gbps & $< 18\ \text{dB}$ & $> 10\%$ UI \\
+\bottomrule
+\end{tabular}
+\caption{Signal Integrity Parameters}
+\label{tab:signal_integrity}
+\end{table}
+
+\section{Configuration Profiles}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Profile} & \textbf{Target Use} & \textbf{Power Mode} & \textbf{Cooling Requirement} \\
+\midrule
+SIM-MAX & Full simulation throughput & 550 W & Liquid or high-airflow \\
+SIM-BAL & Balanced perf/efficiency & 380 W & Standard air cooling \\
+EDGE-LITE & Edge deployment & 250 W & Reduced airflow \\
+CRYPTO-SEC & Crypto-heavy workloads & 420 W & Enhanced VRM cooling \\
+\bottomrule
+\end{tabular}
+\caption{Predefined Configuration Profiles}
+\label{tab:config_profiles}
+\end{table}
