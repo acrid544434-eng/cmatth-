@@ -1,0 +1,230 @@
+% ====================================================================
+% CHAPTER: FULL SYSTEM PHASE-SPACE TRAJECTORIES
+% ====================================================================
+
+\chapter{Full System Phase-Space Trajectories}
+
+\section{Phase-Space Definition}
+
+The full system phase-space is defined as:
+\[
+\mathcal{P}
+=
+\big\{
+\mathbf{G}(t)
+=
+(
+\mathbf{S}_A(t),
+\mathbf{S}_B(t),
+\mathbf{S}_C(t),
+\mathbf{S}_D(t)
+)
+\big\},
+\]
+where:
+\[
+\mathbf{S}_A(t) = (g_1, \dots, g_{n_A}),\quad
+\mathbf{S}_B(t) = (P, I, A, E),\quad
+\mathbf{S}_C(t) = (H, O, L, \iota, M),\quad
+\mathbf{S}_D(t) = (s, T, D, M_{\text{mito}}, S_{\text{SASP}}).
+\]
+
+For visualization, we consider low-dimensional projections:
+\[
+\pi_{XY} : \mathcal{P} \to \mathbb{R}^2,\quad
+\pi_{XYZ} : \mathcal{P} \to \mathbb{R}^3.
+\]
+
+Examples:
+\[
+\pi_{P,A}(t) = (P(t), A(t)),\quad
+\pi_{H,L}(t) = (H(t), L(t)),\quad
+\pi_{s,T}(t) = (s(t), T(t)).
+\]
+
+\section{Trajectory Construction}
+
+A phase-space trajectory is:
+\[
+\gamma_{XY}
+=
+\big\{
+\pi_{XY}(t) : t \in [t_0, t_f]
+\big\}.
+\]
+
+For example:
+\[
+\gamma_{P,A}
+=
+\big\{
+(P(t), A(t)) : t \in [t_0, t_f]
+\big\},
+\]
+\[
+\gamma_{H,L}
+=
+\big\{
+(H(t), L(t)) : t \in [t_0, t_f]
+\big\}.
+\]
+
+\section{Representative Projections}
+
+We define key projections:
+
+\subsection{Infection–Immunity Phase-Space}
+
+\[
+\pi_{P,A}(t) = (P(t), A(t)).
+\]
+
+This reveals:
+\begin{itemize}
+    \item limit cycles (chronic infection),
+    \item spiraling collapse (immune exhaustion),
+    \item rapid clearance trajectories.
+\end{itemize}
+
+\subsection{Trauma–Metabolism Phase-Space}
+
+\[
+\pi_{H,L}(t) = (H(t), L(t)).
+\]
+
+This reveals:
+\begin{itemize}
+    \item shock tipping points,
+    \item recovery manifolds,
+    \item irreversible collapse regions.
+\end{itemize}
+
+\subsection{Senescence–Damage Phase-Space}
+
+\[
+\pi_{s,D}(t) = (s(t), D(t)).
+\]
+
+This reveals:
+\begin{itemize}
+    \item slow drift toward high senescence,
+    \item bifurcation between resilience and decline,
+    \item SASP-driven runaway regions.
+\end{itemize}
+
+\section{Phase-Space Regions}
+
+We define qualitative regions:
+
+\subsection{Stable Region}
+
+\[
+\mathcal{R}_{\text{stable}}
+=
+\big\{
+\mathbf{G} :
+\|\mathbf{G}(t) - \mathbf{G}^*\| \le \epsilon
+\big\},
+\]
+where $\mathbf{G}^*$ is an attractor.
+
+\subsection{Critical Region}
+
+\[
+\mathcal{R}_{\text{critical}}
+=
+\big\{
+\mathbf{G} :
+\lambda_{\text{max}}(\mathbf{J}) \approx 0
+\big\},
+\]
+where $\mathbf{J}$ is the Jacobian of $\mathcal{F}$.
+
+\subsection{Collapse Region}
+
+\[
+\mathcal{R}_{\text{collapse}}
+=
+\big\{
+\mathbf{G} :
+H \to 0,\ A \to 0,\ s \to s_{\text{max}}
+\big\}.
+\]
+
+\section{Example TikZ Phase Portrait (Conceptual)}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[scale=1.0]
+    \draw[->] (-0.5,0) -- (4.5,0) node[right] {$P$};
+    \draw[->] (0,-0.5) -- (0,4.5) node[above] {$A$};
+
+    % Example trajectories
+    \draw[thick, blue]
+        plot[smooth] coordinates {(0.5,3.5) (1.0,3.0) (1.5,2.4) (2.0,1.8) (2.5,1.3) (3.0,1.0)};
+    \draw[thick, red]
+        plot[smooth] coordinates {(0.5,1.0) (1.0,1.4) (1.5,2.0) (2.0,2.6) (2.5,3.0) (3.0,3.2)};
+
+    \node[blue] at (3.2,1.0) {Clearance};
+    \node[red] at (3.2,3.2) {Exhaustion};
+\end{tikzpicture}
+\caption{Conceptual Infection–Immunity Phase Portrait}
+\label{fig:phase_P_A}
+\end{figure}
+
+\section{Monte Carlo Phase-Space Clouds}
+
+For $N_{\text{MC}}$ replicates:
+\[
+\gamma_{XY}^{(n)}
+=
+\big\{
+\pi_{XY}^{(n)}(t) : t \in [t_0, t_f]
+\big\},
+\quad
+n = 1,\dots,N_{\text{MC}}.
+\]
+
+We define the phase-space density:
+\[
+\rho_{XY}(x,y)
+=
+\frac{1}{N_{\text{MC}}}
+\sum_{n=1}^{N_{\text{MC}}}
+\int_{t_0}^{t_f}
+\delta\big(x - X^{(n)}(t)\big)
+\delta\big(y - Y^{(n)}(t)\big)\, dt.
+\]
+
+\section{Collapse Threshold Maps}
+
+Define a collapse indicator:
+\[
+C(t)
+=
+\mathbb{1}
+\big(
+H(t) < H_{\text{thr}}
+\lor
+A(t) < A_{\text{thr}}
+\lor
+s(t) > s_{\text{thr}}
+\big).
+\]
+
+We map initial conditions $(P_0, H_0, s_0)$ to collapse probability:
+\[
+\Pi_{\text{collapse}}(P_0, H_0, s_0)
+=
+\frac{1}{N_{\text{MC}}}
+\sum_{n=1}^{N_{\text{MC}}}
+C^{(n)}(t_f).
+\]
+
+\section{Summary}
+
+Full system phase-space trajectories reveal the emergent geometry of the
+MPS--PCE engine: attractors, collapse manifolds, resilience basins, and
+critical thresholds. These projections turn the raw simulation into a
+visualizable dynamical landscape that physicists, scientists, and engineers
+can interrogate directly.
