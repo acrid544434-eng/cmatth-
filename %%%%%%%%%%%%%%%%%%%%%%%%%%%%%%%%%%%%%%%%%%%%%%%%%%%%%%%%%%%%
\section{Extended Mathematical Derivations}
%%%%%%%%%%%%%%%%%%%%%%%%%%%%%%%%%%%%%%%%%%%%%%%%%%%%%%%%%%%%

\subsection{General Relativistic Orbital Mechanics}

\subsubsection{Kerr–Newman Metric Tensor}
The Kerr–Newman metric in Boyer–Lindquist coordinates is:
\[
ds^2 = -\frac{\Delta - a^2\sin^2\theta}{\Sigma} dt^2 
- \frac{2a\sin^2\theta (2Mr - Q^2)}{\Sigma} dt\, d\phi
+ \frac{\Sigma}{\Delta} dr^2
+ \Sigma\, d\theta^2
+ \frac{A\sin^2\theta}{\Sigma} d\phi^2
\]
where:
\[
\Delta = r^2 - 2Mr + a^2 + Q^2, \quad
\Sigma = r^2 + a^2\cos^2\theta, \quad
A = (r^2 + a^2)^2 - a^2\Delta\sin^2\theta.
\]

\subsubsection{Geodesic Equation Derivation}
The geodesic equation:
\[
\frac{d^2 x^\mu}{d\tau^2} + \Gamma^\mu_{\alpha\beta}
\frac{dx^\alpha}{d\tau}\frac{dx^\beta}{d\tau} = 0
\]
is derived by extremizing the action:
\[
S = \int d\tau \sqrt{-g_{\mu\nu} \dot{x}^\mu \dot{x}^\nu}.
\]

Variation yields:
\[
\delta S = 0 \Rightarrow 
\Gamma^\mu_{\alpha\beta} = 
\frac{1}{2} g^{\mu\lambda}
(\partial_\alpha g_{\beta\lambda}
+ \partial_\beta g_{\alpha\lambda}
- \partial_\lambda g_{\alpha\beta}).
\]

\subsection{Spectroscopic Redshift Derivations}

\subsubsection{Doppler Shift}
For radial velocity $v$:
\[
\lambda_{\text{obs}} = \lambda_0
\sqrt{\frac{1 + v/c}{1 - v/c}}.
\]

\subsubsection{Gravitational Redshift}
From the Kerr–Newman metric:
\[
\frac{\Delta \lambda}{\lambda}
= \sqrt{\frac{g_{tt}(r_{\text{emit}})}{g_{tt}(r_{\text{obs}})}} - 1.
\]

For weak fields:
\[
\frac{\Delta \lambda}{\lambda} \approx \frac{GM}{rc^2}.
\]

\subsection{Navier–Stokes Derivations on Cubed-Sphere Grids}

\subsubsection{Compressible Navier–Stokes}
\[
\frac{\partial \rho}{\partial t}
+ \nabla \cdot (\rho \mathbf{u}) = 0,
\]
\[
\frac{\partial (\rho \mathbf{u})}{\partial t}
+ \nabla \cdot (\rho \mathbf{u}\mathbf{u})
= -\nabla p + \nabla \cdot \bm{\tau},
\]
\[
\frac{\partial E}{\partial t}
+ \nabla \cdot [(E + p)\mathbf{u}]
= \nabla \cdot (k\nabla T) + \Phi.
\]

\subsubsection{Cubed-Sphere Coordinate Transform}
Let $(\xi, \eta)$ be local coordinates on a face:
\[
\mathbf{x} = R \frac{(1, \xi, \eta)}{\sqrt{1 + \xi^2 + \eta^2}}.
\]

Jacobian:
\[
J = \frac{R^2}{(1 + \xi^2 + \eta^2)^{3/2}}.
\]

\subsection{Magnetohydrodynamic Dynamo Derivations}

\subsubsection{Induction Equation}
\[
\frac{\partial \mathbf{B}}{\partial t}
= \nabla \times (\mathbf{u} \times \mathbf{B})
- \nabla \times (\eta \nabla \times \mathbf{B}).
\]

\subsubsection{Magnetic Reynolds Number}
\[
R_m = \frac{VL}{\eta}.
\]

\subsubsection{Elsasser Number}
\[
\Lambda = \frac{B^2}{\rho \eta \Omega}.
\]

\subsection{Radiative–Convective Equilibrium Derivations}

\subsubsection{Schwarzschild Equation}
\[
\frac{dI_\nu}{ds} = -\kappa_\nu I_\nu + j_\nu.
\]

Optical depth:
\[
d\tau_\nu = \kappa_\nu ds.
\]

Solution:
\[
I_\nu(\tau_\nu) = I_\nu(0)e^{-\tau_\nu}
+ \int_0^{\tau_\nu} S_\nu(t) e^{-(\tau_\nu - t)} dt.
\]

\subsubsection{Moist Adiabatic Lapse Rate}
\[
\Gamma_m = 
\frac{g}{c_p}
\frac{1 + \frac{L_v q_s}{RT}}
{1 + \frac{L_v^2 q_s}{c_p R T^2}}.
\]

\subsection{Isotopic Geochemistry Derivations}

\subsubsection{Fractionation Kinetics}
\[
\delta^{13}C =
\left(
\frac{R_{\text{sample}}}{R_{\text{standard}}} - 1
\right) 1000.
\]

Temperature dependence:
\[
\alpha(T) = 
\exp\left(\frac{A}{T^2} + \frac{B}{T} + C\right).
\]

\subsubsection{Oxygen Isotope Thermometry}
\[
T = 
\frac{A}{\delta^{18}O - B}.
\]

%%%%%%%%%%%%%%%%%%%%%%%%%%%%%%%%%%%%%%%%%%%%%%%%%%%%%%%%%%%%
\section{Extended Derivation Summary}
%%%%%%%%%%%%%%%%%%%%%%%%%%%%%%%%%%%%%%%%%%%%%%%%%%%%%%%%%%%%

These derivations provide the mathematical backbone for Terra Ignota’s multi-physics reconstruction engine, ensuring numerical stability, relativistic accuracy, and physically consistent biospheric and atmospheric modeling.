@@ -1,0 +1,165 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Extended Mathematical Derivations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{General Relativistic Orbital Mechanics}
+
+\subsubsection{Kerr–Newman Metric Tensor}
+The Kerr–Newman metric in Boyer–Lindquist coordinates is:
+\[
+ds^2 = -\frac{\Delta - a^2\sin^2\theta}{\Sigma} dt^2 
+- \frac{2a\sin^2\theta (2Mr - Q^2)}{\Sigma} dt\, d\phi
++ \frac{\Sigma}{\Delta} dr^2
++ \Sigma\, d\theta^2
++ \frac{A\sin^2\theta}{\Sigma} d\phi^2
+\]
+where:
+\[
+\Delta = r^2 - 2Mr + a^2 + Q^2, \quad
+\Sigma = r^2 + a^2\cos^2\theta, \quad
+A = (r^2 + a^2)^2 - a^2\Delta\sin^2\theta.
+\]
+
+\subsubsection{Geodesic Equation Derivation}
+The geodesic equation:
+\[
+\frac{d^2 x^\mu}{d\tau^2} + \Gamma^\mu_{\alpha\beta}
+\frac{dx^\alpha}{d\tau}\frac{dx^\beta}{d\tau} = 0
+\]
+is derived by extremizing the action:
+\[
+S = \int d\tau \sqrt{-g_{\mu\nu} \dot{x}^\mu \dot{x}^\nu}.
+\]
+
+Variation yields:
+\[
+\delta S = 0 \Rightarrow 
+\Gamma^\mu_{\alpha\beta} = 
+\frac{1}{2} g^{\mu\lambda}
+(\partial_\alpha g_{\beta\lambda}
++ \partial_\beta g_{\alpha\lambda}
+- \partial_\lambda g_{\alpha\beta}).
+\]
+
+\subsection{Spectroscopic Redshift Derivations}
+
+\subsubsection{Doppler Shift}
+For radial velocity $v$:
+\[
+\lambda_{\text{obs}} = \lambda_0
+\sqrt{\frac{1 + v/c}{1 - v/c}}.
+\]
+
+\subsubsection{Gravitational Redshift}
+From the Kerr–Newman metric:
+\[
+\frac{\Delta \lambda}{\lambda}
+= \sqrt{\frac{g_{tt}(r_{\text{emit}})}{g_{tt}(r_{\text{obs}})}} - 1.
+\]
+
+For weak fields:
+\[
+\frac{\Delta \lambda}{\lambda} \approx \frac{GM}{rc^2}.
+\]
+
+\subsection{Navier–Stokes Derivations on Cubed-Sphere Grids}
+
+\subsubsection{Compressible Navier–Stokes}
+\[
+\frac{\partial \rho}{\partial t}
++ \nabla \cdot (\rho \mathbf{u}) = 0,
+\]
+\[
+\frac{\partial (\rho \mathbf{u})}{\partial t}
++ \nabla \cdot (\rho \mathbf{u}\mathbf{u})
+= -\nabla p + \nabla \cdot \bm{\tau},
+\]
+\[
+\frac{\partial E}{\partial t}
++ \nabla \cdot [(E + p)\mathbf{u}]
+= \nabla \cdot (k\nabla T) + \Phi.
+\]
+
+\subsubsection{Cubed-Sphere Coordinate Transform}
+Let $(\xi, \eta)$ be local coordinates on a face:
+\[
+\mathbf{x} = R \frac{(1, \xi, \eta)}{\sqrt{1 + \xi^2 + \eta^2}}.
+\]
+
+Jacobian:
+\[
+J = \frac{R^2}{(1 + \xi^2 + \eta^2)^{3/2}}.
+\]
+
+\subsection{Magnetohydrodynamic Dynamo Derivations}
+
+\subsubsection{Induction Equation}
+\[
+\frac{\partial \mathbf{B}}{\partial t}
+= \nabla \times (\mathbf{u} \times \mathbf{B})
+- \nabla \times (\eta \nabla \times \mathbf{B}).
+\]
+
+\subsubsection{Magnetic Reynolds Number}
+\[
+R_m = \frac{VL}{\eta}.
+\]
+
+\subsubsection{Elsasser Number}
+\[
+\Lambda = \frac{B^2}{\rho \eta \Omega}.
+\]
+
+\subsection{Radiative–Convective Equilibrium Derivations}
+
+\subsubsection{Schwarzschild Equation}
+\[
+\frac{dI_\nu}{ds} = -\kappa_\nu I_\nu + j_\nu.
+\]
+
+Optical depth:
+\[
+d\tau_\nu = \kappa_\nu ds.
+\]
+
+Solution:
+\[
+I_\nu(\tau_\nu) = I_\nu(0)e^{-\tau_\nu}
++ \int_0^{\tau_\nu} S_\nu(t) e^{-(\tau_\nu - t)} dt.
+\]
+
+\subsubsection{Moist Adiabatic Lapse Rate}
+\[
+\Gamma_m = 
+\frac{g}{c_p}
+\frac{1 + \frac{L_v q_s}{RT}}
+{1 + \frac{L_v^2 q_s}{c_p R T^2}}.
+\]
+
+\subsection{Isotopic Geochemistry Derivations}
+
+\subsubsection{Fractionation Kinetics}
+\[
+\delta^{13}C =
+\left(
+\frac{R_{\text{sample}}}{R_{\text{standard}}} - 1
+\right) 1000.
+\]
+
+Temperature dependence:
+\[
+\alpha(T) = 
+\exp\left(\frac{A}{T^2} + \frac{B}{T} + C\right).
+\]
+
+\subsubsection{Oxygen Isotope Thermometry}
+\[
+T = 
+\frac{A}{\delta^{18}O - B}.
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Extended Derivation Summary}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+These derivations provide the mathematical backbone for Terra Ignota’s multi-physics reconstruction engine, ensuring numerical stability, relativistic accuracy, and physically consistent biospheric and atmospheric modeling.
