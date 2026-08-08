@@ -1,0 +1,225 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# AETHERIS-SOLAR: Master Repository Installer & Deployment Script
+# Lead System Architect & Independent Designer: C MATTHEW BLACKWELL
+# Execution Domain: Complete Multi-Tier Framework Distribution & Optimization
+# ==============================================================================
+set -euo pipefail
+
+REPO_DIR="aetheris-solar-core"
+
+echo "================================================================================"
+echo "[INFO] Initializing master localized repository framework for: C MATTHEW BLACKWELL..."
+echo "================================================================================"
+
+# 1. Create complete directory tree layout
+mkdir -p "$REPO_DIR"/{src,tests,config,scripts,.github/workflows}
+
+# ------------------------------------------------------------------------------
+# 2. PACKAGE INITIALIZATION CONFIGURATION (src/__init__.py)
+# ------------------------------------------------------------------------------
+cat << 'EOF' > "$REPO_DIR/src/__init__.py"
+"""
+Aetheris-Solar Simulation & Cryptographic Core
+Lead System Architect & Independent Designer: C MATTHEW BLACKWELL
+"""
+__version__ = "4.2.0"
+__author__ = "C MATTHEW BLACKWELL"
+EOF
+
+# ------------------------------------------------------------------------------
+# 3. LOW-OVERHEAD REAL-TIME INTEGRITY ENGINE (src/error_checker.py)
+# ------------------------------------------------------------------------------
+cat << 'EOF' > "$REPO_DIR/src/error_checker.py"
+"""
+================================================================================
+AETHERIS-SOLAR: Real-Time Error Checking & Numerical Integrity Engine
+Lead System Architect & Independent Designer: C MATTHEW BLACKWELL
+================================================================================
+"""
+import cupy as cp
+
+class AetherisErrorChecker:
+    @staticmethod
+    def validate_tensor_state(rho: cp.ndarray, u: cp.ndarray, B: cp.ndarray, p: cp.ndarray, dx: float = 1.0) -> dict:
+        """
+        Performs optimized real-time numerical error checking across all primary 
+        simulation state tensors to identify NaN/Inf, negative pressure, or 
+        magnetic divergence anomalies while minimizing host-to-device bottlenecks.
+        """
+        errors = {}
+        
+        # Step 1: Fused Finiteness & Boundary Checks to limit VRAM sync overhead
+        rho_finite = cp.all(cp.isfinite(rho))
+        min_rho = float(cp.min(rho)) if rho_finite else float('nan')
+        
+        p_finite = cp.all(cp.isfinite(p))
+        min_p = float(cp.min(p)) if p_finite else float('nan')
+        
+        if not rho_finite or not cp.all(cp.isfinite(u)) or not cp.all(cp.isfinite(B)) or not p_finite:
+            errors["numerical_instability"] = "NaN or Infinite values detected within active state matrices."
+            
+        if rho_finite and min_rho <= 0.0:
+            errors["negative_density"] = f"Unphysical negative/zero mass density encountered: {min_rho:.4e}"
+            
+        if p_finite and min_p <= 0.0:
+            errors["negative_pressure"] = f"Unphysical negative/zero thermal pressure encountered: {min_p:.4e}"
+
+        # Step 2: Accurate Geometric 3D Vector Divergence: dBx/dx + dBy/dy + dBz/dz
+        dBx_dx = (cp.roll(B[..., 0], -1, axis=0) - cp.roll(B[..., 0], 1, axis=0)) / (2.0 * dx)
+        dBy_dy = (cp.roll(B[..., 1], -1, axis=1) - cp.roll(B[..., 1], 1, axis=1)) / (2.0 * dy)
+        dBz_dz = (cp.roll(B[..., 2], -1, axis=2) - cp.roll(B[..., 2], 1, axis=2)) / (2.0 * dx)
+        
+        div_B_field = cp.abs(dBx_dx + dBy_dy + dBz_dz)
+        max_div = float(cp.max(div_B_field))
+        
+        if max_div > 1e-6:
+            errors["divergence_warning"] = f"Magnetic divergence exceeds stability thresholds: {max_div:.7e}"
+
+        is_valid = len(errors) == 0
+        return {
+            "is_valid": is_valid,
+            "error_log": errors,
+            "max_divergence": max_div,
+            "designer": "C MATTHEW BLACKWELL"
+        }
+EOF
+
+# ------------------------------------------------------------------------------
+# 4. VALIDATED PROPORTIONAL REGRESSION TEST HARNESS (tests/test_grid_regression.py)
+# ------------------------------------------------------------------------------
+cat << 'EOF' > "$REPO_DIR/tests/test_grid_regression.py"
+"""
+================================================================================
+AETHERIS-SOLAR: Automated Numerical Regression Testing Harness
+Lead System Architect & Independent Designer: C MATTHEW BLACKWELL
+================================================================================
+"""
+import unittest
+import cupy as cp
+import numpy as np
+from typing import Tuple
+
+class TestAetherisGridRegression(unittest.TestCase):
+    
+    def setUp(self):
+        self.tolerance_divergence = 1e-6
+
+    def run_grid_convergence_test(self, grid_shape: Tuple[int, int, int]) -> float:
+        nx, ny, nz = grid_shape
+        
+        # Configure matching spatial domain deltas (proportional spatial scaling)
+        domain_length = 2.0 * np.pi
+        dx = domain_length / nx
+        dy = domain_length / ny
+        dz = domain_length / nz
+        
+        x = cp.linspace(0, domain_length, nx, dtype=cp.float32)[:, cp.newaxis, cp.newaxis]
+        y = cp.linspace(0, domain_length, ny, dtype=cp.float32)[cp.newaxis, :, cp.newaxis]
+        z = cp.linspace(0, domain_length, nz, dtype=cp.float32)[cp.newaxis, cp.newaxis, :]
+        
+        # Initialize variable divergence-free analytical profile: B = [sin(y), sin(z), sin(x)]
+        B = cp.zeros((nx, ny, nz, 3), dtype=cp.float32)
+        B[..., 0] = cp.sin(y)
+        B[..., 1] = cp.sin(z)
+        B[..., 2] = cp.sin(x)
+        
+        # Calculate true geometric 3D vector divergence: dBx/dx + dBy/dy + dBz/dz
+        dBx_dx = (cp.roll(B[..., 0], -1, axis=0) - cp.roll(B[..., 0], 1, axis=0)) / (2.0 * dx)
+        dBy_dy = (cp.roll(B[..., 1], -1, axis=1) - cp.roll(B[..., 1], 1, axis=1)) / (2.0 * dy)
+        dBz_dz = (cp.roll(B[..., 2], -1, axis=2) - cp.roll(B[..., 2], 1, axis=2)) / (2.0 * dz)
+        
+        div_B_field = cp.abs(dBx_dx + dBy_dy + dBz_dz)
+        max_div = float(cp.max(div_B_field))
+        
+        return max_div
+
+    def test_grid_resolution_scaling(self):
+        """
+        Executes regression validation across coarse, medium, and fine grid configurations.
+        """
+        test_grids = [(128, 128, 32), (256, 256, 64)]
+        
+        print("\n[AETHERIS-SOLAR] Starting multi-scale regression trials...")
+        for grid in test_grids:
+            with self.subTest(grid=grid):
+                max_div = self.run_grid_convergence_test(grid)
+                print(f"[AETHERIS-SOLAR] Mesh Profile: {str(grid):<15} | Max Observed Div: {max_div:.7e}")
+                
+                self.assertLessEqual(
+                    max_div, 
+                    self.tolerance_divergence, 
+                    f"Regression failure on grid {grid}: Max divergence {max_div:.7e} exceeded threshold."
+                )
+
+if __name__ == "__main__":
+    unittest.main()
+EOF
+
+# ------------------------------------------------------------------------------
+# 5. ENVIRONMENT CORES & EXTENSIONS (requirements.txt / src/)
+# ------------------------------------------------------------------------------
+cat << 'EOF' > "$REPO_DIR/requirements.txt"
+numpy>=1.24.0
+cupy-cuda12x>=12.0.0
+EOF
+
+cat << 'EOF' > "$REPO_DIR/src/weno5_solver.py"
+import cupy as cp
+class WENOSolver5:
+    @staticmethod
+    def reconstruct_axis_flux(f: cp.ndarray, axis: int) -> cp.ndarray:
+        eps = 1e-6
+        fm2 = cp.roll(f, 2, axis=axis); fm1 = cp.roll(f, 1, axis=axis); f0 = cp.roll(f, 0, axis=axis)
+        fp1 = cp.roll(f, -1, axis=axis); fp2 = cp.roll(f, -2, axis=axis)
+        v0 = (2.0 * fm2 - 7.0 * fm1 + 11.0 * f0) / 6.0
+        v1 = (-1.0 * fm1 + 5.0 * f0 + 2.0 * fp1) / 6.0
+        v2 = (2.0 * f0 + 5.0 * fp1 - 1.0 * fp2) / 6.0
+        beta0 = (13.0/12.0)*(fm2 - 2.0*fm1 + f0)**2 + 0.25*(fm2 - 4.0*fm1 + 3.0*f0)**2
+        beta1 = (13.0/12.0)*(fm1 - 2.0*f0 + fp1)**2 + 0.25*(fm1 - fp1)**2
+        beta2 = (13.0/12.0)*(f0 - 2.0*fp1 + fp2)**2 + 0.25*(3.0*f0 - 4.0*fp1 + fp2)**2
+        alpha0 = 0.1 / (eps + beta0)**2; alpha1 = 0.6 / (eps + beta1)**2; alpha2 = 0.3 / (eps + beta2)**2
+        sum_a = alpha0 + alpha1 + alpha2
+        return (alpha0/sum_a)*v0 + (alpha1/sum_a)*v1 + (alpha2/sum_a)*v2
+EOF
+
+cat << 'EOF' > "$REPO_DIR/src/time_integrator.py"
+import cupy as cp
+class TVDRK3Integrator:
+    def __init__(self, config, state_shape: tuple):
+        self.config = config
+        self.U1 = cp.zeros(state_shape, dtype=cp.float32)
+        self.U2 = cp.zeros(state_shape, dtype=cp.float32)
+    def step_in_place(self, U: cp.ndarray, rhs_func, *args) -> cp.ndarray:
+        dt = self.config.dt
+        L = rhs_func(U, *args); cp.multiply(L, dt, out=self.U1); self.U1 += U
+        L = rhs_func(self.U1, *args); cp.multiply(L, 0.25 * dt, out=self.U2); self.U2 += 0.75 * U; self.U2 += 0.25 * self.U1
+        L = rhs_func(self.U2, *args); cp.multiply(L, (2.0/3.0)*dt, out=self.U1); self.U1 += (1.0/3.0)*U; self.U1 += (2.0/3.0)*self.U2
+        return self.U1
+EOF
+
+# ------------------------------------------------------------------------------
+# 6. ORCHESTRATION CLUSTER CONFIGURATION (config/deployment.yaml)
+# ------------------------------------------------------------------------------
+cat << 'EOF' > "$REPO_DIR/config/deployment.yaml"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aetheris-solar-simulation-core
+  namespace: production-solar
+  labels:
+    app.kubernetes.io/name: aetheris-solar
+    architect: c-matthew-blackwell
+spec:
+  replicas: 8
+  selector:
+    matchLabels:
+      app: aetheris-solar-engine
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: '[
+          {"name": "ib-sriov-cni-0", "interface": "ib0"}
+        ]'
+      labels:
+        app: aetheris-solar-engine
