@@ -1,0 +1,127 @@
+\section{Numerical Methods}
+\label{sec:numerical_methods}
+
+\subsection{Overview}
+The AAAHSC--9.4 architecture implements a fully coupled relativistic
+simulation framework based on the BSSN $3+1$ formulation of the Einstein
+field equations, integrated over a block-structured adaptive mesh
+refinement (AMR) hierarchy. The system is designed for secure ingestion
+of multi-messenger astrophysical telemetry, GPU-resident refinement
+operations, and continuous constraint monitoring to ensure numerical
+homeostasis across multiple physical regimes.
+
+\subsection{Spacetime Foliation and Evolution Equations}
+We adopt the standard BSSN decomposition of the spacetime metric,
+splitting the $4$-dimensional manifold into spatial hypersurfaces
+$\Sigma_t$ with induced metric $\gamma_{ij}$ and extrinsic curvature
+$K_{ij}$. The evolved variables include:
+\begin{equation}
+    \tilde{\gamma}_{ij}, \quad
+    \phi, \quad
+    \tilde{A}_{ij}, \quad
+    K, \quad
+    \tilde{\Gamma}^i,
+\end{equation}
+where tildes denote conformally rescaled quantities. Gauge evolution is
+performed using a $1+\log$ lapse and Gamma-driver shift condition:
+\begin{align}
+    \partial_t \alpha &= -2 \alpha K, \\
+    \partial_t \beta^i &= \frac{3}{4} B^i, \\
+    \partial_t B^i &= \partial_t \tilde{\Gamma}^i - \eta B^i.
+\end{align}
+
+Spatial derivatives are discretized using fourth-order finite differences,
+and time integration is performed using a fourth-order Runge--Kutta
+scheme. All evolution equations are evaluated independently on each AMR
+block, with inter-block synchronization handled by GPU-resident kernels.
+
+\subsection{Adaptive Mesh Refinement (AMR)}
+The AMR hierarchy consists of $L = 7$ refinement levels, each with
+uniform Cartesian grids. Refinement is triggered by curvature-based
+criteria:
+\begin{equation}
+    \mathcal{C}(x) = \left| R(x) \right| + \left| K(x) \right|,
+\end{equation}
+and by apparent horizon detection using the null-expansion scalar
+$\theta$:
+\begin{equation}
+    \theta \le 10^{-3} \quad \Rightarrow \quad \text{refine}.
+\end{equation}
+
+Each refinement step performs:
+\begin{enumerate}
+    \item prolongation of coarse-grid data to finer levels,
+    \item restriction of fine-grid data to coarse levels,
+    \item flux correction across refinement boundaries,
+    \item ghost-zone population for stencil completeness.
+\end{enumerate}
+
+All operations are executed via elementwise CUDA kernels, eliminating
+CPU-side AMR control and minimizing PCIe transfer overhead.
+
+\subsection{GPU-Resident Boundary Kernels}
+The boundary-update subsystem is implemented entirely on NVIDIA GPUs.
+Each AMR block is mapped to a CUDA thread block, and refinement
+operations are performed using warp-synchronous primitives. The kernels
+implement:
+\begin{align}
+    \text{Prolongation:} &\quad Q^{\ell+1} = \mathcal{P}(Q^\ell), \\
+    \text{Restriction:}  &\quad Q^\ell = \mathcal{R}(Q^{\ell+1}), \\
+    \text{Flux Sync:}    &\quad F^\ell = \mathcal{S}(F^{\ell+1}),
+\end{align}
+where $\ell$ indexes refinement levels. Memory access patterns are
+optimized for coalesced reads and writes, ensuring minimal latency during
+boundary updates.
+
+\subsection{Constraint Monitoring and Numerical Homeostasis}
+The ADM Hamiltonian and momentum constraints are computed at each
+timestep:
+\begin{align}
+    \mathcal{H} &= R + K^2 - K_{ij} K^{ij}, \\
+    \mathcal{M}^i &= D_j (K^{ij} - \gamma^{ij} K).
+\end{align}
+
+Global norms are evaluated using:
+\begin{equation}
+    \| \mathcal{H} \|_2 \le 1.21 \times 10^{-13}, \qquad
+    \| \mathcal{M} \|_2 \le 1.21 \times 10^{-13}.
+\end{equation}
+
+A sovereign homeostasis controller adjusts gauge parameters, refinement
+criteria, and damping coefficients in response to constraint drift,
+ensuring long-term stability across semiclassical, near-horizon, and
+weak-field regimes.
+
+\subsection{Semiclassical Backreaction and Source Terms}
+Hawking radiation is modeled using localized negative-energy sinks
+distributed near the apparent horizon. The energy density update follows:
+\begin{equation}
+    \rho_{\text{new}} =
+    \rho_{\text{old}} +
+    \frac{\dot{M} c^2}{\Delta t \, \Delta V},
+\end{equation}
+where $\dot{M}$ is the horizon mass-loss rate computed from the outgoing
+flux. These sinks are incorporated directly into the stress-energy tensor
+$T_{\mu\nu}$ and evolved consistently with the BSSN equations.
+
+\subsection{Secure Multi-Messenger Telemetry Ingestion}
+External astrophysical telemetry (Gaia DR3 astrometry, LIGO O4 strain
+data) is ingested through a lattice-based post-quantum cryptographic
+encapsulation layer. The encrypted data are decoded into boundary
+conditions or source terms without exposing raw telemetry to the
+simulation core. This ensures both numerical consistency and
+cryptographic integrity.
+
+\subsection{Parallelization and Cluster Deployment}
+The architecture supports multi-node execution via MPI domain
+decomposition. Each AMR block is assigned to a GPU, and inter-node
+communication is performed using non-blocking MPI primitives. The system
+is compatible with Kubernetes orchestration for elastic scaling across
+cloud environments.
+
+\section{Summary}
+The AAAHSC--9.4 numerical framework integrates secure telemetry ingestion,
+GPU-resident AMR refinement, BSSN evolution, ADM constraint monitoring,
+and semiclassical backreaction into a unified architecture capable of
+stable, high-fidelity relativistic simulation across multiple physical
+regimes.
