@@ -1,0 +1,102 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FIGURES ADDED TO WHITE PAPER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Figures}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_spectral_calibration_placeholder.png}
+    \caption{\textbf{Spectral Calibration Overview.}
+    High-resolution absorption features for O$_2$, H$_2$O, and CO$_2$ extracted from raw FITS/HDF5 telemetry. 
+    The figure illustrates continuum normalization, Doppler correction, and gravitational redshift compensation.}
+    \label{fig:spectral_calibration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_astrometric_wobble_placeholder.png}
+    \caption{\textbf{Astrometric Wobble Reconstruction.}
+    Simulated microarcsecond-scale stellar wobble measurements used to infer the orbital presence of the lost terrestrial body. 
+    Residuals shown after $\chi^2$ minimization.}
+    \label{fig:astrometric_wobble}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_geodesic_orbit_placeholder.png}
+    \caption{\textbf{Relativistic Orbital Geodesics.}
+    Numerical integration of geodesic trajectories in Kerr–Newman spacetime. 
+    The reconstructed orbit demonstrates millennial-scale stability within $\pm 1.2\times10^{-4}$ AU.}
+    \label{fig:geodesic_orbit}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_mhd_core_placeholder.png}
+    \caption{\textbf{MHD Dynamo Convection Model.}
+    Visualization of iron–nickel outer core convection currents driving planetary magnetic field generation. 
+    Magnetic Reynolds number ($R_m$) and Elsasser number ($\Lambda$) stability regions highlighted.}
+    \label{fig:mhd_core}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_radiative_transfer_placeholder.png}
+    \caption{\textbf{Radiative–Convective Equilibrium.}
+    Schwarzschild radiative transfer solution across 64 vertical atmospheric layers. 
+    Moist adiabatic lapse rate stabilization shown after 30\% stellar flux perturbation.}
+    \label{fig:radiative_transfer}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_isotope_geochemistry_placeholder.png}
+    \caption{\textbf{Isotopic Geochemistry Reconstruction.}
+    Carbon ($\delta^{13}$C) and oxygen ($\delta^{18}$O) isotope fractionation curves used to infer paleotemperature and carbon-cycle stability.}
+    \label{fig:isotope_geochemistry}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_planetary_reconstruction_placeholder.png}
+    \caption{\textbf{Planetary Reconstruction Output.}
+    Volumetric rendering of the reconstructed terrestrial planet, including atmospheric density fields, tectonic stress lines, and magnetopause boundaries.}
+    \label{fig:planetary_reconstruction}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MULTI-PANEL FIGURES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig_fluid_velocity_placeholder.png}
+        \caption{Velocity field}
+        \label{fig:fluid_velocity}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig_pressure_gradient_placeholder.png}
+        \caption{Pressure gradient}
+        \label{fig:pressure_gradient}
+    \end{subfigure}
+    \caption{\textbf{Fluid Dynamics Solver Diagnostics.}
+    Multi-panel visualization of Navier–Stokes solver outputs under Mach 5 thermal anomaly injection.}
+    \label{fig:fluid_diagnostics}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MEMORY & GPU FIGURES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_uvm_memory_placeholder.png}
+    \caption{\textbf{UVM Memory Migration and PCIe Throughput.}
+    Visualization of Unified Virtual Memory (UVM) migration patterns across distributed GPU clusters during 2.4 TB voxel octree allocation.}
+    \label{fig:uvm_memory}
+\end{figure}
