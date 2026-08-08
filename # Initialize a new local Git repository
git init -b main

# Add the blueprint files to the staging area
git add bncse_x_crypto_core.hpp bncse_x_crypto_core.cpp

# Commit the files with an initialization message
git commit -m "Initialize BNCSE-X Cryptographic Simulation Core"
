@@ -1,0 +1,8 @@
+# Initialize a new local Git repository
+git init -b main
+
+# Add the blueprint files to the staging area
+git add bncse_x_crypto_core.hpp bncse_x_crypto_core.cpp
+
+# Commit the files with an initialization message
+git commit -m "Initialize BNCSE-X Cryptographic Simulation Core"
