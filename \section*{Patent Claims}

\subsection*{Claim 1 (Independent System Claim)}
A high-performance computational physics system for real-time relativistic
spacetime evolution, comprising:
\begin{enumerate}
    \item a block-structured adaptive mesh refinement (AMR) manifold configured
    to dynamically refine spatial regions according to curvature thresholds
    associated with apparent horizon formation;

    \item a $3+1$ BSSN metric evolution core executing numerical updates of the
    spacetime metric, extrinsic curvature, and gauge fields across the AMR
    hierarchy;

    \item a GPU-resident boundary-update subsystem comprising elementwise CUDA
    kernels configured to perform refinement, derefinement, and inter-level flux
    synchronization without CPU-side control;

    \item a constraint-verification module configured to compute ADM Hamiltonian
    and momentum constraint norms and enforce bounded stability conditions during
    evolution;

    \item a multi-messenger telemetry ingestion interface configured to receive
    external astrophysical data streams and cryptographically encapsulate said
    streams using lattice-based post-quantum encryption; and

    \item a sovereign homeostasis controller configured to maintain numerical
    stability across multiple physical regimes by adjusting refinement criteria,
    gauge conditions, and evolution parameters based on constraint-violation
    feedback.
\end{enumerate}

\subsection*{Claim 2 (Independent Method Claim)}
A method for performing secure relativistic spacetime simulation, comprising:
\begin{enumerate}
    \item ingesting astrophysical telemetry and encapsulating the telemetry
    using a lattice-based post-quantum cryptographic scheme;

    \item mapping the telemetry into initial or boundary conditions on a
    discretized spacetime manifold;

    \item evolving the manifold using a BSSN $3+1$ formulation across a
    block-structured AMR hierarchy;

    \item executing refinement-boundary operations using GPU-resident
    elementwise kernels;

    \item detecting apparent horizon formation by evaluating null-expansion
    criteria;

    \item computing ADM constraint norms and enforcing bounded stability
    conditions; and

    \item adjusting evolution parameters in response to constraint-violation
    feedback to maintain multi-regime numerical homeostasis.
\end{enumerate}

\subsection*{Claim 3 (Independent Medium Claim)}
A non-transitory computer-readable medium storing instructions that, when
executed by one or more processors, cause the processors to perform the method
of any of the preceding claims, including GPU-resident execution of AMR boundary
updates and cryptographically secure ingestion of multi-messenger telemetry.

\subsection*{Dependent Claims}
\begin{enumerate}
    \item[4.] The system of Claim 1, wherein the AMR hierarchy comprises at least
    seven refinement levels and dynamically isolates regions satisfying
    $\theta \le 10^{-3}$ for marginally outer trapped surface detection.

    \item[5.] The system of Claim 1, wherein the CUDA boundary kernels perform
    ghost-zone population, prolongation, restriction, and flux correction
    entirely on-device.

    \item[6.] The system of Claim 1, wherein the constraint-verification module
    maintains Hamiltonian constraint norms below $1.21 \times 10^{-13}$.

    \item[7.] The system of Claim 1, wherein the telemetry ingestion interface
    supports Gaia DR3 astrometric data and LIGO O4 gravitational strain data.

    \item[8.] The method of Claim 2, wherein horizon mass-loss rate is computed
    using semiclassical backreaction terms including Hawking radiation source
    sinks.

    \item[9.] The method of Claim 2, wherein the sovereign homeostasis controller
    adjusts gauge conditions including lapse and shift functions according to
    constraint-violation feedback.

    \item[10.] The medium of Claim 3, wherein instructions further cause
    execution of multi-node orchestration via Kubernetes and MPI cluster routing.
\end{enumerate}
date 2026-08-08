@@ -1,0 +1,90 @@
+\section*{Patent Claims}
+
+\subsection*{Claim 1 (Independent System Claim)}
+A high-performance computational physics system for real-time relativistic
+spacetime evolution, comprising:
+\begin{enumerate}
+    \item a block-structured adaptive mesh refinement (AMR) manifold configured
+    to dynamically refine spatial regions according to curvature thresholds
+    associated with apparent horizon formation;
+
+    \item a $3+1$ BSSN metric evolution core executing numerical updates of the
+    spacetime metric, extrinsic curvature, and gauge fields across the AMR
+    hierarchy;
+
+    \item a GPU-resident boundary-update subsystem comprising elementwise CUDA
+    kernels configured to perform refinement, derefinement, and inter-level flux
+    synchronization without CPU-side control;
+
+    \item a constraint-verification module configured to compute ADM Hamiltonian
+    and momentum constraint norms and enforce bounded stability conditions during
+    evolution;
+
+    \item a multi-messenger telemetry ingestion interface configured to receive
+    external astrophysical data streams and cryptographically encapsulate said
+    streams using lattice-based post-quantum encryption; and
+
+    \item a sovereign homeostasis controller configured to maintain numerical
+    stability across multiple physical regimes by adjusting refinement criteria,
+    gauge conditions, and evolution parameters based on constraint-violation
+    feedback.
+\end{enumerate}
+
+\subsection*{Claim 2 (Independent Method Claim)}
+A method for performing secure relativistic spacetime simulation, comprising:
+\begin{enumerate}
+    \item ingesting astrophysical telemetry and encapsulating the telemetry
+    using a lattice-based post-quantum cryptographic scheme;
+
+    \item mapping the telemetry into initial or boundary conditions on a
+    discretized spacetime manifold;
+
+    \item evolving the manifold using a BSSN $3+1$ formulation across a
+    block-structured AMR hierarchy;
+
+    \item executing refinement-boundary operations using GPU-resident
+    elementwise kernels;
+
+    \item detecting apparent horizon formation by evaluating null-expansion
+    criteria;
+
+    \item computing ADM constraint norms and enforcing bounded stability
+    conditions; and
+
+    \item adjusting evolution parameters in response to constraint-violation
+    feedback to maintain multi-regime numerical homeostasis.
+\end{enumerate}
+
+\subsection*{Claim 3 (Independent Medium Claim)}
+A non-transitory computer-readable medium storing instructions that, when
+executed by one or more processors, cause the processors to perform the method
+of any of the preceding claims, including GPU-resident execution of AMR boundary
+updates and cryptographically secure ingestion of multi-messenger telemetry.
+
+\subsection*{Dependent Claims}
+\begin{enumerate}
+    \item[4.] The system of Claim 1, wherein the AMR hierarchy comprises at least
+    seven refinement levels and dynamically isolates regions satisfying
+    $\theta \le 10^{-3}$ for marginally outer trapped surface detection.
+
+    \item[5.] The system of Claim 1, wherein the CUDA boundary kernels perform
+    ghost-zone population, prolongation, restriction, and flux correction
+    entirely on-device.
+
+    \item[6.] The system of Claim 1, wherein the constraint-verification module
+    maintains Hamiltonian constraint norms below $1.21 \times 10^{-13}$.
+
+    \item[7.] The system of Claim 1, wherein the telemetry ingestion interface
+    supports Gaia DR3 astrometric data and LIGO O4 gravitational strain data.
+
+    \item[8.] The method of Claim 2, wherein horizon mass-loss rate is computed
+    using semiclassical backreaction terms including Hawking radiation source
+    sinks.
+
+    \item[9.] The method of Claim 2, wherein the sovereign homeostasis controller
+    adjusts gauge conditions including lapse and shift functions according to
+    constraint-violation feedback.
+
+    \item[10.] The medium of Claim 3, wherein instructions further cause
+    execution of multi-node orchestration via Kubernetes and MPI cluster routing.
+\end{enumerate}
