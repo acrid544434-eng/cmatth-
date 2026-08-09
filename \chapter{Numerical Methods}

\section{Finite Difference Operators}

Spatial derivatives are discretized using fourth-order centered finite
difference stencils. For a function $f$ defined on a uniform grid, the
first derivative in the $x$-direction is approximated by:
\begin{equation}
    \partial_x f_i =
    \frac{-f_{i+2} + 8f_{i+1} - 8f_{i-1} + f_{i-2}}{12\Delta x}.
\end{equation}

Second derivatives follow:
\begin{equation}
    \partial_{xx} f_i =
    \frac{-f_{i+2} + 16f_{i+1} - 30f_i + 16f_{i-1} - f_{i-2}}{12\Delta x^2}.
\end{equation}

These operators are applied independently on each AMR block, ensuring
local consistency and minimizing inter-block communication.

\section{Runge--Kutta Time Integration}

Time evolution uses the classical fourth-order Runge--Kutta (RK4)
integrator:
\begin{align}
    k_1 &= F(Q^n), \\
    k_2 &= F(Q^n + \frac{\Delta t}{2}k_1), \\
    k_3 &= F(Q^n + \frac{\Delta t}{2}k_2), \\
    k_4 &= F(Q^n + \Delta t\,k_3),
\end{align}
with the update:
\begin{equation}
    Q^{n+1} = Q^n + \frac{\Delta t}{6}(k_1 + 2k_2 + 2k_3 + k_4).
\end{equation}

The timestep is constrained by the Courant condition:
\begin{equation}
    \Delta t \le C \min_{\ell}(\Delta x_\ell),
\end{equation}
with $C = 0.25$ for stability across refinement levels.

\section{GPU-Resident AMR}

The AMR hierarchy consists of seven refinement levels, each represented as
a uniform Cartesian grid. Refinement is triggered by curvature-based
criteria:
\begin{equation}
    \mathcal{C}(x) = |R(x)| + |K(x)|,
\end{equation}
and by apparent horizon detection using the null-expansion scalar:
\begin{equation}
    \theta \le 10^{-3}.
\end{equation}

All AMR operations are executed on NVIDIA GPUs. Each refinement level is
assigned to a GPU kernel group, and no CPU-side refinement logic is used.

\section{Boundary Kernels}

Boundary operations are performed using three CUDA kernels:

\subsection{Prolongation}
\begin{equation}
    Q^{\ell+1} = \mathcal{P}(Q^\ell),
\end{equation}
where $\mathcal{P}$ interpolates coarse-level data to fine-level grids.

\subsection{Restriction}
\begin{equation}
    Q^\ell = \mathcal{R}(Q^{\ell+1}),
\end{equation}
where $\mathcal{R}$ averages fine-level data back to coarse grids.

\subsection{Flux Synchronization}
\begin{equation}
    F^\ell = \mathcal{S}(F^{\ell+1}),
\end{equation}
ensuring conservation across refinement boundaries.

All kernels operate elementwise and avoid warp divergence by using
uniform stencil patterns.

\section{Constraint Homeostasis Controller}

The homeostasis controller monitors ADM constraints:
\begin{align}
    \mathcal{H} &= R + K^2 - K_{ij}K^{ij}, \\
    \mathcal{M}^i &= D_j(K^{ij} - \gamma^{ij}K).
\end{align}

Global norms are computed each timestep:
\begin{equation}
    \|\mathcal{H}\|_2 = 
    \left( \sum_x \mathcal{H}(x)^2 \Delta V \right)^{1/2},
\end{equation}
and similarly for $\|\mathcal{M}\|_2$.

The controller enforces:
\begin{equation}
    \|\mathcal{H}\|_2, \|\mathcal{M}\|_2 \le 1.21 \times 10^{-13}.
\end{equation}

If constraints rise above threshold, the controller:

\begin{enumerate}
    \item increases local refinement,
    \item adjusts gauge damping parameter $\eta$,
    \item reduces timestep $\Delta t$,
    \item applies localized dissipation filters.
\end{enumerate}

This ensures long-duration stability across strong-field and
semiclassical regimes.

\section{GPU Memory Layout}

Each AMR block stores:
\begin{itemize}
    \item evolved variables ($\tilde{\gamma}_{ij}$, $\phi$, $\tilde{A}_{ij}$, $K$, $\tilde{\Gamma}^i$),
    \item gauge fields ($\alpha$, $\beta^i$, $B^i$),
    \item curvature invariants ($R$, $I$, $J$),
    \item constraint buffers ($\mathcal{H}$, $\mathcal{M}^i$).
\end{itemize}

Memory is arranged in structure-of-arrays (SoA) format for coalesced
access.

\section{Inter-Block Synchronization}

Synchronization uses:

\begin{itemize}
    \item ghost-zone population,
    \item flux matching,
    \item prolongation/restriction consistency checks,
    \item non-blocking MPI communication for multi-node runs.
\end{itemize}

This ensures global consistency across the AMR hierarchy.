@@ -1,0 +1,140 @@
+\chapter{Numerical Methods}
+
+\section{Finite Difference Operators}
+
+Spatial derivatives are discretized using fourth-order centered finite
+difference stencils. For a function $f$ defined on a uniform grid, the
+first derivative in the $x$-direction is approximated by:
+\begin{equation}
+    \partial_x f_i =
+    \frac{-f_{i+2} + 8f_{i+1} - 8f_{i-1} + f_{i-2}}{12\Delta x}.
+\end{equation}
+
+Second derivatives follow:
+\begin{equation}
+    \partial_{xx} f_i =
+    \frac{-f_{i+2} + 16f_{i+1} - 30f_i + 16f_{i-1} - f_{i-2}}{12\Delta x^2}.
+\end{equation}
+
+These operators are applied independently on each AMR block, ensuring
+local consistency and minimizing inter-block communication.
+
+\section{Runge--Kutta Time Integration}
+
+Time evolution uses the classical fourth-order Runge--Kutta (RK4)
+integrator:
+\begin{align}
+    k_1 &= F(Q^n), \\
+    k_2 &= F(Q^n + \frac{\Delta t}{2}k_1), \\
+    k_3 &= F(Q^n + \frac{\Delta t}{2}k_2), \\
+    k_4 &= F(Q^n + \Delta t\,k_3),
+\end{align}
+with the update:
+\begin{equation}
+    Q^{n+1} = Q^n + \frac{\Delta t}{6}(k_1 + 2k_2 + 2k_3 + k_4).
+\end{equation}
+
+The timestep is constrained by the Courant condition:
+\begin{equation}
+    \Delta t \le C \min_{\ell}(\Delta x_\ell),
+\end{equation}
+with $C = 0.25$ for stability across refinement levels.
+
+\section{GPU-Resident AMR}
+
+The AMR hierarchy consists of seven refinement levels, each represented as
+a uniform Cartesian grid. Refinement is triggered by curvature-based
+criteria:
+\begin{equation}
+    \mathcal{C}(x) = |R(x)| + |K(x)|,
+\end{equation}
+and by apparent horizon detection using the null-expansion scalar:
+\begin{equation}
+    \theta \le 10^{-3}.
+\end{equation}
+
+All AMR operations are executed on NVIDIA GPUs. Each refinement level is
+assigned to a GPU kernel group, and no CPU-side refinement logic is used.
+
+\section{Boundary Kernels}
+
+Boundary operations are performed using three CUDA kernels:
+
+\subsection{Prolongation}
+\begin{equation}
+    Q^{\ell+1} = \mathcal{P}(Q^\ell),
+\end{equation}
+where $\mathcal{P}$ interpolates coarse-level data to fine-level grids.
+
+\subsection{Restriction}
+\begin{equation}
+    Q^\ell = \mathcal{R}(Q^{\ell+1}),
+\end{equation}
+where $\mathcal{R}$ averages fine-level data back to coarse grids.
+
+\subsection{Flux Synchronization}
+\begin{equation}
+    F^\ell = \mathcal{S}(F^{\ell+1}),
+\end{equation}
+ensuring conservation across refinement boundaries.
+
+All kernels operate elementwise and avoid warp divergence by using
+uniform stencil patterns.
+
+\section{Constraint Homeostasis Controller}
+
+The homeostasis controller monitors ADM constraints:
+\begin{align}
+    \mathcal{H} &= R + K^2 - K_{ij}K^{ij}, \\
+    \mathcal{M}^i &= D_j(K^{ij} - \gamma^{ij}K).
+\end{align}
+
+Global norms are computed each timestep:
+\begin{equation}
+    \|\mathcal{H}\|_2 = 
+    \left( \sum_x \mathcal{H}(x)^2 \Delta V \right)^{1/2},
+\end{equation}
+and similarly for $\|\mathcal{M}\|_2$.
+
+The controller enforces:
+\begin{equation}
+    \|\mathcal{H}\|_2, \|\mathcal{M}\|_2 \le 1.21 \times 10^{-13}.
+\end{equation}
+
+If constraints rise above threshold, the controller:
+
+\begin{enumerate}
+    \item increases local refinement,
+    \item adjusts gauge damping parameter $\eta$,
+    \item reduces timestep $\Delta t$,
+    \item applies localized dissipation filters.
+\end{enumerate}
+
+This ensures long-duration stability across strong-field and
+semiclassical regimes.
+
+\section{GPU Memory Layout}
+
+Each AMR block stores:
+\begin{itemize}
+    \item evolved variables ($\tilde{\gamma}_{ij}$, $\phi$, $\tilde{A}_{ij}$, $K$, $\tilde{\Gamma}^i$),
+    \item gauge fields ($\alpha$, $\beta^i$, $B^i$),
+    \item curvature invariants ($R$, $I$, $J$),
+    \item constraint buffers ($\mathcal{H}$, $\mathcal{M}^i$).
+\end{itemize}
+
+Memory is arranged in structure-of-arrays (SoA) format for coalesced
+access.
+
+\section{Inter-Block Synchronization}
+
+Synchronization uses:
+
+\begin{itemize}
+    \item ghost-zone population,
+    \item flux matching,
+    \item prolongation/restriction consistency checks,
+    \item non-blocking MPI communication for multi-node runs.
+\end{itemize}
+
+This ensures global consistency across the AMR hierarchy.
