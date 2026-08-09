@@ -1,0 +1,147 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{caption}
+\geometry{margin=1in}
+
+\title{\textbf{SIE-ASTRO v4.0: A High-Throughput Relativistic Electromagnetic Particle Engine Implemented in C++20 with OpenMP and AES-256-GCM Secure Ingestion}}
+\author{C. Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+SIE-ASTRO v4.0 is a production-grade relativistic electromagnetic particle engine designed for high-throughput scientific computing environments. 
+The framework integrates a fully parallelized relativistic Boris particle pusher, a constrained-transport (CT) Maxwell solver on a staggered Yee mesh, 
+and an AES-256-GCM cryptographic ingestion pipeline for secure diagnostic frame transmission. 
+The engine is implemented in C++20, leverages OpenMP for shared-memory parallelism, and uses OpenSSL for authenticated encryption. 
+This paper presents the mathematical foundations, numerical methods, software architecture, and performance characteristics of the SIE-ASTRO v4.0 core.
+\end{abstract}
+
+\section{Introduction}
+High-energy plasma simulations require numerical engines capable of evolving charged particle ensembles under relativistic electromagnetic fields while preserving divergence constraints and ensuring numerical stability. 
+SIE-ASTRO v4.0 addresses these requirements through a modular architecture consisting of:
+\begin{itemize}
+    \item A relativistic Boris integrator for particle pushing,
+    \item A constrained-transport Maxwell solver on a 3D staggered Yee grid,
+    \item A secure AES-256-GCM ingestion pipeline for diagnostics,
+    \item High-performance parallel execution using OpenMP.
+\end{itemize}
+
+Two representative excerpts from the implementation illustrate the core numerical methods:
+\begin{quote}
+``Parallel Relativistic Boris Integrator''  
+``Constrained Transport Magnetic Field Advancement''
+\end{quote}
+
+\section{Relativistic Particle Dynamics}
+The motion of a charged particle under electromagnetic fields is governed by the relativistic Lorentz force:
+\begin{equation}
+\frac{d\mathbf{p}}{dt} = q\left( \mathbf{E} + \mathbf{v} \times \mathbf{B} \right),
+\end{equation}
+where $\mathbf{p} = \gamma m \mathbf{v}$ and $\gamma = (1 - v^2/c^2)^{-1/2}$.
+
+\subsection{Relativistic Boris Integrator}
+The Boris method is widely used in particle-in-cell (PIC) simulations due to its excellent long-term stability and energy behavior. 
+SIE-ASTRO implements the relativistic variant:
+\begin{enumerate}
+    \item Half-step electric acceleration:
+    \[
+    \mathbf{u}^{-} = \gamma\mathbf{v} + \frac{q\Delta t}{2m}\mathbf{E}.
+    \]
+    \item Rotation due to magnetic field:
+    \[
+    \mathbf{u}' = \mathbf{u}^{-} + \mathbf{u}^{-} \times \mathbf{t},
+    \]
+    where
+    \[
+    \mathbf{t} = \frac{q\Delta t}{2m\gamma'}\mathbf{B}.
+    \]
+    \item Final half-step electric acceleration:
+    \[
+    \mathbf{u}^{+} = \mathbf{u}' + \mathbf{u}' \times \mathbf{s},
+    \]
+    with
+    \[
+    \mathbf{s} = \frac{2\mathbf{t}}{1 + t^2}.
+    \]
+\end{enumerate}
+
+The updated velocity is:
+\[
+\mathbf{v}_{n+1} = \frac{\mathbf{u}^{+}}{\gamma_{\text{new}}}.
+\]
+
+\section{Maxwell Solver: Constrained Transport}
+The electromagnetic fields evolve according to Maxwell's equations. 
+SIE-ASTRO uses a staggered Yee mesh and a constrained-transport (CT) update to preserve $\nabla\cdot\mathbf{B}=0$.
+
+\subsection{Faraday Update}
+The magnetic field update is:
+\begin{equation}
+\frac{\partial \mathbf{B}}{\partial t} = -\nabla \times \mathbf{E}.
+\end{equation}
+
+The discrete CT update ensures divergence-free evolution:
+\[
+B_x^{n+1} = B_x^n - \Delta t\left( 
+\frac{E_z(i,j+1,k) - E_z(i,j,k)}{\Delta y}
+-
+\frac{E_y(i,j,k+1) - E_y(i,j,k)}{\Delta z}
+\right),
+\]
+with analogous expressions for $B_y$ and $B_z$.
+
+\section{Software Architecture}
+The engine is organized into three core modules:
+\begin{enumerate}
+    \item \texttt{Particles.hpp}: Relativistic particle system and Boris integrator.
+    \item \texttt{GridFields.hpp}: Yee grid and constrained-transport Maxwell solver.
+    \item \texttt{CryptoPipeline.hpp}: AES-256-GCM encryption pipeline.
+\end{enumerate}
+
+The main driver executes:
+\begin{enumerate}
+    \item Field update,
+    \item Particle push,
+    \item Diagnostic encryption every 250 steps.
+\end{enumerate}
+
+\section{Cryptographic Ingestion Pipeline}
+Diagnostics are encrypted using AES-256-GCM:
+\begin{itemize}
+    \item 32-byte key,
+    \item 12-byte IV,
+    \item 16-byte authentication tag.
+\end{itemize}
+
+The encryption routine uses OpenSSL's EVP interface:
+\begin{quote}
+``EVP\_EncryptInit\_ex cipher initialization failed.''  
+``EVP\_CIPHER\_CTX\_ctrl tag fetch failed.''
+\end{quote}
+
+\section{Performance}
+A typical run uses:
+\begin{itemize}
+    \item $128^3$ grid,
+    \item $10^6$ particles,
+    \item $1000$ time steps,
+    \item $\Delta t = 10^{-12}$ s.
+\end{itemize}
+
+The engine reports:
+\begin{quote}
+``Particle Push Rate: $R$ updates/s''  
+``Final Max Div(B) Bound: machine precision preserved''
+\end{quote}
+
+\section{Conclusion}
+SIE-ASTRO v4.0 provides a robust, high-performance foundation for relativistic plasma simulation, combining modern C++20 architecture, parallel numerical methods, and secure diagnostic ingestion. 
+Future extensions include GPU acceleration, radiation reaction physics, and distributed MPI domain decomposition.
+
+\end{document}
