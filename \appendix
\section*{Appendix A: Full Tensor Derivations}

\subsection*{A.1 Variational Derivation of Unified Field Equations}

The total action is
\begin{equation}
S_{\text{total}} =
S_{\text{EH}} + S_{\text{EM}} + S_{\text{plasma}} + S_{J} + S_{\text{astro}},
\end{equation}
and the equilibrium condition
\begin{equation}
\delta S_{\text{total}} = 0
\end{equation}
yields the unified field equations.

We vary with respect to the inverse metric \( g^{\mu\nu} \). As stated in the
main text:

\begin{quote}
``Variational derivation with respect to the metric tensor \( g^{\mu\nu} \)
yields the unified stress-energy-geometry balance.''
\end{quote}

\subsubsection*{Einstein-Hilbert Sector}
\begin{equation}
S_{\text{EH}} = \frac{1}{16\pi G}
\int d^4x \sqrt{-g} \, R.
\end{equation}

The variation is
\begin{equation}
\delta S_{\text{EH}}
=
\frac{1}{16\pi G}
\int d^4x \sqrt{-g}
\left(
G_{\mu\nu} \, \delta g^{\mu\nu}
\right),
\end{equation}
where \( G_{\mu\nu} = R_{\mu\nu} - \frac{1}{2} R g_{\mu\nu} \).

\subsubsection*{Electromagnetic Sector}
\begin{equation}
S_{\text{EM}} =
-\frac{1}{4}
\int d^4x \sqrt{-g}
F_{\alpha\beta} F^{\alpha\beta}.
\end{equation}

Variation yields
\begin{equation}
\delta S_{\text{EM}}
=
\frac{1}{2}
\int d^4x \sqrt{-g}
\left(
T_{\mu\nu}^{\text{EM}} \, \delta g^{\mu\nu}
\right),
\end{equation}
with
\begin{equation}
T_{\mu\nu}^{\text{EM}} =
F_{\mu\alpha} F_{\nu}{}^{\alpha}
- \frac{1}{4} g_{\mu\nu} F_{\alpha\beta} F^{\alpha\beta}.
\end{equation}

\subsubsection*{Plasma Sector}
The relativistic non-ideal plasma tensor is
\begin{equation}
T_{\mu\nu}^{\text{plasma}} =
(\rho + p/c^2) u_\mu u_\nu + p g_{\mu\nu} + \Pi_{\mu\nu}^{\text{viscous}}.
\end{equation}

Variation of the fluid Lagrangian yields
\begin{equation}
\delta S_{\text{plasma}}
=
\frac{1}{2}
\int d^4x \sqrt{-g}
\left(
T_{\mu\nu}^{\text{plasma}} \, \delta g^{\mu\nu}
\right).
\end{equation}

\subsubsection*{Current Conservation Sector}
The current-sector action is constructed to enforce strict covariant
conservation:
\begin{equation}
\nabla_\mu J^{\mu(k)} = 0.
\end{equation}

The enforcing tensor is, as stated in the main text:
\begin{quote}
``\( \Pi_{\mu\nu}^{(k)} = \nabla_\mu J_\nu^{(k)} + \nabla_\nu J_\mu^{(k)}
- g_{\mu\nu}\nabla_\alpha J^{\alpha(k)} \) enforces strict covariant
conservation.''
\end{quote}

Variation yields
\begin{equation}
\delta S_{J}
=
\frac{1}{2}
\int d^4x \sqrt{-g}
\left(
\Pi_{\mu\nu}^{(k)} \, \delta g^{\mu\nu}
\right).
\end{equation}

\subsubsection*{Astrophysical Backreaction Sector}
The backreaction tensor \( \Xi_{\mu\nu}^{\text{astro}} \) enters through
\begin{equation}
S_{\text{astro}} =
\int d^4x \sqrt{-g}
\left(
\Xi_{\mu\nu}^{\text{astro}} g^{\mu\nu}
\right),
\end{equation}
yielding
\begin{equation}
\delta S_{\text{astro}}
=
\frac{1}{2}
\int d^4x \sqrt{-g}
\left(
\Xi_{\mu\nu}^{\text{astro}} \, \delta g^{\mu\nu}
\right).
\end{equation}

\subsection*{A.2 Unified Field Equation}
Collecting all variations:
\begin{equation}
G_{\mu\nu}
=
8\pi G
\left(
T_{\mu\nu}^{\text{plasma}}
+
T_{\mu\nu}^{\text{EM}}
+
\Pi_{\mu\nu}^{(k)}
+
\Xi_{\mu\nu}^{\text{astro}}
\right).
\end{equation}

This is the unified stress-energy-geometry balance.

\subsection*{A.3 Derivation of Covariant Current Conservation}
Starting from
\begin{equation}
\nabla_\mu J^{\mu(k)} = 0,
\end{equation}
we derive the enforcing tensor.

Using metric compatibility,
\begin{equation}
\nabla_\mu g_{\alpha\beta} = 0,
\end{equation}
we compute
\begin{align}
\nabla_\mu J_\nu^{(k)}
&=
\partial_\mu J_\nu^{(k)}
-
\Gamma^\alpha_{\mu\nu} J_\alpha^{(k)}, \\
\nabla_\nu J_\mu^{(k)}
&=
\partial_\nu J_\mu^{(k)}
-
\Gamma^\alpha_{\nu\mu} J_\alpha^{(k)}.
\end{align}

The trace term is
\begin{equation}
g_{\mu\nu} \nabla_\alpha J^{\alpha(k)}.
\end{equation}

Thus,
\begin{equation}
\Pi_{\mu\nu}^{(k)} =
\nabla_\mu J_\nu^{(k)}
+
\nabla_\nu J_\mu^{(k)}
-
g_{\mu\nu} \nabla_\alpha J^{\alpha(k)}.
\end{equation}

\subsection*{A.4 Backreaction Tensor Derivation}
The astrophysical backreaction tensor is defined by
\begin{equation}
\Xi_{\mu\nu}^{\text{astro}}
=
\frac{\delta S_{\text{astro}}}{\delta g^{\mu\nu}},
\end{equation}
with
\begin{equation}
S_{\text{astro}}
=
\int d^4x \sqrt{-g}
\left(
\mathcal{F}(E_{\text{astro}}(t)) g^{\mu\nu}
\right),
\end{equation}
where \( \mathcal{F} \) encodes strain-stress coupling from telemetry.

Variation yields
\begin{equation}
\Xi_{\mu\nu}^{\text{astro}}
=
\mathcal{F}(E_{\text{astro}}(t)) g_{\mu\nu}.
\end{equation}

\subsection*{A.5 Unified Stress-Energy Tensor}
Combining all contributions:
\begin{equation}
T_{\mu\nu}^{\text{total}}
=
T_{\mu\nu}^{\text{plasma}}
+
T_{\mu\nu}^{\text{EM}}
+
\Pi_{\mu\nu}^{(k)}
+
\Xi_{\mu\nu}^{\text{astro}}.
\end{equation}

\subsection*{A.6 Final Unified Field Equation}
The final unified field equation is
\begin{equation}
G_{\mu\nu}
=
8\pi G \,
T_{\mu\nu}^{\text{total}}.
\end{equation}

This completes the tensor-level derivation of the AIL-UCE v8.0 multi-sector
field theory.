@@ -1,0 +1,239 @@
+\appendix
+\section*{Appendix A: Full Tensor Derivations}
+
+\subsection*{A.1 Variational Derivation of Unified Field Equations}
+
+The total action is
+\begin{equation}
+S_{\text{total}} =
+S_{\text{EH}} + S_{\text{EM}} + S_{\text{plasma}} + S_{J} + S_{\text{astro}},
+\end{equation}
+and the equilibrium condition
+\begin{equation}
+\delta S_{\text{total}} = 0
+\end{equation}
+yields the unified field equations.
+
+We vary with respect to the inverse metric \( g^{\mu\nu} \). As stated in the
+main text:
+
+\begin{quote}
+``Variational derivation with respect to the metric tensor \( g^{\mu\nu} \)
+yields the unified stress-energy-geometry balance.''
+\end{quote}
+
+\subsubsection*{Einstein-Hilbert Sector}
+\begin{equation}
+S_{\text{EH}} = \frac{1}{16\pi G}
+\int d^4x \sqrt{-g} \, R.
+\end{equation}
+
+The variation is
+\begin{equation}
+\delta S_{\text{EH}}
+=
+\frac{1}{16\pi G}
+\int d^4x \sqrt{-g}
+\left(
+G_{\mu\nu} \, \delta g^{\mu\nu}
+\right),
+\end{equation}
+where \( G_{\mu\nu} = R_{\mu\nu} - \frac{1}{2} R g_{\mu\nu} \).
+
+\subsubsection*{Electromagnetic Sector}
+\begin{equation}
+S_{\text{EM}} =
+-\frac{1}{4}
+\int d^4x \sqrt{-g}
+F_{\alpha\beta} F^{\alpha\beta}.
+\end{equation}
+
+Variation yields
+\begin{equation}
+\delta S_{\text{EM}}
+=
+\frac{1}{2}
+\int d^4x \sqrt{-g}
+\left(
+T_{\mu\nu}^{\text{EM}} \, \delta g^{\mu\nu}
+\right),
+\end{equation}
+with
+\begin{equation}
+T_{\mu\nu}^{\text{EM}} =
+F_{\mu\alpha} F_{\nu}{}^{\alpha}
+- \frac{1}{4} g_{\mu\nu} F_{\alpha\beta} F^{\alpha\beta}.
+\end{equation}
+
+\subsubsection*{Plasma Sector}
+The relativistic non-ideal plasma tensor is
+\begin{equation}
+T_{\mu\nu}^{\text{plasma}} =
+(\rho + p/c^2) u_\mu u_\nu + p g_{\mu\nu} + \Pi_{\mu\nu}^{\text{viscous}}.
+\end{equation}
+
+Variation of the fluid Lagrangian yields
+\begin{equation}
+\delta S_{\text{plasma}}
+=
+\frac{1}{2}
+\int d^4x \sqrt{-g}
+\left(
+T_{\mu\nu}^{\text{plasma}} \, \delta g^{\mu\nu}
+\right).
+\end{equation}
+
+\subsubsection*{Current Conservation Sector}
+The current-sector action is constructed to enforce strict covariant
+conservation:
+\begin{equation}
+\nabla_\mu J^{\mu(k)} = 0.
+\end{equation}
+
+The enforcing tensor is, as stated in the main text:
+\begin{quote}
+``\( \Pi_{\mu\nu}^{(k)} = \nabla_\mu J_\nu^{(k)} + \nabla_\nu J_\mu^{(k)}
+- g_{\mu\nu}\nabla_\alpha J^{\alpha(k)} \) enforces strict covariant
+conservation.''
+\end{quote}
+
+Variation yields
+\begin{equation}
+\delta S_{J}
+=
+\frac{1}{2}
+\int d^4x \sqrt{-g}
+\left(
+\Pi_{\mu\nu}^{(k)} \, \delta g^{\mu\nu}
+\right).
+\end{equation}
+
+\subsubsection*{Astrophysical Backreaction Sector}
+The backreaction tensor \( \Xi_{\mu\nu}^{\text{astro}} \) enters through
+\begin{equation}
+S_{\text{astro}} =
+\int d^4x \sqrt{-g}
+\left(
+\Xi_{\mu\nu}^{\text{astro}} g^{\mu\nu}
+\right),
+\end{equation}
+yielding
+\begin{equation}
+\delta S_{\text{astro}}
+=
+\frac{1}{2}
+\int d^4x \sqrt{-g}
+\left(
+\Xi_{\mu\nu}^{\text{astro}} \, \delta g^{\mu\nu}
+\right).
+\end{equation}
+
+\subsection*{A.2 Unified Field Equation}
+Collecting all variations:
+\begin{equation}
+G_{\mu\nu}
+=
+8\pi G
+\left(
+T_{\mu\nu}^{\text{plasma}}
++
+T_{\mu\nu}^{\text{EM}}
++
+\Pi_{\mu\nu}^{(k)}
++
+\Xi_{\mu\nu}^{\text{astro}}
+\right).
+\end{equation}
+
+This is the unified stress-energy-geometry balance.
+
+\subsection*{A.3 Derivation of Covariant Current Conservation}
+Starting from
+\begin{equation}
+\nabla_\mu J^{\mu(k)} = 0,
+\end{equation}
+we derive the enforcing tensor.
+
+Using metric compatibility,
+\begin{equation}
+\nabla_\mu g_{\alpha\beta} = 0,
+\end{equation}
+we compute
+\begin{align}
+\nabla_\mu J_\nu^{(k)}
+&=
+\partial_\mu J_\nu^{(k)}
+-
+\Gamma^\alpha_{\mu\nu} J_\alpha^{(k)}, \\
+\nabla_\nu J_\mu^{(k)}
+&=
+\partial_\nu J_\mu^{(k)}
+-
+\Gamma^\alpha_{\nu\mu} J_\alpha^{(k)}.
+\end{align}
+
+The trace term is
+\begin{equation}
+g_{\mu\nu} \nabla_\alpha J^{\alpha(k)}.
+\end{equation}
+
+Thus,
+\begin{equation}
+\Pi_{\mu\nu}^{(k)} =
+\nabla_\mu J_\nu^{(k)}
++
+\nabla_\nu J_\mu^{(k)}
+-
+g_{\mu\nu} \nabla_\alpha J^{\alpha(k)}.
+\end{equation}
+
+\subsection*{A.4 Backreaction Tensor Derivation}
+The astrophysical backreaction tensor is defined by
+\begin{equation}
+\Xi_{\mu\nu}^{\text{astro}}
+=
+\frac{\delta S_{\text{astro}}}{\delta g^{\mu\nu}},
+\end{equation}
+with
+\begin{equation}
+S_{\text{astro}}
+=
+\int d^4x \sqrt{-g}
+\left(
+\mathcal{F}(E_{\text{astro}}(t)) g^{\mu\nu}
+\right),
+\end{equation}
+where \( \mathcal{F} \) encodes strain-stress coupling from telemetry.
+
+Variation yields
+\begin{equation}
+\Xi_{\mu\nu}^{\text{astro}}
+=
+\mathcal{F}(E_{\text{astro}}(t)) g_{\mu\nu}.
+\end{equation}
+
+\subsection*{A.5 Unified Stress-Energy Tensor}
+Combining all contributions:
+\begin{equation}
+T_{\mu\nu}^{\text{total}}
+=
+T_{\mu\nu}^{\text{plasma}}
++
+T_{\mu\nu}^{\text{EM}}
++
+\Pi_{\mu\nu}^{(k)}
++
+\Xi_{\mu\nu}^{\text{astro}}.
+\end{equation}
+
+\subsection*{A.6 Final Unified Field Equation}
+The final unified field equation is
+\begin{equation}
+G_{\mu\nu}
+=
+8\pi G \,
+T_{\mu\nu}^{\text{total}}.
+\end{equation}
+
+This completes the tensor-level derivation of the AIL-UCE v8.0 multi-sector
+field theory.
