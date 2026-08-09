@@ -1,0 +1,31 @@
+\appendix
+\section{Mathematical Appendix}
+
+\subsection{Ricci Tensor Decomposition}
+The Ricci tensor is computed using the conformal metric $\tilde{\gamma}_{ij}$:
+\[
+R_{ij} = \tilde{R}_{ij} + R^{\phi}_{ij},
+\]
+where
+\[
+R^{\phi}_{ij} = -2\tilde{D}_i \tilde{D}_j \phi
+- 2\tilde{\gamma}_{ij}\tilde{D}^k \tilde{D}_k \phi
++ 4\tilde{D}_i \phi \tilde{D}_j \phi
+- 4\tilde{\gamma}_{ij}\tilde{D}^k \phi \tilde{D}_k \phi.
+\]
+
+\subsection{Hamiltonian Constraint}
+The Hamiltonian constraint is enforced on the GPU tensor cluster:
+\[
+\mathcal{H} = \tilde{A}_{ij}\tilde{A}^{ij}
+- \frac{2}{3}K^2
++ e^{-4\phi}\tilde{R} = 0.
+\]
+
+\subsection{Momentum Constraint}
+\[
+\mathcal{M}^i = \tilde{D}_j \tilde{A}^{ij}
+- \frac{2}{3}\tilde{D}^i K = 0.
+\]
+
+These constraints are evaluated every timestep to maintain physical consistency.
