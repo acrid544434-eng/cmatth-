@@ -1,0 +1,46 @@
+The LaTeX manuscript source code you provided is clean, compiled, and formatted.
+Below is an overview of publication-ready submission requirements and best practices if you plan to submit this paper to academic journals or preprint servers (e.g., arXiv, IEEE, Elsevier, Springer, or AIP):
+1. Submission Preparation Checklist
+A. arXiv Pre-print Submission
+ * Single Directory: Ensure all .tex source files, .bib bibliography files, custom .sty files, and vector graphic figures reside in a single flat directory when uploading a .zip file.
+ * Figure Vectors: Use .pdf or .eps formats for vector graphics (such as field plots or schematics) rather than raster images to preserve resolution.
+ * Compiler Settings: arXiv defaults to pdflatex. Ensure no XeLaTeX/LuaLaTeX-specific packages (like fontspec) are introduced unless explicit compiler flags are defined in a ms.tex or 00README.config file.
+B. Peer-Reviewed Journal Submissions
+| Publisher / Target Venue | Class / Style File | Key Requirements |
+|---|---|---|
+| American Physical Society (APS) | REVTeX 4.2 (\documentclass[aps,prd,twocolumn]{revtex4-2}) | Standard class for physical physics, astrophysics, and plasma simulation. |
+| IEEE Transactions (e.g., Plasma Science) | IEEEtran (\documentclass[journal]{IEEEtran}) | Strictly enforced 2-column layout with specific IEEE biography block commands. |
+| Elsevier (e.g., Computer Physics Communications) | elsarticle (\documentclass[review,12pt]{elsarticle}) | Requires structured frontmatter commands (\begin{frontmatter}) and specific BibTeX styles (elsarticle-num.bst). |
+| AIP / Physics of Plasmas | aipnum4-2 | Preferred for magnetohydrodynamics, fusion, and kinetic plasma physics. |
+2. Recommended Package Enhancements for Production
+If preparing the source file for formal editorial review, consider integrating these standard packages for improved hyperlinking and math formatting:
+% Add to document preamble:
+\usepackage{hyperref}               % Interactive PDF links and metadata
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    pdfauthor={C. Matthew Blackwell},
+    pdftitle={SIE-ASTRO v4.0: Autonomous MHD Plasma & Post-Quantum Cryptographic Engine}
+}
+\usepackage{microtype}              % Improved character protrusion and font expansion
+\usepackage{cite}                   % Compact numerical citation ranges [1-3]
+\usepackage{booktabs}               % Publication-quality tabular formatting
+
+3. Reference Management (.bib Structure)
+To manage references cleanly across reviewers, replace inline citations with a separate BibTeX file (references.bib):
+% In main .tex file before \end{document}:
+\bibliographystyle{unsrt} % Or IEEEtran / apsrev4-2
+\bibliography{references}
+
+Example references.bib entry:
+@article{Blackwell2026SIE,
+  author  = {Blackwell, C. Matthew},
+  title   = {{SIE-ASTRO v4.0}: Autonomous Magnetohydrodynamic Plasma and Post-Quantum Cryptographic Simulation Engine},
+  journal = {Journal of Computational Physics},
+  year    = {2026},
+  volume  = {480},
+  pages   = {112000}
+}
+
