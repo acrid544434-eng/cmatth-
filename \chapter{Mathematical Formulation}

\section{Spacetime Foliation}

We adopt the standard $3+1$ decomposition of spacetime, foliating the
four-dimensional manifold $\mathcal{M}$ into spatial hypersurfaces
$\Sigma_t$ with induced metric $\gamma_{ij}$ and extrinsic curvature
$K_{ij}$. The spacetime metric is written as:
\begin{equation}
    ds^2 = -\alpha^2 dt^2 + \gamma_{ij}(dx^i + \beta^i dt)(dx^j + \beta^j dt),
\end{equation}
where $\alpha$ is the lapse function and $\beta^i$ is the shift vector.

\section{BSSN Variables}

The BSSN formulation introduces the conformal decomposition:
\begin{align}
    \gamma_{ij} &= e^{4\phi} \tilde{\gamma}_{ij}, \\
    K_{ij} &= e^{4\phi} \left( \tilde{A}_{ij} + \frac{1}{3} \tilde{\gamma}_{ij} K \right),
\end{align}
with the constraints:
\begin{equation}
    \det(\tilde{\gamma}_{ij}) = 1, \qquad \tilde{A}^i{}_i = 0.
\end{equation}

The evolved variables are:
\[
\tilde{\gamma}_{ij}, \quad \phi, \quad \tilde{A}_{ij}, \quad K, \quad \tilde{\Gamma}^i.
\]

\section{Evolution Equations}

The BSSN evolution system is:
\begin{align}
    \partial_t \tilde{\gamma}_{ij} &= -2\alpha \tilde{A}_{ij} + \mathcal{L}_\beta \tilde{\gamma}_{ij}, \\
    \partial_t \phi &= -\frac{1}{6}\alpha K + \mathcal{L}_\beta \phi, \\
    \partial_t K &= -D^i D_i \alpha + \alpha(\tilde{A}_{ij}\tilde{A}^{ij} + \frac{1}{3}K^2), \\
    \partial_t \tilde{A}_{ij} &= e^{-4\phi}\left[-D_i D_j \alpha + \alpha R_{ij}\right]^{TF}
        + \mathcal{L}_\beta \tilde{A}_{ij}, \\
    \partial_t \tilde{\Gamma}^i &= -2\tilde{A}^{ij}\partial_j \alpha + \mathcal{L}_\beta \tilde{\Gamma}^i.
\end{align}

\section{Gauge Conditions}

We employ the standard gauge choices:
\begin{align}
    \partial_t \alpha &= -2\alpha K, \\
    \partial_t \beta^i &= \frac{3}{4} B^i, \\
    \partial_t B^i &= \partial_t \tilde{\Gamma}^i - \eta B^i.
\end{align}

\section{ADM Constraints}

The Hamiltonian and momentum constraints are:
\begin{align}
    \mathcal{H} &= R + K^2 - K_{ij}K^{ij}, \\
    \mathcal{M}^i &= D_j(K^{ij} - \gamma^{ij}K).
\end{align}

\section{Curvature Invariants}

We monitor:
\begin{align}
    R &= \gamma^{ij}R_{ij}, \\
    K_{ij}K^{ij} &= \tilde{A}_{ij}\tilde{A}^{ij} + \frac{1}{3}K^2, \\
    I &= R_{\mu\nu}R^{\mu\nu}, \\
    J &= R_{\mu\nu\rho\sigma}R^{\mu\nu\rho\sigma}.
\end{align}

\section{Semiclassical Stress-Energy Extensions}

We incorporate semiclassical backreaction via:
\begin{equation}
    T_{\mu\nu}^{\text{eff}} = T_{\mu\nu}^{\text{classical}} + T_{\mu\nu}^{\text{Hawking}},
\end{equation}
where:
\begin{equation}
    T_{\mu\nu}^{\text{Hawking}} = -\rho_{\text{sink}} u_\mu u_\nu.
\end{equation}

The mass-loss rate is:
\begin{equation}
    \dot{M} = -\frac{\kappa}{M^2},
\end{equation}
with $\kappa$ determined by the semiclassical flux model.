@@ -1,0 +1,85 @@
+\chapter{Mathematical Formulation}
+
+\section{Spacetime Foliation}
+
+We adopt the standard $3+1$ decomposition of spacetime, foliating the
+four-dimensional manifold $\mathcal{M}$ into spatial hypersurfaces
+$\Sigma_t$ with induced metric $\gamma_{ij}$ and extrinsic curvature
+$K_{ij}$. The spacetime metric is written as:
+\begin{equation}
+    ds^2 = -\alpha^2 dt^2 + \gamma_{ij}(dx^i + \beta^i dt)(dx^j + \beta^j dt),
+\end{equation}
+where $\alpha$ is the lapse function and $\beta^i$ is the shift vector.
+
+\section{BSSN Variables}
+
+The BSSN formulation introduces the conformal decomposition:
+\begin{align}
+    \gamma_{ij} &= e^{4\phi} \tilde{\gamma}_{ij}, \\
+    K_{ij} &= e^{4\phi} \left( \tilde{A}_{ij} + \frac{1}{3} \tilde{\gamma}_{ij} K \right),
+\end{align}
+with the constraints:
+\begin{equation}
+    \det(\tilde{\gamma}_{ij}) = 1, \qquad \tilde{A}^i{}_i = 0.
+\end{equation}
+
+The evolved variables are:
+\[
+\tilde{\gamma}_{ij}, \quad \phi, \quad \tilde{A}_{ij}, \quad K, \quad \tilde{\Gamma}^i.
+\]
+
+\section{Evolution Equations}
+
+The BSSN evolution system is:
+\begin{align}
+    \partial_t \tilde{\gamma}_{ij} &= -2\alpha \tilde{A}_{ij} + \mathcal{L}_\beta \tilde{\gamma}_{ij}, \\
+    \partial_t \phi &= -\frac{1}{6}\alpha K + \mathcal{L}_\beta \phi, \\
+    \partial_t K &= -D^i D_i \alpha + \alpha(\tilde{A}_{ij}\tilde{A}^{ij} + \frac{1}{3}K^2), \\
+    \partial_t \tilde{A}_{ij} &= e^{-4\phi}\left[-D_i D_j \alpha + \alpha R_{ij}\right]^{TF}
+        + \mathcal{L}_\beta \tilde{A}_{ij}, \\
+    \partial_t \tilde{\Gamma}^i &= -2\tilde{A}^{ij}\partial_j \alpha + \mathcal{L}_\beta \tilde{\Gamma}^i.
+\end{align}
+
+\section{Gauge Conditions}
+
+We employ the standard gauge choices:
+\begin{align}
+    \partial_t \alpha &= -2\alpha K, \\
+    \partial_t \beta^i &= \frac{3}{4} B^i, \\
+    \partial_t B^i &= \partial_t \tilde{\Gamma}^i - \eta B^i.
+\end{align}
+
+\section{ADM Constraints}
+
+The Hamiltonian and momentum constraints are:
+\begin{align}
+    \mathcal{H} &= R + K^2 - K_{ij}K^{ij}, \\
+    \mathcal{M}^i &= D_j(K^{ij} - \gamma^{ij}K).
+\end{align}
+
+\section{Curvature Invariants}
+
+We monitor:
+\begin{align}
+    R &= \gamma^{ij}R_{ij}, \\
+    K_{ij}K^{ij} &= \tilde{A}_{ij}\tilde{A}^{ij} + \frac{1}{3}K^2, \\
+    I &= R_{\mu\nu}R^{\mu\nu}, \\
+    J &= R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma}.
+\end{align}
+
+\section{Semiclassical Stress-Energy Extensions}
+
+We incorporate semiclassical backreaction via:
+\begin{equation}
+    T_{\mu\nu}^{\text{eff}} = T_{\mu\nu}^{\text{classical}} + T_{\mu\nu}^{\text{Hawking}},
+\end{equation}
+where:
+\begin{equation}
+    T_{\mu\nu}^{\text{Hawking}} = -\rho_{\text{sink}} u_\mu u_\nu.
+\end{equation}
+
+The mass-loss rate is:
+\begin{equation}
+    \dot{M} = -\frac{\kappa}{M^2},
+\end{equation}
+with $\kappa$ determined by the semiclassical flux model.
