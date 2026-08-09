@@ -1,0 +1,172 @@
+\documentclass[11pt]{article}
+
+% ------------------------------------------------------------
+% PACKAGES
+% ------------------------------------------------------------
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{authblk}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{bm}
+\usepackage{cite}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\setstretch{1.15}
+
+% ------------------------------------------------------------
+% TITLE & AUTHOR
+% ------------------------------------------------------------
+\title{\textbf{Sovereign Engine AAAHSC-9.4:\\
+Distributed Relativistic Compute Architecture, Telemetry-Driven AMR,\\
+and Capsule 3090-A Temporal Invariant Verification}}
+
+\author[1]{C. Matthew Blackwell}
+\affil[1]{Independent Systems Architect \& Designer}
+
+\date{\today}
+
+% ------------------------------------------------------------
+% HEADER / FOOTER
+% ------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Sovereign Engine AAAHSC-9.4}
+\rhead{\thepage}
+
+% ------------------------------------------------------------
+% DOCUMENT
+% ------------------------------------------------------------
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Sovereign Engine AAAHSC-9.4 is a distributed relativistic compute architecture
+designed to synchronize micro-void vacuum extraction across MPI/CUDA clusters,
+dynamically refine BSSN mesh resolution using real-time astrophysical telemetry,
+and verify the Capsule 3090-A invariant through temporal CUDA sweeps.
+This white paper formalizes the mathematical, computational, and failover
+infrastructure supporting the engine's high-availability relativistic simulation framework.
+\end{abstract}
+
+\section{Introduction}
+The Sovereign Engine AAAHSC-9.4 integrates multi-node vacuum extraction,
+telemetry-driven adaptive mesh refinement (AMR), and time-dependent invariant
+verification into a unified distributed architecture. The system is engineered
+to maintain metric continuity, horizon stability, and invariant non-negativity
+across evolving relativistic field configurations.
+
+\section{Multi-Node Vacuum Extraction Synchronization}
+To prevent spatial metric discontinuities or localized mass-energy deficits,
+the micro-void extraction rate $\frac{dM}{dt}$ is synchronized across all MPI
+ranks using non-blocking collective operations.
+
+\subsection{Flux Synchronization Model}
+Let each node compute a local flux payload:
+\[
+\bm{F}_i = 
+\begin{bmatrix}
+dM/dt \\
+E_{\text{local}} \\
+\Delta_{\text{MOTS}}
+\end{bmatrix}.
+\]
+A non-blocking reduction computes:
+\[
+\bm{F}_{\text{global}} = \sum_{i=1}^{N} \bm{F}_i.
+\]
+
+The global extraction rate is averaged:
+\[
+\left(\frac{dM}{dt}\right)_{\text{avg}} = 
+\frac{1}{N} \sum_{i=1}^{N} \left(\frac{dM}{dt}\right)_i.
+\]
+
+\subsection{MPI/CUDA Implementation}
+\begin{lstlisting}[language=C++,basicstyle=\ttfamily\small]
+MPI_Iallreduce(&send_buffer, &recv_buffer,
+               3, MPI_DOUBLE, MPI_SUM,
+               MPI_COMM_WORLD, &active_request);
+\end{lstlisting}
+
+Synchronization completes when \texttt{MPI\_Test} returns true.
+
+\section{Telemetry-Driven AMR Refinement}
+Real-time astrophysical telemetry modifies AMR thresholds dynamically.
+
+\subsection{Telemetry Inputs}
+\begin{itemize}
+    \item LIGO strain amplitude $H_+$,
+    \item NICER pulsar phase drift,
+    \item Gaia astrometric perturbation.
+\end{itemize}
+
+\subsection{Dynamic Threshold Model}
+Curvature gradient threshold:
+\[
+\tau_{\nabla R} = 
+\frac{\tau_0}{1 + H_+^{\text{norm}} + \Delta_{\text{NICER}}}.
+\]
+
+Hamiltonian constraint threshold:
+\[
+\tau_H = \frac{\tau_{H0}}{1 + H_+^{\text{norm}}}.
+\]
+
+\subsection{MOTS Proximity Lock}
+If $|r - r_{\text{MOTS}}| \le 0.05$, refinement level $L_7$ is enforced.
+
+\section{Capsule 3090-A Temporal Sweep}
+The Capsule 3090-A invariant requires non-negativity of the temporal integral:
+\[
+\mathcal{I}(t) = 
+\left(R + K^2 - K_{ij}K^{ij}\right)\sqrt{\gamma}.
+\]
+
+\subsection{CUDA Kernel}
+\begin{lstlisting}[language=C++,basicstyle=\ttfamily\small]
+double spatial_integrand =
+    (pt.R_scalar + pt.K_trace*pt.K_trace - pt.K_squared_sum)
+    * sqrt(fabs(pt.det_gamma));
+\end{lstlisting}
+
+Temporal accumulation:
+\[
+\int \mathcal{I}(t)\, dt \ge -10^{-9}.
+\]
+
+\section{Cluster Failover Infrastructure}
+A high-availability primary-secondary failover system ensures continuity.
+
+\subsection{Heartbeat Protocol}
+Primary rank emits heartbeat every 100 ms.  
+If timeout exceeds $\Delta t_{\text{fail}}$, rank 1 promotes to primary.
+
+\subsection{Checkpoint Recovery}
+Upon promotion:
+\begin{itemize}
+    \item metric grid restored,
+    \item PQC keys reloaded,
+    \item AMR state reconstructed.
+\end{itemize}
+
+\section{Conclusion}
+The Sovereign Engine AAAHSC-9.4 integrates synchronized vacuum extraction,
+telemetry-weighted AMR, invariant verification, and high-availability failover
+into a unified relativistic compute architecture. This white paper formalizes
+the mathematical and computational foundations enabling stable, distributed
+relativistic simulation at scale.
+
+\bibliographystyle{unsrt}
+\begin{thebibliography}{9}
+\bibitem{ligo} LIGO Scientific Collaboration.
+\bibitem{nicer} NICER Mission Documentation.
+\bibitem{gaia} Gaia Astrometric Survey.
+\end{thebibliography}
+
+\end{document}
