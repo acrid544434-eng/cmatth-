@@ -1,0 +1,165 @@
+\chapter{Semiclassical Hawking Backreaction}
+
+\section{Overview}
+
+The AAAHSC--9.4 architecture incorporates a semiclassical backreaction
+module designed to model horizon-scale quantum effects, specifically
+Hawking radiation and evaporative mass-loss dynamics. This module
+introduces negative-energy sinks into the stress-energy tensor and
+evolves them consistently within the BSSN $3+1$ formulation.
+
+The goal is to produce a stable, constraint-preserving implementation of
+semiclassical flux without destabilizing the strong-field evolution.
+
+\section{Semiclassical Flux Model}
+
+Hawking radiation is modeled using an effective stress-energy tensor:
+\begin{equation}
+    T_{\mu\nu}^{\text{eff}} =
+    T_{\mu\nu}^{\text{classical}} +
+    T_{\mu\nu}^{\text{Hawking}},
+\end{equation}
+where the semiclassical term is:
+\begin{equation}
+    T_{\mu\nu}^{\text{Hawking}} =
+    -\rho_{\text{sink}} u_\mu u_\nu.
+\end{equation}
+
+Here:
+\begin{itemize}
+    \item $\rho_{\text{sink}}$ is the negative-energy density,
+    \item $u_\mu$ is the four-velocity of the local Eulerian observer.
+\end{itemize}
+
+The sink magnitude is determined by:
+\begin{equation}
+    \rho_{\text{sink}} =
+    \frac{\kappa}{M^4},
+\end{equation}
+where $M$ is the instantaneous horizon mass and $\kappa$ is a calibrated
+constant derived from semiclassical flux models.
+
+\section{Mass-Loss Rate}
+
+The mass-loss rate follows the standard semiclassical scaling:
+\begin{equation}
+    \dot{M} = -\frac{\kappa}{M^2},
+\end{equation}
+with the horizon radius evolving as:
+\begin{equation}
+    R_H(t) = 2M(t).
+\end{equation}
+
+The AAAHSC--9.4 implementation ensures:
+\begin{itemize}
+    \item monotonic mass-loss,
+    \item absence of curvature blow-up,
+    \item constraint preservation,
+    \item stable horizon tracking.
+\end{itemize}
+
+\section{Integration into BSSN Evolution}
+
+The semiclassical term modifies the BSSN evolution equations via:
+\begin{align}
+    \partial_t K &\rightarrow
+    \partial_t K + 4\pi\alpha \rho_{\text{sink}}, \\
+    \partial_t \tilde{A}_{ij} &\rightarrow
+    \partial_t \tilde{A}_{ij} + \alpha S_{ij}^{\text{sink}},
+\end{align}
+where:
+\begin{equation}
+    S_{ij}^{\text{sink}} =
+    -\rho_{\text{sink}} u_i u_j.
+\end{equation}
+
+These modifications are applied only within a horizon-localized region
+defined by:
+\begin{equation}
+    \theta \le 10^{-3},
+\end{equation}
+ensuring that semiclassical effects do not propagate into the far field.
+
+\section{Negative-Energy Sink Stability}
+
+Stability requires:
+\begin{equation}
+    |\rho_{\text{sink}}| \ll \rho_{\text{classical}},
+\end{equation}
+to prevent numerical dominance.
+
+The sink is smoothed using:
+\begin{equation}
+    \rho_{\text{smooth}}(t) =
+    \int_0^t \rho_{\text{sink}}(\tau)
+    e^{-(t-\tau)/\tau_s} d\tau,
+\end{equation}
+with smoothing timescale $\tau_s$ chosen to avoid shock formation.
+
+\section{Horizon Tracking}
+
+The apparent horizon is located using the null-expansion scalar:
+\begin{equation}
+    \theta = D_i s^i + K_{ij}s^i s^j - K,
+\end{equation}
+where $s^i$ is the outward-pointing spatial normal.
+
+The horizon satisfies:
+\begin{equation}
+    \theta = 0.
+\end{equation}
+
+The AAAHSC--9.4 horizon tracker:
+\begin{itemize}
+    \item identifies MOTS surfaces,
+    \item computes horizon area $A_H$,
+    \item updates mass via $M = \sqrt{A_H / 16\pi}$,
+    \item feeds $M$ into the semiclassical flux model.
+\end{itemize}
+
+\section{Constraint Preservation}
+
+Semiclassical backreaction must preserve ADM constraints:
+\begin{equation}
+    \|\mathcal{H}\|_2, \|\mathcal{M}\|_2 \le 1.21 \times 10^{-13}.
+\end{equation}
+
+If constraints rise:
+\begin{enumerate}
+    \item sink magnitude is reduced,
+    \item smoothing timescale $\tau_s$ is increased,
+    \item local refinement is triggered,
+    \item gauge damping parameter $\eta$ is adjusted.
+\end{enumerate}
+
+This ensures that semiclassical effects do not destabilize the evolution.
+
+\section{Evaporative Dynamics}
+
+The evaporative phase is characterized by:
+\begin{equation}
+    M(t) = \left( M_0^3 - 3\kappa t \right)^{1/3},
+\end{equation}
+until the horizon approaches the Planck scale.
+
+AAAHSC--9.4 does not attempt to model trans-Planckian physics; instead,
+the simulation terminates when:
+\begin{equation}
+    M(t) \le M_{\text{cutoff}},
+\end{equation}
+with $M_{\text{cutoff}}$ chosen to avoid numerical singularities.
+
+\section{Summary}
+
+The semiclassical backreaction module provides:
+\begin{itemize}
+    \item stable Hawking flux modeling,
+    \item constraint-preserving negative-energy sinks,
+    \item horizon-localized semiclassical dynamics,
+    \item smooth evaporative mass-loss,
+    \item integration into full BSSN evolution.
+\end{itemize}
+
+This represents one of the first stable implementations of semiclassical
+backreaction within a GPU-native, AMR-driven relativistic simulation
+framework.
