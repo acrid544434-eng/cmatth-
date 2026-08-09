@@ -1,0 +1,156 @@
+\chapter{Post-Quantum Telemetry Ingestion}
+
+\section{Overview}
+
+The AAAHSC--9.4 architecture incorporates a sovereign-grade telemetry
+pipeline designed to ingest astrophysical data streams securely and
+integrate them into the relativistic evolution. This pipeline ensures
+data provenance, cryptographic integrity, and numerical stability while
+mapping observational inputs into boundary conditions and source terms.
+
+Telemetry sources include:
+\begin{itemize}
+    \item Gaia DR3 astrometric catalogs,
+    \item LIGO O4 gravitational strain time series,
+    \item auxiliary photometric, spectroscopic, and timing datasets.
+\end{itemize}
+
+All incoming data is encapsulated using lattice-based post-quantum
+cryptography (PQC) prior to ingestion.
+
+\section{Lattice-Based PQC Encapsulation}
+
+We employ a lattice-based cryptosystem of the form:
+\begin{equation}
+    C = \mathcal{E}(D, K),
+\end{equation}
+where:
+\begin{itemize}
+    \item $D$ is the raw telemetry data,
+    \item $K$ is a post-quantum public key,
+    \item $C$ is the encrypted ciphertext.
+\end{itemize}
+
+Decryption uses:
+\begin{equation}
+    D = \mathcal{D}(C, K_{\text{priv}}),
+\end{equation}
+with $K_{\text{priv}}$ stored in a secure enclave.
+
+The cryptosystem is resistant to:
+\begin{itemize}
+    \item quantum polynomial-time attacks,
+    \item lattice reduction heuristics,
+    \item side-channel leakage.
+\end{itemize}
+
+\section{Gaia DR3 Integration}
+
+Gaia DR3 provides:
+\begin{itemize}
+    \item stellar positions $(\alpha, \delta)$,
+    \item parallaxes $\pi$,
+    \item proper motions $(\mu_\alpha, \mu_\delta)$,
+    \item radial velocities $v_r$,
+    \item photometric magnitudes.
+\end{itemize}
+
+These quantities are mapped into boundary conditions via:
+\begin{equation}
+    \mathcal{B}_{\text{Gaia}}(x) =
+    f(\alpha, \delta, \pi, \mu_\alpha, \mu_\delta, v_r),
+\end{equation}
+where $f$ constructs a local curvature perturbation model consistent with
+observational constraints.
+
+\section{LIGO O4 Integration}
+
+LIGO O4 strain data $h(t)$ is encapsulated and injected as:
+\begin{equation}
+    \Delta \gamma_{ij}(t) = A_{ij} h(t),
+\end{equation}
+where $A_{ij}$ is a polarization tensor derived from detector geometry.
+
+The strain is decomposed into:
+\begin{equation}
+    h(t) = h_+(t) e_+ + h_\times(t) e_\times,
+\end{equation}
+and mapped into the BSSN variables via:
+\begin{align}
+    \tilde{\gamma}_{ij} &\rightarrow \tilde{\gamma}_{ij} + \Delta \gamma_{ij}, \\
+    K &\rightarrow K + \Delta K(h), \\
+    \tilde{A}_{ij} &\rightarrow \tilde{A}_{ij} + \Delta \tilde{A}_{ij}(h).
+\end{align}
+
+\section{Telemetry Buffering and Verification}
+
+Incoming telemetry is buffered in PQC-secured memory regions. Each packet
+undergoes:
+
+\begin{enumerate}
+    \item signature verification,
+    \item timestamp validation,
+    \item provenance confirmation,
+    \item numerical consistency checks.
+\end{enumerate}
+
+Packets failing verification are discarded without affecting the
+simulation.
+
+\section{Mapping Telemetry to Boundary Conditions}
+
+Boundary conditions are updated using:
+\begin{equation}
+    Q_{\text{boundary}}(t) =
+    Q_{\text{baseline}}(t) + \Delta Q_{\text{telemetry}}(t),
+\end{equation}
+where:
+\begin{itemize}
+    \item $Q_{\text{baseline}}$ is the unperturbed manifold,
+    \item $\Delta Q_{\text{telemetry}}$ is the observational correction.
+\end{itemize}
+
+Corrections are applied gradually using:
+\begin{equation}
+    \Delta Q_{\text{smooth}}(t) =
+    \int_0^t \Delta Q_{\text{telemetry}}(\tau)
+    e^{-(t-\tau)/\tau_s} d\tau,
+\end{equation}
+with smoothing timescale $\tau_s$ preventing numerical shock.
+
+\section{Constraint-Safe Telemetry Injection}
+
+Telemetry injection must preserve ADM constraints. We enforce:
+\begin{equation}
+    \|\mathcal{H}\|_2, \|\mathcal{M}\|_2 \le 1.21 \times 10^{-13},
+\end{equation}
+after each injection step.
+
+If constraints rise above threshold:
+\begin{enumerate}
+    \item injection rate is reduced,
+    \item gauge damping is increased,
+    \item local refinement is triggered,
+    \item smoothing timescale $\tau_s$ is increased.
+\end{enumerate}
+
+This ensures that observational data does not destabilize the evolution.
+
+\section{Telemetry-Driven Manifold Evolution}
+
+The final manifold evolution is:
+\begin{equation}
+    \mathcal{M}(t) =
+    \mathcal{M}_0(t) +
+    \mathcal{M}_{\text{Gaia}}(t) +
+    \mathcal{M}_{\text{LIGO}}(t),
+\end{equation}
+where:
+\begin{itemize}
+    \item $\mathcal{M}_0$ is the baseline BSSN evolution,
+    \item $\mathcal{M}_{\text{Gaia}}$ is the astrometric correction,
+    \item $\mathcal{M}_{\text{LIGO}}$ is the strain-driven correction.
+\end{itemize}
+
+This produces a real-time, observationally anchored relativistic
+simulation.
