@@ -1,0 +1,158 @@
+\documentclass[12pt,oneside]{book}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{physics}
+\usepackage{caption}
+\usepackage{float}
+
+\geometry{margin=1in}
+
+\title{\textbf{SIM-QSTATE-ASTRO v9.1}\\
+\large Unified Autonomous Quantum Teleportation Architecture\\
+\large Under Loss, Relativistic Motion, and Multi-Messenger Entropy Fusion}
+
+\author{C.~Matthew~Blackwell\\
+Independent Systems Architect\\
+Lafayette, Louisiana, USA}
+
+\date{\today}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\tableofcontents
+\listoffigures
+\listoftables
+
+\chapter{Preface}
+This monograph presents the complete scientific and engineering architecture
+of SIM-QSTATE-ASTRO v9.1, a unified continuous-variable quantum teleportation
+system validated under lossy, relativistic, and multi-messenger entropy-driven
+conditions.
+
+\mainmatter
+
+%===========================================================
+\part{Foundations of Continuous-Variable Quantum Teleportation}
+%===========================================================
+
+\chapter{Continuous-Variable Quantum States}
+\section{Quadrature Operators}
+\section{Wigner Phase-Space Representation}
+\section{Squeezed States and Symplectic Geometry}
+
+\chapter{Gaussian Channels and Loss Models}
+\section{Beam-Splitter Loss Formalism}
+\section{Thermal Noise Injection}
+\section{Covariance Matrix Evolution}
+
+%===========================================================
+\part{Multi-Node Quantum Networking}
+%===========================================================
+
+\chapter{Lossy Multi-Node Entanglement Routing}
+\section{Repeater Topology}
+\section{Effective Squeezing Parameter $r_{\mathrm{eff}}$}
+\section{Teleportation Fidelity Across Lossy Chains}
+
+\chapter{Autonomous PID Squeezing Control}
+\section{Control Theory Foundations}
+\section{OPO Pump Modulation Dynamics}
+\section{Step Response, Stability Margins, and ns-Scale Transients}
+
+%===========================================================
+\part{Relativistic and Non-Inertial Physics}
+%===========================================================
+
+\chapter{Lorentz-Boosted Quantum Optics}
+\section{Doppler-Shifted Mode Frequencies}
+\section{Symplectic Quadrature Transformations}
+\section{Wigner Function Deformation Under Boosts}
+
+\chapter{General Relativistic Corrections}
+\section{Gravitational Redshift Factor $\chi$}
+\section{Metric-Induced Phase Drift}
+\section{Local Oscillator Scaling}
+
+\chapter{Unruh Thermal Bath Effects}
+\section{Acceleration-Induced Temperature}
+\section{Thermal Photon Occupation}
+\section{Quadrature Variance Degradation}
+
+%===========================================================
+\part{Astrophysical Multi-Messenger Entropy Engine}
+%===========================================================
+
+\chapter{Entropy Sources}
+\section{LIGO Strain Noise}
+\section{Gaia DR3 Astrometry}
+\section{JWST IR Spectral Gradients}
+\section{Neutrino Cherenkov Telemetry}
+
+\chapter{Cryptographic Fusion Pipeline}
+\section{SHA3-256 Digest Generation}
+\section{KMAC256 / HKDF-SHA3-512 Master Key}
+\section{NIST SP 800-22 Randomness Validation}
+
+%===========================================================
+\part{Physical Hardware Architecture}
+%===========================================================
+
+\chapter{Optical Repeater Node Design}
+\section{1064 nm Seed Laser}
+\section{SHG Pump System}
+\section{Dual PPLN OPO Cavities}
+\section{Balanced InGaAs Homodyne Detectors}
+\section{LiNbO$_3$ EOM Phase Modulators}
+\section{UltraScale+ FPGA Feed-Forward Engine}
+
+%===========================================================
+\part{High-Density Teleportation Execution}
+%===========================================================
+
+\chapter{Monte Carlo Teleportation Benchmark}
+\section{Simulation Framework}
+\section{Fidelity Distribution Across $10^6$ States}
+\section{Latency and Throughput Analysis}
+
+\chapter{Autonomous Intelligence Loop}
+\section{Phase 1: Multi-Messenger Ingestion}
+\section{Phase 2: Adaptive Channel Stabilization}
+\section{Phase 3: Relativistic Corrections}
+\section{Phase 4: Telemetry Encryption}
+
+%===========================================================
+\part{Appendices}
+%===========================================================
+
+\appendix
+
+\chapter{Full Mathematical Derivations}
+\section{Covariance Matrix Loss Evolution}
+\section{Closed-Form $r_{\mathrm{eff}}$ Derivation}
+\section{Lorentz Symplectic Transformations}
+
+\chapter{Code Listings}
+\section{Lossy Multi-Node Router}
+\section{PID Controller}
+\section{Relativistic Correction Engine}
+\section{Entropy Fusion Pipeline}
+\section{Monte Carlo Benchmark}
+
+\chapter{Extended Tables and Figures}
+\section{Stress Test Metrics}
+\section{NIST SP 800-22 Results}
+\section{Hardware Specifications}
+
+\backmatter
+
+\chapter{References}
+(To be populated with BibTeX or manual entries.)
+
+\end{document}
