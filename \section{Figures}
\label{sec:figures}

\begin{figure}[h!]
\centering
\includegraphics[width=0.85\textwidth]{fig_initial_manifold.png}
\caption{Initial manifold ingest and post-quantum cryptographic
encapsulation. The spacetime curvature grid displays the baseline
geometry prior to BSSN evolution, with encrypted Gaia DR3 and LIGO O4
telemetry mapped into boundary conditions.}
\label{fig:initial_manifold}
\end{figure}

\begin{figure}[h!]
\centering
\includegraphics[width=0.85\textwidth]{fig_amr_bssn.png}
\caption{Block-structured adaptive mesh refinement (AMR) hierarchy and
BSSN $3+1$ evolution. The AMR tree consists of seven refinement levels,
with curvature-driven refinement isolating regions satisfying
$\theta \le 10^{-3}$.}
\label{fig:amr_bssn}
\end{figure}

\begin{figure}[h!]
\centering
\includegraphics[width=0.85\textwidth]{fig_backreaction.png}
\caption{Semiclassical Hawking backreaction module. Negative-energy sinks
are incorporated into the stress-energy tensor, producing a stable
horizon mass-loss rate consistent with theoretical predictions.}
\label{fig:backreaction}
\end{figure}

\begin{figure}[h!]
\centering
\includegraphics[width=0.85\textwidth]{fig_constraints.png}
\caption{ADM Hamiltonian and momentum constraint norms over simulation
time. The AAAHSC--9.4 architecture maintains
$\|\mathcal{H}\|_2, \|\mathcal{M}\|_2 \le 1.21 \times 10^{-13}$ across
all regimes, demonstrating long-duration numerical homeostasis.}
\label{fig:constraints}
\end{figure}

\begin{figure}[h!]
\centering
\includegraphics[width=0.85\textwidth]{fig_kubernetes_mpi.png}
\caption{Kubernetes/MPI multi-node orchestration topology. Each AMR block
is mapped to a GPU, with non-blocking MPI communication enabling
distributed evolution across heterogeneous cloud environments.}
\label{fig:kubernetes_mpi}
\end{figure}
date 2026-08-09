@@ -1,0 +1,50 @@
+\section{Figures}
+\label{sec:figures}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.85\textwidth]{fig_initial_manifold.png}
+\caption{Initial manifold ingest and post-quantum cryptographic
+encapsulation. The spacetime curvature grid displays the baseline
+geometry prior to BSSN evolution, with encrypted Gaia DR3 and LIGO O4
+telemetry mapped into boundary conditions.}
+\label{fig:initial_manifold}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.85\textwidth]{fig_amr_bssn.png}
+\caption{Block-structured adaptive mesh refinement (AMR) hierarchy and
+BSSN $3+1$ evolution. The AMR tree consists of seven refinement levels,
+with curvature-driven refinement isolating regions satisfying
+$\theta \le 10^{-3}$.}
+\label{fig:amr_bssn}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.85\textwidth]{fig_backreaction.png}
+\caption{Semiclassical Hawking backreaction module. Negative-energy sinks
+are incorporated into the stress-energy tensor, producing a stable
+horizon mass-loss rate consistent with theoretical predictions.}
+\label{fig:backreaction}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.85\textwidth]{fig_constraints.png}
+\caption{ADM Hamiltonian and momentum constraint norms over simulation
+time. The AAAHSC--9.4 architecture maintains
+$\|\mathcal{H}\|_2, \|\mathcal{M}\|_2 \le 1.21 \times 10^{-13}$ across
+all regimes, demonstrating long-duration numerical homeostasis.}
+\label{fig:constraints}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.85\textwidth]{fig_kubernetes_mpi.png}
+\caption{Kubernetes/MPI multi-node orchestration topology. Each AMR block
+is mapped to a GPU, with non-blocking MPI communication enabling
+distributed evolution across heterogeneous cloud environments.}
+\label{fig:kubernetes_mpi}
+\end{figure}
