@@ -1,0 +1,11 @@
+White Paper Overview: SIE-ASTRO v4.0
+ * Title: SIE-ASTRO v4.0: Autonomous Magnetohydrodynamic Plasma & Post-Quantum Cryptographic Simulation Engine
+ * Author / Architect: C. Matthew Blackwell (Independent Systems Architect & Designer, Lafayette, Louisiana, USA)
+ * Document Type: Formal Two-Column LaTeX Scientific White Paper
+ * Document Sections Included:
+   * Abstract: High-level summary of hybrid kinetic-MHD plasma modeling and post-quantum encrypted dataset ingestion.
+   * Governing Mathematical Physics: Exact LaTeX mathematical formulations for Vlasov-Maxwell kinetics, drifting neutral atom Boltzmann transport, and extended resistive Hall MHD field evolution.
+   * Cryptographic Ingestion Architecture: Post-quantum CRYSTALS-Kyber-1024 key encapsulation combined with AES-256-GCM symmetric decryption and HMAC-SHA512 stream integrity verification.
+   * C++ Implementation & Data Structures: Vector-aligned data structures (alignas(16) Particle) and OpenMP-parallelized kinetic particle pusher code listing.
+   * Verification & Numerical Results: Comparative diagnostic table validating machine-precision divergence bounds (\nabla \cdot \mathbf{B} \le 1.42 \times 10^{-15}), energy drift bounds (\le 8.91 \times 10^{-7}), and 250 Gbps crypto throughput.
+   * Conclusion & Future Directions: Application pathways for tokamak disruption control, active magnetospheric shielding, and deep-space telemetry nodes.
