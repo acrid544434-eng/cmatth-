@@ -1,0 +1,174 @@
+\chapter{Patent Claims}
+
+\section*{Overview}
+\addcontentsline{toc}{section}{Overview}
+
+This appendix contains the formal patent-style claims associated with the
+AAAHSC--9.4 architecture. These claims describe the sovereign-grade
+computational, cryptographic, semiclassical, and distributed orchestration
+mechanisms that constitute the invention. The structure follows
+international patent conventions, including independent and dependent
+claims.
+
+\section{Independent Claims}
+
+\subsection*{Claim 1: Unified Relativistic Simulation Architecture}
+
+A sovereign-grade relativistic simulation architecture comprising:
+
+\begin{enumerate}
+    \item a GPU-resident adaptive mesh refinement (AMR) subsystem
+    configured to perform curvature-driven refinement using a null-expansion
+    threshold $\theta \le 10^{-3}$;
+
+    \item a BSSN $3+1$ spacetime evolution engine employing fourth-order
+    finite differences and fourth-order Runge--Kutta integration;
+
+    \item a constraint homeostasis controller configured to maintain ADM
+    Hamiltonian and momentum constraint norms at or below
+    $1.21 \times 10^{-13}$;
+
+    \item a semiclassical Hawking backreaction module incorporating
+    negative-energy sinks into the stress-energy tensor;
+
+    \item a post-quantum cryptographic (PQC) telemetry ingestion pipeline
+    configured to securely ingest Gaia DR3 and LIGO O4 data streams;
+
+    \item a Kubernetes/MPI distributed orchestration layer configured to
+    provide elastic scaling, fault tolerance, and multi-node GPU
+    deployment;
+
+    \item wherein all subsystems operate in unified coordination to
+    produce a stable, observationally anchored relativistic simulation.
+\end{enumerate}
+
+\subsection*{Claim 2: GPU-Resident AMR Boundary Kernels}
+
+A GPU-native AMR boundary subsystem comprising:
+
+\begin{enumerate}
+    \item a prolongation kernel configured to interpolate coarse-level
+    data to fine-level grids;
+
+    \item a restriction kernel configured to average fine-level data to
+    coarse-level grids;
+
+    \item a flux synchronization kernel configured to enforce conservation
+    across refinement boundaries;
+
+    \item wherein all kernels operate entirely on GPU hardware without
+    CPU-side refinement logic.
+\end{enumerate}
+
+\subsection*{Claim 3: Semiclassical Backreaction Stability Mechanism}
+
+A semiclassical backreaction mechanism comprising:
+
+\begin{enumerate}
+    \item a negative-energy sink model defined by
+    $T_{\mu\nu}^{\text{Hawking}} = -\rho_{\text{sink}} u_\mu u_\nu$;
+
+    \item a mass-loss rate defined by $\dot{M} = -\kappa/M^2$;
+
+    \item a smoothing kernel configured to prevent numerical shock;
+
+    \item a horizon tracker configured to maintain MOTS detection and
+    compute horizon radius $R_H(t) = 2M(t)$;
+
+    \item wherein the mechanism preserves ADM constraints during
+    evaporative evolution.
+\end{enumerate}
+
+\subsection*{Claim 4: PQC-Secured Telemetry Ingestion}
+
+A telemetry ingestion pipeline comprising:
+
+\begin{enumerate}
+    \item a lattice-based PQC encryption subsystem configured to secure
+    incoming astrophysical data;
+
+    \item a decryption subsystem operating within a secure enclave;
+
+    \item a verification subsystem configured to validate signatures,
+    timestamps, provenance, and numerical consistency;
+
+    \item a boundary condition mapping subsystem configured to integrate
+    telemetry into BSSN evolution;
+
+    \item wherein telemetry injection preserves ADM constraints.
+\end{enumerate}
+
+\subsection*{Claim 5: Distributed Orchestration Framework}
+
+A distributed orchestration framework comprising:
+
+\begin{enumerate}
+    \item MPI domain decomposition configured to partition AMR blocks;
+
+    \item non-blocking MPI communication configured to overlap
+    computation and communication;
+
+    \item Kubernetes pod scheduling configured to provide elastic scaling
+    and fault tolerance;
+
+    \item GPU affinity placement configured to map AMR blocks to GPUs;
+
+    \item wherein the framework enables exascale relativistic simulation.
+\end{enumerate}
+
+\section{Dependent Claims}
+
+\subsection*{Claim 6: Refinement Triggering}
+
+The architecture of Claim 1, wherein refinement is triggered by curvature
+criteria:
+\begin{equation}
+    \mathcal{C}(x) = |R(x)| + |K(x)|.
+\end{equation}
+
+\subsection*{Claim 7: Constraint Homeostasis}
+
+The architecture of Claim 1, wherein the constraint homeostasis
+controller adjusts:
+
+\begin{itemize}
+    \item gauge damping parameter $\eta$,
+    \item timestep $\Delta t$,
+    \item local refinement levels,
+    \item dissipation filters,
+\end{itemize}
+
+to maintain constraint norms within threshold.
+
+\subsection*{Claim 8: Telemetry Smoothing}
+
+The architecture of Claim 4, wherein telemetry corrections are smoothed
+using:
+\begin{equation}
+    \Delta Q_{\text{smooth}}(t) =
+    \int_0^t \Delta Q_{\text{telemetry}}(\tau)
+    e^{-(t-\tau)/\tau_s} d\tau.
+\end{equation}
+
+\subsection*{Claim 9: Horizon Localization}
+
+The architecture of Claim 3, wherein horizon localization uses the
+null-expansion scalar:
+\begin{equation}
+    \theta = D_i s^i + K_{ij}s^i s^j - K.
+\end{equation}
+
+\subsection*{Claim 10: Elastic Scaling}
+
+The architecture of Claim 5, wherein Kubernetes automatically launches
+additional pods when:
+\begin{equation}
+    N_{\text{blocks}}(t+\Delta t) > N_{\text{blocks}}(t).
+\end{equation}
+
+\section{Summary}
+
+These claims define the sovereign-grade computational, cryptographic,
+semiclassical, and distributed orchestration mechanisms that constitute
+the AAAHSC--9.4 architecture. They establish the invention as a unified,
+secure, GPU-native relativistic simulation instrument.
