@@ -1,0 +1,48 @@
+\section{Methods}
+\subsection{Hybrid Compute Fabric Scheduling}
+SASA-v9.0 employs a deterministic scheduling model in which each compute pillar
+executes a specialized subset of the relativistic tensor evolution pipeline.
+Let $\mathcal{C}_{\text{GPU}}$, $\mathcal{C}_{\text{WSE}}$, and
+$\mathcal{C}_{\text{Q}}$ denote the GPU, wafer-scale, and quantum subsystems,
+respectively. The global scheduler enforces:
+
+\[
+\mathcal{S}(t) = \{\mathcal{C}_{\text{GPU}}(t),\,
+\mathcal{C}_{\text{WSE}}(t),\,
+\mathcal{C}_{\text{Q}}(t)\}
+\]
+
+subject to the coherence constraint:
+
+\[
+\left| t_{\text{GPU}} - t_{\text{Q}} \right| \leq 42\ \text{fs}.
+\]
+
+\subsection{Tensor Evolution Pipeline}
+The relativistic evolution pipeline is decomposed into:
+\begin{enumerate}
+    \item Metric update
+    \item Extrinsic curvature update
+    \item Constraint enforcement
+    \item Shock-front refinement
+\end{enumerate}
+
+Each stage is mapped to the subsystem with optimal throughput. For example,
+wafer-scale PDE sweeps execute:
+
+\[
+\partial_t \phi = -\frac{1}{6}\alpha K + \beta^i \partial_i \phi
+\]
+
+across 900k parallel cores.
+
+\subsection{Quantum-Timed Synchronization}
+The DOCCF timing fabric distributes optical clock pulses across all nodes.
+Let $\tau_i$ denote the local clock phase of node $i$. DOCCF enforces:
+
+\[
+\tau_i - \tau_j = \epsilon_{ij}, \qquad |\epsilon_{ij}| \leq 42\ \text{fs}.
+\]
+
+This ensures deterministic ordering of tensor updates across heterogeneous
+compute domains.
