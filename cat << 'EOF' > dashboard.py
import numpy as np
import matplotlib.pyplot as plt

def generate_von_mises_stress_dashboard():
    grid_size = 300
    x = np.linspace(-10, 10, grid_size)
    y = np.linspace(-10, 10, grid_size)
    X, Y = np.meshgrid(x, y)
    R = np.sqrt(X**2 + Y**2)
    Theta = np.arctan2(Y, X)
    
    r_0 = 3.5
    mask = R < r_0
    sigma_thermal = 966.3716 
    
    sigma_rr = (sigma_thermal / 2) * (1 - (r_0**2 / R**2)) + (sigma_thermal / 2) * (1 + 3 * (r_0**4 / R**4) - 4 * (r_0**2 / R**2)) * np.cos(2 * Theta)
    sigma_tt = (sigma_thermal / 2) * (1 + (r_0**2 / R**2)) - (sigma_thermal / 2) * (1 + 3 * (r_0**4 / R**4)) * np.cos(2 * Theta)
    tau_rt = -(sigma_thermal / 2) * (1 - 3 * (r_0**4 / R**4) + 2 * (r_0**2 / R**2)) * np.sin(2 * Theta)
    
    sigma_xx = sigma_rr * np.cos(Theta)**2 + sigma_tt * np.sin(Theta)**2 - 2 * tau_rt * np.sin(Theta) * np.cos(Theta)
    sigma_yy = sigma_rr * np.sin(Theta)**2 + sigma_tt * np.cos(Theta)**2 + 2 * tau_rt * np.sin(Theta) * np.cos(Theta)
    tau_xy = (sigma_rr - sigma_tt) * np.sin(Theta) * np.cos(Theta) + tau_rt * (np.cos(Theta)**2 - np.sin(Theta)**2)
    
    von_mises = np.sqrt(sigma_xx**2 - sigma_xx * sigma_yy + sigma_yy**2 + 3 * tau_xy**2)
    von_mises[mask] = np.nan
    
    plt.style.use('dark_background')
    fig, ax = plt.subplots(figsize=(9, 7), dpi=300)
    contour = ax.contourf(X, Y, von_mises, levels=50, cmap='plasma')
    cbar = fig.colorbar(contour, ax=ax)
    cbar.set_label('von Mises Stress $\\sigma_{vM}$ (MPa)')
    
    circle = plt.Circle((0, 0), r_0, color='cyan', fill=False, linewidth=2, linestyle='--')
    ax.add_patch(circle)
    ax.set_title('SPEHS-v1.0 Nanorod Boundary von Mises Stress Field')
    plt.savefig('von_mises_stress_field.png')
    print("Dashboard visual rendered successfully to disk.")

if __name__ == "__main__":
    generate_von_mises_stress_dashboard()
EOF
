@@ -1,0 +1,42 @@
+cat << 'EOF' > dashboard.py
+import numpy as np
+import matplotlib.pyplot as plt
+
+def generate_von_mises_stress_dashboard():
+    grid_size = 300
+    x = np.linspace(-10, 10, grid_size)
+    y = np.linspace(-10, 10, grid_size)
+    X, Y = np.meshgrid(x, y)
+    R = np.sqrt(X**2 + Y**2)
+    Theta = np.arctan2(Y, X)
+    
+    r_0 = 3.5
+    mask = R < r_0
+    sigma_thermal = 966.3716 
+    
+    sigma_rr = (sigma_thermal / 2) * (1 - (r_0**2 / R**2)) + (sigma_thermal / 2) * (1 + 3 * (r_0**4 / R**4) - 4 * (r_0**2 / R**2)) * np.cos(2 * Theta)
+    sigma_tt = (sigma_thermal / 2) * (1 + (r_0**2 / R**2)) - (sigma_thermal / 2) * (1 + 3 * (r_0**4 / R**4)) * np.cos(2 * Theta)
+    tau_rt = -(sigma_thermal / 2) * (1 - 3 * (r_0**4 / R**4) + 2 * (r_0**2 / R**2)) * np.sin(2 * Theta)
+    
+    sigma_xx = sigma_rr * np.cos(Theta)**2 + sigma_tt * np.sin(Theta)**2 - 2 * tau_rt * np.sin(Theta) * np.cos(Theta)
+    sigma_yy = sigma_rr * np.sin(Theta)**2 + sigma_tt * np.cos(Theta)**2 + 2 * tau_rt * np.sin(Theta) * np.cos(Theta)
+    tau_xy = (sigma_rr - sigma_tt) * np.sin(Theta) * np.cos(Theta) + tau_rt * (np.cos(Theta)**2 - np.sin(Theta)**2)
+    
+    von_mises = np.sqrt(sigma_xx**2 - sigma_xx * sigma_yy + sigma_yy**2 + 3 * tau_xy**2)
+    von_mises[mask] = np.nan
+    
+    plt.style.use('dark_background')
+    fig, ax = plt.subplots(figsize=(9, 7), dpi=300)
+    contour = ax.contourf(X, Y, von_mises, levels=50, cmap='plasma')
+    cbar = fig.colorbar(contour, ax=ax)
+    cbar.set_label('von Mises Stress $\\sigma_{vM}$ (MPa)')
+    
+    circle = plt.Circle((0, 0), r_0, color='cyan', fill=False, linewidth=2, linestyle='--')
+    ax.add_patch(circle)
+    ax.set_title('SPEHS-v1.0 Nanorod Boundary von Mises Stress Field')
+    plt.savefig('von_mises_stress_field.png')
+    print("Dashboard visual rendered successfully to disk.")
+
+if __name__ == "__main__":
+    generate_von_mises_stress_dashboard()
+EOF
