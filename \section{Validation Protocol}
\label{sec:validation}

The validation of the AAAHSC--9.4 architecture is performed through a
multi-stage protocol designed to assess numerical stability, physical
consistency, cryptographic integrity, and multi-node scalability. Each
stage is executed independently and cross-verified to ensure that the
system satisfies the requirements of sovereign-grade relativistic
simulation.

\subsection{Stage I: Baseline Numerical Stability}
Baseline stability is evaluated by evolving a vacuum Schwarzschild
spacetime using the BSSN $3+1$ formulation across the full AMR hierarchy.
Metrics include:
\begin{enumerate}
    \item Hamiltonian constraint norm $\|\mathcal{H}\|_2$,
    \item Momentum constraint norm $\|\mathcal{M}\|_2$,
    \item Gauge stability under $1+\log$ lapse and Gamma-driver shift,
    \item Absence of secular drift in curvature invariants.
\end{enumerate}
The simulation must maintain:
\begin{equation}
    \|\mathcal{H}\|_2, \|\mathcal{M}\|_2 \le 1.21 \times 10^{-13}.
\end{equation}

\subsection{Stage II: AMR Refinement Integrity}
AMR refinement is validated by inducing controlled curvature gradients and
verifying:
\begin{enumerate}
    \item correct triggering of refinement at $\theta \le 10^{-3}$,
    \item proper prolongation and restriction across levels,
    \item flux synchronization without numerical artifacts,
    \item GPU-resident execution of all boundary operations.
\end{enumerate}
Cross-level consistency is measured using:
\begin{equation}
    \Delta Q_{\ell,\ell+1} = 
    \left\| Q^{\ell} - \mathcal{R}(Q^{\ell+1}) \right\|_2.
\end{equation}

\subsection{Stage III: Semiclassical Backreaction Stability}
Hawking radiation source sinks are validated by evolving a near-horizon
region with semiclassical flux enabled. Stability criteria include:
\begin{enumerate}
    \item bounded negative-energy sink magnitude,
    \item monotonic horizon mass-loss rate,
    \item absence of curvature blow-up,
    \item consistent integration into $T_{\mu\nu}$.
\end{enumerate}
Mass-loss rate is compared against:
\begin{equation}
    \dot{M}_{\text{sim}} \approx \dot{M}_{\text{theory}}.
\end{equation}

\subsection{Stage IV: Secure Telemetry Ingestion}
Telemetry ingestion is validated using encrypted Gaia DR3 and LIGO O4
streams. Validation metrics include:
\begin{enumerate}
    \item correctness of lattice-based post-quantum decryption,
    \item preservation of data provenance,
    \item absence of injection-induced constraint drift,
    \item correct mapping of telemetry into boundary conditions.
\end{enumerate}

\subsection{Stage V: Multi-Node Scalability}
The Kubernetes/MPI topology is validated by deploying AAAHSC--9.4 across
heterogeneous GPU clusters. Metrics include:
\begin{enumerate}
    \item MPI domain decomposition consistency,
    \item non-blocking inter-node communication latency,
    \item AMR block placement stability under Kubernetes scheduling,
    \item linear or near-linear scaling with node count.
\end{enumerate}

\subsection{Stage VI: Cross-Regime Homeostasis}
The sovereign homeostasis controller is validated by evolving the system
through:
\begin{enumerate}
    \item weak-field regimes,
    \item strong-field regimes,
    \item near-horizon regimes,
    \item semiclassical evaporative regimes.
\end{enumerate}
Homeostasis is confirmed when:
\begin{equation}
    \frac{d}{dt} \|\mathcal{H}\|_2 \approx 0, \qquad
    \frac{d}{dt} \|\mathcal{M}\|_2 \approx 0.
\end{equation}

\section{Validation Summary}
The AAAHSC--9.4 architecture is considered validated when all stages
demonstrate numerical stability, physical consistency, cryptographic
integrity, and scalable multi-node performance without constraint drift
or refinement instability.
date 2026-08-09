@@ -1,0 +1,94 @@
+\section{Validation Protocol}
+\label{sec:validation}
+
+The validation of the AAAHSC--9.4 architecture is performed through a
+multi-stage protocol designed to assess numerical stability, physical
+consistency, cryptographic integrity, and multi-node scalability. Each
+stage is executed independently and cross-verified to ensure that the
+system satisfies the requirements of sovereign-grade relativistic
+simulation.
+
+\subsection{Stage I: Baseline Numerical Stability}
+Baseline stability is evaluated by evolving a vacuum Schwarzschild
+spacetime using the BSSN $3+1$ formulation across the full AMR hierarchy.
+Metrics include:
+\begin{enumerate}
+    \item Hamiltonian constraint norm $\|\mathcal{H}\|_2$,
+    \item Momentum constraint norm $\|\mathcal{M}\|_2$,
+    \item Gauge stability under $1+\log$ lapse and Gamma-driver shift,
+    \item Absence of secular drift in curvature invariants.
+\end{enumerate}
+The simulation must maintain:
+\begin{equation}
+    \|\mathcal{H}\|_2, \|\mathcal{M}\|_2 \le 1.21 \times 10^{-13}.
+\end{equation}
+
+\subsection{Stage II: AMR Refinement Integrity}
+AMR refinement is validated by inducing controlled curvature gradients and
+verifying:
+\begin{enumerate}
+    \item correct triggering of refinement at $\theta \le 10^{-3}$,
+    \item proper prolongation and restriction across levels,
+    \item flux synchronization without numerical artifacts,
+    \item GPU-resident execution of all boundary operations.
+\end{enumerate}
+Cross-level consistency is measured using:
+\begin{equation}
+    \Delta Q_{\ell,\ell+1} = 
+    \left\| Q^{\ell} - \mathcal{R}(Q^{\ell+1}) \right\|_2.
+\end{equation}
+
+\subsection{Stage III: Semiclassical Backreaction Stability}
+Hawking radiation source sinks are validated by evolving a near-horizon
+region with semiclassical flux enabled. Stability criteria include:
+\begin{enumerate}
+    \item bounded negative-energy sink magnitude,
+    \item monotonic horizon mass-loss rate,
+    \item absence of curvature blow-up,
+    \item consistent integration into $T_{\mu\nu}$.
+\end{enumerate}
+Mass-loss rate is compared against:
+\begin{equation}
+    \dot{M}_{\text{sim}} \approx \dot{M}_{\text{theory}}.
+\end{equation}
+
+\subsection{Stage IV: Secure Telemetry Ingestion}
+Telemetry ingestion is validated using encrypted Gaia DR3 and LIGO O4
+streams. Validation metrics include:
+\begin{enumerate}
+    \item correctness of lattice-based post-quantum decryption,
+    \item preservation of data provenance,
+    \item absence of injection-induced constraint drift,
+    \item correct mapping of telemetry into boundary conditions.
+\end{enumerate}
+
+\subsection{Stage V: Multi-Node Scalability}
+The Kubernetes/MPI topology is validated by deploying AAAHSC--9.4 across
+heterogeneous GPU clusters. Metrics include:
+\begin{enumerate}
+    \item MPI domain decomposition consistency,
+    \item non-blocking inter-node communication latency,
+    \item AMR block placement stability under Kubernetes scheduling,
+    \item linear or near-linear scaling with node count.
+\end{enumerate}
+
+\subsection{Stage VI: Cross-Regime Homeostasis}
+The sovereign homeostasis controller is validated by evolving the system
+through:
+\begin{enumerate}
+    \item weak-field regimes,
+    \item strong-field regimes,
+    \item near-horizon regimes,
+    \item semiclassical evaporative regimes.
+\end{enumerate}
+Homeostasis is confirmed when:
+\begin{equation}
+    \frac{d}{dt} \|\mathcal{H}\|_2 \approx 0, \qquad
+    \frac{d}{dt} \|\mathcal{M}\|_2 \approx 0.
+\end{equation}
+
+\section{Validation Summary}
+The AAAHSC--9.4 architecture is considered validated when all stages
+demonstrate numerical stability, physical consistency, cryptographic
+integrity, and scalable multi-node performance without constraint drift
+or refinement instability.
