@@ -1,0 +1,168 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{cite}
+\usepackage{setspace}
+\usepackage{titlesec}
+
+\geometry{margin=1in}
+\setstretch{1.25}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{SIE-ASTRO v4.0: A Relativistic Electromagnetic Particle Framework Implemented in C++20 with Constrained Transport and AES-256-GCM Secure Diagnostics}}
+\author{C.~Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This manuscript presents the mathematical foundations, numerical architecture, and computational performance of the SIE-ASTRO v4.0 relativistic electromagnetic particle engine. 
+The system integrates a fully parallelized relativistic Boris integrator, a constrained-transport Maxwell solver on a staggered Yee mesh, and an AES-256-GCM cryptographic ingestion pipeline. 
+The implementation is written in C++20 and leverages OpenMP for shared-memory parallelism and OpenSSL for authenticated encryption. 
+The goal of this work is to provide a rigorous academic exposition of the numerical methods and software design principles underlying the SIE-ASTRO v4.0 framework.
+\end{abstract}
+
+\section{Introduction}
+Relativistic plasma simulation requires numerical schemes capable of evolving charged particles under electromagnetic fields while preserving divergence constraints and ensuring long-term stability. 
+The SIE-ASTRO v4.0 engine is designed as a production-grade computational framework for such simulations, integrating modern C++20 features with high-performance parallelism.
+
+Two representative excerpts from the implementation highlight the core numerical components:
+\begin{quote}
+``Parallel Relativistic Boris Integrator'' \\
+``Constrained Transport Magnetic Field Advancement''
+\end{quote}
+
+This manuscript formalizes the mathematical and computational structure of these components.
+
+\section{Relativistic Particle Dynamics}
+The motion of a charged particle of mass $m$ and charge $q$ in electromagnetic fields is governed by the relativistic Lorentz force:
+\begin{equation}
+\frac{d\bm{p}}{dt} = q\left( \bm{E} + \bm{v} \times \bm{B} \right),
+\end{equation}
+where the momentum is $\bm{p} = \gamma m \bm{v}$ and the Lorentz factor is
+\begin{equation}
+\gamma = \left( 1 - \frac{|\bm{v}|^2}{c^2} \right)^{-1/2}.
+\end{equation}
+
+\subsection{Relativistic Boris Integrator}
+The Boris method is widely used in particle-in-cell (PIC) simulations due to its excellent stability properties. 
+The relativistic extension used in SIE-ASTRO v4.0 follows the structure:
+\begin{enumerate}
+    \item Half-step electric acceleration:
+    \begin{equation}
+    \bm{u}^{-} = \gamma\bm{v} + \frac{q\Delta t}{2m}\bm{E}.
+    \end{equation}
+    \item Magnetic rotation:
+    \begin{equation}
+    \bm{u}' = \bm{u}^{-} + \bm{u}^{-} \times \bm{t},
+    \end{equation}
+    where
+    \begin{equation}
+    \bm{t} = \frac{q\Delta t}{2m\gamma'}\bm{B}, \qquad
+    \bm{s} = \frac{2\bm{t}}{1 + |\bm{t}|^2}.
+    \end{equation}
+    \item Final half-step electric acceleration:
+    \begin{equation}
+    \bm{u}^{+} = \bm{u}' + \bm{u}' \times \bm{s}.
+    \end{equation}
+\end{enumerate}
+
+The updated velocity is:
+\begin{equation}
+\bm{v}_{n+1} = \frac{\bm{u}^{+}}{\gamma_{\text{new}}}.
+\end{equation}
+
+\section{Maxwell Solver via Constrained Transport}
+The electromagnetic fields evolve according to Maxwell's equations. 
+SIE-ASTRO employs a staggered Yee mesh and a constrained-transport (CT) update to preserve the divergence-free condition:
+\begin{equation}
+\nabla\cdot\bm{B} = 0.
+\end{equation}
+
+\subsection{Discrete Faraday Update}
+The CT update for the magnetic field is:
+\begin{align}
+B_x^{n+1} &= B_x^n - \Delta t\left(
+\frac{E_z(i,j+1,k) - E_z(i,j,k)}{\Delta y}
+-
+\frac{E_y(i,j,k+1) - E_y(i,j,k)}{\Delta z}
+\right), \\
+B_y^{n+1} &= B_y^n - \Delta t\left(
+\frac{E_x(i,j,k+1) - E_x(i,j,k)}{\Delta z}
+-
+\frac{E_z(i+1,j,k) - E_z(i,j,k)}{\Delta x}
+\right), \\
+B_z^{n+1} &= B_z^n - \Delta t\left(
+\frac{E_y(i+1,j,k) - E_y(i,j,k)}{\Delta x}
+-
+\frac{E_x(i,j+1,k) - E_x(i,j,k)}{\Delta y}
+\right).
+\end{align}
+
+This update preserves $\nabla\cdot\bm{B}$ to machine precision.
+
+\section{Software Architecture}
+The SIE-ASTRO v4.0 framework is organized into three core modules:
+\begin{enumerate}
+    \item \texttt{Particles.hpp}: Relativistic particle system and Boris integrator.
+    \item \texttt{GridFields.hpp}: Yee grid and constrained-transport Maxwell solver.
+    \item \texttt{CryptoPipeline.hpp}: AES-256-GCM encryption pipeline.
+\end{enumerate}
+
+The main execution loop performs:
+\begin{enumerate}
+    \item Field update,
+    \item Particle push,
+    \item Diagnostic encryption every 250 steps.
+\end{enumerate}
+
+\section{AES-256-GCM Secure Diagnostics}
+Diagnostic frames are encrypted using AES-256-GCM with:
+\begin{itemize}
+    \item 32-byte key,
+    \item 12-byte IV,
+    \item 16-byte authentication tag.
+\end{itemize}
+
+Representative implementation excerpts include:
+\begin{quote}
+``EVP\_EncryptInit\_ex cipher initialization failed.'' \\
+``EVP\_CIPHER\_CTX\_ctrl tag fetch failed.''
+\end{quote}
+
+\section{Performance Evaluation}
+A standard configuration uses:
+\begin{itemize}
+    \item $128^3$ grid,
+    \item $10^6$ particles,
+    \item $1000$ time steps,
+    \item $\Delta t = 10^{-12}$ s.
+\end{itemize}
+
+The engine reports:
+\begin{quote}
+``Particle Push Rate: $R$ updates/s'' \\
+``Final Max Div(B) Bound: machine precision preserved''
+\end{quote}
+
+\section{Conclusion}
+SIE-ASTRO v4.0 provides a robust, high-performance foundation for relativistic plasma simulation. 
+Future work includes GPU acceleration, radiation reaction physics, and distributed MPI domain decomposition.
+
+\bibliographystyle{unsrt}
+\begin{thebibliography}{9}
+\bibitem{boris}
+J.~P.~Boris, ``Relativistic plasma simulation—optimization of a hybrid code,'' \textit{Proceedings of the Fourth Conference on Numerical Simulation of Plasmas}, 1970.
+
+\bibitem{yee}
+K.~S.~Yee, ``Numerical solution of initial boundary value problems involving Maxwell's equations,'' \textit{IEEE Transactions on Antennas and Propagation}, 1966.
+\end{thebibliography}
+
+\end{document}
