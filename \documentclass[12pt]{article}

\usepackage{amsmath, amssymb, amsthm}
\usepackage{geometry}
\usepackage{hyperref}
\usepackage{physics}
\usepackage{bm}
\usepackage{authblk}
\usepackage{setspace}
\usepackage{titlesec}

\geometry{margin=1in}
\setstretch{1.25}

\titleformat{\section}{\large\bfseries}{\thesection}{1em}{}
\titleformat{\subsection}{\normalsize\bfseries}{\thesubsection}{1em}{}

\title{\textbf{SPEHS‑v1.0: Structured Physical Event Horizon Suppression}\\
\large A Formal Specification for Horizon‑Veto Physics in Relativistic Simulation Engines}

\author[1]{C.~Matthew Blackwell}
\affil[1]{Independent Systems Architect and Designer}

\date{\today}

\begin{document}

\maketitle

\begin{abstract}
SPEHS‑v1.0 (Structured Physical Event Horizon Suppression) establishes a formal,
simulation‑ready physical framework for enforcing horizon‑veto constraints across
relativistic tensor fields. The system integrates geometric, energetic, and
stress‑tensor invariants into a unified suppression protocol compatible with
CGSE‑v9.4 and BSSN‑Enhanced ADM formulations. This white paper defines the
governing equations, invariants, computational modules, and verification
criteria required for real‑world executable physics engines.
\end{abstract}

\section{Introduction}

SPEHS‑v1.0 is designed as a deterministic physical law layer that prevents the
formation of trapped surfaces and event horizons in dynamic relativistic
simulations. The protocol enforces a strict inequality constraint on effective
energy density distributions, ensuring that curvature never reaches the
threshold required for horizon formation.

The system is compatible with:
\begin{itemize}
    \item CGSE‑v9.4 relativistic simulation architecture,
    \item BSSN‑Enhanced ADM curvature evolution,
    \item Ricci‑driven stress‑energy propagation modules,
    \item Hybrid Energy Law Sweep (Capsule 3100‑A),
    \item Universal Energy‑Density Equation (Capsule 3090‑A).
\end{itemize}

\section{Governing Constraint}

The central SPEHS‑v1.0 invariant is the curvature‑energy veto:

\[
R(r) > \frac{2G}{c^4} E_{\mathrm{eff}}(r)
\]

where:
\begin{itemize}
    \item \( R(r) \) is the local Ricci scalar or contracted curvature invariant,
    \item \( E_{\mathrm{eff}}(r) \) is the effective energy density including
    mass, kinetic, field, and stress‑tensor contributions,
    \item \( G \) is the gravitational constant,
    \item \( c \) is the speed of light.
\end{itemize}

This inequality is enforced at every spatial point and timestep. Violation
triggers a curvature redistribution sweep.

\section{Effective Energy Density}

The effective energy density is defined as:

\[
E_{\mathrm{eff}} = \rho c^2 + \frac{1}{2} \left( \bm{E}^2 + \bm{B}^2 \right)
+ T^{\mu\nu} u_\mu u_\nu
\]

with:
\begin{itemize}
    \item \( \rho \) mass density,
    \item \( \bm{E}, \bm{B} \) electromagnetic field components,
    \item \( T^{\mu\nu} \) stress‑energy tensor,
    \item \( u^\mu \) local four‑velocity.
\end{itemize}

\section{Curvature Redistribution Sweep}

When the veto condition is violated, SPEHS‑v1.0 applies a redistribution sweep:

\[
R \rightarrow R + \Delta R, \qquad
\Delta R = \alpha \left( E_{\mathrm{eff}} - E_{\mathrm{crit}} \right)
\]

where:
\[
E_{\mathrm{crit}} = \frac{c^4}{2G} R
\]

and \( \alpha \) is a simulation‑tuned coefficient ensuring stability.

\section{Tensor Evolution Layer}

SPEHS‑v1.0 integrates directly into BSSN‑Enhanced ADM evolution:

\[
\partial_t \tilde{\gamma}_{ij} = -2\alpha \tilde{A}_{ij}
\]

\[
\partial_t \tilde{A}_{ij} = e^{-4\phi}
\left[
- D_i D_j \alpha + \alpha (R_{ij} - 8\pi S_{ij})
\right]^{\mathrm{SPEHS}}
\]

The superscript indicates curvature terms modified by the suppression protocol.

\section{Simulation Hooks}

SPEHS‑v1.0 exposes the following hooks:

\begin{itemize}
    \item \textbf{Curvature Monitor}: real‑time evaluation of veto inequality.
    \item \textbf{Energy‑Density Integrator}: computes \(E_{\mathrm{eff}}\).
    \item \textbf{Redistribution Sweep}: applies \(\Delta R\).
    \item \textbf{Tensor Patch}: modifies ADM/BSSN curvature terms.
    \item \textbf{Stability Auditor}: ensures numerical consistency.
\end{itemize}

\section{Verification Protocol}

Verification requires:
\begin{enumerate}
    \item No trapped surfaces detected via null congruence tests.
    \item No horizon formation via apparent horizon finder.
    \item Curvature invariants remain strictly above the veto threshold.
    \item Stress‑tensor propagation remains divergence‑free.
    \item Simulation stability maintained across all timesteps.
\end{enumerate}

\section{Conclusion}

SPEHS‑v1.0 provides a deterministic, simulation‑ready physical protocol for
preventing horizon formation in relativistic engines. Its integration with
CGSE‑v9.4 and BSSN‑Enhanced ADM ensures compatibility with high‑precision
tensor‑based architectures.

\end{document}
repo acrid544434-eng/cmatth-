@@ -1,0 +1,157 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{authblk}
+\usepackage{setspace}
+\usepackage{titlesec}
+
+\geometry{margin=1in}
+\setstretch{1.25}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{SPEHS‑v1.0: Structured Physical Event Horizon Suppression}\\
+\large A Formal Specification for Horizon‑Veto Physics in Relativistic Simulation Engines}
+
+\author[1]{C.~Matthew Blackwell}
+\affil[1]{Independent Systems Architect and Designer}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+SPEHS‑v1.0 (Structured Physical Event Horizon Suppression) establishes a formal,
+simulation‑ready physical framework for enforcing horizon‑veto constraints across
+relativistic tensor fields. The system integrates geometric, energetic, and
+stress‑tensor invariants into a unified suppression protocol compatible with
+CGSE‑v9.4 and BSSN‑Enhanced ADM formulations. This white paper defines the
+governing equations, invariants, computational modules, and verification
+criteria required for real‑world executable physics engines.
+\end{abstract}
+
+\section{Introduction}
+
+SPEHS‑v1.0 is designed as a deterministic physical law layer that prevents the
+formation of trapped surfaces and event horizons in dynamic relativistic
+simulations. The protocol enforces a strict inequality constraint on effective
+energy density distributions, ensuring that curvature never reaches the
+threshold required for horizon formation.
+
+The system is compatible with:
+\begin{itemize}
+    \item CGSE‑v9.4 relativistic simulation architecture,
+    \item BSSN‑Enhanced ADM curvature evolution,
+    \item Ricci‑driven stress‑energy propagation modules,
+    \item Hybrid Energy Law Sweep (Capsule 3100‑A),
+    \item Universal Energy‑Density Equation (Capsule 3090‑A).
+\end{itemize}
+
+\section{Governing Constraint}
+
+The central SPEHS‑v1.0 invariant is the curvature‑energy veto:
+
+\[
+R(r) > \frac{2G}{c^4} E_{\mathrm{eff}}(r)
+\]
+
+where:
+\begin{itemize}
+    \item \( R(r) \) is the local Ricci scalar or contracted curvature invariant,
+    \item \( E_{\mathrm{eff}}(r) \) is the effective energy density including
+    mass, kinetic, field, and stress‑tensor contributions,
+    \item \( G \) is the gravitational constant,
+    \item \( c \) is the speed of light.
+\end{itemize}
+
+This inequality is enforced at every spatial point and timestep. Violation
+triggers a curvature redistribution sweep.
+
+\section{Effective Energy Density}
+
+The effective energy density is defined as:
+
+\[
+E_{\mathrm{eff}} = \rho c^2 + \frac{1}{2} \left( \bm{E}^2 + \bm{B}^2 \right)
++ T^{\mu\nu} u_\mu u_\nu
+\]
+
+with:
+\begin{itemize}
+    \item \( \rho \) mass density,
+    \item \( \bm{E}, \bm{B} \) electromagnetic field components,
+    \item \( T^{\mu\nu} \) stress‑energy tensor,
+    \item \( u^\mu \) local four‑velocity.
+\end{itemize}
+
+\section{Curvature Redistribution Sweep}
+
+When the veto condition is violated, SPEHS‑v1.0 applies a redistribution sweep:
+
+\[
+R \rightarrow R + \Delta R, \qquad
+\Delta R = \alpha \left( E_{\mathrm{eff}} - E_{\mathrm{crit}} \right)
+\]
+
+where:
+\[
+E_{\mathrm{crit}} = \frac{c^4}{2G} R
+\]
+
+and \( \alpha \) is a simulation‑tuned coefficient ensuring stability.
+
+\section{Tensor Evolution Layer}
+
+SPEHS‑v1.0 integrates directly into BSSN‑Enhanced ADM evolution:
+
+\[
+\partial_t \tilde{\gamma}_{ij} = -2\alpha \tilde{A}_{ij}
+\]
+
+\[
+\partial_t \tilde{A}_{ij} = e^{-4\phi}
+\left[
+- D_i D_j \alpha + \alpha (R_{ij} - 8\pi S_{ij})
+\right]^{\mathrm{SPEHS}}
+\]
+
+The superscript indicates curvature terms modified by the suppression protocol.
+
+\section{Simulation Hooks}
+
+SPEHS‑v1.0 exposes the following hooks:
+
+\begin{itemize}
+    \item \textbf{Curvature Monitor}: real‑time evaluation of veto inequality.
+    \item \textbf{Energy‑Density Integrator}: computes \(E_{\mathrm{eff}}\).
+    \item \textbf{Redistribution Sweep}: applies \(\Delta R\).
+    \item \textbf{Tensor Patch}: modifies ADM/BSSN curvature terms.
+    \item \textbf{Stability Auditor}: ensures numerical consistency.
+\end{itemize}
+
+\section{Verification Protocol}
+
+Verification requires:
+\begin{enumerate}
+    \item No trapped surfaces detected via null congruence tests.
+    \item No horizon formation via apparent horizon finder.
+    \item Curvature invariants remain strictly above the veto threshold.
+    \item Stress‑tensor propagation remains divergence‑free.
+    \item Simulation stability maintained across all timesteps.
+\end{enumerate}
+
+\section{Conclusion}
+
+SPEHS‑v1.0 provides a deterministic, simulation‑ready physical protocol for
+preventing horizon formation in relativistic engines. Its integration with
+CGSE‑v9.4 and BSSN‑Enhanced ADM ensures compatibility with high‑precision
+tensor‑based architectures.
+
+\end{document}
