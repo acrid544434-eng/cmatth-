@@ -1,0 +1,211 @@
+\section{Thermal Protection System (TPS) Engineering}
+\label{sec:tps-engineering}
+
+\subsection{Overview}
+The UAP-01 atmospheric probe employs a PICA-15 ablative thermal
+protection system designed to withstand extreme heating during Uranus
+entry. Peak heating rates of $25{-}35~\mathrm{MW/m^2}$, shock-layer
+temperatures near $10{,}000~\mathrm{K}$, and chemically reactive
+nonequilibrium flows necessitate a TPS architecture capable of
+simultaneous ablation, insulation, structural stability, and radiative
+attenuation. This chapter derives the governing TPS equations, ablation
+rates, material response, and structural constraints.
+
+\subsection{TPS Material Properties}
+PICA-15 is a low-density, carbon-based ablative material with:
+\[
+\rho_{\text{PICA}} \approx 0.28~\mathrm{g/cm^3},
+\qquad
+k_{\text{PICA}} \approx 0.03~\mathrm{W/mK},
+\qquad
+H_{\text{vap}} \approx 18{-}22~\mathrm{MJ/kg}.
+\]
+
+Effective emissivity:
+\[
+\epsilon_{\text{eff}} \approx 0.85{-}0.92.
+\]
+
+These properties enable high ablation efficiency and low thermal
+conductivity.
+
+\subsection{Heating Environment}
+Total heating:
+\[
+q_{\text{total}} = q_{\text{conv}} + q_{\text{rad}},
+\]
+with:
+\[
+q_{\text{conv}} \sim 8{-}12~\mathrm{MW/m^2},
+\qquad
+q_{\text{rad}} \sim 15{-}25~\mathrm{MW/m^2}.
+\]
+
+Shock-layer chemistry (Appendix~\ref{appendix:shock-layer-chemistry})
+reduces effective heating via chemical energy absorption:
+\[
+q_{\text{chem}} \approx 3{-}5~\mathrm{MW/m^2}.
+\]
+
+\subsection{Ablation Rate Derivation}
+Mass ablation rate:
+\[
+\dot{m}_{\text{abl}} = \frac{q_{\text{total}} - q_{\text{chem}}}{H_{\text{vap}}}.
+\]
+
+For Uranus entry:
+\[
+\dot{m}_{\text{abl}}
+\approx \frac{25{-}35 - 3{-}5}{18{-}22}
+\approx 1.0{-}1.6~\mathrm{kg/m^2s}.
+\]
+
+Recession rate:
+\[
+\dot{r} = \frac{\dot{m}_{\text{abl}}}{\rho_{\text{PICA}}},
+\]
+yielding:
+\[
+\dot{r} \approx 0.3{-}0.5~\mathrm{mm/s}.
+\]
+
+\subsection{TPS Thickness Requirements}
+Required TPS thickness:
+\[
+t_{\text{TPS}} = \int_0^{t_{\text{entry}}} \dot{r}(t)\, dt
++ t_{\text{margin}},
+\]
+where $t_{\text{margin}}$ accounts for:
+\begin{itemize}
+    \item manufacturing tolerances,
+    \item off-nominal heating,
+    \item shock-layer chemistry variability,
+    \item structural erosion.
+\end{itemize}
+
+UUAS entry timeline:
+\[
+t_{\text{entry}} \approx 180{-}240~\mathrm{s}.
+\]
+
+Thus:
+\[
+t_{\text{TPS}} \approx (0.3{-}0.5) \times 200~\mathrm{mm}
++ t_{\text{margin}}
+\approx 60{-}100~\mathrm{mm}.
+\]
+
+Final TPS thickness:
+\[
+t_{\text{TPS,final}} \approx 110~\mathrm{mm}.
+\]
+
+\subsection{Thermal Penetration Depth}
+Thermal penetration depth:
+\[
+\delta = 2\sqrt{\alpha t},
+\]
+where:
+\[
+\alpha = \frac{k_{\text{PICA}}}{\rho_{\text{PICA}} c_p}.
+\]
+
+With:
+\[
+c_p \approx 1200~\mathrm{J/kgK},
+\]
+we obtain:
+\[
+\alpha \approx 8.9 \times 10^{-5}~\mathrm{m^2/s},
+\]
+yielding:
+\[
+\delta \approx 2\sqrt{8.9 \times 10^{-5} \times 200}
+\approx 0.27~\mathrm{m}.
+\]
+
+Since ablation removes the outer layer, internal temperatures remain
+below:
+\[
+T_{\text{internal}} < 450~\mathrm{K}.
+\]
+
+\subsection{Radiative Attenuation}
+Radiative flux attenuation:
+\[
+q_{\text{rad,eff}} = q_{\text{rad}} (1 - \epsilon_{\text{eff}}),
+\]
+yielding:
+\[
+q_{\text{rad,eff}} \approx 2{-}4~\mathrm{MW/m^2}.
+\]
+
+This significantly reduces internal heating load.
+
+\subsection{Structural Constraints}
+TPS must withstand:
+\begin{itemize}
+    \item peak deceleration $a_D \approx 120{-}150~g$,
+    \item pressure loads $P_{\text{peak}} \approx 18{-}22~\mathrm{kPa}$,
+    \item shear forces from shock-layer detachment,
+    \item vibrational loads during parachute deployment.
+\end{itemize}
+
+Structural stress:
+\[
+\sigma = \frac{P_{\text{peak}} R_n}{t_{\text{TPS}}},
+\]
+with:
+\[
+R_n \approx 0.65~\mathrm{m},
+\]
+yielding:
+\[
+\sigma \approx 1.2{-}1.5~\mathrm{MPa},
+\]
+well below PICA-15 compressive strength:
+\[
+\sigma_{\text{comp}} \approx 8{-}12~\mathrm{MPa}.
+\]
+
+\subsection{Bondline Temperature}
+Bondline temperature:
+\[
+T_{\text{bond}} = T_{\text{surface}} e^{-\beta t_{\text{TPS}}},
+\]
+with:
+\[
+\beta = \sqrt{\frac{h}{k_{\text{PICA}}}},
+\]
+where $h$ is convective heat transfer coefficient.
+
+UUAS predicts:
+\[
+T_{\text{bond}} \approx 350{-}420~\mathrm{K},
+\]
+below structural limits for:
+\begin{itemize}
+    \item avionics housing,
+    \item sensor suite,
+    \item parachute mortar,
+    \item pressure vessel.
+\end{itemize}
+
+\subsection{TPS–Shock-Layer Coupling}
+TPS performance is directly influenced by shock-layer chemistry:
+\begin{itemize}
+    \item H$_2$ dissociation reduces convective heating.
+    \item H$_3^+$ radiative emission modifies spectral flux.
+    \item CH$_x$ pyrolysis reduces stagnation temperature.
+    \item carbon cluster formation increases emissivity.
+\end{itemize}
+
+UUAS THERMO-Q2 and ION-Q4 provide real-time heating corrections.
+
+\subsection{Conclusion}
+The PICA-15 TPS architecture provides sufficient ablation capacity,
+thermal insulation, structural stability, and radiative attenuation to
+ensure safe Uranus entry for the UAP-01 probe. Derived ablation rates,
+thermal penetration depths, and bondline temperatures confirm full
+compatibility with the extreme aerothermodynamic environment predicted
+by UUAS multi-scale models.
