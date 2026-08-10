@@ -1,0 +1,191 @@
+\section{Atmospheric Descent Dynamics}
+\label{sec:atmospheric-descent-dynamics}
+
+\subsection{Overview}
+Following hypersonic entry and shock-layer stabilization, the UAP-01
+atmospheric probe transitions into a multi-phase descent regime governed
+by aerodynamic drag, thermochemical cooling, parachute deployment, and
+pressure–temperature stratification. This chapter derives the governing
+equations for descent velocity, dynamic pressure, thermal balance, and
+terminal science stability within Uranus’s upper and middle atmosphere.
+
+\subsection{Descent Phases}
+The descent sequence consists of:
+\begin{enumerate}
+    \item Hypersonic deceleration (post-shock regime).
+    \item Supersonic drag-dominated descent.
+    \item Parachute deployment and subsonic stabilization.
+    \item Terminal descent and science operations.
+\end{enumerate}
+
+Each phase is governed by distinct aerodynamic and thermodynamic
+conditions.
+
+\subsection{Post-Shock Velocity Decay}
+Velocity decay after peak heating is governed by:
+\[
+\frac{dv}{dt}
+= -\frac{1}{2m} \rho(h) v^2 C_D A,
+\]
+where:
+\[
+m = \text{probe mass}, \quad
+\rho(h) = \text{atmospheric density}, \quad
+C_D = \text{drag coefficient}, \quad
+A = \text{reference area}.
+\]
+
+Atmospheric density follows an exponential profile:
+\[
+\rho(h) = \rho_0 \exp\left(-\frac{h}{H}\right),
+\]
+with scale height $H$ determined from UUAS THERMO-Q2.
+
+\subsection{Dynamic Pressure Evolution}
+Dynamic pressure:
+\[
+q = \frac{1}{2} \rho(h) v^2.
+\]
+
+Peak dynamic pressure occurs when:
+\[
+\frac{dq}{dt} = 0
+\quad \Rightarrow \quad
+\frac{d}{dt}(\rho v^2) = 0.
+\]
+
+UUAS atmospheric models predict:
+\[
+q_{\text{peak}} \approx 18{-}22~\mathrm{kPa}.
+\]
+
+\subsection{Thermal Balance During Descent}
+Thermal balance after shock-layer detachment:
+\[
+m c_p \frac{dT}{dt}
+= q_{\text{conv}} - q_{\text{rad}} - q_{\text{abl}},
+\]
+where:
+\[
+q_{\text{conv}} = \rho^{0.5} v^3 \sqrt{\frac{C_h}{R_n}},
+\]
+\[
+q_{\text{rad}} = \sigma T^4 \epsilon_{\text{eff}},
+\]
+\[
+q_{\text{abl}} = \dot{m}_{\text{abl}} H_{\text{vap}}.
+\]
+
+Temperature stabilizes when:
+\[
+q_{\text{conv}} \approx q_{\text{rad}} + q_{\text{abl}}.
+\]
+
+\subsection{Supersonic Drag Regime}
+As velocity decreases below Mach $\sim 5$:
+\[
+C_D = C_{D,\text{supersonic}}(M),
+\]
+with $C_D$ increasing due to shock detachment.
+
+Velocity evolution:
+\[
+v(t) = v_0 \exp\left(
+-\int \frac{\rho(h) C_D A}{2m} \, dt
+\right).
+\]
+
+UUAS atmospheric profiles yield:
+\[
+v_{\text{supersonic}} \approx 2.5{-}3.5~\mathrm{km/s}
+\]
+before parachute deployment.
+
+\subsection{Parachute Deployment Dynamics}
+Deployment occurs when:
+\[
+q = \frac{1}{2} \rho v^2 < q_{\text{max}},
+\]
+with:
+\[
+q_{\text{max}} \approx 8{-}12~\mathrm{kPa}.
+\]
+
+Deployment altitude:
+\[
+h_{\text{deploy}} \approx 250{-}300~\mathrm{km}.
+\]
+
+Post-deployment drag force:
+\[
+D_{\text{chute}} = \frac{1}{2} \rho v^2 C_{D,\text{chute}} A_{\text{chute}},
+\]
+with:
+\[
+C_{D,\text{chute}} \approx 1.75{-}2.05.
+\]
+
+Velocity rapidly decays to:
+\[
+v_{\text{subsonic}} \approx 120{-}180~\mathrm{m/s}.
+\]
+
+\subsection{Subsonic Stabilization}
+Subsonic descent governed by:
+\[
+m \frac{dv}{dt}
+= mg - D_{\text{chute}},
+\]
+yielding terminal velocity:
+\[
+v_{\text{term}}
+= \sqrt{\frac{2mg}{\rho C_{D,\text{chute}} A_{\text{chute}}}}.
+\]
+
+UUAS density profiles predict:
+\[
+v_{\text{term}} \approx 35{-}55~\mathrm{m/s}.
+\]
+
+\subsection{Pressure–Temperature Stratification}
+Pressure profile:
+\[
+P(h) = P_0 \exp\left(-\frac{h}{H_P}\right),
+\]
+Temperature profile:
+\[
+T(h) = T_0 + \Gamma h,
+\]
+where $\Gamma$ is lapse rate derived from UUAS THERMO-Q2.
+
+Probe sensors measure:
+\begin{itemize}
+    \item methane fraction,
+    \item aerosol density,
+    \item radiative flux,
+    \item wind shear.
+\end{itemize}
+
+These data validate deep-mantle EOS and ionospheric coupling models.
+
+\subsection{Terminal Science Operations}
+At terminal descent altitude:
+\[
+h_{\text{science}} \approx 80{-}120~\mathrm{km},
+\]
+the probe stabilizes for:
+\begin{itemize}
+    \item composition sampling,
+    \item radiative flux measurement,
+    \item wind vector reconstruction,
+    \item plasma density profiling.
+\end{itemize}
+
+Telemetry is encrypted via FHE-Q3 and relayed to the orbiter.
+
+\subsection{Conclusion}
+The UAP-01 atmospheric probe undergoes a multi-phase descent governed by
+hypersonic deceleration, radiative cooling, parachute stabilization, and
+pressure–temperature stratification. Derived descent dynamics confirm
+stable terminal operations and full compatibility with UUAS atmospheric,
+thermochemical, and plasma-kinetic models.
