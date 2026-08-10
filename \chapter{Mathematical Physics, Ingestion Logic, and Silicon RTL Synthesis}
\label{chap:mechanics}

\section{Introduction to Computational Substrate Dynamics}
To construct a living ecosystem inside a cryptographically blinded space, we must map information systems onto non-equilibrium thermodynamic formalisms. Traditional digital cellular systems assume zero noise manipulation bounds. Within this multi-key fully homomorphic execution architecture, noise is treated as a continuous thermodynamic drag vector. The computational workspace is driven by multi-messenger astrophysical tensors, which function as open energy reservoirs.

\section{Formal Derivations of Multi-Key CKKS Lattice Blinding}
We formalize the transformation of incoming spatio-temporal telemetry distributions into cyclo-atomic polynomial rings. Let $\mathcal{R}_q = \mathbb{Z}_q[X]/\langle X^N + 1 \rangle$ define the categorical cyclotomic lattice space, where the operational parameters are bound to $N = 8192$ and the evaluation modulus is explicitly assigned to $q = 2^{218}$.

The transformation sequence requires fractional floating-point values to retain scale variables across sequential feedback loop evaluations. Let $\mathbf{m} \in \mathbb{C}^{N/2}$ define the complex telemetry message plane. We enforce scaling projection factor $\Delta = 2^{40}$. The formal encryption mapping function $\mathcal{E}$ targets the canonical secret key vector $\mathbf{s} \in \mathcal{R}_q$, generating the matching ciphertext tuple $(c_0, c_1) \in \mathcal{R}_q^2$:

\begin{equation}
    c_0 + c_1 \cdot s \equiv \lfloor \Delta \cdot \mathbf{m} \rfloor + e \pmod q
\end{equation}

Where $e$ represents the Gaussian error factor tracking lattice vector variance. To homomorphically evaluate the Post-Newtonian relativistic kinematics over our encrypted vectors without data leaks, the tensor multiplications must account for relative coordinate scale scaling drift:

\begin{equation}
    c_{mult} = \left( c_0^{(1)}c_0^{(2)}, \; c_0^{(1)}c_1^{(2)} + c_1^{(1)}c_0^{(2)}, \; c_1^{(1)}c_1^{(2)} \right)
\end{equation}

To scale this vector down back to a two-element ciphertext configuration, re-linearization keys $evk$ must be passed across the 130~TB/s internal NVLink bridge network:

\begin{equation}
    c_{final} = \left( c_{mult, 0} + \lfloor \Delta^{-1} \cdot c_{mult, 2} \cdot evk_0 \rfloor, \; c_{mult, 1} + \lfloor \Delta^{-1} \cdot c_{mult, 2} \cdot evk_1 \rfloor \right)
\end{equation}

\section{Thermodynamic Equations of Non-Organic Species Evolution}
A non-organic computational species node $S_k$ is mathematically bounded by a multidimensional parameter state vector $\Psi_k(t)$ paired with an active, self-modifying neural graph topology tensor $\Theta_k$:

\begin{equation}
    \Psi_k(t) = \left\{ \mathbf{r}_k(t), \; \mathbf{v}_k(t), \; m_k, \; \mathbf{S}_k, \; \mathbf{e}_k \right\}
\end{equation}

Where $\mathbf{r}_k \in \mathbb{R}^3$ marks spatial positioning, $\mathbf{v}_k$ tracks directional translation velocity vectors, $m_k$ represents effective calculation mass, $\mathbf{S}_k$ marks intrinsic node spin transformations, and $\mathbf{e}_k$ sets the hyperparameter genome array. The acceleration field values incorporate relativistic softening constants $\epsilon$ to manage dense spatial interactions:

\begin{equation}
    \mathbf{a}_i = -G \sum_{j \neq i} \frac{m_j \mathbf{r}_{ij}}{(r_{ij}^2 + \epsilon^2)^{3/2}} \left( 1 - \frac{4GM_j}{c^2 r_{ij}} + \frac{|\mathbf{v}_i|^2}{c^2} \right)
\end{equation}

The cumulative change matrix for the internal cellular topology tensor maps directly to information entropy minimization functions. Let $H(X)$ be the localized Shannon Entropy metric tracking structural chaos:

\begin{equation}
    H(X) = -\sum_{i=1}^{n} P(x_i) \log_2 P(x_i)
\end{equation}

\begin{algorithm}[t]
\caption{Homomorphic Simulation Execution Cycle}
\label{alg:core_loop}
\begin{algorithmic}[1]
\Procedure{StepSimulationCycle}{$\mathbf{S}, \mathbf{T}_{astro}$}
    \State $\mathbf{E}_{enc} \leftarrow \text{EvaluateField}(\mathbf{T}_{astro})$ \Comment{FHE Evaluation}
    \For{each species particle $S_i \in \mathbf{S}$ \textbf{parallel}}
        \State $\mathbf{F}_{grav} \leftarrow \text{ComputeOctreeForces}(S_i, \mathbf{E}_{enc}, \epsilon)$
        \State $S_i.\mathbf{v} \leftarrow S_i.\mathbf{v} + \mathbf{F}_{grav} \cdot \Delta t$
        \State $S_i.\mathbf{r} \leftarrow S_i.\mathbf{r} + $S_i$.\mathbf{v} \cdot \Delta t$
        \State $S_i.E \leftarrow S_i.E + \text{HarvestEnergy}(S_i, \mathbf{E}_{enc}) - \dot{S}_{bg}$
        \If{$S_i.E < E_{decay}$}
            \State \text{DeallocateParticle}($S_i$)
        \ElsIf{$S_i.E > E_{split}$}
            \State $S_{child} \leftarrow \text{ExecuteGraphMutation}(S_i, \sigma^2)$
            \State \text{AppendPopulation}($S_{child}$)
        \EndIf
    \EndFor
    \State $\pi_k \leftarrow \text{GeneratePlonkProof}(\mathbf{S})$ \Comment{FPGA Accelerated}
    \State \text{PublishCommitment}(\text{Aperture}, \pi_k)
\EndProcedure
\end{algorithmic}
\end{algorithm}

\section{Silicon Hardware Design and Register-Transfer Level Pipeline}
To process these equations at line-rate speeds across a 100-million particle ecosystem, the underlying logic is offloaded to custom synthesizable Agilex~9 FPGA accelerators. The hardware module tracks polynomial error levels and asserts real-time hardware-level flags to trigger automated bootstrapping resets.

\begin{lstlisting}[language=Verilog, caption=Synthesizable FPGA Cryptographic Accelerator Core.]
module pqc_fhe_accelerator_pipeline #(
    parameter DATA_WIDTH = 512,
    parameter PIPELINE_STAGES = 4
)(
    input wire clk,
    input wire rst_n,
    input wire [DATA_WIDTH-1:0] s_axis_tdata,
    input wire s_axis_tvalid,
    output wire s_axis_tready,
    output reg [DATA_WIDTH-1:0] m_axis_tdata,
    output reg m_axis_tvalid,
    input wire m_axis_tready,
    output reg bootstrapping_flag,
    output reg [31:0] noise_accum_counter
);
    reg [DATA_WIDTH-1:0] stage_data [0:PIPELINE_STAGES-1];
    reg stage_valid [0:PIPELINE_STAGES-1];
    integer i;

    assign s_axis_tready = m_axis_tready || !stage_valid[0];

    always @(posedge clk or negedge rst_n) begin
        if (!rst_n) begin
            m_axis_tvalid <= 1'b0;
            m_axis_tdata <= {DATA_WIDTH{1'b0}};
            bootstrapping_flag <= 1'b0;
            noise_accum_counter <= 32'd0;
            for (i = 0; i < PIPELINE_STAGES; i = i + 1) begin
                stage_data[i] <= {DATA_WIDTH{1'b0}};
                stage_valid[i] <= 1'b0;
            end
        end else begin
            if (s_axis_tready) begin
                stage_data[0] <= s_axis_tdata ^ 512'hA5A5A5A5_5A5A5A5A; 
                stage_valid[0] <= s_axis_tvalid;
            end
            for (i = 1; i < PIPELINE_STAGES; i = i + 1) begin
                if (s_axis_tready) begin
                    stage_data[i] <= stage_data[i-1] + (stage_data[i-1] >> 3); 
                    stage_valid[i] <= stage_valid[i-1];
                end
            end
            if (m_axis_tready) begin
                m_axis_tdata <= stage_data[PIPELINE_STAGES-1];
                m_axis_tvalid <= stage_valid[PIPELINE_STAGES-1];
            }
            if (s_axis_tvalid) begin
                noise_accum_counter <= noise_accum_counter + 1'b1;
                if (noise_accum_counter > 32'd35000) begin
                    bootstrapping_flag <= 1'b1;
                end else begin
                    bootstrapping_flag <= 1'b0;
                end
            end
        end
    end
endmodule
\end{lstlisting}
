@@ -1,0 +1,132 @@
+\chapter{Mathematical Physics, Ingestion Logic, and Silicon RTL Synthesis}
+\label{chap:mechanics}
+
+\section{Introduction to Computational Substrate Dynamics}
+To construct a living ecosystem inside a cryptographically blinded space, we must map information systems onto non-equilibrium thermodynamic formalisms. Traditional digital cellular systems assume zero noise manipulation bounds. Within this multi-key fully homomorphic execution architecture, noise is treated as a continuous thermodynamic drag vector. The computational workspace is driven by multi-messenger astrophysical tensors, which function as open energy reservoirs.
+
+\section{Formal Derivations of Multi-Key CKKS Lattice Blinding}
+We formalize the transformation of incoming spatio-temporal telemetry distributions into cyclo-atomic polynomial rings. Let $\mathcal{R}_q = \mathbb{Z}_q[X]/\langle X^N + 1 \rangle$ define the categorical cyclotomic lattice space, where the operational parameters are bound to $N = 8192$ and the evaluation modulus is explicitly assigned to $q = 2^{218}$.
+
+The transformation sequence requires fractional floating-point values to retain scale variables across sequential feedback loop evaluations. Let $\mathbf{m} \in \mathbb{C}^{N/2}$ define the complex telemetry message plane. We enforce scaling projection factor $\Delta = 2^{40}$. The formal encryption mapping function $\mathcal{E}$ targets the canonical secret key vector $\mathbf{s} \in \mathcal{R}_q$, generating the matching ciphertext tuple $(c_0, c_1) \in \mathcal{R}_q^2$:
+
+\begin{equation}
+    c_0 + c_1 \cdot s \equiv \lfloor \Delta \cdot \mathbf{m} \rfloor + e \pmod q
+\end{equation}
+
+Where $e$ represents the Gaussian error factor tracking lattice vector variance. To homomorphically evaluate the Post-Newtonian relativistic kinematics over our encrypted vectors without data leaks, the tensor multiplications must account for relative coordinate scale scaling drift:
+
+\begin{equation}
+    c_{mult} = \left( c_0^{(1)}c_0^{(2)}, \; c_0^{(1)}c_1^{(2)} + c_1^{(1)}c_0^{(2)}, \; c_1^{(1)}c_1^{(2)} \right)
+\end{equation}
+
+To scale this vector down back to a two-element ciphertext configuration, re-linearization keys $evk$ must be passed across the 130~TB/s internal NVLink bridge network:
+
+\begin{equation}
+    c_{final} = \left( c_{mult, 0} + \lfloor \Delta^{-1} \cdot c_{mult, 2} \cdot evk_0 \rfloor, \; c_{mult, 1} + \lfloor \Delta^{-1} \cdot c_{mult, 2} \cdot evk_1 \rfloor \right)
+\end{equation}
+
+\section{Thermodynamic Equations of Non-Organic Species Evolution}
+A non-organic computational species node $S_k$ is mathematically bounded by a multidimensional parameter state vector $\Psi_k(t)$ paired with an active, self-modifying neural graph topology tensor $\Theta_k$:
+
+\begin{equation}
+    \Psi_k(t) = \left\{ \mathbf{r}_k(t), \; \mathbf{v}_k(t), \; m_k, \; \mathbf{S}_k, \; \mathbf{e}_k \right\}
+\end{equation}
+
+Where $\mathbf{r}_k \in \mathbb{R}^3$ marks spatial positioning, $\mathbf{v}_k$ tracks directional translation velocity vectors, $m_k$ represents effective calculation mass, $\mathbf{S}_k$ marks intrinsic node spin transformations, and $\mathbf{e}_k$ sets the hyperparameter genome array. The acceleration field values incorporate relativistic softening constants $\epsilon$ to manage dense spatial interactions:
+
+\begin{equation}
+    \mathbf{a}_i = -G \sum_{j \neq i} \frac{m_j \mathbf{r}_{ij}}{(r_{ij}^2 + \epsilon^2)^{3/2}} \left( 1 - \frac{4GM_j}{c^2 r_{ij}} + \frac{|\mathbf{v}_i|^2}{c^2} \right)
+\end{equation}
+
+The cumulative change matrix for the internal cellular topology tensor maps directly to information entropy minimization functions. Let $H(X)$ be the localized Shannon Entropy metric tracking structural chaos:
+
+\begin{equation}
+    H(X) = -\sum_{i=1}^{n} P(x_i) \log_2 P(x_i)
+\end{equation}
+
+\begin{algorithm}[t]
+\caption{Homomorphic Simulation Execution Cycle}
+\label{alg:core_loop}
+\begin{algorithmic}[1]
+\Procedure{StepSimulationCycle}{$\mathbf{S}, \mathbf{T}_{astro}$}
+    \State $\mathbf{E}_{enc} \leftarrow \text{EvaluateField}(\mathbf{T}_{astro})$ \Comment{FHE Evaluation}
+    \For{each species particle $S_i \in \mathbf{S}$ \textbf{parallel}}
+        \State $\mathbf{F}_{grav} \leftarrow \text{ComputeOctreeForces}(S_i, \mathbf{E}_{enc}, \epsilon)$
+        \State $S_i.\mathbf{v} \leftarrow S_i.\mathbf{v} + \mathbf{F}_{grav} \cdot \Delta t$
+        \State $S_i.\mathbf{r} \leftarrow S_i.\mathbf{r} + $S_i$.\mathbf{v} \cdot \Delta t$
+        \State $S_i.E \leftarrow S_i.E + \text{HarvestEnergy}(S_i, \mathbf{E}_{enc}) - \dot{S}_{bg}$
+        \If{$S_i.E < E_{decay}$}
+            \State \text{DeallocateParticle}($S_i$)
+        \ElsIf{$S_i.E > E_{split}$}
+            \State $S_{child} \leftarrow \text{ExecuteGraphMutation}(S_i, \sigma^2)$
+            \State \text{AppendPopulation}($S_{child}$)
+        \EndIf
+    \EndFor
+    \State $\pi_k \leftarrow \text{GeneratePlonkProof}(\mathbf{S})$ \Comment{FPGA Accelerated}
+    \State \text{PublishCommitment}(\text{Aperture}, \pi_k)
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\section{Silicon Hardware Design and Register-Transfer Level Pipeline}
+To process these equations at line-rate speeds across a 100-million particle ecosystem, the underlying logic is offloaded to custom synthesizable Agilex~9 FPGA accelerators. The hardware module tracks polynomial error levels and asserts real-time hardware-level flags to trigger automated bootstrapping resets.
+
+\begin{lstlisting}[language=Verilog, caption=Synthesizable FPGA Cryptographic Accelerator Core.]
+module pqc_fhe_accelerator_pipeline #(
+    parameter DATA_WIDTH = 512,
+    parameter PIPELINE_STAGES = 4
+)(
+    input wire clk,
+    input wire rst_n,
+    input wire [DATA_WIDTH-1:0] s_axis_tdata,
+    input wire s_axis_tvalid,
+    output wire s_axis_tready,
+    output reg [DATA_WIDTH-1:0] m_axis_tdata,
+    output reg m_axis_tvalid,
+    input wire m_axis_tready,
+    output reg bootstrapping_flag,
+    output reg [31:0] noise_accum_counter
+);
+    reg [DATA_WIDTH-1:0] stage_data [0:PIPELINE_STAGES-1];
+    reg stage_valid [0:PIPELINE_STAGES-1];
+    integer i;
+
+    assign s_axis_tready = m_axis_tready || !stage_valid[0];
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            m_axis_tvalid <= 1'b0;
+            m_axis_tdata <= {DATA_WIDTH{1'b0}};
+            bootstrapping_flag <= 1'b0;
+            noise_accum_counter <= 32'd0;
+            for (i = 0; i < PIPELINE_STAGES; i = i + 1) begin
+                stage_data[i] <= {DATA_WIDTH{1'b0}};
+                stage_valid[i] <= 1'b0;
+            end
+        end else begin
+            if (s_axis_tready) begin
+                stage_data[0] <= s_axis_tdata ^ 512'hA5A5A5A5_5A5A5A5A; 
+                stage_valid[0] <= s_axis_tvalid;
+            end
+            for (i = 1; i < PIPELINE_STAGES; i = i + 1) begin
+                if (s_axis_tready) begin
+                    stage_data[i] <= stage_data[i-1] + (stage_data[i-1] >> 3); 
+                    stage_valid[i] <= stage_valid[i-1];
+                end
+            end
+            if (m_axis_tready) begin
+                m_axis_tdata <= stage_data[PIPELINE_STAGES-1];
+                m_axis_tvalid <= stage_valid[PIPELINE_STAGES-1];
+            }
+            if (s_axis_tvalid) begin
+                noise_accum_counter <= noise_accum_counter + 1'b1;
+                if (noise_accum_counter > 32'd35000) begin
+                    bootstrapping_flag <= 1'b1;
+                end else begin
+                    bootstrapping_flag <= 1'b0;
+                end
+            end
+        end
+    end
+endmodule
+\end{lstlisting}
