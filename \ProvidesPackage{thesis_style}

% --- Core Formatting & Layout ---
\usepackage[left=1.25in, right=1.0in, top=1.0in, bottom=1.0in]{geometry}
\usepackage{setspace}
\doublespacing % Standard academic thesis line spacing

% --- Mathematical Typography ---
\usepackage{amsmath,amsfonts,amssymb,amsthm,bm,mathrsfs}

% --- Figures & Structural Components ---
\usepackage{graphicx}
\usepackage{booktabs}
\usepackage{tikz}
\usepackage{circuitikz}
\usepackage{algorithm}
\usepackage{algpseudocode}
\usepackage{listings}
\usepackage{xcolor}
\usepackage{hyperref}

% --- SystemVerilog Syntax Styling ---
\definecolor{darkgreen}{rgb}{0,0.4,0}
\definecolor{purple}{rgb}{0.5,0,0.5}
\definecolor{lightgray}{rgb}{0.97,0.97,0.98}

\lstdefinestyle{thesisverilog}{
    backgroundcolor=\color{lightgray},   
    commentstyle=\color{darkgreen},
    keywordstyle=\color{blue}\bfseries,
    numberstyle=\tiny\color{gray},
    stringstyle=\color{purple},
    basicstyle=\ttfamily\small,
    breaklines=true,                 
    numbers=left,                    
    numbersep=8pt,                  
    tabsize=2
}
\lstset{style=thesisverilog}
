@@ -1,0 +1,39 @@
+\ProvidesPackage{thesis_style}
+
+% --- Core Formatting & Layout ---
+\usepackage[left=1.25in, right=1.0in, top=1.0in, bottom=1.0in]{geometry}
+\usepackage{setspace}
+\doublespacing % Standard academic thesis line spacing
+
+% --- Mathematical Typography ---
+\usepackage{amsmath,amsfonts,amssymb,amsthm,bm,mathrsfs}
+
+% --- Figures & Structural Components ---
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+% --- SystemVerilog Syntax Styling ---
+\definecolor{darkgreen}{rgb}{0,0.4,0}
+\definecolor{purple}{rgb}{0.5,0,0.5}
+\definecolor{lightgray}{rgb}{0.97,0.97,0.98}
+
+\lstdefinestyle{thesisverilog}{
+    backgroundcolor=\color{lightgray},   
+    commentstyle=\color{darkgreen},
+    keywordstyle=\color{blue}\bfseries,
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple},
+    basicstyle=\ttfamily\small,
+    breaklines=true,                 
+    numbers=left,                    
+    numbersep=8pt,                  
+    tabsize=2
+}
+\lstset{style=thesisverilog}
