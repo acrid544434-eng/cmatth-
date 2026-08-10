@@ -1,0 +1,164 @@
+\appendix
+\section{Shock-Layer Chemistry Appendix}
+\label{appendix:shock-layer-chemistry}
+
+\subsection{Overview}
+During hypersonic entry at $v_{\text{entry}} \approx 22.4~\mathrm{km/s}$,
+the UAP-01 atmospheric probe encounters extreme shock-layer conditions
+characterized by high-temperature dissociation, ion formation,
+nonequilibrium radiation, and rapid chemical energy exchange. This
+appendix derives the governing chemical kinetics, reaction pathways, and
+energy transfer mechanisms relevant to Uranus’s hydrogen–helium–methane
+atmosphere.
+
+\subsection{Shock-Layer Thermochemical State}
+Post-shock temperature:
+\[
+T_2 \sim 10{,}000~\mathrm{K},
+\]
+drives extensive dissociation of major species:
+\[
+\text{H}_2,\; \text{He},\; \text{CH}_4,\; \text{NH}_3,\; \text{C}_x\text{H}_y.
+\]
+
+The shock-layer mixture is modeled using a multi-species,
+nonequilibrium chemical system:
+\[
+\frac{dY_i}{dt} = \dot{\omega}_i,
+\]
+where $Y_i$ is species mass fraction and $\dot{\omega}_i$ is net
+production rate.
+
+\subsection{Primary Dissociation Reactions}
+Major dissociation pathways include:
+\[
+\text{H}_2 + M \rightarrow 2\text{H} + M,
+\]
+\[
+\text{CH}_4 + M \rightarrow \text{CH}_3 + \text{H} + M,
+\]
+\[
+\text{CH}_4 + M \rightarrow \text{CH}_2 + 2\text{H} + M,
+\]
+\[
+\text{NH}_3 + M \rightarrow \text{NH}_2 + \text{H} + M,
+\]
+where $M$ is a collision partner.
+
+Rate coefficients follow Arrhenius form:
+\[
+k(T) = A T^n \exp\left(-\frac{E_a}{RT}\right),
+\]
+with activation energies $E_a$ derived from UUAS THERMO-Q2.
+
+\subsection{Ion Formation and Plasma Chemistry}
+High shock temperatures generate significant ionization:
+\[
+\text{H} + \text{H}_2^+ \rightarrow \text{H}_3^+,
+\]
+\[
+\text{H}_3^+ + e^- \rightarrow \text{H}_2 + \text{H},
+\]
+\[
+\text{C}_x\text{H}_y + e^- \rightarrow \text{C}_x\text{H}_y^+ + 2e^-.
+\]
+
+Electron temperature $T_e$ evolves according to:
+\[
+\frac{dT_e}{dt}
+= \frac{Q_{\text{Joule}} - Q_{\text{rad}} - Q_{\text{coll}}}{n_e k_B},
+\]
+where:
+\begin{itemize}
+    \item $Q_{\text{Joule}}$ is electrical heating,
+    \item $Q_{\text{rad}}$ is radiative cooling,
+    \item $Q_{\text{coll}}$ is collisional energy exchange.
+\end{itemize}
+
+UUAS ION-Q4 provides $Q_{\text{rad}}$ and $Q_{\text{coll}}$ profiles.
+
+\subsection{Carbon-Bearing Reaction Network}
+Methane pyrolysis produces carbon clusters:
+\[
+\text{CH}_4 \rightarrow \text{C} + 2\text{H}_2,
+\]
+\[
+\text{CH}_4 \rightarrow \text{C}_2\text{H}_2 + \text{H}_2,
+\]
+\[
+\text{C}_2\text{H}_2 \rightarrow \text{C}_2 + \text{H}_2.
+\]
+
+Cluster growth:
+\[
+\text{C}_n + \text{C} \rightarrow \text{C}_{n+1},
+\]
+with nucleation rates predicted by UUAS THERMO-Q2.
+
+These reactions influence radiative emission and ablation chemistry.
+
+\subsection{Radiative Emission Processes}
+Shock-layer radiation is dominated by:
+\begin{itemize}
+    \item H and H$_2$ continuum emission,
+    \item H$_3^+$ rovibrational lines,
+    \item CH$_x$ band emission,
+    \item C$_2$ Swan bands.
+\end{itemize}
+
+Radiative flux:
+\[
+q_{\text{rad}} = \int_0^\infty \kappa_\lambda B_\lambda(T)\, d\lambda,
+\]
+where $\kappa_\lambda$ is spectral absorption coefficient and
+$B_\lambda$ is Planck function.
+
+UUAS ION-Q4 provides $\kappa_\lambda$ for H$_3^+$ and CH$_x$ species.
+
+\subsection{Chemical Energy Exchange}
+Chemical energy absorption:
+\[
+q_{\text{chem}} = \sum_i \dot{\omega}_i h_i,
+\]
+where $h_i$ is species enthalpy.
+
+UUAS predicts:
+\[
+q_{\text{chem}} \approx 3{-}5~\mathrm{MW/m^2},
+\]
+reducing stagnation-point temperature and ablation rate.
+
+\subsection{Nonequilibrium Effects}
+Nonequilibrium arises when:
+\[
+T_e \neq T_{\text{trans}} \neq T_{\text{vib}} \neq T_{\text{rot}},
+\]
+requiring multi-temperature modeling.
+
+Vibrational relaxation:
+\[
+\frac{dT_{\text{vib}}}{dt}
+= -\frac{T_{\text{vib}} - T_{\text{trans}}}{\tau_{\text{vib}}},
+\]
+with relaxation time $\tau_{\text{vib}}$ from THERMO-Q2.
+
+\subsection{Coupling to Aerothermodynamics}
+Shock-layer chemistry directly influences:
+\begin{itemize}
+    \item radiative heating $q_{\text{rad}}$,
+    \item convective heating $q_{\text{conv}}$,
+    \item ablation rate $\dot{m}_{\text{abl}}$,
+    \item deceleration profile $a_D$,
+    \item parachute deployment altitude $h_{\text{deploy}}$.
+\end{itemize}
+
+Chemical nonequilibrium reduces peak heating and modifies descent
+dynamics.
+
+\subsection{Conclusion}
+Shock-layer chemistry during Uranus entry is dominated by hydrogen
+dissociation, methane pyrolysis, ion formation, and nonequilibrium
+radiative processes. These reactions significantly affect thermal
+protection, deceleration, and descent stability. The derived chemical
+framework aligns with UUAS THERMO-Q2 and ION-Q4 predictions and provides
+a complete basis for modeling probe entry behavior.
