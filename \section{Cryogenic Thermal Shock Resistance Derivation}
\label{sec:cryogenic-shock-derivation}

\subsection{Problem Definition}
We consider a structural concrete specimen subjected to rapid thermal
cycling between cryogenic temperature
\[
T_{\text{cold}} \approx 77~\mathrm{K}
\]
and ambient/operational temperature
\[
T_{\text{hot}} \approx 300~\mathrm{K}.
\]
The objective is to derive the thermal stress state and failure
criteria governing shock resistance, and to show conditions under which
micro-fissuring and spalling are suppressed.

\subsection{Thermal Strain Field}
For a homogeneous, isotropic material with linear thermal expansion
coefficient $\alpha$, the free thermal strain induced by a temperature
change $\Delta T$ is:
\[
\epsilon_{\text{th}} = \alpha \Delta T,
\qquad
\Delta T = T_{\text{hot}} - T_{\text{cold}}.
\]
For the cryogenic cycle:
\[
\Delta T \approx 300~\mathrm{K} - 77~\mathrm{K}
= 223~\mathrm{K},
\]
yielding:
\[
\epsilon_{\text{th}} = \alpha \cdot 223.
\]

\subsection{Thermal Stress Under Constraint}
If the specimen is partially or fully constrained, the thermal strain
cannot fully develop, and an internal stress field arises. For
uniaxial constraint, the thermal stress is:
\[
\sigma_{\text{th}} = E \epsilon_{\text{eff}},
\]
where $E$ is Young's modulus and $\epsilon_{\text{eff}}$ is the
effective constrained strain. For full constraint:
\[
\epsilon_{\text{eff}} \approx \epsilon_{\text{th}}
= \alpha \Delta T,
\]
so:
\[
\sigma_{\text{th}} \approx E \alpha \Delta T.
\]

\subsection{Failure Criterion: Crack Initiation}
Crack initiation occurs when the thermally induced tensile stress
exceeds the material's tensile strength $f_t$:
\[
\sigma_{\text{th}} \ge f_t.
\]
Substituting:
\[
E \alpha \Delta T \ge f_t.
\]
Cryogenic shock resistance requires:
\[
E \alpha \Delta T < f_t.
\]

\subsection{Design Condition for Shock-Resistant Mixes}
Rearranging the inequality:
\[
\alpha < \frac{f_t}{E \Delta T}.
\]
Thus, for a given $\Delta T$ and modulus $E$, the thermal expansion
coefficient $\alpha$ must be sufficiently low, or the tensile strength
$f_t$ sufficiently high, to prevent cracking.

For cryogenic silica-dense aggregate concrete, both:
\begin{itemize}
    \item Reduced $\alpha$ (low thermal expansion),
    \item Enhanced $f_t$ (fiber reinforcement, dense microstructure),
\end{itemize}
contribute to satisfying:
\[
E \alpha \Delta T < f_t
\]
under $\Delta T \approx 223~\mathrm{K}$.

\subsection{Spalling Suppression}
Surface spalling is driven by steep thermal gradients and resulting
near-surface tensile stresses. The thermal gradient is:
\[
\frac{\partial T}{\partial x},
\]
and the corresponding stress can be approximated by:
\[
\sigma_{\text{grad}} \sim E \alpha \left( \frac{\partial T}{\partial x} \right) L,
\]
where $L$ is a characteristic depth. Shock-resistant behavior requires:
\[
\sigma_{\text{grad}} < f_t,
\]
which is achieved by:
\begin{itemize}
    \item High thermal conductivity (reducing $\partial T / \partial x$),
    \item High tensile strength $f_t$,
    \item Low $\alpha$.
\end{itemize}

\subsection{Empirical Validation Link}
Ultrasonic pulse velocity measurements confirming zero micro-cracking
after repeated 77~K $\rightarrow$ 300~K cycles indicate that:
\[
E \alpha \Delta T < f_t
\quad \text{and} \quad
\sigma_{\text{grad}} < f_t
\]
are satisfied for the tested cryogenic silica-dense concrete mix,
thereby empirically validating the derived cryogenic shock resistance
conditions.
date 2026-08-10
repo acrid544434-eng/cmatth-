@@ -1,0 +1,121 @@
+\section{Cryogenic Thermal Shock Resistance Derivation}
+\label{sec:cryogenic-shock-derivation}
+
+\subsection{Problem Definition}
+We consider a structural concrete specimen subjected to rapid thermal
+cycling between cryogenic temperature
+\[
+T_{\text{cold}} \approx 77~\mathrm{K}
+\]
+and ambient/operational temperature
+\[
+T_{\text{hot}} \approx 300~\mathrm{K}.
+\]
+The objective is to derive the thermal stress state and failure
+criteria governing shock resistance, and to show conditions under which
+micro-fissuring and spalling are suppressed.
+
+\subsection{Thermal Strain Field}
+For a homogeneous, isotropic material with linear thermal expansion
+coefficient $\alpha$, the free thermal strain induced by a temperature
+change $\Delta T$ is:
+\[
+\epsilon_{\text{th}} = \alpha \Delta T,
+\qquad
+\Delta T = T_{\text{hot}} - T_{\text{cold}}.
+\]
+For the cryogenic cycle:
+\[
+\Delta T \approx 300~\mathrm{K} - 77~\mathrm{K}
+= 223~\mathrm{K},
+\]
+yielding:
+\[
+\epsilon_{\text{th}} = \alpha \cdot 223.
+\]
+
+\subsection{Thermal Stress Under Constraint}
+If the specimen is partially or fully constrained, the thermal strain
+cannot fully develop, and an internal stress field arises. For
+uniaxial constraint, the thermal stress is:
+\[
+\sigma_{\text{th}} = E \epsilon_{\text{eff}},
+\]
+where $E$ is Young's modulus and $\epsilon_{\text{eff}}$ is the
+effective constrained strain. For full constraint:
+\[
+\epsilon_{\text{eff}} \approx \epsilon_{\text{th}}
+= \alpha \Delta T,
+\]
+so:
+\[
+\sigma_{\text{th}} \approx E \alpha \Delta T.
+\]
+
+\subsection{Failure Criterion: Crack Initiation}
+Crack initiation occurs when the thermally induced tensile stress
+exceeds the material's tensile strength $f_t$:
+\[
+\sigma_{\text{th}} \ge f_t.
+\]
+Substituting:
+\[
+E \alpha \Delta T \ge f_t.
+\]
+Cryogenic shock resistance requires:
+\[
+E \alpha \Delta T < f_t.
+\]
+
+\subsection{Design Condition for Shock-Resistant Mixes}
+Rearranging the inequality:
+\[
+\alpha < \frac{f_t}{E \Delta T}.
+\]
+Thus, for a given $\Delta T$ and modulus $E$, the thermal expansion
+coefficient $\alpha$ must be sufficiently low, or the tensile strength
+$f_t$ sufficiently high, to prevent cracking.
+
+For cryogenic silica-dense aggregate concrete, both:
+\begin{itemize}
+    \item Reduced $\alpha$ (low thermal expansion),
+    \item Enhanced $f_t$ (fiber reinforcement, dense microstructure),
+\end{itemize}
+contribute to satisfying:
+\[
+E \alpha \Delta T < f_t
+\]
+under $\Delta T \approx 223~\mathrm{K}$.
+
+\subsection{Spalling Suppression}
+Surface spalling is driven by steep thermal gradients and resulting
+near-surface tensile stresses. The thermal gradient is:
+\[
+\frac{\partial T}{\partial x},
+\]
+and the corresponding stress can be approximated by:
+\[
+\sigma_{\text{grad}} \sim E \alpha \left( \frac{\partial T}{\partial x} \right) L,
+\]
+where $L$ is a characteristic depth. Shock-resistant behavior requires:
+\[
+\sigma_{\text{grad}} < f_t,
+\]
+which is achieved by:
+\begin{itemize}
+    \item High thermal conductivity (reducing $\partial T / \partial x$),
+    \item High tensile strength $f_t$,
+    \item Low $\alpha$.
+\end{itemize}
+
+\subsection{Empirical Validation Link}
+Ultrasonic pulse velocity measurements confirming zero micro-cracking
+after repeated 77~K $\rightarrow$ 300~K cycles indicate that:
+\[
+E \alpha \Delta T < f_t
+\quad \text{and} \quad
+\sigma_{\text{grad}} < f_t
+\]
+are satisfied for the tested cryogenic silica-dense concrete mix,
+thereby empirically validating the derived cryogenic shock resistance
+conditions.
