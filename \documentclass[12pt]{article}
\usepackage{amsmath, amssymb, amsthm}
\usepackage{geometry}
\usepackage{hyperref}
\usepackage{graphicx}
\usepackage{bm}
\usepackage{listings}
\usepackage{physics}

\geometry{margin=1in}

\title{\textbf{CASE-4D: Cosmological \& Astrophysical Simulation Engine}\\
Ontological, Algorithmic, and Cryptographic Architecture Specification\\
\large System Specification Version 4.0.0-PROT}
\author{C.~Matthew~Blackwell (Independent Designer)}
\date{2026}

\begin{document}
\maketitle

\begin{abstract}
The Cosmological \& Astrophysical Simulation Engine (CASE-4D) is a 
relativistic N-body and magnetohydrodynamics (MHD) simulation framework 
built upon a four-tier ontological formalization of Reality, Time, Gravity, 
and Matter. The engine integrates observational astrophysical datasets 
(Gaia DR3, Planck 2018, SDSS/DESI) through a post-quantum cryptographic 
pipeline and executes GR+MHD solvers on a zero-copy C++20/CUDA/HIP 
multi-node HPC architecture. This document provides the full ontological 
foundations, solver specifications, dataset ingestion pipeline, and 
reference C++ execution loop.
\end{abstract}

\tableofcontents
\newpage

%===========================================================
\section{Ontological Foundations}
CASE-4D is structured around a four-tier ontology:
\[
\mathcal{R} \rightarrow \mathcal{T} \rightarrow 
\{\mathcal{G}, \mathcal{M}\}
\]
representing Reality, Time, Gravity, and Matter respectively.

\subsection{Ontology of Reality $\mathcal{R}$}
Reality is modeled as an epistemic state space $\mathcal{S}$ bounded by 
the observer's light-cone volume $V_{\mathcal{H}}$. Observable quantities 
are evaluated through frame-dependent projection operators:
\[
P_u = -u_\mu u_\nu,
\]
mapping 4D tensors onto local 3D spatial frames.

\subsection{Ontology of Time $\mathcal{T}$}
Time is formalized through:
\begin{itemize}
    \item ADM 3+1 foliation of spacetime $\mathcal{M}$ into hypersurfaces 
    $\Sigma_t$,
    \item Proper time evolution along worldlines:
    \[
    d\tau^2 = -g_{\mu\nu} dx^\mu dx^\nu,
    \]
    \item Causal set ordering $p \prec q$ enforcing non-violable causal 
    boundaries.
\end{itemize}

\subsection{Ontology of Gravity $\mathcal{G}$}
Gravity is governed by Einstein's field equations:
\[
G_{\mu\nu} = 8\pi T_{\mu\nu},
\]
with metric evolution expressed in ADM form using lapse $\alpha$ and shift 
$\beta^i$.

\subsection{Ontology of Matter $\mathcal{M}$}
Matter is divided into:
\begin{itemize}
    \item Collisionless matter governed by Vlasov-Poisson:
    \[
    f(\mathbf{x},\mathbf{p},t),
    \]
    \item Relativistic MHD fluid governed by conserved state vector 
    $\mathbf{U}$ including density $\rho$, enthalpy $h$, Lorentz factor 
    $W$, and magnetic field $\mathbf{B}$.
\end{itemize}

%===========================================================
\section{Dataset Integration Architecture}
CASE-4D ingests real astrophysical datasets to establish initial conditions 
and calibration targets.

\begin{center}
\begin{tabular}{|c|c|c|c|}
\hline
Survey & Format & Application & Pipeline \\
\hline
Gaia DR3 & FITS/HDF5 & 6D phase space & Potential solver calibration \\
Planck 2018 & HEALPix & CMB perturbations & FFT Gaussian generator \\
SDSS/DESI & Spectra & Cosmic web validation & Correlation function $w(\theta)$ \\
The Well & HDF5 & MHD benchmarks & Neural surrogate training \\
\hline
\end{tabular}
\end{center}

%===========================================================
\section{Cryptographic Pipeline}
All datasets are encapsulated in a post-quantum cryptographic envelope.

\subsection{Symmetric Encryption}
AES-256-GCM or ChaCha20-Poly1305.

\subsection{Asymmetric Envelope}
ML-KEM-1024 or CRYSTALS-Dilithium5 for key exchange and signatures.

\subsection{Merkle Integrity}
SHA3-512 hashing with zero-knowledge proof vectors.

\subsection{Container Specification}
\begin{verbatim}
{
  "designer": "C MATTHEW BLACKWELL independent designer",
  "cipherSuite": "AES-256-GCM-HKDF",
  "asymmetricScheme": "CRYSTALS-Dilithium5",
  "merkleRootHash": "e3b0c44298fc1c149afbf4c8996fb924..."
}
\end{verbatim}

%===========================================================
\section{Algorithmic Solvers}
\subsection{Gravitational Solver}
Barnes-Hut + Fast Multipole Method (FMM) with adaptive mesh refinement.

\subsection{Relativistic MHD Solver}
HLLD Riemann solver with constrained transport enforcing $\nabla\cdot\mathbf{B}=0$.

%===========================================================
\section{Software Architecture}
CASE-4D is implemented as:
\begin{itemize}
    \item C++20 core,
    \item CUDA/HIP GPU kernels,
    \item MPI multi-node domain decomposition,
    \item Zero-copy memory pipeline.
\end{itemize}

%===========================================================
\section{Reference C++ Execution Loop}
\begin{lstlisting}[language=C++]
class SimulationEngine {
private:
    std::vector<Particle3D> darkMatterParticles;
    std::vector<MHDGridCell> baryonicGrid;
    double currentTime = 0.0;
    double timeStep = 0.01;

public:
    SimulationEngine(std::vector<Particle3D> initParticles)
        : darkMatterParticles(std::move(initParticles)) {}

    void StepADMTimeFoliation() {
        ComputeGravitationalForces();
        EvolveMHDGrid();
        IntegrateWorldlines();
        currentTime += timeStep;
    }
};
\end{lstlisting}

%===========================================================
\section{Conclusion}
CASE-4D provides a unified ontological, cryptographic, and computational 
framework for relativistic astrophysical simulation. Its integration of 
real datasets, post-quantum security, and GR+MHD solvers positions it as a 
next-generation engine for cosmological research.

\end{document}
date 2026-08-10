@@ -1,0 +1,176 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{listings}
+\usepackage{physics}
+
+\geometry{margin=1in}
+
+\title{\textbf{CASE-4D: Cosmological \& Astrophysical Simulation Engine}\\
+Ontological, Algorithmic, and Cryptographic Architecture Specification\\
+\large System Specification Version 4.0.0-PROT}
+\author{C.~Matthew~Blackwell (Independent Designer)}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Cosmological \& Astrophysical Simulation Engine (CASE-4D) is a 
+relativistic N-body and magnetohydrodynamics (MHD) simulation framework 
+built upon a four-tier ontological formalization of Reality, Time, Gravity, 
+and Matter. The engine integrates observational astrophysical datasets 
+(Gaia DR3, Planck 2018, SDSS/DESI) through a post-quantum cryptographic 
+pipeline and executes GR+MHD solvers on a zero-copy C++20/CUDA/HIP 
+multi-node HPC architecture. This document provides the full ontological 
+foundations, solver specifications, dataset ingestion pipeline, and 
+reference C++ execution loop.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+%===========================================================
+\section{Ontological Foundations}
+CASE-4D is structured around a four-tier ontology:
+\[
+\mathcal{R} \rightarrow \mathcal{T} \rightarrow 
+\{\mathcal{G}, \mathcal{M}\}
+\]
+representing Reality, Time, Gravity, and Matter respectively.
+
+\subsection{Ontology of Reality $\mathcal{R}$}
+Reality is modeled as an epistemic state space $\mathcal{S}$ bounded by 
+the observer's light-cone volume $V_{\mathcal{H}}$. Observable quantities 
+are evaluated through frame-dependent projection operators:
+\[
+P_u = -u_\mu u_\nu,
+\]
+mapping 4D tensors onto local 3D spatial frames.
+
+\subsection{Ontology of Time $\mathcal{T}$}
+Time is formalized through:
+\begin{itemize}
+    \item ADM 3+1 foliation of spacetime $\mathcal{M}$ into hypersurfaces 
+    $\Sigma_t$,
+    \item Proper time evolution along worldlines:
+    \[
+    d\tau^2 = -g_{\mu\nu} dx^\mu dx^\nu,
+    \]
+    \item Causal set ordering $p \prec q$ enforcing non-violable causal 
+    boundaries.
+\end{itemize}
+
+\subsection{Ontology of Gravity $\mathcal{G}$}
+Gravity is governed by Einstein's field equations:
+\[
+G_{\mu\nu} = 8\pi T_{\mu\nu},
+\]
+with metric evolution expressed in ADM form using lapse $\alpha$ and shift 
+$\beta^i$.
+
+\subsection{Ontology of Matter $\mathcal{M}$}
+Matter is divided into:
+\begin{itemize}
+    \item Collisionless matter governed by Vlasov-Poisson:
+    \[
+    f(\mathbf{x},\mathbf{p},t),
+    \]
+    \item Relativistic MHD fluid governed by conserved state vector 
+    $\mathbf{U}$ including density $\rho$, enthalpy $h$, Lorentz factor 
+    $W$, and magnetic field $\mathbf{B}$.
+\end{itemize}
+
+%===========================================================
+\section{Dataset Integration Architecture}
+CASE-4D ingests real astrophysical datasets to establish initial conditions 
+and calibration targets.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Survey & Format & Application & Pipeline \\
+\hline
+Gaia DR3 & FITS/HDF5 & 6D phase space & Potential solver calibration \\
+Planck 2018 & HEALPix & CMB perturbations & FFT Gaussian generator \\
+SDSS/DESI & Spectra & Cosmic web validation & Correlation function $w(\theta)$ \\
+The Well & HDF5 & MHD benchmarks & Neural surrogate training \\
+\hline
+\end{tabular}
+\end{center}
+
+%===========================================================
+\section{Cryptographic Pipeline}
+All datasets are encapsulated in a post-quantum cryptographic envelope.
+
+\subsection{Symmetric Encryption}
+AES-256-GCM or ChaCha20-Poly1305.
+
+\subsection{Asymmetric Envelope}
+ML-KEM-1024 or CRYSTALS-Dilithium5 for key exchange and signatures.
+
+\subsection{Merkle Integrity}
+SHA3-512 hashing with zero-knowledge proof vectors.
+
+\subsection{Container Specification}
+\begin{verbatim}
+{
+  "designer": "C MATTHEW BLACKWELL independent designer",
+  "cipherSuite": "AES-256-GCM-HKDF",
+  "asymmetricScheme": "CRYSTALS-Dilithium5",
+  "merkleRootHash": "e3b0c44298fc1c149afbf4c8996fb924..."
+}
+\end{verbatim}
+
+%===========================================================
+\section{Algorithmic Solvers}
+\subsection{Gravitational Solver}
+Barnes-Hut + Fast Multipole Method (FMM) with adaptive mesh refinement.
+
+\subsection{Relativistic MHD Solver}
+HLLD Riemann solver with constrained transport enforcing $\nabla\cdot\mathbf{B}=0$.
+
+%===========================================================
+\section{Software Architecture}
+CASE-4D is implemented as:
+\begin{itemize}
+    \item C++20 core,
+    \item CUDA/HIP GPU kernels,
+    \item MPI multi-node domain decomposition,
+    \item Zero-copy memory pipeline.
+\end{itemize}
+
+%===========================================================
+\section{Reference C++ Execution Loop}
+\begin{lstlisting}[language=C++]
+class SimulationEngine {
+private:
+    std::vector<Particle3D> darkMatterParticles;
+    std::vector<MHDGridCell> baryonicGrid;
+    double currentTime = 0.0;
+    double timeStep = 0.01;
+
+public:
+    SimulationEngine(std::vector<Particle3D> initParticles)
+        : darkMatterParticles(std::move(initParticles)) {}
+
+    void StepADMTimeFoliation() {
+        ComputeGravitationalForces();
+        EvolveMHDGrid();
+        IntegrateWorldlines();
+        currentTime += timeStep;
+    }
+};
+\end{lstlisting}
+
+%===========================================================
+\section{Conclusion}
+CASE-4D provides a unified ontological, cryptographic, and computational 
+framework for relativistic astrophysical simulation. Its integration of 
+real datasets, post-quantum security, and GR+MHD solvers positions it as a 
+next-generation engine for cosmological research.
+
+\end{document}
