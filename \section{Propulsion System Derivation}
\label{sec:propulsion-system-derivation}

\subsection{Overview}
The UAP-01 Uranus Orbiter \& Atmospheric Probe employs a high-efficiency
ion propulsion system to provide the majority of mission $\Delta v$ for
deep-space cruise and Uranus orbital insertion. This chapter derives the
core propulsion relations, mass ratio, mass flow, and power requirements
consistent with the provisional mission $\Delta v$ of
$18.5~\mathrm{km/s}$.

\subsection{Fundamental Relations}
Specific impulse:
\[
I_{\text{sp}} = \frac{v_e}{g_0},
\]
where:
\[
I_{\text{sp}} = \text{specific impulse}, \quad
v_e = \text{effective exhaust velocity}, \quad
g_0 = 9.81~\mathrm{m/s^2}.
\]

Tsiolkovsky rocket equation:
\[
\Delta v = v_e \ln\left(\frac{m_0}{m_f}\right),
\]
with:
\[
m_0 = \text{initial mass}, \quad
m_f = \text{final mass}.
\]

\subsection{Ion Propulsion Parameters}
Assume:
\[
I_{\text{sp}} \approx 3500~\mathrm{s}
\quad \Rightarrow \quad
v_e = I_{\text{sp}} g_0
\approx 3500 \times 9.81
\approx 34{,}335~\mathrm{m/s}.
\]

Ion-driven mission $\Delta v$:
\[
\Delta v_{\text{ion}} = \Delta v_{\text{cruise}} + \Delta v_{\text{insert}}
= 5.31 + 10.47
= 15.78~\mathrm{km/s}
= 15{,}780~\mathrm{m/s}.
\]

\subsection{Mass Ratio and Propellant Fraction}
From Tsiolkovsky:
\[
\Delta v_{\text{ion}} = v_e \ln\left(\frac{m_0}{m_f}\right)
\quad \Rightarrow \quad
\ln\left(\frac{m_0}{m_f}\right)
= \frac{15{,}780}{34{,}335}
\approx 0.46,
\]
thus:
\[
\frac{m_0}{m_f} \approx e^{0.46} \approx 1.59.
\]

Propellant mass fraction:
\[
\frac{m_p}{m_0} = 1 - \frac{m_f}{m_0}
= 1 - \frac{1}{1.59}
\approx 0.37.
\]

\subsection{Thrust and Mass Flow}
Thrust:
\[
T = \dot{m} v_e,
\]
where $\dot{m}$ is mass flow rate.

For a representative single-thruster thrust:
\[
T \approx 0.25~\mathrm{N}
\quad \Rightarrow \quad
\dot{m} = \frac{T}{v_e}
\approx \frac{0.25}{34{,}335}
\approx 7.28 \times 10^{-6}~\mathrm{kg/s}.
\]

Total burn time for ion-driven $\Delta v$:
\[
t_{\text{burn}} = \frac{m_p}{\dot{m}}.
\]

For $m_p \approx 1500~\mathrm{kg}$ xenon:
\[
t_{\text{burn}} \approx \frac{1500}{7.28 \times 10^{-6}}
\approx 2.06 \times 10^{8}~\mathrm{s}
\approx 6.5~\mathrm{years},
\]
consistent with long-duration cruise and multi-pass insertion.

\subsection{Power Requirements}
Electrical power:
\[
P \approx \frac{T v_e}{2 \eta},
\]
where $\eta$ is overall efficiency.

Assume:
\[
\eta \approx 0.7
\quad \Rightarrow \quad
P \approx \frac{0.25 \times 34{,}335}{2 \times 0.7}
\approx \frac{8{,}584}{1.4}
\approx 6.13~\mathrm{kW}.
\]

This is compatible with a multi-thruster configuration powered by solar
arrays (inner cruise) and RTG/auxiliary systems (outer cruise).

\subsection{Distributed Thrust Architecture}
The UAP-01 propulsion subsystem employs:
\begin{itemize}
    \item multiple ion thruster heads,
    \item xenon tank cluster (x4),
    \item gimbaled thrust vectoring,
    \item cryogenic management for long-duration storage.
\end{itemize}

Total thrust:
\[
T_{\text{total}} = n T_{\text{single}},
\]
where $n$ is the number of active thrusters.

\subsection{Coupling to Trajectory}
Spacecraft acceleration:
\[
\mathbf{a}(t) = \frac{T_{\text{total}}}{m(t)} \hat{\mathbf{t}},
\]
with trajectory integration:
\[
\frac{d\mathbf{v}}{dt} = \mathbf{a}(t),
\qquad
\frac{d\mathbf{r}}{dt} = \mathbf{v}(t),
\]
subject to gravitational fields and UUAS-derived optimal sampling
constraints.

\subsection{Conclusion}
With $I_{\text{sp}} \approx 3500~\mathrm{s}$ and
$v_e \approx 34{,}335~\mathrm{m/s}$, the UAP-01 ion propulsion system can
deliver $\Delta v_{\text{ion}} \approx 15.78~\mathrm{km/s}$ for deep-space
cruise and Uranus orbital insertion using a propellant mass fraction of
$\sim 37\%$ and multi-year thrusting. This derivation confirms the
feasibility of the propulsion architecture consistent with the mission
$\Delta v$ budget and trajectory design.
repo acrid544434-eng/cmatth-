@@ -1,0 +1,157 @@
+\section{Propulsion System Derivation}
+\label{sec:propulsion-system-derivation}
+
+\subsection{Overview}
+The UAP-01 Uranus Orbiter \& Atmospheric Probe employs a high-efficiency
+ion propulsion system to provide the majority of mission $\Delta v$ for
+deep-space cruise and Uranus orbital insertion. This chapter derives the
+core propulsion relations, mass ratio, mass flow, and power requirements
+consistent with the provisional mission $\Delta v$ of
+$18.5~\mathrm{km/s}$.
+
+\subsection{Fundamental Relations}
+Specific impulse:
+\[
+I_{\text{sp}} = \frac{v_e}{g_0},
+\]
+where:
+\[
+I_{\text{sp}} = \text{specific impulse}, \quad
+v_e = \text{effective exhaust velocity}, \quad
+g_0 = 9.81~\mathrm{m/s^2}.
+\]
+
+Tsiolkovsky rocket equation:
+\[
+\Delta v = v_e \ln\left(\frac{m_0}{m_f}\right),
+\]
+with:
+\[
+m_0 = \text{initial mass}, \quad
+m_f = \text{final mass}.
+\]
+
+\subsection{Ion Propulsion Parameters}
+Assume:
+\[
+I_{\text{sp}} \approx 3500~\mathrm{s}
+\quad \Rightarrow \quad
+v_e = I_{\text{sp}} g_0
+\approx 3500 \times 9.81
+\approx 34{,}335~\mathrm{m/s}.
+\]
+
+Ion-driven mission $\Delta v$:
+\[
+\Delta v_{\text{ion}} = \Delta v_{\text{cruise}} + \Delta v_{\text{insert}}
+= 5.31 + 10.47
+= 15.78~\mathrm{km/s}
+= 15{,}780~\mathrm{m/s}.
+\]
+
+\subsection{Mass Ratio and Propellant Fraction}
+From Tsiolkovsky:
+\[
+\Delta v_{\text{ion}} = v_e \ln\left(\frac{m_0}{m_f}\right)
+\quad \Rightarrow \quad
+\ln\left(\frac{m_0}{m_f}\right)
+= \frac{15{,}780}{34{,}335}
+\approx 0.46,
+\]
+thus:
+\[
+\frac{m_0}{m_f} \approx e^{0.46} \approx 1.59.
+\]
+
+Propellant mass fraction:
+\[
+\frac{m_p}{m_0} = 1 - \frac{m_f}{m_0}
+= 1 - \frac{1}{1.59}
+\approx 0.37.
+\]
+
+\subsection{Thrust and Mass Flow}
+Thrust:
+\[
+T = \dot{m} v_e,
+\]
+where $\dot{m}$ is mass flow rate.
+
+For a representative single-thruster thrust:
+\[
+T \approx 0.25~\mathrm{N}
+\quad \Rightarrow \quad
+\dot{m} = \frac{T}{v_e}
+\approx \frac{0.25}{34{,}335}
+\approx 7.28 \times 10^{-6}~\mathrm{kg/s}.
+\]
+
+Total burn time for ion-driven $\Delta v$:
+\[
+t_{\text{burn}} = \frac{m_p}{\dot{m}}.
+\]
+
+For $m_p \approx 1500~\mathrm{kg}$ xenon:
+\[
+t_{\text{burn}} \approx \frac{1500}{7.28 \times 10^{-6}}
+\approx 2.06 \times 10^{8}~\mathrm{s}
+\approx 6.5~\mathrm{years},
+\]
+consistent with long-duration cruise and multi-pass insertion.
+
+\subsection{Power Requirements}
+Electrical power:
+\[
+P \approx \frac{T v_e}{2 \eta},
+\]
+where $\eta$ is overall efficiency.
+
+Assume:
+\[
+\eta \approx 0.7
+\quad \Rightarrow \quad
+P \approx \frac{0.25 \times 34{,}335}{2 \times 0.7}
+\approx \frac{8{,}584}{1.4}
+\approx 6.13~\mathrm{kW}.
+\]
+
+This is compatible with a multi-thruster configuration powered by solar
+arrays (inner cruise) and RTG/auxiliary systems (outer cruise).
+
+\subsection{Distributed Thrust Architecture}
+The UAP-01 propulsion subsystem employs:
+\begin{itemize}
+    \item multiple ion thruster heads,
+    \item xenon tank cluster (x4),
+    \item gimbaled thrust vectoring,
+    \item cryogenic management for long-duration storage.
+\end{itemize}
+
+Total thrust:
+\[
+T_{\text{total}} = n T_{\text{single}},
+\]
+where $n$ is the number of active thrusters.
+
+\subsection{Coupling to Trajectory}
+Spacecraft acceleration:
+\[
+\mathbf{a}(t) = \frac{T_{\text{total}}}{m(t)} \hat{\mathbf{t}},
+\]
+with trajectory integration:
+\[
+\frac{d\mathbf{v}}{dt} = \mathbf{a}(t),
+\qquad
+\frac{d\mathbf{r}}{dt} = \mathbf{v}(t),
+\]
+subject to gravitational fields and UUAS-derived optimal sampling
+constraints.
+
+\subsection{Conclusion}
+With $I_{\text{sp}} \approx 3500~\mathrm{s}$ and
+$v_e \approx 34{,}335~\mathrm{m/s}$, the UAP-01 ion propulsion system can
+deliver $\Delta v_{\text{ion}} \approx 15.78~\mathrm{km/s}$ for deep-space
+cruise and Uranus orbital insertion using a propellant mass fraction of
+$\sim 37\%$ and multi-year thrusting. This derivation confirms the
+feasibility of the propulsion architecture consistent with the mission
+$\Delta v$ budget and trajectory design.
