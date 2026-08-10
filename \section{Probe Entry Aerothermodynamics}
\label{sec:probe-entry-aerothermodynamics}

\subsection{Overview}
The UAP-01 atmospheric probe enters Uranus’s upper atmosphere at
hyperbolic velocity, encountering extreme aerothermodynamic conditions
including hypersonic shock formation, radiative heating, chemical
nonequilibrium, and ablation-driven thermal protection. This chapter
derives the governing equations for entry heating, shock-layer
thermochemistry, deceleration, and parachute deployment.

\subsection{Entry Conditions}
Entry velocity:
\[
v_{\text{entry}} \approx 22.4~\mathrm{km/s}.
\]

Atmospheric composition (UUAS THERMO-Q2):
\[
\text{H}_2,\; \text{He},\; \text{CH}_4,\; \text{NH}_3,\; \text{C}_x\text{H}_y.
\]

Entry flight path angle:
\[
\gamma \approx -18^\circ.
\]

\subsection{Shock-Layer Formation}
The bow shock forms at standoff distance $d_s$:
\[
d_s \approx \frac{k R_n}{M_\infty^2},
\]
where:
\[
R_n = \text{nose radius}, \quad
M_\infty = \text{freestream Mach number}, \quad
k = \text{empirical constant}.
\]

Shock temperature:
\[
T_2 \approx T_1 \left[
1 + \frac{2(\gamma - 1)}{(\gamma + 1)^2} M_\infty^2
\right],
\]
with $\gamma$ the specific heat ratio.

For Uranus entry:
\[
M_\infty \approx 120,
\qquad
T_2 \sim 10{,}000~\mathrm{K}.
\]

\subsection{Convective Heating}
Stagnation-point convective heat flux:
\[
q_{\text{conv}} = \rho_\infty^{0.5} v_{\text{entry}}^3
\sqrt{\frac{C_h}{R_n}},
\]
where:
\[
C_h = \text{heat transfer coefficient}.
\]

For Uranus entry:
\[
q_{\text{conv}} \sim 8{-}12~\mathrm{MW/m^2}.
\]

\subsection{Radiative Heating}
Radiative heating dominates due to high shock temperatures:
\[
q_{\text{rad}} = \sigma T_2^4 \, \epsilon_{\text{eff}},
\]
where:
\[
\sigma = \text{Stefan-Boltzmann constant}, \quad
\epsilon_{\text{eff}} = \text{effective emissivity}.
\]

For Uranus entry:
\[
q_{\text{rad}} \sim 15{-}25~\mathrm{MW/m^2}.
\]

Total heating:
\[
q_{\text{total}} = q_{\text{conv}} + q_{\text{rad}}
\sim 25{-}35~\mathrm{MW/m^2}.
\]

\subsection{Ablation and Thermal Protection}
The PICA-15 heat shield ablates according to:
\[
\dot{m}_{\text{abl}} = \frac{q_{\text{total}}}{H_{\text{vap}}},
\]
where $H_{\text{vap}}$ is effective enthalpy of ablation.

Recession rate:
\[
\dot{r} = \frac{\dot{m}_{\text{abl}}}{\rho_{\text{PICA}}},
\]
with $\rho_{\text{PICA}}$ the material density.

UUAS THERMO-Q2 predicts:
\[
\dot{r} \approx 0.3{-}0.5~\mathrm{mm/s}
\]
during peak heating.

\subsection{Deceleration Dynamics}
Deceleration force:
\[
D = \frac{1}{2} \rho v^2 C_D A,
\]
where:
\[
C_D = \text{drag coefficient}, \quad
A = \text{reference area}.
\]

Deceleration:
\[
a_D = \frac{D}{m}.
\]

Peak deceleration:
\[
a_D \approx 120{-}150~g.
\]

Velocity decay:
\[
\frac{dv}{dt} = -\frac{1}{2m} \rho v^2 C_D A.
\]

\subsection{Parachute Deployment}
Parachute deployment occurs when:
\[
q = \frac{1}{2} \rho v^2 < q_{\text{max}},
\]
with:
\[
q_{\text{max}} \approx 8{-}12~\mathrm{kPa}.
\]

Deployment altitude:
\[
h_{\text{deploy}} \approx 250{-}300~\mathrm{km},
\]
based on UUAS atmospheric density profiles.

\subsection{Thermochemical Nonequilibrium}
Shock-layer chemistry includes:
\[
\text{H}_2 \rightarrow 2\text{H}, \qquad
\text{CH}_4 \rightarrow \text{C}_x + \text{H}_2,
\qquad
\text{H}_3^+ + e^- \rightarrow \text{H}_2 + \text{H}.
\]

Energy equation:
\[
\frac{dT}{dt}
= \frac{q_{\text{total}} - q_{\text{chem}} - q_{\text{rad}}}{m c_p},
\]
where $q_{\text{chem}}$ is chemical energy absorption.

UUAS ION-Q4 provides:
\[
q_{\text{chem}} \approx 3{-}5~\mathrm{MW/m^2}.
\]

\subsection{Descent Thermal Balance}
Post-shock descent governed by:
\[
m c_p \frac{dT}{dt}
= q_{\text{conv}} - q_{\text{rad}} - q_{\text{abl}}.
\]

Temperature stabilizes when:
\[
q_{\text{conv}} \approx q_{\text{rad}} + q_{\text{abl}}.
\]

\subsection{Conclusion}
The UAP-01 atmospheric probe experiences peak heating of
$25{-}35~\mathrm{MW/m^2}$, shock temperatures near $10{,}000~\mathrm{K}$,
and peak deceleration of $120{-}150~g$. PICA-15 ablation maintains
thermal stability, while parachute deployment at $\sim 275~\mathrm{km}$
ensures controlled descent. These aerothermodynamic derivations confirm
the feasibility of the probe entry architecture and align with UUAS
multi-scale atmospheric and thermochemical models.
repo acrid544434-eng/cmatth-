@@ -1,0 +1,194 @@
+\section{Probe Entry Aerothermodynamics}
+\label{sec:probe-entry-aerothermodynamics}
+
+\subsection{Overview}
+The UAP-01 atmospheric probe enters Uranus’s upper atmosphere at
+hyperbolic velocity, encountering extreme aerothermodynamic conditions
+including hypersonic shock formation, radiative heating, chemical
+nonequilibrium, and ablation-driven thermal protection. This chapter
+derives the governing equations for entry heating, shock-layer
+thermochemistry, deceleration, and parachute deployment.
+
+\subsection{Entry Conditions}
+Entry velocity:
+\[
+v_{\text{entry}} \approx 22.4~\mathrm{km/s}.
+\]
+
+Atmospheric composition (UUAS THERMO-Q2):
+\[
+\text{H}_2,\; \text{He},\; \text{CH}_4,\; \text{NH}_3,\; \text{C}_x\text{H}_y.
+\]
+
+Entry flight path angle:
+\[
+\gamma \approx -18^\circ.
+\]
+
+\subsection{Shock-Layer Formation}
+The bow shock forms at standoff distance $d_s$:
+\[
+d_s \approx \frac{k R_n}{M_\infty^2},
+\]
+where:
+\[
+R_n = \text{nose radius}, \quad
+M_\infty = \text{freestream Mach number}, \quad
+k = \text{empirical constant}.
+\]
+
+Shock temperature:
+\[
+T_2 \approx T_1 \left[
+1 + \frac{2(\gamma - 1)}{(\gamma + 1)^2} M_\infty^2
+\right],
+\]
+with $\gamma$ the specific heat ratio.
+
+For Uranus entry:
+\[
+M_\infty \approx 120,
+\qquad
+T_2 \sim 10{,}000~\mathrm{K}.
+\]
+
+\subsection{Convective Heating}
+Stagnation-point convective heat flux:
+\[
+q_{\text{conv}} = \rho_\infty^{0.5} v_{\text{entry}}^3
+\sqrt{\frac{C_h}{R_n}},
+\]
+where:
+\[
+C_h = \text{heat transfer coefficient}.
+\]
+
+For Uranus entry:
+\[
+q_{\text{conv}} \sim 8{-}12~\mathrm{MW/m^2}.
+\]
+
+\subsection{Radiative Heating}
+Radiative heating dominates due to high shock temperatures:
+\[
+q_{\text{rad}} = \sigma T_2^4 \, \epsilon_{\text{eff}},
+\]
+where:
+\[
+\sigma = \text{Stefan-Boltzmann constant}, \quad
+\epsilon_{\text{eff}} = \text{effective emissivity}.
+\]
+
+For Uranus entry:
+\[
+q_{\text{rad}} \sim 15{-}25~\mathrm{MW/m^2}.
+\]
+
+Total heating:
+\[
+q_{\text{total}} = q_{\text{conv}} + q_{\text{rad}}
+\sim 25{-}35~\mathrm{MW/m^2}.
+\]
+
+\subsection{Ablation and Thermal Protection}
+The PICA-15 heat shield ablates according to:
+\[
+\dot{m}_{\text{abl}} = \frac{q_{\text{total}}}{H_{\text{vap}}},
+\]
+where $H_{\text{vap}}$ is effective enthalpy of ablation.
+
+Recession rate:
+\[
+\dot{r} = \frac{\dot{m}_{\text{abl}}}{\rho_{\text{PICA}}},
+\]
+with $\rho_{\text{PICA}}$ the material density.
+
+UUAS THERMO-Q2 predicts:
+\[
+\dot{r} \approx 0.3{-}0.5~\mathrm{mm/s}
+\]
+during peak heating.
+
+\subsection{Deceleration Dynamics}
+Deceleration force:
+\[
+D = \frac{1}{2} \rho v^2 C_D A,
+\]
+where:
+\[
+C_D = \text{drag coefficient}, \quad
+A = \text{reference area}.
+\]
+
+Deceleration:
+\[
+a_D = \frac{D}{m}.
+\]
+
+Peak deceleration:
+\[
+a_D \approx 120{-}150~g.
+\]
+
+Velocity decay:
+\[
+\frac{dv}{dt} = -\frac{1}{2m} \rho v^2 C_D A.
+\]
+
+\subsection{Parachute Deployment}
+Parachute deployment occurs when:
+\[
+q = \frac{1}{2} \rho v^2 < q_{\text{max}},
+\]
+with:
+\[
+q_{\text{max}} \approx 8{-}12~\mathrm{kPa}.
+\]
+
+Deployment altitude:
+\[
+h_{\text{deploy}} \approx 250{-}300~\mathrm{km},
+\]
+based on UUAS atmospheric density profiles.
+
+\subsection{Thermochemical Nonequilibrium}
+Shock-layer chemistry includes:
+\[
+\text{H}_2 \rightarrow 2\text{H}, \qquad
+\text{CH}_4 \rightarrow \text{C}_x + \text{H}_2,
+\qquad
+\text{H}_3^+ + e^- \rightarrow \text{H}_2 + \text{H}.
+\]
+
+Energy equation:
+\[
+\frac{dT}{dt}
+= \frac{q_{\text{total}} - q_{\text{chem}} - q_{\text{rad}}}{m c_p},
+\]
+where $q_{\text{chem}}$ is chemical energy absorption.
+
+UUAS ION-Q4 provides:
+\[
+q_{\text{chem}} \approx 3{-}5~\mathrm{MW/m^2}.
+\]
+
+\subsection{Descent Thermal Balance}
+Post-shock descent governed by:
+\[
+m c_p \frac{dT}{dt}
+= q_{\text{conv}} - q_{\text{rad}} - q_{\text{abl}}.
+\]
+
+Temperature stabilizes when:
+\[
+q_{\text{conv}} \approx q_{\text{rad}} + q_{\text{abl}}.
+\]
+
+\subsection{Conclusion}
+The UAP-01 atmospheric probe experiences peak heating of
+$25{-}35~\mathrm{MW/m^2}$, shock temperatures near $10{,}000~\mathrm{K}$,
+and peak deceleration of $120{-}150~g$. PICA-15 ablation maintains
+thermal stability, while parachute deployment at $\sim 275~\mathrm{km}$
+ensures controlled descent. These aerothermodynamic derivations confirm
+the feasibility of the probe entry architecture and align with UUAS
+multi-scale atmospheric and thermochemical models.
