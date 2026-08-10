@@ -1,0 +1,153 @@
+\section{Mission \texorpdfstring{$\Delta v$}{Δv} and Trajectory Architecture}
+\label{sec:mission-delta-v-trajectory}
+
+\subsection{Overview}
+The UAP-01 Uranus Orbiter \& Atmospheric Probe mission requires a
+multi-phase interplanetary trajectory incorporating Earth departure,
+heliocentric cruise, Uranus approach, probe release, and orbital
+insertion. The total provisional mission $\Delta v$ is:
+\[
+\Delta v_{\text{total}} = 18.5~\mathrm{km/s}.
+\]
+This chapter formalizes the trajectory architecture, $\Delta v$
+budgeting, and dynamical constraints derived from the UUAS multi-scale
+simulation framework.
+
+\subsection{Trajectory Phases}
+The mission consists of five primary dynamical phases:
+\begin{enumerate}
+    \item Earth departure and escape.
+    \item Deep-space cruise with ion propulsion.
+    \item Uranus approach and probe release.
+    \item Probe entry and descent.
+    \item Orbiter insertion and science orbit shaping.
+\end{enumerate}
+
+Each phase contributes to the cumulative $\Delta v$ requirement.
+
+\subsection{Earth Departure}
+Earth escape velocity from low Earth orbit (LEO) is:
+\[
+v_{\text{esc}} = \sqrt{2\mu_{\oplus}/r_{\text{LEO}}}
+\approx 10.9~\mathrm{km/s}.
+\]
+The launch vehicle provides the majority of this energy, leaving the
+spacecraft with a post-injection hyperbolic excess velocity:
+\[
+v_{\infty} \approx 3.3~\mathrm{km/s}.
+\]
+
+\subsection{Deep-Space Cruise}
+Ion propulsion provides continuous low-thrust acceleration over the
+heliocentric cruise phase. The cumulative cruise $\Delta v$ is:
+\[
+\Delta v_{\text{cruise}} = 5.31~\mathrm{km/s},
+\]
+consistent with the UAP-01 propulsion subsystem hierarchy.
+
+The thrust profile is governed by:
+\[
+\frac{d\mathbf{v}}{dt} = \frac{T}{m(t)}\hat{\mathbf{t}},
+\]
+where $T$ is thrust, $m(t)$ spacecraft mass, and $\hat{\mathbf{t}}$ the
+thrust direction.
+
+\subsection{Uranus Approach and Probe Release}
+The approach trajectory is shaped to align with UUAS MHD-Q1 dynamo
+sampling requirements. The probe is released on a pre-entry hyperbolic
+trajectory with:
+\[
+v_{\text{rel}} \approx 1.2~\mathrm{km/s},
+\]
+ensuring correct atmospheric entry geometry.
+
+\subsection{Probe Entry and Descent}
+The atmospheric probe enters Uranus’s atmosphere with entry velocity:
+\[
+v_{\text{entry}} \approx 22.4~\mathrm{km/s},
+\]
+dissipated through:
+\begin{itemize}
+    \item PICA-15 heat shield ablation,
+    \item supersonic deceleration,
+    \item parachute deployment,
+    \item terminal descent stabilization.
+\end{itemize}
+
+No propulsive $\Delta v$ is required for the probe.
+
+\subsection{Orbiter Insertion}
+Orbital insertion requires:
+\[
+\Delta v_{\text{insert}} = 10.47~\mathrm{km/s},
+\]
+matching the spacecraft hierarchy (UAP-06, R1).
+
+Insertion is performed using ion propulsion over multiple periapsis
+passes, governed by:
+\[
+\Delta v = \int_{t_0}^{t_1} \frac{T}{m(t)}\,dt.
+\]
+
+\subsection{Science Orbit Shaping}
+Science orbit shaping refines:
+\begin{itemize}
+    \item magnetic field sampling geometry,
+    \item auroral ring observation windows,
+    \item ionospheric plasma coverage,
+    \item probe-relay alignment.
+\end{itemize}
+
+UUAS provides real-time dynamical constraints based on MHD-Q1 and
+ION-Q4 outputs.
+
+\subsection{Mission \texorpdfstring{$\Delta v$}{Δv} Budget}
+The total mission $\Delta v$ is:
+\[
+\Delta v_{\text{total}}
+= v_{\infty}
++ \Delta v_{\text{cruise}}
++ \Delta v_{\text{insert}}
+= 3.3 + 5.31 + 10.47
+= 18.5~\mathrm{km/s}.
+\]
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Phase} & \textbf{$\Delta v$ (km/s)} & \textbf{Subsystem} \\
+\hline
+Earth Departure & 3.33 & UAP-01 Structure/Thermal \\
+Deep-Space Cruise & 5.31 & UAP-06 Ion Propulsion \\
+Orbital Insertion & 10.47 & R1 Insertion Burn \\
+Probe Entry & N/A & Atmospheric Dynamics \\
+Science Orbit Shaping & N/A & Ion Propulsion \\
+\hline
+\textbf{Total} & \textbf{18.5} & --- \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Trajectory Optimization via UUAS}
+UUAS provides trajectory optimization constraints:
+\begin{itemize}
+    \item MHD-Q1 dynamo geometry for magnetic sampling.
+    \item THERMO-Q2 mantle stratification for probe descent timing.
+    \item ION-Q4 ionospheric plasma cycles for auroral observation windows.
+    \item FHE-Q3 encrypted telemetry timing for data relay.
+\end{itemize}
+
+The spacecraft trajectory is continuously refined using:
+\[
+\mathbf{a}(t) = f_{\text{UUAS}}(\mathbf{r}(t), \mathbf{v}(t)),
+\]
+where $\mathbf{a}(t)$ is the optimal acceleration vector.
+
+\subsection{Conclusion}
+The UAP-01 mission requires a total $\Delta v$ of 18.5~km/s, distributed
+across Earth departure, deep-space cruise, and Uranus orbital insertion.
+Trajectory geometry is tightly coupled to UUAS multi-scale physics
+models, ensuring optimal sampling of Uranus’s magnetic field, atmosphere,
+ionosphere, and deep interior. The spacecraft and simulation form a
+co-evolving dynamical system capable of unprecedented planetary science
+fidelity.
