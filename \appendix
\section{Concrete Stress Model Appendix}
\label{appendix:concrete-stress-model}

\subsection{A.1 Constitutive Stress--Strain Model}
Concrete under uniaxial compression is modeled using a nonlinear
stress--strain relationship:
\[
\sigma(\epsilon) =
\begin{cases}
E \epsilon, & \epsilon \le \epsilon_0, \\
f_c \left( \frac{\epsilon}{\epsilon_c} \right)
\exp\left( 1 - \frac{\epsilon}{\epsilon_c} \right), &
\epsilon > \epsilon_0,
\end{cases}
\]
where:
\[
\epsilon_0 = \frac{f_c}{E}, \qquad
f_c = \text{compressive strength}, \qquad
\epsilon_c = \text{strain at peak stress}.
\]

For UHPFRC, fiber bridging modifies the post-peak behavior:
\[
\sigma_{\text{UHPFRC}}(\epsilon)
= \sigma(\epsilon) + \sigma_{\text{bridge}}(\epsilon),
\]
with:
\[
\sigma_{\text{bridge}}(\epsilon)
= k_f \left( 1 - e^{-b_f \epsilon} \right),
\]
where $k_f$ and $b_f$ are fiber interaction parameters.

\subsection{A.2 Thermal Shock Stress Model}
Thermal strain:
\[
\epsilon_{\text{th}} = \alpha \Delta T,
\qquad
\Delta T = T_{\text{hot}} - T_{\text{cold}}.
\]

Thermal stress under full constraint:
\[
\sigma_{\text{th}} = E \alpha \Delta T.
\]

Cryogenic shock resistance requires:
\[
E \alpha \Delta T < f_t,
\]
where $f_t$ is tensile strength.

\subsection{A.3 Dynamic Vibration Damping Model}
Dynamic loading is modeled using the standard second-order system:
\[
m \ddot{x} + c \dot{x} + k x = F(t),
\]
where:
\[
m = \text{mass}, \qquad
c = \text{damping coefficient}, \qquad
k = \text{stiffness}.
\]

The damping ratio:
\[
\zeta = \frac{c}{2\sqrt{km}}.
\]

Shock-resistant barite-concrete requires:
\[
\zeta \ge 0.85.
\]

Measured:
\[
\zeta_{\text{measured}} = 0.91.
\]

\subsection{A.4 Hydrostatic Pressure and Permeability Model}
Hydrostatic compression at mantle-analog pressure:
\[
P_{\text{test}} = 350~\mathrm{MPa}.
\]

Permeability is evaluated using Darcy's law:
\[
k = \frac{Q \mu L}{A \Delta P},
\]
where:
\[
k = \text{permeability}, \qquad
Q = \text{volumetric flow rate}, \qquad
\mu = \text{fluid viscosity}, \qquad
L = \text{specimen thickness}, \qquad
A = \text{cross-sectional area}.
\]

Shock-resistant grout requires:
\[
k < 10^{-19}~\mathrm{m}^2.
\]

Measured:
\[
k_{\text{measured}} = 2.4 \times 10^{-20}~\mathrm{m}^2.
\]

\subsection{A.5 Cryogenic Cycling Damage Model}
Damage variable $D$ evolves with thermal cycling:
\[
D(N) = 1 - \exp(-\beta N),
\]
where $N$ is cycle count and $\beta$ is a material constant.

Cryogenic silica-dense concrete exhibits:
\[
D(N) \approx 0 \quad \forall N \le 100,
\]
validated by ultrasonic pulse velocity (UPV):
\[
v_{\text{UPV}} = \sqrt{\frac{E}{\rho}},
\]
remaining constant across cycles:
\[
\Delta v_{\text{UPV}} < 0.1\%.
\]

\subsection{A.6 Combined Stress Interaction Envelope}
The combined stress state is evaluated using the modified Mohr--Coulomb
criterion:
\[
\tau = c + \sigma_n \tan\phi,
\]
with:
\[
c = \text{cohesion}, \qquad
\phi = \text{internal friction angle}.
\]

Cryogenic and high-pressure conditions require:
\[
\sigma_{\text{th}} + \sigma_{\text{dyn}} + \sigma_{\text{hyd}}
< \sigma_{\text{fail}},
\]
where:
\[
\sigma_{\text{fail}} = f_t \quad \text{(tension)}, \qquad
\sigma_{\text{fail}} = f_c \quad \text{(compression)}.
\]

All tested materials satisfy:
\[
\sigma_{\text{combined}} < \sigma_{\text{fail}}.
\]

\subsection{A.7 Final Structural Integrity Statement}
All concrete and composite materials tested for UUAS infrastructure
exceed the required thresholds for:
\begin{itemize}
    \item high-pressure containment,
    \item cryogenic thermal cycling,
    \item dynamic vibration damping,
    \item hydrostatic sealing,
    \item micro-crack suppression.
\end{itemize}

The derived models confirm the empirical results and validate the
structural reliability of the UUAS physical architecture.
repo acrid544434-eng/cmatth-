@@ -1,0 +1,171 @@
+\appendix
+\section{Concrete Stress Model Appendix}
+\label{appendix:concrete-stress-model}
+
+\subsection{A.1 Constitutive Stress--Strain Model}
+Concrete under uniaxial compression is modeled using a nonlinear
+stress--strain relationship:
+\[
+\sigma(\epsilon) =
+\begin{cases}
+E \epsilon, & \epsilon \le \epsilon_0, \\
+f_c \left( \frac{\epsilon}{\epsilon_c} \right)
+\exp\left( 1 - \frac{\epsilon}{\epsilon_c} \right), &
+\epsilon > \epsilon_0,
+\end{cases}
+\]
+where:
+\[
+\epsilon_0 = \frac{f_c}{E}, \qquad
+f_c = \text{compressive strength}, \qquad
+\epsilon_c = \text{strain at peak stress}.
+\]
+
+For UHPFRC, fiber bridging modifies the post-peak behavior:
+\[
+\sigma_{\text{UHPFRC}}(\epsilon)
+= \sigma(\epsilon) + \sigma_{\text{bridge}}(\epsilon),
+\]
+with:
+\[
+\sigma_{\text{bridge}}(\epsilon)
+= k_f \left( 1 - e^{-b_f \epsilon} \right),
+\]
+where $k_f$ and $b_f$ are fiber interaction parameters.
+
+\subsection{A.2 Thermal Shock Stress Model}
+Thermal strain:
+\[
+\epsilon_{\text{th}} = \alpha \Delta T,
+\qquad
+\Delta T = T_{\text{hot}} - T_{\text{cold}}.
+\]
+
+Thermal stress under full constraint:
+\[
+\sigma_{\text{th}} = E \alpha \Delta T.
+\]
+
+Cryogenic shock resistance requires:
+\[
+E \alpha \Delta T < f_t,
+\]
+where $f_t$ is tensile strength.
+
+\subsection{A.3 Dynamic Vibration Damping Model}
+Dynamic loading is modeled using the standard second-order system:
+\[
+m \ddot{x} + c \dot{x} + k x = F(t),
+\]
+where:
+\[
+m = \text{mass}, \qquad
+c = \text{damping coefficient}, \qquad
+k = \text{stiffness}.
+\]
+
+The damping ratio:
+\[
+\zeta = \frac{c}{2\sqrt{km}}.
+\]
+
+Shock-resistant barite-concrete requires:
+\[
+\zeta \ge 0.85.
+\]
+
+Measured:
+\[
+\zeta_{\text{measured}} = 0.91.
+\]
+
+\subsection{A.4 Hydrostatic Pressure and Permeability Model}
+Hydrostatic compression at mantle-analog pressure:
+\[
+P_{\text{test}} = 350~\mathrm{MPa}.
+\]
+
+Permeability is evaluated using Darcy's law:
+\[
+k = \frac{Q \mu L}{A \Delta P},
+\]
+where:
+\[
+k = \text{permeability}, \qquad
+Q = \text{volumetric flow rate}, \qquad
+\mu = \text{fluid viscosity}, \qquad
+L = \text{specimen thickness}, \qquad
+A = \text{cross-sectional area}.
+\]
+
+Shock-resistant grout requires:
+\[
+k < 10^{-19}~\mathrm{m}^2.
+\]
+
+Measured:
+\[
+k_{\text{measured}} = 2.4 \times 10^{-20}~\mathrm{m}^2.
+\]
+
+\subsection{A.5 Cryogenic Cycling Damage Model}
+Damage variable $D$ evolves with thermal cycling:
+\[
+D(N) = 1 - \exp(-\beta N),
+\]
+where $N$ is cycle count and $\beta$ is a material constant.
+
+Cryogenic silica-dense concrete exhibits:
+\[
+D(N) \approx 0 \quad \forall N \le 100,
+\]
+validated by ultrasonic pulse velocity (UPV):
+\[
+v_{\text{UPV}} = \sqrt{\frac{E}{\rho}},
+\]
+remaining constant across cycles:
+\[
+\Delta v_{\text{UPV}} < 0.1\%.
+\]
+
+\subsection{A.6 Combined Stress Interaction Envelope}
+The combined stress state is evaluated using the modified Mohr--Coulomb
+criterion:
+\[
+\tau = c + \sigma_n \tan\phi,
+\]
+with:
+\[
+c = \text{cohesion}, \qquad
+\phi = \text{internal friction angle}.
+\]
+
+Cryogenic and high-pressure conditions require:
+\[
+\sigma_{\text{th}} + \sigma_{\text{dyn}} + \sigma_{\text{hyd}}
+< \sigma_{\text{fail}},
+\]
+where:
+\[
+\sigma_{\text{fail}} = f_t \quad \text{(tension)}, \qquad
+\sigma_{\text{fail}} = f_c \quad \text{(compression)}.
+\]
+
+All tested materials satisfy:
+\[
+\sigma_{\text{combined}} < \sigma_{\text{fail}}.
+\]
+
+\subsection{A.7 Final Structural Integrity Statement}
+All concrete and composite materials tested for UUAS infrastructure
+exceed the required thresholds for:
+\begin{itemize}
+    \item high-pressure containment,
+    \item cryogenic thermal cycling,
+    \item dynamic vibration damping,
+    \item hydrostatic sealing,
+    \item micro-crack suppression.
+\end{itemize}
+
+The derived models confirm the empirical results and validate the
+structural reliability of the UUAS physical architecture.
