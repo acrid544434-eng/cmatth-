@@ -1,0 +1,143 @@
+\section{Spacecraft–Simulation Coupling Analysis}
+\label{sec:spacecraft-simulation-coupling}
+
+\subsection{Overview}
+The UAP-01 Uranus Orbiter \& Atmospheric Probe is architected as a
+mission-class scientific platform whose observational outputs directly
+couple into the Uranus Unprecedented Simulation (UUAS). This chapter
+formalizes the bidirectional coupling between spacecraft subsystems and
+multi-scale simulation domains, establishing a unified science-control
+loop spanning quantum, thermodynamic, magnetohydrodynamic, and
+ionospheric physics.
+
+\subsection{Coupling Architecture}
+The spacecraft–simulation system is defined by two complementary flows:
+\begin{enumerate}
+    \item \textbf{Forward Coupling:} UUAS informs spacecraft design,
+    instrument tuning, trajectory geometry, and probe descent profiles.
+    \item \textbf{Reverse Coupling:} Spacecraft telemetry provides
+    real-time boundary conditions and validation data for UUAS
+    multi-scale solvers.
+\end{enumerate}
+
+This establishes a closed-loop scientific architecture.
+
+\subsection{Subsystem-to-Simulation Mapping}
+Each spacecraft subsystem corresponds to a specific UUAS physics domain:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Subsystem} & \textbf{Measurement Domain} & \textbf{UUAS Module} \\
+\hline
+Vector Magnetometer & Magnetic field geometry & MHD-Q1 \\
+Plasma Suite & Electron temperature, H$_3^+$ density & ION-Q4 \\
+Atmospheric Probe & P--T--composition profiles & THERMO-Q2 \\
+IR/Auroral Spectrometers & Radiative cooling, auroral rings & ION-Q4 \\
+Telemetry/FHE Stack & Encrypted data transport & FHE-Q3 \\
+Attitude Control & Sampling geometry & MHD-Q1, ION-Q4 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Forward Coupling: Simulation to Spacecraft}
+UUAS provides pre-launch constraints for spacecraft configuration:
+\begin{itemize}
+    \item \textbf{Trajectory Design:} MHD-Q1 dynamo geometry determines
+    optimal orbital planes and periapsis altitudes for magnetic field
+    sampling.
+    \item \textbf{Probe Descent Profile:} THERMO-Q2 phase diagrams define
+    entry corridor, parachute deployment altitude, and sampling cadence.
+    \item \textbf{Instrument Tuning:} ION-Q4 predicts H$_3^+$ emission
+    strengths, setting spectrometer bandpass and integration times.
+\end{itemize}
+
+Thus, spacecraft architecture is derived from simulation physics.
+
+\subsection{Reverse Coupling: Spacecraft to Simulation}
+Telemetry from UAP-01 provides real-time validation for UUAS:
+\begin{itemize}
+    \item \textbf{Magnetometer Data:} Field vectors update multipole
+    coefficients and dynamo layer thickness.
+    \item \textbf{Probe Descent Data:} Methane fractions, temperature
+    gradients, and aerosol densities refine deep-mantle EOS and diamond
+    nucleation thresholds.
+    \item \textbf{Auroral Spectra:} H$_3^+$ emission profiles constrain
+    plasma transport and radiative cooling terms.
+    \item \textbf{Encrypted Telemetry:} FHE-Q3 validates homomorphic
+    lattice encryption under real mission conditions.
+\end{itemize}
+
+The spacecraft becomes a dynamic boundary condition for UUAS.
+
+\subsection{Mathematical Coupling Framework}
+The coupling loop is formalized as:
+\[
+\mathcal{S}_{\text{craft}}(t) \xrightarrow{\text{telemetry}}
+\mathcal{U}_{\text{sim}}(t)
+\xrightarrow{\text{model update}}
+\mathcal{S}_{\text{craft}}(t+\Delta t),
+\]
+where:
+\begin{itemize}
+    \item $\mathcal{S}_{\text{craft}}$ is spacecraft state and
+    measurement vector,
+    \item $\mathcal{U}_{\text{sim}}$ is UUAS multi-scale physics state,
+    \item $\Delta t$ is the update interval.
+\end{itemize}
+
+UUAS solves:
+\[
+\mathcal{U}_{\text{sim}} =
+\left\{
+\text{DFTB},\;
+\text{EOS}_{\text{mantle}},\;
+\text{MHD},\;
+\text{Plasma},\;
+\text{FHE}
+\right\},
+\]
+and returns updated sampling geometry and instrument parameters.
+
+\subsection{Encrypted Coupling Layer}
+All telemetry is processed through homomorphic lattice encryption:
+\[
+\mathcal{E}(\mathbf{d}) =
+\text{FHE}(\mathbf{d}),
+\]
+where $\mathbf{d}$ is raw spacecraft data.
+
+UUAS operates directly on $\mathcal{E}(\mathbf{d})$ without decryption,
+ensuring:
+\begin{itemize}
+    \item zero leakage,
+    \item zero bit-level errors,
+    \item quantum-resistant computation,
+    \item secure multi-node solver execution.
+\end{itemize}
+
+\subsection{Closed-Loop Science Control}
+The spacecraft–simulation system forms a control-theoretic loop:
+\[
+\mathbf{y}(t) = \mathcal{S}_{\text{craft}}(t),
+\qquad
+\mathbf{u}(t) = \mathcal{U}_{\text{sim}}(t),
+\]
+with feedback:
+\[
+\mathbf{u}(t) = f(\mathbf{y}(t)),
+\]
+and forward propagation:
+\[
+\mathbf{y}(t+\Delta t) = g(\mathbf{u}(t)).
+\]
+
+This architecture ensures continuous co-evolution of spacecraft sampling
+and simulation fidelity.
+
+\subsection{Conclusion}
+The UAP-01 spacecraft and UUAS simulation form a tightly integrated,
+bidirectional scientific system. Spacecraft subsystems are designed
+around simulation requirements, while simulation domains are validated
+and refined by spacecraft telemetry. This coupling architecture enables
+unprecedented multi-scale fidelity in the study of Uranus’s interior,
+magnetic field, atmosphere, and ionosphere.
