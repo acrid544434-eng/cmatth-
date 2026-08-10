@@ -1,0 +1,148 @@
+\chapter{Exascale Hybrid Compute \& Autonomous Intelligence Rig}
+\section*{Lead Architect}
+C.~Matthew~Blackwell, Independent Designer
+
+\section{Target Specification}
+The Exascale Hybrid Compute Rig is engineered for continuous real-time
+execution at:
+\[
+f_{\text{target}} = 120~\text{Hz}, \qquad T_{\text{frame}} \le 8.33~\text{ms},
+\]
+with hardware-accelerated Fully Homomorphic Encryption (CKKS), non-blocking
+RDMA fabric sustaining 100~TB/s, and autonomous kernel execution defined by:
+\[
+\mathcal{A} = \mathcal{E} \circ \mathcal{P} \circ \mathcal{U}.
+\]
+
+\section{Physical Node Architecture}
+\subsection{Heterogeneous Acceleration Node}
+Each compute node integrates a Grace-Hopper Superchip pair linked via NVLink-C2C
+and an ASIC-driven FHE co-processor.
+
+\begin{center}
+\textbf{Exascale Compute Node Chassis}
+\end{center}
+
+\begin{verbatim}
++---------------------------------------------------------------------------------------------------+
+|                                EXASCALE COMPUTE NODE CHASSIS                                      |
+|                                                                                                   |
+|  +-------------------------------------+                +-------------------------------------+   |
+|  |           CPU SUBSYSTEM             |   NVLink-C2C   |           GPU SUBSYSTEM             |   |
+|  |  NVIDIA Grace CPU (72-Core Armv9)   |<============-->|  NVIDIA Hopper Tensor Core GPU      |   |
+|  |  512 GB LPDDR5X (546 GB/s)          |   (900 GB/s)   |  96 GB HBM3 (3.0 TB/s)              |   |
+|  +------------------+------------------+                +------------------+------------------+   |
+|                     |                                                      |                      |
+|                     | Scalable Coherency Fabric (SCF)                      | PCIe Gen5 x16        |
+|                     v                                                      v                      |
+|  +---------------------------------------------------------------------------------------------+  |
+|  |                             FHE ASIC CO-PROCESSOR BOARD                                     |  |
+|  |  - Cyclotomic Ring Accelerator Engine (R_q = Z_q[X] / (X^N + 1), N = 2^16)                  |  |
+|  |  - On-Die High-Speed Modular Arithmetic Units (NTT / INTT Accelerators)                    |  |
+|  |  - Hardware Bootstrapping & Modulus Rescaling Pipeline Engine                               |  |
+|  +----------------------------------------------+----------------------------------------------+  |
+|                                                 |                                                 |
+|                                                 v RDMA Dual-Rail                                  |
+|  +---------------------------------------------------------------------------------------------+  |
+|  |                     400Gbps NDR INFINIBAND ConnectX-7 NIC INTERFACE                         |  |
+|  +---------------------------------------------------------------------------------------------+  |
++---------------------------------------------------------------------------------------------------+
+                                                  |
+                                                  v
+                      +-------------------------------------------------------+
+                      |         2-TIER FAT-TREE NDR INFINIBAND SWITCH         |
+                      |            (Bisection Bandwidth: 51.2 Tbps)           |
+                      +-------------------------------------------------------+
+\end{verbatim}
+
+\section{Hardware Module Pinout}
+\subsection{FHE Co-Processor ASIC Interface}
+The ASIC offloads polynomial multiplication, NTT/INTT transforms, and modulus
+chain rescaling from the GPU host.
+
+\begin{center}
+\begin{tabular}{l l l p{7cm}}
+\hline
+Pin Group & Signal Names & Type & Description \\
+\hline
+SYS\_CLK & CLK\_P, CLK\_N & Input &
+Differential 2.0~GHz system reference clock. \\
+HOST\_PCIE &
+PETp0..15, PETn0..15, PERp0..15, PERn0..15 &
+I/O &
+16-lane PCIe Gen5 interface (128~GB/s bidirectional). \\
+NTT\_BUS &
+NTT\_DATA\_IN[127:0], NTT\_DATA\_OUT[127:0] &
+I/O &
+High-speed vector bus for NTT operations. \\
+RING\_MOD &
+MOD\_SEL[5:0], MOD\_VAL[127:0] &
+Input &
+Active modulus chain selection for CKKS rescaling. \\
+MEM\_CTRL &
+HBM\_DQ[256:0], HBM\_ADDR[31:0] &
+I/O &
+Dedicated HBM3 interface (2.0~TB/s) for ciphertext tensors. \\
+POWER &
+VDD\_CORE, VDD\_IO, GND &
+Power &
+350W TDP under peak polynomial synthesis. \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Autonomous Execution Wiring}
+\begin{verbatim}
+                       SYSTEM BUS CONTROL & SIGNAL SCHEMATIC
+                       
+  +---------------------------------------------------------------------------------------+
+  |  HOST PROCESSOR (ARM NEOVERSE V2)                                                     |
+  |  - Thread 1: Boundary Stream Ingestion B(D_t)                                         |
+  |  - Thread 2: Autonomous Intelligence Loop (A = E o P o U)                             |
+  +-------+-------------------------------------------------------------------------------+
+          |
+          |  [NVLink-C2C Coherent Memory Bus: 900 GB/s]
+          v
+  +-------+-------------------------------------------------------------------------------+
+  |  GPU TENSOR CORE SOLVER (NVIDIA HOPPER)                                               |
+  |  - Thread 3: TreePM FFT Poisson & SPH Hydrodynamics                                   |
+  |  - Unified Shared Memory Address Space                                                |
+  +-------+-------------------------------------------------------------------------------+
+          |
+          |  [PCIe Gen5 x16 Low-Latency Bus]
+          v
+  +-------+-------------------------------------------------------------------------------+
+  |  FHE ASIC ACCELERATOR BOARD                                                           |
+  |  - Homomorphic Ring Multiplication & Ciphertext Rescaling                             |
+  |  - Asynchronous Noise Bootstrapping                                                   |
+  +-------+-------------------------------------------------------------------------------+
+          |
+          |  [ConnectX-7 RDMA Interface]
+          v
+  +-------+-------------------------------------------------------------------------------+
+  |  UNIFIED HBM3e + NVMe-oF MEMORY FABRIC                                                |
+  |  - 64-Bit Hilbert Octree Spatial Particle Index Store                                 |
+  |  - Sub-Millisecond Dynamic RDMA Domain Rebalancing                                    |
+  +---------------------------------------------------------------------------------------+
+\end{verbatim}
+
+\section{Signal Timing \& Power Delivery}
+\subsection{Real-Time Timing Constraints}
+Execution follows strict timing windows to maintain 120~Hz:
+
+\begin{verbatim}
+0.0 ms          0.45 ms         1.30 ms         5.50 ms         7.40 ms     8.33 ms
+|---------------|---------------|---------------|---------------|-----------|
+^ VBI Trigger   ^ B(D_t)        ^ Autonomous    ^ FHE Solver    ^ RDMA      ^ Buffer
+                Ingestion       Loop Complete   Complete        Swap        Swap
+\end{verbatim}
+
+\subsection{Thermal Envelope}
+\begin{itemize}
+    \item Node TDP: 1200W total.
+    \item PDN: 48V DC busbar with direct-to-chip liquid cooling.
+    \item Junction temperature target:
+    \[
+    T_j \le 68^\circ\text{C}.
+    \]
+\end{itemize}
