@@ -1,0 +1,263 @@
+\chapter{Sovereign Bifurcation Maps and Critical Transition Geometry}
+
+\section{Bifurcation Structure of the Sovereign Manifold}
+
+The Sovereign Manifold $\mathfrak{S}$ supports a rich hierarchy of 
+bifurcations arising from curvature synthesis, autonomous forcing, 
+tensor harmonization, and multi-domain coupling. Let the unified 
+dynamical system be:
+
+\begin{equation}
+\frac{d\mathbf{X}}{d\tau}
+=
+\mathcal{F}_{\text{auto}}(\mathbf{X},\mathbf{U}),
+\end{equation}
+
+with phase space $\mathfrak{P}$ and autonomous flow $\Phi_\tau$.
+
+A \textbf{bifurcation} occurs when qualitative changes in the 
+dynamical structure arise due to variations in parameters 
+$\boldsymbol{\lambda} \in \mathbb{R}^m$:
+
+\begin{equation}
+\frac{d\mathbf{X}}{d\tau}
+=
+\mathcal{F}_{\text{auto}}(\mathbf{X},\mathbf{U};\boldsymbol{\lambda}).
+\end{equation}
+
+The Sovereign Manifold supports:
+
+\begin{itemize}
+    \item curvature-driven bifurcations,
+    \item flux-driven bifurcations,
+    \item cryptographic noise bifurcations,
+    \item DSP energy bifurcations,
+    \item identity-invariant bifurcations.
+\end{itemize}
+
+\section{Critical Transition Surfaces}
+
+Critical transitions occur on hypersurfaces in parameter space:
+
+\begin{equation}
+\Sigma
+=
+\left\{
+\boldsymbol{\lambda}
+\mid
+\det(\mathcal{J}(\boldsymbol{\lambda})) = 0
+\right\},
+\end{equation}
+
+where $\mathcal{J}$ is the Jacobian of the autonomous flow.
+
+These hypersurfaces partition parameter space into distinct 
+dynamical regimes.
+
+\section{Unified Bifurcation Map}
+
+Define the \textbf{Unified Bifurcation Map}:
+
+\begin{equation}
+\mathcal{B}
+:
+\boldsymbol{\lambda}
+\mapsto
+\text{Regime}(\boldsymbol{\lambda}),
+\end{equation}
+
+with regime classification:
+
+\begin{align*}
+\mathcal{R}_1 &: \text{Stable Attractor Regime}, \\
+\mathcal{R}_2 &: \text{Limit Cycle Regime}, \\
+\mathcal{R}_3 &: \text{Quasi-Periodic Regime}, \\
+\mathcal{R}_4 &: \text{Chaotic Regime}, \\
+\mathcal{R}_5 &: \text{Critical Transition Regime}.
+\end{align*}
+
+Each subsystem contributes its own bifurcation map:
+
+\begin{align*}
+\mathcal{B}_{\text{GW}} &: \text{strain-driven curvature bifurcations}, \\
+\mathcal{B}_{\text{hydro}} &: \text{flux-driven bifurcations}, \\
+\mathcal{B}_{\text{crypto}} &: \text{noise-bound bifurcations}, \\
+\mathcal{B}_{\text{DSP}} &: \text{energy-norm bifurcations}, \\
+\mathcal{B}_{\text{identity}} &: \text{identity-invariant bifurcations}.
+\end{align*}
+
+The sovereign bifurcation map is:
+
+\begin{equation}
+\mathcal{B}_{\text{sovereign}}
+=
+\bigcup_k \mathcal{B}_k.
+\end{equation}
+
+\section{Curvature-Induced Bifurcations}
+
+Curvature synthesis produces bifurcations when:
+
+\begin{equation}
+\mathcal{R}^{A}{}_{BCD}
+\to
+\mathcal{R}^{A}{}_{BCD} + \delta\mathcal{R}^{A}{}_{BCD},
+\end{equation}
+
+such that:
+
+\begin{equation}
+\det(\mathcal{J}) = 0.
+\end{equation}
+
+These bifurcations govern:
+
+- gravitational wave resonance transitions,
+- curvature amplification thresholds,
+- susceptibility tensor flips.
+
+\section{Flux-Induced Bifurcations}
+
+Hydrodynamic flux bifurcations occur when:
+
+\begin{equation}
+\nabla \cdot \mathbf{J}_{\text{hydro}}
+\to
+0,
+\end{equation}
+
+or when flux gradients exceed stability thresholds:
+
+\begin{equation}
+\|\nabla \mathbf{F}\| > \Lambda_{\text{crit}}.
+\end{equation}
+
+These transitions govern:
+
+- shock formation,
+- hydraulic jumps,
+- flux collapse surfaces.
+
+\section{Cryptographic Noise Bifurcations}
+
+Cryptographic bifurcations occur when:
+
+\begin{equation}
+\mathcal{I}_{\text{noise}}
+=
+\frac{B_\ell}{q_\ell}
+\to
+\frac{1}{2\Delta},
+\end{equation}
+
+triggering:
+
+- noise explosion,
+- decryption instability,
+- lattice norm collapse.
+
+\section{DSP Energy Bifurcations}
+
+DSP bifurcations occur when:
+
+\begin{equation}
+\|s(t)\|_2^2
+\to
+\text{limit threshold},
+\end{equation}
+
+producing:
+
+- amplitude bifurcations,
+- feedback loop flips,
+- resonance-induced instability.
+
+\section{Identity-Invariant Bifurcations}
+
+Identity bifurcations occur when:
+
+\begin{equation}
+\Theta^{ab}
+\to
+\Theta^{ab} + \delta\Theta^{ab},
+\end{equation}
+
+producing:
+
+- identity tensor realignment,
+- designer-invariant phase transitions,
+- sovereign identity flips.
+
+\section{Critical Transition Geometry}
+
+Critical transitions occur on geometric surfaces defined by:
+
+\begin{equation}
+\Sigma_k
+=
+\left\{
+\boldsymbol{\lambda}
+\mid
+\Re(\lambda_i(\mathcal{J}_k)) = 0
+\right\},
+\end{equation}
+
+where $\mathcal{J}_k$ is the subsystem Jacobian.
+
+The sovereign transition geometry is:
+
+\begin{equation}
+\Sigma_{\text{sovereign}}
+=
+\bigcup_k \Sigma_k.
+\end{equation}
+
+These surfaces define:
+
+- regime boundaries,
+- transition corridors,
+- bifurcation chambers.
+
+\section{Sovereign Bifurcation Synthesis Theorem}
+
+\begin{theorem}[\textbf{Sovereign Bifurcation Synthesis}]
+Let $\mathcal{B}_k$ be the bifurcation map of subsystem $k$. 
+If each subsystem bifurcation is invariant under the harmonization 
+operator $\mathcal{H}$ and the coupling tensor $\mathcal{C}^{A}{}_{BCD}$, 
+then the sovereign bifurcation map:
+
+\begin{equation}
+\mathcal{B}_{\text{sovereign}}
+=
+\bigcup_k \mathcal{B}_k
+\end{equation}
+
+is invariant under the unified autonomous flow $\Phi_\tau$.
+\end{theorem}
+
+\begin{proof}
+Subsystem bifurcations are preserved under their respective flows. 
+The harmonization operator preserves subsystem invariants. 
+Thus the union of subsystem bifurcations is invariant under the 
+unified flow:
+
+\begin{equation}
+\Phi_\tau(\mathcal{B}_{\text{sovereign}})
+=
+\mathcal{B}_{\text{sovereign}}.
+\end{equation}
+\end{proof}
+
+\section{Sovereign Bifurcation Loop}
+
+The bifurcation loop is:
+
+\begin{equation}
+\mathcal{B}^{n+1}
+=
+\mathcal{B}^{n},
+\end{equation}
+
+executed at each timestep of the sovereign simulation manifold.
+
+\end{document}
