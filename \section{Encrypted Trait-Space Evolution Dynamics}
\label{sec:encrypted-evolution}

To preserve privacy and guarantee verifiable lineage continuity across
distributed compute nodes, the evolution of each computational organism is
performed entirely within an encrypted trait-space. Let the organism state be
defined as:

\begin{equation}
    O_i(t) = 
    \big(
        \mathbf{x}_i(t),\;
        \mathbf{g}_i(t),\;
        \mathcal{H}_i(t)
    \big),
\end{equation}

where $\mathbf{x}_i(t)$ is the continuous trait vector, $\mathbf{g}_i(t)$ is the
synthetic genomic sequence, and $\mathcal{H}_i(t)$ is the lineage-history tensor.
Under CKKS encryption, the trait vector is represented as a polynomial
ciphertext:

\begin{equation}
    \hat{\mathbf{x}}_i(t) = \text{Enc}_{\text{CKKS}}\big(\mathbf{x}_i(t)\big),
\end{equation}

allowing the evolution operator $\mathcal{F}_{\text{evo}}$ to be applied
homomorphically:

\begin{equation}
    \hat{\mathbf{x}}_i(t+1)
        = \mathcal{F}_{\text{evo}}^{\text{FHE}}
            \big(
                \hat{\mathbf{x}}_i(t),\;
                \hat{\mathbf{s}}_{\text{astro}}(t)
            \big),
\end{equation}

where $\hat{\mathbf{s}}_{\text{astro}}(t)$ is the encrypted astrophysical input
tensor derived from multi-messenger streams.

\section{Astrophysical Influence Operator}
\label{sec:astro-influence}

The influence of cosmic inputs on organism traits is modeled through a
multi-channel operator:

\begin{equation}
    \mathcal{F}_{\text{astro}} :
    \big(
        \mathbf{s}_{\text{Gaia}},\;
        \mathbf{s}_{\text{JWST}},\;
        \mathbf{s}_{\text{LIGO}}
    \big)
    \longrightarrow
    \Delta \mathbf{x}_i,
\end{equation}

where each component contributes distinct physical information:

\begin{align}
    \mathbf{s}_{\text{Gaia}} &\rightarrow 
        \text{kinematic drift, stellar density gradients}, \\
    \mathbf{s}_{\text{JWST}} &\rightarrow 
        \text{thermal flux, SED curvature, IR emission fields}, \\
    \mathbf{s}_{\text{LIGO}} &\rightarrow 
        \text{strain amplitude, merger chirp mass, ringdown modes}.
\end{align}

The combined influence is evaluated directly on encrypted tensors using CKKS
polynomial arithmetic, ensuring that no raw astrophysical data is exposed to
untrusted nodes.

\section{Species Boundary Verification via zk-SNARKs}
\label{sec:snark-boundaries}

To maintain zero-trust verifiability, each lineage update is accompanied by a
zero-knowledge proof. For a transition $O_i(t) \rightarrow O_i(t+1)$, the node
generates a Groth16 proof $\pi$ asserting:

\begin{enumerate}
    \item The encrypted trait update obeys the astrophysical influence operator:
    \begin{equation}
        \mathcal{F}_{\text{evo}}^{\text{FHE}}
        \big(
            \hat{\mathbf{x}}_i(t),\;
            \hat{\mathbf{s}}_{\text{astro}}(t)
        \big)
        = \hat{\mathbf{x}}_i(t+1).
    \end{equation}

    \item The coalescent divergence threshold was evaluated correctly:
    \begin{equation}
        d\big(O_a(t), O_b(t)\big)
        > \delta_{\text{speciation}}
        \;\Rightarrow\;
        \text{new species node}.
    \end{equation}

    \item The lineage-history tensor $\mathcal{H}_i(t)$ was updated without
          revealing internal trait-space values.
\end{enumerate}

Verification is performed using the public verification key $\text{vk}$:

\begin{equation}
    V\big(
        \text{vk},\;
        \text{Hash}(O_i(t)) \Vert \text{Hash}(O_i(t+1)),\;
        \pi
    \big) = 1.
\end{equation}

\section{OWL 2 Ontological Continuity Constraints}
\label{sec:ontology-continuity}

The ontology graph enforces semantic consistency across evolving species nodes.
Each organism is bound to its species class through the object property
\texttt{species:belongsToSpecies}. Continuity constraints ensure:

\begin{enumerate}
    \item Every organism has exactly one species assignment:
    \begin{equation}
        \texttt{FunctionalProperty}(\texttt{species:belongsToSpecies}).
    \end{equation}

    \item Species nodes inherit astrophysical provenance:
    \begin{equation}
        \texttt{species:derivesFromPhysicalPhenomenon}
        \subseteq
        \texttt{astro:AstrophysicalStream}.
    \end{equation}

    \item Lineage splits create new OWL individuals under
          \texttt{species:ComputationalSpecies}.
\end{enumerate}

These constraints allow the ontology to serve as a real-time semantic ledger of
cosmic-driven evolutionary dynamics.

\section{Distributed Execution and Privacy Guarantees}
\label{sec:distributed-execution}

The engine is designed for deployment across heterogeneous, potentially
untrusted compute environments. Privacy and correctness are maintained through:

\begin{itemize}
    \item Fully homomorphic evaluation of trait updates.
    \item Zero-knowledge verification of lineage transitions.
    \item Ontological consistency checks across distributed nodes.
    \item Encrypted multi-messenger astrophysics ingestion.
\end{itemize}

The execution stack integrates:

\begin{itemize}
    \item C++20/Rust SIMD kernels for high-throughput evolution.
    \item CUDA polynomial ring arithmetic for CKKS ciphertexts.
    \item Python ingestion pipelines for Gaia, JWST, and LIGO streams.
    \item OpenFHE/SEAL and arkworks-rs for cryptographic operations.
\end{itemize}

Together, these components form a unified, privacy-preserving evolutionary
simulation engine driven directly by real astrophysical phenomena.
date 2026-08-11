@@ -1,0 +1,164 @@
+\section{Encrypted Trait-Space Evolution Dynamics}
+\label{sec:encrypted-evolution}
+
+To preserve privacy and guarantee verifiable lineage continuity across
+distributed compute nodes, the evolution of each computational organism is
+performed entirely within an encrypted trait-space. Let the organism state be
+defined as:
+
+\begin{equation}
+    O_i(t) = 
+    \big(
+        \mathbf{x}_i(t),\;
+        \mathbf{g}_i(t),\;
+        \mathcal{H}_i(t)
+    \big),
+\end{equation}
+
+where $\mathbf{x}_i(t)$ is the continuous trait vector, $\mathbf{g}_i(t)$ is the
+synthetic genomic sequence, and $\mathcal{H}_i(t)$ is the lineage-history tensor.
+Under CKKS encryption, the trait vector is represented as a polynomial
+ciphertext:
+
+\begin{equation}
+    \hat{\mathbf{x}}_i(t) = \text{Enc}_{\text{CKKS}}\big(\mathbf{x}_i(t)\big),
+\end{equation}
+
+allowing the evolution operator $\mathcal{F}_{\text{evo}}$ to be applied
+homomorphically:
+
+\begin{equation}
+    \hat{\mathbf{x}}_i(t+1)
+        = \mathcal{F}_{\text{evo}}^{\text{FHE}}
+            \big(
+                \hat{\mathbf{x}}_i(t),\;
+                \hat{\mathbf{s}}_{\text{astro}}(t)
+            \big),
+\end{equation}
+
+where $\hat{\mathbf{s}}_{\text{astro}}(t)$ is the encrypted astrophysical input
+tensor derived from multi-messenger streams.
+
+\section{Astrophysical Influence Operator}
+\label{sec:astro-influence}
+
+The influence of cosmic inputs on organism traits is modeled through a
+multi-channel operator:
+
+\begin{equation}
+    \mathcal{F}_{\text{astro}} :
+    \big(
+        \mathbf{s}_{\text{Gaia}},\;
+        \mathbf{s}_{\text{JWST}},\;
+        \mathbf{s}_{\text{LIGO}}
+    \big)
+    \longrightarrow
+    \Delta \mathbf{x}_i,
+\end{equation}
+
+where each component contributes distinct physical information:
+
+\begin{align}
+    \mathbf{s}_{\text{Gaia}} &\rightarrow 
+        \text{kinematic drift, stellar density gradients}, \\
+    \mathbf{s}_{\text{JWST}} &\rightarrow 
+        \text{thermal flux, SED curvature, IR emission fields}, \\
+    \mathbf{s}_{\text{LIGO}} &\rightarrow 
+        \text{strain amplitude, merger chirp mass, ringdown modes}.
+\end{align}
+
+The combined influence is evaluated directly on encrypted tensors using CKKS
+polynomial arithmetic, ensuring that no raw astrophysical data is exposed to
+untrusted nodes.
+
+\section{Species Boundary Verification via zk-SNARKs}
+\label{sec:snark-boundaries}
+
+To maintain zero-trust verifiability, each lineage update is accompanied by a
+zero-knowledge proof. For a transition $O_i(t) \rightarrow O_i(t+1)$, the node
+generates a Groth16 proof $\pi$ asserting:
+
+\begin{enumerate}
+    \item The encrypted trait update obeys the astrophysical influence operator:
+    \begin{equation}
+        \mathcal{F}_{\text{evo}}^{\text{FHE}}
+        \big(
+            \hat{\mathbf{x}}_i(t),\;
+            \hat{\mathbf{s}}_{\text{astro}}(t)
+        \big)
+        = \hat{\mathbf{x}}_i(t+1).
+    \end{equation}
+
+    \item The coalescent divergence threshold was evaluated correctly:
+    \begin{equation}
+        d\big(O_a(t), O_b(t)\big)
+        > \delta_{\text{speciation}}
+        \;\Rightarrow\;
+        \text{new species node}.
+    \end{equation}
+
+    \item The lineage-history tensor $\mathcal{H}_i(t)$ was updated without
+          revealing internal trait-space values.
+\end{enumerate}
+
+Verification is performed using the public verification key $\text{vk}$:
+
+\begin{equation}
+    V\big(
+        \text{vk},\;
+        \text{Hash}(O_i(t)) \Vert \text{Hash}(O_i(t+1)),\;
+        \pi
+    \big) = 1.
+\end{equation}
+
+\section{OWL 2 Ontological Continuity Constraints}
+\label{sec:ontology-continuity}
+
+The ontology graph enforces semantic consistency across evolving species nodes.
+Each organism is bound to its species class through the object property
+\texttt{species:belongsToSpecies}. Continuity constraints ensure:
+
+\begin{enumerate}
+    \item Every organism has exactly one species assignment:
+    \begin{equation}
+        \texttt{FunctionalProperty}(\texttt{species:belongsToSpecies}).
+    \end{equation}
+
+    \item Species nodes inherit astrophysical provenance:
+    \begin{equation}
+        \texttt{species:derivesFromPhysicalPhenomenon}
+        \subseteq
+        \texttt{astro:AstrophysicalStream}.
+    \end{equation}
+
+    \item Lineage splits create new OWL individuals under
+          \texttt{species:ComputationalSpecies}.
+\end{enumerate}
+
+These constraints allow the ontology to serve as a real-time semantic ledger of
+cosmic-driven evolutionary dynamics.
+
+\section{Distributed Execution and Privacy Guarantees}
+\label{sec:distributed-execution}
+
+The engine is designed for deployment across heterogeneous, potentially
+untrusted compute environments. Privacy and correctness are maintained through:
+
+\begin{itemize}
+    \item Fully homomorphic evaluation of trait updates.
+    \item Zero-knowledge verification of lineage transitions.
+    \item Ontological consistency checks across distributed nodes.
+    \item Encrypted multi-messenger astrophysics ingestion.
+\end{itemize}
+
+The execution stack integrates:
+
+\begin{itemize}
+    \item C++20/Rust SIMD kernels for high-throughput evolution.
+    \item CUDA polynomial ring arithmetic for CKKS ciphertexts.
+    \item Python ingestion pipelines for Gaia, JWST, and LIGO streams.
+    \item OpenFHE/SEAL and arkworks-rs for cryptographic operations.
+\end{itemize}
+
+Together, these components form a unified, privacy-preserving evolutionary
+simulation engine driven directly by real astrophysical phenomena.
