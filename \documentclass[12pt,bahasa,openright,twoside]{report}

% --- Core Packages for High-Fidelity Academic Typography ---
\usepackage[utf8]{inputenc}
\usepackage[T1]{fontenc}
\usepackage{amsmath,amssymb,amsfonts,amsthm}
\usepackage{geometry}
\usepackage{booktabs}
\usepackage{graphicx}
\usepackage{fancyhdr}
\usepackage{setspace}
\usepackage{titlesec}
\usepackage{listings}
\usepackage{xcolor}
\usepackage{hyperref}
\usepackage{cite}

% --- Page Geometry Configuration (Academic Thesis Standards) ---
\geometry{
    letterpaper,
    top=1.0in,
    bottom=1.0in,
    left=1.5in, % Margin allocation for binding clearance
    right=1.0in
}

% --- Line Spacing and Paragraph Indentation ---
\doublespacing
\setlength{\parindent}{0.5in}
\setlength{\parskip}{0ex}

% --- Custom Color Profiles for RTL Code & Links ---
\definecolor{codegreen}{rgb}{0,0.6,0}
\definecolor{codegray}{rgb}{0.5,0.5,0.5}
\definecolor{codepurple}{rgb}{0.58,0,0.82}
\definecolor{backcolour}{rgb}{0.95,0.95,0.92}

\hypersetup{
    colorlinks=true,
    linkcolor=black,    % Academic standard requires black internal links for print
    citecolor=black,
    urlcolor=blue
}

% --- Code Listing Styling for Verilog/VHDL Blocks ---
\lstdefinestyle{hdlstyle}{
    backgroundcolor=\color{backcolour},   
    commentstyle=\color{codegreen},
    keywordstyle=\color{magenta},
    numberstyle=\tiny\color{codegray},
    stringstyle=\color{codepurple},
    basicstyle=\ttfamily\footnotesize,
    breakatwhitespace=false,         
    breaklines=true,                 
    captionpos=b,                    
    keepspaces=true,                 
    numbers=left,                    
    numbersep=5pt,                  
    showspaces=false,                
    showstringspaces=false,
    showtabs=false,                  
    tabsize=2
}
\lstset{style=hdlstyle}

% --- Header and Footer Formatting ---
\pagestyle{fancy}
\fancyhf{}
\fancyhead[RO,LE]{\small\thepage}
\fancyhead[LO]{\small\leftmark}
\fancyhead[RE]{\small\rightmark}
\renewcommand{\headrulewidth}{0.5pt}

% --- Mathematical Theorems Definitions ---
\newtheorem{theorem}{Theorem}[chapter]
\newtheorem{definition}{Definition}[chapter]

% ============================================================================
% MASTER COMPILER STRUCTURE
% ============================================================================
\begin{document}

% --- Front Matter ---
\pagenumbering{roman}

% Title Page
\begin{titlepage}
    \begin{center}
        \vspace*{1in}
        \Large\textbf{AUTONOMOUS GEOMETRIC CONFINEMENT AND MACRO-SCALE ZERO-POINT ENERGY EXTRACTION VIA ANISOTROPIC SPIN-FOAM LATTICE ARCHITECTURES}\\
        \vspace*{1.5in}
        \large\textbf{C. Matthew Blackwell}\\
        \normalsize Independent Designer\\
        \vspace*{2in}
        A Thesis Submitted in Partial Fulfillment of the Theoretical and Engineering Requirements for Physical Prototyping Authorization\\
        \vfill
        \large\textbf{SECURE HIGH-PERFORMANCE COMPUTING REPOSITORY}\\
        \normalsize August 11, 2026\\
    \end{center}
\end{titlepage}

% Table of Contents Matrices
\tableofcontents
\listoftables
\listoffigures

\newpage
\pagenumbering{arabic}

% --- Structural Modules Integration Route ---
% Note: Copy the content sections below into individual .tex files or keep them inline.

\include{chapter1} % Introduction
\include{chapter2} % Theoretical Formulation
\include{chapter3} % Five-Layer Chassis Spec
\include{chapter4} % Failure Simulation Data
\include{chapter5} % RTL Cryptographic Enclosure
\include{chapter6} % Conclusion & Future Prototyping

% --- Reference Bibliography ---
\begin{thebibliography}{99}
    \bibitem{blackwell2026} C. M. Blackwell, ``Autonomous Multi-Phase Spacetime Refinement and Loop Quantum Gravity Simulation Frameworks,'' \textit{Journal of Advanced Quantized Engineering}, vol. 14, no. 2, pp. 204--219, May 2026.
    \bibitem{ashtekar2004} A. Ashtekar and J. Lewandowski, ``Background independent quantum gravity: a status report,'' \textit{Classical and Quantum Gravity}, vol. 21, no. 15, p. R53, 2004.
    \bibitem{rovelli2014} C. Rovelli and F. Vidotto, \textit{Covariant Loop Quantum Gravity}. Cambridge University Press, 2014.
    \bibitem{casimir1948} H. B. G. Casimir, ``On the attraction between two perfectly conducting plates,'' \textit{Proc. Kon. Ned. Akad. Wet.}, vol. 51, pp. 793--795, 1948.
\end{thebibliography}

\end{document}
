@@ -1,0 +1,128 @@
+\documentclass[12pt,bahasa,openright,twoside]{report}
+
+% --- Core Packages for High-Fidelity Academic Typography ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{cite}
+
+% --- Page Geometry Configuration (Academic Thesis Standards) ---
+\geometry{
+    letterpaper,
+    top=1.0in,
+    bottom=1.0in,
+    left=1.5in, % Margin allocation for binding clearance
+    right=1.0in
+}
+
+% --- Line Spacing and Paragraph Indentation ---
+\doublespacing
+\setlength{\parindent}{0.5in}
+\setlength{\parskip}{0ex}
+
+% --- Custom Color Profiles for RTL Code & Links ---
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,    % Academic standard requires black internal links for print
+    citecolor=black,
+    urlcolor=blue
+}
+
+% --- Code Listing Styling for Verilog/VHDL Blocks ---
+\lstdefinestyle{hdlstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=hdlstyle}
+
+% --- Header and Footer Formatting ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RO,LE]{\small\thepage}
+\fancyhead[LO]{\small\leftmark}
+\fancyhead[RE]{\small\rightmark}
+\renewcommand{\headrulewidth}{0.5pt}
+
+% --- Mathematical Theorems Definitions ---
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+
+% ============================================================================
+% MASTER COMPILER STRUCTURE
+% ============================================================================
+\begin{document}
+
+% --- Front Matter ---
+\pagenumbering{roman}
+
+% Title Page
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1in}
+        \Large\textbf{AUTONOMOUS GEOMETRIC CONFINEMENT AND MACRO-SCALE ZERO-POINT ENERGY EXTRACTION VIA ANISOTROPIC SPIN-FOAM LATTICE ARCHITECTURES}\\
+        \vspace*{1.5in}
+        \large\textbf{C. Matthew Blackwell}\\
+        \normalsize Independent Designer\\
+        \vspace*{2in}
+        A Thesis Submitted in Partial Fulfillment of the Theoretical and Engineering Requirements for Physical Prototyping Authorization\\
+        \vfill
+        \large\textbf{SECURE HIGH-PERFORMANCE COMPUTING REPOSITORY}\\
+        \normalsize August 11, 2026\\
+    \end{center}
+\end{titlepage}
+
+% Table of Contents Matrices
+\tableofcontents
+\listoftables
+\listoffigures
+
+\newpage
+\pagenumbering{arabic}
+
+% --- Structural Modules Integration Route ---
+% Note: Copy the content sections below into individual .tex files or keep them inline.
+
+\include{chapter1} % Introduction
+\include{chapter2} % Theoretical Formulation
+\include{chapter3} % Five-Layer Chassis Spec
+\include{chapter4} % Failure Simulation Data
+\include{chapter5} % RTL Cryptographic Enclosure
+\include{chapter6} % Conclusion & Future Prototyping
+
+% --- Reference Bibliography ---
+\begin{thebibliography}{99}
+    \bibitem{blackwell2026} C. M. Blackwell, ``Autonomous Multi-Phase Spacetime Refinement and Loop Quantum Gravity Simulation Frameworks,'' \textit{Journal of Advanced Quantized Engineering}, vol. 14, no. 2, pp. 204--219, May 2026.
+    \bibitem{ashtekar2004} A. Ashtekar and J. Lewandowski, ``Background independent quantum gravity: a status report,'' \textit{Classical and Quantum Gravity}, vol. 21, no. 15, p. R53, 2004.
+    \bibitem{rovelli2014} C. Rovelli and F. Vidotto, \textit{Covariant Loop Quantum Gravity}. Cambridge University Press, 2014.
+    \bibitem{casimir1948} H. B. G. Casimir, ``On the attraction between two perfectly conducting plates,'' \textit{Proc. Kon. Ned. Akad. Wet.}, vol. 51, pp. 793--795, 1948.
+\end{thebibliography}
+
+\end{document}
