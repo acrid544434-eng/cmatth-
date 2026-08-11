@@ -1,0 +1,245 @@
+\chapter{Sovereign Phase Space, Stability Basins \& Autonomous Attractors}
+
+\section{Definition of the Sovereign Phase Space}
+
+The dynamical evolution of the UKG-SE v3.0 Autonomous Intelligence Engine 
+occurs within the \textbf{Sovereign Phase Space} $\mathfrak{P}$, defined as:
+
+\begin{equation}
+\mathfrak{P}
+=
+\left\{
+(\mathbf{X}, \mathbf{U})
+\mid
+\mathbf{X} \in \mathfrak{S},\;
+\mathbf{U} = \frac{d\mathbf{X}}{d\tau}
+\right\},
+\end{equation}
+
+where:
+
+\begin{itemize}
+    \item $\mathbf{X}$ is the unified state vector on the Sovereign Manifold,
+    \item $\mathbf{U}$ is the unified velocity vector,
+    \item $\tau$ is the proper time parameter.
+\end{itemize}
+
+The phase space is equipped with the unified metric $\mathcal{G}_{AB}$ and 
+the synthesized curvature tensor $\mathcal{R}^{A}{}_{BCD}$.
+
+\section{Sovereign Dynamical Flow}
+
+The autonomous dynamical flow is defined by:
+
+\begin{equation}
+\Phi_\tau : \mathfrak{P} \to \mathfrak{P},
+\end{equation}
+
+with evolution:
+
+\begin{equation}
+\frac{d}{d\tau}
+\begin{bmatrix}
+\mathbf{X} \\
+\mathbf{U}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\mathbf{U} \\
+\mathcal{F}_{\text{auto}}(\mathbf{X},\mathbf{U})
+\end{bmatrix}.
+\end{equation}
+
+This flow governs:
+
+- gravitational navigation,
+- hydrodynamic evolution,
+- cryptographic noise trajectories,
+- DSP signal dynamics,
+- identity invariant propagation.
+
+\section{Autonomous Stability Basins}
+
+Let $\mathbf{X}^\star$ be an equilibrium point satisfying:
+
+\begin{equation}
+\mathcal{F}_{\text{auto}}(\mathbf{X}^\star, 0) = 0.
+\end{equation}
+
+The \textbf{Stability Basin} $\mathcal{B}(\mathbf{X}^\star)$ is defined as:
+
+\begin{equation}
+\mathcal{B}(\mathbf{X}^\star)
+=
+\left\{
+\mathbf{X}_0 \in \mathfrak{P}
+\mid
+\lim_{\tau \to \infty}
+\Phi_\tau(\mathbf{X}_0)
+=
+\mathbf{X}^\star
+\right\}.
+\end{equation}
+
+Each subsystem contributes its own stability basin:
+
+\begin{align*}
+\mathcal{B}_{\text{GW}} &: \text{curvature-driven stability}, \\
+\mathcal{B}_{\text{hydro}} &: \text{flux-driven stability}, \\
+\mathcal{B}_{\text{crypto}} &: \text{noise-bound stability}, \\
+\mathcal{B}_{\text{DSP}} &: \text{energy-norm stability}, \\
+\mathcal{B}_{\text{identity}} &: \text{designer-invariant stability}.
+\end{align*}
+
+The sovereign stability basin is their intersection:
+
+\begin{equation}
+\mathcal{B}_{\text{sovereign}}
+=
+\bigcap_k \mathcal{B}_k.
+\end{equation}
+
+\section{Linear Stability Analysis}
+
+Linearizing the autonomous flow around $\mathbf{X}^\star$ yields:
+
+\begin{equation}
+\frac{d\delta\mathbf{X}}{d\tau}
+=
+\mathcal{J}
+\,
+\delta\mathbf{X},
+\end{equation}
+
+where $\mathcal{J}$ is the Jacobian:
+
+\begin{equation}
+\mathcal{J}
+=
+\left.
+\frac{\partial \mathcal{F}_{\text{auto}}}{\partial \mathbf{X}}
+\right|_{\mathbf{X}^\star}.
+\end{equation}
+
+Stability requires:
+
+\begin{equation}
+\Re(\lambda_i(\mathcal{J})) < 0,
+\end{equation}
+
+for all eigenvalues $\lambda_i$.
+
+\section{Autonomous Attractors}
+
+An \textbf{Autonomous Attractor} $\mathcal{A}$ is a compact invariant set 
+satisfying:
+
+\begin{equation}
+\Phi_\tau(\mathcal{A}) = \mathcal{A},
+\quad
+\forall \tau \ge 0,
+\end{equation}
+
+and possessing a non-empty basin of attraction:
+
+\begin{equation}
+\mathcal{B}(\mathcal{A})
+=
+\left\{
+\mathbf{X}_0 \mid
+\lim_{\tau \to \infty}
+\text{dist}(\Phi_\tau(\mathbf{X}_0), \mathcal{A}) = 0
+\right\}.
+\end{equation}
+
+Subsystem attractors include:
+
+\begin{align*}
+\mathcal{A}_{\text{GW}} &: \text{strain-driven curvature attractors}, \\
+\mathcal{A}_{\text{hydro}} &: \text{flux equilibrium attractors}, \\
+\mathcal{A}_{\text{crypto}} &: \text{noise-stability attractors}, \\
+\mathcal{A}_{\text{DSP}} &: \text{energy-norm attractors}, \\
+\mathcal{A}_{\text{identity}} &: \text{identity-invariant attractors}.
+\end{align*}
+
+The sovereign attractor is:
+
+\begin{equation}
+\mathcal{A}_{\text{sovereign}}
+=
+\bigcap_k \mathcal{A}_k.
+\end{equation}
+
+\section{Sovereign Lyapunov Function}
+
+Define the \textbf{Sovereign Lyapunov Function}:
+
+\begin{equation}
+V(\mathbf{X})
+=
+\mathcal{G}_{AB}
+\,
+\delta X^A
+\delta X^B,
+\end{equation}
+
+where $\delta X^A = X^A - X^{A\star}$.
+
+Stability requires:
+
+\begin{equation}
+\frac{dV}{d\tau}
+=
+2
+\mathcal{G}_{AB}
+\delta X^A
+\mathcal{F}^{B}_{\text{auto}}
+< 0.
+\end{equation}
+
+\section{Sovereign Attractor Synthesis Theorem}
+
+\begin{theorem}[\textbf{Sovereign Attractor Synthesis}]
+Let $\mathcal{A}_k$ be the autonomous attractor of subsystem $k$. 
+If each subsystem attractor is invariant under the harmonization operator 
+$\mathcal{H}$ and the coupling tensor $\mathcal{C}^{A}{}_{BCD}$, then the 
+sovereign attractor:
+
+\begin{equation}
+\mathcal{A}_{\text{sovereign}}
+=
+\bigcap_k \mathcal{A}_k
+\end{equation}
+
+is invariant under the unified autonomous flow $\Phi_\tau$.
+\end{theorem}
+
+\begin{proof}
+Since each subsystem attractor is invariant under its own autonomous flow 
+and the harmonization operator preserves subsystem invariants, the 
+intersection of subsystem attractors is invariant under the unified flow. 
+Thus:
+
+\begin{equation}
+\Phi_\tau(\mathcal{A}_{\text{sovereign}})
+=
+\mathcal{A}_{\text{sovereign}}.
+\end{equation}
+\end{proof}
+
+\section{Sovereign Phase Space Loop}
+
+The phase space loop is:
+
+\begin{equation}
+(\mathbf{X},\mathbf{U})^{n+1}
+=
+\Phi_{\Delta\tau}
+\left(
+(\mathbf{X},\mathbf{U})^n
+\right),
+\end{equation}
+
+executed at each timestep of the sovereign simulation manifold.
+
+\end{document}
