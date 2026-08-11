@@ -1,0 +1,96 @@
+\section*{ACES Formal Specification v1.0}
+
+\subsection*{1. System Overview}
+ACES is a zero-trust synthetic biology engine combining:
+\begin{itemize}
+    \item multi-messenger astrophysical entropy,
+    \item RNS-CKKS homomorphic encryption,
+    \item GPU-accelerated NTT evolution kernels,
+    \item encrypted Multispecies Coalescent lineage dynamics,
+    \item Groth16 zero-knowledge state verification.
+\end{itemize}
+
+\subsection*{2. Environmental Entropy Construction}
+Let
+\[
+h(t),\quad S(\nu,t),\quad \boldsymbol{\mu}(t)
+\]
+denote LIGO, JWST, and GAIA observations. Define
+\[
+\mathbf{E}(t) = \mathrm{Enc}_{\text{CKKS}}\big(\mathrm{SHA3\text{-}256}(h(t)\Vert S(\nu,t)\Vert \boldsymbol{\mu}(t))\big).
+\]
+
+\subsection*{3. Organism State Representation}
+Each organism is represented as encrypted vectors:
+\[
+\tilde{\mathbf{x}}_i(t),\quad \tilde{\mathbf{g}}_i(t),\quad \tilde{\mathbf{H}}_i(t)
+\]
+packed into $N/2 = 32{,}768$ CKKS SIMD slots.
+
+\subsection*{4. Homomorphic Evolution Kernel}
+Evolution is computed via GPU NTT pipelines:
+\[
+\tilde{\mathbf{x}}_i(t+1) =
+\mathrm{Eval}\big(
+A\tilde{\mathbf{x}}_i(t) +
+B\tilde{\mathbf{g}}_i(t) +
+C\tilde{\mathbf{E}}(t)
+\big),
+\]
+where $A,B,C$ are diagonal-encoded matrices.
+
+Trait mutation uses Chebyshev polynomials:
+\[
+\sigma(\tilde{\mathbf{x}}_i(t)) =
+\sum_{k=0}^{d} a_k T_k(\tilde{\mathbf{x}}_i(t)).
+\]
+
+\subsection*{5. Noise Budget Physics}
+Noise budget evolves as:
+\[
+\mathcal{B}(t+1) = \mathcal{B}(t) - \Delta_{\text{op}}.
+\]
+Bootstrapping triggers when $\mathcal{B}(t) < 50$ bits.
+
+\subsection*{6. Multispecies Coalescent Engine}
+Encrypted divergence:
+\[
+d(S_a,S_b) = \mathrm{Eval}\big(\|\tilde{\mu}_a - \tilde{\mu}_b\|\big).
+\]
+
+Speciation:
+\[
+d(S_a,S_b) \ge \tau_{\text{split}}.
+\]
+
+Merging:
+\[
+d(S_a,S_b) \le \tau_{\text{merge}}.
+\]
+
+\subsection*{7. Zero-Knowledge Ledger}
+Each transition produces a Groth16 proof:
+\[
+\pi_t = \{A,B,C\}.
+\]
+Verification:
+\[
+\mathrm{Verify}(vk, H(S_t), H(S_{t+1}), \pi_t) = \text{TRUE}.
+\]
+
+\subsection*{8. Evolutionary Invariants}
+\begin{itemize}
+    \item Cryptographic Isolation: $I(\mathbf{x}_i(t);\tilde{\mathbf{x}}_i(t))=0$.
+    \item Ledger Continuity: $H(S_{t+1})$ binds recursively to $H(S_t)$.
+    \item Noise Safety Floor: $\mathcal{B}(t) \ge \mathcal{B}_{\min}$.
+    \item Epoch Synchronization: $\mathrm{Time}(E(t)) = \mathrm{Time}(S(t))$.
+\end{itemize}
+
+\subsection*{9. Operational Guarantees}
+ACES is:
+\begin{itemize}
+    \item mathematically complete,
+    \item confidential under lattice security,
+    \item verifiable under succinct ZK proofs,
+    \item operational under fault injection.
+\end{itemize}
