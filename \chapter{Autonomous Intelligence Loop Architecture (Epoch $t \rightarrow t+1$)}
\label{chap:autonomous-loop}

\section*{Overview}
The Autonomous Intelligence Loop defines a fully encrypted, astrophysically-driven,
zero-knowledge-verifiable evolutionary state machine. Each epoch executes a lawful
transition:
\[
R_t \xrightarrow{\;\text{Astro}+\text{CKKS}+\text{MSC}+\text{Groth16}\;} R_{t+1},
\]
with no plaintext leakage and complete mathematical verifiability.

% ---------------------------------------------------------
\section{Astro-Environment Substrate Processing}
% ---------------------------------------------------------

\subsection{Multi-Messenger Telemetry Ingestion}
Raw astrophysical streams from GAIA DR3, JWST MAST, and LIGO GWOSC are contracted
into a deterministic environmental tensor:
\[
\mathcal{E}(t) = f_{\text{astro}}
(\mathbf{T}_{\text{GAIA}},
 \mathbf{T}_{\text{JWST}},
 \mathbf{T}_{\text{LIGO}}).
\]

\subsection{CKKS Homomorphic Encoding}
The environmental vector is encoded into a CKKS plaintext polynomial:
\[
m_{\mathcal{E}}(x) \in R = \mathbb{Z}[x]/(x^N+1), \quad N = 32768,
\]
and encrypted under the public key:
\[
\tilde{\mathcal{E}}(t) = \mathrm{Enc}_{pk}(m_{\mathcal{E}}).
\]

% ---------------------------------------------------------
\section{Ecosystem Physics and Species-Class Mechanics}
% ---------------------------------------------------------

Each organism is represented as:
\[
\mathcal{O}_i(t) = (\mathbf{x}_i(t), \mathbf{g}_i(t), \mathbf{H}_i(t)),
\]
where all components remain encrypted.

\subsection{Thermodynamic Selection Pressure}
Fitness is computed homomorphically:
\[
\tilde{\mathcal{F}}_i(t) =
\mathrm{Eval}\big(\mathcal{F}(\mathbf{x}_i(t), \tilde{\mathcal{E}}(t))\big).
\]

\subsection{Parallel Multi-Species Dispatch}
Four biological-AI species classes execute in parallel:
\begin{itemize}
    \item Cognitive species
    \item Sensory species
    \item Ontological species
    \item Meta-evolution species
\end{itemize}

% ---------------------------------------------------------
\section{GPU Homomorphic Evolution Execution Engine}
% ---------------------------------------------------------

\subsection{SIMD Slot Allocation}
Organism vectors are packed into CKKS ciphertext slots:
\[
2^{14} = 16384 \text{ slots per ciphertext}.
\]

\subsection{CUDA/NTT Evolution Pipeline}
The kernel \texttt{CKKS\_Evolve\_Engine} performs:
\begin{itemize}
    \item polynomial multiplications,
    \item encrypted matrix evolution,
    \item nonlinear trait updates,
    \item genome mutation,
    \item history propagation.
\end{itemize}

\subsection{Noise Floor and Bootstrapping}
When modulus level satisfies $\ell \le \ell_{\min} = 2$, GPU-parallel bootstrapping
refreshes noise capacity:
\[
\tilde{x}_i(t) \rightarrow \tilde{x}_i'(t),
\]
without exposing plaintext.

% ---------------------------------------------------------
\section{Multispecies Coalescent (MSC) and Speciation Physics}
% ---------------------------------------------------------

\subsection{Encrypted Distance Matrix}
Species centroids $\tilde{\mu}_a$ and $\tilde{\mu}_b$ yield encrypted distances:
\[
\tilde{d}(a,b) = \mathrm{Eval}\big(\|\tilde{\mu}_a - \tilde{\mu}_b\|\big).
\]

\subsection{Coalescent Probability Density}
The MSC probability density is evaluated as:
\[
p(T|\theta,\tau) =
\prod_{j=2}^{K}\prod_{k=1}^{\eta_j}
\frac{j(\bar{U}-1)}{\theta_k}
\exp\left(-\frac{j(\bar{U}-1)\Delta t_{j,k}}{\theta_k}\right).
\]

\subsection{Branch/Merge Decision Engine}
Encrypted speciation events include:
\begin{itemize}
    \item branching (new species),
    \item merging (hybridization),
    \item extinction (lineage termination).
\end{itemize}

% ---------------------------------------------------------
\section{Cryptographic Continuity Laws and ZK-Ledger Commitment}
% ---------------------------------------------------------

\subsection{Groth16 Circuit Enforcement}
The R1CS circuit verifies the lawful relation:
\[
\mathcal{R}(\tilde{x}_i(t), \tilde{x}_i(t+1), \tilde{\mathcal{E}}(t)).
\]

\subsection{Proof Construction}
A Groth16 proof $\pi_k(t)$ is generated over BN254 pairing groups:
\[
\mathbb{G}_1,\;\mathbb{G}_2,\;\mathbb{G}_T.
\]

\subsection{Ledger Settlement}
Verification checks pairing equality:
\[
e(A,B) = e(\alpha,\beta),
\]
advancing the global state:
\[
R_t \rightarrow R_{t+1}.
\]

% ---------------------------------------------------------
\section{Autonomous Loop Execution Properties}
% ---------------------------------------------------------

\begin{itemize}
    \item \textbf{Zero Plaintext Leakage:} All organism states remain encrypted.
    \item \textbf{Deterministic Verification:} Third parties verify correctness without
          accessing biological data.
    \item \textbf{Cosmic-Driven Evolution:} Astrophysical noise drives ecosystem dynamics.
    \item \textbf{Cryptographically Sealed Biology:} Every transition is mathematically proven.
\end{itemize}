@@ -1,0 +1,154 @@
+\chapter{Autonomous Intelligence Loop Architecture (Epoch $t \rightarrow t+1$)}
+\label{chap:autonomous-loop}
+
+\section*{Overview}
+The Autonomous Intelligence Loop defines a fully encrypted, astrophysically-driven,
+zero-knowledge-verifiable evolutionary state machine. Each epoch executes a lawful
+transition:
+\[
+R_t \xrightarrow{\;\text{Astro}+\text{CKKS}+\text{MSC}+\text{Groth16}\;} R_{t+1},
+\]
+with no plaintext leakage and complete mathematical verifiability.
+
+% ---------------------------------------------------------
+\section{Astro-Environment Substrate Processing}
+% ---------------------------------------------------------
+
+\subsection{Multi-Messenger Telemetry Ingestion}
+Raw astrophysical streams from GAIA DR3, JWST MAST, and LIGO GWOSC are contracted
+into a deterministic environmental tensor:
+\[
+\mathcal{E}(t) = f_{\text{astro}}
+(\mathbf{T}_{\text{GAIA}},
+ \mathbf{T}_{\text{JWST}},
+ \mathbf{T}_{\text{LIGO}}).
+\]
+
+\subsection{CKKS Homomorphic Encoding}
+The environmental vector is encoded into a CKKS plaintext polynomial:
+\[
+m_{\mathcal{E}}(x) \in R = \mathbb{Z}[x]/(x^N+1), \quad N = 32768,
+\]
+and encrypted under the public key:
+\[
+\tilde{\mathcal{E}}(t) = \mathrm{Enc}_{pk}(m_{\mathcal{E}}).
+\]
+
+% ---------------------------------------------------------
+\section{Ecosystem Physics and Species-Class Mechanics}
+% ---------------------------------------------------------
+
+Each organism is represented as:
+\[
+\mathcal{O}_i(t) = (\mathbf{x}_i(t), \mathbf{g}_i(t), \mathbf{H}_i(t)),
+\]
+where all components remain encrypted.
+
+\subsection{Thermodynamic Selection Pressure}
+Fitness is computed homomorphically:
+\[
+\tilde{\mathcal{F}}_i(t) =
+\mathrm{Eval}\big(\mathcal{F}(\mathbf{x}_i(t), \tilde{\mathcal{E}}(t))\big).
+\]
+
+\subsection{Parallel Multi-Species Dispatch}
+Four biological-AI species classes execute in parallel:
+\begin{itemize}
+    \item Cognitive species
+    \item Sensory species
+    \item Ontological species
+    \item Meta-evolution species
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{GPU Homomorphic Evolution Execution Engine}
+% ---------------------------------------------------------
+
+\subsection{SIMD Slot Allocation}
+Organism vectors are packed into CKKS ciphertext slots:
+\[
+2^{14} = 16384 \text{ slots per ciphertext}.
+\]
+
+\subsection{CUDA/NTT Evolution Pipeline}
+The kernel \texttt{CKKS\_Evolve\_Engine} performs:
+\begin{itemize}
+    \item polynomial multiplications,
+    \item encrypted matrix evolution,
+    \item nonlinear trait updates,
+    \item genome mutation,
+    \item history propagation.
+\end{itemize}
+
+\subsection{Noise Floor and Bootstrapping}
+When modulus level satisfies $\ell \le \ell_{\min} = 2$, GPU-parallel bootstrapping
+refreshes noise capacity:
+\[
+\tilde{x}_i(t) \rightarrow \tilde{x}_i'(t),
+\]
+without exposing plaintext.
+
+% ---------------------------------------------------------
+\section{Multispecies Coalescent (MSC) and Speciation Physics}
+% ---------------------------------------------------------
+
+\subsection{Encrypted Distance Matrix}
+Species centroids $\tilde{\mu}_a$ and $\tilde{\mu}_b$ yield encrypted distances:
+\[
+\tilde{d}(a,b) = \mathrm{Eval}\big(\|\tilde{\mu}_a - \tilde{\mu}_b\|\big).
+\]
+
+\subsection{Coalescent Probability Density}
+The MSC probability density is evaluated as:
+\[
+p(T|\theta,\tau) =
+\prod_{j=2}^{K}\prod_{k=1}^{\eta_j}
+\frac{j(\bar{U}-1)}{\theta_k}
+\exp\left(-\frac{j(\bar{U}-1)\Delta t_{j,k}}{\theta_k}\right).
+\]
+
+\subsection{Branch/Merge Decision Engine}
+Encrypted speciation events include:
+\begin{itemize}
+    \item branching (new species),
+    \item merging (hybridization),
+    \item extinction (lineage termination).
+\end{itemize}
+
+% ---------------------------------------------------------
+\section{Cryptographic Continuity Laws and ZK-Ledger Commitment}
+% ---------------------------------------------------------
+
+\subsection{Groth16 Circuit Enforcement}
+The R1CS circuit verifies the lawful relation:
+\[
+\mathcal{R}(\tilde{x}_i(t), \tilde{x}_i(t+1), \tilde{\mathcal{E}}(t)).
+\]
+
+\subsection{Proof Construction}
+A Groth16 proof $\pi_k(t)$ is generated over BN254 pairing groups:
+\[
+\mathbb{G}_1,\;\mathbb{G}_2,\;\mathbb{G}_T.
+\]
+
+\subsection{Ledger Settlement}
+Verification checks pairing equality:
+\[
+e(A,B) = e(\alpha,\beta),
+\]
+advancing the global state:
+\[
+R_t \rightarrow R_{t+1}.
+\]
+
+% ---------------------------------------------------------
+\section{Autonomous Loop Execution Properties}
+% ---------------------------------------------------------
+
+\begin{itemize}
+    \item \textbf{Zero Plaintext Leakage:} All organism states remain encrypted.
+    \item \textbf{Deterministic Verification:} Third parties verify correctness without
+          accessing biological data.
+    \item \textbf{Cosmic-Driven Evolution:} Astrophysical noise drives ecosystem dynamics.
+    \item \textbf{Cryptographically Sealed Biology:} Every transition is mathematically proven.
+\end{itemize}
