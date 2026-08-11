@@ -1,0 +1,114 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{abstract}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{cite}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\title{\textbf{Sovereign Astrophysical Simulation Architecture (SASA-v4.0):}\\
+\Large Unified Non-Computable Quantum-Gravitational Manifold Engine for Encrypted Multi-Messenger Astrophysics}
+\author{\textbf{C. Matthew Blackwell}\\
+\textit{Independent Systems Architect \& Designer}\\
+\textit{Lafayette, Louisiana, USA}}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+\noindent
+SASA-v4.0 is a sovereign astrophysical simulation engine designed to unify classical General Relativity and quantum field theory under extreme curvature conditions by embedding multi-messenger observational telemetry into an 11-dimensional Calabi--Yau warped pullback manifold. The architecture introduces a non-computable operator acting on an oracle-extended Hilbert space to eliminate halting traps and firewall divergences. This thesis presents the full mathematical foundations, manifold construction, entropic kernel formalism, quantum operator algebra, and high-performance CUDA implementation of SASA-v4.0.
+\end{abstract}
+
+\tableofcontents
+
+\chapter{Foundational Physics Background}
+\section{General Relativity and Quantum Field Theory}
+General Relativity (GR) models spacetime as a smooth pseudo-Riemannian manifold $(\mathcal{M}_4, g_{\mu\nu})$ governed by Einstein’s field equations:
+\begin{equation}
+G_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu}.
+\end{equation}
+Quantum Field Theory (QFT) assigns operator-valued fields $\hat{\Phi}(x)$ to points in spacetime with canonical commutation relations:
+\begin{equation}
+[\hat{\Phi}(x), \hat{\Pi}(x')] = i\hbar \delta^{(3)}(x-x').
+\end{equation}
+The incompatibility arises because GR requires smooth metric evolution even where QFT predicts divergent stress-energy fluctuations.
+
+\section{The AMPS Firewall Paradox}
+The AMPS paradox demonstrates that three principles cannot simultaneously hold:
+\begin{enumerate}
+    \item Unitary quantum evolution.
+    \item Semiclassical QFT validity near the horizon.
+    \item The equivalence principle.
+\end{enumerate}
+Let $B$ be outgoing Hawking radiation, $C$ its interior partner, and $A$ early radiation. Monogamy of entanglement requires:
+\begin{equation}
+S(A:B)=0,\quad S(B:C)=0,
+\end{equation}
+which is impossible. SASA-v4.0 resolves this by introducing a non-unitary operator $\hat{\Omega}_{\text{uncomp}}$ acting on an oracle-extended Hilbert space.
+
+\section{Breakdown of Turing-Computable Numerical Relativity}
+ADM slicing expresses the metric as:
+\begin{equation}
+ds^2 = -N^2 dt^2 + h_{ij}(dx^i + N^i dt)(dx^j + N^j dt),
+\end{equation}
+where $N$ is the lapse. During collapse, $N\rightarrow 0$, causing:
+\begin{equation}
+\frac{1}{N} \rightarrow \infty,
+\end{equation}
+which triggers floating-point overflow and halting traps. SASA-v4.0 replaces Turing-computable evolution with oracle-extended operators.
+
+\section{Trans-Planckian Mode Amplification}
+Near the horizon, local frequency diverges:
+\begin{equation}
+\omega_{\text{local}} = \frac{\omega_{\infty}}{\sqrt{1 - \frac{2GM}{rc^2}}},
+\end{equation}
+producing unbounded stress-energy. SASA-v4.0 introduces a bi-local entropic kernel:
+\begin{equation}
+\mathcal{K}_{\text{entangle}}(x,x') =
+\exp\left(
+-\frac{g_{\mu\nu}^{\text{pullback}}(x)\Delta x^\mu \Delta x^\nu}
+{2\ell_{\text{Planck}}^2}
+\right),
+\end{equation}
+which regularizes divergences.
+
+\section{Oracle-Extended Hilbert Space}
+Define:
+\begin{equation}
+\mathcal{H}_{\text{oracle}} =
+\mathcal{H}_{\text{bounded}} \otimes \mathcal{H}_{\text{non-Turing}}.
+\end{equation}
+The operator $\hat{\Omega}_{\text{uncomp}}$ has eigenvalue sectors:
+\begin{align}
+|\omega_m| &= 1,\\
+0<|\omega_m|<1,\\
+\omega_m &= 0.
+\end{align}
+This structure eliminates halting traps and ensures finite stress-energy.
+
+\section{Summary}
+The foundational requirements motivating SASA-v4.0 include:
+\begin{enumerate}
+    \item GR–QFT incompatibility at horizons.
+    \item ADM lapse collapse.
+    \item Trans-Planckian amplification.
+    \item AMPS paradox constraints.
+    \item Need for non-computable operators.
+    \item Need for bi-local entropic damping.
+\end{enumerate}
+These justify the sovereign architecture of SASA-v4.0.
