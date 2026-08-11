@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{Appendix A: Mathematical Derivations for the Astro-Ontological Computational Species Continuity Engine}}
+\author{C.~Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Trait-Space Construction}
+Let $\mathbf{s}_{\text{astro}}$ denote the fused astrophysical input tensor:
+\begin{equation}
+    \mathbf{s}_{\text{astro}} =
+    \big(
+        \mathbf{s}_{\text{Gaia}},\;
+        \mathbf{s}_{\text{JWST}},\;
+        \mathbf{s}_{\text{LIGO}}
+    \big).
+\end{equation}
+
+Trait vectors are constructed via:
+\begin{equation}
+    \mathbf{x}(t) = \mathcal{N}\big(\mathbf{s}_{\text{astro}}(t)\big),
+\end{equation}
+where $\mathcal{N}$ is the normalization operator.
+
+\section{MSC Species Boundary Derivation}
+The probability density of gene trees $T_k$ given species tree parameters $\theta$ is:
+\begin{equation}
+    p(T_k \mid \theta) =
+    \sum_{\text{coalescent histories } H}
+    p(T_k \mid H, \theta)\, p(H \mid \theta).
+\end{equation}
+
+A lineage split occurs when:
+\begin{equation}
+    d(O_a, O_b) = \Vert \mathbf{x}_a - \mathbf{x}_b \Vert_2 > \delta_{\text{speciation}}.
+\end{equation}
+
+\section{CKKS Homomorphic Evolution}
+Encrypted trait evolution:
+\begin{equation}
+    \hat{\mathbf{x}}(t+1)
+        = \mathcal{F}_{\text{evo}}^{\text{FHE}}
+            \big(
+                \hat{\mathbf{x}}(t),\;
+                \hat{\mathbf{s}}_{\text{astro}}(t)
+            \big).
+\end{equation}
+
+Noise budget decay:
+\begin{equation}
+    Q_{t+1} = Q_t - \Delta Q_{\text{mult}},
+\end{equation}
+with $\Delta Q_{\text{mult}} \approx 28.5$ bits.
+
+\section{Zero-Knowledge Verification}
+Groth16 verification equation:
+\begin{equation}
+    V\big(
+        \text{vk},\;
+        \text{Hash}(O(t)) \Vert \text{Hash}(O(t+1)),\;
+        \pi
+    \big) = 1.
+\end{equation}
+
+\end{document}
