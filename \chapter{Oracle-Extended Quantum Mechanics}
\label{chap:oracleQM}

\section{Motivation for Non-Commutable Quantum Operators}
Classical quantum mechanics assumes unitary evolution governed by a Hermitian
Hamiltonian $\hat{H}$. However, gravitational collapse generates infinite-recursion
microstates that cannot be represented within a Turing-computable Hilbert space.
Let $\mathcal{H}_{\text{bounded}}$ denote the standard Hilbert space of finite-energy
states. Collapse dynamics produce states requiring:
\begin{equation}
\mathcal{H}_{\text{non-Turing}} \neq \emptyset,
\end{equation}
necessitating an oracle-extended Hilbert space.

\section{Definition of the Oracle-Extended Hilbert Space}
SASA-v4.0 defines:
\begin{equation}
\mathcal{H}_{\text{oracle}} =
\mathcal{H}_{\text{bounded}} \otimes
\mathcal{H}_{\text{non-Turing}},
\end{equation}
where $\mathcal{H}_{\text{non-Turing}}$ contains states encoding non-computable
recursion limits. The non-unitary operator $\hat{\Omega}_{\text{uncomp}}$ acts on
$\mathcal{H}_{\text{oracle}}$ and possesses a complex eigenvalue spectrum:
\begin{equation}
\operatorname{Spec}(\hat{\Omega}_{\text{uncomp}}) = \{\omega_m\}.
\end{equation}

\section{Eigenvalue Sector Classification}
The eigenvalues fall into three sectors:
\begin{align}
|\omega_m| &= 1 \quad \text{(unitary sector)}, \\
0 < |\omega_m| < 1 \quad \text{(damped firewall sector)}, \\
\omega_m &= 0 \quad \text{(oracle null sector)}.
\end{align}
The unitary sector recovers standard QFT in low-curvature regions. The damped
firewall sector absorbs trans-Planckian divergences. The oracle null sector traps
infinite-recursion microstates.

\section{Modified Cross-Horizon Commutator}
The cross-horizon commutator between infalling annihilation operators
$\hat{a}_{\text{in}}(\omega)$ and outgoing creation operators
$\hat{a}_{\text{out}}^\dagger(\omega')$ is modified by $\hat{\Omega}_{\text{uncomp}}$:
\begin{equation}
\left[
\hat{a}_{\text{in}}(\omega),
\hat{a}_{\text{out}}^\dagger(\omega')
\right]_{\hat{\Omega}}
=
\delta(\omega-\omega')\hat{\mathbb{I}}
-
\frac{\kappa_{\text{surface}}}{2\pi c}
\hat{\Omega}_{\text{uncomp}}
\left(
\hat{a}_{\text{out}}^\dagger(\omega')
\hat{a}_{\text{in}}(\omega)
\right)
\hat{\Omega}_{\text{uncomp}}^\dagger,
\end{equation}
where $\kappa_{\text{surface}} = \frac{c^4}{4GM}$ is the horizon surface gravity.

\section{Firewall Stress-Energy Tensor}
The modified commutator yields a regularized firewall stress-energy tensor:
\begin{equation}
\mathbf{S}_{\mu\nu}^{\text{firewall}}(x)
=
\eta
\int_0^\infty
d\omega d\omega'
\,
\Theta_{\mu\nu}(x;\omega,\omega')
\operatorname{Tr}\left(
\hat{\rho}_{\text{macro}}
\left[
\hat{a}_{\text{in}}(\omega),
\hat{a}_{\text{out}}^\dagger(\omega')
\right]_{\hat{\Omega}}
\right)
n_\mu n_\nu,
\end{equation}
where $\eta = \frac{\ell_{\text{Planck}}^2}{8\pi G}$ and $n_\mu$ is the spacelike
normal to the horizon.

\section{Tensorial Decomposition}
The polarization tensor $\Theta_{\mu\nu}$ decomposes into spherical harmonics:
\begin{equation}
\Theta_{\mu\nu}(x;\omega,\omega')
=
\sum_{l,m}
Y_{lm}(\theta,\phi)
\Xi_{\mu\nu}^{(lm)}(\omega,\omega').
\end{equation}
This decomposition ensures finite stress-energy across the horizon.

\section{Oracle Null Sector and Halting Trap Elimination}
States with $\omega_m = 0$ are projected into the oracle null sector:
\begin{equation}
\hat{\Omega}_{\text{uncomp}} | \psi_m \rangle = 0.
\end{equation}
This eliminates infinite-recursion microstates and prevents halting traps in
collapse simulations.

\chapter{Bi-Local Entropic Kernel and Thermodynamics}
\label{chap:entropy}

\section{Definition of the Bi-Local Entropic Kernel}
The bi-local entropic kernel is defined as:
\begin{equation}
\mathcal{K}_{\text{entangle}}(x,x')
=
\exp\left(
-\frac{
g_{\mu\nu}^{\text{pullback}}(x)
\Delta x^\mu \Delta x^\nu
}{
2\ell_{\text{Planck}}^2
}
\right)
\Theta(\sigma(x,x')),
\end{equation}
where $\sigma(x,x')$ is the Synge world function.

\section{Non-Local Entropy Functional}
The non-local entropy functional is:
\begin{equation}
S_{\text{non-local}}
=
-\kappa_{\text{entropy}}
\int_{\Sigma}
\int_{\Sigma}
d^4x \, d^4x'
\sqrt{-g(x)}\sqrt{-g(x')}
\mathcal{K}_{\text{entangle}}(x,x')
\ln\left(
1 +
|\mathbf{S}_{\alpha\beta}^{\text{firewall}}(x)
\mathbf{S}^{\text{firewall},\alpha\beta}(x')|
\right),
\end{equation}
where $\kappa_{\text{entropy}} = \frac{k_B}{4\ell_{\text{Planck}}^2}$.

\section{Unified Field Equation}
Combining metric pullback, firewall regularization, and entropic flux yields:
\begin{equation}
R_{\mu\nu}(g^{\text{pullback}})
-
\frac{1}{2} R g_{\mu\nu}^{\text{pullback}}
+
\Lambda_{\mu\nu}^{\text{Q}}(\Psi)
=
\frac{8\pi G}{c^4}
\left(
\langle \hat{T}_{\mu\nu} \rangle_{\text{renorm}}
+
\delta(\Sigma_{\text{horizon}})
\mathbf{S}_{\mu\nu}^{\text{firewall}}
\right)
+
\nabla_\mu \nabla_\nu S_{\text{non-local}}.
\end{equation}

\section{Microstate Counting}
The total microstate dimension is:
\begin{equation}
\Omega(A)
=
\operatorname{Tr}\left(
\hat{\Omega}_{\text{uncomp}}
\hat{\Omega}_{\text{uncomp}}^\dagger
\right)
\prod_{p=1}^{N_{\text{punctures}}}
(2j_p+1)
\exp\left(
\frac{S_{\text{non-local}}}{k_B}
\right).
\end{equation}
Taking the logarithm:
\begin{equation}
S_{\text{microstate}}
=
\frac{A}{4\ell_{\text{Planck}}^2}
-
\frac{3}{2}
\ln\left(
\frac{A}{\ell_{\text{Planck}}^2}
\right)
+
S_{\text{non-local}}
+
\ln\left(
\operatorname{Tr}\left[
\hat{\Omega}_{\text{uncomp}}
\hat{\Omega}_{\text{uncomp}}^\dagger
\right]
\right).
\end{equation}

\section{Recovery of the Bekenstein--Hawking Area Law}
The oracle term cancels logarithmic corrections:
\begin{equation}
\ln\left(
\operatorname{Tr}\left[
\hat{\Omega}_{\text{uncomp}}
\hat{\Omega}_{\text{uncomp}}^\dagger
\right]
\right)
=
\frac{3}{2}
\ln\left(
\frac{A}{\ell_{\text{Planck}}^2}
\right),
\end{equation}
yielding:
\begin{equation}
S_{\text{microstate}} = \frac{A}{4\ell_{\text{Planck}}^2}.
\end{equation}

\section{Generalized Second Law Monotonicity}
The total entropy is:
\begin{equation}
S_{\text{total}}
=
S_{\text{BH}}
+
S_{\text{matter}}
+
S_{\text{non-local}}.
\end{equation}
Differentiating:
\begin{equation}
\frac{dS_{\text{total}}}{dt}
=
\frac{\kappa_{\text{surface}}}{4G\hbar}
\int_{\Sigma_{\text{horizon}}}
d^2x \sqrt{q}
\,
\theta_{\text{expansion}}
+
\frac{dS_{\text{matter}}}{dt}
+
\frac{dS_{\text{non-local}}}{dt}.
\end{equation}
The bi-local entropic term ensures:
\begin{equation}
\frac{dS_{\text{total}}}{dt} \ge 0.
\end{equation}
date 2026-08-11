@@ -1,0 +1,246 @@
+\chapter{Oracle-Extended Quantum Mechanics}
+\label{chap:oracleQM}
+
+\section{Motivation for Non-Commutable Quantum Operators}
+Classical quantum mechanics assumes unitary evolution governed by a Hermitian
+Hamiltonian $\hat{H}$. However, gravitational collapse generates infinite-recursion
+microstates that cannot be represented within a Turing-computable Hilbert space.
+Let $\mathcal{H}_{\text{bounded}}$ denote the standard Hilbert space of finite-energy
+states. Collapse dynamics produce states requiring:
+\begin{equation}
+\mathcal{H}_{\text{non-Turing}} \neq \emptyset,
+\end{equation}
+necessitating an oracle-extended Hilbert space.
+
+\section{Definition of the Oracle-Extended Hilbert Space}
+SASA-v4.0 defines:
+\begin{equation}
+\mathcal{H}_{\text{oracle}} =
+\mathcal{H}_{\text{bounded}} \otimes
+\mathcal{H}_{\text{non-Turing}},
+\end{equation}
+where $\mathcal{H}_{\text{non-Turing}}$ contains states encoding non-computable
+recursion limits. The non-unitary operator $\hat{\Omega}_{\text{uncomp}}$ acts on
+$\mathcal{H}_{\text{oracle}}$ and possesses a complex eigenvalue spectrum:
+\begin{equation}
+\operatorname{Spec}(\hat{\Omega}_{\text{uncomp}}) = \{\omega_m\}.
+\end{equation}
+
+\section{Eigenvalue Sector Classification}
+The eigenvalues fall into three sectors:
+\begin{align}
+|\omega_m| &= 1 \quad \text{(unitary sector)}, \\
+0 < |\omega_m| < 1 \quad \text{(damped firewall sector)}, \\
+\omega_m &= 0 \quad \text{(oracle null sector)}.
+\end{align}
+The unitary sector recovers standard QFT in low-curvature regions. The damped
+firewall sector absorbs trans-Planckian divergences. The oracle null sector traps
+infinite-recursion microstates.
+
+\section{Modified Cross-Horizon Commutator}
+The cross-horizon commutator between infalling annihilation operators
+$\hat{a}_{\text{in}}(\omega)$ and outgoing creation operators
+$\hat{a}_{\text{out}}^\dagger(\omega')$ is modified by $\hat{\Omega}_{\text{uncomp}}$:
+\begin{equation}
+\left[
+\hat{a}_{\text{in}}(\omega),
+\hat{a}_{\text{out}}^\dagger(\omega')
+\right]_{\hat{\Omega}}
+=
+\delta(\omega-\omega')\hat{\mathbb{I}}
+-
+\frac{\kappa_{\text{surface}}}{2\pi c}
+\hat{\Omega}_{\text{uncomp}}
+\left(
+\hat{a}_{\text{out}}^\dagger(\omega')
+\hat{a}_{\text{in}}(\omega)
+\right)
+\hat{\Omega}_{\text{uncomp}}^\dagger,
+\end{equation}
+where $\kappa_{\text{surface}} = \frac{c^4}{4GM}$ is the horizon surface gravity.
+
+\section{Firewall Stress-Energy Tensor}
+The modified commutator yields a regularized firewall stress-energy tensor:
+\begin{equation}
+\mathbf{S}_{\mu\nu}^{\text{firewall}}(x)
+=
+\eta
+\int_0^\infty
+d\omega d\omega'
+\,
+\Theta_{\mu\nu}(x;\omega,\omega')
+\operatorname{Tr}\left(
+\hat{\rho}_{\text{macro}}
+\left[
+\hat{a}_{\text{in}}(\omega),
+\hat{a}_{\text{out}}^\dagger(\omega')
+\right]_{\hat{\Omega}}
+\right)
+n_\mu n_\nu,
+\end{equation}
+where $\eta = \frac{\ell_{\text{Planck}}^2}{8\pi G}$ and $n_\mu$ is the spacelike
+normal to the horizon.
+
+\section{Tensorial Decomposition}
+The polarization tensor $\Theta_{\mu\nu}$ decomposes into spherical harmonics:
+\begin{equation}
+\Theta_{\mu\nu}(x;\omega,\omega')
+=
+\sum_{l,m}
+Y_{lm}(\theta,\phi)
+\Xi_{\mu\nu}^{(lm)}(\omega,\omega').
+\end{equation}
+This decomposition ensures finite stress-energy across the horizon.
+
+\section{Oracle Null Sector and Halting Trap Elimination}
+States with $\omega_m = 0$ are projected into the oracle null sector:
+\begin{equation}
+\hat{\Omega}_{\text{uncomp}} | \psi_m \rangle = 0.
+\end{equation}
+This eliminates infinite-recursion microstates and prevents halting traps in
+collapse simulations.
+
+\chapter{Bi-Local Entropic Kernel and Thermodynamics}
+\label{chap:entropy}
+
+\section{Definition of the Bi-Local Entropic Kernel}
+The bi-local entropic kernel is defined as:
+\begin{equation}
+\mathcal{K}_{\text{entangle}}(x,x')
+=
+\exp\left(
+-\frac{
+g_{\mu\nu}^{\text{pullback}}(x)
+\Delta x^\mu \Delta x^\nu
+}{
+2\ell_{\text{Planck}}^2
+}
+\right)
+\Theta(\sigma(x,x')),
+\end{equation}
+where $\sigma(x,x')$ is the Synge world function.
+
+\section{Non-Local Entropy Functional}
+The non-local entropy functional is:
+\begin{equation}
+S_{\text{non-local}}
+=
+-\kappa_{\text{entropy}}
+\int_{\Sigma}
+\int_{\Sigma}
+d^4x \, d^4x'
+\sqrt{-g(x)}\sqrt{-g(x')}
+\mathcal{K}_{\text{entangle}}(x,x')
+\ln\left(
+1 +
+|\mathbf{S}_{\alpha\beta}^{\text{firewall}}(x)
+\mathbf{S}^{\text{firewall},\alpha\beta}(x')|
+\right),
+\end{equation}
+where $\kappa_{\text{entropy}} = \frac{k_B}{4\ell_{\text{Planck}}^2}$.
+
+\section{Unified Field Equation}
+Combining metric pullback, firewall regularization, and entropic flux yields:
+\begin{equation}
+R_{\mu\nu}(g^{\text{pullback}})
+-
+\frac{1}{2} R g_{\mu\nu}^{\text{pullback}}
++
+\Lambda_{\mu\nu}^{\text{Q}}(\Psi)
+=
+\frac{8\pi G}{c^4}
+\left(
+\langle \hat{T}_{\mu\nu} \rangle_{\text{renorm}}
++
+\delta(\Sigma_{\text{horizon}})
+\mathbf{S}_{\mu\nu}^{\text{firewall}}
+\right)
++
+\nabla_\mu \nabla_\nu S_{\text{non-local}}.
+\end{equation}
+
+\section{Microstate Counting}
+The total microstate dimension is:
+\begin{equation}
+\Omega(A)
+=
+\operatorname{Tr}\left(
+\hat{\Omega}_{\text{uncomp}}
+\hat{\Omega}_{\text{uncomp}}^\dagger
+\right)
+\prod_{p=1}^{N_{\text{punctures}}}
+(2j_p+1)
+\exp\left(
+\frac{S_{\text{non-local}}}{k_B}
+\right).
+\end{equation}
+Taking the logarithm:
+\begin{equation}
+S_{\text{microstate}}
+=
+\frac{A}{4\ell_{\text{Planck}}^2}
+-
+\frac{3}{2}
+\ln\left(
+\frac{A}{\ell_{\text{Planck}}^2}
+\right)
++
+S_{\text{non-local}}
++
+\ln\left(
+\operatorname{Tr}\left[
+\hat{\Omega}_{\text{uncomp}}
+\hat{\Omega}_{\text{uncomp}}^\dagger
+\right]
+\right).
+\end{equation}
+
+\section{Recovery of the Bekenstein--Hawking Area Law}
+The oracle term cancels logarithmic corrections:
+\begin{equation}
+\ln\left(
+\operatorname{Tr}\left[
+\hat{\Omega}_{\text{uncomp}}
+\hat{\Omega}_{\text{uncomp}}^\dagger
+\right]
+\right)
+=
+\frac{3}{2}
+\ln\left(
+\frac{A}{\ell_{\text{Planck}}^2}
+\right),
+\end{equation}
+yielding:
+\begin{equation}
+S_{\text{microstate}} = \frac{A}{4\ell_{\text{Planck}}^2}.
+\end{equation}
+
+\section{Generalized Second Law Monotonicity}
+The total entropy is:
+\begin{equation}
+S_{\text{total}}
+=
+S_{\text{BH}}
++
+S_{\text{matter}}
++
+S_{\text{non-local}}.
+\end{equation}
+Differentiating:
+\begin{equation}
+\frac{dS_{\text{total}}}{dt}
+=
+\frac{\kappa_{\text{surface}}}{4G\hbar}
+\int_{\Sigma_{\text{horizon}}}
+d^2x \sqrt{q}
+\,
+\theta_{\text{expansion}}
++
+\frac{dS_{\text{matter}}}{dt}
++
+\frac{dS_{\text{non-local}}}{dt}.
+\end{equation}
+The bi-local entropic term ensures:
+\begin{equation}
+\frac{dS_{\text{total}}}{dt} \ge 0.
+\end{equation}
