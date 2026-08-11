@@ -1,0 +1,120 @@
+\section*{Scientific White Sheet: Autonomous Intelligence Loop Architecture}
+\addcontentsline{toc}{section}{Scientific White Sheet}
+
+\subsection*{System Overview}
+The Autonomous Intelligence Loop defines a fully encrypted, astrophysically-driven,
+zero-knowledge-verifiable evolutionary state machine. Each epoch executes a lawful
+transition:
+\[
+R_t \xrightarrow{\;\text{Astro}+\text{CKKS}+\text{MSC}+\text{Groth16}\;} R_{t+1},
+\]
+with no plaintext leakage and complete mathematical verifiability.
+
+\subsection*{1. Astro-Environment Substrate}
+Multi-messenger astrophysical telemetry from GAIA DR3, JWST MAST, and LIGO GWOSC
+is contracted into a deterministic environmental tensor:
+\[
+\mathcal{E}(t) = f_{\text{astro}}
+(\mathbf{T}_{\text{GAIA}},
+ \mathbf{T}_{\text{JWST}},
+ \mathbf{T}_{\text{LIGO}}).
+\]
+
+The environmental vector is encoded into a CKKS plaintext polynomial:
+\[
+m_{\mathcal{E}}(x) \in R = \mathbb{Z}[x]/(x^N+1), \quad N = 32768,
+\]
+and encrypted:
+\[
+\tilde{\mathcal{E}}(t) = \mathrm{Enc}_{pk}(m_{\mathcal{E}}).
+\]
+
+\subsection*{2. Ecosystem Physics}
+Each organism is represented as:
+\[
+\mathcal{O}_i(t) = (\mathbf{x}_i(t), \mathbf{g}_i(t), \mathbf{H}_i(t)),
+\]
+with all components encrypted under CKKS.
+
+Homomorphic fitness evaluation:
+\[
+\tilde{\mathcal{F}}_i(t) =
+\mathrm{Eval}\big(\mathcal{F}(\mathbf{x}_i(t), \tilde{\mathcal{E}}(t))\big).
+\]
+
+Four biological-AI species classes execute in parallel:
+\begin{itemize}
+    \item Cognitive species
+    \item Sensory species
+    \item Ontological species
+    \item Meta-evolution species
+\end{itemize}
+
+\subsection*{3. GPU Homomorphic Evolution Engine}
+Organism vectors are packed into CKKS ciphertext slots:
+\[
+2^{14} = 16384 \text{ slots per ciphertext}.
+\]
+
+The CUDA/NTT kernel \texttt{CKKS\_Evolve\_Engine} performs encrypted:
+\begin{itemize}
+    \item polynomial multiplications,
+    \item matrix evolution,
+    \item nonlinear trait updates,
+    \item genome mutation,
+    \item history propagation.
+\end{itemize}
+
+Noise-floor control triggers GPU bootstrapping when:
+\[
+\ell \le \ell_{\min} = 2.
+\]
+
+\subsection*{4. Multispecies Coalescent (MSC)}
+Encrypted species centroids yield encrypted distances:
+\[
+\tilde{d}(a,b) = \mathrm{Eval}\big(\|\tilde{\mu}_a - \tilde{\mu}_b\|\big).
+\]
+
+MSC probability density:
+\[
+p(T|\theta,\tau) =
+\prod_{j=2}^{K}\prod_{k=1}^{\eta_j}
+\frac{j(\bar{U}-1)}{\theta_k}
+\exp\left(-\frac{j(\bar{U}-1)\Delta t_{j,k}}{\theta_k}\right).
+\]
+
+Speciation events:
+\begin{itemize}
+    \item branching,
+    \item merging,
+    \item extinction.
+\end{itemize}
+
+\subsection*{5. Zero-Knowledge Continuity Ledger}
+R1CS circuit verifies lawful evolution:
+\[
+\mathcal{R}(\tilde{x}_i(t), \tilde{x}_i(t+1), \tilde{\mathcal{E}}(t)).
+\]
+
+Groth16 proof:
+\[
+\pi_k(t) \in (\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T).
+\]
+
+Pairing verification:
+\[
+e(A,B) = e(\alpha,\beta),
+\]
+advances global state:
+\[
+R_t \rightarrow R_{t+1}.
+\]
+
+\subsection*{Execution Properties}
+\begin{itemize}
+    \item Zero plaintext leakage.
+    \item Deterministic third-party verification.
+    \item Astrophysically-driven evolution.
+    \item Cryptographically sealed biology.
+\end{itemize}
