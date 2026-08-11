@@ -1,0 +1,122 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{listings}
+\usepackage{color}
+
+\geometry{margin=1in}
+
+\title{
+    \textbf{SASA-v4.0 Numerical Architecture:}\\
+    Finite-Grid Discretization, Spectral Stability,\\
+    and CUDA Execution Engine
+}
+\author{C.~Matthew~Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This manuscript presents the full numerical architecture of SASA-v4.0, 
+including the warped product manifold 
+$\mathcal{N}_{11} = \mathcal{M}_4 \times \mathcal{X}_6 \times S^1$, 
+the Oracle-Extended Hilbert Space $\mathcal{H}_{\text{oracle}}$, 
+finite-grid discretization of $\mathcal{M}_4$, 
+non-local entanglement kernel construction, 
+spectral stability bounds, 
+and a high-performance CUDA execution engine implementing 
+the Cayley time-evolution operator.
+\end{abstract}
+
+\section{Introduction}
+\input{sections/introduction.tex}
+
+\section{Warped Product Manifold and Global Measure}
+\subsection{11D Product Structure}
+\[
+\mathcal{N}_{11} = \mathcal{M}_4 \times \mathcal{X}_6 \times S^1
+\]
+
+\subsection{Global Volume Element}
+\[
+d\mu_{11} = e^{11A(y)} \sqrt{-g^{(4)}} \sqrt{g^{(6)}} \, d^4x\, d^6y\, d\theta
+\]
+
+\section{Oracle-Extended Hilbert Space}
+\[
+\mathbf{P}_{\text{oracle}} : \mathcal{H}_{\text{full}} \to \mathcal{H}_{\text{oracle}}
+\]
+
+\section{Finite-Grid Discretization of $\mathcal{M}_4$}
+\subsection{Grid Definition}
+\[
+N_{\text{total}} = \prod_{\mu=0}^3 N_\mu
+\]
+
+\subsection{RBF Entanglement Kernel}
+\[
+K_{ab} = \mathcal{V}_{\mathcal{X}_6}
+\exp\left( -\frac{\|x_a - x_b\|_g^2}{2\sigma^2} \right)
+\]
+
+\section{Spectral Stability Analysis}
+\subsection{Gershgorin Bound}
+\[
+\lambda_{\max}(\mathbf{K}) 
+\le 
+\mathcal{V}_{\mathcal{X}_6}
+\left( 1 + 4\pi^2\sigma^4\rho_{\text{grid}} \right)
+\]
+
+\subsection{Effective Hamiltonian Envelope}
+\[
+\lambda_{\max}(\mathbf{H}_{\text{eff}})
+\le
+\lambda_{\max}(\mathbf{H}_0)
++
+\lambda_{\max}(\mathbf{S}^{\text{firewall}})
++
+\lambda \lambda_{\max}(\mathbf{K})
+\]
+
+\section{Cayley Time Evolution Operator}
+\[
+\mathbf{U}_{\text{uncomp}}
+=
+\left( \mathbf{I} - \frac{i\Delta t}{2}\mathbf{H}_{\text{eff}} \right)^{-1}
+\left( \mathbf{I} + \frac{i\Delta t}{2}\mathbf{H}_{\text{eff}} \right)
+\]
+
+\section{CUDA Execution Engine}
+\subsection{CSR Sparse Layout}
+\lstinputlisting[language=C++]{code/csr_struct.cpp}
+
+\subsection{SpMV Kernel}
+\lstinputlisting[language=C++]{code/spmv_kernel.cu}
+
+\subsection{Entanglement Kernel}
+\lstinputlisting[language=C++]{code/entangle_kernel.cu}
+
+\subsection{Cayley RHS}
+\lstinputlisting[language=C++]{code/cayley_rhs.cu}
+
+\subsection{Host Orchestrator}
+\lstinputlisting[language=C++]{code/cayley_host.cpp}
+
+\section{Numerical Experiments}
+\input{sections/experiments.tex}
+
+\section{Conclusion}
+\input{sections/conclusion.tex}
+
+\bibliographystyle{unsrt}
+\bibliography{sasa_refs}
+
+\end{document}
