@@ -1,0 +1,43 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{Appendix C: Hardware Architecture Sheet}}
+\author{C.~Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Execution Stack Overview}
+The engine operates across heterogeneous compute environments with GPU-accelerated
+cryptographic and astrophysical processing.
+
+\section{GPU Architecture}
+\begin{itemize}
+    \item NVIDIA A100 / H100 Tensor Core GPUs
+    \item CUDA polynomial ring arithmetic for CKKS
+    \item FFT spectral decomposition for JWST SED cubes
+\end{itemize}
+
+\section{CPU Architecture}
+\begin{itemize}
+    \item AMD EPYC / Intel Xeon multi-core processors
+    \item Parallel Multiexponentiation (MSM) for Groth16 proving
+\end{itemize}
+
+\section{Memory Architecture}
+\begin{itemize}
+    \item NVLink Unified Memory
+    \item PCIe Gen4/Gen5 high-bandwidth ingestion
+    \item cudaMemAdviseSetPreferredLocation for JWST cube parsing
+\end{itemize}
+
+\section{Cryptographic Hardware Allocation}
+\begin{itemize}
+    \item CKKS ring dimension: $N = 2^{16}$
+    \item Modulus chain: $Q \approx 1200$ bits
+    \item GPU bootstrapping streams for encrypted trait evolution
+\end{itemize}
+
+\end{document}
