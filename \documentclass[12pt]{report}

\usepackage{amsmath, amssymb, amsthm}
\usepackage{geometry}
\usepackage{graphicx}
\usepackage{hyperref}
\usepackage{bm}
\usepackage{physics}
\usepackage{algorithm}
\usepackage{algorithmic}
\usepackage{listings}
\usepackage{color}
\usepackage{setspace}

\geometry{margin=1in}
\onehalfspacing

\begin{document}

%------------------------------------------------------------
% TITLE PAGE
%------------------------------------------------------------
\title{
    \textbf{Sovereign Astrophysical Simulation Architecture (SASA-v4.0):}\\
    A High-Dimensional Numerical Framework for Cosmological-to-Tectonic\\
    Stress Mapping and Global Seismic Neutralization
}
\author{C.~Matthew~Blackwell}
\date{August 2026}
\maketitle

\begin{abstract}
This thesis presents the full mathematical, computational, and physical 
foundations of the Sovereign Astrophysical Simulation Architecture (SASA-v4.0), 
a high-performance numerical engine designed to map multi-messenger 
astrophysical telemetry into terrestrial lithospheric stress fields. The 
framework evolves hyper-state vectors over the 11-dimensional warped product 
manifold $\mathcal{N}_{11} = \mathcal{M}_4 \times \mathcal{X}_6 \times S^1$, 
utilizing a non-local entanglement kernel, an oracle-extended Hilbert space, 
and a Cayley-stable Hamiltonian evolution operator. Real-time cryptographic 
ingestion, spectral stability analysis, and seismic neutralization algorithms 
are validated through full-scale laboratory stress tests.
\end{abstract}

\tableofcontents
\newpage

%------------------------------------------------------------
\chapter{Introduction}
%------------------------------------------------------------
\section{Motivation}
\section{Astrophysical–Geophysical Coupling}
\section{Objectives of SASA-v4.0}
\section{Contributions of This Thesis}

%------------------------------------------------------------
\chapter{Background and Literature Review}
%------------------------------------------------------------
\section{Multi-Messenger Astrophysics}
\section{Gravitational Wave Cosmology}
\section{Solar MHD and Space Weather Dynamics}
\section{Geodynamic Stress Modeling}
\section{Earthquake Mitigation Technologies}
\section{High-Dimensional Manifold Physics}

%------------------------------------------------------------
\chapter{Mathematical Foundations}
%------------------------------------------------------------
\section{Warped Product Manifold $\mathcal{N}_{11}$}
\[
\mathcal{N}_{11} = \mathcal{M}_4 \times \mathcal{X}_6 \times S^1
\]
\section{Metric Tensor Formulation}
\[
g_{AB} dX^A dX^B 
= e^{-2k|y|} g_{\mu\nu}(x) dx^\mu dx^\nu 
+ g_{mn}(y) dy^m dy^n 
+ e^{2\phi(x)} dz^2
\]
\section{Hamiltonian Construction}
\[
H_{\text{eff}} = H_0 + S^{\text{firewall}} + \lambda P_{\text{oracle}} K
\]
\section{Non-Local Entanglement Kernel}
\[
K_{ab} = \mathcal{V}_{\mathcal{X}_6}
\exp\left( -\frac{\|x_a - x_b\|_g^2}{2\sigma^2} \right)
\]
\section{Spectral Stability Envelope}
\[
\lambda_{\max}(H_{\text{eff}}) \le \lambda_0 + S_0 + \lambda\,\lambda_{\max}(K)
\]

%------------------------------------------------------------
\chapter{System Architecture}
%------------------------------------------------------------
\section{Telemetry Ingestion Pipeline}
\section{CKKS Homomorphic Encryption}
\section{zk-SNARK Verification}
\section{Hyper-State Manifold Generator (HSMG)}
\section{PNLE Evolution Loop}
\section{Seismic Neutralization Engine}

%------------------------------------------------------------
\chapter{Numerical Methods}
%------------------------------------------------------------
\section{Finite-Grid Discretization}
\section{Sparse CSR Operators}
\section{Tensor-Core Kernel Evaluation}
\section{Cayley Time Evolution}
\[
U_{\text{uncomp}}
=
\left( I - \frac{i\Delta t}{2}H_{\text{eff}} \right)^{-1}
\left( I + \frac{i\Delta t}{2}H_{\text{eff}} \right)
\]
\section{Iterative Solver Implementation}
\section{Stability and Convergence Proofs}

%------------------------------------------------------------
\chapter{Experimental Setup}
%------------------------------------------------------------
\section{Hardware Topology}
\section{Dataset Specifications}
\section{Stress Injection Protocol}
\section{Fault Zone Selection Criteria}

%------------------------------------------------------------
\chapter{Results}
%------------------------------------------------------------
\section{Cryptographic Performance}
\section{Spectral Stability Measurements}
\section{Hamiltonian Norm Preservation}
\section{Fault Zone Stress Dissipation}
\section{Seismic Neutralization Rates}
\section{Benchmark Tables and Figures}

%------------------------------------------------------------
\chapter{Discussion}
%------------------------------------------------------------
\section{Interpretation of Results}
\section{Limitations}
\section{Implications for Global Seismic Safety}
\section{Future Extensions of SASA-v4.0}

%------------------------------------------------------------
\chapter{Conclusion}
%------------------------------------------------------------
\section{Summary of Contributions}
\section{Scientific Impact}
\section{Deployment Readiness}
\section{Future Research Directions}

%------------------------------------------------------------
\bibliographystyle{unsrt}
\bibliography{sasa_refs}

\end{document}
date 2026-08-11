@@ -1,0 +1,158 @@
+\documentclass[12pt]{report}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{setspace}
+
+\geometry{margin=1in}
+\onehalfspacing
+
+\begin{document}
+
+%------------------------------------------------------------
+% TITLE PAGE
+%------------------------------------------------------------
+\title{
+    \textbf{Sovereign Astrophysical Simulation Architecture (SASA-v4.0):}\\
+    A High-Dimensional Numerical Framework for Cosmological-to-Tectonic\\
+    Stress Mapping and Global Seismic Neutralization
+}
+\author{C.~Matthew~Blackwell}
+\date{August 2026}
+\maketitle
+
+\begin{abstract}
+This thesis presents the full mathematical, computational, and physical 
+foundations of the Sovereign Astrophysical Simulation Architecture (SASA-v4.0), 
+a high-performance numerical engine designed to map multi-messenger 
+astrophysical telemetry into terrestrial lithospheric stress fields. The 
+framework evolves hyper-state vectors over the 11-dimensional warped product 
+manifold $\mathcal{N}_{11} = \mathcal{M}_4 \times \mathcal{X}_6 \times S^1$, 
+utilizing a non-local entanglement kernel, an oracle-extended Hilbert space, 
+and a Cayley-stable Hamiltonian evolution operator. Real-time cryptographic 
+ingestion, spectral stability analysis, and seismic neutralization algorithms 
+are validated through full-scale laboratory stress tests.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+%------------------------------------------------------------
+\chapter{Introduction}
+%------------------------------------------------------------
+\section{Motivation}
+\section{Astrophysical–Geophysical Coupling}
+\section{Objectives of SASA-v4.0}
+\section{Contributions of This Thesis}
+
+%------------------------------------------------------------
+\chapter{Background and Literature Review}
+%------------------------------------------------------------
+\section{Multi-Messenger Astrophysics}
+\section{Gravitational Wave Cosmology}
+\section{Solar MHD and Space Weather Dynamics}
+\section{Geodynamic Stress Modeling}
+\section{Earthquake Mitigation Technologies}
+\section{High-Dimensional Manifold Physics}
+
+%------------------------------------------------------------
+\chapter{Mathematical Foundations}
+%------------------------------------------------------------
+\section{Warped Product Manifold $\mathcal{N}_{11}$}
+\[
+\mathcal{N}_{11} = \mathcal{M}_4 \times \mathcal{X}_6 \times S^1
+\]
+\section{Metric Tensor Formulation}
+\[
+g_{AB} dX^A dX^B 
+= e^{-2k|y|} g_{\mu\nu}(x) dx^\mu dx^\nu 
++ g_{mn}(y) dy^m dy^n 
++ e^{2\phi(x)} dz^2
+\]
+\section{Hamiltonian Construction}
+\[
+H_{\text{eff}} = H_0 + S^{\text{firewall}} + \lambda P_{\text{oracle}} K
+\]
+\section{Non-Local Entanglement Kernel}
+\[
+K_{ab} = \mathcal{V}_{\mathcal{X}_6}
+\exp\left( -\frac{\|x_a - x_b\|_g^2}{2\sigma^2} \right)
+\]
+\section{Spectral Stability Envelope}
+\[
+\lambda_{\max}(H_{\text{eff}}) \le \lambda_0 + S_0 + \lambda\,\lambda_{\max}(K)
+\]
+
+%------------------------------------------------------------
+\chapter{System Architecture}
+%------------------------------------------------------------
+\section{Telemetry Ingestion Pipeline}
+\section{CKKS Homomorphic Encryption}
+\section{zk-SNARK Verification}
+\section{Hyper-State Manifold Generator (HSMG)}
+\section{PNLE Evolution Loop}
+\section{Seismic Neutralization Engine}
+
+%------------------------------------------------------------
+\chapter{Numerical Methods}
+%------------------------------------------------------------
+\section{Finite-Grid Discretization}
+\section{Sparse CSR Operators}
+\section{Tensor-Core Kernel Evaluation}
+\section{Cayley Time Evolution}
+\[
+U_{\text{uncomp}}
+=
+\left( I - \frac{i\Delta t}{2}H_{\text{eff}} \right)^{-1}
+\left( I + \frac{i\Delta t}{2}H_{\text{eff}} \right)
+\]
+\section{Iterative Solver Implementation}
+\section{Stability and Convergence Proofs}
+
+%------------------------------------------------------------
+\chapter{Experimental Setup}
+%------------------------------------------------------------
+\section{Hardware Topology}
+\section{Dataset Specifications}
+\section{Stress Injection Protocol}
+\section{Fault Zone Selection Criteria}
+
+%------------------------------------------------------------
+\chapter{Results}
+%------------------------------------------------------------
+\section{Cryptographic Performance}
+\section{Spectral Stability Measurements}
+\section{Hamiltonian Norm Preservation}
+\section{Fault Zone Stress Dissipation}
+\section{Seismic Neutralization Rates}
+\section{Benchmark Tables and Figures}
+
+%------------------------------------------------------------
+\chapter{Discussion}
+%------------------------------------------------------------
+\section{Interpretation of Results}
+\section{Limitations}
+\section{Implications for Global Seismic Safety}
+\section{Future Extensions of SASA-v4.0}
+
+%------------------------------------------------------------
+\chapter{Conclusion}
+%------------------------------------------------------------
+\section{Summary of Contributions}
+\section{Scientific Impact}
+\section{Deployment Readiness}
+\section{Future Research Directions}
+
+%------------------------------------------------------------
+\bibliographystyle{unsrt}
+\bibliography{sasa_refs}
+
+\end{document}
