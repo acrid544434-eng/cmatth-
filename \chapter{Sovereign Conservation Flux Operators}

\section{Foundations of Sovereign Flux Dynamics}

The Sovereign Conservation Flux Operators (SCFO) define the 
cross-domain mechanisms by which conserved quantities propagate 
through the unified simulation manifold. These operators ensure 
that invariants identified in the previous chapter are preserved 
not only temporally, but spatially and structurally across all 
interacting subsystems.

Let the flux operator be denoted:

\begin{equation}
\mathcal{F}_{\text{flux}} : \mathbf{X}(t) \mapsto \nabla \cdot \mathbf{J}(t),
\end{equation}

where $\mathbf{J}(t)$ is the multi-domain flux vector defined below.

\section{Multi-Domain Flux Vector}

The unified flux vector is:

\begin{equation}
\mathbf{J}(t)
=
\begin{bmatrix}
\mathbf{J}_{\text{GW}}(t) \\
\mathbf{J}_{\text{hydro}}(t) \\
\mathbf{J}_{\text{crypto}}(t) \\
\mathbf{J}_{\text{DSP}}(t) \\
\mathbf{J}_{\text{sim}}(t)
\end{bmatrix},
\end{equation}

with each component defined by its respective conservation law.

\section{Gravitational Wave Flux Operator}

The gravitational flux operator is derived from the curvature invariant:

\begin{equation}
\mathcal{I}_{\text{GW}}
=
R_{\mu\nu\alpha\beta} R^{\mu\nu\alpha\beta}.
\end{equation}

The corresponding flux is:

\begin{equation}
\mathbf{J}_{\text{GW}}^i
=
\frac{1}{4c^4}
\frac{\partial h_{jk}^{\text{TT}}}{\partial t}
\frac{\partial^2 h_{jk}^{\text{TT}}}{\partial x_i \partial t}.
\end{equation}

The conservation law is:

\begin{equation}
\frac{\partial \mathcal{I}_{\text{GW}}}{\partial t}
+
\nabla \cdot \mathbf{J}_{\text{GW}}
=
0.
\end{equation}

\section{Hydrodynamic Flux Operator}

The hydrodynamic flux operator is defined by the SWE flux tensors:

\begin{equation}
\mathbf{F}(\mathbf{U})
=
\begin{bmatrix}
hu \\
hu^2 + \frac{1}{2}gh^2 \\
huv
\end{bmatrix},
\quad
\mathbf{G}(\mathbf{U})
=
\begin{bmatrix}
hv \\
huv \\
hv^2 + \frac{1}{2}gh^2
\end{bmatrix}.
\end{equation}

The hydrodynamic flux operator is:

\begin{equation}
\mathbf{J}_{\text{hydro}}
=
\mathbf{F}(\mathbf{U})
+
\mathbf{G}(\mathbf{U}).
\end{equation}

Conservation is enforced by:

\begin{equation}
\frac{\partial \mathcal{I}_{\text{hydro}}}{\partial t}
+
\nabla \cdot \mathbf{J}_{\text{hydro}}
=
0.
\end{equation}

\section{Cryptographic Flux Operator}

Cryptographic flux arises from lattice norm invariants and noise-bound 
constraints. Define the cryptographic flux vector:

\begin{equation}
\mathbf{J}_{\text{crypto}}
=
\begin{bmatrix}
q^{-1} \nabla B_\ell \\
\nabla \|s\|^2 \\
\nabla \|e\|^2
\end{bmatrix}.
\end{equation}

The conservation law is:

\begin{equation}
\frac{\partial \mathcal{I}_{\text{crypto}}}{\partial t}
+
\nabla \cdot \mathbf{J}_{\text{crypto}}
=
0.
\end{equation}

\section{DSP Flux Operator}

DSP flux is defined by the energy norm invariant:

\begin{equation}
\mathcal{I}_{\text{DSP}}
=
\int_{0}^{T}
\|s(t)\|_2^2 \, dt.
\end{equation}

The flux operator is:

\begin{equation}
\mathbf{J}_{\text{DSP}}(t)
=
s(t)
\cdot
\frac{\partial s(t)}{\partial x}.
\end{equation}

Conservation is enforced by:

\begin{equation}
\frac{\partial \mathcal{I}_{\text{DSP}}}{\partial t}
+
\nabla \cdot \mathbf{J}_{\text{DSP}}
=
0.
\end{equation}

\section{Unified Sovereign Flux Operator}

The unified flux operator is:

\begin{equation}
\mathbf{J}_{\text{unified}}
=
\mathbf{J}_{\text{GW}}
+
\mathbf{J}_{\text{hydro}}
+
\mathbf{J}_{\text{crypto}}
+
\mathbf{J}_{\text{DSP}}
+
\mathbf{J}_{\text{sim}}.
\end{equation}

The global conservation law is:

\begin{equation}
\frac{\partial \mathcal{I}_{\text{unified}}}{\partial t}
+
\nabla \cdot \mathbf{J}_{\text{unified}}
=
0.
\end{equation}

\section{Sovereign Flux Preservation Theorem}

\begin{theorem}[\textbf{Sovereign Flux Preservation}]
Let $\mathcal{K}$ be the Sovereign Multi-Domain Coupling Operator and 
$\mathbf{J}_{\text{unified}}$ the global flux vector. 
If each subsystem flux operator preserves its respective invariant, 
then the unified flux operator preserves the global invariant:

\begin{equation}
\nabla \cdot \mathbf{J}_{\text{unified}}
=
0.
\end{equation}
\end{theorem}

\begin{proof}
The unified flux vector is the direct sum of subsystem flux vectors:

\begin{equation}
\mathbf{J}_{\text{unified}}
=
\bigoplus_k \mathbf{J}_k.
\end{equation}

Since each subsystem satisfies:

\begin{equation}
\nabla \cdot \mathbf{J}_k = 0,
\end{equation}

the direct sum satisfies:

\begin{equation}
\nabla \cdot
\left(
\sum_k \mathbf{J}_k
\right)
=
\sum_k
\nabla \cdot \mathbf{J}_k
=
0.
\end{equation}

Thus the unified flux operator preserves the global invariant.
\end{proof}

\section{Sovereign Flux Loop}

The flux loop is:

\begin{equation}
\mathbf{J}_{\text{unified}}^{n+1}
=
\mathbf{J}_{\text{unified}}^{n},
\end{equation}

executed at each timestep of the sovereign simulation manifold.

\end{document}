@@ -1,0 +1,253 @@
+\chapter{Sovereign Conservation Flux Operators}
+
+\section{Foundations of Sovereign Flux Dynamics}
+
+The Sovereign Conservation Flux Operators (SCFO) define the 
+cross-domain mechanisms by which conserved quantities propagate 
+through the unified simulation manifold. These operators ensure 
+that invariants identified in the previous chapter are preserved 
+not only temporally, but spatially and structurally across all 
+interacting subsystems.
+
+Let the flux operator be denoted:
+
+\begin{equation}
+\mathcal{F}_{\text{flux}} : \mathbf{X}(t) \mapsto \nabla \cdot \mathbf{J}(t),
+\end{equation}
+
+where $\mathbf{J}(t)$ is the multi-domain flux vector defined below.
+
+\section{Multi-Domain Flux Vector}
+
+The unified flux vector is:
+
+\begin{equation}
+\mathbf{J}(t)
+=
+\begin{bmatrix}
+\mathbf{J}_{\text{GW}}(t) \\
+\mathbf{J}_{\text{hydro}}(t) \\
+\mathbf{J}_{\text{crypto}}(t) \\
+\mathbf{J}_{\text{DSP}}(t) \\
+\mathbf{J}_{\text{sim}}(t)
+\end{bmatrix},
+\end{equation}
+
+with each component defined by its respective conservation law.
+
+\section{Gravitational Wave Flux Operator}
+
+The gravitational flux operator is derived from the curvature invariant:
+
+\begin{equation}
+\mathcal{I}_{\text{GW}}
+=
+R_{\mu\nu\alpha\beta} R^{\mu\nu\alpha\beta}.
+\end{equation}
+
+The corresponding flux is:
+
+\begin{equation}
+\mathbf{J}_{\text{GW}}^i
+=
+\frac{1}{4c^4}
+\frac{\partial h_{jk}^{\text{TT}}}{\partial t}
+\frac{\partial^2 h_{jk}^{\text{TT}}}{\partial x_i \partial t}.
+\end{equation}
+
+The conservation law is:
+
+\begin{equation}
+\frac{\partial \mathcal{I}_{\text{GW}}}{\partial t}
++
+\nabla \cdot \mathbf{J}_{\text{GW}}
+=
+0.
+\end{equation}
+
+\section{Hydrodynamic Flux Operator}
+
+The hydrodynamic flux operator is defined by the SWE flux tensors:
+
+\begin{equation}
+\mathbf{F}(\mathbf{U})
+=
+\begin{bmatrix}
+hu \\
+hu^2 + \frac{1}{2}gh^2 \\
+huv
+\end{bmatrix},
+\quad
+\mathbf{G}(\mathbf{U})
+=
+\begin{bmatrix}
+hv \\
+huv \\
+hv^2 + \frac{1}{2}gh^2
+\end{bmatrix}.
+\end{equation}
+
+The hydrodynamic flux operator is:
+
+\begin{equation}
+\mathbf{J}_{\text{hydro}}
+=
+\mathbf{F}(\mathbf{U})
++
+\mathbf{G}(\mathbf{U}).
+\end{equation}
+
+Conservation is enforced by:
+
+\begin{equation}
+\frac{\partial \mathcal{I}_{\text{hydro}}}{\partial t}
++
+\nabla \cdot \mathbf{J}_{\text{hydro}}
+=
+0.
+\end{equation}
+
+\section{Cryptographic Flux Operator}
+
+Cryptographic flux arises from lattice norm invariants and noise-bound 
+constraints. Define the cryptographic flux vector:
+
+\begin{equation}
+\mathbf{J}_{\text{crypto}}
+=
+\begin{bmatrix}
+q^{-1} \nabla B_\ell \\
+\nabla \|s\|^2 \\
+\nabla \|e\|^2
+\end{bmatrix}.
+\end{equation}
+
+The conservation law is:
+
+\begin{equation}
+\frac{\partial \mathcal{I}_{\text{crypto}}}{\partial t}
++
+\nabla \cdot \mathbf{J}_{\text{crypto}}
+=
+0.
+\end{equation}
+
+\section{DSP Flux Operator}
+
+DSP flux is defined by the energy norm invariant:
+
+\begin{equation}
+\mathcal{I}_{\text{DSP}}
+=
+\int_{0}^{T}
+\|s(t)\|_2^2 \, dt.
+\end{equation}
+
+The flux operator is:
+
+\begin{equation}
+\mathbf{J}_{\text{DSP}}(t)
+=
+s(t)
+\cdot
+\frac{\partial s(t)}{\partial x}.
+\end{equation}
+
+Conservation is enforced by:
+
+\begin{equation}
+\frac{\partial \mathcal{I}_{\text{DSP}}}{\partial t}
++
+\nabla \cdot \mathbf{J}_{\text{DSP}}
+=
+0.
+\end{equation}
+
+\section{Unified Sovereign Flux Operator}
+
+The unified flux operator is:
+
+\begin{equation}
+\mathbf{J}_{\text{unified}}
+=
+\mathbf{J}_{\text{GW}}
++
+\mathbf{J}_{\text{hydro}}
++
+\mathbf{J}_{\text{crypto}}
++
+\mathbf{J}_{\text{DSP}}
++
+\mathbf{J}_{\text{sim}}.
+\end{equation}
+
+The global conservation law is:
+
+\begin{equation}
+\frac{\partial \mathcal{I}_{\text{unified}}}{\partial t}
++
+\nabla \cdot \mathbf{J}_{\text{unified}}
+=
+0.
+\end{equation}
+
+\section{Sovereign Flux Preservation Theorem}
+
+\begin{theorem}[\textbf{Sovereign Flux Preservation}]
+Let $\mathcal{K}$ be the Sovereign Multi-Domain Coupling Operator and 
+$\mathbf{J}_{\text{unified}}$ the global flux vector. 
+If each subsystem flux operator preserves its respective invariant, 
+then the unified flux operator preserves the global invariant:
+
+\begin{equation}
+\nabla \cdot \mathbf{J}_{\text{unified}}
+=
+0.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The unified flux vector is the direct sum of subsystem flux vectors:
+
+\begin{equation}
+\mathbf{J}_{\text{unified}}
+=
+\bigoplus_k \mathbf{J}_k.
+\end{equation}
+
+Since each subsystem satisfies:
+
+\begin{equation}
+\nabla \cdot \mathbf{J}_k = 0,
+\end{equation}
+
+the direct sum satisfies:
+
+\begin{equation}
+\nabla \cdot
+\left(
+\sum_k \mathbf{J}_k
+\right)
+=
+\sum_k
+\nabla \cdot \mathbf{J}_k
+=
+0.
+\end{equation}
+
+Thus the unified flux operator preserves the global invariant.
+\end{proof}
+
+\section{Sovereign Flux Loop}
+
+The flux loop is:
+
+\begin{equation}
+\mathbf{J}_{\text{unified}}^{n+1}
+=
+\mathbf{J}_{\text{unified}}^{n},
+\end{equation}
+
+executed at each timestep of the sovereign simulation manifold.
+
+\end{document}
