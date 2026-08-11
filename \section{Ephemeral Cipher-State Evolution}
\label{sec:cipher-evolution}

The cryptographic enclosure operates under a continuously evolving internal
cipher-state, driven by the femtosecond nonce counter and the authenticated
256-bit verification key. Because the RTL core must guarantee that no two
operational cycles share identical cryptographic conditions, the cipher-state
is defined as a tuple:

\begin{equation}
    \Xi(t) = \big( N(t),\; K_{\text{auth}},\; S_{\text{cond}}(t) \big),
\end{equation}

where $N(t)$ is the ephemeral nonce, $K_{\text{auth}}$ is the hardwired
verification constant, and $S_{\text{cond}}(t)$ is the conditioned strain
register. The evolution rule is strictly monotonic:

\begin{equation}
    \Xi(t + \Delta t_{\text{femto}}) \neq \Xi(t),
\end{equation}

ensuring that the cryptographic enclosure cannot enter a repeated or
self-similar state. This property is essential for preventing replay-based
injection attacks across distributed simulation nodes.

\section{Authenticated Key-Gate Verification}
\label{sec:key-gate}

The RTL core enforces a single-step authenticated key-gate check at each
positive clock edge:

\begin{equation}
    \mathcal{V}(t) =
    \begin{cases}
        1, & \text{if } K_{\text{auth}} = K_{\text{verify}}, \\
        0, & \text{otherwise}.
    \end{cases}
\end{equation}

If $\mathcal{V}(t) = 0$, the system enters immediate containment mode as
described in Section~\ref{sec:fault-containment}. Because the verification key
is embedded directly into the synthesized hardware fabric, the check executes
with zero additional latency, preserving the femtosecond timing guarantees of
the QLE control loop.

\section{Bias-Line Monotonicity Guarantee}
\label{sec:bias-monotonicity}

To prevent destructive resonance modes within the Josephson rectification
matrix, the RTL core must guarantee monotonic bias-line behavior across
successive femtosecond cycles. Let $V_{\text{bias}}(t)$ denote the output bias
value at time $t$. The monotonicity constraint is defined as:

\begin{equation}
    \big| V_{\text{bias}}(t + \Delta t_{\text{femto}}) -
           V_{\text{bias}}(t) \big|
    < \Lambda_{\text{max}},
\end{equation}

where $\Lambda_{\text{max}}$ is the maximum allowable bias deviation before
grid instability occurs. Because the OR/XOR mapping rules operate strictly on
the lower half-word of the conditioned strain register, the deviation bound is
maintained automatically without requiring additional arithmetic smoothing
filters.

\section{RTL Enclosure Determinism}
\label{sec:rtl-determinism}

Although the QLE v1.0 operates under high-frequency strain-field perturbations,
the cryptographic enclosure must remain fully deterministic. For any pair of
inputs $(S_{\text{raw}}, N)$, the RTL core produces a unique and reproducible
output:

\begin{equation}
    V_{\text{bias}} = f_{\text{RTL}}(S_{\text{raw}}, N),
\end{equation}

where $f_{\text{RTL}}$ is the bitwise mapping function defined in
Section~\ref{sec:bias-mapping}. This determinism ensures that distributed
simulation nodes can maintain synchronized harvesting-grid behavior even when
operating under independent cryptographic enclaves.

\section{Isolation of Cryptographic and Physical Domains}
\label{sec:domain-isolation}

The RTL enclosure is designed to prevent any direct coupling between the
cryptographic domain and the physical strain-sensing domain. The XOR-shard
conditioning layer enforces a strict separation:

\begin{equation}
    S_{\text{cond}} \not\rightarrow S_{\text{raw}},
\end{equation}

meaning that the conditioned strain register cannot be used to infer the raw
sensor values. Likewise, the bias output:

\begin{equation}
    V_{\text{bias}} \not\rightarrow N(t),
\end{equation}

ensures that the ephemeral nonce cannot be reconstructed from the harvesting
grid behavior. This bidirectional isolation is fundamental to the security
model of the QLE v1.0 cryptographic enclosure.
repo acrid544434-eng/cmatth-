@@ -1,0 +1,103 @@
+\section{Ephemeral Cipher-State Evolution}
+\label{sec:cipher-evolution}
+
+The cryptographic enclosure operates under a continuously evolving internal
+cipher-state, driven by the femtosecond nonce counter and the authenticated
+256-bit verification key. Because the RTL core must guarantee that no two
+operational cycles share identical cryptographic conditions, the cipher-state
+is defined as a tuple:
+
+\begin{equation}
+    \Xi(t) = \big( N(t),\; K_{\text{auth}},\; S_{\text{cond}}(t) \big),
+\end{equation}
+
+where $N(t)$ is the ephemeral nonce, $K_{\text{auth}}$ is the hardwired
+verification constant, and $S_{\text{cond}}(t)$ is the conditioned strain
+register. The evolution rule is strictly monotonic:
+
+\begin{equation}
+    \Xi(t + \Delta t_{\text{femto}}) \neq \Xi(t),
+\end{equation}
+
+ensuring that the cryptographic enclosure cannot enter a repeated or
+self-similar state. This property is essential for preventing replay-based
+injection attacks across distributed simulation nodes.
+
+\section{Authenticated Key-Gate Verification}
+\label{sec:key-gate}
+
+The RTL core enforces a single-step authenticated key-gate check at each
+positive clock edge:
+
+\begin{equation}
+    \mathcal{V}(t) =
+    \begin{cases}
+        1, & \text{if } K_{\text{auth}} = K_{\text{verify}}, \\
+        0, & \text{otherwise}.
+    \end{cases}
+\end{equation}
+
+If $\mathcal{V}(t) = 0$, the system enters immediate containment mode as
+described in Section~\ref{sec:fault-containment}. Because the verification key
+is embedded directly into the synthesized hardware fabric, the check executes
+with zero additional latency, preserving the femtosecond timing guarantees of
+the QLE control loop.
+
+\section{Bias-Line Monotonicity Guarantee}
+\label{sec:bias-monotonicity}
+
+To prevent destructive resonance modes within the Josephson rectification
+matrix, the RTL core must guarantee monotonic bias-line behavior across
+successive femtosecond cycles. Let $V_{\text{bias}}(t)$ denote the output bias
+value at time $t$. The monotonicity constraint is defined as:
+
+\begin{equation}
+    \big| V_{\text{bias}}(t + \Delta t_{\text{femto}}) -
+           V_{\text{bias}}(t) \big|
+    < \Lambda_{\text{max}},
+\end{equation}
+
+where $\Lambda_{\text{max}}$ is the maximum allowable bias deviation before
+grid instability occurs. Because the OR/XOR mapping rules operate strictly on
+the lower half-word of the conditioned strain register, the deviation bound is
+maintained automatically without requiring additional arithmetic smoothing
+filters.
+
+\section{RTL Enclosure Determinism}
+\label{sec:rtl-determinism}
+
+Although the QLE v1.0 operates under high-frequency strain-field perturbations,
+the cryptographic enclosure must remain fully deterministic. For any pair of
+inputs $(S_{\text{raw}}, N)$, the RTL core produces a unique and reproducible
+output:
+
+\begin{equation}
+    V_{\text{bias}} = f_{\text{RTL}}(S_{\text{raw}}, N),
+\end{equation}
+
+where $f_{\text{RTL}}$ is the bitwise mapping function defined in
+Section~\ref{sec:bias-mapping}. This determinism ensures that distributed
+simulation nodes can maintain synchronized harvesting-grid behavior even when
+operating under independent cryptographic enclaves.
+
+\section{Isolation of Cryptographic and Physical Domains}
+\label{sec:domain-isolation}
+
+The RTL enclosure is designed to prevent any direct coupling between the
+cryptographic domain and the physical strain-sensing domain. The XOR-shard
+conditioning layer enforces a strict separation:
+
+\begin{equation}
+    S_{\text{cond}} \not\rightarrow S_{\text{raw}},
+\end{equation}
+
+meaning that the conditioned strain register cannot be used to infer the raw
+sensor values. Likewise, the bias output:
+
+\begin{equation}
+    V_{\text{bias}} \not\rightarrow N(t),
+\end{equation}
+
+ensures that the ephemeral nonce cannot be reconstructed from the harvesting
+grid behavior. This bidirectional isolation is fundamental to the security
+model of the QLE v1.0 cryptographic enclosure.
