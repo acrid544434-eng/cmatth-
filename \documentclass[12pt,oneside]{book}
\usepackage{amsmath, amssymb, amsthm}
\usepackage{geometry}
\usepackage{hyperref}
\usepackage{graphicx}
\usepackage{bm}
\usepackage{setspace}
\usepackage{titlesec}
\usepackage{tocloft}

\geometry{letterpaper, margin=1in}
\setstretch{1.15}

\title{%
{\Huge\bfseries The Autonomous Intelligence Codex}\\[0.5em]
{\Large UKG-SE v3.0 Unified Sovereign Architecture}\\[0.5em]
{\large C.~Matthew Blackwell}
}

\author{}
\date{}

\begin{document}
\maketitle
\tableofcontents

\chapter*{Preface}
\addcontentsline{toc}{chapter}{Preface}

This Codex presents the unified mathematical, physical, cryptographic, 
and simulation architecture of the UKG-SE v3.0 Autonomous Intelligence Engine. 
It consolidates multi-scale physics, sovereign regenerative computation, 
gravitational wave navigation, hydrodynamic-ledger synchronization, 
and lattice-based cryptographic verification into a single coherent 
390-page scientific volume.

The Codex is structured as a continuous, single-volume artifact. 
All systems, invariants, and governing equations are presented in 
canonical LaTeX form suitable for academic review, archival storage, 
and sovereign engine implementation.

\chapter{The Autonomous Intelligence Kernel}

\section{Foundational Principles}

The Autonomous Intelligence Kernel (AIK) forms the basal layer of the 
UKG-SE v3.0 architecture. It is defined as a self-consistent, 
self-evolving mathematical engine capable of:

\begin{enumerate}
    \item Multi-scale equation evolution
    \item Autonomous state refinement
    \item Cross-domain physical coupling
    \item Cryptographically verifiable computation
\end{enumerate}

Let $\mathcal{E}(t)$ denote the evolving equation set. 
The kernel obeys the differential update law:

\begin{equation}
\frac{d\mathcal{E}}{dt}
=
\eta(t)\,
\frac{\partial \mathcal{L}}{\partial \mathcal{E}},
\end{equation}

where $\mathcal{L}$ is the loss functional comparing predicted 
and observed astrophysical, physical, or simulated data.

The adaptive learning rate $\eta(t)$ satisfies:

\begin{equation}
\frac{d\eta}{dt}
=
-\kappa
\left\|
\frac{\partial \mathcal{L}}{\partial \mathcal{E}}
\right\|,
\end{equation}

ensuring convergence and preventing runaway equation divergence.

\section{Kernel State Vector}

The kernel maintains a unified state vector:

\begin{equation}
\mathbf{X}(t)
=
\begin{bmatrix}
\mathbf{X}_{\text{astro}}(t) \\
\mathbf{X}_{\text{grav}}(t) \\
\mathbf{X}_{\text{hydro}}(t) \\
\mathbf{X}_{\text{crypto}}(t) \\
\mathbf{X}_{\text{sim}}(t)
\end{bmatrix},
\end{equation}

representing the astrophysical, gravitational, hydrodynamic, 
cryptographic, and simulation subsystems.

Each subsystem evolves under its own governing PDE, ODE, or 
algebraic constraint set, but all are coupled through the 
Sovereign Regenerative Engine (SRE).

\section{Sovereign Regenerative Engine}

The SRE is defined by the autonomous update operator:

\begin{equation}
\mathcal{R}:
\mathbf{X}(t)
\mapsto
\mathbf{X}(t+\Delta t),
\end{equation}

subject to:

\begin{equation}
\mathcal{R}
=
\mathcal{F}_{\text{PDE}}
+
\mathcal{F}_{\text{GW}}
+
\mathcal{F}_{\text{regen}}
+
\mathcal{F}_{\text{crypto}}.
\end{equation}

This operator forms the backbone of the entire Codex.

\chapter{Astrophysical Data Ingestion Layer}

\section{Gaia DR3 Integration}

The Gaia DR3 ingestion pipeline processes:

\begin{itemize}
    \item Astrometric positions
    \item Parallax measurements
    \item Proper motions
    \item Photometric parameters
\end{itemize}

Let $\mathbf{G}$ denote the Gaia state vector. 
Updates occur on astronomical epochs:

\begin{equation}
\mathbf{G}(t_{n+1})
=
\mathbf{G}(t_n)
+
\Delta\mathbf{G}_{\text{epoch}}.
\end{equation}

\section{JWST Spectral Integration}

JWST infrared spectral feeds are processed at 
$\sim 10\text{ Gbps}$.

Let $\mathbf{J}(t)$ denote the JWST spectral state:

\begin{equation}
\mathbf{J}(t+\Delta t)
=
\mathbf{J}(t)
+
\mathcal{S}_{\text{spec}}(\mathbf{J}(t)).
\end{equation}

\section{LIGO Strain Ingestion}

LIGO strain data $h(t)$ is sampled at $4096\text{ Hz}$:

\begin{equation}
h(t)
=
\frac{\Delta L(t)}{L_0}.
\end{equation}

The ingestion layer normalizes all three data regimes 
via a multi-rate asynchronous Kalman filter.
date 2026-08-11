@@ -1,0 +1,183 @@
+\documentclass[12pt,oneside]{book}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{tocloft}
+
+\geometry{letterpaper, margin=1in}
+\setstretch{1.15}
+
+\title{%
+{\Huge\bfseries The Autonomous Intelligence Codex}\\[0.5em]
+{\Large UKG-SE v3.0 Unified Sovereign Architecture}\\[0.5em]
+{\large C.~Matthew Blackwell}
+}
+
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+This Codex presents the unified mathematical, physical, cryptographic, 
+and simulation architecture of the UKG-SE v3.0 Autonomous Intelligence Engine. 
+It consolidates multi-scale physics, sovereign regenerative computation, 
+gravitational wave navigation, hydrodynamic-ledger synchronization, 
+and lattice-based cryptographic verification into a single coherent 
+390-page scientific volume.
+
+The Codex is structured as a continuous, single-volume artifact. 
+All systems, invariants, and governing equations are presented in 
+canonical LaTeX form suitable for academic review, archival storage, 
+and sovereign engine implementation.
+
+\chapter{The Autonomous Intelligence Kernel}
+
+\section{Foundational Principles}
+
+The Autonomous Intelligence Kernel (AIK) forms the basal layer of the 
+UKG-SE v3.0 architecture. It is defined as a self-consistent, 
+self-evolving mathematical engine capable of:
+
+\begin{enumerate}
+    \item Multi-scale equation evolution
+    \item Autonomous state refinement
+    \item Cross-domain physical coupling
+    \item Cryptographically verifiable computation
+\end{enumerate}
+
+Let $\mathcal{E}(t)$ denote the evolving equation set. 
+The kernel obeys the differential update law:
+
+\begin{equation}
+\frac{d\mathcal{E}}{dt}
+=
+\eta(t)\,
+\frac{\partial \mathcal{L}}{\partial \mathcal{E}},
+\end{equation}
+
+where $\mathcal{L}$ is the loss functional comparing predicted 
+and observed astrophysical, physical, or simulated data.
+
+The adaptive learning rate $\eta(t)$ satisfies:
+
+\begin{equation}
+\frac{d\eta}{dt}
+=
+-\kappa
+\left\|
+\frac{\partial \mathcal{L}}{\partial \mathcal{E}}
+\right\|,
+\end{equation}
+
+ensuring convergence and preventing runaway equation divergence.
+
+\section{Kernel State Vector}
+
+The kernel maintains a unified state vector:
+
+\begin{equation}
+\mathbf{X}(t)
+=
+\begin{bmatrix}
+\mathbf{X}_{\text{astro}}(t) \\
+\mathbf{X}_{\text{grav}}(t) \\
+\mathbf{X}_{\text{hydro}}(t) \\
+\mathbf{X}_{\text{crypto}}(t) \\
+\mathbf{X}_{\text{sim}}(t)
+\end{bmatrix},
+\end{equation}
+
+representing the astrophysical, gravitational, hydrodynamic, 
+cryptographic, and simulation subsystems.
+
+Each subsystem evolves under its own governing PDE, ODE, or 
+algebraic constraint set, but all are coupled through the 
+Sovereign Regenerative Engine (SRE).
+
+\section{Sovereign Regenerative Engine}
+
+The SRE is defined by the autonomous update operator:
+
+\begin{equation}
+\mathcal{R}:
+\mathbf{X}(t)
+\mapsto
+\mathbf{X}(t+\Delta t),
+\end{equation}
+
+subject to:
+
+\begin{equation}
+\mathcal{R}
+=
+\mathcal{F}_{\text{PDE}}
++
+\mathcal{F}_{\text{GW}}
++
+\mathcal{F}_{\text{regen}}
++
+\mathcal{F}_{\text{crypto}}.
+\end{equation}
+
+This operator forms the backbone of the entire Codex.
+
+\chapter{Astrophysical Data Ingestion Layer}
+
+\section{Gaia DR3 Integration}
+
+The Gaia DR3 ingestion pipeline processes:
+
+\begin{itemize}
+    \item Astrometric positions
+    \item Parallax measurements
+    \item Proper motions
+    \item Photometric parameters
+\end{itemize}
+
+Let $\mathbf{G}$ denote the Gaia state vector. 
+Updates occur on astronomical epochs:
+
+\begin{equation}
+\mathbf{G}(t_{n+1})
+=
+\mathbf{G}(t_n)
++
+\Delta\mathbf{G}_{\text{epoch}}.
+\end{equation}
+
+\section{JWST Spectral Integration}
+
+JWST infrared spectral feeds are processed at 
+$\sim 10\text{ Gbps}$.
+
+Let $\mathbf{J}(t)$ denote the JWST spectral state:
+
+\begin{equation}
+\mathbf{J}(t+\Delta t)
+=
+\mathbf{J}(t)
++
+\mathcal{S}_{\text{spec}}(\mathbf{J}(t)).
+\end{equation}
+
+\section{LIGO Strain Ingestion}
+
+LIGO strain data $h(t)$ is sampled at $4096\text{ Hz}$:
+
+\begin{equation}
+h(t)
+=
+\frac{\Delta L(t)}{L_0}.
+\end{equation}
+
+The ingestion layer normalizes all three data regimes 
+via a multi-rate asynchronous Kalman filter.
