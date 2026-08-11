@@ -1,0 +1,24 @@
+\chapter{Theoretical Formulation}
+\label{ch:theory}
+
+\section{Continuous Slicing Metric Limits}
+The legacy continuum baseline utilizes the 3+1 BSSN metric formulation to map early-stage fluid dispersion kinetics. The conformal metric slicing parameter $\chi$ is evolved according to:
+\begin{equation}
+\partial_t \chi = \frac{2}{3} \alpha \chi K - \frac{2}{3} \chi \partial_k \beta^k + \beta^k \partial_k \chi
+\end{equation}
+where $\alpha$ is the localized system lapse function, $\beta^k$ is the spatial shift vector, and $K$ represents the trace of the extrinsic curvature tensor. The preservation of global physical consistency requires strict compliance with the momentum constraint:
+\begin{equation}
+\mathcal{M}_i = D_j \left( \chi^{-1} \tilde{A}^j_i \right) - \frac{2}{3} D_i K - 8\pi S_i = 0
+\end{equation}
+where $\tilde{A}^j_i$ represents the conformal traceless part of the extrinsic curvature and $S_i$ denotes the matter momentum flux density.
+
+\section{Quantization of Spatial Boundaries}
+To bypass coordinate breakdown during maximum localized crunch phases, the QLE v1.0 transitions continuous metric fields directly into a non-perturbative Wheeler-DeWitt quantum gravitational state space ($ \hat{H}_{\text{gravity}} |\Psi\rangle = 0 $). Spacetime geometry is discretized via area and volume operators acting on localized spin-foam states $|\Gamma, j_e, v_v\rangle$:
+\begin{equation}
+\hat{A}_S |\Psi\rangle = 8\pi \gamma \ell_P^2 \sum_{i \in S \cap \Gamma} \sqrt{j_i(j_i + 1)} |\Psi\rangle
+\end{equation}
+where $\ell_P = \sqrt{\hbar G / c^3}$ represents the Planck length, and $\gamma = 0.2375$ defines the normalized Immirzi parameter. Spatial coordinates exhibit a high-frequency non-commutative structural shear relation defined by the commutation matrix:
+\begin{equation}
+[x^\mu, x^\nu] = i \theta^{\mu\nu}
+\end{equation}
+where $\theta^{\mu\nu}$ is an asymmetric, anti-symmetric tensor representing the fundamental length scale of coordinate non-commutativity.
