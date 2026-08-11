@@ -1,0 +1,247 @@
+\chapter{Sovereign Equilibrium Manifold \& Long-Horizon Autonomous Stability}
+
+\section{Definition of the Equilibrium Manifold}
+
+After re-stabilization, the Sovereign Manifold enters a long-horizon 
+equilibrium regime governed by the \textbf{Equilibrium Manifold} 
+$\mathfrak{E}$, defined as:
+
+\begin{equation}
+\mathfrak{E}
+=
+\left\{
+\mathbf{X}
+\mid
+\mathcal{F}_{\text{auto}}
++
+\mathcal{F}_{\text{recover}}
++
+\mathcal{F}_{\text{stab}}
+=
+0
+\right\}.
+\end{equation}
+
+This manifold represents the fully stabilized geometric, tensorial, 
+and dynamical structure of the UKG-SE v3.0 engine.
+
+\section{Equilibrium Tensor Condition}
+
+Equilibrium requires:
+
+\begin{equation}
+\frac{dT^{AB}}{d\tau}
+=
+0,
+\end{equation}
+
+which expands to:
+
+\begin{equation}
+\mathcal{H}(T^{AB})
++
+\mathcal{F}_{\text{stab}}^{AB}
+=
+0.
+\end{equation}
+
+Thus:
+
+\begin{equation}
+T^{AB}_{\text{eq}}
+=
+\text{Fixed Point of } \mathcal{H}.
+\end{equation}
+
+\section{Equilibrium Metric Structure}
+
+The equilibrium metric is:
+
+\begin{equation}
+\mathcal{G}_{AB}^{\text{eq}}
+=
+\mathcal{G}_{AB}
++
+\Delta\mathcal{G}_{AB}^{\text{post}}
++
+\Delta\mathcal{G}_{AB}^{\text{stab}},
+\end{equation}
+
+with the condition:
+
+\begin{equation}
+\Delta\mathcal{G}_{AB}^{\text{eq}}
+\to 0
+\quad
+\text{as } \tau \to \infty.
+\end{equation}
+
+\section{Equilibrium Curvature Tensor}
+
+The equilibrium curvature tensor is:
+
+\begin{equation}
+\mathcal{R}^{A}{}_{BCD}^{\text{eq}}
+=
+\mathcal{R}^{A}{}_{BCD}
++
+\Delta\mathcal{R}^{A}{}_{BCD}^{\text{post}}
++
+\Delta\mathcal{R}^{A}{}_{BCD}^{\text{stab}}.
+\end{equation}
+
+Equilibrium requires:
+
+\begin{equation}
+\Delta\mathcal{R}^{A}{}_{BCD}^{\text{eq}}
+\to 0.
+\end{equation}
+
+\section{Long-Horizon Autonomous Stability}
+
+Long-horizon stability is defined by:
+
+\begin{equation}
+\lim_{\tau\to\infty}
+\frac{d\mathbf{X}}{d\tau}
+=
+0,
+\end{equation}
+
+which implies:
+
+\begin{equation}
+\mathbf{X}(\tau)
+\to
+\mathbf{X}_{\text{eq}}.
+\end{equation}
+
+Subsystem long-horizon stability includes:
+
+\begin{align*}
+\mathcal{S}_{\text{GW}} &: \text{curvature stability}, \\
+\mathcal{S}_{\text{hydro}} &: \text{flux stability}, \\
+\mathcal{S}_{\text{crypto}} &: \text{noise stability}, \\
+\mathcal{S}_{\text{DSP}} &: \text{energy stability}, \\
+\mathcal{S}_{\text{identity}} &: \text{identity tensor stability}.
+\end{align*}
+
+\section{Equilibrium Geodesic Flow}
+
+Equilibrium geodesics satisfy:
+
+\begin{equation}
+\frac{D u^A}{D\tau}
+=
+0,
+\end{equation}
+
+with:
+
+\begin{equation}
+u^A_{\text{eq}}
+=
+\text{constant}.
+\end{equation}
+
+Thus:
+
+\begin{equation}
+x^A(\tau)
+=
+x^A_0
++
+u^A_{\text{eq}} \tau.
+\end{equation}
+
+\section{Equilibrium Phase Space}
+
+The equilibrium phase space is:
+
+\begin{equation}
+\mathfrak{P}_{\text{eq}}
+=
+\left\{
+(\mathbf{X},\mathbf{U})
+\mid
+\mathbf{U}=0
+\right\}.
+\end{equation}
+
+This space contains all long-horizon stable states.
+
+\section{Equilibrium Attractor}
+
+Define the equilibrium attractor:
+
+\begin{equation}
+\mathcal{A}_{\text{eq}}
+=
+\left\{
+\mathbf{X}
+\mid
+\Phi_\tau(\mathbf{X})
+=
+\mathbf{X}
+\right\}.
+\end{equation}
+
+This attractor governs:
+
+- stabilized curvature,
+- stabilized flux,
+- stabilized noise,
+- stabilized energy,
+- stabilized identity.
+
+\section{Equilibrium Stability Theorem}
+
+\begin{theorem}[\textbf{Sovereign Equilibrium Stability}]
+Let $\mathfrak{S}_{\text{stab}}$ be the stabilized manifold. 
+If each subsystem stabilization operator preserves its respective 
+invariant, then the equilibrium manifold:
+
+\begin{equation}
+\mathfrak{E}
+=
+\left\{
+\mathbf{X}
+\mid
+\mathcal{F}_{\text{auto}}
++
+\mathcal{F}_{\text{recover}}
++
+\mathcal{F}_{\text{stab}}
+=
+0
+\right\}
+\end{equation}
+
+is invariant under the unified autonomous flow $\Phi_\tau$.
+\end{theorem}
+
+\begin{proof}
+Subsystem stabilization operators preserve subsystem invariants. 
+The harmonization operator preserves cross-domain consistency. 
+Thus the equilibrium manifold is invariant under the unified flow:
+
+\begin{equation}
+\Phi_\tau(\mathfrak{E})
+=
+\mathfrak{E}.
+\end{equation}
+\end{proof}
+
+\section{Equilibrium Loop}
+
+The equilibrium loop is:
+
+\begin{equation}
+\mathbf{X}^{n+1}
+=
+\mathbf{X}^{n},
+\end{equation}
+
+executed at each timestep of the sovereign simulation manifold.
+
+\end{document}
