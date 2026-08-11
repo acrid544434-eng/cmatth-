@@ -1,0 +1,106 @@
+\chapter{Cryptographic RTL Enclosure Control Architecture}
+\label{ch:crypto}
+
+\section{Dual-Mode Josephson Bias Mapping}
+\label{sec:bias-mapping}
+
+Once the conditioned strain register has been computed, the Quantum Logic Engine
+executes a deterministic bias-selection rule to stabilize the Josephson
+rectification lattice. The RTL core implements a two-path mapping strategy:
+
+\begin{equation}
+    S_{\text{upper}} = S_{\text{cond}}[63:32], \qquad
+    S_{\text{lower}} = S_{\text{cond}}[31:0].
+\end{equation}
+
+High-energy transient compensation is triggered when the upper half-word exceeds
+the signed threshold:
+
+\begin{equation}
+    S_{\text{upper}} > 0x7\text{FFFFFFF}.
+\end{equation}
+
+In this regime, the bias output is computed via a bitwise OR operation:
+
+\begin{equation}
+    V_{\text{bias}}^{(\text{transient})}
+        = T_{\text{harvest}} \;\vert\; S_{\text{lower}}.
+\end{equation}
+
+For all other strain conditions, the system enters continuous impedance-tracking
+mode, applying a bitwise XOR:
+
+\begin{equation}
+    V_{\text{bias}}^{(\text{continuous})}
+        = T_{\text{harvest}} \;\oplus\; S_{\text{lower}}.
+\end{equation}
+
+This dual-mode mapping ensures that the Josephson junction grid remains stable
+under both smooth and discontinuous strain-field perturbations.
+
+\section{Femtosecond Nonce Synchronization}
+\label{sec:nonce-sync}
+
+The internal nonce counter advances deterministically at each femtosecond clock
+edge:
+
+\begin{equation}
+    N(t + \Delta t_{\text{femto}}) = N(t) + 1,
+\end{equation}
+
+where $\Delta t_{\text{femto}} = 10^{-15}\,\text{s}$. This guarantees that every
+metric strain sample is cryptographically isolated from its predecessor, even
+under high-frequency structural oscillations. Because the nonce is never exposed
+outside the RTL enclave, the conditioned strain register cannot be reconstructed
+by any external observer.
+
+\section{XOR-Shard Conditioning Layer}
+\label{sec:xor-conditioning}
+
+Before bias mapping, the raw strain vector is passed through the XOR-shard
+conditioning layer:
+
+\begin{equation}
+    S_{\text{cond}} = S_{\text{raw}} \oplus N(t).
+\end{equation}
+
+This operation enforces non-replayability and hardware-level obfuscation. Even
+if two consecutive strain readings are identical, the conditioned output will
+differ due to the advancing nonce. This prevents temporal aliasing across
+distributed simulation nodes and eliminates the possibility of deterministic
+strain-pattern injection attacks.
+
+\section{Secure Reset and Fault Containment}
+\label{sec:fault-containment}
+
+If the authorization key fails verification, the RTL core immediately asserts
+the \texttt{security\_fault} flag. This triggers a hardware-level containment
+sequence:
+
+\begin{enumerate}
+    \item Zeroization of the internal nonce register.
+    \item Zeroization of the conditioned strain register.
+    \item Forced nulling of the Josephson bias output.
+    \item Suspension of all downstream harvesting-grid updates.
+\end{enumerate}
+
+The containment sequence ensures that no corrupted or unauthorized metric data
+propagates into the physical control lattice. Normal operation resumes only
+after a valid cryptographic handshake is re-established.
+
+\section{Deterministic Harvest-Line Stabilization}
+\label{sec:harvest-stabilization}
+
+The reference harvest-line constant,
+\begin{equation}
+    T_{\text{harvest}} = 0x00003228,
+\end{equation}
+corresponds to a calibrated inductive setting of $12.84\,\text{nH}$ within the
+Layer~5 Josephson junction matrix. By combining this constant with the
+conditioned strain register through OR/XOR operations, the RTL core maintains
+stable DC extraction even under rapid strain-field fluctuations.
+
+The stabilization rule is intentionally bitwise rather than arithmetic, ensuring
+that the bias output remains bounded and monotonic across all operational
+states. This prevents over-biasing events that could destabilize the
+rectification grid or induce destructive resonance modes.
