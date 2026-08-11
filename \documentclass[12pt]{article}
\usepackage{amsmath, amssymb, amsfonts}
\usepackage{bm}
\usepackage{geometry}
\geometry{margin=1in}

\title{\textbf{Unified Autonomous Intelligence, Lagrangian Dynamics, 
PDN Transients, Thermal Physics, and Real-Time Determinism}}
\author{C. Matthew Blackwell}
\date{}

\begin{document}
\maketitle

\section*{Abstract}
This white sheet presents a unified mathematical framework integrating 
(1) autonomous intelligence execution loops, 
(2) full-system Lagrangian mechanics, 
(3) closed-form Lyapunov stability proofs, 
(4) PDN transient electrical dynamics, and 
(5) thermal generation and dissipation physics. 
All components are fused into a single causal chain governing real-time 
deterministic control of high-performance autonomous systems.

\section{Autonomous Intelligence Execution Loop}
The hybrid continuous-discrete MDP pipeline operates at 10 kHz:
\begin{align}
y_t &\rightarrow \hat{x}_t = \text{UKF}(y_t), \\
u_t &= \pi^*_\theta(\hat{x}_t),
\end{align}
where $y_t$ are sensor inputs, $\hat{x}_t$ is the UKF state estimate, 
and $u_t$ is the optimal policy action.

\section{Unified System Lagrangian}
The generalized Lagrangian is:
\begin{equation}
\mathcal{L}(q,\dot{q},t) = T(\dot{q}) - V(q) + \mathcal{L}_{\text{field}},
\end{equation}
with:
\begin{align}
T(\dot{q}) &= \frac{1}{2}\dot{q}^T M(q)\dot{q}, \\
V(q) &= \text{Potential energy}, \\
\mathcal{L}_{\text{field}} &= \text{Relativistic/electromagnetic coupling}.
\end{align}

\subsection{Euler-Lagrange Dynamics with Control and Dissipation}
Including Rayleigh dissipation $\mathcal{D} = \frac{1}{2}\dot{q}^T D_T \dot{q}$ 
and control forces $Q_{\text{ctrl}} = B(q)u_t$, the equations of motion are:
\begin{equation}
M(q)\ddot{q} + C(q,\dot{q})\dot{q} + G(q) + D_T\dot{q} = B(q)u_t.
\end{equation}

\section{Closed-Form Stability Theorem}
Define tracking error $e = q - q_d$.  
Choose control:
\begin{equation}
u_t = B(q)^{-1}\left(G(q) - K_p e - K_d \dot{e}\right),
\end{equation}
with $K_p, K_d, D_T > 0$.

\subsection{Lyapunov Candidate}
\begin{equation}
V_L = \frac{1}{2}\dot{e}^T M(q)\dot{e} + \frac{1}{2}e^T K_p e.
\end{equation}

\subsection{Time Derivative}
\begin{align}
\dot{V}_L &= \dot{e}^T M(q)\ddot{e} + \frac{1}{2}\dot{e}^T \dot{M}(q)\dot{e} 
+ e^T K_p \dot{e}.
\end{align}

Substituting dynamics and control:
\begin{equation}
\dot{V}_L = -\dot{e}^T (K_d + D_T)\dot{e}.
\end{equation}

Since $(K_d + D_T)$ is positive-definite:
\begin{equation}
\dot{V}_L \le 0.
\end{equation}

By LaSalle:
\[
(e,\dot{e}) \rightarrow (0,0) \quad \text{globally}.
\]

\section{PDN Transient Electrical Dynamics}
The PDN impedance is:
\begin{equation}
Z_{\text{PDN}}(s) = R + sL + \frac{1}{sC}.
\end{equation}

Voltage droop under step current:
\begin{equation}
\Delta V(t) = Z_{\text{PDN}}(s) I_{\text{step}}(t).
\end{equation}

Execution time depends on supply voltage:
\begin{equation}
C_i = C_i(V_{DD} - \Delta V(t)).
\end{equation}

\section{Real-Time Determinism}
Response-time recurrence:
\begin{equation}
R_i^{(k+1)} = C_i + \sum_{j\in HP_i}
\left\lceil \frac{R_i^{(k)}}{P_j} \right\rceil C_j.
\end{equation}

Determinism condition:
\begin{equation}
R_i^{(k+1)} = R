@@ -1,0 +1,112 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{bm}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{\textbf{Unified Autonomous Intelligence, Lagrangian Dynamics, 
+PDN Transients, Thermal Physics, and Real-Time Determinism}}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Abstract}
+This white sheet presents a unified mathematical framework integrating 
+(1) autonomous intelligence execution loops, 
+(2) full-system Lagrangian mechanics, 
+(3) closed-form Lyapunov stability proofs, 
+(4) PDN transient electrical dynamics, and 
+(5) thermal generation and dissipation physics. 
+All components are fused into a single causal chain governing real-time 
+deterministic control of high-performance autonomous systems.
+
+\section{Autonomous Intelligence Execution Loop}
+The hybrid continuous-discrete MDP pipeline operates at 10 kHz:
+\begin{align}
+y_t &\rightarrow \hat{x}_t = \text{UKF}(y_t), \\
+u_t &= \pi^*_\theta(\hat{x}_t),
+\end{align}
+where $y_t$ are sensor inputs, $\hat{x}_t$ is the UKF state estimate, 
+and $u_t$ is the optimal policy action.
+
+\section{Unified System Lagrangian}
+The generalized Lagrangian is:
+\begin{equation}
+\mathcal{L}(q,\dot{q},t) = T(\dot{q}) - V(q) + \mathcal{L}_{\text{field}},
+\end{equation}
+with:
+\begin{align}
+T(\dot{q}) &= \frac{1}{2}\dot{q}^T M(q)\dot{q}, \\
+V(q) &= \text{Potential energy}, \\
+\mathcal{L}_{\text{field}} &= \text{Relativistic/electromagnetic coupling}.
+\end{align}
+
+\subsection{Euler-Lagrange Dynamics with Control and Dissipation}
+Including Rayleigh dissipation $\mathcal{D} = \frac{1}{2}\dot{q}^T D_T \dot{q}$ 
+and control forces $Q_{\text{ctrl}} = B(q)u_t$, the equations of motion are:
+\begin{equation}
+M(q)\ddot{q} + C(q,\dot{q})\dot{q} + G(q) + D_T\dot{q} = B(q)u_t.
+\end{equation}
+
+\section{Closed-Form Stability Theorem}
+Define tracking error $e = q - q_d$.  
+Choose control:
+\begin{equation}
+u_t = B(q)^{-1}\left(G(q) - K_p e - K_d \dot{e}\right),
+\end{equation}
+with $K_p, K_d, D_T > 0$.
+
+\subsection{Lyapunov Candidate}
+\begin{equation}
+V_L = \frac{1}{2}\dot{e}^T M(q)\dot{e} + \frac{1}{2}e^T K_p e.
+\end{equation}
+
+\subsection{Time Derivative}
+\begin{align}
+\dot{V}_L &= \dot{e}^T M(q)\ddot{e} + \frac{1}{2}\dot{e}^T \dot{M}(q)\dot{e} 
++ e^T K_p \dot{e}.
+\end{align}
+
+Substituting dynamics and control:
+\begin{equation}
+\dot{V}_L = -\dot{e}^T (K_d + D_T)\dot{e}.
+\end{equation}
+
+Since $(K_d + D_T)$ is positive-definite:
+\begin{equation}
+\dot{V}_L \le 0.
+\end{equation}
+
+By LaSalle:
+\[
+(e,\dot{e}) \rightarrow (0,0) \quad \text{globally}.
+\]
+
+\section{PDN Transient Electrical Dynamics}
+The PDN impedance is:
+\begin{equation}
+Z_{\text{PDN}}(s) = R + sL + \frac{1}{sC}.
+\end{equation}
+
+Voltage droop under step current:
+\begin{equation}
+\Delta V(t) = Z_{\text{PDN}}(s) I_{\text{step}}(t).
+\end{equation}
+
+Execution time depends on supply voltage:
+\begin{equation}
+C_i = C_i(V_{DD} - \Delta V(t)).
+\end{equation}
+
+\section{Real-Time Determinism}
+Response-time recurrence:
+\begin{equation}
+R_i^{(k+1)} = C_i + \sum_{j\in HP_i}
+\left\lceil \frac{R_i^{(k)}}{P_j} \right\rceil C_j.
+\end{equation}
+
+Determinism condition:
+\begin{equation}
+R_i^{(k+1)} = R
