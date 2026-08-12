@@ -1,0 +1,116 @@
+\section*{Methods}
+
+\subsection*{Overview}
+The Astrobiological Cryptographic Evolution System (ACES) integrates
+multi-messenger astrophysical entropy, homomorphic encrypted computation, and
+zero-knowledge verification into a unified evolutionary framework. The methods
+described below detail the construction of the cosmological entropy field,
+encrypted organism representation, homomorphic evolution operator, and
+zero-trust verification pipeline.
+
+\subsection*{Astrophysical Telemetry Acquisition}
+ACES ingests real-time multi-messenger astrophysical data from three primary
+sources:
+\begin{enumerate}
+    \item LIGO gravitational-wave strain $h(t)$,
+    \item JWST spectroscopic flux fields $S(\nu,t)$,
+    \item GAIA DR3 astrometric vectors $\boldsymbol{\mu}(t)$.
+\end{enumerate}
+These signals are preprocessed, normalized, and concatenated into a unified
+entropy substrate:
+\[
+\mathbf{E}(t) = \mathrm{Hash}\!\left(h(t)\Vert S(\nu,t)\Vert \boldsymbol{\mu}(t)\right),
+\]
+which serves as the environmental driver for encrypted evolution.
+
+\subsection*{ADM Spacetime Construction}
+The Early-Universe Simulation Kernel constructs a $(3+1)$ ADM spacetime slice:
+\[
+ds^2 = -\alpha^2 dt^2 + \gamma_{ij}(dx^i + \beta^i dt)(dx^j + \beta^j dt),
+\]
+where the lapse $\alpha$, shift $\beta^i$, and spatial metric $\gamma_{ij}$
+are evolved using standard ADM evolution equations. Inflationary perturbations
+are injected via the primordial curvature spectrum:
+\[
+\mathcal{P}_{\mathcal{R}}(k) = A_s\left(\frac{k}{k_*}\right)^{n_s - 1},
+\]
+and mapped into GPU CUDA buffers to generate the dynamic environmental tensor.
+
+\subsection*{Cosmological Consistency Evaluation}
+Before any encrypted state transition is accepted, ACES enforces physical
+invariants across the ADM slice:
+\begin{itemize}
+    \item \textbf{Weak Energy Condition (WEC):}
+    \[
+    T_{\mu\nu}u^\mu u^\nu \ge 0,
+    \]
+    \item \textbf{Holographic Entropy Bound:}
+    \[
+    \Delta S_{\text{org}} \le S_{\text{horizon}},
+    \]
+    \item \textbf{Numerical Stability Constraint:}
+    \[
+    \epsilon \le 10^{-9}.
+    \]
+\end{itemize}
+Any violation triggers an automatic rollback to the prior verified state
+$S_t$.
+
+\subsection*{Encrypted Organism Representation}
+Organism trait vectors $\mathbf{x}_i(t)$ and genome vectors $\mathbf{g}_i(t)$
+are encoded into CKKS ciphertexts:
+\[
+\tilde{\mathbf{x}}_i(t),\quad \tilde{\mathbf{g}}_i(t)
+\in \mathbb{C}^N,
+\]
+where $N=2^{16}$ is the polynomial ring dimension. All evolutionary operations
+occur entirely within ciphertext space.
+
+\subsection*{Homomorphic Evolution Operator}
+The encrypted evolution operator is defined as:
+\[
+\tilde{\mathbf{x}}_i(t+1)
+=
+\mathrm{Eval}\!\left(
+F_{\text{class}}(\tilde{\mathbf{x}}_i(t),
+\tilde{\mathbf{g}}_i(t),
+\tilde{\mathbf{E}}(t))
+\right),
+\]
+where $F_{\text{class}}$ consists of CKKS-compatible additions, rotations, and
+bounded-depth multiplications. Bootstrapping is invoked when the noise budget
+falls below $50$ bits, ensuring:
+\[
+\mathcal{B}(t+1) \ge \mathcal{B}_{\min}.
+\]
+
+\subsection*{Zero-Knowledge Verification}
+Each encrypted transition produces a Groth16 proof:
+\[
+\pi_t = \{A,B,C\},
+\]
+with verification:
+\[
+\mathrm{Verify}(vk, H(S_t), H(S_{t+1}), \pi_t)=\mathrm{TRUE}.
+\]
+The constraint system includes:
+\begin{itemize}
+    \item CKKS arithmetic validity,
+    \item cosmological invariant satisfaction,
+    \item entropy bound compliance,
+    \item noise budget preservation.
+\end{itemize}
+Verification occurs in constant time without revealing plaintext biological
+data.
+
+\subsection*{Autonomous Evolution Loop}
+The complete ACES loop consists of:
+\begin{enumerate}
+    \item astrophysical entropy ingestion,
+    \item ADM spacetime evolution,
+    \item cosmological invariant validation,
+    \item homomorphic organism evolution,
+    \item zero-knowledge settlement.
+\end{enumerate}
+This produces a physically grounded, cryptographically sealed, and
+mathematically auditable evolutionary ledger.
