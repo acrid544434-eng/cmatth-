@@ -1,0 +1,152 @@
+%===========================================================
+\section{Expanded Thermal Envelope Equations}
+%===========================================================
+
+\subsection{Blade-Level Thermal Load}
+
+Let $Q_{\text{GPU}}$ be the heat load per GPU, $Q_{\text{CPU}}$ the heat load per CPU,
+and $Q_{\text{misc}}$ the combined VRM, NIC, DIMM, mesh fabric, and HSM load.
+
+\[
+Q_{\text{blade}} = 8Q_{\text{GPU}} + 2Q_{\text{CPU}} + Q_{\text{misc}}
+\]
+
+Typical exascale values:
+
+\[
+Q_{\text{GPU}} \approx 700\text{--}900\,\text{W}, \quad
+Q_{\text{CPU}} \approx 350\text{--}420\,\text{W}, \quad
+Q_{\text{misc}} \approx 300\text{--}500\,\text{W}
+\]
+
+Thus:
+
+\[
+Q_{\text{blade}} \approx 7.2\,\text{kW}
+\]
+
+\subsection{Two-Phase Direct-to-Chip Cooling Model}
+
+Let $\dot{m}$ be the coolant mass flow rate, $h_{fg}$ the latent heat of vaporization,
+$c_p$ the specific heat capacity, and $\Delta T$ the temperature rise across the cold plate.
+
+\[
+Q_{\text{removed}} = \dot{m} h_{fg} + \dot{m} c_p \Delta T
+\]
+
+For GPU cold plates, latent heat dominates:
+
+\[
+Q_{\text{GPU}} \approx \dot{m}_{\text{GPU}} h_{fg}
+\]
+
+Thus:
+
+\[
+\dot{m}_{\text{GPU}} = \frac{Q_{\text{GPU}}}{h_{fg}}
+\]
+
+With PG25 coolant:
+
+\[
+h_{fg} \approx 850\,\text{kJ/kg}
+\]
+
+\subsection{GPU Die Temperature}
+
+Let $R_{\theta,\text{plate}}$ be the thermal resistance of the cold plate.
+
+\[
+T_{\text{die}} = T_{\text{sup}} + R_{\theta,\text{plate}} Q_{\text{GPU}}
+\]
+
+With:
+
+\[
+T_{\text{sup}} = 32^\circ\text{C}, \quad R_{\theta,\text{plate}} \approx 0.02\text{--}0.04\,^\circ\text{C/W}
+\]
+
+Example:
+
+\[
+T_{\text{die}} = 32^\circ\text{C} + (0.03)(800) = 56^\circ\text{C}
+\]
+
+\subsection{Cabinet-Level Thermal Load}
+
+Let $N_{\text{blade}}$ be the number of blades per cabinet.
+
+\[
+Q_{\text{cabinet}} = N_{\text{blade}} Q_{\text{blade}}
+\]
+
+For a 400\,kW cabinet:
+
+\[
+N_{\text{blade}} = \frac{400\,\text{kW}}{7.2\,\text{kW}} \approx 55
+\]
+
+\subsection{Electrical-to-Thermal Conversion}
+
+All electrical power becomes heat:
+
+\[
+Q_{\text{thermal}} = P_{\text{electrical}}
+\]
+
+Busbar efficiency:
+
+\[
+\eta_{\text{power}} = 0.972
+\]
+
+Conversion losses:
+
+\[
+Q_{\text{loss}} = (1 - \eta_{\text{power}}) P_{\text{in}}
+\]
+
+For a 400\,kW cabinet:
+
+\[
+Q_{\text{loss}} = 0.028 \times 400\,\text{kW} = 11.2\,\text{kW}
+\]
+
+\subsection{Transient Thermal Response}
+
+Let $C_{\text{th}}$ be the thermal capacitance of the GPU + cold plate,
+and $R_{\theta}$ the thermal resistance.
+
+\[
+T(t) = T_{\text{sup}} + Q(t) R_{\theta}
+\left(1 - e^{-t/(R_{\theta} C_{\text{th}})}\right)
+\]
+
+This governs burst tensor workloads, PQC spikes, and mesh interconnect surges.
+
+\subsection{Summary of Thermal Envelope}
+
+\[
+Q_{\text{blade}} = 8Q_{\text{GPU}} + 2Q_{\text{CPU}} + Q_{\text{misc}}
+\]
+
+\[
+Q_{\text{cabinet}} = N_{\text{blade}} Q_{\text{blade}}
+\]
+
+\[
+Q_{\text{removed}} = \dot{m} h_{fg} + \dot{m} c_p \Delta T
+\]
+
+\[
+T_{\text{die}} = T_{\text{sup}} + R_{\theta,\text{plate}} Q_{\text{GPU}}
+\]
+
+\[
+Q_{\text{loss}} = (1 - \eta_{\text{power}}) P_{\text{in}}
+\]
+
+\[
+T(t) = T_{\text{sup}} + Q(t) R_{\theta}
+\left(1 - e^{-t/(R_{\theta} C_{\text{th}})}\right)
+\]
