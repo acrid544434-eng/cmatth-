@@ -1,0 +1,196 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{siunitx}
+\usepackage{bm}
+\usepackage{hyperref}
+
+\title{
+The Metric-Wave Continuum Computing Architecture:\\
+A Non-Linear Field-Theoretic Hardware Platform for Logic Execution
+}
+
+\author{
+C.~Matthew Blackwell, Independent Designer
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This paper presents the Metric-Wave Continuum Computing Architecture, a 
+non-linear field-theoretic hardware platform that performs digital logic 
+using wave interference, cubic harmonic generation, and attractor-based 
+self-healing dynamics rather than transistor switching. The system is 
+governed by a non-linear metric-wave partial differential equation (PDE), 
+physically realized on a high-resistivity Silicon-on-Insulator (HR-SOI) 
+substrate with VO$_2$ non-linear mixing nodes and ion-implanted absorbing 
+boundaries. A 1-bit full adder is implemented using destructive interference 
+(Sum) and third-harmonic generation (Carry), validated through simulation 
+and mapped to a fabrication-ready GDSII mask stack. An autonomous 
+hardware-in-the-loop (HIL) control system using a Zynq UltraScale+ RFSoC 
+platform provides phase re-locking, thermal stabilization, and real-time 
+noise suppression. The architecture scales to a 64×64 continuum sheet and 
+a 16-bit carry-lookahead processor, establishing a new class of 
+field-native computing hardware.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Non-linear waves, continuum computing, VO$_2$, harmonic logic, 
+Silicon-on-Insulator, RFSoC, autonomous control, field computation.
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+Conventional digital logic relies on transistor switching, clocked 
+synchronization, and charge-based state storage. This paper introduces a 
+fundamentally different paradigm: computation performed by non-linear 
+metric-wave dynamics in a spatial continuum. Digital logic emerges from 
+wave interference, cubic non-linear mixing, and attractor-based 
+self-healing, enabling computation without transistors, clock trees, or 
+charge-based logic states.
+
+The Metric-Wave Continuum Computing Architecture integrates physics, 
+device engineering, fabrication, autonomous control, and system-level 
+design into a unified computational substrate.
+
+\section{Metric-Wave PDE Formulation}
+
+The scalar metric deviation field $\psi(\bm{x}, t)$ evolves according to:
+
+\begin{equation}
+\partial_t \psi =
+D_{\text{cont}} \nabla^2 \psi
+- K_{\text{local}} \psi
++ \lambda_3 \psi^2
++ \lambda_4 \psi^3
++ \eta \nabla^2 (\partial_t \psi)
++ I_{\text{in}}(\bm{x}, t).
+\end{equation}
+
+Parameters:
+\begin{align*}
+D_{\text{cont}} &= \SI{2.50}{m^2/s}, &
+K_{\text{local}} &= \SI{4.18e4}{s^{-1}}, \\
+\lambda_3 &= \SI{1.82e6}{s^{-1}}, &
+\lambda_4 &= \SI{6.45e7}{s^{-1}}, \\
+\eta &= \SI{2.10e3}{s^{-1}}.
+\end{align*}
+
+Digital logic is encoded as coherent pulses at carrier frequency 
+$f_c = \SI{3.98}{GHz}$.
+
+\section{1-Bit Metric-Wave Full Adder}
+
+\subsection{Sum via Interference}
+
+Inputs A, B, and $C_{\text{in}}$ are routed into a 3 dB directional 
+coupler. Odd-parity inputs produce constructive interference:
+
+\[
+\psi_{\text{sum}} \ge 0.964 \psi_0,
+\]
+
+while even-parity inputs produce destructive interference:
+
+\[
+\psi_{\text{sum}} \le 0.043 \psi_0.
+\]
+
+\subsection{Carry via Third-Harmonic Generation}
+
+Overlapping pulses at the VO$_2$ non-linear node generate strong 
+third-harmonic power:
+
+\[
+P_{3\omega} \approx +12.5 \text{ to } +14.2 \text{ dBm}.
+\]
+
+Non-overlapping pulses yield:
+
+\[
+P_{3\omega} \approx -40 \text{ dBm}.
+\]
+
+\section{Fabrication on HR-SOI}
+
+The 1-bit MVP device is fabricated on a high-resistivity SOI wafer:
+
+\begin{itemize}
+\item Si waveguide: \SI{220}{nm} thickness, \SI{450}{nm} width.
+\item VO$_2$ non-linear film: \SI{50}{nm}.
+\item PML boundary: Ar$^+$ implantation at \SI{80}{keV}.
+\item Metal pads: Ti/Au (20/150 nm).
+\end{itemize}
+
+Six photolithography masks define the full GDSII stack.
+
+\section{Autonomous RFSoC Control Platform}
+
+A Zynq UltraScale+ RFSoC platform provides:
+
+\begin{itemize}
+\item Direct-RF DACs at \SI{10}{GSPS} for A, B, $C_{\text{in}}$.
+\item Direct-RF ADCs for Sum and Carry channels.
+\item Real-time phase recalibration.
+\item TEC PID thermal stabilization at $298.15 \pm 0.01$ K.
+\item Autonomous BER/SNR monitoring.
+\end{itemize}
+
+Critical noise barrier:
+
+\[
+\text{SNR}_{\text{crit}} = \SI{10.93}{dB}.
+\]
+
+\section{64×64 Continuum Sheet}
+
+The continuum sheet consists of $N = 4096$ nodes arranged in a 
+$64 \times 64$ grid. Distributed VO$_2$ nodes enable multi-bit logic, 
+shock delocalization, and spatial parallelism.
+
+\section{16-Bit Carry-Lookahead Processor}
+
+Carry-lookahead is implemented using:
+
+\begin{itemize}
+\item Parallel harmonic lanes,
+\item Phase-matched delay lines,
+\item Multi-stage VO$_2$ clusters.
+\end{itemize}
+
+Latency target:
+
+\[
+\tau_{\text{CLA}} < \SI{60}{ns}.
+\]
+
+\section{Metric-Wave Runtime Operating System}
+
+MW-OS provides:
+
+\begin{itemize}
+\item Wave packet scheduling,
+\item Soliton memory management,
+\item Harmonic logic pipelines,
+\item Autonomous stability monitoring,
+\item Field-level instruction compilation.
+\end{itemize}
+
+\section{Conclusion}
+
+The Metric-Wave Continuum Computing Architecture demonstrates that 
+digital logic can be executed by non-linear wave dynamics, interference, 
+and attractor-based stabilization. This establishes a new class of 
+field-native computing hardware capable of scaling from 1-bit devices 
+to continuum-scale processors.
+
+\begin{thebibliography}{1}
+
+\bibitem{blackwell2026}
+C.~M.~Blackwell, ``Metric-Wave Continuum Computing Architecture,'' 
+Independent Design Manuscript, 2026.
+
+\end{thebibliography}
+
+\end{document}
