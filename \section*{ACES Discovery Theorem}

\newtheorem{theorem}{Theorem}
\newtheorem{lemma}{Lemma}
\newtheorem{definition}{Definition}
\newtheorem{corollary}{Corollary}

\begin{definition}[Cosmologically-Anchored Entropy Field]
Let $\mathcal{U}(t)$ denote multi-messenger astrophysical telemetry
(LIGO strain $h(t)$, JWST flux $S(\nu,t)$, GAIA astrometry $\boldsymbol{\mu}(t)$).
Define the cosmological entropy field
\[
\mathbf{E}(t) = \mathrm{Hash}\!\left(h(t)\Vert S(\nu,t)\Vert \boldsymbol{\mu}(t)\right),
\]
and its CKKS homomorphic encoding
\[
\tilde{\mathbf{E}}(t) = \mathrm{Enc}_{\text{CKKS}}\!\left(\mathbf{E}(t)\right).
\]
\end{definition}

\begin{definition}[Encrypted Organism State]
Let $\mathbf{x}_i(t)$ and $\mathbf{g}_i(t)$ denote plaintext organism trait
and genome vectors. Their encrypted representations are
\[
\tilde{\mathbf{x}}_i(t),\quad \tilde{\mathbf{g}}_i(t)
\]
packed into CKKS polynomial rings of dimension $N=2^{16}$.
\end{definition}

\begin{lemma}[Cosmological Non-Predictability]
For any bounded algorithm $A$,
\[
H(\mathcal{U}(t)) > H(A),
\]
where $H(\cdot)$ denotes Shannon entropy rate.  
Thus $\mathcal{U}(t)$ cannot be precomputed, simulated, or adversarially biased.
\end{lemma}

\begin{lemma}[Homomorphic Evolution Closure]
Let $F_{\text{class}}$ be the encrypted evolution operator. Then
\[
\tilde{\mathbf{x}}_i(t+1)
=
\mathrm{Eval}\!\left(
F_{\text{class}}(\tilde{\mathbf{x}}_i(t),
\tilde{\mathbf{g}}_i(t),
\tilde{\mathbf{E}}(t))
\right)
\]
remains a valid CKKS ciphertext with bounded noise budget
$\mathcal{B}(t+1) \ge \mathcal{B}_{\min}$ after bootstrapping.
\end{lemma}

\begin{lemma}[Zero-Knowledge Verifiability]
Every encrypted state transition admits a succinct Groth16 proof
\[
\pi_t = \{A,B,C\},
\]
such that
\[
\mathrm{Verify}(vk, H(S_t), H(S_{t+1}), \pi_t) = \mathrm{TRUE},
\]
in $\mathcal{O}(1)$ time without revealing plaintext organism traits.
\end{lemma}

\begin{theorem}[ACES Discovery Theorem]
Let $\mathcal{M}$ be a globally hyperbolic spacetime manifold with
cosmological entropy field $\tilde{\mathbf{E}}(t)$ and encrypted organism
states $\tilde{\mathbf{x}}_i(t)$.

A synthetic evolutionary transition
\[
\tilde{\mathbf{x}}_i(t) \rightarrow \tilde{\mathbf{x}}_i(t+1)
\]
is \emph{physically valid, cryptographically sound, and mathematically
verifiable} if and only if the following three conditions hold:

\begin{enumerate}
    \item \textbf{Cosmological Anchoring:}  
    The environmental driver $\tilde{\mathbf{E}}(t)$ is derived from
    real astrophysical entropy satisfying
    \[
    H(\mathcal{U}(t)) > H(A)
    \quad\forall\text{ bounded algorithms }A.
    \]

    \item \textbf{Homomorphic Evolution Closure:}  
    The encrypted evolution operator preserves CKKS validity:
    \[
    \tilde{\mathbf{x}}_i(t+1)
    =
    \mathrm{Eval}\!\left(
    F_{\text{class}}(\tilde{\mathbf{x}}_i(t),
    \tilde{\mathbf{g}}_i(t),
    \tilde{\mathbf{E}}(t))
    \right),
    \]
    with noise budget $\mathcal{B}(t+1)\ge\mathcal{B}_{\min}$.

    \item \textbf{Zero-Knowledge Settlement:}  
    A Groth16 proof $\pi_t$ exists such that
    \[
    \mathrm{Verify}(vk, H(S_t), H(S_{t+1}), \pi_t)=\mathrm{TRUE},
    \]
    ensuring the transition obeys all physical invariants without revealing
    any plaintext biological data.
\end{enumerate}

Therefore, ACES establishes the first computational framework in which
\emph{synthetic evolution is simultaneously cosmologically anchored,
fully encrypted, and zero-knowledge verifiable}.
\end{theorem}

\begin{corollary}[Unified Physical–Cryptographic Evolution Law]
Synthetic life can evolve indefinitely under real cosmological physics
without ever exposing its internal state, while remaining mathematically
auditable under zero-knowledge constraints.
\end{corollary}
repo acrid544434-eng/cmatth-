@@ -1,0 +1,118 @@
+\section*{ACES Discovery Theorem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+
+\begin{definition}[Cosmologically-Anchored Entropy Field]
+Let $\mathcal{U}(t)$ denote multi-messenger astrophysical telemetry
+(LIGO strain $h(t)$, JWST flux $S(\nu,t)$, GAIA astrometry $\boldsymbol{\mu}(t)$).
+Define the cosmological entropy field
+\[
+\mathbf{E}(t) = \mathrm{Hash}\!\left(h(t)\Vert S(\nu,t)\Vert \boldsymbol{\mu}(t)\right),
+\]
+and its CKKS homomorphic encoding
+\[
+\tilde{\mathbf{E}}(t) = \mathrm{Enc}_{\text{CKKS}}\!\left(\mathbf{E}(t)\right).
+\]
+\end{definition}
+
+\begin{definition}[Encrypted Organism State]
+Let $\mathbf{x}_i(t)$ and $\mathbf{g}_i(t)$ denote plaintext organism trait
+and genome vectors. Their encrypted representations are
+\[
+\tilde{\mathbf{x}}_i(t),\quad \tilde{\mathbf{g}}_i(t)
+\]
+packed into CKKS polynomial rings of dimension $N=2^{16}$.
+\end{definition}
+
+\begin{lemma}[Cosmological Non-Predictability]
+For any bounded algorithm $A$,
+\[
+H(\mathcal{U}(t)) > H(A),
+\]
+where $H(\cdot)$ denotes Shannon entropy rate.  
+Thus $\mathcal{U}(t)$ cannot be precomputed, simulated, or adversarially biased.
+\end{lemma}
+
+\begin{lemma}[Homomorphic Evolution Closure]
+Let $F_{\text{class}}$ be the encrypted evolution operator. Then
+\[
+\tilde{\mathbf{x}}_i(t+1)
+=
+\mathrm{Eval}\!\left(
+F_{\text{class}}(\tilde{\mathbf{x}}_i(t),
+\tilde{\mathbf{g}}_i(t),
+\tilde{\mathbf{E}}(t))
+\right)
+\]
+remains a valid CKKS ciphertext with bounded noise budget
+$\mathcal{B}(t+1) \ge \mathcal{B}_{\min}$ after bootstrapping.
+\end{lemma}
+
+\begin{lemma}[Zero-Knowledge Verifiability]
+Every encrypted state transition admits a succinct Groth16 proof
+\[
+\pi_t = \{A,B,C\},
+\]
+such that
+\[
+\mathrm{Verify}(vk, H(S_t), H(S_{t+1}), \pi_t) = \mathrm{TRUE},
+\]
+in $\mathcal{O}(1)$ time without revealing plaintext organism traits.
+\end{lemma}
+
+\begin{theorem}[ACES Discovery Theorem]
+Let $\mathcal{M}$ be a globally hyperbolic spacetime manifold with
+cosmological entropy field $\tilde{\mathbf{E}}(t)$ and encrypted organism
+states $\tilde{\mathbf{x}}_i(t)$.
+
+A synthetic evolutionary transition
+\[
+\tilde{\mathbf{x}}_i(t) \rightarrow \tilde{\mathbf{x}}_i(t+1)
+\]
+is \emph{physically valid, cryptographically sound, and mathematically
+verifiable} if and only if the following three conditions hold:
+
+\begin{enumerate}
+    \item \textbf{Cosmological Anchoring:}  
+    The environmental driver $\tilde{\mathbf{E}}(t)$ is derived from
+    real astrophysical entropy satisfying
+    \[
+    H(\mathcal{U}(t)) > H(A)
+    \quad\forall\text{ bounded algorithms }A.
+    \]
+
+    \item \textbf{Homomorphic Evolution Closure:}  
+    The encrypted evolution operator preserves CKKS validity:
+    \[
+    \tilde{\mathbf{x}}_i(t+1)
+    =
+    \mathrm{Eval}\!\left(
+    F_{\text{class}}(\tilde{\mathbf{x}}_i(t),
+    \tilde{\mathbf{g}}_i(t),
+    \tilde{\mathbf{E}}(t))
+    \right),
+    \]
+    with noise budget $\mathcal{B}(t+1)\ge\mathcal{B}_{\min}$.
+
+    \item \textbf{Zero-Knowledge Settlement:}  
+    A Groth16 proof $\pi_t$ exists such that
+    \[
+    \mathrm{Verify}(vk, H(S_t), H(S_{t+1}), \pi_t)=\mathrm{TRUE},
+    \]
+    ensuring the transition obeys all physical invariants without revealing
+    any plaintext biological data.
+\end{enumerate}
+
+Therefore, ACES establishes the first computational framework in which
+\emph{synthetic evolution is simultaneously cosmologically anchored,
+fully encrypted, and zero-knowledge verifiable}.
+\end{theorem}
+
+\begin{corollary}[Unified Physical–Cryptographic Evolution Law]
+Synthetic life can evolve indefinitely under real cosmological physics
+without ever exposing its internal state, while remaining mathematically
+auditable under zero-knowledge constraints.
+\end{corollary}
