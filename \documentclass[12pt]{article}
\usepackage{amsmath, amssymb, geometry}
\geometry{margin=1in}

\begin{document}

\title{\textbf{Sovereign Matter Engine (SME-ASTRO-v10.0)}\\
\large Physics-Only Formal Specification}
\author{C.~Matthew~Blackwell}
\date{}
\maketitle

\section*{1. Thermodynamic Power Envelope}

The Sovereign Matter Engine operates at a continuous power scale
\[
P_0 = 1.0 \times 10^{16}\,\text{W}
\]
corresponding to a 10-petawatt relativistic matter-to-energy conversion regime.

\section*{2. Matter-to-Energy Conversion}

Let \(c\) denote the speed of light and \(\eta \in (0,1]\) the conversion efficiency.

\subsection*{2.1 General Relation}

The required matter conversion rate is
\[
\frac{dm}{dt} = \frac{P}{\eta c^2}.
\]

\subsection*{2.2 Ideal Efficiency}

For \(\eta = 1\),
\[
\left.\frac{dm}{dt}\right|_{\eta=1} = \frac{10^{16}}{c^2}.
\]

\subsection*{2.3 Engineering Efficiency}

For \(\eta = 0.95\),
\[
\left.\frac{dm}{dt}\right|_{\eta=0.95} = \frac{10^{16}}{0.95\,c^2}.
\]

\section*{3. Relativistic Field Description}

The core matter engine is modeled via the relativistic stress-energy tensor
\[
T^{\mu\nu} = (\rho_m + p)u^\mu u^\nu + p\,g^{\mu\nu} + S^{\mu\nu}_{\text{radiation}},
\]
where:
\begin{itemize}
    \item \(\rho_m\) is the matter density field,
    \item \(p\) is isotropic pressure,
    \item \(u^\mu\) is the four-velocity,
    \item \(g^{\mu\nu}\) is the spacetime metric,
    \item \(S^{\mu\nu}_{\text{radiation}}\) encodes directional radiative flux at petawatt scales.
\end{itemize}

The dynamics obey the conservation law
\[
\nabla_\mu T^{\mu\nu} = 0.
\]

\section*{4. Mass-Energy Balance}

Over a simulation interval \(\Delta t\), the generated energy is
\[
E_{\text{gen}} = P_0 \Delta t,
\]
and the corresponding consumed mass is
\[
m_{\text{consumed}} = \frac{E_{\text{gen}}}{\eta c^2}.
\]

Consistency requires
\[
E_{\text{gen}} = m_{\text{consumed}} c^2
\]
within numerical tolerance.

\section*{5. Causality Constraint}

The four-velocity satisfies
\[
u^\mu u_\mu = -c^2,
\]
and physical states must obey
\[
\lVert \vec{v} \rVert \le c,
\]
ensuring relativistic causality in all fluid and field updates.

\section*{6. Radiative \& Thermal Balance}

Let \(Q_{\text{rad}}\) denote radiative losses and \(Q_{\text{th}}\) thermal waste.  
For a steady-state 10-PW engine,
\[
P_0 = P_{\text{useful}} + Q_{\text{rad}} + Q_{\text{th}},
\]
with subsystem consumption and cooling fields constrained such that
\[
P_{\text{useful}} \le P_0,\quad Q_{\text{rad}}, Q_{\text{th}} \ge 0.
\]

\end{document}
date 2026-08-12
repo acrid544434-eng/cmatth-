@@ -1,0 +1,107 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, geometry}
+\geometry{margin=1in}
+
+\begin{document}
+
+\title{\textbf{Sovereign Matter Engine (SME-ASTRO-v10.0)}\\
+\large Physics-Only Formal Specification}
+\author{C.~Matthew~Blackwell}
+\date{}
+\maketitle
+
+\section*{1. Thermodynamic Power Envelope}
+
+The Sovereign Matter Engine operates at a continuous power scale
+\[
+P_0 = 1.0 \times 10^{16}\,\text{W}
+\]
+corresponding to a 10-petawatt relativistic matter-to-energy conversion regime.
+
+\section*{2. Matter-to-Energy Conversion}
+
+Let \(c\) denote the speed of light and \(\eta \in (0,1]\) the conversion efficiency.
+
+\subsection*{2.1 General Relation}
+
+The required matter conversion rate is
+\[
+\frac{dm}{dt} = \frac{P}{\eta c^2}.
+\]
+
+\subsection*{2.2 Ideal Efficiency}
+
+For \(\eta = 1\),
+\[
+\left.\frac{dm}{dt}\right|_{\eta=1} = \frac{10^{16}}{c^2}.
+\]
+
+\subsection*{2.3 Engineering Efficiency}
+
+For \(\eta = 0.95\),
+\[
+\left.\frac{dm}{dt}\right|_{\eta=0.95} = \frac{10^{16}}{0.95\,c^2}.
+\]
+
+\section*{3. Relativistic Field Description}
+
+The core matter engine is modeled via the relativistic stress-energy tensor
+\[
+T^{\mu\nu} = (\rho_m + p)u^\mu u^\nu + p\,g^{\mu\nu} + S^{\mu\nu}_{\text{radiation}},
+\]
+where:
+\begin{itemize}
+    \item \(\rho_m\) is the matter density field,
+    \item \(p\) is isotropic pressure,
+    \item \(u^\mu\) is the four-velocity,
+    \item \(g^{\mu\nu}\) is the spacetime metric,
+    \item \(S^{\mu\nu}_{\text{radiation}}\) encodes directional radiative flux at petawatt scales.
+\end{itemize}
+
+The dynamics obey the conservation law
+\[
+\nabla_\mu T^{\mu\nu} = 0.
+\]
+
+\section*{4. Mass-Energy Balance}
+
+Over a simulation interval \(\Delta t\), the generated energy is
+\[
+E_{\text{gen}} = P_0 \Delta t,
+\]
+and the corresponding consumed mass is
+\[
+m_{\text{consumed}} = \frac{E_{\text{gen}}}{\eta c^2}.
+\]
+
+Consistency requires
+\[
+E_{\text{gen}} = m_{\text{consumed}} c^2
+\]
+within numerical tolerance.
+
+\section*{5. Causality Constraint}
+
+The four-velocity satisfies
+\[
+u^\mu u_\mu = -c^2,
+\]
+and physical states must obey
+\[
+\lVert \vec{v} \rVert \le c,
+\]
+ensuring relativistic causality in all fluid and field updates.
+
+\section*{6. Radiative \& Thermal Balance}
+
+Let \(Q_{\text{rad}}\) denote radiative losses and \(Q_{\text{th}}\) thermal waste.  
+For a steady-state 10-PW engine,
+\[
+P_0 = P_{\text{useful}} + Q_{\text{rad}} + Q_{\text{th}},
+\]
+with subsystem consumption and cooling fields constrained such that
+\[
+P_{\text{useful}} \le P_0,\quad Q_{\text{rad}}, Q_{\text{th}} \ge 0.
+\]
+
+\end{document}
