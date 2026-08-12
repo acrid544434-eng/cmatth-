@@ -1,0 +1,26 @@
+title: "The Metric-Wave Continuum Computing Architecture"
+authors:
+  - name: "C. Matthew Blackwell"
+    affiliation: "Independent Designer"
+categories:
+  - cs.ET
+  - cs.AR
+  - physics.comp-ph
+comments: "Camera-ready arXiv submission. 32 pages."
+license: "CC-BY 4.0"
+abstract: |
+  This manuscript presents the Metric-Wave Continuum Computing Architecture,
+  a non-linear field-theoretic hardware platform that performs digital logic
+  using wave interference, cubic harmonic generation, and attractor-based
+  self-healing dynamics rather than transistor switching. The system is
+  governed by a non-linear metric-wave partial differential equation (PDE),
+  physically realized on a high-resistivity Silicon-on-Insulator (HR-SOI)
+  substrate with VO2 non-linear mixing nodes and ion-implanted absorbing
+  boundaries. A 1-bit full adder is implemented using destructive interference
+  (Sum) and third-harmonic generation (Carry), validated through simulation
+  and mapped to a fabrication-ready GDSII mask stack. An autonomous
+  hardware-in-the-loop (HIL) control system using a Zynq UltraScale+ RFSoC
+  platform provides phase re-locking, thermal stabilization, and real-time
+  noise suppression. The architecture scales to a 64×64 continuum sheet and
+  a 16-bit carry-lookahead processor, establishing a new class of field-native
+  computing hardware.
