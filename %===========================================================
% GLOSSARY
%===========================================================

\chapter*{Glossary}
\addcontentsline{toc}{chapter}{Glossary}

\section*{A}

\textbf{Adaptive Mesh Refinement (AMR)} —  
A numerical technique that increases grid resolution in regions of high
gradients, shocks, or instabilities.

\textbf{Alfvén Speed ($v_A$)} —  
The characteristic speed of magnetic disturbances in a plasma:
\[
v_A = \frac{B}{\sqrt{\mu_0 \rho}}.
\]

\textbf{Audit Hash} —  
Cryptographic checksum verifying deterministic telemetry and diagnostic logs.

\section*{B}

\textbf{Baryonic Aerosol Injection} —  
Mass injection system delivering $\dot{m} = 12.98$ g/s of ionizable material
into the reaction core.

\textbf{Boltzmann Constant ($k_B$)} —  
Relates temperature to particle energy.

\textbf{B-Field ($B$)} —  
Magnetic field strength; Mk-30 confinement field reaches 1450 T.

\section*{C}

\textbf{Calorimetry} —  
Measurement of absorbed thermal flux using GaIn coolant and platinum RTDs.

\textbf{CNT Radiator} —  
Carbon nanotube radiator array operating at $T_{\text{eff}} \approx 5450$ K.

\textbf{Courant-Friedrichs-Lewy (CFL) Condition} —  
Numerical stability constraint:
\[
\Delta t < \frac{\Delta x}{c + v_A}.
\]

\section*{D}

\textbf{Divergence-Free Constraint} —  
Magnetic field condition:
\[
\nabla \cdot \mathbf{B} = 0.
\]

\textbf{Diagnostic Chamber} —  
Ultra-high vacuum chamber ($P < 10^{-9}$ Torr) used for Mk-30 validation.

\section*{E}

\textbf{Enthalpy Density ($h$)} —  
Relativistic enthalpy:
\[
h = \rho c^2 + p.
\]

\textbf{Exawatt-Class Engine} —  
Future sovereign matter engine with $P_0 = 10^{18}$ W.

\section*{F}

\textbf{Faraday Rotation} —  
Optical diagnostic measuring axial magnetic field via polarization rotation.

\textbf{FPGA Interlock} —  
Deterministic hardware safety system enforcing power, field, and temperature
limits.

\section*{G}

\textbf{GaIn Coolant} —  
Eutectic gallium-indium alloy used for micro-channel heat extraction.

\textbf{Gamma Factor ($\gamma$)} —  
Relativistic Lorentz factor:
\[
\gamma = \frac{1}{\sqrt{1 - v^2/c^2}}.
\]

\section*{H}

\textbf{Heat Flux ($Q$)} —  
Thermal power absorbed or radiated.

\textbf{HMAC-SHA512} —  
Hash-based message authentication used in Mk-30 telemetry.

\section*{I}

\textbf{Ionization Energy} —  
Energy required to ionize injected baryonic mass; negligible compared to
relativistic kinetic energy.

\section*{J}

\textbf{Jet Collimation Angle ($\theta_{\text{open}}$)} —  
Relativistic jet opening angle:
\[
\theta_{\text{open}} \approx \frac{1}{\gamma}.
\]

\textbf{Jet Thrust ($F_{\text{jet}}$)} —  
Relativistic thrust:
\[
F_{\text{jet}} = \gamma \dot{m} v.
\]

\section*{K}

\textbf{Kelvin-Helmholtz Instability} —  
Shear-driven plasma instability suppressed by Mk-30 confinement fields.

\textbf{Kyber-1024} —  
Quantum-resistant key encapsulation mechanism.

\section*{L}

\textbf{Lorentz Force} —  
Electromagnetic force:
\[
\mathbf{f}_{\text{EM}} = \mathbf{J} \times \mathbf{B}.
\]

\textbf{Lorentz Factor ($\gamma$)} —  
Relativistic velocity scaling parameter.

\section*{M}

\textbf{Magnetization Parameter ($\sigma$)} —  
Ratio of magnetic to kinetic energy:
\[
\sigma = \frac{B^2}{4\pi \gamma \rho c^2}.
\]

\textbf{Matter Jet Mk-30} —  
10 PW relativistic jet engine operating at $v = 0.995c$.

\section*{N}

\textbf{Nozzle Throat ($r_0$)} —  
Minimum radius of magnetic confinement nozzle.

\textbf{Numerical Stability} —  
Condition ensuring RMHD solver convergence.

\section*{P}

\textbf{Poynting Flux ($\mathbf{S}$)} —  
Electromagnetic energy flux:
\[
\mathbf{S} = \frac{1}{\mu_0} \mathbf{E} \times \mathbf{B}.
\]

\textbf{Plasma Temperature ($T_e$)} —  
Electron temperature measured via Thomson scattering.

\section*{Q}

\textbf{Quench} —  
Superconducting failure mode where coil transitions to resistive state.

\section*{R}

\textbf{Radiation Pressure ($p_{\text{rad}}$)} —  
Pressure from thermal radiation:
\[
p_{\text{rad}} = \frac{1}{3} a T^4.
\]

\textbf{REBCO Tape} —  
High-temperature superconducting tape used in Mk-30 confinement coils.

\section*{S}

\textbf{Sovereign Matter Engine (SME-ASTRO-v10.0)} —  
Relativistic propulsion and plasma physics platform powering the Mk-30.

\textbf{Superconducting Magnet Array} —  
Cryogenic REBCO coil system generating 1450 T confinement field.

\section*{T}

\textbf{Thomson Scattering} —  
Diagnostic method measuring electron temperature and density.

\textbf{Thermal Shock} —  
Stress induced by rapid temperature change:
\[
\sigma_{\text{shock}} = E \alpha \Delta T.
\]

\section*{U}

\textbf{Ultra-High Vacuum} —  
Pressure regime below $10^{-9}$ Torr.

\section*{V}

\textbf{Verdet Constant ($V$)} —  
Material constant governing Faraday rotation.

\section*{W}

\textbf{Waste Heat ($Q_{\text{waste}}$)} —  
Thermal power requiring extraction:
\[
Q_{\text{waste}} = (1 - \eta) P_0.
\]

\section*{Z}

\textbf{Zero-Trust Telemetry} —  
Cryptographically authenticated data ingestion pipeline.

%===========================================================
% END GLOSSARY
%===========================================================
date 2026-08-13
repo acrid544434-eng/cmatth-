@@ -1,0 +1,228 @@
+%===========================================================
+% GLOSSARY
+%===========================================================
+
+\chapter*{Glossary}
+\addcontentsline{toc}{chapter}{Glossary}
+
+\section*{A}
+
+\textbf{Adaptive Mesh Refinement (AMR)} —  
+A numerical technique that increases grid resolution in regions of high
+gradients, shocks, or instabilities.
+
+\textbf{Alfvén Speed ($v_A$)} —  
+The characteristic speed of magnetic disturbances in a plasma:
+\[
+v_A = \frac{B}{\sqrt{\mu_0 \rho}}.
+\]
+
+\textbf{Audit Hash} —  
+Cryptographic checksum verifying deterministic telemetry and diagnostic logs.
+
+\section*{B}
+
+\textbf{Baryonic Aerosol Injection} —  
+Mass injection system delivering $\dot{m} = 12.98$ g/s of ionizable material
+into the reaction core.
+
+\textbf{Boltzmann Constant ($k_B$)} —  
+Relates temperature to particle energy.
+
+\textbf{B-Field ($B$)} —  
+Magnetic field strength; Mk-30 confinement field reaches 1450 T.
+
+\section*{C}
+
+\textbf{Calorimetry} —  
+Measurement of absorbed thermal flux using GaIn coolant and platinum RTDs.
+
+\textbf{CNT Radiator} —  
+Carbon nanotube radiator array operating at $T_{\text{eff}} \approx 5450$ K.
+
+\textbf{Courant-Friedrichs-Lewy (CFL) Condition} —  
+Numerical stability constraint:
+\[
+\Delta t < \frac{\Delta x}{c + v_A}.
+\]
+
+\section*{D}
+
+\textbf{Divergence-Free Constraint} —  
+Magnetic field condition:
+\[
+\nabla \cdot \mathbf{B} = 0.
+\]
+
+\textbf{Diagnostic Chamber} —  
+Ultra-high vacuum chamber ($P < 10^{-9}$ Torr) used for Mk-30 validation.
+
+\section*{E}
+
+\textbf{Enthalpy Density ($h$)} —  
+Relativistic enthalpy:
+\[
+h = \rho c^2 + p.
+\]
+
+\textbf{Exawatt-Class Engine} —  
+Future sovereign matter engine with $P_0 = 10^{18}$ W.
+
+\section*{F}
+
+\textbf{Faraday Rotation} —  
+Optical diagnostic measuring axial magnetic field via polarization rotation.
+
+\textbf{FPGA Interlock} —  
+Deterministic hardware safety system enforcing power, field, and temperature
+limits.
+
+\section*{G}
+
+\textbf{GaIn Coolant} —  
+Eutectic gallium-indium alloy used for micro-channel heat extraction.
+
+\textbf{Gamma Factor ($\gamma$)} —  
+Relativistic Lorentz factor:
+\[
+\gamma = \frac{1}{\sqrt{1 - v^2/c^2}}.
+\]
+
+\section*{H}
+
+\textbf{Heat Flux ($Q$)} —  
+Thermal power absorbed or radiated.
+
+\textbf{HMAC-SHA512} —  
+Hash-based message authentication used in Mk-30 telemetry.
+
+\section*{I}
+
+\textbf{Ionization Energy} —  
+Energy required to ionize injected baryonic mass; negligible compared to
+relativistic kinetic energy.
+
+\section*{J}
+
+\textbf{Jet Collimation Angle ($\theta_{\text{open}}$)} —  
+Relativistic jet opening angle:
+\[
+\theta_{\text{open}} \approx \frac{1}{\gamma}.
+\]
+
+\textbf{Jet Thrust ($F_{\text{jet}}$)} —  
+Relativistic thrust:
+\[
+F_{\text{jet}} = \gamma \dot{m} v.
+\]
+
+\section*{K}
+
+\textbf{Kelvin-Helmholtz Instability} —  
+Shear-driven plasma instability suppressed by Mk-30 confinement fields.
+
+\textbf{Kyber-1024} —  
+Quantum-resistant key encapsulation mechanism.
+
+\section*{L}
+
+\textbf{Lorentz Force} —  
+Electromagnetic force:
+\[
+\mathbf{f}_{\text{EM}} = \mathbf{J} \times \mathbf{B}.
+\]
+
+\textbf{Lorentz Factor ($\gamma$)} —  
+Relativistic velocity scaling parameter.
+
+\section*{M}
+
+\textbf{Magnetization Parameter ($\sigma$)} —  
+Ratio of magnetic to kinetic energy:
+\[
+\sigma = \frac{B^2}{4\pi \gamma \rho c^2}.
+\]
+
+\textbf{Matter Jet Mk-30} —  
+10 PW relativistic jet engine operating at $v = 0.995c$.
+
+\section*{N}
+
+\textbf{Nozzle Throat ($r_0$)} —  
+Minimum radius of magnetic confinement nozzle.
+
+\textbf{Numerical Stability} —  
+Condition ensuring RMHD solver convergence.
+
+\section*{P}
+
+\textbf{Poynting Flux ($\mathbf{S}$)} —  
+Electromagnetic energy flux:
+\[
+\mathbf{S} = \frac{1}{\mu_0} \mathbf{E} \times \mathbf{B}.
+\]
+
+\textbf{Plasma Temperature ($T_e$)} —  
+Electron temperature measured via Thomson scattering.
+
+\section*{Q}
+
+\textbf{Quench} —  
+Superconducting failure mode where coil transitions to resistive state.
+
+\section*{R}
+
+\textbf{Radiation Pressure ($p_{\text{rad}}$)} —  
+Pressure from thermal radiation:
+\[
+p_{\text{rad}} = \frac{1}{3} a T^4.
+\]
+
+\textbf{REBCO Tape} —  
+High-temperature superconducting tape used in Mk-30 confinement coils.
+
+\section*{S}
+
+\textbf{Sovereign Matter Engine (SME-ASTRO-v10.0)} —  
+Relativistic propulsion and plasma physics platform powering the Mk-30.
+
+\textbf{Superconducting Magnet Array} —  
+Cryogenic REBCO coil system generating 1450 T confinement field.
+
+\section*{T}
+
+\textbf{Thomson Scattering} —  
+Diagnostic method measuring electron temperature and density.
+
+\textbf{Thermal Shock} —  
+Stress induced by rapid temperature change:
+\[
+\sigma_{\text{shock}} = E \alpha \Delta T.
+\]
+
+\section*{U}
+
+\textbf{Ultra-High Vacuum} —  
+Pressure regime below $10^{-9}$ Torr.
+
+\section*{V}
+
+\textbf{Verdet Constant ($V$)} —  
+Material constant governing Faraday rotation.
+
+\section*{W}
+
+\textbf{Waste Heat ($Q_{\text{waste}}$)} —  
+Thermal power requiring extraction:
+\[
+Q_{\text{waste}} = (1 - \eta) P_0.
+\]
+
+\section*{Z}
+
+\textbf{Zero-Trust Telemetry} —  
+Cryptographically authenticated data ingestion pipeline.
+
+%===========================================================
+% END GLOSSARY
+%===========================================================
