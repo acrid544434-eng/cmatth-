@@ -1,0 +1,66 @@
+\section{Blueprint Visualization and Video Export Module}
+
+\subsection{Overview}
+We introduce a real-time blueprint visualization subsystem designed for
+interactive schematic rendering, telemetry display, and automated video
+capture. The module provides a deterministic 60\,FPS rendering loop,
+isometric wireframe geometry, animated scan-line diagnostics, and
+browser-native WebM export. This subsystem serves as a front-end
+visualization layer for autonomous simulation engines and technical
+design interfaces.
+
+\subsection{System Architecture}
+The renderer is implemented using the HTML5 Canvas API with a
+JavaScript-based animation kernel. The visualization surface is a
+1280\,$\times$\,720 canvas enclosed within a styled container that
+emulates a neon blueprint aesthetic. The module consists of:
+
+\begin{itemize}
+    \item A grid-based blueprint background with cyan vector lines.
+    \item Telemetry overlays including system designer attribution,
+          frame rate, resolution, and ISO timestamp.
+    \item Concentric radar rings and rotating wireframe geometry.
+    \item A dynamic horizontal scan-line with positional readout.
+    \item A deterministic animation loop driven by
+          \texttt{requestAnimationFrame}.
+    \item A 60\,FPS video capture pipeline using
+          \texttt{canvas.captureStream()} and \texttt{MediaRecorder}.
+\end{itemize}
+
+\subsection{Rendering Kernel}
+The rendering loop updates two state variables: a rotation angle
+$\theta(t)$ and a scan-line position $y_{\mathrm{scan}}(t)$:
+\begin{align}
+    \theta(t) &= \theta_0 + 0.015\,t, \\
+    y_{\mathrm{scan}}(t) &= (3t) \bmod 720.
+\end{align}
+Each frame consists of:
+\begin{enumerate}
+    \item Clearing the canvas and drawing the blueprint grid.
+    \item Rendering telemetry text in cyan monospace type.
+    \item Drawing radar rings and rotating wireframe squares.
+    \item Rendering the animated scan-line and its positional label.
+\end{enumerate}
+
+\subsection{Video Capture and Export}
+The module supports automated recording and download of a 5-second
+WebM video. The capture pipeline is initialized via:
+\begin{verbatim}
+const stream = canvas.captureStream(60);
+const mediaRecorder = new MediaRecorder(stream, {
+    mimeType: 'video/webm;codecs=vp9'
+});
+\end{verbatim}
+Captured chunks are assembled into a Blob and downloaded as
+\texttt{blueprint\_schematic\_render.webm}. The recording process is
+fully autonomous and requires no external dependencies.
+
+\subsection{User Interface}
+The interface includes a neon-styled control button and a status
+indicator. The button triggers recording, disables itself during
+capture, and re-enables upon completion. The status indicator provides
+real-time feedback on rendering and export operations.
+
+\subsection{Attribution}
+System design, visualization architecture, and implementation authored
+by \textbf{C.~Matthew Blackwell, independent designer}.
