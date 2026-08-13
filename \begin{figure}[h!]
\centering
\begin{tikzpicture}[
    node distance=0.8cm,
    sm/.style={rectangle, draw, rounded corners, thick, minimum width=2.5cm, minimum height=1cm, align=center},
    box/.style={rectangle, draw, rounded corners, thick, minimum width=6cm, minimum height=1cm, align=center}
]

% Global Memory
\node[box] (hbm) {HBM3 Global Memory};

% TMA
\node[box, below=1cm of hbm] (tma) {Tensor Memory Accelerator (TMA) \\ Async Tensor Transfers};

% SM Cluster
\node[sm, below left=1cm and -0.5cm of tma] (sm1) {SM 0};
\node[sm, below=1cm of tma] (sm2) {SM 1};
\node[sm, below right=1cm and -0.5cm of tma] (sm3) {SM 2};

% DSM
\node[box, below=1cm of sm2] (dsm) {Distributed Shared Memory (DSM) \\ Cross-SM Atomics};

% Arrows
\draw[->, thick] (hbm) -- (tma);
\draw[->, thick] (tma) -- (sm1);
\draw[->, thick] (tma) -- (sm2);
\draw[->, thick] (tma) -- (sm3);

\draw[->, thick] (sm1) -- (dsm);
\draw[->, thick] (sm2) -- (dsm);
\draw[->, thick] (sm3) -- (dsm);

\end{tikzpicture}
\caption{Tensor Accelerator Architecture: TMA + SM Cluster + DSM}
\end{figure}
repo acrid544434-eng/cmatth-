@@ -1,0 +1,35 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=0.8cm,
+    sm/.style={rectangle, draw, rounded corners, thick, minimum width=2.5cm, minimum height=1cm, align=center},
+    box/.style={rectangle, draw, rounded corners, thick, minimum width=6cm, minimum height=1cm, align=center}
+]
+
+% Global Memory
+\node[box] (hbm) {HBM3 Global Memory};
+
+% TMA
+\node[box, below=1cm of hbm] (tma) {Tensor Memory Accelerator (TMA) \\ Async Tensor Transfers};
+
+% SM Cluster
+\node[sm, below left=1cm and -0.5cm of tma] (sm1) {SM 0};
+\node[sm, below=1cm of tma] (sm2) {SM 1};
+\node[sm, below right=1cm and -0.5cm of tma] (sm3) {SM 2};
+
+% DSM
+\node[box, below=1cm of sm2] (dsm) {Distributed Shared Memory (DSM) \\ Cross-SM Atomics};
+
+% Arrows
+\draw[->, thick] (hbm) -- (tma);
+\draw[->, thick] (tma) -- (sm1);
+\draw[->, thick] (tma) -- (sm2);
+\draw[->, thick] (tma) -- (sm3);
+
+\draw[->, thick] (sm1) -- (dsm);
+\draw[->, thick] (sm2) -- (dsm);
+\draw[->, thick] (sm3) -- (dsm);
+
+\end{tikzpicture}
+\caption{Tensor Accelerator Architecture: TMA + SM Cluster + DSM}
+\end{figure}
