@@ -1,0 +1,191 @@
+\documentclass[12pt]{article}
+
+% --- PACKAGES ---
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{array}
+
+\onehalfspacing
+
+% --- COSMOLOGICAL COLOR PALETTE (MATCHING BEAMER) ---
+\definecolor{CosmicSlate}{HTML}{121216}
+\definecolor{CosmicCrimson}{HTML}{FF3344}
+\definecolor{TerminalAmber}{HTML}{FFB000}
+\definecolor{SoftWhite}{HTML}{F0F0F5}
+
+% --- SECTION STYLING ---
+\titleformat{\section}
+  {\large\bfseries\color{CosmicCrimson}}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{TerminalAmber}}
+  {\thesubsection}{1em}{}
+
+% --- TITLE ---
+\title{\textbf{\color{CosmicCrimson}Cosmological Curvature, Hyperbolic Geodesics, and Large‑Scale Structure Evolution}\\
+\large\color{TerminalAmber}A Technical Thesis Matching the AIL‑X Beamer Palette}
+
+\author{\textbf{\color{SoftWhite}C. Matthew Blackwell}\\
+\small\color{TerminalAmber}Independent Cosmological Systems Designer}
+
+\date{\color{SoftWhite}August 2026}
+
+% --- PAGE COLOR ---
+\pagecolor{CosmicSlate}
+\color{SoftWhite}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\color{SoftWhite}
+This thesis presents a cosmological analysis of open‑universe curvature fields, hyperbolic geodesic divergence, and large‑scale structure evolution under non‑zero spatial curvature. The work derives the hyperbolic coordinate transformation used to map Euclidean particle matrices onto curved FLRW manifolds and evaluates the physical consequences for cosmic expansion, angular magnification, and structure formation. Numerical stability and autonomous computational frameworks are discussed in the context of large‑scale cosmological simulations.
+\end{abstract}
+
+\section{Introduction}
+Open‑universe cosmologies ($\Omega_k > 0$) require mathematical frameworks capable of describing geodesic behavior in hyperbolic space. Observational evidence from high‑redshift galaxy surveys suggests that even small curvature deviations can produce measurable effects across large comoving distances. This thesis derives the relevant transformations and analyzes their physical implications.
+
+\section{FLRW Metric and Curvature}
+The FLRW metric for an open universe is:
+
+\begin{equation}
+ds^2 = -c^2 dt^2
+      + a(t)^2 \left[
+          \frac{dr^2}{1 - \Omega_k r^2}
+          + r^2 (d\theta^2 + \sin^2\theta\, d\phi^2)
+        \right].
+\end{equation}
+
+\subsection{Hyperbolic Spatial Geometry}
+Spatial slices correspond to hyperbolic manifolds. Distances expand faster than linearly, and geodesics diverge more rapidly than in Euclidean space. This divergence produces characteristic angular magnification effects.
+
+\section{Hyperbolic Coordinate Transformation}
+The curvature‑dependent scaling factor is:
+
+\begin{equation}
+S(r) = \frac{\sinh(r\sqrt{\Omega_k})}{r\sqrt{\Omega_k}}.
+\end{equation}
+
+Coordinates transform as:
+
+\begin{equation}
+\vec{x}_{\text{warped}} = S(r)\,\vec{x}_{\text{raw}}.
+\end{equation}
+
+\subsection{Velocity Field Adjustment}
+Velocity fields scale inversely:
+
+\begin{equation}
+\vec{v}_{\text{warped}} = \frac{\vec{v}_{\text{raw}}}{S(r)}.
+\end{equation}
+
+This preserves geodesic consistency.
+
+\section{Small‑Radius Behavior}
+Direct evaluation of $S(r)$ produces a $0/0$ singularity at $r \to 0$. Using L'Hôpital's rule:
+
+\begin{equation}
+\lim_{r \to 0} S(r) = 1.
+\end{equation}
+
+A stable Taylor expansion is:
+
+\begin{equation}
+S(r) = 1 + \frac{1}{6}\Omega_k r^2 + \mathcal{O}(r^4).
+\end{equation}
+
+\section{Dark Energy Parametrization}
+Cosmic acceleration is modeled using the CPL parametrization:
+
+\begin{equation}
+w(z) = w_0 + w_a \left( \frac{z}{1+z} \right).
+\end{equation}
+
+\subsection{Impact on Structure Formation}
+Dark energy influences:
+\begin{itemize}
+    \item filament growth,
+    \item void expansion,
+    \item halo velocity dispersion,
+    \item clustering statistics.
+\end{itemize}
+
+\section{Large‑Scale Structure Evolution}
+Hyperbolic geometry affects cosmic structures. Geodesic divergence increases apparent separation and modifies clustering.
+
+\subsection{Angular Magnification}
+\begin{equation}
+\mu_\theta = S(r).
+\end{equation}
+
+This effect becomes significant at extreme comoving distances.
+
+\section{Numerical Methods}
+Simulating curved cosmologies requires:
+\begin{enumerate}
+    \item stable evaluation of $S(r)$,
+    \item efficient matrix transformations,
+    \item parallel processing,
+    \item compressed data storage.
+\end{enumerate}
+
+\subsection{Matrix Pipeline}
+For $N$ particles:
+
+\[
+r_i = \sqrt{x_i^2 + y_i^2 + z_i^2},
+\]
+
+\[
+S_i = \frac{\sinh(r_i\sqrt{\Omega_k})}{r_i\sqrt{\Omega_k}},
+\]
+
+\[
+\vec{x}_i' = S_i \vec{x}_i,
+\]
+
+\[
+\vec{v}_i' = \frac{\vec{v}_i}{S_i}.
+\]
+
+\section{Simulation Framework}
+A cosmological engine must:
+\begin{itemize}
+    \item ingest particle matrices,
+    \item compute curvature scaling,
+    \item apply transformations,
+    \item adjust velocities,
+    \item store results efficiently.
+\end{itemize}
+
+\section{Validation Metrics}
+Simulation outputs are validated using:
+\begin{itemize}
+    \item geodetic distortion,
+    \item velocity bias,
+    \item mass attrition,
+    \item payload integrity.
+\end{itemize}
+
+\section{Discussion}
+Curvature and dark‑energy dynamics jointly shape the universe’s large‑scale structure. Hyperbolic transformations provide a mathematically consistent method for modeling open‑universe geometries.
+
+\section{Conclusion}
+This thesis demonstrates the mathematical foundations and physical implications of open‑universe curvature. Hyperbolic geodesic transformations align with FLRW predictions and produce measurable effects on large‑scale structure. Accurate modeling requires stable numerical methods and comprehensive simulation frameworks.
+
+\section*{References}
+\begin{itemize}
+    \item Peebles, P. J. E. \textit{Principles of Physical Cosmology}.
+    \item Weinberg, S. \textit{Cosmology}.
+    \item Linder, E. V. ``Exploring the Expansion History of the Universe.''
+\end{itemize}
+
+\end{document}
