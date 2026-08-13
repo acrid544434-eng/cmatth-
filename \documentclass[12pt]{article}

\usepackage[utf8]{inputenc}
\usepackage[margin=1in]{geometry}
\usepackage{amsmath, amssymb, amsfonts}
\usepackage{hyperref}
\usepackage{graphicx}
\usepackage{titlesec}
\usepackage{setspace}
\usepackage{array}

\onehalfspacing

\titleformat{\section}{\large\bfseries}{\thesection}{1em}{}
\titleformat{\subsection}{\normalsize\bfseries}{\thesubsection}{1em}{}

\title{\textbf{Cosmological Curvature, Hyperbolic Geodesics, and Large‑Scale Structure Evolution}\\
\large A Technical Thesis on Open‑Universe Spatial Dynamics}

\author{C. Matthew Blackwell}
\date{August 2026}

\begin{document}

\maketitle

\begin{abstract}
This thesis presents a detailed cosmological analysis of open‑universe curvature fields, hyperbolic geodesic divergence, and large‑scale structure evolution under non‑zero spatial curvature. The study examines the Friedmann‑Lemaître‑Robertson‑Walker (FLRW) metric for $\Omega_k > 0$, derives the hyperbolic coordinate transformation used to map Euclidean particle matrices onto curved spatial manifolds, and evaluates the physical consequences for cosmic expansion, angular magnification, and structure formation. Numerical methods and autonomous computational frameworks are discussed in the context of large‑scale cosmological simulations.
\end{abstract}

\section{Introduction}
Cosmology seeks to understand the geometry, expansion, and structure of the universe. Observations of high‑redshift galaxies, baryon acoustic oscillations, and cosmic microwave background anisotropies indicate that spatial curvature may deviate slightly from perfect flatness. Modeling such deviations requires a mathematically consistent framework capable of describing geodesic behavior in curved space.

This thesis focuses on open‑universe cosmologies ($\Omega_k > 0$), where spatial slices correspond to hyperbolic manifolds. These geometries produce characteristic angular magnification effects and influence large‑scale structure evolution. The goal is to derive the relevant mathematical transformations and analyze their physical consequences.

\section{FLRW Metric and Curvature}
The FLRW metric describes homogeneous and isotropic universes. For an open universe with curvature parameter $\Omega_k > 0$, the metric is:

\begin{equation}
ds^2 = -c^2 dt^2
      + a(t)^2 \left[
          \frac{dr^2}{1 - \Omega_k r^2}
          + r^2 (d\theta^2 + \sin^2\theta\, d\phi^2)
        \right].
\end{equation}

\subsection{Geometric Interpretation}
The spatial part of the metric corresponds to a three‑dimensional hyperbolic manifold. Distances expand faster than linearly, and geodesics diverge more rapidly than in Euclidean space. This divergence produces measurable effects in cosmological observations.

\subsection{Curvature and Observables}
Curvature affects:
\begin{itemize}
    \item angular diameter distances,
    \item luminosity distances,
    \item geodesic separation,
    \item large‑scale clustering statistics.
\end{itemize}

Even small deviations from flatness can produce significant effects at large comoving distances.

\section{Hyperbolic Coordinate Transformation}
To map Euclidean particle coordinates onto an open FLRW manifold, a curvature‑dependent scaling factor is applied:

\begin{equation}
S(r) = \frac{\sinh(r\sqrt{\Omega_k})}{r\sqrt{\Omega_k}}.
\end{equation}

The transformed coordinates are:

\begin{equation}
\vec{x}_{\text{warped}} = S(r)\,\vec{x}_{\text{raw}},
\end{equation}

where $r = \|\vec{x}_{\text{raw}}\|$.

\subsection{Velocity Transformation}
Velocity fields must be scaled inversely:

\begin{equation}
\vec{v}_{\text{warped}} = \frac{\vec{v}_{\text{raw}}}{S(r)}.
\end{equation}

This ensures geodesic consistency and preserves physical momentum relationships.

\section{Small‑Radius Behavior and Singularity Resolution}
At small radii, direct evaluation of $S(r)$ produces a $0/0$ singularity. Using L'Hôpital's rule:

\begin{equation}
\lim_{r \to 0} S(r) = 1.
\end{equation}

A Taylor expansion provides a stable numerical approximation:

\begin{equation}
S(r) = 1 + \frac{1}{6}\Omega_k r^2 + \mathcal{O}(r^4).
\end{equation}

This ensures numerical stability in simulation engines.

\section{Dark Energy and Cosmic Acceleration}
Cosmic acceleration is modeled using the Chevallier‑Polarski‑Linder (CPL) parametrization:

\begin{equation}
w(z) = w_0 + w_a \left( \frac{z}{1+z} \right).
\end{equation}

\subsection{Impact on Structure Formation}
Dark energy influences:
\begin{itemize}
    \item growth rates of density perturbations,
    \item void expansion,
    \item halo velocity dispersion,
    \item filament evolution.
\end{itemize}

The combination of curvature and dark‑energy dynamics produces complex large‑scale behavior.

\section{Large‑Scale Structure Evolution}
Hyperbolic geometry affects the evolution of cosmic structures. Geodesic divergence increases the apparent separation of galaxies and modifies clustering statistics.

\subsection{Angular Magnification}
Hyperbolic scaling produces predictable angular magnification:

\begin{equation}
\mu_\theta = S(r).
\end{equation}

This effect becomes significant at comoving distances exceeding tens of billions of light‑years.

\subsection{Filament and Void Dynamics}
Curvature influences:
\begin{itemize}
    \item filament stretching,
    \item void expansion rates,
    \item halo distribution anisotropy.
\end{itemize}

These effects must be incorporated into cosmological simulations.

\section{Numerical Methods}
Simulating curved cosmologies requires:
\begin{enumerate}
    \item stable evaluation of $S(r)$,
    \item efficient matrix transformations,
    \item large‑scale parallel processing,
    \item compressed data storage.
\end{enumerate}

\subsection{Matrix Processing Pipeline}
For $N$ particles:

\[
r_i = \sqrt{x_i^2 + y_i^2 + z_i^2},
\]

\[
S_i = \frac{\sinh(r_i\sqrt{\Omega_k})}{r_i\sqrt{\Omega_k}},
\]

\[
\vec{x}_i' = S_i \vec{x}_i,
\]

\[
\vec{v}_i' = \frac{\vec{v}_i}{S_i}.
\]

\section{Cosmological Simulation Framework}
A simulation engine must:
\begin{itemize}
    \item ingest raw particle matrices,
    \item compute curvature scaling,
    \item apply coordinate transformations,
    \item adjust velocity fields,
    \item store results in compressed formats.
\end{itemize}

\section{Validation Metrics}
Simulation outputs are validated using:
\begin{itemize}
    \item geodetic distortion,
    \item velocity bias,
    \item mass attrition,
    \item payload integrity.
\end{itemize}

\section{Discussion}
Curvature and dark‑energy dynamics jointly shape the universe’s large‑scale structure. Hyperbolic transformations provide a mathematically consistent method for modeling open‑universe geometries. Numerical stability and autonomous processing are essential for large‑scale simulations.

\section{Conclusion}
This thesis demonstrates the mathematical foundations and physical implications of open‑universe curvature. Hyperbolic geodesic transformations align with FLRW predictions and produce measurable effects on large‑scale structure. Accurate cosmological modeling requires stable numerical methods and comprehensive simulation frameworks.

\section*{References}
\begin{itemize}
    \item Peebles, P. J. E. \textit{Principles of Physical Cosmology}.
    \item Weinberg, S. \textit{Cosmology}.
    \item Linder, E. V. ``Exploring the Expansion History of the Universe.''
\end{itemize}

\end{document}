@@ -1,0 +1,200 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage{array}
+
+\onehalfspacing
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{Cosmological Curvature, Hyperbolic Geodesics, and Large‑Scale Structure Evolution}\\
+\large A Technical Thesis on Open‑Universe Spatial Dynamics}
+
+\author{C. Matthew Blackwell}
+\date{August 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This thesis presents a detailed cosmological analysis of open‑universe curvature fields, hyperbolic geodesic divergence, and large‑scale structure evolution under non‑zero spatial curvature. The study examines the Friedmann‑Lemaître‑Robertson‑Walker (FLRW) metric for $\Omega_k > 0$, derives the hyperbolic coordinate transformation used to map Euclidean particle matrices onto curved spatial manifolds, and evaluates the physical consequences for cosmic expansion, angular magnification, and structure formation. Numerical methods and autonomous computational frameworks are discussed in the context of large‑scale cosmological simulations.
+\end{abstract}
+
+\section{Introduction}
+Cosmology seeks to understand the geometry, expansion, and structure of the universe. Observations of high‑redshift galaxies, baryon acoustic oscillations, and cosmic microwave background anisotropies indicate that spatial curvature may deviate slightly from perfect flatness. Modeling such deviations requires a mathematically consistent framework capable of describing geodesic behavior in curved space.
+
+This thesis focuses on open‑universe cosmologies ($\Omega_k > 0$), where spatial slices correspond to hyperbolic manifolds. These geometries produce characteristic angular magnification effects and influence large‑scale structure evolution. The goal is to derive the relevant mathematical transformations and analyze their physical consequences.
+
+\section{FLRW Metric and Curvature}
+The FLRW metric describes homogeneous and isotropic universes. For an open universe with curvature parameter $\Omega_k > 0$, the metric is:
+
+\begin{equation}
+ds^2 = -c^2 dt^2
+      + a(t)^2 \left[
+          \frac{dr^2}{1 - \Omega_k r^2}
+          + r^2 (d\theta^2 + \sin^2\theta\, d\phi^2)
+        \right].
+\end{equation}
+
+\subsection{Geometric Interpretation}
+The spatial part of the metric corresponds to a three‑dimensional hyperbolic manifold. Distances expand faster than linearly, and geodesics diverge more rapidly than in Euclidean space. This divergence produces measurable effects in cosmological observations.
+
+\subsection{Curvature and Observables}
+Curvature affects:
+\begin{itemize}
+    \item angular diameter distances,
+    \item luminosity distances,
+    \item geodesic separation,
+    \item large‑scale clustering statistics.
+\end{itemize}
+
+Even small deviations from flatness can produce significant effects at large comoving distances.
+
+\section{Hyperbolic Coordinate Transformation}
+To map Euclidean particle coordinates onto an open FLRW manifold, a curvature‑dependent scaling factor is applied:
+
+\begin{equation}
+S(r) = \frac{\sinh(r\sqrt{\Omega_k})}{r\sqrt{\Omega_k}}.
+\end{equation}
+
+The transformed coordinates are:
+
+\begin{equation}
+\vec{x}_{\text{warped}} = S(r)\,\vec{x}_{\text{raw}},
+\end{equation}
+
+where $r = \|\vec{x}_{\text{raw}}\|$.
+
+\subsection{Velocity Transformation}
+Velocity fields must be scaled inversely:
+
+\begin{equation}
+\vec{v}_{\text{warped}} = \frac{\vec{v}_{\text{raw}}}{S(r)}.
+\end{equation}
+
+This ensures geodesic consistency and preserves physical momentum relationships.
+
+\section{Small‑Radius Behavior and Singularity Resolution}
+At small radii, direct evaluation of $S(r)$ produces a $0/0$ singularity. Using L'Hôpital's rule:
+
+\begin{equation}
+\lim_{r \to 0} S(r) = 1.
+\end{equation}
+
+A Taylor expansion provides a stable numerical approximation:
+
+\begin{equation}
+S(r) = 1 + \frac{1}{6}\Omega_k r^2 + \mathcal{O}(r^4).
+\end{equation}
+
+This ensures numerical stability in simulation engines.
+
+\section{Dark Energy and Cosmic Acceleration}
+Cosmic acceleration is modeled using the Chevallier‑Polarski‑Linder (CPL) parametrization:
+
+\begin{equation}
+w(z) = w_0 + w_a \left( \frac{z}{1+z} \right).
+\end{equation}
+
+\subsection{Impact on Structure Formation}
+Dark energy influences:
+\begin{itemize}
+    \item growth rates of density perturbations,
+    \item void expansion,
+    \item halo velocity dispersion,
+    \item filament evolution.
+\end{itemize}
+
+The combination of curvature and dark‑energy dynamics produces complex large‑scale behavior.
+
+\section{Large‑Scale Structure Evolution}
+Hyperbolic geometry affects the evolution of cosmic structures. Geodesic divergence increases the apparent separation of galaxies and modifies clustering statistics.
+
+\subsection{Angular Magnification}
+Hyperbolic scaling produces predictable angular magnification:
+
+\begin{equation}
+\mu_\theta = S(r).
+\end{equation}
+
+This effect becomes significant at comoving distances exceeding tens of billions of light‑years.
+
+\subsection{Filament and Void Dynamics}
+Curvature influences:
+\begin{itemize}
+    \item filament stretching,
+    \item void expansion rates,
+    \item halo distribution anisotropy.
+\end{itemize}
+
+These effects must be incorporated into cosmological simulations.
+
+\section{Numerical Methods}
+Simulating curved cosmologies requires:
+\begin{enumerate}
+    \item stable evaluation of $S(r)$,
+    \item efficient matrix transformations,
+    \item large‑scale parallel processing,
+    \item compressed data storage.
+\end{enumerate}
+
+\subsection{Matrix Processing Pipeline}
+For $N$ particles:
+
+\[
+r_i = \sqrt{x_i^2 + y_i^2 + z_i^2},
+\]
+
+\[
+S_i = \frac{\sinh(r_i\sqrt{\Omega_k})}{r_i\sqrt{\Omega_k}},
+\]
+
+\[
+\vec{x}_i' = S_i \vec{x}_i,
+\]
+
+\[
+\vec{v}_i' = \frac{\vec{v}_i}{S_i}.
+\]
+
+\section{Cosmological Simulation Framework}
+A simulation engine must:
+\begin{itemize}
+    \item ingest raw particle matrices,
+    \item compute curvature scaling,
+    \item apply coordinate transformations,
+    \item adjust velocity fields,
+    \item store results in compressed formats.
+\end{itemize}
+
+\section{Validation Metrics}
+Simulation outputs are validated using:
+\begin{itemize}
+    \item geodetic distortion,
+    \item velocity bias,
+    \item mass attrition,
+    \item payload integrity.
+\end{itemize}
+
+\section{Discussion}
+Curvature and dark‑energy dynamics jointly shape the universe’s large‑scale structure. Hyperbolic transformations provide a mathematically consistent method for modeling open‑universe geometries. Numerical stability and autonomous processing are essential for large‑scale simulations.
+
+\section{Conclusion}
+This thesis demonstrates the mathematical foundations and physical implications of open‑universe curvature. Hyperbolic geodesic transformations align with FLRW predictions and produce measurable effects on large‑scale structure. Accurate cosmological modeling requires stable numerical methods and comprehensive simulation frameworks.
+
+\section*{References}
+\begin{itemize}
+    \item Peebles, P. J. E. \textit{Principles of Physical Cosmology}.
+    \item Weinberg, S. \textit{Cosmology}.
+    \item Linder, E. V. ``Exploring the Expansion History of the Universe.''
+\end{itemize}
+
+\end{document}
