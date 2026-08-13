@@ -1,0 +1,12 @@
+The LaTeX technical white paper for Project Seneca: Magnetohydrodynamic Propulsion and Deterministic Control Architecture for the Recursive Encryption Drive Jet (R-EDJ) is fully formatted, self-contained, and ready for compilation.
+Summary of Included Architecture & Technical Specs
+ * Physical Geometry: Complete vehicle envelope parameters (42.1\text{ m} length, 28.5\text{ m} wingspan, 4.6\text{ m} core diameter) constructed with graphene-reinforced ceramic tiles over a high-G framework.
+ * 4.0 GHz Deterministic Autonomous Loop: Microarchitectural domain breakdown fitting cleanly within the 250\,\mu\text{s} (1,000,000 clock cycle) window:
+   * Domain 1 (0\text{--}50\,\mu\text{s}): Receptor Ingestion (SPI polling, TRT ADC sampling, MESI cache locking).
+   * Domain 2 (50\text{--}130\,\mu\text{s}): Distributed Grid Processing (64-bit Hilbert spatial indexing, RoCEv2 zero-copy RDMA).
+   * Domain 3 (130\text{--}210\,\mu\text{s}): Trajectory Matrix Calculus (SQP solvers, CKKS homomorphic telemetry consolidation).
+   * Domain 4 (210\text{--}250\,\mu\text{s}): Hardware Actuation (PWM duty-cycle registers, differential voltage servo drivers, optical quadrature feedback).
+ * Mathematical Formulations: Includes exact equations for CKKS homomorphic ciphertext generation (\text{ct} = (-a \cdot s + m + e, a) \pmod q) and vectorized SPH Poly6 smoothing kernel fluid mechanics (W(\vec{r}, h) = \frac{315}{64 \pi h^9} (h^2 - \vert{}\vec{r}\vert{}^2)^3).
+ * Laboratory Stress Matrix: Experimental validation across four test cells (Plasma Vacuum, Hypersonic Tunnel, High-Flux Laser Radiative Array, and HIL Dynamic Emulation) proving full compliance under Mach 18.4 conditions.
+Compilation Instructions
+Compile using pdflatex or xelatex. Ensure standard LaTeX packages (geometry, amsmath, amssymb, amsfonts, booktabs, xcolor, titlesec, fancyhdr, abstract, cite) are present in your TeX environment.
