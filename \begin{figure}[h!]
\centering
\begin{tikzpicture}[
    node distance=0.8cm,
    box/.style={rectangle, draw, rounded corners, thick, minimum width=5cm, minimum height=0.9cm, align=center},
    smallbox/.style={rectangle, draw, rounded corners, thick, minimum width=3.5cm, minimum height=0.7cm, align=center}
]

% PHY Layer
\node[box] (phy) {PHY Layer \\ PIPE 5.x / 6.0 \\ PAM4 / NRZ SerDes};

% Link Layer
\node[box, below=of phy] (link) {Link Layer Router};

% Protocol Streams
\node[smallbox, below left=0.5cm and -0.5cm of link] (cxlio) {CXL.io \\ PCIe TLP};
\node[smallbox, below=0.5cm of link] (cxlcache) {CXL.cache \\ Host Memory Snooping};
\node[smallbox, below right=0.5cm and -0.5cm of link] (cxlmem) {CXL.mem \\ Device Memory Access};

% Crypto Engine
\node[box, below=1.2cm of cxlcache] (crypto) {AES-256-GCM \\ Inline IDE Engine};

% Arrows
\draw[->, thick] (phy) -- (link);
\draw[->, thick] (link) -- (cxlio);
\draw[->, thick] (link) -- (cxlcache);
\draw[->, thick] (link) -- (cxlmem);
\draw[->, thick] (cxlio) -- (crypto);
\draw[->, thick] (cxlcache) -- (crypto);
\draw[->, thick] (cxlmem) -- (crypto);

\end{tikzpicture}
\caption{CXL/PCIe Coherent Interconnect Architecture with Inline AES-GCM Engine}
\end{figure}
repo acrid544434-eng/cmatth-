@@ -1,0 +1,34 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=0.8cm,
+    box/.style={rectangle, draw, rounded corners, thick, minimum width=5cm, minimum height=0.9cm, align=center},
+    smallbox/.style={rectangle, draw, rounded corners, thick, minimum width=3.5cm, minimum height=0.7cm, align=center}
+]
+
+% PHY Layer
+\node[box] (phy) {PHY Layer \\ PIPE 5.x / 6.0 \\ PAM4 / NRZ SerDes};
+
+% Link Layer
+\node[box, below=of phy] (link) {Link Layer Router};
+
+% Protocol Streams
+\node[smallbox, below left=0.5cm and -0.5cm of link] (cxlio) {CXL.io \\ PCIe TLP};
+\node[smallbox, below=0.5cm of link] (cxlcache) {CXL.cache \\ Host Memory Snooping};
+\node[smallbox, below right=0.5cm and -0.5cm of link] (cxlmem) {CXL.mem \\ Device Memory Access};
+
+% Crypto Engine
+\node[box, below=1.2cm of cxlcache] (crypto) {AES-256-GCM \\ Inline IDE Engine};
+
+% Arrows
+\draw[->, thick] (phy) -- (link);
+\draw[->, thick] (link) -- (cxlio);
+\draw[->, thick] (link) -- (cxlcache);
+\draw[->, thick] (link) -- (cxlmem);
+\draw[->, thick] (cxlio) -- (crypto);
+\draw[->, thick] (cxlcache) -- (crypto);
+\draw[->, thick] (cxlmem) -- (crypto);
+
+\end{tikzpicture}
+\caption{CXL/PCIe Coherent Interconnect Architecture with Inline AES-GCM Engine}
+\end{figure}
