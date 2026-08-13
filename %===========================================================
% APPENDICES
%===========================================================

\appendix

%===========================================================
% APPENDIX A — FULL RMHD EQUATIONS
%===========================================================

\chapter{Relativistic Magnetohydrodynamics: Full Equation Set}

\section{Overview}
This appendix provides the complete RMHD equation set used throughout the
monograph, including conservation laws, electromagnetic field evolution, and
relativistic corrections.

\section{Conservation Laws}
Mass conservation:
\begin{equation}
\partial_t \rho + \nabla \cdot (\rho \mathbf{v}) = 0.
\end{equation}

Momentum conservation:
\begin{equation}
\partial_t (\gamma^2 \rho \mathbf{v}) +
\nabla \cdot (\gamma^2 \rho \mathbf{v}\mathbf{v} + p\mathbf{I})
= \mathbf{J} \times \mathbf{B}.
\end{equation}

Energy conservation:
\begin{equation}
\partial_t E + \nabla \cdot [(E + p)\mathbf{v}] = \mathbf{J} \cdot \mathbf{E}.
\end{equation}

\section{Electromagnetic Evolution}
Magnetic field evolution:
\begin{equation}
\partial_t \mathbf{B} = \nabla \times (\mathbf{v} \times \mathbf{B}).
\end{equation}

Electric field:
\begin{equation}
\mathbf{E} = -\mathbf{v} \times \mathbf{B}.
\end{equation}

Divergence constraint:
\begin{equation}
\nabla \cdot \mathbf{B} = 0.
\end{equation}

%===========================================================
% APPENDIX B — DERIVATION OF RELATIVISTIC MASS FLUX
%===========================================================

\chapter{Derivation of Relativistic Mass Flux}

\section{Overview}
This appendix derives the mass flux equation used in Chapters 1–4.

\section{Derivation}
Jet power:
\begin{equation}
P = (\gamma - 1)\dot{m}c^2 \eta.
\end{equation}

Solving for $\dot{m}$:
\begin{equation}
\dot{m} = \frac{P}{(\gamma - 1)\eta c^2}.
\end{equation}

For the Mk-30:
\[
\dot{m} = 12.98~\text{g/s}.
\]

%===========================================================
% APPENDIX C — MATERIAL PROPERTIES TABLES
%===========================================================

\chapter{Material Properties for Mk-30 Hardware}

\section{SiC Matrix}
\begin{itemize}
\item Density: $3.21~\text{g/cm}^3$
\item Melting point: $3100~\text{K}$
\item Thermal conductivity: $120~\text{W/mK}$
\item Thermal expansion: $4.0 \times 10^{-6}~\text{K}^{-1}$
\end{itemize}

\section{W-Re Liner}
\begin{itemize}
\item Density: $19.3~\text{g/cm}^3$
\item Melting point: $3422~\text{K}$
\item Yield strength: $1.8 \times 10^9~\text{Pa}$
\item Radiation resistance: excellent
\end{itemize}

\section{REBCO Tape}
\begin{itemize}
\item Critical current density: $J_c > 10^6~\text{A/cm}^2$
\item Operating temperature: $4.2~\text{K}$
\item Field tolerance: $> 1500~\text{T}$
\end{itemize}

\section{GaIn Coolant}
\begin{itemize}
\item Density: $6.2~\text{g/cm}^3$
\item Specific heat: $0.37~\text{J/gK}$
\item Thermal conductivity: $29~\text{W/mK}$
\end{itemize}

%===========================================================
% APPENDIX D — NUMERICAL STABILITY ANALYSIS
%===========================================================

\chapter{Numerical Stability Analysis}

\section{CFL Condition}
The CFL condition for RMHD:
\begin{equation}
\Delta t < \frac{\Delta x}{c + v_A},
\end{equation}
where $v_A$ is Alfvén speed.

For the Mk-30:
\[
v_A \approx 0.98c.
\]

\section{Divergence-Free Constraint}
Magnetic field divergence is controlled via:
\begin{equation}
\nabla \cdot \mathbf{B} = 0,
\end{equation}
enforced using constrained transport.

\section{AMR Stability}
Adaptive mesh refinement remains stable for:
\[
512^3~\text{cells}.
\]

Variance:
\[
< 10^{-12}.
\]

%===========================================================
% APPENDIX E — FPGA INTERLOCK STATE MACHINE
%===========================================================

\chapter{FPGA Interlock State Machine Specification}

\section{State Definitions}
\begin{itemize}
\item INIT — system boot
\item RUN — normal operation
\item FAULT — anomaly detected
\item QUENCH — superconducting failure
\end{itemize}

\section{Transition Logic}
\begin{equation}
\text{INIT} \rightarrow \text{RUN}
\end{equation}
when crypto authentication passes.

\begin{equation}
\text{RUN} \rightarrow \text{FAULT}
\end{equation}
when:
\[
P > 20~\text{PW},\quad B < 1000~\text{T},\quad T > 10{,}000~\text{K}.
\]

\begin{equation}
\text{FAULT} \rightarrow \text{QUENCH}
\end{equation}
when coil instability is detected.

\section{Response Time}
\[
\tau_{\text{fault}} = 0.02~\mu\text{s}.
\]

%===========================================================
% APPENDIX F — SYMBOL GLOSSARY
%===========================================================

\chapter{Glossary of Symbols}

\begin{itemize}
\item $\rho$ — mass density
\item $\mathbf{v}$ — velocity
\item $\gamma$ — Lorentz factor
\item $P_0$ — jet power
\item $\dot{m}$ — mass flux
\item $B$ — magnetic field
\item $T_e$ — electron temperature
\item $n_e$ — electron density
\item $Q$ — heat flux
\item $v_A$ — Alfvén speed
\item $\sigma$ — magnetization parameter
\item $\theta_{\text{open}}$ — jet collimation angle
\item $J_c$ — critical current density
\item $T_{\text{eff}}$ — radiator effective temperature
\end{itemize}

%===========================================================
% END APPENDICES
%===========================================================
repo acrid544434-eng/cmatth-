@@ -1,0 +1,212 @@
+%===========================================================
+% APPENDICES
+%===========================================================
+
+\appendix
+
+%===========================================================
+% APPENDIX A — FULL RMHD EQUATIONS
+%===========================================================
+
+\chapter{Relativistic Magnetohydrodynamics: Full Equation Set}
+
+\section{Overview}
+This appendix provides the complete RMHD equation set used throughout the
+monograph, including conservation laws, electromagnetic field evolution, and
+relativistic corrections.
+
+\section{Conservation Laws}
+Mass conservation:
+\begin{equation}
+\partial_t \rho + \nabla \cdot (\rho \mathbf{v}) = 0.
+\end{equation}
+
+Momentum conservation:
+\begin{equation}
+\partial_t (\gamma^2 \rho \mathbf{v}) +
+\nabla \cdot (\gamma^2 \rho \mathbf{v}\mathbf{v} + p\mathbf{I})
+= \mathbf{J} \times \mathbf{B}.
+\end{equation}
+
+Energy conservation:
+\begin{equation}
+\partial_t E + \nabla \cdot [(E + p)\mathbf{v}] = \mathbf{J} \cdot \mathbf{E}.
+\end{equation}
+
+\section{Electromagnetic Evolution}
+Magnetic field evolution:
+\begin{equation}
+\partial_t \mathbf{B} = \nabla \times (\mathbf{v} \times \mathbf{B}).
+\end{equation}
+
+Electric field:
+\begin{equation}
+\mathbf{E} = -\mathbf{v} \times \mathbf{B}.
+\end{equation}
+
+Divergence constraint:
+\begin{equation}
+\nabla \cdot \mathbf{B} = 0.
+\end{equation}
+
+%===========================================================
+% APPENDIX B — DERIVATION OF RELATIVISTIC MASS FLUX
+%===========================================================
+
+\chapter{Derivation of Relativistic Mass Flux}
+
+\section{Overview}
+This appendix derives the mass flux equation used in Chapters 1–4.
+
+\section{Derivation}
+Jet power:
+\begin{equation}
+P = (\gamma - 1)\dot{m}c^2 \eta.
+\end{equation}
+
+Solving for $\dot{m}$:
+\begin{equation}
+\dot{m} = \frac{P}{(\gamma - 1)\eta c^2}.
+\end{equation}
+
+For the Mk-30:
+\[
+\dot{m} = 12.98~\text{g/s}.
+\]
+
+%===========================================================
+% APPENDIX C — MATERIAL PROPERTIES TABLES
+%===========================================================
+
+\chapter{Material Properties for Mk-30 Hardware}
+
+\section{SiC Matrix}
+\begin{itemize}
+\item Density: $3.21~\text{g/cm}^3$
+\item Melting point: $3100~\text{K}$
+\item Thermal conductivity: $120~\text{W/mK}$
+\item Thermal expansion: $4.0 \times 10^{-6}~\text{K}^{-1}$
+\end{itemize}
+
+\section{W-Re Liner}
+\begin{itemize}
+\item Density: $19.3~\text{g/cm}^3$
+\item Melting point: $3422~\text{K}$
+\item Yield strength: $1.8 \times 10^9~\text{Pa}$
+\item Radiation resistance: excellent
+\end{itemize}
+
+\section{REBCO Tape}
+\begin{itemize}
+\item Critical current density: $J_c > 10^6~\text{A/cm}^2$
+\item Operating temperature: $4.2~\text{K}$
+\item Field tolerance: $> 1500~\text{T}$
+\end{itemize}
+
+\section{GaIn Coolant}
+\begin{itemize}
+\item Density: $6.2~\text{g/cm}^3$
+\item Specific heat: $0.37~\text{J/gK}$
+\item Thermal conductivity: $29~\text{W/mK}$
+\end{itemize}
+
+%===========================================================
+% APPENDIX D — NUMERICAL STABILITY ANALYSIS
+%===========================================================
+
+\chapter{Numerical Stability Analysis}
+
+\section{CFL Condition}
+The CFL condition for RMHD:
+\begin{equation}
+\Delta t < \frac{\Delta x}{c + v_A},
+\end{equation}
+where $v_A$ is Alfvén speed.
+
+For the Mk-30:
+\[
+v_A \approx 0.98c.
+\]
+
+\section{Divergence-Free Constraint}
+Magnetic field divergence is controlled via:
+\begin{equation}
+\nabla \cdot \mathbf{B} = 0,
+\end{equation}
+enforced using constrained transport.
+
+\section{AMR Stability}
+Adaptive mesh refinement remains stable for:
+\[
+512^3~\text{cells}.
+\]
+
+Variance:
+\[
+< 10^{-12}.
+\]
+
+%===========================================================
+% APPENDIX E — FPGA INTERLOCK STATE MACHINE
+%===========================================================
+
+\chapter{FPGA Interlock State Machine Specification}
+
+\section{State Definitions}
+\begin{itemize}
+\item INIT — system boot
+\item RUN — normal operation
+\item FAULT — anomaly detected
+\item QUENCH — superconducting failure
+\end{itemize}
+
+\section{Transition Logic}
+\begin{equation}
+\text{INIT} \rightarrow \text{RUN}
+\end{equation}
+when crypto authentication passes.
+
+\begin{equation}
+\text{RUN} \rightarrow \text{FAULT}
+\end{equation}
+when:
+\[
+P > 20~\text{PW},\quad B < 1000~\text{T},\quad T > 10{,}000~\text{K}.
+\]
+
+\begin{equation}
+\text{FAULT} \rightarrow \text{QUENCH}
+\end{equation}
+when coil instability is detected.
+
+\section{Response Time}
+\[
+\tau_{\text{fault}} = 0.02~\mu\text{s}.
+\]
+
+%===========================================================
+% APPENDIX F — SYMBOL GLOSSARY
+%===========================================================
+
+\chapter{Glossary of Symbols}
+
+\begin{itemize}
+\item $\rho$ — mass density
+\item $\mathbf{v}$ — velocity
+\item $\gamma$ — Lorentz factor
+\item $P_0$ — jet power
+\item $\dot{m}$ — mass flux
+\item $B$ — magnetic field
+\item $T_e$ — electron temperature
+\item $n_e$ — electron density
+\item $Q$ — heat flux
+\item $v_A$ — Alfvén speed
+\item $\sigma$ — magnetization parameter
+\item $\theta_{\text{open}}$ — jet collimation angle
+\item $J_c$ — critical current density
+\item $T_{\text{eff}}$ — radiator effective temperature
+\end{itemize}
+
+%===========================================================
+% END APPENDICES
+%===========================================================
