@@ -1,0 +1,157 @@
+\documentclass[12pt,oneside]{book}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{titlesec}
+\usepackage{setspace}
+
+\geometry{margin=1in}
+\setstretch{1.15}
+
+\title{\Huge\textbf{Sovereign Matter Engine SME-ASTRO-v10.0}\\
+\Large\textbf{Relativistic Matter Jet Mk-30}\\[0.5cm]
+\large A Classical Physics Monograph}
+\author{\Large C.~Matthew~Blackwell\\Independent Designer}
+\date{\today}
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\chapter*{Copyright}
+\noindent
+© \the\year\ C. Matthew Blackwell. All rights reserved.  
+No part of this monograph may be reproduced without permission from the author.
+
+\chapter*{Dedication}
+\noindent
+To the pursuit of sovereign physics, and to the engines that reshape the limits of motion.
+
+\chapter*{Preface}
+This monograph presents the complete scientific, mathematical, and engineering
+framework for the Sovereign Matter Engine SME-ASTRO-v10.0 and the Matter Jet Mk-30.
+The structure follows the classical physics monograph tradition: foundations,
+mathematical preliminaries, relativistic theory, magnetohydrodynamics, hardware
+architecture, laboratory validation, and applications.
+
+\tableofcontents
+
+\mainmatter
+
+%===========================================================
+% CHAPTER 1
+%===========================================================
+
+\chapter{Introduction to Relativistic Propulsion Physics}
+
+\section{Historical Context}
+Relativistic propulsion has traditionally been constrained by thermodynamic
+limitations, stagnation heating, and the rocket equation. The Matter Jet Mk-30
+represents a departure from these constraints by employing relativistic
+magnetohydrodynamics (MHD), ultra-high-field superconducting confinement, and
+baryonic aerosol mass injection.
+
+\section{Relativistic Kinematics}
+The Lorentz factor is defined as
+\begin{equation}
+\gamma = \frac{1}{\sqrt{1 - v^2/c^2}},
+\end{equation}
+where $v$ is the jet velocity and $c$ is the speed of light.
+
+For the Mk-30 baseline velocity,
+\[
+v = 0.995c,
+\]
+the Lorentz factor is
+\[
+\gamma = 10.015.
+\]
+
+\section{Energy and Momentum Relations}
+The relativistic kinetic energy is
+\begin{equation}
+E_k = (\gamma - 1)mc^2,
+\end{equation}
+and the momentum is
+\begin{equation}
+p = \gamma mv.
+\end{equation}
+
+These relations govern the mass flux and thrust of the Mk-30 engine.
+
+\section{Relativistic Mass Flux}
+The mass flux required to sustain a fixed power output $P$ is
+\begin{equation}
+\dot{m} = \frac{P}{(\gamma - 1)\eta c^2},
+\end{equation}
+where $\eta$ is the conversion efficiency.
+
+For $P = 10^{16}$ W and $\eta = 0.95$,
+\[
+\dot{m} = 12.98~\text{g/s}.
+\]
+
+\section{Relativistic Thrust}
+The thrust is
+\begin{equation}
+F_{\text{jet}} = \gamma \dot{m} v,
+\end{equation}
+yielding
+\[
+F_{\text{jet}} \approx 38.48~\text{MN}.
+\]
+
+\section{Relativistic Jet Formation}
+Relativistic jets require:
+\begin{itemize}
+\item ultra-high magnetic fields,
+\item baryonic mass injection,
+\item relativistic plasma confinement,
+\item Poynting flux collimation.
+\end{itemize}
+
+The Mk-30 achieves these conditions through a superconducting REBCO magnet array
+and a SiC/W-Re reaction core vessel.
+
+\section{Magnetohydrodynamic Foundations}
+The MHD equations governing the jet are:
+\begin{align}
+\frac{\partial \rho}{\partial t} + \nabla \cdot (\rho \mathbf{v}) &= 0, \\
+\rho \left( \frac{\partial \mathbf{v}}{\partial t} + (\mathbf{v} \cdot \nabla)\mathbf{v} \right)
+&= -\nabla p + \mathbf{J} \times \mathbf{B}, \\
+\frac{\partial \mathbf{B}}{\partial t} &= \nabla \times (\mathbf{v} \times \mathbf{B}),
+\end{align}
+with the constraint
+\[
+\nabla \cdot \mathbf{B} = 0.
+\]
+
+\section{Poynting Flux Collimation}
+The Poynting vector is
+\begin{equation}
+\mathbf{S} = \frac{1}{\mu_0} \mathbf{E} \times \mathbf{B}.
+\end{equation}
+
+The collimation half-angle is
+\[
+\theta_{\text{open}} \approx \frac{1}{\gamma}.
+\]
+
+\section{Thermodynamic Constraints}
+The Mk-30 bypasses classical stagnation heating by converting enthalpy into
+magnetic and kinetic energy rather than thermalizing it at solid boundaries.
+
+\section{Summary}
+This chapter establishes the relativistic and MHD foundations required for the
+Matter Jet Mk-30. Subsequent chapters build upon these principles to develop the
+full engine architecture, hardware implementation, and laboratory validation.
+
+%===========================================================
+% END CHAPTER 1
+%===========================================================
+
+\end{document}
