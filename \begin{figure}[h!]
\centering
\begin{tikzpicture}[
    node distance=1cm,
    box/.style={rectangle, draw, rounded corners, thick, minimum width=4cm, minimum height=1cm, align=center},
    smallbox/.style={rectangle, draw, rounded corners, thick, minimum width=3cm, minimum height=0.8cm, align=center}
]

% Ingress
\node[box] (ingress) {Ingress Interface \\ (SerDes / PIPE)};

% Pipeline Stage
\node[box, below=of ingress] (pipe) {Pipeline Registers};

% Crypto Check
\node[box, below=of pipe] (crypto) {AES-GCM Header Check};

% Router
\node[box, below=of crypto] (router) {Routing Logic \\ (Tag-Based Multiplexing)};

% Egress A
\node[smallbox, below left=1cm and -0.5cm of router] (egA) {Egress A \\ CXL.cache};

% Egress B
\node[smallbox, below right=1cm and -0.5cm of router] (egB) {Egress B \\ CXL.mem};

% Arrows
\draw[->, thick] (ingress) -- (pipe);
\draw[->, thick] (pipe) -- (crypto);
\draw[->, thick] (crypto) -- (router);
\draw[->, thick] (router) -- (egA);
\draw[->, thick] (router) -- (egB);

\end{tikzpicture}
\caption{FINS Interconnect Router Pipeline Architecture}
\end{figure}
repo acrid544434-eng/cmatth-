@@ -1,0 +1,36 @@
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    node distance=1cm,
+    box/.style={rectangle, draw, rounded corners, thick, minimum width=4cm, minimum height=1cm, align=center},
+    smallbox/.style={rectangle, draw, rounded corners, thick, minimum width=3cm, minimum height=0.8cm, align=center}
+]
+
+% Ingress
+\node[box] (ingress) {Ingress Interface \\ (SerDes / PIPE)};
+
+% Pipeline Stage
+\node[box, below=of ingress] (pipe) {Pipeline Registers};
+
+% Crypto Check
+\node[box, below=of pipe] (crypto) {AES-GCM Header Check};
+
+% Router
+\node[box, below=of crypto] (router) {Routing Logic \\ (Tag-Based Multiplexing)};
+
+% Egress A
+\node[smallbox, below left=1cm and -0.5cm of router] (egA) {Egress A \\ CXL.cache};
+
+% Egress B
+\node[smallbox, below right=1cm and -0.5cm of router] (egB) {Egress B \\ CXL.mem};
+
+% Arrows
+\draw[->, thick] (ingress) -- (pipe);
+\draw[->, thick] (pipe) -- (crypto);
+\draw[->, thick] (crypto) -- (router);
+\draw[->, thick] (router) -- (egA);
+\draw[->, thick] (router) -- (egB);
+
+\end{tikzpicture}
+\caption{FINS Interconnect Router Pipeline Architecture}
+\end{figure}
