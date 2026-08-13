@@ -1,0 +1,193 @@
+%===========================================================
+% CHAPTER 6
+%===========================================================
+
+\chapter{High-Flux Thermodynamics}
+
+\section{Overview}
+The Matter Jet Mk-30 operates at a continuous power envelope of
+\[
+P_0 = 1.0 \times 10^{16}~\text{W},
+\]
+with a conversion efficiency of $\eta = 0.95$.  
+This implies a waste-heat load of
+\[
+Q_{\text{waste}} = (1 - \eta) P_0 = 5.0 \times 10^{14}~\text{W},
+\]
+which must be extracted continuously to maintain thermodynamic stability.
+
+This chapter develops the full high-flux thermodynamic framework governing:
+\begin{itemize}
+\item GaIn micro-channel cooling,
+\item CNT radiator arrays,
+\item thermal shock limits,
+\item radiation spectrum analysis,
+\item enthalpy routing,
+\item structural thermal resilience.
+\end{itemize}
+
+\section{Waste Heat Generation}
+The relativistic jet engine converts electromagnetic energy into kinetic jet
+energy with efficiency $\eta$. The remaining fraction is thermalized within the
+reaction core and must be removed.
+
+The waste heat is
+\begin{equation}
+Q_{\text{waste}} = (1 - \eta) P_0.
+\end{equation}
+
+For the Mk-30,
+\[
+Q_{\text{waste}} = 5.0 \times 10^{14}~\text{W}.
+\]
+
+\section{Thermal Radiation Flux}
+The core plasma radiates according to
+\begin{equation}
+F_{\text{rad}} = \sigma T^4,
+\end{equation}
+where $\sigma$ is the Stefan-Boltzmann constant.
+
+For $T = 1.42 \times 10^8$ K,
+\[
+F_{\text{rad}} \approx 1.2 \times 10^{24}~\text{W/m}^2.
+\]
+
+This flux is confined by the W-Re liner and extracted by the cooling system.
+
+\section{GaIn Micro-Channel Cooling}
+The GaIn coolant absorbs heat according to
+\begin{equation}
+Q = \dot{m}_{\text{coolant}} c_p \Delta T.
+\end{equation}
+
+The Mk-30 coolant loop achieves:
+\[
+\Delta T = 412.4~\text{K}.
+\]
+
+The micro-channel geometry maximizes:
+\begin{itemize}
+\item surface area,
+\item convective heat transfer,
+\item thermal uniformity,
+\item coolant velocity.
+\end{itemize}
+
+\section{Micro-Channel Geometry}
+The micro-channel heat exchanger consists of:
+\begin{itemize}
+\item etched GaIn channels,
+\item SiC structural backing,
+\item W-Re thermal interface layer,
+\item CNT radiator coupling.
+\end{itemize}
+
+The heat transfer coefficient is
+\begin{equation}
+h_{\text{channel}} = \frac{Q}{A \Delta T}.
+\end{equation}
+
+For the Mk-30,
+\[
+h_{\text{channel}} \approx 1.8 \times 10^7~\text{W/m}^2\text{K}.
+\]
+
+\section{CNT Radiator Arrays}
+The CNT radiator arrays operate at
+\[
+T_{\text{eff}} \approx 5450~\text{K}.
+\]
+
+The radiated power is
+\begin{equation}
+P_{\text{rad}} = \epsilon \sigma A T_{\text{eff}}^4,
+\end{equation}
+with emissivity $\epsilon \approx 1$.
+
+The spectrum peaks at
+\[
+\lambda_{\text{peak}} = \frac{2.898 \times 10^{-3}}{T_{\text{eff}}}
+\approx 531~\text{nm},
+\]
+matching solar photosphere emission.
+
+\section{Thermal Shock Limits}
+Thermal shock stress is
+\begin{equation}
+\sigma_{\text{shock}} = E \alpha \Delta T,
+\end{equation}
+where:
+\begin{itemize}
+\item $E$ is Young’s modulus,
+\item $\alpha$ is thermal expansion coefficient.
+\end{itemize}
+
+SiC and W-Re remain within safe limits for:
+\[
+\Delta T < 500~\text{K}.
+\]
+
+\section{Thermal Expansion and Structural Integrity}
+The thermal expansion is
+\begin{equation}
+\Delta L = \alpha L \Delta T.
+\end{equation}
+
+The Mk-30 structural materials exhibit:
+\begin{itemize}
+\item low thermal expansion,
+\item high thermal conductivity,
+\item high melting points,
+\item radiation resistance.
+\end{itemize}
+
+\section{Radiation Energy Density}
+The radiation energy density is
+\begin{equation}
+u_{\text{rad}} = a T^4,
+\end{equation}
+where $a$ is the radiation constant.
+
+For the Mk-30,
+\[
+u_{\text{rad}} \approx 4.1 \times 10^{25}~\text{J/m}^3.
+\]
+
+\section{Thermal Routing and Enthalpy Flow}
+The enthalpy flux is
+\begin{equation}
+\mathbf{H} = h \gamma^2 \mathbf{v},
+\end{equation}
+where $h$ is enthalpy density.
+
+Relativistic enthalpy routing prevents thermalization at solid boundaries.
+
+\section{Thermal Stability Criteria}
+Thermal stability requires:
+\begin{itemize}
+\item continuous coolant flow,
+\item uniform micro-channel distribution,
+\item CNT radiator emission,
+\item structural thermal resilience,
+\item real-time thermal telemetry.
+\end{itemize}
+
+The Mk-30 satisfies all criteria.
+
+\section{Summary}
+The Mk-30 high-flux thermodynamic system provides:
+\begin{itemize}
+\item 500~TW waste heat absorption,
+\item GaIn micro-channel cooling,
+\item CNT radiator emission at 5450~K,
+\item thermal shock resilience,
+\item relativistic enthalpy routing.
+\end{itemize}
+
+These properties enable continuous 10~PW operation and support the hardware
+integration developed in Chapter 7.
+
+%===========================================================
+% END CHAPTER 6
+%===========================================================
