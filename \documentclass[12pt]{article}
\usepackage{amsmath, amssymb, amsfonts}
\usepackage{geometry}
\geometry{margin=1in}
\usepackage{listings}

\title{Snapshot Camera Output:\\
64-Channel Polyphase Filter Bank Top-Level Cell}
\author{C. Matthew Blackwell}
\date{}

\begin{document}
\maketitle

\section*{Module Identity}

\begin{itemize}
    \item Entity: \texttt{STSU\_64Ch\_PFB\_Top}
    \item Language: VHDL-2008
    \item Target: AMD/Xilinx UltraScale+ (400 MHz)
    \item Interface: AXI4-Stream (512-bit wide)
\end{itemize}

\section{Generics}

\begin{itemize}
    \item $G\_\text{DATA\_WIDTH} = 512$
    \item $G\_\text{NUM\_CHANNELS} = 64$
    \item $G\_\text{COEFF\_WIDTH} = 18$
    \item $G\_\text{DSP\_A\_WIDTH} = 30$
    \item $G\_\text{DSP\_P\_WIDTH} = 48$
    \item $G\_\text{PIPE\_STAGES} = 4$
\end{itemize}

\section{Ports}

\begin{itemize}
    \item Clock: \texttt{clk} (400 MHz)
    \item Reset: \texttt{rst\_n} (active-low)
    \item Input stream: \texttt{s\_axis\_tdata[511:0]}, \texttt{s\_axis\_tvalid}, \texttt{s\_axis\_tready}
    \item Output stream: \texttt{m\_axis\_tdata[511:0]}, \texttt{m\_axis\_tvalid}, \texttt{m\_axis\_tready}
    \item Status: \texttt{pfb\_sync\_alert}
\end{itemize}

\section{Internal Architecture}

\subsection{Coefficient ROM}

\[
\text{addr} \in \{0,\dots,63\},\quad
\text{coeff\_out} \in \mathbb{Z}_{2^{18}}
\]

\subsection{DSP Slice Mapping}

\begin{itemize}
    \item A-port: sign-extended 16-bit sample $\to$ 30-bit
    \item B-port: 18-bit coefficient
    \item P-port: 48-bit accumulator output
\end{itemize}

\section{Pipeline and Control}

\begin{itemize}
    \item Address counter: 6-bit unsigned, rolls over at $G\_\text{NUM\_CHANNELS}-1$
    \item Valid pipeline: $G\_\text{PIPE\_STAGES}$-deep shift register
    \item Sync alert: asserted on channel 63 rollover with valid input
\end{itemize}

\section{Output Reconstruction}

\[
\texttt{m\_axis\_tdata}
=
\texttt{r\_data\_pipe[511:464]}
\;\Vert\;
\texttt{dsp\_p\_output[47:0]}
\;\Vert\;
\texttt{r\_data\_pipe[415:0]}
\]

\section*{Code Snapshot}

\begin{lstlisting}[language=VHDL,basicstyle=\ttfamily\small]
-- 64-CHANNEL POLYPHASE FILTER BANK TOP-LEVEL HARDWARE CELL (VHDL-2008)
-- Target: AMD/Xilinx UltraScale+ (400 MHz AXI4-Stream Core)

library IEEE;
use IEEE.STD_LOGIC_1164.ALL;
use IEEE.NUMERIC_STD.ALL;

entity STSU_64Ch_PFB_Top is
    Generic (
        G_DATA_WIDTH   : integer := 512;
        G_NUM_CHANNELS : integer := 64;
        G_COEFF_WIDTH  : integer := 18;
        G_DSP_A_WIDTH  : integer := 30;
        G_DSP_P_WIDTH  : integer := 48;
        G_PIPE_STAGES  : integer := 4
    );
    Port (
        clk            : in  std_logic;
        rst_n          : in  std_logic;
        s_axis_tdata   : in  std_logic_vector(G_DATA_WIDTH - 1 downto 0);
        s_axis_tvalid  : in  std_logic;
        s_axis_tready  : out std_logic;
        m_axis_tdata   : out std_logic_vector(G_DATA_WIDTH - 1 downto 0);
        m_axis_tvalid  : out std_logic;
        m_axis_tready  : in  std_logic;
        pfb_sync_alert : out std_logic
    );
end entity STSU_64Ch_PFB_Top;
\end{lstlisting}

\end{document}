@@ -1,0 +1,115 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{listings}
+
+\title{Snapshot Camera Output:\\
+64-Channel Polyphase Filter Bank Top-Level Cell}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Module Identity}
+
+\begin{itemize}
+    \item Entity: \texttt{STSU\_64Ch\_PFB\_Top}
+    \item Language: VHDL-2008
+    \item Target: AMD/Xilinx UltraScale+ (400 MHz)
+    \item Interface: AXI4-Stream (512-bit wide)
+\end{itemize}
+
+\section{Generics}
+
+\begin{itemize}
+    \item $G\_\text{DATA\_WIDTH} = 512$
+    \item $G\_\text{NUM\_CHANNELS} = 64$
+    \item $G\_\text{COEFF\_WIDTH} = 18$
+    \item $G\_\text{DSP\_A\_WIDTH} = 30$
+    \item $G\_\text{DSP\_P\_WIDTH} = 48$
+    \item $G\_\text{PIPE\_STAGES} = 4$
+\end{itemize}
+
+\section{Ports}
+
+\begin{itemize}
+    \item Clock: \texttt{clk} (400 MHz)
+    \item Reset: \texttt{rst\_n} (active-low)
+    \item Input stream: \texttt{s\_axis\_tdata[511:0]}, \texttt{s\_axis\_tvalid}, \texttt{s\_axis\_tready}
+    \item Output stream: \texttt{m\_axis\_tdata[511:0]}, \texttt{m\_axis\_tvalid}, \texttt{m\_axis\_tready}
+    \item Status: \texttt{pfb\_sync\_alert}
+\end{itemize}
+
+\section{Internal Architecture}
+
+\subsection{Coefficient ROM}
+
+\[
+\text{addr} \in \{0,\dots,63\},\quad
+\text{coeff\_out} \in \mathbb{Z}_{2^{18}}
+\]
+
+\subsection{DSP Slice Mapping}
+
+\begin{itemize}
+    \item A-port: sign-extended 16-bit sample $\to$ 30-bit
+    \item B-port: 18-bit coefficient
+    \item P-port: 48-bit accumulator output
+\end{itemize}
+
+\section{Pipeline and Control}
+
+\begin{itemize}
+    \item Address counter: 6-bit unsigned, rolls over at $G\_\text{NUM\_CHANNELS}-1$
+    \item Valid pipeline: $G\_\text{PIPE\_STAGES}$-deep shift register
+    \item Sync alert: asserted on channel 63 rollover with valid input
+\end{itemize}
+
+\section{Output Reconstruction}
+
+\[
+\texttt{m\_axis\_tdata}
+=
+\texttt{r\_data\_pipe[511:464]}
+\;\Vert\;
+\texttt{dsp\_p\_output[47:0]}
+\;\Vert\;
+\texttt{r\_data\_pipe[415:0]}
+\]
+
+\section*{Code Snapshot}
+
+\begin{lstlisting}[language=VHDL,basicstyle=\ttfamily\small]
+-- 64-CHANNEL POLYPHASE FILTER BANK TOP-LEVEL HARDWARE CELL (VHDL-2008)
+-- Target: AMD/Xilinx UltraScale+ (400 MHz AXI4-Stream Core)
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity STSU_64Ch_PFB_Top is
+    Generic (
+        G_DATA_WIDTH   : integer := 512;
+        G_NUM_CHANNELS : integer := 64;
+        G_COEFF_WIDTH  : integer := 18;
+        G_DSP_A_WIDTH  : integer := 30;
+        G_DSP_P_WIDTH  : integer := 48;
+        G_PIPE_STAGES  : integer := 4
+    );
+    Port (
+        clk            : in  std_logic;
+        rst_n          : in  std_logic;
+        s_axis_tdata   : in  std_logic_vector(G_DATA_WIDTH - 1 downto 0);
+        s_axis_tvalid  : in  std_logic;
+        s_axis_tready  : out std_logic;
+        m_axis_tdata   : out std_logic_vector(G_DATA_WIDTH - 1 downto 0);
+        m_axis_tvalid  : out std_logic;
+        m_axis_tready  : in  std_logic;
+        pfb_sync_alert : out std_logic
+    );
+end entity STSU_64Ch_PFB_Top;
+\end{lstlisting}
+
+\end{document}
