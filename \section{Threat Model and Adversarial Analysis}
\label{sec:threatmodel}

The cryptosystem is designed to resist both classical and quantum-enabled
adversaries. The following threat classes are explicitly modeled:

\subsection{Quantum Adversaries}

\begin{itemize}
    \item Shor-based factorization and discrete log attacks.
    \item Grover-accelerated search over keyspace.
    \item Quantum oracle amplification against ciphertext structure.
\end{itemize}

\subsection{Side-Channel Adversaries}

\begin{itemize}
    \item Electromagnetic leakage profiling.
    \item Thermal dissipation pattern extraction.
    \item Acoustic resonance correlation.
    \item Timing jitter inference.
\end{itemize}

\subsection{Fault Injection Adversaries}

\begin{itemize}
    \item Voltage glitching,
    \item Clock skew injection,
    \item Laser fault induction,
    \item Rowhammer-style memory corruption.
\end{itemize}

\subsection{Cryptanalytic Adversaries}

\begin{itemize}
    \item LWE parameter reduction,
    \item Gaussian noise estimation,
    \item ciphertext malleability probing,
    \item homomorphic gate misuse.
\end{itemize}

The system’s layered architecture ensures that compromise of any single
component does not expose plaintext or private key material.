@@ -1,0 +1,43 @@
+\section{Threat Model and Adversarial Analysis}
+\label{sec:threatmodel}
+
+The cryptosystem is designed to resist both classical and quantum-enabled
+adversaries. The following threat classes are explicitly modeled:
+
+\subsection{Quantum Adversaries}
+
+\begin{itemize}
+    \item Shor-based factorization and discrete log attacks.
+    \item Grover-accelerated search over keyspace.
+    \item Quantum oracle amplification against ciphertext structure.
+\end{itemize}
+
+\subsection{Side-Channel Adversaries}
+
+\begin{itemize}
+    \item Electromagnetic leakage profiling.
+    \item Thermal dissipation pattern extraction.
+    \item Acoustic resonance correlation.
+    \item Timing jitter inference.
+\end{itemize}
+
+\subsection{Fault Injection Adversaries}
+
+\begin{itemize}
+    \item Voltage glitching,
+    \item Clock skew injection,
+    \item Laser fault induction,
+    \item Rowhammer-style memory corruption.
+\end{itemize}
+
+\subsection{Cryptanalytic Adversaries}
+
+\begin{itemize}
+    \item LWE parameter reduction,
+    \item Gaussian noise estimation,
+    \item ciphertext malleability probing,
+    \item homomorphic gate misuse.
+\end{itemize}
+
+The system’s layered architecture ensures that compromise of any single
+component does not expose plaintext or private key material.
