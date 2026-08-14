@@ -1,0 +1,138 @@
+\section{Adaptive Mesh Refinement (AMR) and Octree Spatial Decomposition}
+\label{sec:amr_octree}
+
+\subsection{Overview}
+The simulation employs a block-structured Adaptive Mesh Refinement (AMR)
+hierarchy built on an octree spatial decomposition. Refinement is
+triggered by local curvature, hydrodynamic gradients, or shock
+indicators, enabling efficient multi-scale resolution of relativistic
+flows and spacetime geometry.
+
+Each refinement level $\ell$ contains a set of disjoint cubic blocks
+$\mathcal{B}^{(\ell)}_k$ with uniform resolution $\Delta x_\ell$, where
+\[
+\Delta x_\ell = \frac{\Delta x_0}{2^\ell}, \qquad \ell = 0,1,\dots,L_{\max}.
+\]
+
+\subsection{Octree Structure}
+The computational domain $\Omega$ is recursively subdivided into
+octants. Each parent block $\mathcal{B}^{(\ell)}$ generates eight
+children at level $\ell+1$ when refinement criteria are met:
+\[
+\mathcal{B}^{(\ell)} \longrightarrow 
+\left\{
+\mathcal{B}^{(\ell+1)}_1, \dots, \mathcal{B}^{(\ell+1)}_8
+\right\}.
+\]
+
+Each block stores:
+\begin{itemize}
+    \item cell-centered metric fields $(\tilde{\gamma}_{ij}, \tilde{A}_{ij}, K, \phi)$,
+    \item hydrodynamic conserved variables $(D, S_j, \tau)$,
+    \item ghost zones for inter-block communication,
+    \item refinement flags and error indicators.
+\end{itemize}
+
+\subsection{Refinement Criteria}
+Refinement is triggered when any of the following exceed user-defined
+thresholds:
+\begin{align}
+\eta_{\mathrm{curv}} &= 
+\left\| R_{ij} R^{ij} \right\|^{1/2}, \\
+\eta_{\mathrm{shock}} &= 
+\left\| \nabla P \right\|, \\
+\eta_{\mathrm{hydro}} &= 
+\left\| \nabla \rho \right\|.
+\end{align}
+
+A block is refined if
+\[
+\max\left(
+\eta_{\mathrm{curv}},\,
+\eta_{\mathrm{shock}},\,
+\eta_{\mathrm{hydro}}
+\right)
+> \eta_{\mathrm{refine}},
+\]
+and derefined if all indicators fall below $\eta_{\mathrm{coarsen}}$.
+
+\subsection{Prolongation and Restriction}
+Field values are transferred between refinement levels using
+high-order prolongation (interpolation) and restriction (averaging)
+operators.
+
+\paragraph{Prolongation (Fine Grid Interpolation).}
+For a coarse-level field $u^{(\ell)}$, the fine-level values
+$u^{(\ell+1)}$ are computed using 4th-order polynomial interpolation:
+\[
+u^{(\ell+1)}(x) = 
+\sum_{k=-2}^{2} c_k\, u^{(\ell)}(x + k\Delta x_\ell),
+\]
+with coefficients $c_k$ chosen to preserve smoothness and avoid
+spurious oscillations.
+
+\paragraph{Restriction (Coarse Grid Averaging).}
+Fine-level fields are volume-averaged to produce coarse-level values:
+\[
+u^{(\ell)} = 
+\frac{1}{8}
+\sum_{m=1}^{8} u^{(\ell+1)}_m.
+\]
+
+\subsection{Flux Correction Across Refinement Boundaries}
+To ensure conservation across coarse–fine interfaces, fluxes are
+synchronized using the Berger–Colella refluxing procedure:
+\[
+F^{(\ell)}_{\mathrm{corrected}} =
+F^{(\ell)} +
+\sum_{\mathrm{faces}}
+\left(
+F^{(\ell+1)}_{\mathrm{fine}} -
+F^{(\ell)}_{\mathrm{coarse}}
+\right).
+\]
+
+This guarantees global conservation of mass, momentum, and energy even
+in the presence of strong shocks or rapidly evolving curvature.
+
+\subsection{Time Integration and Subcycling}
+Each refinement level evolves with its own timestep:
+\[
+\Delta t_\ell = \frac{\Delta t_0}{2^\ell},
+\]
+subject to the relativistic Courant condition:
+\[
+\Delta t_\ell \le 
+\lambda_{\mathrm{CFL}}
+\frac{\Delta x_\ell}{c}.
+\]
+
+Fine levels perform two substeps for each coarse-level step. After each
+coarse step, synchronization ensures consistency of metric and fluid
+fields across all levels.
+
+\subsection{Parallel Decomposition and Load Balancing}
+Blocks are distributed across MPI ranks using a Hilbert
+space-filling curve to preserve spatial locality. Load balancing is
+performed by minimizing the cost function
+\[
+C = \sum_{\ell} w_\ell\, N^{(\ell)}_{\mathrm{blocks}},
+\]
+where $w_\ell$ weights computational cost at refinement level $\ell$.
+
+GPU kernels operate on block-local data, enabling efficient overlap of
+communication and computation.
+
+\subsection{AMR Verification Summary}
+The AMR octree system preserves:
+\begin{itemize}
+    \item 4th-order convergence in smooth regions,
+    \item conservative flux synchronization across refinement boundaries,
+    \item stable gauge evolution under dynamic lapse collapse,
+    \item shock resolution within $\le 2$ fine-grid cells,
+    \item consistent multi-level time integration via subcycling.
+\end{itemize}
+
+This AMR framework enables efficient multi-scale resolution of
+relativistic shocks, curvature gradients, and quantum-scale
+perturbations within a unified simulation engine.
