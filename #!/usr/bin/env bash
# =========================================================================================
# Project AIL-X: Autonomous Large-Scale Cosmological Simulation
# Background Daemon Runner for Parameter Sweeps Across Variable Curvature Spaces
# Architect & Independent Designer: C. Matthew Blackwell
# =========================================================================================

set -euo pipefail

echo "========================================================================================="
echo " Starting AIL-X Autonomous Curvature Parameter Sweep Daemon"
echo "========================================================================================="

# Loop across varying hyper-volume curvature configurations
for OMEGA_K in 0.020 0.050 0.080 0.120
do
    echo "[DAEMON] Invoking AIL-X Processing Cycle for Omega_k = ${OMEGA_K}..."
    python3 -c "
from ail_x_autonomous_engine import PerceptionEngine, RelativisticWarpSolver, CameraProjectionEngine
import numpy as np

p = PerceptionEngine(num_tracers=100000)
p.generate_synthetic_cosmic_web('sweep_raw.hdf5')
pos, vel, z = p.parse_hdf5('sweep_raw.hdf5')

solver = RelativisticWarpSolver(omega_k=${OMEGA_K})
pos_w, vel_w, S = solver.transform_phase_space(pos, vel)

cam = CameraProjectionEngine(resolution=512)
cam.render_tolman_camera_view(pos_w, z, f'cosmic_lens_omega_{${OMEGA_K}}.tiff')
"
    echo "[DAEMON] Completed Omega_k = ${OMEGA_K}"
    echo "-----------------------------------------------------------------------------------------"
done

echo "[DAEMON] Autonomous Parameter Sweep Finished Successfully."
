@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# =========================================================================================
+# Project AIL-X: Autonomous Large-Scale Cosmological Simulation
+# Background Daemon Runner for Parameter Sweeps Across Variable Curvature Spaces
+# Architect & Independent Designer: C. Matthew Blackwell
+# =========================================================================================
+
+set -euo pipefail
+
+echo "========================================================================================="
+echo " Starting AIL-X Autonomous Curvature Parameter Sweep Daemon"
+echo "========================================================================================="
+
+# Loop across varying hyper-volume curvature configurations
+for OMEGA_K in 0.020 0.050 0.080 0.120
+do
+    echo "[DAEMON] Invoking AIL-X Processing Cycle for Omega_k = ${OMEGA_K}..."
+    python3 -c "
+from ail_x_autonomous_engine import PerceptionEngine, RelativisticWarpSolver, CameraProjectionEngine
+import numpy as np
+
+p = PerceptionEngine(num_tracers=100000)
+p.generate_synthetic_cosmic_web('sweep_raw.hdf5')
+pos, vel, z = p.parse_hdf5('sweep_raw.hdf5')
+
+solver = RelativisticWarpSolver(omega_k=${OMEGA_K})
+pos_w, vel_w, S = solver.transform_phase_space(pos, vel)
+
+cam = CameraProjectionEngine(resolution=512)
+cam.render_tolman_camera_view(pos_w, z, f'cosmic_lens_omega_{${OMEGA_K}}.tiff')
+"
+    echo "[DAEMON] Completed Omega_k = ${OMEGA_K}"
+    echo "-----------------------------------------------------------------------------------------"
+done
+
+echo "[DAEMON] Autonomous Parameter Sweep Finished Successfully."
