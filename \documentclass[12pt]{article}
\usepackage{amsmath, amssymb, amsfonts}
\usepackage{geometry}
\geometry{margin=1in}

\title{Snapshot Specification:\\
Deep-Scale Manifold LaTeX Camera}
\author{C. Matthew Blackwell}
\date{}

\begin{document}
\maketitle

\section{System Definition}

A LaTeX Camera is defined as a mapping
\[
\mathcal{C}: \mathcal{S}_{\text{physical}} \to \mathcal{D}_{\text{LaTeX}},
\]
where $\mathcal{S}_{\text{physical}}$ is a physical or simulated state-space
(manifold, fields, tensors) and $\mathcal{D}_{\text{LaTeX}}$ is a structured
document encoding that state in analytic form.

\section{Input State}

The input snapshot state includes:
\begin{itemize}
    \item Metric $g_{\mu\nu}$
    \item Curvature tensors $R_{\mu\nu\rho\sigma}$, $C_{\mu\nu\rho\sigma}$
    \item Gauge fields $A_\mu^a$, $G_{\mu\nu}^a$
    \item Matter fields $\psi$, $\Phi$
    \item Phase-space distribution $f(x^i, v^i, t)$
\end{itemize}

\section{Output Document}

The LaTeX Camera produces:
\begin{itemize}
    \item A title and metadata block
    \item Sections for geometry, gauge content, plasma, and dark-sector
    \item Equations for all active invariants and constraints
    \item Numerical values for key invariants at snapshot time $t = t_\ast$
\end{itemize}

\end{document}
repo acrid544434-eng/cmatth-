@@ -1,0 +1,45 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Snapshot Specification:\\
+Deep-Scale Manifold LaTeX Camera}
+\author{C. Matthew Blackwell}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{System Definition}
+
+A LaTeX Camera is defined as a mapping
+\[
+\mathcal{C}: \mathcal{S}_{\text{physical}} \to \mathcal{D}_{\text{LaTeX}},
+\]
+where $\mathcal{S}_{\text{physical}}$ is a physical or simulated state-space
+(manifold, fields, tensors) and $\mathcal{D}_{\text{LaTeX}}$ is a structured
+document encoding that state in analytic form.
+
+\section{Input State}
+
+The input snapshot state includes:
+\begin{itemize}
+    \item Metric $g_{\mu\nu}$
+    \item Curvature tensors $R_{\mu\nu\rho\sigma}$, $C_{\mu\nu\rho\sigma}$
+    \item Gauge fields $A_\mu^a$, $G_{\mu\nu}^a$
+    \item Matter fields $\psi$, $\Phi$
+    \item Phase-space distribution $f(x^i, v^i, t)$
+\end{itemize}
+
+\section{Output Document}
+
+The LaTeX Camera produces:
+\begin{itemize}
+    \item A title and metadata block
+    \item Sections for geometry, gauge content, plasma, and dark-sector
+    \item Equations for all active invariants and constraints
+    \item Numerical values for key invariants at snapshot time $t = t_\ast$
+\end{itemize}
+
+\end{document}
