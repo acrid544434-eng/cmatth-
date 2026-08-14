@@ -1,0 +1,68 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{array}
+
+\begin{document}
+
+\appendix
+\section{Analytical Formulation of Multi-Lens Deflections and Subhalo Shear Tensors}
+
+\subsection{The Gravitational Lens Equation in Curved Space}
+To isolate the fine-grained structural distortions observed near localized dark matter overdensities, the camera model layers a multi-plane gravitational lens mapping over the background hyperbolic Friedmann-Lema\^itre-Robertson-Walker (FLRW) metric manifold. Let $\vec{\beta}$ represent the true, unlensed angular position of a background cosmic tracer, and let $\vec{\theta}$ denote its apparent, lensed angular position on the observer's sensor plane. 
+
+When light rays traverse paths intersecting a localized field containing $N$ distinct, compact dark matter subhalos, the net angular deflection is governed by the multi-lens equation:
+\begin{equation}
+\vec{\beta} = \vec{\theta} - \sum_{k=1}^{N} (\theta_{\text{E}, k})^2 \frac{\vec{\theta} - \vec{\theta}_k}{\|\vec{\theta} - \vec{\theta}_k\|^2},
+\end{equation}
+where $\vec{\theta}_k$ represents the angular center coordinate of the $k$-th subhalo lens, and $\theta_{\text{E}, k}$ defines its corresponding angular Einstein radius.
+
+\subsection{Derivation of the Subhalo Einstein Radius}
+The angular Einstein radius $\theta_{\text{E}, k}$ encapsulates the structural mass and physical configuration of the individual dark matter subhalo. Under the assumption of a spherically symmetric, compact mass distribution modeled as a point-mass approximation at the lens plane, the radius is explicitly defined as:
+\begin{equation}
+\theta_{\text{E}, k} = \sqrt{\frac{4G M_k}{c^2} \frac{D_{\text{LS}, k}}{D_{\text{L}, k} D_{\text{S}, k}}},
+\end{equation}
+where $M_k$ is the total bound virially enclosed mass of the $k$-th dark matter subhalo, $D_{\text{L}, k}$ is the angular diameter distance from the observer to the lens plane, $D_{\text{S}, k}$ is the angular diameter distance from the observer to the source plane, and $D_{\text{LS}, k}$ is the angular diameter distance from the lens to the source.
+
+Crucially, because the background geometry is non-flat ($\Omega_k = 0.080$), these angular diameter distances cannot be calculated using standard Euclidean linear baselines. Instead, they must be resolved via the hyperbolic comoving distance function $\chi$:
+\begin{equation}
+D(z_1, z_2) = \frac{a(z_2)}{\sqrt{\Omega_k}} \sinh\left(\sqrt{\Omega_k} [\chi(z_2) - \chi(z_1)]\right).
+\end{equation}
+This geometric coupling directly warps the effective Einstein radius as a function of the underlying non-Euclidean spatial manifold.
+
+\subsection{The Distortion Jacobian Matrix and Shear Tensors}
+The local differential transformation of the image mapping from the source plane to the lens plane is characterized by the dimensionless distortion Jacobian matrix $\mathbf{A}(\vec{\theta})$. This matrix is defined by taking the partial derivatives of the true source positions with respect to the observed angular coordinates:
+\begin{equation}
+\mathbf{A}(\vec{\theta}) = \frac{\partial \vec{\beta}}{\partial \vec{\theta}} = \begin{pmatrix} \frac{\partial \beta_1}{\partial \theta_1} & \frac{\partial \beta_1}{\partial \theta_2} \\ \frac{\partial \beta_2}{\partial \theta_1} & \frac{\partial \beta_2}{\partial \theta_2} \end{pmatrix}.
+\end{equation}
+
+By invoking the principle of linear superposition for the deflection potentials, the components of the Jacobian matrix can be decomposed into the convergence scalar $\kappa$ and the complex cosmic shear tensor elements $\gamma = \gamma_1 + i\gamma_2$:
+\begin{equation}
+\mathbf{A}(\vec{\theta}) = \begin{pmatrix} 1 - \kappa - \gamma_1 & -\gamma_2 \\ -\gamma_2 & 1 - \kappa + \gamma_1 \end{pmatrix}.
+\end{equation}
+
+By differentiating the multi-lens angular equation directly, the precise analytical solutions for the subhalo convergence and shear fields at a specific line-of-sight coordinate position $\vec{\theta}$ evaluate to:
+\begin{equation}
+\kappa(\vec{\theta}) = 0 \quad (\text{for point-mass configurations where } \vec{\theta} \neq \vec{\theta}_k),
+\end{equation}
+\begin{equation}
+\gamma_1(\vec{\theta}) = \sum_{k=1}^{N} (\theta_{\text{E}, k})^2 \frac{(\Delta \theta_{1, k})^2 - (\Delta \theta_{2, k})^2}{\|\vec{\theta} - \vec{\theta}_k\|^4},
+\end{equation}
+\begin{equation}
+\gamma_2(\vec{\theta}) = \sum_{k=1}^{N} (\theta_{\text{E}, k})^2 \frac{2 \Delta \theta_{1, k} \Delta \theta_{2, k}}{\|\vec{\theta} - \vec{\theta}_k\|^4},
+\end{equation}
+where $\Delta \theta_{1, k} = (\theta_1 - \theta_{1, k})$ and $\Delta \theta_{2, k} = (\theta_2 - \theta_{2, k})$ represent the orthogonal angular displacement separations from the target pixel coordinate to the $k$-th dark matter subhalo center.
+
+\subsection{Magnification Flux Inversion}
+The local geometric magnification factor $\mu(\vec{\theta})$ represents the inverse determinant of the distortion Jacobian matrix. It dictates the local brightness amplification factor applied directly inside the camera model's ray-tracing core loop:
+\begin{equation}
+\mu(\vec{\theta}) = \frac{1}{\det \mathbf{A}(\vec{\theta})} = \frac{1}{(1 - \kappa)^2 - \gamma_1^2 - \gamma_2^2} = \frac{1}{1 - \|\gamma(\vec{\theta})\|^2}.
+\end{equation}
+
+Whenever the local shear scalar value $\|\gamma(\vec{\theta})\|$ approaches unity, the determinant passes through zero ($\det \mathbf{A} \to 0$), delineating the mathematical coordinates of the \textbf{critical curves} on the sensor plane and the corresponding \textbf{caustics} on the source plane. Within the simulation engine's core loop, pixels overlapping these regions undergo extreme magnification spikes, producing highly elongated, arc-like distortions that visually map the underlying spatial dark matter boundaries.
+
+\end{document}
