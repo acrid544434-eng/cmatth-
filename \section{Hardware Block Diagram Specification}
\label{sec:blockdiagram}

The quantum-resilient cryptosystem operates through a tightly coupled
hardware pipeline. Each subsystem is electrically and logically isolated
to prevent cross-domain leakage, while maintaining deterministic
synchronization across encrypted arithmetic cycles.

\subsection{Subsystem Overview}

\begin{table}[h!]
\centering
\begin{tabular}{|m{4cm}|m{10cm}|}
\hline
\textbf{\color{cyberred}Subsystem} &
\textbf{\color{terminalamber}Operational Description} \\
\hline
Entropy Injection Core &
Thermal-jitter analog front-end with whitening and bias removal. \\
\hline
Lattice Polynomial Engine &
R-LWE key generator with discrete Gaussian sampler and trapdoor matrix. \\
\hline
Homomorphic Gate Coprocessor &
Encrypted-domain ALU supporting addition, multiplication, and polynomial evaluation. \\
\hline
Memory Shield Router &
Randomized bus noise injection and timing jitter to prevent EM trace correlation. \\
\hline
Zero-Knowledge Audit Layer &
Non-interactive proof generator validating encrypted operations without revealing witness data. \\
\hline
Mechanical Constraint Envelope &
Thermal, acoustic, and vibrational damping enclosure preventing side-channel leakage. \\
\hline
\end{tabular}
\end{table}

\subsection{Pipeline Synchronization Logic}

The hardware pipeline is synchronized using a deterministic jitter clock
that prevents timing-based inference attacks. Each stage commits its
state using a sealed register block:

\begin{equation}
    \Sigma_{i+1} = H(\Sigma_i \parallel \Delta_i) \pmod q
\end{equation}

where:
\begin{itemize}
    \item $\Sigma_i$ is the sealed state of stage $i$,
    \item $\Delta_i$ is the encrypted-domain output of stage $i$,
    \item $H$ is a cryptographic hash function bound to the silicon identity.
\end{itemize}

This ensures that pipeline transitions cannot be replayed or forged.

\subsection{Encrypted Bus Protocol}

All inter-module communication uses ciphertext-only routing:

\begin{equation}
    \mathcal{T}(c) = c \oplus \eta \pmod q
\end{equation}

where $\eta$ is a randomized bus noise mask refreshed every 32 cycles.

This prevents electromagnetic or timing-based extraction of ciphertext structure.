@@ -1,0 +1,68 @@
+\section{Hardware Block Diagram Specification}
+\label{sec:blockdiagram}
+
+The quantum-resilient cryptosystem operates through a tightly coupled
+hardware pipeline. Each subsystem is electrically and logically isolated
+to prevent cross-domain leakage, while maintaining deterministic
+synchronization across encrypted arithmetic cycles.
+
+\subsection{Subsystem Overview}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|m{4cm}|m{10cm}|}
+\hline
+\textbf{\color{cyberred}Subsystem} &
+\textbf{\color{terminalamber}Operational Description} \\
+\hline
+Entropy Injection Core &
+Thermal-jitter analog front-end with whitening and bias removal. \\
+\hline
+Lattice Polynomial Engine &
+R-LWE key generator with discrete Gaussian sampler and trapdoor matrix. \\
+\hline
+Homomorphic Gate Coprocessor &
+Encrypted-domain ALU supporting addition, multiplication, and polynomial evaluation. \\
+\hline
+Memory Shield Router &
+Randomized bus noise injection and timing jitter to prevent EM trace correlation. \\
+\hline
+Zero-Knowledge Audit Layer &
+Non-interactive proof generator validating encrypted operations without revealing witness data. \\
+\hline
+Mechanical Constraint Envelope &
+Thermal, acoustic, and vibrational damping enclosure preventing side-channel leakage. \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Pipeline Synchronization Logic}
+
+The hardware pipeline is synchronized using a deterministic jitter clock
+that prevents timing-based inference attacks. Each stage commits its
+state using a sealed register block:
+
+\begin{equation}
+    \Sigma_{i+1} = H(\Sigma_i \parallel \Delta_i) \pmod q
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $\Sigma_i$ is the sealed state of stage $i$,
+    \item $\Delta_i$ is the encrypted-domain output of stage $i$,
+    \item $H$ is a cryptographic hash function bound to the silicon identity.
+\end{itemize}
+
+This ensures that pipeline transitions cannot be replayed or forged.
+
+\subsection{Encrypted Bus Protocol}
+
+All inter-module communication uses ciphertext-only routing:
+
+\begin{equation}
+    \mathcal{T}(c) = c \oplus \eta \pmod q
+\end{equation}
+
+where $\eta$ is a randomized bus noise mask refreshed every 32 cycles.
+
+This prevents electromagnetic or timing-based extraction of ciphertext structure.
