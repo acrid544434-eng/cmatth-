@@ -1,0 +1,158 @@
+\chapter{Unified Encryption Architecture}
+\label{chap:encryption}
+
+\section{Overview}
+
+This chapter presents a unified encryption architecture integrating
+entropy-rooted randomness generation, lattice-secured post-quantum key
+structures, homomorphic encrypted-domain computation, and zero-knowledge
+verification. The system is designed for quantum-resistant communication,
+privacy-preserving computation, and secure authentication across
+distributed environments.
+
+\section{Entropy Injection Layer}
+
+\subsection{Motivation}
+
+High-quality entropy is foundational to secure cryptographic systems.
+Hardware-derived randomness provides non-deterministic seeds for key
+generation, initialization vectors, and session establishment.
+
+\subsection{Hardware Entropy Sources}
+
+Entropy is collected from:
+\begin{itemize}
+    \item analog noise circuits,
+    \item oscillator jitter,
+    \item thermal fluctuations,
+    \item mixed-domain entropy pooling.
+\end{itemize}
+
+A whitening function removes bias and ensures uniform distribution.
+
+\subsection{Security Properties}
+
+The entropy layer provides:
+\begin{itemize}
+    \item unpredictability,
+    \item replay resistance,
+    \item hardware-rooted trust,
+    \item non-deterministic randomness.
+\end{itemize}
+
+\section{Lattice-Based Key Architecture}
+
+\subsection{Quantum-Resistant Motivation}
+
+Lattice cryptography is resilient against quantum algorithms such as
+Shor's and Grover's, making it a leading candidate for post-quantum
+security.
+
+\subsection{Key Generation Model}
+
+Keys are constructed using:
+\begin{itemize}
+    \item high-dimensional lattice vectors,
+    \item trapdoor functions,
+    \item shortest vector problem (SVP) hardness,
+    \item learning-with-errors (LWE) noise models.
+\end{itemize}
+
+\subsection{Advantages}
+
+Lattice-based keys offer:
+\begin{itemize}
+    \item quantum resistance,
+    \item scalability,
+    \item efficient computation,
+    \item strong mathematical guarantees.
+\end{itemize}
+
+\section{Homomorphic Computation Engine}
+
+\subsection{Purpose}
+
+Homomorphic encryption enables computation on encrypted data without
+revealing plaintext, supporting secure cloud computation and
+privacy-preserving analytics.
+
+\subsection{Engine Architecture}
+
+The engine supports:
+\begin{itemize}
+    \item addition and multiplication in ciphertext space,
+    \item encrypted polynomial evaluation,
+    \item encrypted matrix operations,
+    \item encrypted logical operations.
+\end{itemize}
+
+\subsection{Security Properties}
+
+Plaintext remains hidden throughout computation, and leakage is minimized
+through lattice-compatible encrypted-domain operations.
+
+\section{Zero-Knowledge Proof Interface}
+
+\subsection{Purpose}
+
+Zero-knowledge proofs allow verification of identity, correctness, and
+authorization without revealing underlying data.
+
+\subsection{Interface Design}
+
+The interface includes:
+\begin{itemize}
+    \item secure challenge-response cycles,
+    \item proof verification modules,
+    \item metadata leakage protection,
+    \item no plaintext exposure.
+\end{itemize}
+
+\subsection{Applications}
+
+Zero-knowledge systems support:
+\begin{itemize}
+    \item authentication,
+    \item blockchain protocols,
+    \item secure transactions,
+    \item distributed trust systems.
+\end{itemize}
+
+\section{Unified System Workflow}
+
+The encryption architecture operates through the following pipeline:
+\begin{enumerate}
+    \item Entropy injection seeds randomness.
+    \item Lattice algorithms generate quantum-resistant keys.
+    \item Homomorphic engine performs encrypted computation.
+    \item Zero-knowledge interface verifies correctness without disclosure.
+\end{enumerate}
+
+\section{Threat Model}
+
+The system is designed to resist:
+\begin{itemize}
+    \item quantum adversaries,
+    \item side-channel attacks,
+    \item replay attacks,
+    \item ciphertext manipulation,
+    \item oracle-based attacks,
+    \item metadata inference.
+\end{itemize}
+
+\section{Implementation Considerations}
+
+\begin{itemize}
+    \item FPGA or ASIC acceleration for homomorphic operations,
+    \item secure isolation for entropy modules,
+    \item optimized polynomial arithmetic for lattice key generation,
+    \item selection of ZKP protocols (Groth16, PLONK, Bulletproofs).
+\end{itemize}
+
+\section{Conclusion}
+
+This unified encryption architecture combines hardware entropy,
+post-quantum lattice security, encrypted-domain computation, and
+zero-knowledge verification into a next-generation cryptographic system
+suitable for high-security, distributed, and quantum-capable
+infrastructures.
