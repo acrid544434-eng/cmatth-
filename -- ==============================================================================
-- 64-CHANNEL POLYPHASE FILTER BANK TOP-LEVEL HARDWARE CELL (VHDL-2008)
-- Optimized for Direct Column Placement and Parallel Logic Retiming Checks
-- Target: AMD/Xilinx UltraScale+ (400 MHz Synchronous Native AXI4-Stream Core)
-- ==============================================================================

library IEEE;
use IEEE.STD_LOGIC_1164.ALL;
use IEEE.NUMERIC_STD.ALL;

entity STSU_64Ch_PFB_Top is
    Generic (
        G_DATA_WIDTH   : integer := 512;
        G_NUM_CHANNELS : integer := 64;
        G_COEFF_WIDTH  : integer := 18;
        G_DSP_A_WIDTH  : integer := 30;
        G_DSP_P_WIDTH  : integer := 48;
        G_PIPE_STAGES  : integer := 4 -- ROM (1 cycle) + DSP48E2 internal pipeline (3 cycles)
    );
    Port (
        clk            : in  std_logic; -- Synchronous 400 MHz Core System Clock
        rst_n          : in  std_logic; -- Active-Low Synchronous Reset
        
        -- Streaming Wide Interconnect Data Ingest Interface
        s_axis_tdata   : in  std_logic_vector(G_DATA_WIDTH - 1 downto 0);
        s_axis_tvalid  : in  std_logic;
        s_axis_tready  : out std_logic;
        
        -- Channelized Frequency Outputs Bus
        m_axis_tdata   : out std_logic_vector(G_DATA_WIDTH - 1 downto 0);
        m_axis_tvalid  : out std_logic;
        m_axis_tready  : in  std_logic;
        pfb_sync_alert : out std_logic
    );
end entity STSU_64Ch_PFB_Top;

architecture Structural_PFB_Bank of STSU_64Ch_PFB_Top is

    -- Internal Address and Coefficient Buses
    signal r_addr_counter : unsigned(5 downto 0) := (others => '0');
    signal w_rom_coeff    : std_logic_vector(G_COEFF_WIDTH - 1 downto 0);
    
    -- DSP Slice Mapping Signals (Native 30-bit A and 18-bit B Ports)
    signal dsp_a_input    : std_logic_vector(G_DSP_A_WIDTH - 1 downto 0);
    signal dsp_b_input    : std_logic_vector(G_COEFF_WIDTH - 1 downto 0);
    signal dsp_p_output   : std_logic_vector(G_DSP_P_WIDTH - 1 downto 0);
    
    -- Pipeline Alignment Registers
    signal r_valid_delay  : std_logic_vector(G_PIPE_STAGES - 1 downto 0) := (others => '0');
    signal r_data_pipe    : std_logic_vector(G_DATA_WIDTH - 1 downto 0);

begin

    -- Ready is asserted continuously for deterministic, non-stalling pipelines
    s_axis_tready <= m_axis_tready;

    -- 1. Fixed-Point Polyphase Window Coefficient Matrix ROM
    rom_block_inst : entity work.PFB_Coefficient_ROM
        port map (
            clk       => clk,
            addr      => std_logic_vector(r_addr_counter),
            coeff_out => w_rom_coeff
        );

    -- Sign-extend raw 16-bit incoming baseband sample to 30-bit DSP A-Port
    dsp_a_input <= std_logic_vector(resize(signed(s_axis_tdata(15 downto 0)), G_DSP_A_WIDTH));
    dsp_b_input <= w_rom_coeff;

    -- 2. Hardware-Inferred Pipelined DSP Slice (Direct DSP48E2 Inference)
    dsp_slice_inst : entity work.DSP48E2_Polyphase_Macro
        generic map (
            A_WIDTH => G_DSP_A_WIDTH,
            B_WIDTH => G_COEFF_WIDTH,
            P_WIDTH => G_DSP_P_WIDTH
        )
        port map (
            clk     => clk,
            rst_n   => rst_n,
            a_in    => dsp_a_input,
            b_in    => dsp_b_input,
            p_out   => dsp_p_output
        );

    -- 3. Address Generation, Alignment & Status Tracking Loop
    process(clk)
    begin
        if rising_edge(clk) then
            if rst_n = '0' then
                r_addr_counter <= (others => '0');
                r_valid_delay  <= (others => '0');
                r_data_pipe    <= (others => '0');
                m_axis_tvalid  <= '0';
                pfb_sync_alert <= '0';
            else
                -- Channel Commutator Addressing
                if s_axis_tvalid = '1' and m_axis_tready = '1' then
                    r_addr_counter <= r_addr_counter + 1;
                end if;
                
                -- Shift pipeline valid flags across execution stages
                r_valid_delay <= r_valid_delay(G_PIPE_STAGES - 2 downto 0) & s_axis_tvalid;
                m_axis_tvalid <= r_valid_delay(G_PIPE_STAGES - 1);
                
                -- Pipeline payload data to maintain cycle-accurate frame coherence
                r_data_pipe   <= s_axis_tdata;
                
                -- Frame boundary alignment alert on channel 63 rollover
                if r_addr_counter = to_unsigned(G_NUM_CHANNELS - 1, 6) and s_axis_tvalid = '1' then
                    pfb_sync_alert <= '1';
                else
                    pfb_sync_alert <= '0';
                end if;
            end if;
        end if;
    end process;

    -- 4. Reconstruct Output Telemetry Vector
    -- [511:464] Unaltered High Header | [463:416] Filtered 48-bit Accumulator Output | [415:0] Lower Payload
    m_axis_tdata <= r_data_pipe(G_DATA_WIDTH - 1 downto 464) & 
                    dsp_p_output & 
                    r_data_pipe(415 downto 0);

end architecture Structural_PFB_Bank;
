@@ -1,0 +1,123 @@
+-- ==============================================================================
+-- 64-CHANNEL POLYPHASE FILTER BANK TOP-LEVEL HARDWARE CELL (VHDL-2008)
+-- Optimized for Direct Column Placement and Parallel Logic Retiming Checks
+-- Target: AMD/Xilinx UltraScale+ (400 MHz Synchronous Native AXI4-Stream Core)
+-- ==============================================================================
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity STSU_64Ch_PFB_Top is
+    Generic (
+        G_DATA_WIDTH   : integer := 512;
+        G_NUM_CHANNELS : integer := 64;
+        G_COEFF_WIDTH  : integer := 18;
+        G_DSP_A_WIDTH  : integer := 30;
+        G_DSP_P_WIDTH  : integer := 48;
+        G_PIPE_STAGES  : integer := 4 -- ROM (1 cycle) + DSP48E2 internal pipeline (3 cycles)
+    );
+    Port (
+        clk            : in  std_logic; -- Synchronous 400 MHz Core System Clock
+        rst_n          : in  std_logic; -- Active-Low Synchronous Reset
+        
+        -- Streaming Wide Interconnect Data Ingest Interface
+        s_axis_tdata   : in  std_logic_vector(G_DATA_WIDTH - 1 downto 0);
+        s_axis_tvalid  : in  std_logic;
+        s_axis_tready  : out std_logic;
+        
+        -- Channelized Frequency Outputs Bus
+        m_axis_tdata   : out std_logic_vector(G_DATA_WIDTH - 1 downto 0);
+        m_axis_tvalid  : out std_logic;
+        m_axis_tready  : in  std_logic;
+        pfb_sync_alert : out std_logic
+    );
+end entity STSU_64Ch_PFB_Top;
+
+architecture Structural_PFB_Bank of STSU_64Ch_PFB_Top is
+
+    -- Internal Address and Coefficient Buses
+    signal r_addr_counter : unsigned(5 downto 0) := (others => '0');
+    signal w_rom_coeff    : std_logic_vector(G_COEFF_WIDTH - 1 downto 0);
+    
+    -- DSP Slice Mapping Signals (Native 30-bit A and 18-bit B Ports)
+    signal dsp_a_input    : std_logic_vector(G_DSP_A_WIDTH - 1 downto 0);
+    signal dsp_b_input    : std_logic_vector(G_COEFF_WIDTH - 1 downto 0);
+    signal dsp_p_output   : std_logic_vector(G_DSP_P_WIDTH - 1 downto 0);
+    
+    -- Pipeline Alignment Registers
+    signal r_valid_delay  : std_logic_vector(G_PIPE_STAGES - 1 downto 0) := (others => '0');
+    signal r_data_pipe    : std_logic_vector(G_DATA_WIDTH - 1 downto 0);
+
+begin
+
+    -- Ready is asserted continuously for deterministic, non-stalling pipelines
+    s_axis_tready <= m_axis_tready;
+
+    -- 1. Fixed-Point Polyphase Window Coefficient Matrix ROM
+    rom_block_inst : entity work.PFB_Coefficient_ROM
+        port map (
+            clk       => clk,
+            addr      => std_logic_vector(r_addr_counter),
+            coeff_out => w_rom_coeff
+        );
+
+    -- Sign-extend raw 16-bit incoming baseband sample to 30-bit DSP A-Port
+    dsp_a_input <= std_logic_vector(resize(signed(s_axis_tdata(15 downto 0)), G_DSP_A_WIDTH));
+    dsp_b_input <= w_rom_coeff;
+
+    -- 2. Hardware-Inferred Pipelined DSP Slice (Direct DSP48E2 Inference)
+    dsp_slice_inst : entity work.DSP48E2_Polyphase_Macro
+        generic map (
+            A_WIDTH => G_DSP_A_WIDTH,
+            B_WIDTH => G_COEFF_WIDTH,
+            P_WIDTH => G_DSP_P_WIDTH
+        )
+        port map (
+            clk     => clk,
+            rst_n   => rst_n,
+            a_in    => dsp_a_input,
+            b_in    => dsp_b_input,
+            p_out   => dsp_p_output
+        );
+
+    -- 3. Address Generation, Alignment & Status Tracking Loop
+    process(clk)
+    begin
+        if rising_edge(clk) then
+            if rst_n = '0' then
+                r_addr_counter <= (others => '0');
+                r_valid_delay  <= (others => '0');
+                r_data_pipe    <= (others => '0');
+                m_axis_tvalid  <= '0';
+                pfb_sync_alert <= '0';
+            else
+                -- Channel Commutator Addressing
+                if s_axis_tvalid = '1' and m_axis_tready = '1' then
+                    r_addr_counter <= r_addr_counter + 1;
+                end if;
+                
+                -- Shift pipeline valid flags across execution stages
+                r_valid_delay <= r_valid_delay(G_PIPE_STAGES - 2 downto 0) & s_axis_tvalid;
+                m_axis_tvalid <= r_valid_delay(G_PIPE_STAGES - 1);
+                
+                -- Pipeline payload data to maintain cycle-accurate frame coherence
+                r_data_pipe   <= s_axis_tdata;
+                
+                -- Frame boundary alignment alert on channel 63 rollover
+                if r_addr_counter = to_unsigned(G_NUM_CHANNELS - 1, 6) and s_axis_tvalid = '1' then
+                    pfb_sync_alert <= '1';
+                else
+                    pfb_sync_alert <= '0';
+                end if;
+            end if;
+        end if;
+    end process;
+
+    -- 4. Reconstruct Output Telemetry Vector
+    -- [511:464] Unaltered High Header | [463:416] Filtered 48-bit Accumulator Output | [415:0] Lower Payload
+    m_axis_tdata <= r_data_pipe(G_DATA_WIDTH - 1 downto 464) & 
+                    dsp_p_output & 
+                    r_data_pipe(415 downto 0);
+
+end architecture Structural_PFB_Bank;
