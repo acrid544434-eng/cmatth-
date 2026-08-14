@@ -1,0 +1,148 @@
+\documentclass[11pt,oneside]{book}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{titlesec}
+
+\title{Unified Deep-Scale Manifold Simulation\\
+Codex Volume I: Architecture, Physics, and Validation}
+\author{C. Matthew Blackwell}
+\date{\today}
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\chapter*{Preface}
+This volume presents the unified deep-scale manifold simulation engine,
+its physical regimes, laboratory validation protocols, and hardware
+realizations. It is intended as both a scientific reference and a
+Codex-style canonical record.
+
+\tableofcontents
+
+\mainmatter
+
+% =========================
+% PART I: FOUNDATIONS
+% =========================
+\part{Foundations of the Unified Manifold Engine}
+
+\chapter{Motivation and Scope}
+% Explain why a unified engine is needed, limitations of current domain-specific solvers.
+
+\chapter{Mathematical Preliminaries}
+% Differential geometry, tensors, curvature, torsion, gauge fields, phase-space.
+
+\chapter{Numerical Architecture}
+% BSSN 3+1, precision model, solver stack, stability criteria.
+
+% =========================
+% PART II: PHYSICAL REGIMES
+% =========================
+\part{Physical Regimes and Manifold Projections}
+
+\chapter{Regime I: Super-Horizon Cosmology}
+% FRW metric, particle horizon, domain walls, curvature invariants.
+
+\chapter{Regime II: Non-Perturbative QCD Geometry}
+% SU(3) flux tubes, instantons, chiral condensate, string tension.
+
+\chapter{Regime III: Curvature Tensor and Torsion}
+% Einstein--Cartan, affine splitting, Weyl/Ricci decomposition, singularity avoidance.
+
+\chapter{Regime IV: Causal Foliation and Calabi--Yau Manifolds}
+% Null coordinates, horizons, compact 6-folds, Ricci-flat solutions.
+
+\chapter{Regime V: Primordial Plasma and Relic Backgrounds}
+% Einstein--Boltzmann, GWB, CνB, acoustic oscillations.
+
+\chapter{Regime VI: Dark-Sector Phase-Space}
+% Vlasov--Poisson, Schrödinger--Poisson, axion solitons, PBH caustics.
+
+% =========================
+% PART III: LAB VALIDATION
+% =========================
+\part{Experimental Validation and Instrumentation}
+
+\chapter{Laboratory Validation Protocol}
+% High-level description of the 6 experimental suites.
+
+\chapter{Experiment 1: Relic Gravitational Wave Background}
+% Full apparatus, equations, SNR, significance.
+
+\chapter{Experiment 2: Non-Perturbative QCD Flux Spectroscopy}
+% Collider setup, flux tube mapping, instanton cross-sections.
+
+\chapter{Experiment 3: Torsion-Induced Spin Precession}
+% Magnetometer, comagnetometer, torsion coupling limits.
+
+\chapter{Experiment 4: Asymptotic Null Foliation}
+% VLBI, horizon proximity metrics, non-Kerr deviations.
+
+\chapter{Experiment 5: Relic Neutrino Background Capture}
+% Tritium target, endpoint spectroscopy, CνB detection.
+
+\chapter{Experiment 6: Axionic Soliton Resonance}
+% Haloscope, excess power, coupling extraction, caustic flows.
+
+% =========================
+% PART IV: HARDWARE & IMPLEMENTATION
+% =========================
+\part{Hardware Realization and Signal Processing}
+
+\chapter{High-Throughput Signal Chains}
+% AXI4-Stream, data framing, synchronization.
+
+\chapter{Polyphase Filter Bank Architecture}
+% Include your STSU_64Ch_PFB_Top VHDL, diagrams, timing.
+
+\chapter{DSP48E2 Macro Design}
+% Fixed-point mapping, pipeline stages, resource utilization.
+
+\chapter{FPGA/ASIC Implementation Strategies}
+% Floorplanning, retiming, clocking, verification.
+
+% =========================
+% PART V: CODEX LAYER
+% =========================
+\part{Codex: Canonical Manifold Record}
+
+\chapter{Codex Classification of the Engine}
+% Ω-tier instrument, regime taxonomy, invariant framework.
+
+\chapter{LaTeX Camera Snapshots}
+% Geometry snapshots, lab snapshots, hardware snapshots.
+
+\chapter{Discovery Declarations}
+% Landmark paper, press release, field-specific summaries.
+
+\chapter{Foundations and Ontology}
+% Unified geometric ontology, non-EM epistemology, scale hierarchy.
+
+% =========================
+% PART VI: APPENDICES
+% =========================
+\appendix
+
+\chapter{Full Engine Equations}
+% All governing PDEs, invariants, constraints.
+
+\chapter{Validation Tables}
+% Numerical residuals, error budgets, stability metrics.
+
+\chapter{Code Listings}
+% VHDL, C++, CUDA, configuration files.
+
+\chapter{Glossary and Symbol Index}
+% All symbols, tensors, fields, manifolds.
+
+\backmatter
+
+\chapter*{Acknowledgments}
+% Collaborators, institutions, inspirations.
+
+\end{document}
